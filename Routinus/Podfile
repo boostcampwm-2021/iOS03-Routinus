@@ -7,5 +7,6 @@ target 'Routinus' do
 
   # Pods for Routinus
   pod 'SwiftLint'
+  pod 'SnapKit'
 
 end

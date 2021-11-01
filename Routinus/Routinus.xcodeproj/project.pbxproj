@@ -106,6 +106,7 @@
 				44AAA2AE272FDF8B002E16C4 /* Frameworks */,
 				44AAA2AF272FDF8B002E16C4 /* Resources */,
 				44AAA2C8272FE0E9002E16C4 /* ShellScript */,
+				041F02304FB6C3345492FA1E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -164,6 +165,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		041F02304FB6C3345492FA1E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Routinus/Pods-Routinus-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Routinus/Pods-Routinus-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Routinus/Pods-Routinus-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		44AAA2C8272FE0E9002E16C4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
