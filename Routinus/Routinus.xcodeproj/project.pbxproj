@@ -13,6 +13,7 @@
 		44AAA2BC272FDF8B002E16C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44AAA2BA272FDF8B002E16C4 /* Main.storyboard */; };
 		44AAA2BE272FDF8F002E16C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44AAA2BD272FDF8F002E16C4 /* Assets.xcassets */; };
 		44AAA2C1272FDF8F002E16C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44AAA2BF272FDF8F002E16C4 /* LaunchScreen.storyboard */; };
+		44AAA2CA272FE13D002E16C4 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 44AAA2C9272FE13D002E16C4 /* .swiftlint.yml */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		44AAA2BD272FDF8F002E16C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44AAA2C0272FDF8F002E16C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44AAA2C2272FDF8F002E16C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44AAA2C9272FE13D002E16C4 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -45,6 +47,7 @@
 		44AAA2A8272FDF8A002E16C4 = {
 			isa = PBXGroup;
 			children = (
+				44AAA2C9272FE13D002E16C4 /* .swiftlint.yml */,
 				44AAA2B3272FDF8B002E16C4 /* Routinus */,
 				44AAA2B2272FDF8B002E16C4 /* Products */,
 				C6BC838A122CF798FF91016F /* Pods */,
@@ -80,7 +83,6 @@
 				2813D98BB29BFEBCA9A154AE /* Pods-Routinus.debug.xcconfig */,
 				21D4AB5FB6AB0717E5C7402C /* Pods-Routinus.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -103,6 +105,7 @@
 				44AAA2AD272FDF8B002E16C4 /* Sources */,
 				44AAA2AE272FDF8B002E16C4 /* Frameworks */,
 				44AAA2AF272FDF8B002E16C4 /* Resources */,
+				44AAA2C8272FE0E9002E16C4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -151,6 +154,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44AAA2CA272FE13D002E16C4 /* .swiftlint.yml in Resources */,
 				44AAA2C1272FDF8F002E16C4 /* LaunchScreen.storyboard in Resources */,
 				44AAA2BE272FDF8F002E16C4 /* Assets.xcassets in Resources */,
 				44AAA2BC272FDF8B002E16C4 /* Main.storyboard in Resources */,
@@ -160,6 +164,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		44AAA2C8272FE0E9002E16C4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
 		7923187567A085D739B80949 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
