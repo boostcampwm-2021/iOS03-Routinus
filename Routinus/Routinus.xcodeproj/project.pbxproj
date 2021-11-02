@@ -18,6 +18,7 @@
 		44AAA2FB27311D3F002E16C4 /* RoutinusNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAA2F527311D3E002E16C4 /* RoutinusNetwork.framework */; };
 		44AAA2FC27311D3F002E16C4 /* RoutinusNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAA2F527311D3E002E16C4 /* RoutinusNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44AAA30227311DDD002E16C4 /* RoutinusNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA30127311DDD002E16C4 /* RoutinusNetwork.swift */; };
+		44AAA306273120EB002E16C4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 44AAA305273120EB002E16C4 /* FirebaseFirestore */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 			files = (
 				44AAA2FB27311D3F002E16C4 /* RoutinusNetwork.framework in Frameworks */,
 				8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */,
+				44AAA306273120EB002E16C4 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +210,9 @@
 				44AAA2FA27311D3F002E16C4 /* PBXTargetDependency */,
 			);
 			name = Routinus;
+			packageProductDependencies = (
+				44AAA305273120EB002E16C4 /* FirebaseFirestore */,
+			);
 			productName = Routinus;
 			productReference = 44AAA2B1272FDF8B002E16C4 /* Routinus.app */;
 			productType = "com.apple.product-type.application";
@@ -258,6 +263,9 @@
 				Base,
 			);
 			mainGroup = 44AAA2A8272FDF8A002E16C4;
+			packageReferences = (
+				44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 44AAA2B2272FDF8B002E16C4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -667,6 +675,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		44AAA305273120EB002E16C4 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 44AAA2A9272FDF8A002E16C4 /* Project object */;
 }
