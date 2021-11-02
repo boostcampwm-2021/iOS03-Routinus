@@ -116,8 +116,7 @@ extension HomeViewController {
 
         self.contentView.addSubview(todayRoutineView)
         self.todayRoutineView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.continuityView.snp.bottom).offset(25)
         }
 
