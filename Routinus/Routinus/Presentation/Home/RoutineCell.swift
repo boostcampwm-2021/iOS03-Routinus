@@ -13,6 +13,17 @@ class RoutineCell: UITableViewCell {
 
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView()
+        progressView.layer.borderWidth = 5
+        progressView.layer.cornerRadius = 30
+        progressView.layer.borderColor = UIColor.systemOrange.cgColor
+        progressView.tintColor = UIColor.systemOrange
+
+        progressView.progress = 0.5
+        progressView.clipsToBounds = true
+        progressView.progressViewStyle = .bar
+
+        progressView.layer.sublayers![1].cornerRadius = 30
+        progressView.subviews[1].clipsToBounds = true
         return progressView
     }()
 
@@ -41,21 +52,25 @@ class RoutineCell: UITableViewCell {
 
 extension RoutineCell {
     private func configureViews() {
+        self.backgroundColor = .white
+
         self.addSubview(progressView)
         self.progressView.snp.makeConstraints { make in
-            make.leading.trailing.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalToSuperview().offset(-10)
+            make.centerY.equalToSuperview()
         }
 
         self.addSubview(categoryImageView)
         self.categoryImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(60)
+            make.width.height.equalTo(30)
             make.leading.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
         }
 
         self.addSubview(categoryName)
         self.categoryName.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalTo(self.categoryImageView.snp.trailing).offset(10)
             make.centerY.equalToSuperview()
         }
     }
