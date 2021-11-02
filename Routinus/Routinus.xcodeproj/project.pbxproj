@@ -24,6 +24,10 @@
 		E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB2273107BE00A14A0F /* CreateController.swift */; };
 		E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB5273107F700A14A0F /* SearchViewController.swift */; };
 		E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB82731094900A14A0F /* AuthViewController.swift */; };
+		E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */; };
+		E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CBC27310E1900A14A0F /* HomeCoordinator.swift */; };
+		E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */; };
+		E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +52,10 @@
 		E9797CB2273107BE00A14A0F /* CreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateController.swift; sourceTree = "<group>"; };
 		E9797CB5273107F700A14A0F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E9797CB82731094900A14A0F /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCoordinator.swift; sourceTree = "<group>"; };
+		E9797CBC27310E1900A14A0F /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCoordinator.swift; sourceTree = "<group>"; };
+		E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +165,10 @@
 				E9797C9F2730FF9C00A14A0F /* Coordinator.swift */,
 				E9797CA32730FFB500A14A0F /* AppCoordinator.swift */,
 				E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */,
+				E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */,
+				E9797CBC27310E1900A14A0F /* HomeCoordinator.swift */,
+				E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */,
+				E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -352,17 +364,21 @@
 			files = (
 				E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* Coordinator.swift in Sources */,
+				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
+				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
 				E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */,
 				E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */,
+				E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */,
 				E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */,
 				E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
 				E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */,
+				E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
