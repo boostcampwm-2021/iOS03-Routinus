@@ -17,6 +17,13 @@
 		E9797CA02730FF9C00A14A0F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797C9F2730FF9C00A14A0F /* Coordinator.swift */; };
 		E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */; };
 		E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA32730FFB500A14A0F /* AppCoordinator.swift */; };
+		E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA62731068300A14A0F /* ChallengeViewController.swift */; };
+		E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CAA2731073F00A14A0F /* MyPageViewController.swift */; };
+		E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CAC2731074B00A14A0F /* ManageViewController.swift */; };
+		E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB0273107A200A14A0F /* DetailViewController.swift */; };
+		E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB2273107BE00A14A0F /* CreateController.swift */; };
+		E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB5273107F700A14A0F /* SearchViewController.swift */; };
+		E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB82731094900A14A0F /* AuthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +41,13 @@
 		E9797C9F2730FF9C00A14A0F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		E9797CA32730FFB500A14A0F /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		E9797CA62731068300A14A0F /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
+		E9797CAA2731073F00A14A0F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		E9797CAC2731074B00A14A0F /* ManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewController.swift; sourceTree = "<group>"; };
+		E9797CB0273107A200A14A0F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E9797CB2273107BE00A14A0F /* CreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateController.swift; sourceTree = "<group>"; };
+		E9797CB5273107F700A14A0F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		E9797CB82731094900A14A0F /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +112,14 @@
 			isa = PBXGroup;
 			children = (
 				44AAA2BF272FDF8F002E16C4 /* LaunchScreen.storyboard */,
+				E9797CA52731066100A14A0F /* Challenge */,
+				E9797CB4273107E100A14A0F /* Search */,
+				E9797CAF2731078400A14A0F /* Detail */,
+				E9797CAE2731077A00A14A0F /* Create */,
+				E9797CB7273108EA00A14A0F /* Auth */,
 				E9797C9D2730F89400A14A0F /* Home */,
+				E9797CA92731072700A14A0F /* Manage */,
+				E9797CA8273106E300A14A0F /* MyPage */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -138,6 +159,62 @@
 				E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		E9797CA52731066100A14A0F /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				E9797CA62731068300A14A0F /* ChallengeViewController.swift */,
+			);
+			path = Challenge;
+			sourceTree = "<group>";
+		};
+		E9797CA8273106E300A14A0F /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				E9797CAA2731073F00A14A0F /* MyPageViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		E9797CA92731072700A14A0F /* Manage */ = {
+			isa = PBXGroup;
+			children = (
+				E9797CAC2731074B00A14A0F /* ManageViewController.swift */,
+			);
+			path = Manage;
+			sourceTree = "<group>";
+		};
+		E9797CAE2731077A00A14A0F /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				E9797CB2273107BE00A14A0F /* CreateController.swift */,
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
+		E9797CAF2731078400A14A0F /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E9797CB0273107A200A14A0F /* DetailViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		E9797CB4273107E100A14A0F /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				E9797CB5273107F700A14A0F /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		E9797CB7273108EA00A14A0F /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E9797CB82731094900A14A0F /* AuthViewController.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,8 +354,15 @@
 				E9797CA02730FF9C00A14A0F /* Coordinator.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
+				E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */,
+				E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */,
+				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */,
+				E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */,
+				E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
+				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
+				E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
