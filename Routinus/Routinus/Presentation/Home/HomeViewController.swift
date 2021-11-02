@@ -10,6 +10,9 @@ import SnapKit
 
 class HomeViewController: UIViewController {
 
+    private let scrollView: UIScrollView = UIScrollView()
+    private let contentView: UIView = UIView()
+
     private lazy var continuityView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
@@ -73,12 +76,22 @@ extension HomeViewController {
     func configureViews() {
         self.view.backgroundColor = .white
 
-        self.view.addSubview(continuityView)
+        self.view.addSubview(scrollView)
+        self.scrollView.snp.makeConstraints { make in
+            make.edges.equalTo(self.view.safeAreaLayoutGuide)
+        }
+
+        self.scrollView.addSubview(contentView)
+        self.contentView.snp.makeConstraints { make in
+            make.centerX.width.top.bottom.equalToSuperview()
+        }
+
+        self.contentView.addSubview(continuityView)
         self.continuityView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
 
-            make.top.equalToSuperview().offset(30)
+            make.top.equalToSuperview()
             make.height.equalTo(80)
         }
 
@@ -101,7 +114,7 @@ extension HomeViewController {
             make.lastBaseline.equalTo(self.continuityDayLabel.snp.lastBaseline).offset(-2)
         }
 
-        self.view.addSubview(todayRoutineView)
+        self.contentView.addSubview(todayRoutineView)
         self.todayRoutineView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
