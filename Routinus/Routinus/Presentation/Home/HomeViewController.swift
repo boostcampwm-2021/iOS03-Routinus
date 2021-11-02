@@ -63,9 +63,28 @@ class HomeViewController: UIViewController {
         return button
     }()
 
+    private var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero)
+
+        tableView.backgroundColor = .yellow
+
+        tableView.estimatedRowHeight = 100
+        return tableView
+    }()
+
+    let dummyList: [Routine] = [
+        Routine(categoryImage: "pencil", categoryText: "물마시기"),
+        Routine(categoryImage: "pencil", categoryText: "30분 이상 물 마시기")
+    ]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+
+
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(RoutineCell.self, forCellReuseIdentifier: RoutineCell.identifier)
 
         configureViews()
     }
@@ -131,5 +150,35 @@ extension HomeViewController {
             make.trailing.equalToSuperview().offset(-20)
             make.top.equalToSuperview()
         }
+
+        self.contentView.addSubview(tableView)
+        self.tableView.snp.makeConstraints { make in
+            make.top.equalTo(todayRoutineTitle.snp.bottom).offset(10)
+            make.width.height.equalTo(300)
+
+        }
     }
+}
+
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dummyList.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineCell.identifier, for: indexPath) as? RoutineCell else { return UITableViewCell() }
+        cell.configureCell(routine: dummyList[indexPath.row])
+        return cell
+    }
+}
+
+
+struct Routine {
+    let categoryImage: String
+    let categoryText: String
 }
