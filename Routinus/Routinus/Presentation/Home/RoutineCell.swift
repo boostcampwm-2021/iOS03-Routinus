@@ -80,9 +80,15 @@ class RoutineCell: UITableViewCell {
         return label
     }()
 
+
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.configureViews()
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
     }
 
     required init?(coder: NSCoder) {
@@ -95,21 +101,21 @@ extension RoutineCell {
     private func configureViews() {
         self.backgroundColor = .white
 
-        self.addSubview(progressView)
+        self.contentView.addSubview(progressView)
         self.progressView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.height.equalToSuperview().offset(-10)
             make.centerY.equalToSuperview()
         }
 
-        self.addSubview(categoryImageView)
+        self.contentView.addSubview(categoryImageView)
         self.categoryImageView.snp.makeConstraints { make in
             make.width.height.equalTo(30)
             make.leading.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
         }
 
-        self.addSubview(categoryName)
+        self.contentView.addSubview(categoryName)
         self.categoryName.snp.makeConstraints { make in
             make.leading.equalTo(self.categoryImageView.snp.trailing).offset(10)
             make.centerY.equalToSuperview()

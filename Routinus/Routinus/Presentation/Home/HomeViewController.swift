@@ -205,7 +205,7 @@ extension HomeViewController {
             make.top.equalToSuperview()
         }
 
-        self.todayRoutineView.addSubview(tableView)
+        self.contentView.addSubview(tableView)
         self.tableView.snp.makeConstraints { make in
             make.top.equalTo(todayRoutineTitle.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-20)
@@ -267,9 +267,18 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineCell.identifier, for: indexPath)
                 as? RoutineCell else { return UITableViewCell() }
         cell.configureCell(routine: dummyList[indexPath.row])
-
         return cell
     }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let auth = UIContextualAction(style: .normal, title: "인증하기") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
+            // TODO: - 화면 이동하기
+        }
+        // TODO: - 인증하기 버튼 배경색 정하기
+        auth.backgroundColor = .black
+        return UISwipeActionsConfiguration(actions: [auth])
+    }
+
 }
 
 struct Routine {
