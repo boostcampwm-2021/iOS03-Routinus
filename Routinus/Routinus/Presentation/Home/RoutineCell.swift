@@ -14,7 +14,7 @@ class RoutineCell: UITableViewCell {
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView()
         progressView.layer.borderWidth = 5
-        progressView.layer.cornerRadius = 30
+        progressView.layer.cornerRadius = 25
         progressView.layer.borderColor = UIColor.systemOrange.cgColor
         progressView.tintColor = UIColor.systemOrange
 
