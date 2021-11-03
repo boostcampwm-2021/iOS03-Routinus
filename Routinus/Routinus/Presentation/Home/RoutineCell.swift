@@ -7,6 +7,29 @@
 
 import UIKit
 
+
+enum Category {
+    case exercise, selfDevelopment, lifeStyle, finance, hobby, etc
+
+    var categoryColor: String {
+        switch self {
+        case .exercise:
+            return "ExerciseColor"
+        case .selfDevelopment:
+            return "SelfDevelopmentColor"
+        case .lifeStyle:
+            return "LifeStyleColor"
+        case .finance:
+            return "FinanceColor"
+        case .hobby:
+            return "HobbyColor"
+        case .etc:
+            return "ETCColor"
+        }
+    }
+}
+
+
 class RoutineCell: UITableViewCell {
 
     static let identifier: String = "RoutineCell"
@@ -15,8 +38,8 @@ class RoutineCell: UITableViewCell {
         let progressView = UIProgressView()
         progressView.layer.borderWidth = 5
         progressView.layer.cornerRadius = 25
-        progressView.layer.borderColor = UIColor.systemOrange.cgColor
-        progressView.tintColor = UIColor.systemOrange
+        progressView.layer.borderColor = UIColor(named: Category.exercise.categoryColor)?.cgColor
+        progressView.tintColor = UIColor(named: Category.exercise.categoryColor)
 
         progressView.progress = 0.5
         progressView.clipsToBounds = true
