@@ -8,6 +8,4 @@
 import Foundation
 
 struct UserInfo {
-    let nickName: String
-    let userIcon: Data
 }

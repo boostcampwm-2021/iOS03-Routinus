@@ -8,6 +8,4 @@
 import Foundation
 
 struct ArchievementInfo {
-    let day: Int
-    let archive: Int
 }

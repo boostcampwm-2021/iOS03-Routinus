@@ -8,9 +8,4 @@
 import Foundation
 
 struct ChallengeInfo {
-    let identifier: String
-    let title: String
-    let joinDate: String
-    let progress: Float
-    let endDate: String
 }
