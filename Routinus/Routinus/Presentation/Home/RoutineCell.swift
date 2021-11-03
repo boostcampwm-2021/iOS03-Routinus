@@ -27,7 +27,25 @@ enum Category {
             return "ETCColor"
         }
     }
+
+    var categoryImage: String {
+        switch self {
+        case .exercise:
+            return "dumbbell"
+        case .selfDevelopment:
+            return "pencil"
+        case .lifeStyle:
+            return "check.calendar"
+        case .finance:
+            return "creditcard.and.123"
+        case .hobby:
+            return "play.circle"
+        case .etc:
+            return "guitars"
+        }
+    }
 }
+
 
 
 class RoutineCell: UITableViewCell {
@@ -99,7 +117,11 @@ extension RoutineCell {
     }
 
     func configureCell(routine: Routine) {
-        categoryImageView.image = UIImage(systemName: routine.categoryImage)
-        categoryName.text = routine.categoryText
+        if UIImage(systemName: routine.category.categoryImage) == nil {
+            categoryImageView.image = UIImage(named: routine.category.categoryImage)
+        } else {
+            categoryImageView.image = UIImage(systemName: routine.category.categoryImage)
+        }
+        categoryName.text = routine.challengeTitle
     }
 }

@@ -107,8 +107,8 @@ class HomeViewController: UIViewController {
     }()
 
     let dummyList: [Routine] = [
-        Routine(categoryImage: "pencil", categoryText: "물마시기"),
-        Routine(categoryImage: "pencil", categoryText: "30분 이상 물 마시기")
+        Routine(category: .exercise, challengeTitle: "30분 이상 걷기"),
+        Routine(category: .lifeStyle, challengeTitle: "1L이상 물마시기")
     ]
 
     let dummyCalendar = [RoutineData(date: "2021-11-02", percentage: 0.2),
@@ -273,8 +273,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 struct Routine {
-    let categoryImage: String
-    let categoryText: String
+    let category: Category
+    let challengeTitle: String
 }
 
 extension HomeViewController {
