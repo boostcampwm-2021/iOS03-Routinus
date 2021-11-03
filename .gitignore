@@ -151,3 +151,22 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode,swift,macos,cocoapods,firebase
+
+
+# Created by https://www.toptal.com/developers/gitignore/api/swiftpm,swiftpackagemanager
+# Edit at https://www.toptal.com/developers/gitignore?templates=swiftpm,swiftpackagemanager
+
+### SwiftPackageManager ###
+Packages
+.build/
+xcuserdata
+DerivedData/
+
+
+# End of https://www.toptal.com/developers/gitignore/api/swiftpm,swiftpackagemanager
+
+
+
+
+## RoutinusNetwork
+Routinus/RoutinusNetwork/*.xcconfig

@@ -1,6 +1,6 @@
 disabled_rules:
 
 excluded:
-- Routinus/AppDelegate.swift
-- Routinus/SceneDelegate.swift
+- Routinus/Application/AppDelegate.swift
+- Routinus/Application/SceneDelegate.swift
 - Pods/
