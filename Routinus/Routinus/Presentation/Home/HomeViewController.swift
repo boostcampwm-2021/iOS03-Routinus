@@ -9,6 +9,16 @@ import UIKit
 import SnapKit
 import JTAppleCalendar
 
+struct Routine {
+    let category: Category
+    let challengeTitle: String
+}
+
+struct RoutineData {
+    let date: String
+    let percentage: Double
+}
+
 class HomeViewController: UIViewController {
     private let scrollView: UIScrollView = UIScrollView()
     private let contentView: UIView = UIView()
@@ -17,14 +27,12 @@ class HomeViewController: UIViewController {
         let view = UIView()
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 5
-
         return view
     }()
 
     private lazy var seedImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-
         return imageView
     }()
 
@@ -37,7 +45,6 @@ class HomeViewController: UIViewController {
 
     private lazy var continuityDayLabel: UILabel = {
         let label = UILabel()
-
         label.text = "0"
         label.font = UIFont.boldSystemFont(ofSize: 48)
         return label
@@ -45,7 +52,6 @@ class HomeViewController: UIViewController {
 
     private lazy var continuityInfoLabel: UILabel = {
         let label = UILabel()
-
         label.text = "일 연속 달성"
         label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         return label
@@ -72,7 +78,6 @@ class HomeViewController: UIViewController {
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
-
         tableView.estimatedRowHeight = 100
         return tableView
     }()
@@ -131,7 +136,7 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController {
-    func configureViews() {
+    private func configureViews() {
         self.view.backgroundColor = .white
 
         self.view.addSubview(scrollView)
@@ -148,11 +153,16 @@ extension HomeViewController {
         self.continuityView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-
             make.top.equalToSuperview()
             make.height.equalTo(80)
         }
 
+        configureContinuityView()
+        configureRoutineViews()
+        configureCalendarTitle()
+    }
+
+    private func configureContinuityView(){
         self.continuityView.addSubview(seedImage)
         self.seedImage.snp.makeConstraints { make in
             make.width.height.equalTo(60)
@@ -181,12 +191,9 @@ extension HomeViewController {
                 make.lastBaseline.equalTo(self.continuityDayLabel.snp.lastBaseline).offset(-2)
             }
         }
-
-        configureRoutineViews()
-        configureCalendarTitle()
     }
 
-    func configureRoutineViews() {
+    private func configureRoutineViews() {
         self.contentView.addSubview(todayRoutineView)
         self.todayRoutineView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
@@ -214,7 +221,7 @@ extension HomeViewController {
         }
     }
 
-    func configureCalendarTitle() {
+    private func configureCalendarTitle() {
         self.contentView.addSubview(calendarTitleView)
         calendarTitleView.snp.makeConstraints { make in
             make.top.equalTo(self.tableView.snp.bottom).offset(10)
@@ -250,7 +257,6 @@ extension HomeViewController {
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -278,12 +284,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         auth.backgroundColor = .black
         return UISwipeActionsConfiguration(actions: [auth])
     }
-
-}
-
-struct Routine {
-    let category: Category
-    let challengeTitle: String
 }
 
 extension HomeViewController {
@@ -295,7 +295,9 @@ extension HomeViewController {
         calendarView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         calendarView.layer.cornerRadius = 15
         calendarView.register(DateCell.self, forCellWithReuseIdentifier: "date")
-        calendarView.register(DateHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DateHeader.identifier)
+        calendarView.register(DateHeader.self,
+                              forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                              withReuseIdentifier: DateHeader.identifier)
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
 
@@ -393,11 +395,6 @@ extension HomeViewController: JTACMonthViewDelegate {
 }
 
 extension HomeViewController: JTACMonthViewDataSource {
-    struct RoutineData {
-        let date: String
-        let percentage: Double
-    }
-
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy MM dd"

@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 enum Category {
     case exercise, selfDevelopment, lifeStyle, finance, hobby, etc
 
@@ -46,8 +45,6 @@ enum Category {
     }
 }
 
-
-
 class RoutineCell: UITableViewCell {
 
     static let identifier: String = "RoutineCell"
@@ -63,7 +60,7 @@ class RoutineCell: UITableViewCell {
         progressView.clipsToBounds = true
         progressView.progressViewStyle = .bar
 
-        progressView.layer.sublayers![1].cornerRadius = 30
+        progressView.layer.sublayers![1].cornerRadius = 25
         progressView.subviews[1].clipsToBounds = true
         return progressView
     }()
@@ -79,8 +76,6 @@ class RoutineCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         return label
     }()
-
-
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
