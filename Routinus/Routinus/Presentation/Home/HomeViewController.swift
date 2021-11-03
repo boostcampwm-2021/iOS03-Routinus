@@ -273,6 +273,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineCell.identifier, for: indexPath)
                 as? RoutineCell else { return UITableViewCell() }
         cell.configureCell(routine: dummyList[indexPath.row])
+        cell.selectionStyle = .none
         return cell
     }
 
