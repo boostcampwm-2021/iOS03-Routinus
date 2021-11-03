@@ -25,7 +25,7 @@ class DateCell: JTACDayCell {
 
     private func baseUI() {
         dateLabel.textAlignment = .center
-        selectedView.backgroundColor = .systemGreen
+        selectedView.backgroundColor = UIColor(named: "MainColor")
         selectedView.isHidden = true
 
         contentView.addSubview(selectedView)

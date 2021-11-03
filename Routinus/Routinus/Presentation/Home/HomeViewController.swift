@@ -257,12 +257,12 @@ struct Routine {
 
 extension HomeViewController {
     private func addCalendar() {
-        calendarView.scrollDirection = .vertical
+        calendarView.scrollDirection = .horizontal
         calendarView.scrollingMode = .stopAtEachCalendarFrame
-        calendarView.backgroundColor = .white
+        calendarView.isPagingEnabled = true
+        calendarView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        calendarView.layer.cornerRadius = 15
         calendarView.register(DateCell.self, forCellWithReuseIdentifier: "date")
-        calendarView.register(DateHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                              withReuseIdentifier: DateHeader.identifier)
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
 
@@ -299,10 +299,6 @@ extension HomeViewController: JTACMonthViewDelegate {
         configureCell(view: cell, cellState: cellState)
     }
 
-    func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
-        configureCell(view: cell, cellState: cellState)
-    }
-
     private func configureCell(view: JTACDayCell?, cellState: CellState) {
         guard let cell = view as? DateCell  else { return }
         cell.dateLabel.text = cellState.text
@@ -312,15 +308,23 @@ extension HomeViewController: JTACMonthViewDelegate {
 
     private func handleCellTextColor(cell: DateCell, cellState: CellState) {
         if cellState.dateBelongsTo == .thisMonth {
-            cell.dateLabel.textColor = UIColor.black
+            cell.dateLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+            switch cellState.day {
+            case .saturday :
+                cell.dateLabel.textColor = UIColor(named: "SaturdayColor")
+            case .sunday :
+                cell.dateLabel.textColor = UIColor(named: "SundayColor")
+            default :
+                cell.dateLabel.textColor = UIColor(named: "DayColor")
+            }
         } else {
-            cell.dateLabel.textColor = UIColor.gray
+            cell.dateLabel.isHidden = true
         }
     }
 
     private func handleCellSelected(cell: DateCell, cellState: CellState) {
         if cellState.isSelected {
-            cell.selectedView.layer.cornerRadius = cell.selectedView.frame.width / 2
+            cell.selectedView.layer.cornerRadius = cell.frame.width / 2
             cell.selectedView.isHidden = false
         } else {
             cell.selectedView.isHidden = true
@@ -329,11 +333,39 @@ extension HomeViewController: JTACMonthViewDelegate {
 }
 
 extension HomeViewController: JTACMonthViewDataSource {
+    struct RoutineData {
+        let date: String
+        let percentage: Int
+    }
+
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
-      let formatter = DateFormatter()
-      formatter.dateFormat = "yyyy MM dd"
-      let startDate = formatter.date(from: "2021 11 01")!
-      let endDate = Date()
-      return ConfigurationParameters(startDate: startDate, endDate: endDate)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy MM dd"
+        formatter.timeZone = Calendar.current.timeZone
+        formatter.locale = Calendar.current.locale
+
+        let startDate = formatter.date(from: "2021 11 01")!
+        let endDate = Date()
+
+        setRangeDates()
+        return ConfigurationParameters(startDate: startDate, endDate: endDate)
+    }
+
+    func setRangeDates() {
+        let dummyCalendar = [RoutineData(date: "2021-10-02", percentage: 20),
+                             RoutineData(date: "2021-10-04", percentage: 20),
+                             RoutineData(date: "2021-10-05", percentage: 20),
+                             RoutineData(date: "2021-11-06", percentage: 20),
+                             RoutineData(date: "2021-11-07", percentage: 20)]
+
+        guard let gregorianCalendar = NSCalendar(calendarIdentifier: .gregorian) else { return }
+        for dates in dummyCalendar {
+            var rangeDate: [Date] = []
+            let dateArray = dates.date.split(separator: "-").map { Int(String($0)) }
+            let dateComponent = DateComponents(year: dateArray[0], month: dateArray[1], day: dateArray[2])
+            let date = gregorianCalendar.date(from: dateComponent as DateComponents)!
+            rangeDate.append(date)
+            calendarView.selectDates(rangeDate)
+        }
     }
 }
