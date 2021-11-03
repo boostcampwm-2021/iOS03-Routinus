@@ -223,7 +223,6 @@ extension HomeViewController {
             make.trailing.equalTo(self.monthLabel.snp.leading).offset(-10)
             make.centerY.equalToSuperview()
         }
-
     }
 }
 
@@ -263,6 +262,7 @@ extension HomeViewController {
         calendarView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         calendarView.layer.cornerRadius = 15
         calendarView.register(DateCell.self, forCellWithReuseIdentifier: "date")
+        calendarView.register(DateHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DateHeader.identifier)
         calendarView.calendarDelegate = self
         calendarView.calendarDataSource = self
 
@@ -297,6 +297,19 @@ extension HomeViewController: JTACMonthViewDelegate {
 
     func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
         configureCell(view: cell, cellState: cellState)
+    }
+
+    func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date),
+                  at indexPath: IndexPath) -> JTACMonthReusableView {
+        guard let header = calendar.dequeueReusableJTAppleSupplementaryView(
+                    withReuseIdentifier: DateHeader.identifier, for: indexPath)
+                as? DateHeader else { return JTACMonthReusableView() }
+        header.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        return header
+    }
+
+    func calendarSizeForMonths(_ calendar: JTACMonthView?) -> MonthSize? {
+        return MonthSize(defaultSize: 50)
     }
 
     private func configureCell(view: JTACDayCell?, cellState: CellState) {
