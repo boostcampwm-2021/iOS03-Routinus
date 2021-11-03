@@ -28,6 +28,13 @@ class HomeViewController: UIViewController {
         return imageView
     }()
 
+    private lazy var initContinuityLabel: UILabel = {
+        let label = UILabel()
+        label.text = "시작이 반이다"
+        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        return label
+    }()
+
     private lazy var continuityDayLabel: UILabel = {
         let label = UILabel()
 
@@ -153,16 +160,26 @@ extension HomeViewController {
             make.centerY.equalToSuperview()
         }
 
-        self.continuityView.addSubview(continuityDayLabel)
-        self.continuityDayLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
-            make.centerY.equalToSuperview()
-        }
+        // TODO: - firebase 데이터 연동
+        let day = 0
+        if day == 0 {
+            self.continuityView.addSubview(initContinuityLabel)
+            self.initContinuityLabel.snp.makeConstraints { make in
+                make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
+                make.centerY.equalToSuperview()
+            }
+        } else {
+            self.continuityView.addSubview(continuityDayLabel)
+            self.continuityDayLabel.snp.makeConstraints { make in
+                make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
+                make.centerY.equalToSuperview()
+            }
 
-        self.continuityView.addSubview(continuityInfoLabel)
-        self.continuityInfoLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.continuityDayLabel.snp.trailing).offset(5)
-            make.lastBaseline.equalTo(self.continuityDayLabel.snp.lastBaseline).offset(-2)
+            self.continuityView.addSubview(continuityInfoLabel)
+            self.continuityInfoLabel.snp.makeConstraints { make in
+                make.leading.equalTo(self.continuityDayLabel.snp.trailing).offset(5)
+                make.lastBaseline.equalTo(self.continuityDayLabel.snp.lastBaseline).offset(-2)
+            }
         }
 
         configureRoutineViews()
