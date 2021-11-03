@@ -45,10 +45,10 @@ extension HomeViewModel: HomeViewModelInput {
     }
 
     func didTappedShowChallengeButton(identifier: String) {
-        guard let challenge = todayRoutine.value
-                .filter({ $0.identifier == identifier })
-                .first else { return }
-        self.showChallengeDetailView.send(challenge)
+//        guard let challenge = todayRoutine.value
+//                .filter({ $0.identifier == identifier })
+//                .first else { return }
+//        self.showChallengeDetailView.send(challenge)
     }
 }
 
