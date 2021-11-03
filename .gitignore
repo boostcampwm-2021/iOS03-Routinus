@@ -164,3 +164,9 @@ DerivedData/
 
 
 # End of https://www.toptal.com/developers/gitignore/api/swiftpm,swiftpackagemanager
+
+
+
+
+## RoutinusNetwork
+Routinus/RoutinusNetwork/*.xcconfig
