@@ -104,6 +104,12 @@ class HomeViewController: UIViewController {
         Routine(categoryImage: "pencil", categoryText: "30분 이상 물 마시기")
     ]
 
+    let dummyCalendar = [RoutineData(date: "2021-11-02", percentage: 0.2),
+                         RoutineData(date: "2021-11-04", percentage: 0.8),
+                         RoutineData(date: "2021-11-05", percentage: 1),
+                         RoutineData(date: "2021-11-06", percentage: 0.5),
+                         RoutineData(date: "2021-11-07", percentage: 0.4)]
+
     private let calendarView = JTACMonthView(frame: .zero)
 
     override func viewDidLoad() {
@@ -295,10 +301,6 @@ extension HomeViewController: JTACMonthViewDelegate {
         configureCell(view: cell, cellState: cellState)
     }
 
-    func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
-        configureCell(view: cell, cellState: cellState)
-    }
-
     func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date),
                   at indexPath: IndexPath) -> JTACMonthReusableView {
         guard let header = calendar.dequeueReusableJTAppleSupplementaryView(
@@ -339,8 +341,22 @@ extension HomeViewController: JTACMonthViewDelegate {
         if cellState.isSelected {
             cell.selectedView.layer.cornerRadius = cell.frame.width / 2
             cell.selectedView.isHidden = false
+            handleCellAlpha(cell: cell, date: cellState.date)
         } else {
             cell.selectedView.isHidden = true
+        }
+    }
+
+    private func handleCellAlpha(cell: DateCell, date: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        guard let dateData = dummyCalendar.filter({ $0.date == dateString }).first else { return }
+        let date = dateData.date
+        let percentage = dateData.percentage
+
+        if dateString == date {
+            cell.selectedView.alpha = percentage
         }
     }
 }
@@ -348,7 +364,7 @@ extension HomeViewController: JTACMonthViewDelegate {
 extension HomeViewController: JTACMonthViewDataSource {
     struct RoutineData {
         let date: String
-        let percentage: Int
+        let percentage: Double
     }
 
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
@@ -365,12 +381,6 @@ extension HomeViewController: JTACMonthViewDataSource {
     }
 
     func setRangeDates() {
-        let dummyCalendar = [RoutineData(date: "2021-10-02", percentage: 20),
-                             RoutineData(date: "2021-10-04", percentage: 20),
-                             RoutineData(date: "2021-10-05", percentage: 20),
-                             RoutineData(date: "2021-11-06", percentage: 20),
-                             RoutineData(date: "2021-11-07", percentage: 20)]
-
         guard let gregorianCalendar = NSCalendar(calendarIdentifier: .gregorian) else { return }
         for dates in dummyCalendar {
             var rangeDate: [Date] = []
