@@ -17,7 +17,7 @@ protocol HomeViewModelOutput {
     var nickName: CurrentValueSubject<String, Never> { get }
     var continuityDay: CurrentValueSubject<String, Never> { get }
     var todayRoutine: CurrentValueSubject<[ChallengeInfo], Never> { get }
-    var archivementInfo: CurrentValueSubject<[ArchievementInfo], Never> { get }
+    var archievementInfo: CurrentValueSubject<[ArchievementInfo], Never> { get }
 
     // coordinator signal
     var showChallengeView: PassthroughSubject<Void, Never> { get }
@@ -28,7 +28,7 @@ class HomeViewModel: HomeViewModelOutput {
     var nickName = CurrentValueSubject<String, Never>("")
     var continuityDay = CurrentValueSubject<String, Never>("")
     var todayRoutine = CurrentValueSubject<[ChallengeInfo], Never>([])
-    var archivementInfo = CurrentValueSubject<[ArchievementInfo], Never>([])
+    var archievementInfo = CurrentValueSubject<[ArchievementInfo], Never>([])
 
     var showChallengeView = PassthroughSubject<Void, Never>()
     var showChallengeDetailView = PassthroughSubject<ChallengeInfo, Never>()
