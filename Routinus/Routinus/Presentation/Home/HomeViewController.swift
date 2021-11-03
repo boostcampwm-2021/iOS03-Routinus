@@ -291,6 +291,7 @@ extension HomeViewController {
         calendarView.scrollDirection = .horizontal
         calendarView.scrollingMode = .stopAtEachCalendarFrame
         calendarView.isPagingEnabled = true
+        calendarView.isUserInteractionEnabled = false
         calendarView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         calendarView.layer.cornerRadius = 15
         calendarView.register(DateCell.self, forCellWithReuseIdentifier: "date")
@@ -324,6 +325,10 @@ extension HomeViewController: JTACMonthViewDelegate {
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date,
                   cellState: CellState, indexPath: IndexPath) {
         guard let cell = cell as? DateCell else { return }
+        configureCell(view: cell, cellState: cellState)
+    }
+
+    func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
         configureCell(view: cell, cellState: cellState)
     }
 
