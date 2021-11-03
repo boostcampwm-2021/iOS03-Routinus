@@ -72,15 +72,24 @@ class HomeViewController: UIViewController {
 
     private lazy var calendarTitleView = UIView()
 
+    private lazy var calendarTitle: UILabel = {
+        let label = UILabel()
+        label.text = "요약"
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        return label
+    }()
+
     private lazy var previousMonth: UIButton = {
         let button = UIButton()
-        button.titleLabel?.text = "<"
+        button.setTitle("<", for: .normal)
+        button.setTitleColor(.black, for: .normal)
         return button
     }()
 
     private lazy var nextMonth: UIButton = {
         let button = UIButton()
-        button.titleLabel?.text = ">"
+        button.setTitle(">", for: .normal)
+        button.setTitleColor(.black, for: .normal)
         return button
     }()
 
@@ -191,22 +200,30 @@ extension HomeViewController {
             make.height.equalTo(50)
         }
 
-        self.calendarTitleView.addSubview(self.previousMonth)
-        self.previousMonth.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(10)
+        self.calendarTitleView.addSubview(self.calendarTitle)
+        self.calendarTitle.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.centerY.equalToSuperview()
+        }
+
+        self.calendarTitleView.addSubview(self.nextMonth)
+        self.nextMonth.snp.makeConstraints { make in
+            make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
         }
 
         self.calendarTitleView.addSubview(self.monthLabel)
         self.monthLabel.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-
-        self.calendarTitleView.addSubview(self.nextMonth)
-        self.nextMonth.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-10)
+            make.trailing.equalTo(self.nextMonth.snp.leading).offset(-10)
             make.centerY.equalToSuperview()
         }
+
+        self.calendarTitleView.addSubview(self.previousMonth)
+        self.previousMonth.snp.makeConstraints { make in
+            make.trailing.equalTo(self.monthLabel.snp.leading).offset(-10)
+            make.centerY.equalToSuperview()
+        }
+
     }
 }
 
