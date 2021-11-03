@@ -18,7 +18,8 @@
 		44AAA2FB27311D3F002E16C4 /* RoutinusNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAA2F527311D3E002E16C4 /* RoutinusNetwork.framework */; };
 		44AAA2FC27311D3F002E16C4 /* RoutinusNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAA2F527311D3E002E16C4 /* RoutinusNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44AAA30227311DDD002E16C4 /* RoutinusNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA30127311DDD002E16C4 /* RoutinusNetwork.swift */; };
-		44AAA306273120EB002E16C4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 44AAA305273120EB002E16C4 /* FirebaseFirestore */; };
+		44AAA30C2731ADE5002E16C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44AAA30B2731ADE5002E16C4 /* GoogleService-Info.plist */; };
+		44AAA3102732226B002E16C4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 44AAA30F2732226B002E16C4 /* FirebaseFirestore */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,9 @@
 		44AAA2F527311D3E002E16C4 /* RoutinusNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutinusNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAA2F727311D3F002E16C4 /* RoutinusNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutinusNetwork.h; sourceTree = "<group>"; };
 		44AAA30127311DDD002E16C4 /* RoutinusNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusNetwork.swift; sourceTree = "<group>"; };
+		44AAA30B2731ADE5002E16C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		44AAA30D27322158002E16C4 /* RoutinusNetwork.debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RoutinusNetwork.debug.xcconfig; sourceTree = "<group>"; };
+		44AAA30E27322192002E16C4 /* RoutinusNetwork.release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = RoutinusNetwork.release.xcconfig; sourceTree = "<group>"; };
 		5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -71,7 +75,6 @@
 			files = (
 				44AAA2FB27311D3F002E16C4 /* RoutinusNetwork.framework in Frameworks */,
 				8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */,
-				44AAA306273120EB002E16C4 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44AAA3102732226B002E16C4 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,8 +123,11 @@
 		44AAA2F627311D3F002E16C4 /* RoutinusNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				44AAA30B2731ADE5002E16C4 /* GoogleService-Info.plist */,
 				44AAA2F727311D3F002E16C4 /* RoutinusNetwork.h */,
 				44AAA30127311DDD002E16C4 /* RoutinusNetwork.swift */,
+				44AAA30D27322158002E16C4 /* RoutinusNetwork.debug.xcconfig */,
+				44AAA30E27322192002E16C4 /* RoutinusNetwork.release.xcconfig */,
 			);
 			path = RoutinusNetwork;
 			sourceTree = "<group>";
@@ -211,7 +218,6 @@
 			);
 			name = Routinus;
 			packageProductDependencies = (
-				44AAA305273120EB002E16C4 /* FirebaseFirestore */,
 			);
 			productName = Routinus;
 			productReference = 44AAA2B1272FDF8B002E16C4 /* Routinus.app */;
@@ -231,6 +237,9 @@
 			dependencies = (
 			);
 			name = RoutinusNetwork;
+			packageProductDependencies = (
+				44AAA30F2732226B002E16C4 /* FirebaseFirestore */,
+			);
 			productName = RoutinusNetwork;
 			productReference = 44AAA2F527311D3E002E16C4 /* RoutinusNetwork.framework */;
 			productType = "com.apple.product-type.framework";
@@ -292,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44AAA30C2731ADE5002E16C4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +593,7 @@
 		};
 		44AAA2FE27311D3F002E16C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44AAA30D27322158002E16C4 /* RoutinusNetwork.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -604,6 +615,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -615,6 +627,7 @@
 		};
 		44AAA2FF27311D3F002E16C4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44AAA30E27322192002E16C4 /* RoutinusNetwork.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -636,6 +649,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -688,7 +702,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		44AAA305273120EB002E16C4 /* FirebaseFirestore */ = {
+		44AAA30F2732226B002E16C4 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
