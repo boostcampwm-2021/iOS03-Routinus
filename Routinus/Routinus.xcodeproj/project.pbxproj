@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14FCD60B27311CF600626E74 /* RoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FCD60A27311CF600626E74 /* RoutineCell.swift */; };
-		0DD1631827311ECA00DC5970 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 0DD1631727311ECA00DC5970 /* JTAppleCalendar */; };
-		0DD1631A27311F0200DC5970 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631927311F0200DC5970 /* DateCell.swift */; };
-		0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631B27312AC700DC5970 /* DateHeader.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -73,9 +69,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		14FCD60A27311CF600626E74 /* RoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCell.swift; sourceTree = "<group>"; };
-		0DD1631927311F0200DC5970 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
-		0DD1631B27312AC700DC5970 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		21D4AB5FB6AB0717E5C7402C /* Pods-Routinus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.release.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.release.xcconfig"; sourceTree = "<group>"; };
 		2813D98BB29BFEBCA9A154AE /* Pods-Routinus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.debug.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.debug.xcconfig"; sourceTree = "<group>"; };
 		44AAA2B1272FDF8B002E16C4 /* Routinus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,7 +117,6 @@
 			files = (
 				44AAA2FB27311D3F002E16C4 /* RoutinusNetwork.framework in Frameworks */,
 				8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */,
-				0DD1631827311ECA00DC5970 /* JTAppleCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,15 +131,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0DD1631D27312ACA00DC5970 /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-				0DD1631927311F0200DC5970 /* DateCell.swift */,
-				0DD1631B27312AC700DC5970 /* DateHeader.swift */,
-			);
-			path = Calendar;
-			sourceTree = "<group>";
-		};
 		44AAA2A8272FDF8A002E16C4 = {
 			isa = PBXGroup;
 			children = (
@@ -285,9 +268,7 @@
 		E9797C9D2730F89400A14A0F /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				0DD1631D27312ACA00DC5970 /* Calendar */,
 				44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */,
-				14FCD60A27311CF600626E74 /* RoutineCell.swift */,
 				E9797CC22731258A00A14A0F /* HomeViewModel.swift */,
 			);
 			path = Home;
@@ -396,7 +377,6 @@
 			);
 			name = Routinus;
 			packageProductDependencies = (
-				0DD1631727311ECA00DC5970 /* JTAppleCalendar */,
 			);
 			productName = Routinus;
 			productReference = 44AAA2B1272FDF8B002E16C4 /* Routinus.app */;
@@ -452,7 +432,7 @@
 			);
 			mainGroup = 44AAA2A8272FDF8A002E16C4;
 			packageReferences = (
-				0DD1631627311ECA00DC5970 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */
+				44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 44AAA2B2272FDF8B002E16C4 /* Products */;
 			projectDirPath = "";
@@ -549,7 +529,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */,
 				E9753900273220F6004358C5 /* UserInfo.swift in Sources */,
 				E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */,
 				E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */,
@@ -560,9 +539,6 @@
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
-				14FCD60B27311CF600626E74 /* RoutineCell.swift in Sources */,
-				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
-				0DD1631A27311F0200DC5970 /* DateCell.swift in Sources */,
 				E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */,
 				E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
@@ -885,9 +861,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0DD1631627311ECA00DC5970 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/patchthecode/JTAppleCalendar";
 		44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -899,10 +872,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0DD1631727311ECA00DC5970 /* JTAppleCalendar */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0DD1631627311ECA00DC5970 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */;
-			productName = JTAppleCalendar;
 		44AAA30F2732226B002E16C4 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
