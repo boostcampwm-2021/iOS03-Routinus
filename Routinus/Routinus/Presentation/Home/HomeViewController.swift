@@ -19,6 +19,7 @@ struct RoutineData {
 class HomeViewController: UIViewController {
     private let scrollView: UIScrollView = UIScrollView()
     private let contentView: UIView = UIView()
+    private var calendarDelegate = CalendarDelegate.shared
     
     private var viewModel: HomeViewModelType?
     private var cancellables = Set<AnyCancellable>()
@@ -175,7 +176,7 @@ extension HomeViewController {
         configureCalendarTitle()
     }
 
-    private func configureContinuityView(){
+    private func configureContinuityView() {
         self.continuityView.addSubview(seedImage)
         self.seedImage.snp.makeConstraints { make in
             make.width.height.equalTo(60)
@@ -229,7 +230,7 @@ extension HomeViewController {
         self.contentView.addSubview(tableView)
         self.tableView.snp.makeConstraints { make in
             make.top.equalTo(todayRoutineTitle.snp.bottom).offset(10)
-            make.width.equalToSuperview().offset(-20)
+            make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
             make.height.equalTo(120)
         }
@@ -246,7 +247,7 @@ extension HomeViewController {
 
         self.calendarTitleView.addSubview(self.calendarTitle)
         self.calendarTitle.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
         }
 
@@ -295,6 +296,7 @@ extension HomeViewController {
             .sink(receiveValue: { [weak self] achieveList in
                 guard let self = self else { return }
                 self.achievementData = achieveList
+                self.calendarDelegate.dummyCalendar = self.achievementData
                 self.setRangeDates()
             })
             .store(in: &cancellables)
@@ -332,7 +334,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         auth.backgroundColor = .black
         return UISwipeActionsConfiguration(actions: [auth])
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let challengeID = viewModel?.todayRoutine.value[indexPath.row].challengeID else { return }
         self.viewModel?.didTappedTodayRoutine(challengeID: challengeID)
@@ -341,9 +343,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension HomeViewController {
     private func addCalendar() {
-        let delegate = CalendarDelegate.shared
-        delegate.dummyCalendar = achievementData
-//        delegate.formatter = viewModel.formatter
+        calendarDelegate.dummyCalendar = achievementData
+        calendarDelegate.formatter = viewModel?.formatter
 
         calendarView.scrollDirection = .horizontal
         calendarView.scrollingMode = .stopAtEachCalendarFrame
@@ -355,7 +356,7 @@ extension HomeViewController {
         calendarView.register(DateHeader.self,
                               forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                               withReuseIdentifier: DateHeader.identifier)
-        calendarView.calendarDelegate = delegate
+        calendarView.calendarDelegate = calendarDelegate
         calendarView.calendarDataSource = self
 
         self.contentView.addSubview(calendarView)
@@ -379,21 +380,19 @@ extension HomeViewController: JTACMonthViewDataSource {
     }
 
     func todayDate() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM"
-        formatter.timeZone = Calendar.current.timeZone
-        formatter.locale = Calendar.current.locale
-        let currentDate = formatter.string(from: Date())
+        let formatter = viewModel?.formatter
+        formatter?.dateFormat = "yyyy.MM"
+        let currentDate = formatter?.string(from: Date())
 
-        monthLabel.text = currentDate + "월"
+        monthLabel.text = currentDate ?? "" + "월"
     }
 
     func setRangeDates() {
         guard let gregorianCalendar = NSCalendar(calendarIdentifier: .gregorian) else { return }
         for dates in achievementData {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyyMMdd"
-            guard let dateData = dateFormatter.date(from: "\(dates.yearMonth)\(dates.day)") else { return }
+            let formatter = viewModel?.formatter
+            formatter?.dateFormat = "yyyyMMdd"
+            guard let dateData = formatter?.date(from: "\(dates.yearMonth)\(dates.day)") else { return }
 
             var rangeDate: [Date] = []
             let dateComponent = DateComponents(year: dateData.year, month: dateData.month, day: dateData.day)

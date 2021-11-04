@@ -21,6 +21,7 @@ protocol HomeViewModelOutput {
     // coordinator signal
     var showChallengeSignal: PassthroughSubject<Void, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
+    var formatter: DateFormatter { get }
 }
 
 protocol HomeViewModelType: HomeViewModelInput, HomeViewModelOutput { }
