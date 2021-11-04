@@ -43,6 +43,25 @@ enum Category {
             return "guitars"
         }
     }
+    
+    static func categoryByID(_ id: String) -> Self {
+        switch id {
+        case "0":
+            return exercise
+        case "1":
+            return selfDevelopment
+        case "2":
+            return lifeStyle
+        case "3":
+            return finance
+        case "4":
+            return hobby
+        case "5":
+            return etc
+        default:
+            return etc
+        }
+    }
 }
 
 class RoutineCell: UITableViewCell {
@@ -117,12 +136,12 @@ extension RoutineCell {
         }
     }
 
-    func configureCell(routine: Routine) {
+    func configureCell(routine: TodayRoutine) {
         if UIImage(systemName: routine.category.categoryImage) == nil {
             categoryImageView.image = UIImage(named: routine.category.categoryImage)
         } else {
             categoryImageView.image = UIImage(systemName: routine.category.categoryImage)
         }
-        categoryName.text = routine.challengeTitle
+        categoryName.text = routine.title
     }
 }

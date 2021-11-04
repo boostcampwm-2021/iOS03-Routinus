@@ -26,11 +26,13 @@
 		44AAA31927326870002E16C4 /* TodayRoutineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA31827326870002E16C4 /* TodayRoutineDTO.swift */; };
 		44AAA31B27327D07002E16C4 /* AchievementInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA31A27327D06002E16C4 /* AchievementInfoDTO.swift */; };
 		44AAA3212732A049002E16C4 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 44AAA3202732A049002E16C4 /* JTAppleCalendar */; };
+		44AAA3242733819B002E16C4 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA3232733819B002E16C4 /* Date+Extension.swift */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
-		E9753900273220F6004358C5 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* UserInfo.swift */; };
-		E97539022732210C004358C5 /* ChllangeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97539012732210C004358C5 /* ChllangeInfo.swift */; };
-		E975390627325538004358C5 /* ArchievementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* ArchievementInfo.swift */; };
+		E9753900273220F6004358C5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* User.swift */; };
+		E975390627325538004358C5 /* AchievementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* AchievementInfo.swift */; };
 		E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9753908273257E5004358C5 /* HomeFetchUsecase.swift */; };
+		E97539222732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E97539202732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig */; };
+		E97539232732E4F3004358C5 /* RoutinusNetwork.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E97539212732E4F3004358C5 /* RoutinusNetwork.release.xcconfig */; };
 		E9797CA02730FF9C00A14A0F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797C9F2730FF9C00A14A0F /* Coordinator.swift */; };
 		E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */; };
 		E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA32730FFB500A14A0F /* AppCoordinator.swift */; };
@@ -46,6 +48,7 @@
 		E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */; };
 		E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */; };
 		E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC22731258A00A14A0F /* HomeViewModel.swift */; };
+		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,11 +98,13 @@
 		44AAA3162732660D002E16C4 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		44AAA31827326870002E16C4 /* TodayRoutineDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineDTO.swift; sourceTree = "<group>"; };
 		44AAA31A27327D06002E16C4 /* AchievementInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementInfoDTO.swift; sourceTree = "<group>"; };
+		44AAA3232733819B002E16C4 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E97538FF273220F6004358C5 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
-		E97539012732210C004358C5 /* ChllangeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChllangeInfo.swift; sourceTree = "<group>"; };
-		E975390527325538004358C5 /* ArchievementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchievementInfo.swift; sourceTree = "<group>"; };
+		E97538FF273220F6004358C5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E975390527325538004358C5 /* AchievementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementInfo.swift; sourceTree = "<group>"; };
 		E9753908273257E5004358C5 /* HomeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFetchUsecase.swift; sourceTree = "<group>"; };
+		E97539202732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusNetwork.debug.xcconfig; sourceTree = "<group>"; };
+		E97539212732E4F3004358C5 /* RoutinusNetwork.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusNetwork.release.xcconfig; sourceTree = "<group>"; };
 		E9797C9F2730FF9C00A14A0F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		E9797CA32730FFB500A14A0F /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -115,6 +120,7 @@
 		E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCoordinator.swift; sourceTree = "<group>"; };
 		E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		E9797CC22731258A00A14A0F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,9 +178,10 @@
 		44AAA2B3272FDF8B002E16C4 /* Routinus */ = {
 			isa = PBXGroup;
 			children = (
-				E97538FD27321BD7004358C5 /* Domain */,
 				E9797C9B2730F7BC00A14A0F /* Application */,
 				E9797C9A2730F7A200A14A0F /* Presentation */,
+				E97538FD27321BD7004358C5 /* Domain */,
+				44AAA32227338181002E16C4 /* Extensions */,
 				E9797C9C2730F86100A14A0F /* Resources */,
 			);
 			path = Routinus;
@@ -183,6 +190,8 @@
 		44AAA2F627311D3F002E16C4 /* RoutinusNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				E97539202732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig */,
+				E97539212732E4F3004358C5 /* RoutinusNetwork.release.xcconfig */,
 				44AAA31427326601002E16C4 /* DTO */,
 				44AAA30B2731ADE5002E16C4 /* GoogleService-Info.plist */,
 				44AAA2F727311D3F002E16C4 /* RoutinusNetwork.h */,
@@ -201,6 +210,14 @@
 				44AAA31A27327D06002E16C4 /* AchievementInfoDTO.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		44AAA32227338181002E16C4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				44AAA3232733819B002E16C4 /* Date+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C6BC838A122CF798FF91016F /* Pods */ = {
@@ -232,9 +249,9 @@
 		E97538FE27321BE1004358C5 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				E97538FF273220F6004358C5 /* UserInfo.swift */,
-				E97539012732210C004358C5 /* ChllangeInfo.swift */,
-				E975390527325538004358C5 /* ArchievementInfo.swift */,
+				E97538FF273220F6004358C5 /* User.swift */,
+				E975390527325538004358C5 /* AchievementInfo.swift */,
+				E9B1298127336EE50072D254 /* TodayRoutine.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -480,7 +497,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E97539232732E4F3004358C5 /* RoutinusNetwork.release.xcconfig in Resources */,
 				44AAA30C2731ADE5002E16C4 /* GoogleService-Info.plist in Resources */,
+				E97539222732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,14 +569,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */,
-				E9753900273220F6004358C5 /* UserInfo.swift in Sources */,
+				E9753900273220F6004358C5 /* User.swift in Sources */,
 				E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */,
 				E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */,
 				E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* Coordinator.swift in Sources */,
-				E975390627325538004358C5 /* ArchievementInfo.swift in Sources */,
+				E975390627325538004358C5 /* AchievementInfo.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
+				44AAA3242733819B002E16C4 /* Date+Extension.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
@@ -575,7 +596,6 @@
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
 				E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */,
 				E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */,
-				E97539022732210C004358C5 /* ChllangeInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

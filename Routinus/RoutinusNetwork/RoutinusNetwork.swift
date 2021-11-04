@@ -64,7 +64,7 @@ public enum RoutinusNetwork {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("achievement_info")
             .whereField("user_udid", isEqualTo: udid)
-            .whereField("yearMonth", isEqualTo: yearMonth)
+            .whereField("year_month", isEqualTo: yearMonth)
             .getDocuments()
         
         var achievementInfoList = [AchievementInfoDTO]()
