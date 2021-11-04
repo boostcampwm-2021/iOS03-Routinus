@@ -88,7 +88,7 @@ enum TabBarPage {
     func tabBarSelectedImage() -> UIImage? {
         switch self {
         case .home:
-            return UIImage(systemName: "chart.bar")
+            return UIImage(named: "chart.white")
         case .challenge:
             return UIImage(systemName: "square.grid.2x2")
         case .manage:
@@ -101,11 +101,11 @@ enum TabBarPage {
     func tabBarUnSelectedImage() -> UIImage? {
         switch self {
         case .home:
-            return UIImage(systemName: "chart.bar.fill")
+            return UIImage(systemName: "chart.bar.xaxis")
         case .challenge:
             return UIImage(systemName: "square.grid.2x2.fill")
         case .manage:
-            return UIImage(systemName: "highlighter")
+            return UIImage(named: "highlighter.black")
         case .myPage:
             return UIImage(systemName: "person.fill")
         }

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "chart.white@1x.png",
+      "filename" : "chart.white@x1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "chart.white@2x.png",
+      "filename" : "chart.white@x2-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "chart.white@3x.png",
+      "filename" : "chart.white@x3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
