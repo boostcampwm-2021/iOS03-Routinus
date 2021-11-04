@@ -12,6 +12,7 @@ import UIKit
 struct Routine {
     let category: Category
     let challengeTitle: String
+    let percentage: Float
 }
 
 struct RoutineData {
@@ -112,9 +113,8 @@ class HomeViewController: UIViewController {
     }()
 
     let dummyList: [Routine] = [
-        Routine(category: .exercise, challengeTitle: "30분 이상 걷기"),
-        Routine(category: .lifeStyle, challengeTitle: "1L이상 물마시기"),
-        Routine(category: .lifeStyle, challengeTitle: "1L이상 물마시기")
+        Routine(category: .exercise, challengeTitle: "30분 이상 걷기", percentage: 0.7),
+        Routine(category: .lifeStyle, challengeTitle: "1L이상 물마시기", percentage: 0.6)
     ]
 
     let dummyCalendar = [RoutineData(date: "2021-11-02", percentage: 0.2),

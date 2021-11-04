@@ -123,5 +123,6 @@ extension RoutineCell {
             categoryImageView.image = UIImage(systemName: routine.category.categoryImage)
         }
         categoryName.text = routine.challengeTitle
+        progressView.progress = routine.percentage
     }
 }
