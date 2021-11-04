@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import JTAppleCalendar
+import Combine
 
 struct Routine {
     let category: Category
@@ -22,7 +23,19 @@ struct RoutineData {
 class HomeViewController: UIViewController {
     private let scrollView: UIScrollView = UIScrollView()
     private let contentView: UIView = UIView()
-
+    
+    private var viewModel: HomeViewModelType?
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(with viewModel: HomeViewModelType) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     private lazy var continuityView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
@@ -132,12 +145,14 @@ class HomeViewController: UIViewController {
 
         configureViews()
         addCalendar()
+        configureViewModel()
     }
 }
 
 extension HomeViewController {
     private func configureViews() {
         self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.prefersLargeTitles = true
 
         self.view.addSubview(scrollView)
         self.scrollView.snp.makeConstraints { make in
@@ -171,7 +186,7 @@ extension HomeViewController {
         }
 
         // TODO: - firebase 데이터 연동
-        let day = 0
+        let day = 1
         if day == 0 {
             self.continuityView.addSubview(initContinuityLabel)
             self.initContinuityLabel.snp.makeConstraints { make in
@@ -254,6 +269,23 @@ extension HomeViewController {
             make.centerY.equalToSuperview()
         }
     }
+
+    private func configureViewModel() {
+        self.viewModel?.userInfo
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] userInfo in
+                self?.navigationItem.title = userInfo.name + "님의 Routine"
+                self?.continuityDayLabel.text = String(userInfo.continuityDay)
+            })
+            .store(in: &cancellables)
+        
+        self.viewModel?.todayRoutine
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] routineList in
+                self?.tableView.reloadData()
+            })
+            .store(in: &cancellables)
+    }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -262,7 +294,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyList.count
+        return self.viewModel?.todayRoutine.value.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -271,8 +303,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineCell.identifier, for: indexPath)
-                as? RoutineCell else { return UITableViewCell() }
-        cell.configureCell(routine: dummyList[indexPath.row])
+                as? RoutineCell,
+              let routineList = self.viewModel?.todayRoutine.value else { return UITableViewCell() }
+        
+        cell.configureCell(routine: routineList[indexPath.row])
         cell.selectionStyle = .none
         return cell
     }
