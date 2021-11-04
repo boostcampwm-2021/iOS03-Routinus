@@ -11,11 +11,6 @@ import UIKit
 import JTAppleCalendar
 import SnapKit
 
-struct Routine {
-    let category: Category
-    let challengeTitle: String
-    let percentage: Float
-}
 
 struct RoutineData {
     let date: String
@@ -125,11 +120,6 @@ class HomeViewController: UIViewController {
         label.text = "yyyy.nn월"
         return label
     }()
-
-    let dummyList: [Routine] = [
-        Routine(category: .exercise, challengeTitle: "30분 이상 걷기", percentage: 0.7),
-        Routine(category: .lifeStyle, challengeTitle: "1L이상 물마시기", percentage: 0.6)
-    ]
 
     let dummyCalendar = [RoutineData(date: "20211102", percentage: 0.2),
                          RoutineData(date: "20211104", percentage: 0.8),
@@ -298,9 +288,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // - TODO: 테이블뷰 높이 조정 데이터 바인딩 쪽으로 옮기기 
-        self.tableView.snp.makeConstraints { make in
-            make.height.equalTo(60*dummyList.count)
-        }
+//        self.tableView.snp.makeConstraints { make in
+//            make.height.equalTo(60*dummyList.count)
+//        }
         return self.viewModel?.todayRoutine.value.count ?? 0
     }
 
