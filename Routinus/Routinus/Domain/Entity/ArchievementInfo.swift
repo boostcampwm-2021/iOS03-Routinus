@@ -8,4 +8,7 @@
 import Foundation
 
 struct ArchievementInfo {
+    let day: Int
+    let achievementCount: Int
+    let totalCount: Int
 }
