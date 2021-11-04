@@ -5,13 +5,13 @@
 //  Created by 김민서 on 2021/11/02.
 //
 
-import UIKit
-import SnapKit
 import JTAppleCalendar
+import SnapKit
+import UIKit
 
 class DateCell: JTACDayCell {
-    let dateLabel = UILabel()
-    let selectedView = UIView()
+    lazy var dateLabel = UILabel()
+    lazy var selectedView = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +31,6 @@ class DateCell: JTACDayCell {
         contentView.addSubview(selectedView)
         contentView.addSubview(dateLabel)
 
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
         }

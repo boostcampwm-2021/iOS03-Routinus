@@ -5,9 +5,9 @@
 //  Created by 유석환 on 2021/11/01.
 //
 
-import UIKit
-import SnapKit
 import JTAppleCalendar
+import SnapKit
+import UIKit
 
 struct Routine {
     let category: Category
