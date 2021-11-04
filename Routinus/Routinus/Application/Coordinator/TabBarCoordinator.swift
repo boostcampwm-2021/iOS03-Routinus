@@ -15,6 +15,7 @@ class TabBarCoordinator: NSObject, Coordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.tabBarController = UITabBarController()
+        self.navigationController.navigationBar.isHidden = true
     }
 
     func start() {
@@ -29,7 +30,6 @@ class TabBarCoordinator: NSObject, Coordinator {
 
     private func getTabBarController(_ page: TabBarPage) -> UINavigationController {
         let navigationController = UINavigationController()
-        navigationController.setNavigationBarHidden(false, animated: false)
         navigationController.tabBarItem = UITabBarItem.init(title: nil,
                                                             image: page.tabBarSelectedImage(),
                                                             selectedImage: page.tabBarUnSelectedImage())

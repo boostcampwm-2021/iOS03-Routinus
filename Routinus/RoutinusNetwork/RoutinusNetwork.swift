@@ -13,28 +13,20 @@ public enum RoutinusNetwork {
         FirebaseApp.configure()
     }
     
-    public static func user(of udid: String,
-                            completion: @escaping (Result<UserDTO, Error>) -> Void) {
+    public static func user(of udid: String) async throws -> UserDTO {
         let db = Firestore.firestore()
-        
-        db.collection("user")
+        let snapshot = try await db.collection("user")
             .whereField("udid", isEqualTo: udid)
-            .getDocuments { snapshot, error in
-                if let error = error {
-                    completion(.failure(error))
-                }
-                
-                if let document = snapshot?.documents.first?.data() {
-                    let user = UserDTO(udid: udid,
-                                       name: document["name"] as? String ?? "",
-                                       continuityDay: document["continuity_day"] as? Int ?? 0,
-                                       userImageCategoryID: document["user_image_category_id"] as? String ?? "0",
-                                       grade: document["grade"] as? Int ?? 0)
-                    completion(.success(user))
-                } else {
-                    completion(.success(UserDTO()))
-                }
-            }
+            .getDocuments()
+        let document = snapshot.documents.first?.data()
+        
+        return UserDTO(
+            udid: udid,
+            name: document?["name"] as? String ?? "",
+            continuityDay: document?["continuity_day"] as? Int ?? 0,
+            userImageCategoryID: document?["user_image_category_id"] as? String ?? "0",
+            grade: document?["grade"] as? Int ?? 0
+        )
     }
     
     public static func routineList(of udid: String) async throws -> [TodayRoutineDTO] {
@@ -72,15 +64,16 @@ public enum RoutinusNetwork {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("achievement_info")
             .whereField("user_udid", isEqualTo: udid)
-            .whereField("yearMonth", isEqualTo: yearMonth)
+            .whereField("year_month", isEqualTo: yearMonth)
             .getDocuments()
         
         var achievementInfoList = [AchievementInfoDTO]()
         
         for document in snapshot.documents {
-            var achievementInfoDTO = AchievementInfoDTO(
+            let achievementInfoDTO = AchievementInfoDTO(
                 userUDID: udid,
-                day: document["day"] as? Int ?? 0,
+                yearMonth: document["year_month"] as? String ?? "",
+                day: document["day"] as? String ?? "",
                 achievementCount: document["achievement_count"] as? Int ?? 0,
                 totalCount: document["total_count"] as? Int ?? 0
             )

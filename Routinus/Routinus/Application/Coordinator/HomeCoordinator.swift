@@ -16,7 +16,8 @@ class HomeCoordinator: Coordinator {
     }
 
     func start() {
-        let homeViewController = HomeViewController()
+        let homeViewModel = HomeViewModel(usecase: HomeFetchUsecase())
+        let homeViewController = HomeViewController(with: homeViewModel)
         self.navigationController.pushViewController(homeViewController, animated: false)
     }
 }
