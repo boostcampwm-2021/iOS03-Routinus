@@ -108,7 +108,7 @@ class HomeViewController: UIViewController {
 
     private lazy var monthLabel: UILabel = {
         let label = UILabel()
-        label.text = "2021.11월"
+        label.text = "yyyy.nn월"
         return label
     }()
 
@@ -403,16 +403,19 @@ extension HomeViewController: JTACMonthViewDelegate {
 
 extension HomeViewController: JTACMonthViewDataSource {
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
+        getTodayDate()
+        setRangeDates()
+        return ConfigurationParameters(startDate: Date(), endDate: Date())
+    }
+
+    func getTodayDate() {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy MM dd"
+        formatter.dateFormat = "yyyy.MM"
         formatter.timeZone = Calendar.current.timeZone
         formatter.locale = Calendar.current.locale
+        let currentDate = formatter.string(from: Date())
 
-        let startDate = formatter.date(from: "2021 11 01")!
-        let endDate = Date()
-
-        setRangeDates()
-        return ConfigurationParameters(startDate: startDate, endDate: endDate)
+        monthLabel.text = currentDate + "월"
     }
 
     func setRangeDates() {
