@@ -22,18 +22,16 @@
 		44AAA2FC27311D3F002E16C4 /* RoutinusNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAA2F527311D3E002E16C4 /* RoutinusNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44AAA30227311DDD002E16C4 /* RoutinusNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA30127311DDD002E16C4 /* RoutinusNetwork.swift */; };
 		44AAA30C2731ADE5002E16C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44AAA30B2731ADE5002E16C4 /* GoogleService-Info.plist */; };
-		44AAA3102732226B002E16C4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 44AAA30F2732226B002E16C4 /* FirebaseFirestore */; };
 		44AAA3172732660D002E16C4 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA3162732660D002E16C4 /* UserDTO.swift */; };
 		44AAA31927326870002E16C4 /* TodayRoutineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA31827326870002E16C4 /* TodayRoutineDTO.swift */; };
 		44AAA31B27327D07002E16C4 /* AchievementInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA31A27327D06002E16C4 /* AchievementInfoDTO.swift */; };
 		44AAA3212732A049002E16C4 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 44AAA3202732A049002E16C4 /* JTAppleCalendar */; };
 		44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA3232733819B002E16C4 /* Date+Extensions.swift */; };
+		44CC6E392733C72F00A902F5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 44CC6E382733C72F00A902F5 /* FirebaseFirestore */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
 		E9753900273220F6004358C5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* User.swift */; };
 		E975390627325538004358C5 /* AchievementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* AchievementInfo.swift */; };
 		E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9753908273257E5004358C5 /* HomeFetchUsecase.swift */; };
-		E97539222732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E97539202732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig */; };
-		E97539232732E4F3004358C5 /* RoutinusNetwork.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E97539212732E4F3004358C5 /* RoutinusNetwork.release.xcconfig */; };
 		E9797CA02730FF9C00A14A0F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797C9F2730FF9C00A14A0F /* Coordinator.swift */; };
 		E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */; };
 		E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA32730FFB500A14A0F /* AppCoordinator.swift */; };
@@ -105,8 +103,6 @@
 		E97538FF273220F6004358C5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E975390527325538004358C5 /* AchievementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementInfo.swift; sourceTree = "<group>"; };
 		E9753908273257E5004358C5 /* HomeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFetchUsecase.swift; sourceTree = "<group>"; };
-		E97539202732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusNetwork.debug.xcconfig; sourceTree = "<group>"; };
-		E97539212732E4F3004358C5 /* RoutinusNetwork.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusNetwork.release.xcconfig; sourceTree = "<group>"; };
 		E9797C9F2730FF9C00A14A0F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		E9797CA32730FFB500A14A0F /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -140,7 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44AAA3102732226B002E16C4 /* FirebaseFirestore in Frameworks */,
+				44CC6E392733C72F00A902F5 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,8 +189,6 @@
 		44AAA2F627311D3F002E16C4 /* RoutinusNetwork */ = {
 			isa = PBXGroup;
 			children = (
-				E97539202732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig */,
-				E97539212732E4F3004358C5 /* RoutinusNetwork.release.xcconfig */,
 				44AAA31427326601002E16C4 /* DTO */,
 				44AAA30B2731ADE5002E16C4 /* GoogleService-Info.plist */,
 				44AAA2F727311D3F002E16C4 /* RoutinusNetwork.h */,
@@ -437,7 +431,7 @@
 			);
 			name = RoutinusNetwork;
 			packageProductDependencies = (
-				44AAA30F2732226B002E16C4 /* FirebaseFirestore */,
+				44CC6E382733C72F00A902F5 /* FirebaseFirestore */,
 			);
 			productName = RoutinusNetwork;
 			productReference = 44AAA2F527311D3E002E16C4 /* RoutinusNetwork.framework */;
@@ -500,9 +494,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E97539232732E4F3004358C5 /* RoutinusNetwork.release.xcconfig in Resources */,
 				44AAA30C2731ADE5002E16C4 /* GoogleService-Info.plist in Resources */,
-				E97539222732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,7 +804,6 @@
 		};
 		44AAA2FE27311D3F002E16C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44AAA30D27322158002E16C4 /* RoutinusNetwork.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -846,7 +837,6 @@
 		};
 		44AAA2FF27311D3F002E16C4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44AAA30E27322192002E16C4 /* RoutinusNetwork.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -914,30 +904,30 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/patchthecode/JTAppleCalendar";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
+				kind = exactVersion;
+				version = 8.0.3;
 			};
 		};
 		44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
+				kind = exactVersion;
+				version = 8.9.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		44AAA30F2732226B002E16C4 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
 		44AAA3202732A049002E16C4 /* JTAppleCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0DD1631627311ECA00DC5970 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */;
 			productName = JTAppleCalendar;
+		};
+		44CC6E382733C72F00A902F5 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -167,6 +167,6 @@ DerivedData/
 
 
 
-
-## RoutinusNetwork
+## 직접 추가
 Routinus/RoutinusNetwork/*.xcconfig
+Routinus/Routinus.xcworkspace/xcshareddata/swiftpm/Package.resolved
