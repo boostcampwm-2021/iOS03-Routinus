@@ -11,7 +11,6 @@ import UIKit
 import JTAppleCalendar
 import SnapKit
 
-
 struct RoutineData {
     let date: String
     let percentage: Double
@@ -23,16 +22,16 @@ class HomeViewController: UIViewController {
     
     private var viewModel: HomeViewModelType?
     private var cancellables = Set<AnyCancellable>()
-    
+
     init(with viewModel: HomeViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     private lazy var continuityView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
@@ -123,11 +122,7 @@ class HomeViewController: UIViewController {
         return label
     }()
 
-    let dummyCalendar = [RoutineData(date: "20211102", percentage: 0.2),
-                         RoutineData(date: "20211104", percentage: 0.8),
-                         RoutineData(date: "20211105", percentage: 1),
-                         RoutineData(date: "20211106", percentage: 0.5),
-                         RoutineData(date: "20211107", percentage: 0.4)]
+    var achievementData: [AchievementInfo] = []
 
     private let calendarView = JTACMonthView(frame: .zero)
 
@@ -274,7 +269,7 @@ extension HomeViewController {
                 self.continuityDayLabel.text = String(userInfo.continuityDay)
             })
             .store(in: &cancellables)
-        
+
         self.viewModel?.todayRoutine
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routineList in
@@ -283,6 +278,15 @@ extension HomeViewController {
 //                    make.height.equalTo(60 * routineList.count)
 //                }
                 self.tableView.reloadData()
+            })
+            .store(in: &cancellables)
+
+        self.viewModel?.achievementInfo
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] achieveList in
+                guard let self = self else { return }
+                self.achievementData = achieveList
+                self.setRangeDates()
             })
             .store(in: &cancellables)
     }
@@ -305,7 +309,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineCell.identifier, for: indexPath)
                 as? RoutineCell,
               let routineList = self.viewModel?.todayRoutine.value else { return UITableViewCell() }
-        
+
         cell.configureCell(routine: routineList[indexPath.row])
         cell.selectionStyle = .none
         return cell
@@ -324,7 +328,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 extension HomeViewController {
     private func addCalendar() {
         let delegate = CalendarDelegate.shared
-        delegate.dummyCalendar = dummyCalendar
+        delegate.dummyCalendar = achievementData
 //        delegate.formatter = viewModel.formatter
 
         calendarView.scrollDirection = .horizontal
@@ -357,7 +361,6 @@ extension HomeViewController {
 extension HomeViewController: JTACMonthViewDataSource {
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         todayDate()
-        setRangeDates()
         return ConfigurationParameters(startDate: Date(), endDate: Date())
     }
 
@@ -373,16 +376,17 @@ extension HomeViewController: JTACMonthViewDataSource {
 
     func setRangeDates() {
         guard let gregorianCalendar = NSCalendar(calendarIdentifier: .gregorian) else { return }
-        for dates in dummyCalendar {
+        for dates in achievementData {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMdd"
-            guard let dateData = dateFormatter.date(from: dates.date) else { return }
+            guard let dateData = dateFormatter.date(from: "\(dates.yearMonth)\(dates.day)") else { return }
 
             var rangeDate: [Date] = []
             let dateComponent = DateComponents(year: dateData.year, month: dateData.month, day: dateData.day)
             let date = gregorianCalendar.date(from: dateComponent as DateComponents)!
             rangeDate.append(date)
             calendarView.selectDates(rangeDate)
+            calendarView.reloadDates(rangeDate)
         }
     }
 }
