@@ -113,6 +113,7 @@ class HomeViewController: UIViewController {
 
     let dummyList: [Routine] = [
         Routine(category: .exercise, challengeTitle: "30분 이상 걷기"),
+        Routine(category: .lifeStyle, challengeTitle: "1L이상 물마시기"),
         Routine(category: .lifeStyle, challengeTitle: "1L이상 물마시기")
     ]
 
@@ -146,7 +147,8 @@ extension HomeViewController {
 
         self.scrollView.addSubview(contentView)
         self.contentView.snp.makeConstraints { make in
-            make.width.top.equalToSuperview()
+            make.width.equalToSuperview()
+            make.centerX.top.bottom.equalToSuperview()
         }
 
         self.contentView.addSubview(continuityView)
@@ -262,6 +264,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // - TODO: 테이블뷰 높이 조정 데이터 바인딩 쪽으로 옮기기 
+        self.tableView.snp.makeConstraints { make in
+            make.height.equalTo(60*dummyList.count)
+        }
         return dummyList.count
     }
 
