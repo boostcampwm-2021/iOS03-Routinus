@@ -8,15 +8,15 @@
 import Foundation
 
 public struct TodayRoutineDTO {
-    var udid: String
-    var challengeID: String
-    var categoryID: String
-    var title: String
-    var authCount: Int
-    var joinDate: String
-    var endDate: String
+    public var udid: String
+    public var challengeID: String
+    public var categoryID: String
+    public var title: String
+    public var authCount: Int
+    public var joinDate: String
+    public var endDate: String
     
-    init() {
+    public init() {
         self.udid = ""
         self.challengeID = ""
         self.categoryID = ""
