@@ -89,6 +89,8 @@ class HomeViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.estimatedRowHeight = 100
+        tableView.alwaysBounceVertical = false
+        tableView.separatorStyle = .none
         return tableView
     }()
 
