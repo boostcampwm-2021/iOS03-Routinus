@@ -36,8 +36,11 @@ class HomeViewModel: HomeViewModelType {
     var usecase: HomeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
+    let formatter = DateFormatter()
+
     init(usecase: HomeFetchableUsecase) {
         self.usecase = usecase
+        setDateFormatter()
         self.fetchMyRoutineData()
     }
 }
@@ -72,5 +75,12 @@ extension HomeViewModel {
             .receive(on: RunLoop.main)
             .sink { [weak self] achievementInfo in self?.achievementInfo.value = achievementInfo }
             .store(in: &cancellables)
+    }
+}
+
+extension HomeViewModel {
+    func setDateFormatter() {
+        self.formatter.timeZone = Calendar.current.timeZone
+        self.formatter.locale = Calendar.current.locale
     }
 }

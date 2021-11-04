@@ -6,32 +6,39 @@
 //
 
 import UIKit
-import SnapKit
+
 import JTAppleCalendar
+import SnapKit
 
 class DateCell: JTACDayCell {
-    let dateLabel = UILabel()
-    let selectedView = UIView()
+    lazy var dateLabel: UILabel = {
+        var label = UILabel()
+        label.textAlignment = .center
+        
+        return label
+    }()
+
+    lazy var selectedView: UIView = {
+        var view = UIView()
+        view.backgroundColor = UIColor(named: "MainColor")
+        view.isHidden = true
+        return view
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        baseUI()
+        configureViews()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        baseUI()
+        configureViews()
     }
 
-    private func baseUI() {
-        dateLabel.textAlignment = .center
-        selectedView.backgroundColor = UIColor(named: "MainColor")
-        selectedView.isHidden = true
-
+    private func configureViews() {
         contentView.addSubview(selectedView)
         contentView.addSubview(dateLabel)
 
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
         }

@@ -65,7 +65,6 @@ enum Category {
 }
 
 class RoutineCell: UITableViewCell {
-
     static let identifier: String = "RoutineCell"
 
     private lazy var progressView: UIProgressView = {
@@ -143,5 +142,6 @@ extension RoutineCell {
             categoryImageView.image = UIImage(systemName: routine.category.categoryImage)
         }
         categoryName.text = routine.title
+        progressView.progress = routine.percentage
     }
 }
