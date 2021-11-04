@@ -16,8 +16,8 @@ struct AchievementInfo {
     let totalCount: Int
     
     init(achievementDTO: AchievementInfoDTO) {
-//        self.yearMonth = achievementDTO.yearMonth
-//        self.day = achievementDTO.day
+        self.yearMonth = achievementDTO.yearMonth
+        self.day = achievementDTO.day
         self.achievementCount = achievementDTO.achievementCount
         self.totalCount = achievementDTO.totalCount
     }
