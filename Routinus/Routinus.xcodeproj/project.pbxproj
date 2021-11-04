@@ -31,6 +31,8 @@
 		E97539022732210C004358C5 /* ChllangeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97539012732210C004358C5 /* ChllangeInfo.swift */; };
 		E975390627325538004358C5 /* ArchievementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* ArchievementInfo.swift */; };
 		E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9753908273257E5004358C5 /* HomeFetchUsecase.swift */; };
+		E97539222732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E97539202732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig */; };
+		E97539232732E4F3004358C5 /* RoutinusNetwork.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E97539212732E4F3004358C5 /* RoutinusNetwork.release.xcconfig */; };
 		E9797CA02730FF9C00A14A0F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797C9F2730FF9C00A14A0F /* Coordinator.swift */; };
 		E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */; };
 		E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA32730FFB500A14A0F /* AppCoordinator.swift */; };
@@ -46,6 +48,7 @@
 		E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */; };
 		E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */; };
 		E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC22731258A00A14A0F /* HomeViewModel.swift */; };
+		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +103,8 @@
 		E97539012732210C004358C5 /* ChllangeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChllangeInfo.swift; sourceTree = "<group>"; };
 		E975390527325538004358C5 /* ArchievementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchievementInfo.swift; sourceTree = "<group>"; };
 		E9753908273257E5004358C5 /* HomeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFetchUsecase.swift; sourceTree = "<group>"; };
+		E97539202732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusNetwork.debug.xcconfig; sourceTree = "<group>"; };
+		E97539212732E4F3004358C5 /* RoutinusNetwork.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusNetwork.release.xcconfig; sourceTree = "<group>"; };
 		E9797C9F2730FF9C00A14A0F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		E9797CA32730FFB500A14A0F /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -115,6 +120,7 @@
 		E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCoordinator.swift; sourceTree = "<group>"; };
 		E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		E9797CC22731258A00A14A0F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,9 +178,9 @@
 		44AAA2B3272FDF8B002E16C4 /* Routinus */ = {
 			isa = PBXGroup;
 			children = (
-				E97538FD27321BD7004358C5 /* Domain */,
 				E9797C9B2730F7BC00A14A0F /* Application */,
 				E9797C9A2730F7A200A14A0F /* Presentation */,
+				E97538FD27321BD7004358C5 /* Domain */,
 				E9797C9C2730F86100A14A0F /* Resources */,
 			);
 			path = Routinus;
@@ -183,6 +189,8 @@
 		44AAA2F627311D3F002E16C4 /* RoutinusNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				E97539202732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig */,
+				E97539212732E4F3004358C5 /* RoutinusNetwork.release.xcconfig */,
 				44AAA31427326601002E16C4 /* DTO */,
 				44AAA30B2731ADE5002E16C4 /* GoogleService-Info.plist */,
 				44AAA2F727311D3F002E16C4 /* RoutinusNetwork.h */,
@@ -235,6 +243,7 @@
 				E97538FF273220F6004358C5 /* UserInfo.swift */,
 				E97539012732210C004358C5 /* ChllangeInfo.swift */,
 				E975390527325538004358C5 /* ArchievementInfo.swift */,
+				E9B1298127336EE50072D254 /* TodayRoutine.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -480,7 +489,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E97539232732E4F3004358C5 /* RoutinusNetwork.release.xcconfig in Resources */,
 				44AAA30C2731ADE5002E16C4 /* GoogleService-Info.plist in Resources */,
+				E97539222732E4F3004358C5 /* RoutinusNetwork.debug.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,6 +561,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */,
 				E9753900273220F6004358C5 /* UserInfo.swift in Sources */,
 				E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */,
