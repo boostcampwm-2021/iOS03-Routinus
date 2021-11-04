@@ -225,7 +225,7 @@ extension HomeViewController {
             make.top.equalTo(todayRoutineTitle.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
-            make.height.equalTo(200)
+            make.height.equalTo(120)
         }
     }
 
@@ -267,15 +267,20 @@ extension HomeViewController {
         self.viewModel?.userInfo
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] userInfo in
-                self?.navigationItem.title = userInfo.name + "님의 Routine"
-                self?.continuityDayLabel.text = String(userInfo.continuityDay)
+                guard let self = self else { return }
+                self.navigationItem.title = userInfo.name + "님의 Routine"
+                self.continuityDayLabel.text = String(userInfo.continuityDay)
             })
             .store(in: &cancellables)
         
         self.viewModel?.todayRoutine
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routineList in
-                self?.tableView.reloadData()
+                guard let self = self else { return }
+//                self.tableView.snp.makeConstraints { make in
+//                    make.height.equalTo(60 * routineList.count)
+//                }
+                self.tableView.reloadData()
             })
             .store(in: &cancellables)
     }
@@ -287,10 +292,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // - TODO: 테이블뷰 높이 조정 데이터 바인딩 쪽으로 옮기기 
-//        self.tableView.snp.makeConstraints { make in
-//            make.height.equalTo(60*dummyList.count)
-//        }
         return self.viewModel?.todayRoutine.value.count ?? 0
     }
 
