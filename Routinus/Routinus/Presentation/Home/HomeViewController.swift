@@ -328,12 +328,12 @@ extension HomeViewController {
 
 extension HomeViewController: JTACMonthViewDataSource {
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
-        getTodayDate()
+        todayDate()
         setRangeDates()
         return ConfigurationParameters(startDate: Date(), endDate: Date())
     }
 
-    func getTodayDate() {
+    func todayDate() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM"
         formatter.timeZone = Calendar.current.timeZone

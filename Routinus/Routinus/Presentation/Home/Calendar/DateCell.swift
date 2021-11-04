@@ -5,29 +5,37 @@
 //  Created by 김민서 on 2021/11/02.
 //
 
-import JTAppleCalendar
-import SnapKit
 import UIKit
 
+import JTAppleCalendar
+import SnapKit
+
 class DateCell: JTACDayCell {
-    lazy var dateLabel = UILabel()
-    lazy var selectedView = UIView()
+    lazy var dateLabel: UILabel = {
+        var label = UILabel()
+        label.textAlignment = .center
+        
+        return label
+    }()
+
+    lazy var selectedView: UIView = {
+        var view = UIView()
+        view.backgroundColor = UIColor(named: "MainColor")
+        view.isHidden = true
+        return view
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        baseUI()
+        configureViews()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        baseUI()
+        configureViews()
     }
 
-    private func baseUI() {
-        dateLabel.textAlignment = .center
-        selectedView.backgroundColor = UIColor(named: "MainColor")
-        selectedView.isHidden = true
-
+    private func configureViews() {
         contentView.addSubview(selectedView)
         contentView.addSubview(dateLabel)
 

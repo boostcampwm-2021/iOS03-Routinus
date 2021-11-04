@@ -6,10 +6,12 @@
 //
 
 import UIKit
+
 import JTAppleCalendar
 
 class CalendarDelegate: JTACMonthViewDelegate {
     static let shared = CalendarDelegate()
+    private init() {}
     var dummyCalendar: [RoutineData] = []
     var formatter: DateFormatter?
 
