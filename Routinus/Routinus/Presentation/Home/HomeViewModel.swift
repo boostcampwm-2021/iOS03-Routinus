@@ -70,7 +70,7 @@ extension HomeViewModel {
             .receive(on: RunLoop.main)
             .sink { [weak self] routineList in self?.todayRoutine.value = routineList }
             .store(in: &cancellables)
-        
+
         usecase.achievementSignal
             .receive(on: RunLoop.main)
             .sink { [weak self] achievementInfo in self?.achievementInfo.value = achievementInfo }
