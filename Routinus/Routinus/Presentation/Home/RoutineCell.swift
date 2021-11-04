@@ -136,12 +136,12 @@ extension RoutineCell {
         }
     }
 
-    func configureCell(routine: Routine) {
+    func configureCell(routine: TodayRoutine) {
         if UIImage(systemName: routine.category.categoryImage) == nil {
             categoryImageView.image = UIImage(named: routine.category.categoryImage)
         } else {
             categoryImageView.image = UIImage(systemName: routine.category.categoryImage)
         }
-        categoryName.text = routine.challengeTitle
+        categoryName.text = routine.title
     }
 }
