@@ -229,7 +229,7 @@ extension HomeViewController {
         self.contentView.addSubview(tableView)
         self.tableView.snp.makeConstraints { make in
             make.top.equalTo(todayRoutineTitle.snp.bottom).offset(10)
-            make.width.equalToSuperview().offset(-20)
+            make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
             make.height.equalTo(120)
         }
@@ -246,7 +246,7 @@ extension HomeViewController {
 
         self.calendarTitleView.addSubview(self.calendarTitle)
         self.calendarTitle.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
         }
 
