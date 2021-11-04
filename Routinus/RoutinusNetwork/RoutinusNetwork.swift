@@ -78,7 +78,7 @@ public enum RoutinusNetwork {
         var achievementInfoList = [AchievementInfoDTO]()
         
         for document in snapshot.documents {
-            var achievementInfoDTO = AchievementInfoDTO(
+            let achievementInfoDTO = AchievementInfoDTO(
                 userUDID: udid,
                 day: document["day"] as? Int ?? 0,
                 achievementCount: document["achievement_count"] as? Int ?? 0,
