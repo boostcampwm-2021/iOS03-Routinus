@@ -71,8 +71,6 @@ class RoutineCell: UITableViewCell {
         let progressView = UIProgressView()
         progressView.layer.borderWidth = 5
         progressView.layer.cornerRadius = 25
-        progressView.layer.borderColor = UIColor(named: Category.exercise.categoryColor)?.cgColor
-        progressView.tintColor = UIColor(named: Category.exercise.categoryColor)
 
         progressView.progress = 0.5
         progressView.clipsToBounds = true
@@ -143,5 +141,7 @@ extension RoutineCell {
         }
         categoryName.text = routine.title
         progressView.progress = Float(routine.authCount) / Float(routine.totalCount)
+        progressView.tintColor = UIColor(named: routine.category.categoryColor)
+        progressView.layer.borderColor = UIColor(named: routine.category.categoryColor)?.cgColor
     }
 }
