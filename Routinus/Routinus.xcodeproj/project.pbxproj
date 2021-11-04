@@ -26,6 +26,7 @@
 		44AAA31927326870002E16C4 /* TodayRoutineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA31827326870002E16C4 /* TodayRoutineDTO.swift */; };
 		44AAA31B27327D07002E16C4 /* AchievementInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA31A27327D06002E16C4 /* AchievementInfoDTO.swift */; };
 		44AAA3212732A049002E16C4 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 44AAA3202732A049002E16C4 /* JTAppleCalendar */; };
+		44AAA3242733819B002E16C4 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA3232733819B002E16C4 /* Date+Extension.swift */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
 		E9753900273220F6004358C5 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* UserInfo.swift */; };
 		E97539022732210C004358C5 /* ChllangeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97539012732210C004358C5 /* ChllangeInfo.swift */; };
@@ -98,6 +99,7 @@
 		44AAA3162732660D002E16C4 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		44AAA31827326870002E16C4 /* TodayRoutineDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineDTO.swift; sourceTree = "<group>"; };
 		44AAA31A27327D06002E16C4 /* AchievementInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementInfoDTO.swift; sourceTree = "<group>"; };
+		44AAA3232733819B002E16C4 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97538FF273220F6004358C5 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		E97539012732210C004358C5 /* ChllangeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChllangeInfo.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				E9797C9B2730F7BC00A14A0F /* Application */,
 				E9797C9A2730F7A200A14A0F /* Presentation */,
 				E97538FD27321BD7004358C5 /* Domain */,
+				44AAA32227338181002E16C4 /* Extensions */,
 				E9797C9C2730F86100A14A0F /* Resources */,
 			);
 			path = Routinus;
@@ -209,6 +212,14 @@
 				44AAA31A27327D06002E16C4 /* AchievementInfoDTO.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		44AAA32227338181002E16C4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				44AAA3232733819B002E16C4 /* Date+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C6BC838A122CF798FF91016F /* Pods */ = {
@@ -570,6 +581,7 @@
 				E9797CA02730FF9C00A14A0F /* Coordinator.swift in Sources */,
 				E975390627325538004358C5 /* ArchievementInfo.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
+				44AAA3242733819B002E16C4 /* Date+Extension.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
