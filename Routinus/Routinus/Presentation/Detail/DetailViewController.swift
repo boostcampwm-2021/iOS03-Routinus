@@ -8,11 +8,25 @@
 import UIKit
 
 class DetailViewController: UIViewController {
+    
+    lazy var cntLabel: UILabel = {
+        let label = UILabel()
+        label.text = "DetailView"
+        
+        return label
+    }()
+    
+    private func setupLayout() {
+        self.view.addSubview(cntLabel)
+        self.cntLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.cntLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.cntLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.view.backgroundColor = .white
+        self.setupLayout()
     }
     
 
