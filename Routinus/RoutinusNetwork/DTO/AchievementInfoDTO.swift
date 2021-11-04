@@ -8,19 +8,19 @@
 import Foundation
 
 public struct AchievementInfoDTO {
-    var userUDID: String
-    var day: Int
-    var achievementCount: Int
-    var totalCount: Int
+    public var userUDID: String
+    public var day: Int
+    public var achievementCount: Int
+    public var totalCount: Int
     
-    init() {
+    public init() {
         self.userUDID = ""
         self.day = 0
         self.achievementCount = 0
         self.totalCount = 0
     }
     
-    init(userUDID: String, day: Int, achievementCount: Int, totalCount: Int) {
+    public init(userUDID: String, day: Int, achievementCount: Int, totalCount: Int) {
         self.userUDID = userUDID
         self.day = day
         self.achievementCount = achievementCount

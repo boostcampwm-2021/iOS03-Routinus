@@ -8,13 +8,13 @@
 import Foundation
 
 public struct UserDTO {
-    var udid: String
-    var name: String
-    var continuityDay: Int
-    var userImageCategoryID: String
-    var grade: Int
+    public var udid: String
+    public var name: String
+    public var continuityDay: Int
+    public var userImageCategoryID: String
+    public var grade: Int
     
-    init() {
+    public init() {
         self.udid = ""
         self.name = ""
         self.continuityDay = 0
@@ -22,7 +22,7 @@ public struct UserDTO {
         self.grade = 0
     }
     
-    init(udid: String, name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
+    public init(udid: String, name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
         self.udid = udid
         self.name = name
         self.continuityDay = continuityDay
