@@ -81,7 +81,7 @@ class CalendarDelegate: JTACMonthViewDelegate {
 
     private func handleCellAlpha(cell: DateCell, date: Date) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "yyyyMMdd"
         let dateString = dateFormatter.string(from: date)
         guard let dateData = dummyCalendar.filter({ $0.date == dateString }).first else { return }
         let date = dateData.date

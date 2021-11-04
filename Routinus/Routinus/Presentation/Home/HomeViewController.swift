@@ -117,11 +117,11 @@ class HomeViewController: UIViewController {
         Routine(category: .lifeStyle, challengeTitle: "1L이상 물마시기", percentage: 0.6)
     ]
 
-    let dummyCalendar = [RoutineData(date: "2021-11-02", percentage: 0.2),
-                         RoutineData(date: "2021-11-04", percentage: 0.8),
-                         RoutineData(date: "2021-11-05", percentage: 1),
-                         RoutineData(date: "2021-11-06", percentage: 0.5),
-                         RoutineData(date: "2021-11-07", percentage: 0.4)]
+    let dummyCalendar = [RoutineData(date: "20211102", percentage: 0.2),
+                         RoutineData(date: "20211104", percentage: 0.8),
+                         RoutineData(date: "20211105", percentage: 1),
+                         RoutineData(date: "20211106", percentage: 0.5),
+                         RoutineData(date: "20211107", percentage: 0.4)]
 
     private let calendarView = JTACMonthView(frame: .zero)
 
@@ -346,9 +346,12 @@ extension HomeViewController: JTACMonthViewDataSource {
     func setRangeDates() {
         guard let gregorianCalendar = NSCalendar(calendarIdentifier: .gregorian) else { return }
         for dates in dummyCalendar {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            guard let dateData = dateFormatter.date(from: dates.date) else { return }
+
             var rangeDate: [Date] = []
-            let dateArray = dates.date.split(separator: "-").map { Int(String($0)) }
-            let dateComponent = DateComponents(year: dateArray[0], month: dateArray[1], day: dateArray[2])
+            let dateComponent = DateComponents(year: dateData.year, month: dateData.month, day: dateData.day)
             let date = gregorianCalendar.date(from: dateComponent as DateComponents)!
             rangeDate.append(date)
             calendarView.selectDates(rangeDate)
