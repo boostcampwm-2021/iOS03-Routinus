@@ -12,7 +12,7 @@ import JTAppleCalendar
 class CalendarDelegate: JTACMonthViewDelegate {
     static let shared = CalendarDelegate()
     private init() {}
-    var dummyCalendar: [RoutineData] = []
+    var dummyCalendar: [AchievementInfo] = []
     var formatter: DateFormatter?
 
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath)
@@ -85,9 +85,9 @@ class CalendarDelegate: JTACMonthViewDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
         let dateString = dateFormatter.string(from: date)
-        guard let dateData = dummyCalendar.filter({ $0.date == dateString }).first else { return }
-        let date = dateData.date
-        let percentage = dateData.percentage
+        guard let dateData = dummyCalendar.filter({ "\($0.yearMonth)\($0.day)" == dateString }).first else { return }
+        let date = "\(dateData.yearMonth)\(dateData.day)"
+        let percentage = Double(dateData.achievementCount) / Double(dateData.totalCount)
 
         if dateString == date {
             cell.selectedView.alpha = percentage
