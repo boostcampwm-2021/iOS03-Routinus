@@ -10,7 +10,6 @@
 		0DD1631A27311F0200DC5970 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631927311F0200DC5970 /* DateCell.swift */; };
 		0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631B27312AC700DC5970 /* DateHeader.swift */; };
 		0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1632C2733729800DC5970 /* CalendarDelegate.swift */; };
-		0DEBB2FF2733994000B7DE6C /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEBB2FE2733993F00B7DE6C /* Date+Extensions.swift */; };
 		14FCD60B27311CF600626E74 /* RoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FCD60A27311CF600626E74 /* RoutineCell.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
@@ -28,7 +27,7 @@
 		44AAA31927326870002E16C4 /* TodayRoutineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA31827326870002E16C4 /* TodayRoutineDTO.swift */; };
 		44AAA31B27327D07002E16C4 /* AchievementInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA31A27327D06002E16C4 /* AchievementInfoDTO.swift */; };
 		44AAA3212732A049002E16C4 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 44AAA3202732A049002E16C4 /* JTAppleCalendar */; };
-		44AAA3242733819B002E16C4 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA3232733819B002E16C4 /* Date+Extension.swift */; };
+		44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA3232733819B002E16C4 /* Date+Extensions.swift */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
 		E9753900273220F6004358C5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* User.swift */; };
 		E975390627325538004358C5 /* AchievementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* AchievementInfo.swift */; };
@@ -81,7 +80,6 @@
 		0DD1631927311F0200DC5970 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		0DD1631B27312AC700DC5970 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		0DD1632C2733729800DC5970 /* CalendarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDelegate.swift; sourceTree = "<group>"; };
-		0DEBB2FE2733993F00B7DE6C /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		14FCD60A27311CF600626E74 /* RoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCell.swift; sourceTree = "<group>"; };
 		21D4AB5FB6AB0717E5C7402C /* Pods-Routinus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.release.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.release.xcconfig"; sourceTree = "<group>"; };
 		2813D98BB29BFEBCA9A154AE /* Pods-Routinus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.debug.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.debug.xcconfig"; sourceTree = "<group>"; };
@@ -102,7 +100,7 @@
 		44AAA3162732660D002E16C4 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		44AAA31827326870002E16C4 /* TodayRoutineDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineDTO.swift; sourceTree = "<group>"; };
 		44AAA31A27327D06002E16C4 /* AchievementInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementInfoDTO.swift; sourceTree = "<group>"; };
-		44AAA3232733819B002E16C4 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		44AAA3232733819B002E16C4 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E97538FF273220F6004358C5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E975390527325538004358C5 /* AchievementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementInfo.swift; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 				0DD1631927311F0200DC5970 /* DateCell.swift */,
 				0DD1631B27312AC700DC5970 /* DateHeader.swift */,
 				0DD1632C2733729800DC5970 /* CalendarDelegate.swift */,
-				0DEBB2FE2733993F00B7DE6C /* Date+Extensions.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -221,7 +218,7 @@
 		44AAA32227338181002E16C4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				44AAA3232733819B002E16C4 /* Date+Extension.swift */,
+				44AAA3232733819B002E16C4 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -585,8 +582,7 @@
 				E975390627325538004358C5 /* AchievementInfo.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
 				0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */,
-				0DEBB2FF2733994000B7DE6C /* Date+Extensions.swift in Sources */,
-				44AAA3242733819B002E16C4 /* Date+Extension.swift in Sources */,
+				44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
