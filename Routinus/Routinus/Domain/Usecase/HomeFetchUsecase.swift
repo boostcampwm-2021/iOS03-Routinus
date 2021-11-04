@@ -14,13 +14,13 @@ protocol HomeFetchableUsecase {
     func fetchTodayRoutine()
     func fetchAcheivementInfo(yearMonth: String)
 
-    var userInfoSignal: PassthroughSubject<UserInfo, Never> { get }
+    var userInfoSignal: PassthroughSubject<User, Never> { get }
     var todayRoutineSignal: PassthroughSubject<[TodayRoutine], Never> { get }
     var achievementSignal: PassthroughSubject<[AchievementInfo], Never> { get }
 }
 
 struct HomeFetchUsecase: HomeFetchableUsecase {
-    var userInfoSignal = PassthroughSubject<UserInfo, Never>()
+    var userInfoSignal = PassthroughSubject<User, Never>()
     var todayRoutineSignal = PassthroughSubject<[TodayRoutine], Never>()
     var achievementSignal = PassthroughSubject<[AchievementInfo], Never>()
 
@@ -29,7 +29,7 @@ struct HomeFetchUsecase: HomeFetchableUsecase {
 
         Task {
             guard let userDTO = try? await RoutinusNetwork.user(of: udid) else { return }
-            let userInfo = UserInfo(userDTO: userDTO)
+            let userInfo = User(userDTO: userDTO)
             userInfoSignal.send(userInfo)
         }
     }

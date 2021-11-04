@@ -14,7 +14,7 @@ protocol HomeViewModelInput {
 }
 
 protocol HomeViewModelOutput {
-    var userInfo: CurrentValueSubject<UserInfo, Never> { get }
+    var userInfo: CurrentValueSubject<User, Never> { get }
     var todayRoutine: CurrentValueSubject<[TodayRoutine], Never> { get }
     var achievementInfo: CurrentValueSubject<[AchievementInfo], Never> { get }
 
@@ -26,7 +26,7 @@ protocol HomeViewModelOutput {
 protocol HomeViewModelType: HomeViewModelInput, HomeViewModelOutput { }
 
 class HomeViewModel: HomeViewModelType {
-    var userInfo = CurrentValueSubject<UserInfo, Never>(UserInfo())
+    var userInfo = CurrentValueSubject<User, Never>(User())
     var todayRoutine = CurrentValueSubject<[TodayRoutine], Never>([])
     var achievementInfo = CurrentValueSubject<[AchievementInfo], Never>([])
 
