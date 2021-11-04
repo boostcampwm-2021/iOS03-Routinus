@@ -5,9 +5,10 @@
 //  Created by 박상우 on 2021/11/03.
 //
 
-import Foundation
-import RoutinusNetwork
 import Combine
+import Foundation
+
+import RoutinusNetwork
 
 protocol HomeFetchableUsecase {
     func fetchUserInfo()
