@@ -34,8 +34,11 @@ class HomeViewModel: HomeViewModelOutput {
     var showChallengeDetailView = PassthroughSubject<ChallengeInfo, Never>()
     var usecase: HomeFetchableUsecase
 
+    let formatter = DateFormatter()
+
     init(usecase: HomeFetchableUsecase) {
         self.usecase = usecase
+        setDateFormatter()
     }
 }
 
@@ -55,5 +58,12 @@ extension HomeViewModel: HomeViewModelInput {
 extension HomeViewModel {
     func fetchMyRoutineData() {
         // TODO: Usecase 데이터 받아오기
+    }
+}
+
+extension HomeViewModel {
+    func setDateFormatter() {
+        self.formatter.timeZone = Calendar.current.timeZone
+        self.formatter.locale = Calendar.current.locale
     }
 }
