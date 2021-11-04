@@ -20,7 +20,7 @@ extension Date {
 
         return abs(days) + 1
     }
-    
+
     static func currentYearMonth() -> String {
         let dateComponents = Calendar.current.dateComponents([.year, .month], from: Date.now)
         

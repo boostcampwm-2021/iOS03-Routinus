@@ -254,6 +254,7 @@
 				E97538FF273220F6004358C5 /* UserInfo.swift */,
 				E97539012732210C004358C5 /* ChllangeInfo.swift */,
 				E975390527325538004358C5 /* AchievementInfo.swift */,
+				E975390527325538004358C5 /* ArchievementInfo.swift */,
 				E9B1298127336EE50072D254 /* TodayRoutine.swift */,
 			);
 			path = Entity;
