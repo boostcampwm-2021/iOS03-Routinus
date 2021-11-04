@@ -83,7 +83,6 @@ class HomeViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.tintColor = .black
-        button.isUserInteractionEnabled = true
         button.addTarget(self, action: #selector(didTappedAddButton), for: .touchUpInside)
         return button
     }()
