@@ -21,7 +21,7 @@ class AppCoordinator: Coordinator {
     }
 
     private func configureNavigationController() {
-        self.navigationController.setNavigationBarHidden(true, animated: false)
+        self.navigationController.navigationBar.isHidden = true
     }
 
     private func configureTabBar() {
