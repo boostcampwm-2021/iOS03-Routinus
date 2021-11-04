@@ -7,23 +7,44 @@
 
 import Foundation
 import RoutinusNetwork
+import Combine
 
 protocol HomeFetchableUsecase {
     func fetchUserInfo()
     func fetchTodayRoutine()
-    func archivementInfo()
+    func archeivementInfo()
+
+    var userInfoSignal: PassthroughSubject<UserInfo, Never> { get }
+    var todayRoutineSignal: PassthroughSubject<[TodayRoutine], Never> { get }
+    var archievementSignal: PassthroughSubject<[ArchievementInfo], Never> { get }
 }
 
 struct HomeFetchUsecase: HomeFetchableUsecase {
+    var userInfoSignal = PassthroughSubject<UserInfo, Never>()
+    var todayRoutineSignal = PassthroughSubject<[TodayRoutine], Never>()
+    var archievementSignal = PassthroughSubject<[ArchievementInfo], Never>()
+
     func fetchUserInfo() {
+        let udid = "BD96E9E9-C0D7-46E6-BDC2-A18705B6E52C"
         
+        Task {
+            guard let userDTO = try? await RoutinusNetwork.user(of: udid) else { return }
+            let userInfo = UserInfo(userDTO: userDTO)
+            userInfoSignal.send(userInfo)
+        }
     }
-    
+
     func fetchTodayRoutine() {
+        let udid = "BD96E9E9-C0D7-46E6-BDC2-A18705B6E52C"
         
+        Task {
+            guard let list = try? await RoutinusNetwork.routineList(of: udid) else { return }
+            let todayRoutine = list.map { TodayRoutine(todayRoutineDTO: $0) }
+            todayRoutineSignal.send(todayRoutine)
+        }
     }
-    
-    func archivementInfo() {
-    
+
+    func archeivementInfo() {
+        
     }
 }
