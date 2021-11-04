@@ -7,5 +7,34 @@
 
 import Foundation
 
+import RoutinusNetwork
+
 struct UserInfo {
+    var name: String
+    var continuityDay: Int
+    var userImageCategoryID: String
+    var grade: Int
+    
+    init() {
+        self.name = ""
+        self.continuityDay = 0
+        self.userImageCategoryID = ""
+        self.grade = 0
+    }
+    
+    init(name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
+        self.name = name
+        self.continuityDay = continuityDay
+        self.userImageCategoryID = userImageCategoryID
+        self.grade = grade
+    }
+    
+    init(userDTO: UserDTO) {
+        self.name = userDTO.name
+        self.continuityDay = userDTO.continuityDay
+        self.userImageCategoryID = userDTO.userImageCategoryID
+        self.grade = userDTO.grade
+    }
 }
+
+
