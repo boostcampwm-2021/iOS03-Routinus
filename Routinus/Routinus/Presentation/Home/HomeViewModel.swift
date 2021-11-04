@@ -9,8 +9,8 @@ import Combine
 import Foundation
 
 protocol HomeViewModelInput {
-    func didTappedTodayRoutine()
-    func didTappedShowChallengeButton(challengeID: String)
+    func didTappedTodayRoutine(challengeID: String)
+    func didTappedShowChallengeButton()
 }
 
 protocol HomeViewModelOutput {
@@ -46,12 +46,12 @@ class HomeViewModel: HomeViewModelType {
 }
 
 extension HomeViewModel {
-    func didTappedTodayRoutine() {
-        self.showChallengeSignal.send()
+    func didTappedTodayRoutine(challengeID: String) {
+        self.showChallengeDetailSignal.send(challengeID)
     }
 
-    func didTappedShowChallengeButton(challengeID: String) {
-        self.showChallengeDetailSignal.send(challengeID)
+    func didTappedShowChallengeButton() {
+        self.showChallengeSignal.send()
     }
 }
 

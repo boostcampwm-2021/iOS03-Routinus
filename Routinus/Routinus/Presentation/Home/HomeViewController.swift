@@ -42,6 +42,7 @@ class HomeViewController: UIViewController {
     private lazy var seedImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "seed")
         return imageView
     }()
 
@@ -82,6 +83,8 @@ class HomeViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.tintColor = .black
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(didTappedAddButton), for: .touchUpInside)
         return button
     }()
 
@@ -135,6 +138,12 @@ class HomeViewController: UIViewController {
         configureViews()
         addCalendar()
         configureViewModel()
+    }
+}
+
+extension HomeViewController {
+    @objc func didTappedAddButton() {
+        self.viewModel?.didTappedShowChallengeButton()
     }
 }
 
@@ -201,6 +210,7 @@ extension HomeViewController {
     private func configureRoutineViews() {
         self.contentView.addSubview(todayRoutineView)
         self.todayRoutineView.snp.makeConstraints { make in
+            make.height.equalTo(200) // TODO: 높이 설정 필요
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.continuityView.snp.bottom).offset(25)
         }
@@ -322,6 +332,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         // TODO: - 인증하기 버튼 배경색 정하기
         auth.backgroundColor = .black
         return UISwipeActionsConfiguration(actions: [auth])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let challengeID = viewModel?.todayRoutine.value[indexPath.row].challengeID else { return }
+        self.viewModel?.didTappedTodayRoutine(challengeID: challengeID)
     }
 }
 
