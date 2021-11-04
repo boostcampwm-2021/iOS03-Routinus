@@ -14,7 +14,7 @@ struct AchievementInfo {
     let day: String
     let achievementCount: Int
     let totalCount: Int
-    
+
     init(achievementDTO: AchievementInfoDTO) {
         self.yearMonth = achievementDTO.yearMonth
         self.day = achievementDTO.day

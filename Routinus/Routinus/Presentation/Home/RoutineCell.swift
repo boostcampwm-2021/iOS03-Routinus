@@ -142,6 +142,6 @@ extension RoutineCell {
             categoryImageView.image = UIImage(systemName: routine.category.categoryImage)
         }
         categoryName.text = routine.title
-        progressView.progress = routine.percentage
+        progressView.progress = Float(routine.authCount) / Float(routine.totalCount)
     }
 }

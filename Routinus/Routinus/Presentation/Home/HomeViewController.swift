@@ -5,16 +5,11 @@
 //  Created by 유석환 on 2021/11/01.
 //
 
+import Combine
+import UIKit
+
 import JTAppleCalendar
 import SnapKit
-import UIKit
-import Combine
-
-struct Routine {
-    let category: Category
-    let challengeTitle: String
-    let percentage: Float
-}
 
 struct RoutineData {
     let date: String
@@ -27,16 +22,16 @@ class HomeViewController: UIViewController {
     
     private var viewModel: HomeViewModelType?
     private var cancellables = Set<AnyCancellable>()
-    
+
     init(with viewModel: HomeViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     private lazy var continuityView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
@@ -93,6 +88,8 @@ class HomeViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.estimatedRowHeight = 100
+        tableView.alwaysBounceVertical = false
+        tableView.separatorStyle = .none
         return tableView
     }()
 
@@ -125,16 +122,7 @@ class HomeViewController: UIViewController {
         return label
     }()
 
-    let dummyList: [Routine] = [
-        Routine(category: .exercise, challengeTitle: "30분 이상 걷기", percentage: 0.7),
-        Routine(category: .lifeStyle, challengeTitle: "1L이상 물마시기", percentage: 0.6)
-    ]
-
-    let dummyCalendar = [RoutineData(date: "20211102", percentage: 0.2),
-                         RoutineData(date: "20211104", percentage: 0.8),
-                         RoutineData(date: "20211105", percentage: 1),
-                         RoutineData(date: "20211106", percentage: 0.5),
-                         RoutineData(date: "20211107", percentage: 0.4)]
+    var achievementData: [AchievementInfo] = []
 
     private let calendarView = JTACMonthView(frame: .zero)
 
@@ -234,7 +222,7 @@ extension HomeViewController {
             make.top.equalTo(todayRoutineTitle.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
-            make.height.equalTo(200)
+            make.height.equalTo(120)
         }
     }
 
@@ -276,15 +264,29 @@ extension HomeViewController {
         self.viewModel?.userInfo
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] userInfo in
-                self?.navigationItem.title = userInfo.name + "님의 Routine"
-                self?.continuityDayLabel.text = String(userInfo.continuityDay)
+                guard let self = self else { return }
+                self.navigationItem.title = userInfo.name + "님의 Routine"
+                self.continuityDayLabel.text = String(userInfo.continuityDay)
             })
             .store(in: &cancellables)
-        
+
         self.viewModel?.todayRoutine
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routineList in
-                self?.tableView.reloadData()
+                guard let self = self else { return }
+//                self.tableView.snp.makeConstraints { make in
+//                    make.height.equalTo(60 * routineList.count)
+//                }
+                self.tableView.reloadData()
+            })
+            .store(in: &cancellables)
+
+        self.viewModel?.achievementInfo
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] achieveList in
+                guard let self = self else { return }
+                self.achievementData = achieveList
+                self.setRangeDates()
             })
             .store(in: &cancellables)
     }
@@ -296,10 +298,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // - TODO: 테이블뷰 높이 조정 데이터 바인딩 쪽으로 옮기기 
-        self.tableView.snp.makeConstraints { make in
-            make.height.equalTo(60*dummyList.count)
-        }
         return self.viewModel?.todayRoutine.value.count ?? 0
     }
 
@@ -311,7 +309,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineCell.identifier, for: indexPath)
                 as? RoutineCell,
               let routineList = self.viewModel?.todayRoutine.value else { return UITableViewCell() }
-        
+
         cell.configureCell(routine: routineList[indexPath.row])
         cell.selectionStyle = .none
         return cell
@@ -330,7 +328,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 extension HomeViewController {
     private func addCalendar() {
         let delegate = CalendarDelegate.shared
-        delegate.dummyCalendar = dummyCalendar
+        delegate.dummyCalendar = achievementData
 //        delegate.formatter = viewModel.formatter
 
         calendarView.scrollDirection = .horizontal
@@ -363,7 +361,6 @@ extension HomeViewController {
 extension HomeViewController: JTACMonthViewDataSource {
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         todayDate()
-        setRangeDates()
         return ConfigurationParameters(startDate: Date(), endDate: Date())
     }
 
@@ -379,16 +376,17 @@ extension HomeViewController: JTACMonthViewDataSource {
 
     func setRangeDates() {
         guard let gregorianCalendar = NSCalendar(calendarIdentifier: .gregorian) else { return }
-        for dates in dummyCalendar {
+        for dates in achievementData {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMdd"
-            guard let dateData = dateFormatter.date(from: dates.date) else { return }
+            guard let dateData = dateFormatter.date(from: "\(dates.yearMonth)\(dates.day)") else { return }
 
             var rangeDate: [Date] = []
             let dateComponent = DateComponents(year: dateData.year, month: dateData.month, day: dateData.day)
             let date = gregorianCalendar.date(from: dateComponent as DateComponents)!
             rangeDate.append(date)
             calendarView.selectDates(rangeDate)
+            calendarView.reloadDates(rangeDate)
         }
     }
 }

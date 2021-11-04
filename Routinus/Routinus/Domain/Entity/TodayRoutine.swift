@@ -15,7 +15,7 @@ struct TodayRoutine {
     let title: String
     let authCount: Int
     let totalCount: Int
-    
+
     init(todayRoutineDTO: TodayRoutineDTO) {
         self.challengeID = todayRoutineDTO.challengeID
         self.category = Category.categoryByID(todayRoutineDTO.categoryID)
