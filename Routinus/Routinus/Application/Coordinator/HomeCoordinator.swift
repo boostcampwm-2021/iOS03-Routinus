@@ -9,6 +9,7 @@ import Combine
 import UIKit
 
 class HomeCoordinator: Coordinator {
+    var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
@@ -21,16 +22,16 @@ class HomeCoordinator: Coordinator {
         let homeViewModel = HomeViewModel(usecase: HomeFetchUsecase())
         let homeViewController = HomeViewController(with: homeViewModel)
         homeViewModel.showChallengeSignal
-            .sink { [weak self] challengeID in
+            .sink { [weak self] _ in
                 let challengeViewController = ChallengeViewController()
                 self?.navigationController.pushViewController(challengeViewController, animated: false)
             }
             .store(in: &cancellables)
         
         homeViewModel.showChallengeDetailSignal
-            .sink { [weak self] _ in
-                let detailViewController = DetailViewController()
-                self?.navigationController.pushViewController(detailViewController, animated: false)
+            .sink { [weak self] challengeID in
+                guard let self = self,
+                      let tapBarCoordinator = self.parentCoordinator else { return }
             }
             .store(in: &cancellables)
         
