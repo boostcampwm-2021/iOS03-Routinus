@@ -36,6 +36,14 @@ class HomeCoordinator: Coordinator {
                 tapBarCoordinator.moveToChallegeType(type: .detail, challengeID: challengeID)
             }
             .store(in: &cancellables)
+        
+        homeViewModel.showChallengeAuthSignal
+            .sink { [weak self] challengeID in
+                guard let self = self,
+                      let tapBarCoordinator = self.parentCoordinator as? TabBarCoordinator else { return }
+                tapBarCoordinator.moveToChallegeType(type: .auth, challengeID: challengeID)
+            }
+            .store(in: &cancellables)
 
         self.navigationController.pushViewController(homeViewController, animated: false)
     }

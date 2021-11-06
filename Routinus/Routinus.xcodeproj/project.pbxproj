@@ -48,6 +48,7 @@
 		E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */; };
 		E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC22731258A00A14A0F /* HomeViewModel.swift */; };
 		E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E994744F2736D54C0054A631 /* DetailCoordinator.swift */; };
+		E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99474512736F4B30054A631 /* AuthCoordinator.swift */; };
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +121,7 @@
 		E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		E9797CC22731258A00A14A0F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E994744F2736D54C0054A631 /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
+		E99474512736F4B30054A631 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -320,6 +322,7 @@
 				E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */,
 				E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */,
 				E994744F2736D54C0054A631 /* DetailCoordinator.swift */,
+				E99474512736F4B30054A631 /* AuthCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				E975390627325538004358C5 /* AchievementInfo.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
 				0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */,
+				E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */,
 				44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,

@@ -8,10 +8,25 @@
 import UIKit
 
 class AuthViewController: UIViewController {
+    
+    lazy var cntLabel: UILabel = {
+        let label = UILabel()
+        label.text = "AuthView"
+        
+        return label
+    }()
+    
+    private func setupLayout() {
+        self.view.addSubview(cntLabel)
+        self.cntLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.cntLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.cntLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = .white
+        setupLayout()
         // Do any additional setup after loading the view.
     }
     

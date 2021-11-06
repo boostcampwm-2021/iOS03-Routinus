@@ -11,6 +11,7 @@ import Foundation
 protocol HomeViewModelInput {
     func didTappedTodayRoutine(challengeID: String)
     func didTappedShowChallengeButton()
+    func didTappedTodayRoutineAuth(challengeID: String)
 }
 
 protocol HomeViewModelOutput {
@@ -21,6 +22,7 @@ protocol HomeViewModelOutput {
     // coordinator signal
     var showChallengeSignal: PassthroughSubject<Void, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
+    var showChallengeAuthSignal: PassthroughSubject<String, Never> { get }
     var formatter: DateFormatter { get }
 }
 
@@ -33,6 +35,7 @@ class HomeViewModel: HomeViewModelType {
 
     var showChallengeSignal = PassthroughSubject<Void, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
+    var showChallengeAuthSignal = PassthroughSubject<String, Never>()
 
     var usecase: HomeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
@@ -53,6 +56,10 @@ extension HomeViewModel {
 
     func didTappedShowChallengeButton() {
         self.showChallengeSignal.send()
+    }
+    
+    func didTappedTodayRoutineAuth(challengeID: String) {
+        self.showChallengeAuthSignal.send(challengeID)
     }
 }
 

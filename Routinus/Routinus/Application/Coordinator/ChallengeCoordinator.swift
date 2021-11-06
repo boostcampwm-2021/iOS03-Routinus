@@ -30,11 +30,21 @@ class ChallengeCoordinator: Coordinator {
         case .detail:
             resetToRoot()
             if let challengeID = challengeID {
-                let detailCoordinator = DetailCoordinator(navigationController: navigationController, challengeID: challengeID)
+                let detailCoordinator = DetailCoordinator(
+                    navigationController: navigationController,
+                    challengeID: challengeID
+                )
                 detailCoordinator.start()
             }
         case .auth:
             resetToRoot()
+            if let challengeID = challengeID {
+                let authCoordinator = AuthCoordinator(
+                    navigationController: navigationController,
+                    challengeID: challengeID
+                )
+                authCoordinator.start()
+            }
         }
     }
 
