@@ -20,4 +20,25 @@ class ChallengeCoordinator: Coordinator {
         let challengeViewController = ChallengeViewController()
         self.navigationController.pushViewController(challengeViewController, animated: false)
     }
+
+    func moveTo(type: ChallegeType, challengeID: String? = nil) {
+        switch type {
+        case .main:
+            resetToRoot()
+        case .search:
+            resetToRoot()
+        case .detail:
+            resetToRoot()
+            if let challengeID = challengeID {
+                let detailCoordinator = DetailCoordinator(navigationController: navigationController, challengeID: challengeID)
+                detailCoordinator.start()
+            }
+        case .auth:
+            resetToRoot()
+        }
+    }
+
+    private func resetToRoot() {
+        self.navigationController.popToRootViewController(animated: false)
+    }
 }

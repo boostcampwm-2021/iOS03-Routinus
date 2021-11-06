@@ -23,18 +23,20 @@ class HomeCoordinator: Coordinator {
         let homeViewController = HomeViewController(with: homeViewModel)
         homeViewModel.showChallengeSignal
             .sink { [weak self] _ in
-                let challengeViewController = ChallengeViewController()
-                self?.navigationController.pushViewController(challengeViewController, animated: false)
+                guard let self = self,
+                      let tapBarCoordinator = self.parentCoordinator as? TabBarCoordinator else { return }
+                tapBarCoordinator.moveToChallegeType(type: .main)
             }
             .store(in: &cancellables)
-        
+
         homeViewModel.showChallengeDetailSignal
             .sink { [weak self] challengeID in
                 guard let self = self,
-                      let tapBarCoordinator = self.parentCoordinator else { return }
+                      let tapBarCoordinator = self.parentCoordinator as? TabBarCoordinator else { return }
+                tapBarCoordinator.moveToChallegeType(type: .detail, challengeID: challengeID)
             }
             .store(in: &cancellables)
-        
+
         self.navigationController.pushViewController(homeViewController, animated: false)
     }
 }

@@ -12,6 +12,10 @@ class TabBarCoordinator: NSObject, Coordinator {
     var childCoordinator: [Coordinator] = []
     var navigationController: UINavigationController
     var tabBarController: UITabBarController
+    var homeCoordinator: HomeCoordinator?
+    var challengeCoordinator: ChallengeCoordinator?
+    var manageCoordinator: ManageCoordinator?
+    var myPageCoordinator: MyPageCoordinator?
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -21,6 +25,11 @@ class TabBarCoordinator: NSObject, Coordinator {
 
     func start() {
         configureTabBarController()
+    }
+
+    func moveToChallegeType(type: ChallegeType, challengeID: String? = nil) {
+        self.tabBarController.selectedIndex = 1
+        challengeCoordinator?.moveTo(type: type, challengeID: challengeID)
     }
 
     private func configureTabBarController() {
@@ -37,22 +46,26 @@ class TabBarCoordinator: NSObject, Coordinator {
 
         switch page {
         case .home:
-            let homeCoordinator = HomeCoordinator(navigationController: navigationController)
+            homeCoordinator = HomeCoordinator(navigationController: navigationController)
+            guard let homeCoordinator = homeCoordinator else { return navigationController }
             homeCoordinator.start()
             homeCoordinator.parentCoordinator = self
             self.childCoordinator.append(homeCoordinator)
         case .challenge:
-            let challengeCoordinator = ChallengeCoordinator(navigationController: navigationController)
+            challengeCoordinator = ChallengeCoordinator(navigationController: navigationController)
+            guard let challengeCoordinator = challengeCoordinator else { return navigationController }
             challengeCoordinator.start()
             challengeCoordinator.parentCoordinator = self
             self.childCoordinator.append(challengeCoordinator)
         case .manage:
-            let manageCoordinator = ManageCoordinator(navigationController: navigationController)
+            manageCoordinator = ManageCoordinator(navigationController: navigationController)
+            guard let manageCoordinator = manageCoordinator else { return navigationController }
             manageCoordinator.start()
             manageCoordinator.parentCoordinator = self
             self.childCoordinator.append(manageCoordinator)
         case .myPage:
-            let myPageCoordinator = MyPageCoordinator(navigationController: navigationController)
+            myPageCoordinator = MyPageCoordinator(navigationController: navigationController)
+            guard let myPageCoordinator = myPageCoordinator else { return navigationController }
             myPageCoordinator.start()
             myPageCoordinator.parentCoordinator = self
             self.childCoordinator.append(myPageCoordinator)
@@ -115,4 +128,11 @@ enum TabBarPage {
             return UIImage(systemName: "person.fill")
         }
     }
+}
+
+enum ChallegeType {
+    case main
+    case search
+    case detail
+    case auth
 }
