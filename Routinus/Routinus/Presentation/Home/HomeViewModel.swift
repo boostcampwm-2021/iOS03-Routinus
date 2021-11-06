@@ -9,9 +9,9 @@ import Combine
 import Foundation
 
 protocol HomeViewModelInput {
-    func didTappedTodayRoutine(challengeID: String)
+    func didTappedTodayRoutine(index: Int)
     func didTappedShowChallengeButton()
-    func didTappedTodayRoutineAuth(challengeID: String)
+    func didTappedTodayRoutineAuth(index: Int)
 }
 
 protocol HomeViewModelOutput {
@@ -50,7 +50,8 @@ class HomeViewModel: HomeViewModelType {
 }
 
 extension HomeViewModel {
-    func didTappedTodayRoutine(challengeID: String) {
+    func didTappedTodayRoutine(index: Int) {
+        let challengeID = self.todayRoutine.value[index].challengeID
         self.showChallengeDetailSignal.send(challengeID)
     }
 
@@ -58,7 +59,8 @@ extension HomeViewModel {
         self.showChallengeSignal.send()
     }
     
-    func didTappedTodayRoutineAuth(challengeID: String) {
+    func didTappedTodayRoutineAuth(index: Int) {
+        let challengeID = self.todayRoutine.value[index].challengeID
         self.showChallengeAuthSignal.send(challengeID)
     }
 }
