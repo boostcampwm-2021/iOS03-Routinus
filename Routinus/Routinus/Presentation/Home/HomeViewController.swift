@@ -183,28 +183,6 @@ extension HomeViewController {
             make.leading.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
         }
-
-        // TODO: - firebase 데이터 연동
-        let day = 1
-        if day == 0 {
-            self.continuityView.addSubview(initContinuityLabel)
-            self.initContinuityLabel.snp.makeConstraints { make in
-                make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
-                make.centerY.equalToSuperview()
-            }
-        } else {
-            self.continuityView.addSubview(continuityDayLabel)
-            self.continuityDayLabel.snp.makeConstraints { make in
-                make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
-                make.centerY.equalToSuperview()
-            }
-
-            self.continuityView.addSubview(continuityInfoLabel)
-            self.continuityInfoLabel.snp.makeConstraints { make in
-                make.leading.equalTo(self.continuityDayLabel.snp.trailing).offset(5)
-                make.lastBaseline.equalTo(self.continuityDayLabel.snp.lastBaseline).offset(-2)
-            }
-        }
     }
 
     private func configureRoutineViews() {
@@ -270,13 +248,38 @@ extension HomeViewController {
         }
     }
 
+    private func configureContinuityLabel(userInfo: User) {
+        guard !userInfo.name.isEmpty else { return }
+        if userInfo.continuityDay == 0 {
+            self.continuityView.addSubview(self.initContinuityLabel)
+            self.initContinuityLabel.snp.makeConstraints { make in
+                make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
+                make.centerY.equalToSuperview()
+            }
+        } else {
+            self.initContinuityLabel.removeFromSuperview()
+            self.continuityView.addSubview(self.continuityDayLabel)
+            self.continuityDayLabel.snp.makeConstraints { make in
+                make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
+                make.centerY.equalToSuperview()
+            }
+
+            self.continuityView.addSubview(self.continuityInfoLabel)
+            self.continuityInfoLabel.snp.makeConstraints { make in
+                make.leading.equalTo(self.continuityDayLabel.snp.trailing).offset(5)
+                make.lastBaseline.equalTo(self.continuityDayLabel.snp.lastBaseline).offset(-2)
+            }
+            self.continuityDayLabel.text = String(userInfo.continuityDay)
+        }
+    }
+
     private func configureViewModel() {
         self.viewModel?.userInfo
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] userInfo in
                 guard let self = self else { return }
                 self.navigationItem.title = userInfo.name + "님의 Routine"
-                self.continuityDayLabel.text = String(userInfo.continuityDay)
+                self.configureContinuityLabel(userInfo: userInfo)
             })
             .store(in: &cancellables)
 
