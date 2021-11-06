@@ -47,6 +47,7 @@
 		E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */; };
 		E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */; };
 		E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC22731258A00A14A0F /* HomeViewModel.swift */; };
+		E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E994744F2736D54C0054A631 /* DetailCoordinator.swift */; };
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,7 @@
 		E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCoordinator.swift; sourceTree = "<group>"; };
 		E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCoordinator.swift; sourceTree = "<group>"; };
 		E9797CC22731258A00A14A0F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		E994744F2736D54C0054A631 /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -317,6 +319,7 @@
 				E9797CBC27310E1900A14A0F /* HomeCoordinator.swift */,
 				E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */,
 				E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */,
+				E994744F2736D54C0054A631 /* DetailCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -585,6 +588,7 @@
 				E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */,
+				E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */,
 				E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */,
 				E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */,
 				E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */,
