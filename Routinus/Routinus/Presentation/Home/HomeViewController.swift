@@ -210,7 +210,7 @@ extension HomeViewController {
     private func configureRoutineViews() {
         self.contentView.addSubview(todayRoutineView)
         self.todayRoutineView.snp.makeConstraints { make in
-            make.height.equalTo(200) // TODO: 높이 설정 필요
+            make.height.equalTo(22)
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.continuityView.snp.bottom).offset(25)
         }
