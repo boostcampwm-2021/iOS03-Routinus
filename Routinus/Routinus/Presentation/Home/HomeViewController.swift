@@ -232,7 +232,7 @@ extension HomeViewController {
             make.top.equalTo(todayRoutineTitle.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
-            make.height.equalTo(120)
+            make.height.equalTo(60)
         }
     }
 
@@ -284,9 +284,9 @@ extension HomeViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routineList in
                 guard let self = self else { return }
-//                self.tableView.snp.makeConstraints { make in
-//                    make.height.equalTo(60 * routineList.count)
-//                }
+                self.tableView.snp.updateConstraints { make in
+                    make.height.equalTo(60 * routineList.count)
+                }
                 self.tableView.reloadData()
             })
             .store(in: &cancellables)
