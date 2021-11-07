@@ -60,7 +60,7 @@ extension HomeViewController {
         self.continuityView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(10)
             make.height.equalTo(80)
         }
         
