@@ -157,6 +157,17 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		441CEDD4273796C4006C261F /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				441CEDD027378573006C261F /* ContinuityView.swift */,
+				441CEDD227378EBF006C261F /* TodayRoutineView.swift */,
+				14FCD60A27311CF600626E74 /* RoutineCell.swift */,
+				0DD1631D27312ACA00DC5970 /* Calendar */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		44AAA2A8272FDF8A002E16C4 = {
 			isa = PBXGroup;
 			children = (
@@ -303,12 +314,9 @@
 		E9797C9D2730F89400A14A0F /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				0DD1631D27312ACA00DC5970 /* Calendar */,
 				44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */,
-				14FCD60A27311CF600626E74 /* RoutineCell.swift */,
 				E9797CC22731258A00A14A0F /* HomeViewModel.swift */,
-				441CEDD027378573006C261F /* ContinuityView.swift */,
-				441CEDD227378EBF006C261F /* TodayRoutineView.swift */,
+				441CEDD4273796C4006C261F /* Subviews */,
 			);
 			path = Home;
 			sourceTree = "<group>";
