@@ -106,6 +106,18 @@ final class RoutineCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    func configureCell(routine: TodayRoutine) {
+        if UIImage(systemName: routine.category.categoryImage) == nil {
+            categoryImageView.image = UIImage(named: routine.category.categoryImage)
+        } else {
+            categoryImageView.image = UIImage(systemName: routine.category.categoryImage)
+        }
+        categoryName.text = routine.title
+        progressView.progress = Float(routine.authCount) / Float(routine.totalCount)
+        progressView.tintColor = UIColor(named: routine.category.categoryColor)
+        progressView.layer.borderColor = UIColor(named: routine.category.categoryColor)?.cgColor
+    }
 }
 
 extension RoutineCell {
@@ -131,17 +143,5 @@ extension RoutineCell {
             make.leading.equalTo(self.categoryImageView.snp.trailing).offset(10)
             make.centerY.equalToSuperview()
         }
-    }
-
-    func configureCell(routine: TodayRoutine) {
-        if UIImage(systemName: routine.category.categoryImage) == nil {
-            categoryImageView.image = UIImage(named: routine.category.categoryImage)
-        } else {
-            categoryImageView.image = UIImage(systemName: routine.category.categoryImage)
-        }
-        categoryName.text = routine.title
-        progressView.progress = Float(routine.authCount) / Float(routine.totalCount)
-        progressView.tintColor = UIColor(named: routine.category.categoryColor)
-        progressView.layer.borderColor = UIColor(named: routine.category.categoryColor)?.cgColor
     }
 }

@@ -68,18 +68,18 @@ final class ContinuityView: UIView {
     }
 }
 
-private extension ContinuityView {
-    func configure() {
+extension ContinuityView {
+    private func configure() {
         configureLayout()
         configureSubviews()
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         layer.borderWidth = 1
         layer.cornerRadius = 5
     }
     
-    func configureSubviews() {
+    private func configureSubviews() {
         addSubview(seedImage)
         seedImage.snp.makeConstraints { make in
             make.width.height.equalTo(60)

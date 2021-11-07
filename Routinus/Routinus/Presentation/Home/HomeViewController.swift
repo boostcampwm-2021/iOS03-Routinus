@@ -25,7 +25,7 @@ final class HomeViewController: UIViewController {
     
     private var viewModel: HomeViewModelType?
     private var cancellables = Set<AnyCancellable>()
-    var achievementData: [AchievementInfo] = []
+    private var achievementData: [AchievementInfo] = []
     private var calendarDelegate = CalendarDelegate.shared
 
     init(with viewModel: HomeViewModelType) {

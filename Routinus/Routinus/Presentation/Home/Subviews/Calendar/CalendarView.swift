@@ -92,8 +92,8 @@ final class CalendarView: UIView {
     }
 }
 
-private extension CalendarView {
-    func configure() {
+extension CalendarView {
+    private func configure() {
         configureSubviews()
     }
     

@@ -77,12 +77,12 @@ final class TodayRoutineView: UIView {
 //    }
 //}
 
-private extension TodayRoutineView {
-    func configure() {
+extension TodayRoutineView {
+    private func configure() {
         configureSubviews()
     }
     
-    func configureSubviews() {
+    private func configureSubviews() {
         addSubview(todayRoutineTitle)
         todayRoutineTitle.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
