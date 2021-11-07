@@ -98,13 +98,13 @@ class RoutineCell: UITableViewCell {
         self.configureViews()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.configureViews()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
     }
 }
 

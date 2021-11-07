@@ -19,10 +19,14 @@ struct RoutineData {
 class HomeViewController: UIViewController {
     private let scrollView: UIScrollView = UIScrollView()
     private let contentView: UIView = UIView()
-    private var calendarDelegate = CalendarDelegate.shared
+    private lazy var continuityView = ContinuityView()
+    private lazy var todayRoutineView = TodayRoutineView()
+    private lazy var calendarView = CalendarView()
     
     private var viewModel: HomeViewModelType?
     private var cancellables = Set<AnyCancellable>()
+    var achievementData: [AchievementInfo] = []
+    private var calendarDelegate = CalendarDelegate.shared
 
     init(with viewModel: HomeViewModelType) {
         self.viewModel = viewModel
@@ -32,13 +36,7 @@ class HomeViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
-    private lazy var continuityView = ContinuityView()
-    private lazy var todayRoutineView = TodayRoutineView()
-    private lazy var calendarView = CalendarView()
-
-    var achievementData: [AchievementInfo] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -177,7 +175,6 @@ extension HomeViewController: JTACMonthViewDataSource {
         let formatter = viewModel?.formatter
         formatter?.dateFormat = "yyyy.MM"
         let currentDate = formatter?.string(from: Date())
-
         calendarView.setMonthLabelText(currentDate ?? "" + "월")
     }
 
