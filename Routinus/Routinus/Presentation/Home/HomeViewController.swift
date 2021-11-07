@@ -33,44 +33,7 @@ class HomeViewController: UIViewController {
         super.init(coder: coder)
     }
 
-    private lazy var continuityView: UIView = {
-        let view = UIView()
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 5
-        return view
-    }()
-
-    private lazy var seedImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "seed")
-        imageView.isHidden = true
-        return imageView
-    }()
-
-    private lazy var initContinuityLabel: UILabel = {
-        let label = UILabel()
-        label.text = "시작이 반이다"
-        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        label.isHidden = true
-        return label
-    }()
-
-    private lazy var continuityDayLabel: UILabel = {
-        let label = UILabel()
-        label.text = "0"
-        label.font = UIFont.boldSystemFont(ofSize: 48)
-        label.isHidden = true
-        return label
-    }()
-
-    private lazy var continuityInfoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "일 연속 달성"
-        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        label.isHidden = true
-        return label
-    }()
+    private lazy var continuityView = ContinuityView()
 
     private lazy var todayRoutineView: UIView = {
         let view = UIView()
@@ -175,36 +138,8 @@ extension HomeViewController {
             make.height.equalTo(80)
         }
 
-        configureContinuityView()
         configureRoutineViews()
         configureCalendarTitle()
-    }
-
-    private func configureContinuityView() {
-        self.continuityView.addSubview(seedImage)
-        self.seedImage.snp.makeConstraints { make in
-            make.width.height.equalTo(60)
-            make.leading.equalToSuperview().offset(20)
-            make.centerY.equalToSuperview()
-        }
-
-        self.continuityView.addSubview(self.initContinuityLabel)
-        self.initContinuityLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
-            make.centerY.equalToSuperview()
-        }
-
-        self.continuityView.addSubview(self.continuityDayLabel)
-        self.continuityDayLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
-            make.centerY.equalToSuperview()
-        }
-
-        self.continuityView.addSubview(self.continuityInfoLabel)
-        self.continuityInfoLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.continuityDayLabel.snp.trailing).offset(5)
-            make.lastBaseline.equalTo(self.continuityDayLabel.snp.lastBaseline).offset(-2)
-        }
     }
 
     private func configureRoutineViews() {
@@ -270,29 +205,13 @@ extension HomeViewController {
         }
     }
 
-    private func configureContinuityLabel(userInfo: User) {
-        guard !userInfo.name.isEmpty else { return }
-        if userInfo.continuityDay == 0 {
-            self.seedImage.isHidden = true
-            self.initContinuityLabel.isHidden = false
-            self.continuityDayLabel.isHidden = true
-            self.continuityInfoLabel.isHidden = true
-        } else {
-            self.seedImage.isHidden = false
-            self.initContinuityLabel.isHidden = true
-            self.continuityDayLabel.isHidden = false
-            self.continuityInfoLabel.isHidden = false
-            self.continuityDayLabel.text = String(userInfo.continuityDay)
-        }
-    }
-
     private func configureViewModel() {
         self.viewModel?.userInfo
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] userInfo in
                 guard let self = self else { return }
                 self.navigationItem.title = userInfo.name + "님의 Routine"
-                self.configureContinuityLabel(userInfo: userInfo)
+                self.continuityView.configureContinuityLabel(userInfo: userInfo)
             })
             .store(in: &cancellables)
 
