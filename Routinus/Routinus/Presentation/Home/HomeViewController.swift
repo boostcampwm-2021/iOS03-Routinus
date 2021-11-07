@@ -104,7 +104,7 @@ extension HomeViewController {
             .sink(receiveValue: { [weak self] achieveList in
                 guard let self = self else { return }
                 self.achievementData = achieveList
-                self.calendarDelegate.dummyCalendar = self.achievementData
+                self.calendarDelegate.calendar = self.achievementData
                 self.setRangeDates()
             })
             .store(in: &cancellables)
@@ -114,7 +114,7 @@ extension HomeViewController {
         todayRoutineView.delegate = self
         todayRoutineView.dataSource = self
         
-        calendarDelegate.dummyCalendar = achievementData
+        calendarDelegate.calendar = achievementData
         calendarDelegate.formatter = viewModel?.formatter
 
         calendarView.delegate = calendarDelegate
