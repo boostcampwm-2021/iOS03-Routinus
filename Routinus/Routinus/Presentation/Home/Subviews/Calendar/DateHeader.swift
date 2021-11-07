@@ -11,16 +11,7 @@ import JTAppleCalendar
 import SnapKit
 
 final class DateHeader: JTACMonthReusableView {
-    static let identifier = "day"
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureDayStack()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        configureDayStack()
-    }
+    static let identifier = "DateHeader"
 
     private lazy var dayStack: UIStackView = {
         let stack = UIStackView()
@@ -77,14 +68,27 @@ final class DateHeader: JTACMonthReusableView {
         label.textColor = UIColor(named: "SaturdayColor")
         return label
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureDayStack()
+    }
 
-    func configureDayStack() {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        configureDayStack()
+    }
+}
+
+extension DateHeader {
+    private func configureDayStack() {
         self.addSubview(dayStack)
         self.dayStack.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(15)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
+        
         let dayLabels = [sunLabel, monLabel, tueLabel, wedLabel, thuLabel, friLabel, satLabel]
         dayLabels.forEach {
             $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
