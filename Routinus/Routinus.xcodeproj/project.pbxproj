@@ -152,9 +152,10 @@
 		0DD1631D27312ACA00DC5970 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				441CEDD527379939006C261F /* CalendarView.swift */,
+				0DD1632C2733729800DC5970 /* CalendarDelegate.swift */,
 				0DD1631927311F0200DC5970 /* DateCell.swift */,
 				0DD1631B27312AC700DC5970 /* DateHeader.swift */,
-				0DD1632C2733729800DC5970 /* CalendarDelegate.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -162,13 +163,28 @@
 		441CEDD4273796C4006C261F /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				441CEDD027378573006C261F /* ContinuityView.swift */,
-				441CEDD227378EBF006C261F /* TodayRoutineView.swift */,
-				14FCD60A27311CF600626E74 /* RoutineCell.swift */,
+				441CEDD82737A918006C261F /* Continuity */,
+				441CEDD72737A8E5006C261F /* TodayRoutine */,
 				0DD1631D27312ACA00DC5970 /* Calendar */,
-				441CEDD527379939006C261F /* CalendarView.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		441CEDD72737A8E5006C261F /* TodayRoutine */ = {
+			isa = PBXGroup;
+			children = (
+				441CEDD227378EBF006C261F /* TodayRoutineView.swift */,
+				14FCD60A27311CF600626E74 /* RoutineCell.swift */,
+			);
+			path = TodayRoutine;
+			sourceTree = "<group>";
+		};
+		441CEDD82737A918006C261F /* Continuity */ = {
+			isa = PBXGroup;
+			children = (
+				441CEDD027378573006C261F /* ContinuityView.swift */,
+			);
+			path = Continuity;
 			sourceTree = "<group>";
 		};
 		44AAA2A8272FDF8A002E16C4 = {
