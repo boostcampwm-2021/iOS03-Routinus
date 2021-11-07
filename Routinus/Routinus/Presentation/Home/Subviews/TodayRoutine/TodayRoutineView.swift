@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 final class TodayRoutineView: UIView {
-    private lazy var todayRoutineTitle: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "오늘 루틴"
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
@@ -83,8 +83,8 @@ extension TodayRoutineView {
     }
     
     private func configureSubviews() {
-        addSubview(todayRoutineTitle)
-        todayRoutineTitle.snp.makeConstraints { make in
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.top.equalToSuperview()
         }
@@ -97,7 +97,7 @@ extension TodayRoutineView {
 
         addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(todayRoutineTitle.snp.bottom).offset(10)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
             make.height.equalTo(60)

@@ -11,21 +11,21 @@ import JTAppleCalendar
 import SnapKit
 
 final class CalendarView: UIView {
-    private lazy var calendarTitle: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "요약"
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         return label
     }()
 
-    private lazy var previousMonth: UIButton = {
+    private lazy var previousMonthButton: UIButton = {
         let button = UIButton()
         button.setTitle("<", for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
     }()
 
-    private lazy var nextMonth: UIButton = {
+    private lazy var nextMonthButton: UIButton = {
         let button = UIButton()
         button.setTitle(">", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -98,36 +98,36 @@ extension CalendarView {
     }
 
     private func configureSubviews() {
-        addSubview(calendarTitle)
-        calendarTitle.snp.makeConstraints { make in
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
             make.top.leading.equalToSuperview()
             make.height.equalTo(50)
         }
 
-        addSubview(nextMonth)
-        nextMonth.snp.makeConstraints { make in
-            make.centerY.equalTo(calendarTitle.snp.centerY)
+        addSubview(nextMonthButton)
+        nextMonthButton.snp.makeConstraints { make in
+            make.centerY.equalTo(titleLabel.snp.centerY)
             make.trailing.equalToSuperview()
             make.height.equalTo(50)
         }
 
         addSubview(monthLabel)
         monthLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(calendarTitle.snp.centerY)
-            make.trailing.equalTo(nextMonth.snp.leading).offset(-10)
+            make.centerY.equalTo(titleLabel.snp.centerY)
+            make.trailing.equalTo(nextMonthButton.snp.leading).offset(-10)
             make.height.equalTo(50)
         }
 
-        addSubview(previousMonth)
-        previousMonth.snp.makeConstraints { make in
-            make.centerY.equalTo(calendarTitle.snp.centerY)
+        addSubview(previousMonthButton)
+        previousMonthButton.snp.makeConstraints { make in
+            make.centerY.equalTo(titleLabel.snp.centerY)
             make.trailing.equalTo(monthLabel.snp.leading).offset(-10)
             make.height.equalTo(50)
         }
 
         addSubview(jtacMonthView)
         jtacMonthView.snp.makeConstraints { make in
-            make.top.equalTo(calendarTitle.snp.bottom).offset(10)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.width.equalToSuperview()
             make.height.equalTo(300)
         }

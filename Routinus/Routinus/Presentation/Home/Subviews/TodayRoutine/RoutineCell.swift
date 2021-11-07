@@ -87,7 +87,7 @@ final class RoutineCell: UITableViewCell {
         return imageView
     }()
 
-    private lazy var categoryName: UILabel = {
+    private lazy var categoryNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         return label
@@ -113,7 +113,7 @@ final class RoutineCell: UITableViewCell {
         } else {
             categoryImageView.image = UIImage(systemName: routine.category.categoryImage)
         }
-        categoryName.text = routine.title
+        categoryNameLabel.text = routine.title
         progressView.progress = Float(routine.authCount) / Float(routine.totalCount)
         progressView.tintColor = UIColor(named: routine.category.categoryColor)
         progressView.layer.borderColor = UIColor(named: routine.category.categoryColor)?.cgColor
@@ -138,8 +138,8 @@ extension RoutineCell {
             make.centerY.equalToSuperview()
         }
 
-        self.contentView.addSubview(categoryName)
-        self.categoryName.snp.makeConstraints { make in
+        self.contentView.addSubview(categoryNameLabel)
+        self.categoryNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(self.categoryImageView.snp.trailing).offset(10)
             make.centerY.equalToSuperview()
         }

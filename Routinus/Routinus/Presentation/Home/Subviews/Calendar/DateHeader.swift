@@ -13,7 +13,7 @@ import SnapKit
 final class DateHeader: JTACMonthReusableView {
     static let identifier = "DateHeader"
 
-    private lazy var dayStack: UIStackView = {
+    private lazy var dayStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .equalCentering
@@ -82,8 +82,8 @@ final class DateHeader: JTACMonthReusableView {
 
 extension DateHeader {
     private func configureDayStack() {
-        self.addSubview(dayStack)
-        self.dayStack.snp.makeConstraints { make in
+        self.addSubview(dayStackView)
+        self.dayStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(15)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -92,7 +92,7 @@ extension DateHeader {
         let dayLabels = [sunLabel, monLabel, tueLabel, wedLabel, thuLabel, friLabel, satLabel]
         dayLabels.forEach {
             $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-            dayStack.addArrangedSubview($0)
+            dayStackView.addArrangedSubview($0)
         }
     }
 }

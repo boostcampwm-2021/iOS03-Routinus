@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 final class ContinuityView: UIView {
-    private lazy var seedImage: UIImageView = {
+    private lazy var seedImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "seed")
@@ -60,7 +60,7 @@ final class ContinuityView: UIView {
         guard !userInfo.name.isEmpty else { return }
         let isZero = userInfo.continuityDay == 0
         
-        seedImage.isHidden = isZero
+        seedImageView.isHidden = isZero
         initContinuityLabel.isHidden = !isZero
         continuityDayLabel.isHidden = isZero
         continuityInfoLabel.isHidden = isZero
@@ -80,8 +80,8 @@ extension ContinuityView {
     }
     
     private func configureSubviews() {
-        addSubview(seedImage)
-        seedImage.snp.makeConstraints { make in
+        addSubview(seedImageView)
+        seedImageView.snp.makeConstraints { make in
             make.width.height.equalTo(60)
             make.leading.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
@@ -89,13 +89,13 @@ extension ContinuityView {
 
         addSubview(initContinuityLabel)
         initContinuityLabel.snp.makeConstraints { make in
-            make.leading.equalTo(seedImage.snp.trailing).offset(20)
+            make.leading.equalTo(seedImageView.snp.trailing).offset(20)
             make.centerY.equalToSuperview()
         }
 
         addSubview(continuityDayLabel)
         continuityDayLabel.snp.makeConstraints { make in
-            make.leading.equalTo(seedImage.snp.trailing).offset(20)
+            make.leading.equalTo(seedImageView.snp.trailing).offset(20)
             make.centerY.equalToSuperview()
         }
 
