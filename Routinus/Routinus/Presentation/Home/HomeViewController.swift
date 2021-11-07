@@ -17,8 +17,8 @@ struct RoutineData {
 }
 
 class HomeViewController: UIViewController {
-    private let scrollView: UIScrollView = UIScrollView()
-    private let contentView: UIView = UIView()
+    private lazy var scrollView: UIScrollView = UIScrollView()
+    private lazy var contentView: UIView = UIView()
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView()
