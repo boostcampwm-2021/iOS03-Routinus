@@ -11,11 +11,6 @@ import UIKit
 import JTAppleCalendar
 import SnapKit
 
-struct RoutineData {
-    let date: String
-    let percentage: Double
-}
-
 final class HomeViewController: UIViewController {
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var contentView: UIView = UIView()
