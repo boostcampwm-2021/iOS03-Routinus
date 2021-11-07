@@ -35,33 +35,7 @@ class HomeViewController: UIViewController {
 
     private lazy var continuityView = ContinuityView()
 
-    private lazy var todayRoutineView: UIView = {
-        let view = UIView()
-        return view
-    }()
-
-    private lazy var todayRoutineTitle: UILabel = {
-        let label = UILabel()
-        label.text = "오늘 루틴"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        return label
-    }()
-
-    private lazy var addButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(didTappedAddButton), for: .touchUpInside)
-        return button
-    }()
-
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.estimatedRowHeight = 100
-        tableView.alwaysBounceVertical = false
-        tableView.separatorStyle = .none
-        return tableView
-    }()
+    private lazy var todayRoutineView = TodayRoutineView()
 
     private lazy var calendarTitleView = UIView()
 
@@ -98,19 +72,13 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(RoutineCell.self, forCellReuseIdentifier: RoutineCell.identifier)
+
+        todayRoutineView.delegate = self
+        todayRoutineView.dataSource = self
 
         configureViews()
         addCalendar()
         configureViewModel()
-    }
-}
-
-extension HomeViewController {
-    @objc func didTappedAddButton() {
-        self.viewModel?.didTappedShowChallengeButton()
     }
 }
 
@@ -137,12 +105,7 @@ extension HomeViewController {
             make.top.equalToSuperview()
             make.height.equalTo(80)
         }
-
-        configureRoutineViews()
-        configureCalendarTitle()
-    }
-
-    private func configureRoutineViews() {
+        
         self.contentView.addSubview(todayRoutineView)
         self.todayRoutineView.snp.makeConstraints { make in
             make.height.equalTo(22)
@@ -150,31 +113,13 @@ extension HomeViewController {
             make.top.equalTo(self.continuityView.snp.bottom).offset(25)
         }
 
-        self.todayRoutineView.addSubview(todayRoutineTitle)
-        self.todayRoutineTitle.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.top.equalToSuperview()
-        }
-
-        self.todayRoutineView.addSubview(addButton)
-        self.addButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-20)
-            make.top.equalToSuperview()
-        }
-
-        self.contentView.addSubview(tableView)
-        self.tableView.snp.makeConstraints { make in
-            make.top.equalTo(todayRoutineTitle.snp.bottom).offset(10)
-            make.width.equalToSuperview().offset(-40)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(60)
-        }
+        configureCalendarTitle()
     }
 
     private func configureCalendarTitle() {
         self.contentView.addSubview(calendarTitleView)
         calendarTitleView.snp.makeConstraints { make in
-            make.top.equalTo(self.tableView.snp.bottom).offset(10)
+            make.top.equalTo(self.todayRoutineView.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
@@ -219,10 +164,7 @@ extension HomeViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routineList in
                 guard let self = self else { return }
-                self.tableView.snp.updateConstraints { make in
-                    make.height.equalTo(60 * routineList.count)
-                }
-                self.tableView.reloadData()
+                self.todayRoutineView.updateTableViewConstraints(cellCount: routineList.count)
             })
             .store(in: &cancellables)
 
