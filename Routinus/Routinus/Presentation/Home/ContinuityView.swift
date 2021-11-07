@@ -56,20 +56,15 @@ final class ContinuityView: UIView {
         self.init(frame: CGRect.zero)
     }
     
-    func configureContinuityLabel(userInfo: User) {
+    func configureContents(with userInfo: User) {
         guard !userInfo.name.isEmpty else { return }
-        if userInfo.continuityDay == 0 {
-            self.seedImage.isHidden = true
-            self.initContinuityLabel.isHidden = false
-            self.continuityDayLabel.isHidden = true
-            self.continuityInfoLabel.isHidden = true
-        } else {
-            self.seedImage.isHidden = false
-            self.initContinuityLabel.isHidden = true
-            self.continuityDayLabel.isHidden = false
-            self.continuityInfoLabel.isHidden = false
-            self.continuityDayLabel.text = String(userInfo.continuityDay)
-        }
+        let isZero = userInfo.continuityDay == 0
+        
+        seedImage.isHidden = isZero
+        initContinuityLabel.isHidden = !isZero
+        continuityDayLabel.isHidden = isZero
+        continuityInfoLabel.isHidden = isZero
+        continuityDayLabel.text = !isZero ? "\(userInfo.continuityDay)" : continuityDayLabel.text
     }
 }
 
@@ -92,19 +87,19 @@ private extension ContinuityView {
             make.centerY.equalToSuperview()
         }
 
-        addSubview(self.initContinuityLabel)
+        addSubview(initContinuityLabel)
         initContinuityLabel.snp.makeConstraints { make in
             make.leading.equalTo(seedImage.snp.trailing).offset(20)
             make.centerY.equalToSuperview()
         }
 
-        addSubview(self.continuityDayLabel)
+        addSubview(continuityDayLabel)
         continuityDayLabel.snp.makeConstraints { make in
             make.leading.equalTo(seedImage.snp.trailing).offset(20)
             make.centerY.equalToSuperview()
         }
 
-        addSubview(self.continuityInfoLabel)
+        addSubview(continuityInfoLabel)
         continuityInfoLabel.snp.makeConstraints { make in
             make.leading.equalTo(continuityDayLabel.snp.trailing).offset(5)
             make.lastBaseline.equalTo(continuityDayLabel.snp.lastBaseline).offset(-2)

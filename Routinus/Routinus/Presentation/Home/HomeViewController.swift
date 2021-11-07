@@ -211,7 +211,7 @@ extension HomeViewController {
             .sink(receiveValue: { [weak self] userInfo in
                 guard let self = self else { return }
                 self.navigationItem.title = userInfo.name + "님의 Routine"
-                self.continuityView.configureContinuityLabel(userInfo: userInfo)
+                self.continuityView.configureContents(with: userInfo)
             })
             .store(in: &cancellables)
 
