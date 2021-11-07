@@ -34,51 +34,17 @@ class HomeViewController: UIViewController {
     }
 
     private lazy var continuityView = ContinuityView()
-
     private lazy var todayRoutineView = TodayRoutineView()
-
-    private lazy var calendarTitleView = UIView()
-
-    private lazy var calendarTitle: UILabel = {
-        let label = UILabel()
-        label.text = "요약"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        return label
-    }()
-
-    private lazy var previousMonth: UIButton = {
-        let button = UIButton()
-        button.setTitle("<", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        return button
-    }()
-
-    private lazy var nextMonth: UIButton = {
-        let button = UIButton()
-        button.setTitle(">", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        return button
-    }()
-
-    private lazy var monthLabel: UILabel = {
-        let label = UILabel()
-        label.text = "yyyy.nn월"
-        return label
-    }()
+    private lazy var calendarView = CalendarView()
 
     var achievementData: [AchievementInfo] = []
-
-    private let calendarView = JTACMonthView(frame: .zero)
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        todayRoutineView.delegate = self
-        todayRoutineView.dataSource = self
-
         configureViews()
-        addCalendar()
         configureViewModel()
+        configureDelegates()
     }
 }
 
@@ -94,8 +60,7 @@ extension HomeViewController {
 
         self.scrollView.addSubview(contentView)
         self.contentView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.centerX.top.bottom.equalToSuperview()
+            make.width.centerX.top.bottom.equalToSuperview()
         }
 
         self.contentView.addSubview(continuityView)
@@ -112,41 +77,14 @@ extension HomeViewController {
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.continuityView.snp.bottom).offset(25)
         }
-
-        configureCalendarTitle()
-    }
-
-    private func configureCalendarTitle() {
-        self.contentView.addSubview(calendarTitleView)
-        calendarTitleView.snp.makeConstraints { make in
-            make.top.equalTo(self.todayRoutineView.snp.bottom).offset(10)
+        
+        self.contentView.addSubview(calendarView)
+        self.calendarView.snp.makeConstraints { make in
+            make.top.equalTo(todayRoutineView.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
-            make.height.equalTo(50)
-        }
-
-        self.calendarTitleView.addSubview(self.calendarTitle)
-        self.calendarTitle.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-
-        self.calendarTitleView.addSubview(self.nextMonth)
-        self.nextMonth.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-
-        self.calendarTitleView.addSubview(self.monthLabel)
-        self.monthLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(self.nextMonth.snp.leading).offset(-10)
-            make.centerY.equalToSuperview()
-        }
-
-        self.calendarTitleView.addSubview(self.previousMonth)
-        self.previousMonth.snp.makeConstraints { make in
-            make.trailing.equalTo(self.monthLabel.snp.leading).offset(-10)
-            make.centerY.equalToSuperview()
+            make.height.equalTo(350)
+            make.bottom.equalToSuperview().offset(-50)
         }
     }
 
@@ -177,6 +115,17 @@ extension HomeViewController {
                 self.setRangeDates()
             })
             .store(in: &cancellables)
+    }
+    
+    private func configureDelegates() {
+        todayRoutineView.delegate = self
+        todayRoutineView.dataSource = self
+        
+        calendarDelegate.dummyCalendar = achievementData
+        calendarDelegate.formatter = viewModel?.formatter
+
+        calendarView.delegate = calendarDelegate
+        calendarView.dataSource = self
     }
 }
 
@@ -218,38 +167,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension HomeViewController {
-    private func addCalendar() {
-        calendarDelegate.dummyCalendar = achievementData
-        calendarDelegate.formatter = viewModel?.formatter
-
-        calendarView.scrollDirection = .horizontal
-        calendarView.scrollingMode = .stopAtEachCalendarFrame
-        calendarView.isPagingEnabled = true
-        calendarView.isUserInteractionEnabled = false
-        calendarView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
-        calendarView.layer.cornerRadius = 15
-        calendarView.register(DateCell.self, forCellWithReuseIdentifier: "date")
-        calendarView.register(DateHeader.self,
-                              forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                              withReuseIdentifier: DateHeader.identifier)
-        calendarView.calendarDelegate = calendarDelegate
-        calendarView.calendarDataSource = self
-
-        self.contentView.addSubview(calendarView)
-        calendarView.snp.makeConstraints { make in
-            make.top.equalTo(self.calendarTitleView.snp.bottom).offset(10)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.height.equalTo(300)
-        }
-
-        self.contentView.snp.makeConstraints { make in
-            make.bottom.equalTo(self.calendarView.snp.bottom)
-        }
-    }
-}
-
 extension HomeViewController: JTACMonthViewDataSource {
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         todayDate()
@@ -261,7 +178,7 @@ extension HomeViewController: JTACMonthViewDataSource {
         formatter?.dateFormat = "yyyy.MM"
         let currentDate = formatter?.string(from: Date())
 
-        monthLabel.text = currentDate ?? "" + "월"
+        calendarView.setMonthLabelText(currentDate ?? "" + "월")
     }
 
     func setRangeDates() {
@@ -274,6 +191,7 @@ extension HomeViewController: JTACMonthViewDataSource {
             var rangeDate: [Date] = []
             let dateComponent = DateComponents(year: dateData.year, month: dateData.month, day: dateData.day)
             let date = gregorianCalendar.date(from: dateComponent as DateComponents)!
+            
             rangeDate.append(date)
             calendarView.selectDates(rangeDate)
             calendarView.reloadDates(rangeDate)
