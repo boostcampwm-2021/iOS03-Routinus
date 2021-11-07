@@ -64,7 +64,7 @@ enum Category {
     }
 }
 
-class RoutineCell: UITableViewCell {
+final class RoutineCell: UITableViewCell {
     static let identifier: String = "RoutineCell"
 
     private lazy var progressView: UIProgressView = {

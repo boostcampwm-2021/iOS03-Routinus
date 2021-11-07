@@ -10,7 +10,7 @@ import UIKit
 import JTAppleCalendar
 import SnapKit
 
-class DateCell: JTACDayCell {
+final class DateCell: JTACDayCell {
     lazy var dateLabel: UILabel = {
         var label = UILabel()
         label.textAlignment = .center

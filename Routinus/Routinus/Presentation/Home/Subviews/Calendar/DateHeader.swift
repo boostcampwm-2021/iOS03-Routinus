@@ -10,7 +10,7 @@ import UIKit
 import JTAppleCalendar
 import SnapKit
 
-class DateHeader: JTACMonthReusableView {
+final class DateHeader: JTACMonthReusableView {
     static let identifier = "day"
     override init(frame: CGRect) {
         super.init(frame: frame)

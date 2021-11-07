@@ -16,7 +16,7 @@ struct RoutineData {
     let percentage: Double
 }
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var contentView: UIView = UIView()
     private lazy var continuityView = ContinuityView()
