@@ -54,6 +54,16 @@ class ChallengeViewController: UIViewController {
     // MARK: - Private Properties
     private lazy var dataSource = configureDataSource()
     private lazy var snapshot = Snapshot()
+    var viewModel: ChallengeViewModelIO?
+    
+    init(with viewModel: ChallengeViewModelIO) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
     private lazy var searchButton: UIButton = {
 //        let button = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
@@ -102,6 +112,7 @@ class ChallengeViewController: UIViewController {
             case .category:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCategoryCell.identifier,
                                                               for: indexPath) as? ChallengeCategoryCell
+                cell?.delegate = self
                 cell?.configureViews()
                 return cell
             }
@@ -204,5 +215,11 @@ extension ChallengeViewController: UICollectionViewDelegate {
 //
 //            self.applySnapshot(data: mainItem, section: .mainEvent)
 //        }.store(in: &cancellables)
+    }
+}
+
+extension ChallengeViewController: ChallengeCategoryCellDelegate {
+    func didTappedCategoryButton(category: Category) {
+        self.viewModel?.didTappedCategoryButton(category: category)
     }
 }

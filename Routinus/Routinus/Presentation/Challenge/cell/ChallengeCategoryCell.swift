@@ -9,6 +9,7 @@ import UIKit
 
 final class ChallengeCategoryCell: UICollectionViewCell {
     static let identifier = "categoryCell"
+    weak var delegate: ChallengeCategoryCellDelegate?
 
     private lazy var yStackView: UIStackView = {
         let stack = UIStackView()
@@ -111,6 +112,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     @objc func didTappedCategoryButton(_ sender: CategoryButton) {
         guard let category = sender.categoty else { return }
+        delegate?.didTappedCategoryButton(category: category)
     }
 
     func configureViews() {
@@ -129,4 +131,8 @@ final class ChallengeCategoryCell: UICollectionViewCell {
         xStackView2.addArrangedSubview(hobbyButton)
         xStackView2.addArrangedSubview(etcButton)
     }
+}
+
+protocol ChallengeCategoryCellDelegate: AnyObject {
+    func didTappedCategoryButton(category: Category)
 }
