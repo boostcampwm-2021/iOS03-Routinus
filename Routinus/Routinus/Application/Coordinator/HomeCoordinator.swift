@@ -19,8 +19,10 @@ class HomeCoordinator: RoutinusCoordinator {
     }
 
     func start() {
-        let homeViewModel = HomeViewModel(usecase: HomeFetchUsecase())
+        let homeRepository = RoutinusRepository()
+        let homeViewModel = HomeViewModel(usecase: HomeFetchUsecase(repository: homeRepository))
         let homeViewController = HomeViewController(with: homeViewModel)
+        
         homeViewModel.showChallengeSignal
             .sink { [weak self] _ in
                 guard let self = self,
