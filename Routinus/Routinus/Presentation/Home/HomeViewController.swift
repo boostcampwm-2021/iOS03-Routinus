@@ -168,9 +168,9 @@ extension HomeViewController: JTACMonthViewDataSource {
 
     func todayDate() {
         let formatter = viewModel?.formatter
-        formatter?.dateFormat = "yyyy.MM"
+        formatter?.dateFormat = "yyyy년 MM월"
         let currentDate = formatter?.string(from: Date())
-        calendarView.setMonthLabelText(currentDate ?? "" + "월")
+        calendarView.setMonthLabelText(currentDate ?? "")
     }
 
     func setRangeDates() {
