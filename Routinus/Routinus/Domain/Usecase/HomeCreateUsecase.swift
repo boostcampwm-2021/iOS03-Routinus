@@ -27,7 +27,7 @@ struct HomeCreateUsecase: HomeCreatableUsecase {
     }
 
     func createUserID() {
-        guard !repository.isEmptyUserID() else { return }
+        guard repository.isEmptyUserID() else { return }
         let id = createID()
         let name = UserNameFactory.createRandomName()
         repository.save(id: id, name: name)
