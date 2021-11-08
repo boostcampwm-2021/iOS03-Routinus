@@ -7,7 +7,7 @@
 
 import Foundation
 
-import RoutinusNetwork
+import RoutinusDatabase
 
 struct AchievementInfo {
     let yearMonth: String

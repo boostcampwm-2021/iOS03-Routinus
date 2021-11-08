@@ -7,7 +7,7 @@
 
 import Foundation
 
-import RoutinusNetwork
+import RoutinusDatabase
 
 struct TodayRoutine {
     let challengeID: String
