@@ -1,5 +1,5 @@
 //
-//  PopularChallenge.swift
+//  RecommendChallenge.swift
 //  Routinus
 //
 //  Created by 박상우 on 2021/11/08.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PopularChallenge {
+struct RecommendChallenge {
     let challengeID: String
     let title: String
     let description: String

@@ -16,7 +16,7 @@ protocol ChallengeViewModelInput {
 }
 
 protocol ChallengeViewModelOutput {
-    var popularChallenge: CurrentValueSubject<[PopularChallenge], Never> { get }
+    var popularChallenge: CurrentValueSubject<[RecommendChallenge], Never> { get }
     
     var showChallengeSearchSignal: PassthroughSubject<Void, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
@@ -26,7 +26,7 @@ protocol ChallengeViewModelOutput {
 protocol ChallengeViewModelIO: ChallengeViewModelInput, ChallengeViewModelOutput { }
 
 class ChallengeViewModel: ChallengeViewModelIO {
-    var popularChallenge = CurrentValueSubject<[PopularChallenge], Never>([])
+    var popularChallenge = CurrentValueSubject<[RecommendChallenge], Never>([])
     
     var showChallengeSearchSignal = PassthroughSubject<Void, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
