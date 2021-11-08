@@ -31,71 +31,87 @@ final class ChallengeCategoryCell: UICollectionViewCell {
         return stack
     }()
 
-    private lazy var exerciseButton: UIButton = {
+    private lazy var exerciseButton: CategoryButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.imagePlacement = .top
-        let button =  UIButton(configuration: configuration, primaryAction: nil)
+        let button = CategoryButton(configuration: configuration, primaryAction: nil)
         button.setImage(UIImage(named: Category.exercise.categoryImage), for: .normal)
         button.setTitle("운동", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.tintColor = .black
+        button.categoty = .exercise
+        button.addTarget(self, action: #selector(didTappedCategoryButton(_:)), for: .touchUpInside)
         return button
     }()
 
-    private lazy var selfDevelopmentButton: UIButton = {
+    private lazy var selfDevelopmentButton: CategoryButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.imagePlacement = .top
-        let button =  UIButton(configuration: configuration, primaryAction: nil)
+        let button =  CategoryButton(configuration: configuration, primaryAction: nil)
         button.setImage(UIImage(systemName: Category.selfDevelopment.categoryImage), for: .normal)
         button.tintColor = .black
         button.setTitle("자기 계발", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.categoty = .selfDevelopment
+        button.addTarget(self, action: #selector(didTappedCategoryButton(_:)), for: .touchUpInside)
         return button
     }()
 
-    private lazy var lifeStyleButton: UIButton = {
+    private lazy var lifeStyleButton: CategoryButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.imagePlacement = .top
-        let button =  UIButton(configuration: configuration, primaryAction: nil)
+        let button =  CategoryButton(configuration: configuration, primaryAction: nil)
         button.setImage(UIImage(named: Category.lifeStyle.categoryImage), for: .normal)
         button.tintColor = .black
         button.setTitle("생활 습관", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.categoty = .lifeStyle
+        button.addTarget(self, action: #selector(didTappedCategoryButton(_:)), for: .touchUpInside)
         return button
     }()
 
-    private lazy var financeButton: UIButton = {
+    private lazy var financeButton: CategoryButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.imagePlacement = .top
-        let button =  UIButton(configuration: configuration, primaryAction: nil)
+        let button =  CategoryButton(configuration: configuration, primaryAction: nil)
         button.setImage(UIImage(systemName: Category.finance.categoryImage), for: .normal)
         button.tintColor = .black
         button.setTitle("돈관리", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.categoty = .finance
+        button.addTarget(self, action: #selector(didTappedCategoryButton(_:)), for: .touchUpInside)
         return button
     }()
 
-    private lazy var hobbyButton: UIButton = {
+    private lazy var hobbyButton: CategoryButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.imagePlacement = .top
-        let button =  UIButton(configuration: configuration, primaryAction: nil)
+        let button =  CategoryButton(configuration: configuration, primaryAction: nil)
         button.setImage(UIImage(systemName: Category.hobby.categoryImage), for: .normal)
         button.setTitle("취미", for: .normal)
         button.tintColor = .black
         button.setTitleColor(.black, for: .normal)
+        button.categoty = .hobby
+        button.addTarget(self, action: #selector(didTappedCategoryButton(_:)), for: .touchUpInside)
         return button
     }()
 
-    private lazy var etcButton: UIButton = {
+    private lazy var etcButton: CategoryButton = {
         var configuration = UIButton.Configuration.plain()
         configuration.imagePlacement = .top
-        let button =  UIButton(configuration: configuration, primaryAction: nil)
+        let button =  CategoryButton(configuration: configuration, primaryAction: nil)
         button.setImage(UIImage(systemName: Category.etc.categoryImage), for: .normal)
         button.setTitle("기타", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.tintColor = .black
+        button.categoty = .etc
+        button.addTarget(self, action: #selector(didTappedCategoryButton(_:)), for: .touchUpInside)
         return button
     }()
+
+    @objc func didTappedCategoryButton(_ sender: CategoryButton) {
+        guard let category = sender.categoty else { return }
+    }
 
     func configureViews() {
         self.addSubview(yStackView)
