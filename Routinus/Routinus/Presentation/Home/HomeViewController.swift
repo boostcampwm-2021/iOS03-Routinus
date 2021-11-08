@@ -183,7 +183,7 @@ extension HomeViewController: JTACMonthViewDataSource {
 
             var rangeDate: [Date] = []
             let dateComponent = DateComponents(year: dateData.year, month: dateData.month, day: dateData.day)
-            let date = gregorianCalendar.date(from: dateComponent as DateComponents)!
+            guard let date = gregorianCalendar.date(from: dateComponent as DateComponents) else { return }
             
             rangeDate.append(date)
             calendarView.selectDates(rangeDate)
