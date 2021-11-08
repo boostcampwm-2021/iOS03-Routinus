@@ -76,6 +76,7 @@ class ChallengeViewController: UIViewController {
                                 forCellWithReuseIdentifier: ChallengeRecommendCell.identifier)
         collectionView.register(ChallengeCategoryCell.self,
                                 forCellWithReuseIdentifier: ChallengeCategoryCell.identifier)
+
         return collectionView
     }()
 
@@ -123,6 +124,7 @@ class ChallengeViewController: UIViewController {
 
             view?.title = section.title
             view?.seeAllButton.addTarget(self, action: #selector(self.showWhatsNewViewController), for: .touchUpInside)
+
 
             switch section {
             case .category:

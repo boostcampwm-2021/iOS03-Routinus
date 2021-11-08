@@ -41,7 +41,6 @@ class CollectionViewLayouts {
 
         section.orthogonalScrollingBehavior = .none
         section.contentInsets = .init(top: 0, leading: 25, bottom: 0, trailing: 25)
-
         return section
     }
 
