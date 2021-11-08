@@ -44,7 +44,7 @@ enum Category {
         }
     }
     
-    static func categoryByID(_ id: String) -> Self {
+    static func category(by id: String) -> Self {
         switch id {
         case "0":
             return exercise
@@ -56,8 +56,6 @@ enum Category {
             return finance
         case "4":
             return hobby
-        case "5":
-            return etc
         default:
             return etc
         }

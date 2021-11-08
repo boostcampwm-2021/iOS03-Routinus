@@ -18,7 +18,7 @@ struct TodayRoutine {
 
     init(todayRoutineDTO: TodayRoutineDTO) {
         self.challengeID = todayRoutineDTO.challengeID
-        self.category = Category.categoryByID(todayRoutineDTO.categoryID)
+        self.category = Category.category(by: todayRoutineDTO.categoryID)
         self.title = todayRoutineDTO.title
         self.authCount = todayRoutineDTO.authCount
         self.totalCount = Date.days(from: todayRoutineDTO.endDate, to: todayRoutineDTO.joinDate)
