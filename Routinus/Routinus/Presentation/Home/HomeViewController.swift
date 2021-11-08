@@ -148,6 +148,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let auth = UIContextualAction(style: .normal, title: "인증하기") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             // TODO: - 화면 이동하기
+            self.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
         }
         // TODO: - 인증하기 버튼 배경색 정하기
         auth.backgroundColor = .black
@@ -156,7 +157,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let challengeID = viewModel?.todayRoutine.value[indexPath.row].challengeID else { return }
-        self.viewModel?.didTappedTodayRoutine(challengeID: challengeID)
+        self.viewModel?.didTappedTodayRoutine(index: indexPath.row)
     }
 }
 

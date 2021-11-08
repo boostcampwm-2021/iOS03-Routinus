@@ -8,6 +8,7 @@
 import UIKit
 
 class MyPageCoordinator: Coordinator {
+    var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     var navigationController: UINavigationController
 

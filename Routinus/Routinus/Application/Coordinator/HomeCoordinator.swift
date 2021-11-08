@@ -9,6 +9,7 @@ import Combine
 import UIKit
 
 class HomeCoordinator: Coordinator {
+    var parentCoordinator: Coordinator?
     var childCoordinator: [Coordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
@@ -21,19 +22,29 @@ class HomeCoordinator: Coordinator {
         let homeViewModel = HomeViewModel(usecase: HomeFetchUsecase())
         let homeViewController = HomeViewController(with: homeViewModel)
         homeViewModel.showChallengeSignal
-            .sink { [weak self] challengeID in
-                let challengeViewController = ChallengeViewController()
-                self?.navigationController.pushViewController(challengeViewController, animated: false)
-            }
-            .store(in: &cancellables)
-        
-        homeViewModel.showChallengeDetailSignal
             .sink { [weak self] _ in
-                let detailViewController = DetailViewController()
-                self?.navigationController.pushViewController(detailViewController, animated: false)
+                guard let self = self,
+                      let tapBarCoordinator = self.parentCoordinator as? TabBarCoordinator else { return }
+                tapBarCoordinator.moveToChallegeType(type: .main)
+            }
+            .store(in: &cancellables)
+
+        homeViewModel.showChallengeDetailSignal
+            .sink { [weak self] challengeID in
+                guard let self = self,
+                      let tapBarCoordinator = self.parentCoordinator as? TabBarCoordinator else { return }
+                tapBarCoordinator.moveToChallegeType(type: .detail, challengeID: challengeID)
             }
             .store(in: &cancellables)
         
+        homeViewModel.showChallengeAuthSignal
+            .sink { [weak self] challengeID in
+                guard let self = self,
+                      let tapBarCoordinator = self.parentCoordinator as? TabBarCoordinator else { return }
+                tapBarCoordinator.moveToChallegeType(type: .auth, challengeID: challengeID)
+            }
+            .store(in: &cancellables)
+
         self.navigationController.pushViewController(homeViewController, animated: false)
     }
 }
