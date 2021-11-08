@@ -7,7 +7,7 @@
 
 import Foundation
 
-import RoutinusNetwork
+import RoutinusDatabase
 
 struct User {
     var name: String

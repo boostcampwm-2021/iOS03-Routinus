@@ -1,6 +1,6 @@
 //
-//  RoutinusNetwork.swift
-//  RoutinusNetwork
+//  RoutinusDatabase.swift
+//  RoutinusDatabase
 //
 //  Created by 유석환 on 2021/11/02.
 //
@@ -9,7 +9,7 @@ import Foundation
 
 import Firebase
 
-public enum RoutinusNetwork {
+public enum RoutinusDatabase {
     public static func configure() {
         FirebaseApp.configure()
     }

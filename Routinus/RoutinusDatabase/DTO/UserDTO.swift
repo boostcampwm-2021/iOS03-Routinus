@@ -1,8 +1,8 @@
 //
 //  UserDTO.swift
-//  RoutinusNetwork
+//  RoutinusDatabase
 //
-//  Created by 유석환 on 2021/11/03.
+//  Created by 유석환 on 2021/11/08.
 //
 
 import Foundation
