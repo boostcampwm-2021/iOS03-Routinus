@@ -7,9 +7,9 @@
 
 import UIKit
 
-class TabBarCoordinator: NSObject, Coordinator {
-    var parentCoordinator: Coordinator?
-    var childCoordinator: [Coordinator] = []
+class TabBarCoordinator: NSObject, RoutinusCoordinator {
+    var parentCoordinator: RoutinusCoordinator?
+    var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var tabBarController: UITabBarController
     var homeCoordinator: HomeCoordinator?
