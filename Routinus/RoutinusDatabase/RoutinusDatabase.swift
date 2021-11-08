@@ -14,15 +14,15 @@ public enum RoutinusDatabase {
         FirebaseApp.configure()
     }
     
-    public static func user(of udid: String) async throws -> UserDTO {
+    public static func user(of id: String) async throws -> UserDTO {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("user")
-            .whereField("udid", isEqualTo: udid)
+            .whereField("id", isEqualTo: id)
             .getDocuments()
         let document = snapshot.documents.first?.data()
         
         return UserDTO(
-            udid: udid,
+            id: id,
             name: document?["name"] as? String ?? "",
             continuityDay: document?["continuity_day"] as? Int ?? 0,
             userImageCategoryID: document?["user_image_category_id"] as? String ?? "0",
@@ -30,10 +30,10 @@ public enum RoutinusDatabase {
         )
     }
     
-    public static func routineList(of udid: String) async throws -> [TodayRoutineDTO] {
+    public static func routineList(of id: String) async throws -> [TodayRoutineDTO] {
         let db = Firestore.firestore()
         let participationSnapshot = try await db.collection("challenge_participation")
-            .whereField("user_udid", isEqualTo: udid)
+            .whereField("user_id", isEqualTo: id)
             .getDocuments()
         
         var todayRoutines = [TodayRoutineDTO]()
@@ -41,7 +41,7 @@ public enum RoutinusDatabase {
         for document in participationSnapshot.documents {
             var todayRoutineDTO = TodayRoutineDTO()
             
-            todayRoutineDTO.udid = udid
+            todayRoutineDTO.id = id
             todayRoutineDTO.challengeID = document["challenge_id"] as? String ?? ""
             todayRoutineDTO.authCount = document["auth_count"] as? Int ?? 0
             todayRoutineDTO.joinDate = document["join_date"] as? String ?? ""
@@ -61,10 +61,10 @@ public enum RoutinusDatabase {
         return todayRoutines
     }
     
-    public static func achievementInfo(of udid: String, in yearMonth: String) async throws -> [AchievementInfoDTO] {
+    public static func achievementInfo(of id: String, in yearMonth: String) async throws -> [AchievementInfoDTO] {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("achievement_info")
-            .whereField("user_udid", isEqualTo: udid)
+            .whereField("user_id", isEqualTo: id)
             .whereField("year_month", isEqualTo: yearMonth)
             .getDocuments()
         
@@ -72,7 +72,7 @@ public enum RoutinusDatabase {
         
         for document in snapshot.documents {
             let achievementInfoDTO = AchievementInfoDTO(
-                userUDID: udid,
+                userID: id,
                 yearMonth: document["year_month"] as? String ?? "",
                 day: document["day"] as? String ?? "",
                 achievementCount: document["achievement_count"] as? Int ?? 0,

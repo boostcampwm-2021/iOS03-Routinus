@@ -18,30 +18,30 @@ protocol HomeFetchableUsecase {
 
 struct HomeFetchUsecase: HomeFetchableUsecase {
     func fetchUserInfo(completion: @escaping (User) -> Void) {
-        let udid = "BD96E9E9-C0D7-46E6-BDC2-A18705B6E52C"
+        let id = "BD96E9E9-C0D7-46E6-BDC2-A18705B6E52C"
 
         Task {
-            guard let userDTO = try? await RoutinusDatabase.user(of: udid) else { return }
+            guard let userDTO = try? await RoutinusDatabase.user(of: id) else { return }
             let userInfo = User(userDTO: userDTO)
             completion(userInfo)
         }
     }
 
     func fetchTodayRoutine(completion: @escaping ([TodayRoutine]) -> Void) {
-        let udid = "BD96E9E9-C0D7-46E6-BDC2-A18705B6E52C"
+        let id = "BD96E9E9-C0D7-46E6-BDC2-A18705B6E52C"
 
         Task {
-            guard let list = try? await RoutinusDatabase.routineList(of: udid) else { return }
+            guard let list = try? await RoutinusDatabase.routineList(of: id) else { return }
             let todayRoutine = list.map { TodayRoutine(todayRoutineDTO: $0) }
             completion(todayRoutine)
         }
     }
 
     func fetchAcheivementInfo(yearMonth: String, completion: @escaping ([AchievementInfo]) -> Void) {
-        let udid = "BD96E9E9-C0D7-46E6-BDC2-A18705B6E52C"
+        let id = "BD96E9E9-C0D7-46E6-BDC2-A18705B6E52C"
 
         Task {
-            guard let list = try? await RoutinusDatabase.achievementInfo(of: udid, in: yearMonth) else { return }
+            guard let list = try? await RoutinusDatabase.achievementInfo(of: id, in: yearMonth) else { return }
             let achievementInfo = list.map { AchievementInfo(achievementDTO: $0) }
             completion(achievementInfo)
         }

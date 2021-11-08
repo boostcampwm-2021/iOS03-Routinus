@@ -8,22 +8,22 @@
 import Foundation
 
 public struct UserDTO {
-    public var udid: String
+    public var id: String
     public var name: String
     public var continuityDay: Int
     public var userImageCategoryID: String
     public var grade: Int
     
     public init() {
-        self.udid = ""
+        self.id = ""
         self.name = ""
         self.continuityDay = 0
         self.userImageCategoryID = ""
         self.grade = 0
     }
     
-    public init(udid: String, name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
-        self.udid = udid
+    public init(id: String, name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
+        self.id = id
         self.name = name
         self.continuityDay = continuityDay
         self.userImageCategoryID = userImageCategoryID
