@@ -7,9 +7,9 @@
 
 import UIKit
 
-class DetailCoordinator: Coordinator {
-    var parentCoordinator: Coordinator?
-    var childCoordinator: [Coordinator] = []
+class DetailCoordinator: RoutinusCoordinator {
+    var parentCoordinator: RoutinusCoordinator?
+    var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     let challengeID: String
 
