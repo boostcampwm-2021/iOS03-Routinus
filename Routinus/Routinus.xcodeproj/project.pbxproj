@@ -60,6 +60,7 @@
 		E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E994744F2736D54C0054A631 /* DetailCoordinator.swift */; };
 		E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99474512736F4B30054A631 /* AuthCoordinator.swift */; };
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
+		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		E994744F2736D54C0054A631 /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
 		E99474512736F4B30054A631 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
+		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				E9753908273257E5004358C5 /* HomeFetchUsecase.swift */,
+				E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -640,6 +643,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DBBAA3727341C1600B32EB5 /* CollectionViewLayouts.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */,
