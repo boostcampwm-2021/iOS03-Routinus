@@ -11,18 +11,17 @@ import UIKit
 import JTAppleCalendar
 import SnapKit
 
-struct RoutineData {
-    let date: String
-    let percentage: Double
-}
-
-class HomeViewController: UIViewController {
-    private let scrollView: UIScrollView = UIScrollView()
-    private let contentView: UIView = UIView()
-    private var calendarDelegate = CalendarDelegate.shared
+final class HomeViewController: UIViewController {
+    private lazy var scrollView: UIScrollView = UIScrollView()
+    private lazy var contentView: UIView = UIView()
+    private lazy var continuityView = ContinuityView()
+    private lazy var todayRoutineView = TodayRoutineView()
+    private lazy var calendarView = CalendarView()
     
     private var viewModel: HomeViewModelType?
     private var cancellables = Set<AnyCancellable>()
+    private var achievementData: [AchievementInfo] = []
+    private var calendarDelegate = CalendarDelegate.shared
 
     init(with viewModel: HomeViewModelType) {
         self.viewModel = viewModel
@@ -32,118 +31,13 @@ class HomeViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
-    private lazy var continuityView: UIView = {
-        let view = UIView()
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 5
-        return view
-    }()
-
-    private lazy var seedImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "seed")
-        return imageView
-    }()
-
-    private lazy var initContinuityLabel: UILabel = {
-        let label = UILabel()
-        label.text = "시작이 반이다"
-        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        return label
-    }()
-
-    private lazy var continuityDayLabel: UILabel = {
-        let label = UILabel()
-        label.text = "0"
-        label.font = UIFont.boldSystemFont(ofSize: 48)
-        return label
-    }()
-
-    private lazy var continuityInfoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "일 연속 달성"
-        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        return label
-    }()
-
-    private lazy var todayRoutineView: UIView = {
-        let view = UIView()
-        return view
-    }()
-
-    private lazy var todayRoutineTitle: UILabel = {
-        let label = UILabel()
-        label.text = "오늘 루틴"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        return label
-    }()
-
-    private lazy var addButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(didTappedAddButton), for: .touchUpInside)
-        return button
-    }()
-
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.estimatedRowHeight = 100
-        tableView.alwaysBounceVertical = false
-        tableView.separatorStyle = .none
-        return tableView
-    }()
-
-    private lazy var calendarTitleView = UIView()
-
-    private lazy var calendarTitle: UILabel = {
-        let label = UILabel()
-        label.text = "요약"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        return label
-    }()
-
-    private lazy var previousMonth: UIButton = {
-        let button = UIButton()
-        button.setTitle("<", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        return button
-    }()
-
-    private lazy var nextMonth: UIButton = {
-        let button = UIButton()
-        button.setTitle(">", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        return button
-    }()
-
-    private lazy var monthLabel: UILabel = {
-        let label = UILabel()
-        label.text = "yyyy.nn월"
-        return label
-    }()
-
-    var achievementData: [AchievementInfo] = []
-
-    private let calendarView = JTACMonthView(frame: .zero)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(RoutineCell.self, forCellReuseIdentifier: RoutineCell.identifier)
 
         configureViews()
-        addCalendar()
         configureViewModel()
-    }
-}
-
-extension HomeViewController {
-    @objc func didTappedAddButton() {
-        self.viewModel?.didTappedShowChallengeButton()
+        configureDelegates()
     }
 }
 
@@ -159,114 +53,31 @@ extension HomeViewController {
 
         self.scrollView.addSubview(contentView)
         self.contentView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.centerX.top.bottom.equalToSuperview()
+            make.width.centerX.top.bottom.equalToSuperview()
         }
 
         self.contentView.addSubview(continuityView)
         self.continuityView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(10)
             make.height.equalTo(80)
         }
-
-        configureContinuityView()
-        configureRoutineViews()
-        configureCalendarTitle()
-    }
-
-    private func configureContinuityView() {
-        self.continuityView.addSubview(seedImage)
-        self.seedImage.snp.makeConstraints { make in
-            make.width.height.equalTo(60)
-            make.leading.equalToSuperview().offset(20)
-            make.centerY.equalToSuperview()
-        }
-
-        // TODO: - firebase 데이터 연동
-        let day = 1
-        if day == 0 {
-            self.continuityView.addSubview(initContinuityLabel)
-            self.initContinuityLabel.snp.makeConstraints { make in
-                make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
-                make.centerY.equalToSuperview()
-            }
-        } else {
-            self.continuityView.addSubview(continuityDayLabel)
-            self.continuityDayLabel.snp.makeConstraints { make in
-                make.leading.equalTo(self.seedImage.snp.trailing).offset(20)
-                make.centerY.equalToSuperview()
-            }
-
-            self.continuityView.addSubview(continuityInfoLabel)
-            self.continuityInfoLabel.snp.makeConstraints { make in
-                make.leading.equalTo(self.continuityDayLabel.snp.trailing).offset(5)
-                make.lastBaseline.equalTo(self.continuityDayLabel.snp.lastBaseline).offset(-2)
-            }
-        }
-    }
-
-    private func configureRoutineViews() {
+        
         self.contentView.addSubview(todayRoutineView)
         self.todayRoutineView.snp.makeConstraints { make in
-            make.height.equalTo(200) // TODO: 높이 설정 필요
+            make.height.equalTo(22)
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.continuityView.snp.bottom).offset(25)
         }
-
-        self.todayRoutineView.addSubview(todayRoutineTitle)
-        self.todayRoutineTitle.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.top.equalToSuperview()
-        }
-
-        self.todayRoutineView.addSubview(addButton)
-        self.addButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-20)
-            make.top.equalToSuperview()
-        }
-
-        self.contentView.addSubview(tableView)
-        self.tableView.snp.makeConstraints { make in
-            make.top.equalTo(todayRoutineTitle.snp.bottom).offset(10)
+        
+        self.contentView.addSubview(calendarView)
+        self.calendarView.snp.makeConstraints { make in
+            make.top.equalTo(todayRoutineView.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
-            make.height.equalTo(120)
-        }
-    }
-
-    private func configureCalendarTitle() {
-        self.contentView.addSubview(calendarTitleView)
-        calendarTitleView.snp.makeConstraints { make in
-            make.top.equalTo(self.tableView.snp.bottom).offset(10)
-            make.width.equalToSuperview().offset(-40)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(50)
-        }
-
-        self.calendarTitleView.addSubview(self.calendarTitle)
-        self.calendarTitle.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-
-        self.calendarTitleView.addSubview(self.nextMonth)
-        self.nextMonth.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-
-        self.calendarTitleView.addSubview(self.monthLabel)
-        self.monthLabel.snp.makeConstraints { make in
-            make.trailing.equalTo(self.nextMonth.snp.leading).offset(-10)
-            make.centerY.equalToSuperview()
-        }
-
-        self.calendarTitleView.addSubview(self.previousMonth)
-        self.previousMonth.snp.makeConstraints { make in
-            make.trailing.equalTo(self.monthLabel.snp.leading).offset(-10)
-            make.centerY.equalToSuperview()
+            make.height.equalTo(350)
+            make.bottom.equalToSuperview().offset(-50)
         }
     }
 
@@ -276,7 +87,7 @@ extension HomeViewController {
             .sink(receiveValue: { [weak self] userInfo in
                 guard let self = self else { return }
                 self.navigationItem.title = userInfo.name + "님의 Routine"
-                self.continuityDayLabel.text = String(userInfo.continuityDay)
+                self.continuityView.configureContents(with: userInfo)
             })
             .store(in: &cancellables)
 
@@ -284,10 +95,7 @@ extension HomeViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routineList in
                 guard let self = self else { return }
-//                self.tableView.snp.makeConstraints { make in
-//                    make.height.equalTo(60 * routineList.count)
-//                }
-                self.tableView.reloadData()
+                self.todayRoutineView.updateTableViewConstraints(cellCount: routineList.count)
             })
             .store(in: &cancellables)
 
@@ -296,10 +104,21 @@ extension HomeViewController {
             .sink(receiveValue: { [weak self] achieveList in
                 guard let self = self else { return }
                 self.achievementData = achieveList
-                self.calendarDelegate.dummyCalendar = self.achievementData
+                self.calendarDelegate.calendar = self.achievementData
                 self.setRangeDates()
             })
             .store(in: &cancellables)
+    }
+    
+    private func configureDelegates() {
+        todayRoutineView.delegate = self
+        todayRoutineView.dataSource = self
+        
+        calendarDelegate.calendar = achievementData
+        calendarDelegate.formatter = viewModel?.formatter
+
+        calendarView.delegate = calendarDelegate
+        calendarView.dataSource = self
     }
 }
 
@@ -341,38 +160,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension HomeViewController {
-    private func addCalendar() {
-        calendarDelegate.dummyCalendar = achievementData
-        calendarDelegate.formatter = viewModel?.formatter
-
-        calendarView.scrollDirection = .horizontal
-        calendarView.scrollingMode = .stopAtEachCalendarFrame
-        calendarView.isPagingEnabled = true
-        calendarView.isUserInteractionEnabled = false
-        calendarView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
-        calendarView.layer.cornerRadius = 15
-        calendarView.register(DateCell.self, forCellWithReuseIdentifier: "date")
-        calendarView.register(DateHeader.self,
-                              forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                              withReuseIdentifier: DateHeader.identifier)
-        calendarView.calendarDelegate = calendarDelegate
-        calendarView.calendarDataSource = self
-
-        self.contentView.addSubview(calendarView)
-        calendarView.snp.makeConstraints { make in
-            make.top.equalTo(self.calendarTitleView.snp.bottom).offset(10)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.height.equalTo(300)
-        }
-
-        self.contentView.snp.makeConstraints { make in
-            make.bottom.equalTo(self.calendarView.snp.bottom)
-        }
-    }
-}
-
 extension HomeViewController: JTACMonthViewDataSource {
     func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         todayDate()
@@ -381,10 +168,9 @@ extension HomeViewController: JTACMonthViewDataSource {
 
     func todayDate() {
         let formatter = viewModel?.formatter
-        formatter?.dateFormat = "yyyy.MM"
+        formatter?.dateFormat = "yyyy년 MM월"
         let currentDate = formatter?.string(from: Date())
-
-        monthLabel.text = currentDate ?? "" + "월"
+        calendarView.setMonthLabelText(currentDate ?? "")
     }
 
     func setRangeDates() {
@@ -397,6 +183,7 @@ extension HomeViewController: JTACMonthViewDataSource {
             var rangeDate: [Date] = []
             let dateComponent = DateComponents(year: dateData.year, month: dateData.month, day: dateData.day)
             let date = gregorianCalendar.date(from: dateComponent as DateComponents)!
+            
             rangeDate.append(date)
             calendarView.selectDates(rangeDate)
             calendarView.reloadDates(rangeDate)

@@ -10,11 +10,12 @@ import UIKit
 import JTAppleCalendar
 import SnapKit
 
-class DateCell: JTACDayCell {
+final class DateCell: JTACDayCell {
+    static let identifier = "DateCell"
+    
     lazy var dateLabel: UILabel = {
         var label = UILabel()
         label.textAlignment = .center
-        
         return label
     }()
 
@@ -34,7 +35,9 @@ class DateCell: JTACDayCell {
         super.init(coder: aDecoder)
         configureViews()
     }
+}
 
+extension DateCell {
     private func configureViews() {
         contentView.addSubview(selectedView)
         contentView.addSubview(dateLabel)
@@ -44,8 +47,8 @@ class DateCell: JTACDayCell {
         }
 
         selectedView.snp.makeConstraints { make in
-            make.width.equalTo(self.contentView.snp.width)
-            make.height.equalTo(self.contentView.snp.width)
+            make.width.equalTo(contentView.snp.width)
+            make.height.equalTo(contentView.snp.width)
             make.centerX.centerY.equalToSuperview()
         }
     }

@@ -10,19 +10,10 @@ import UIKit
 import JTAppleCalendar
 import SnapKit
 
-class DateHeader: JTACMonthReusableView {
-    static let identifier = "day"
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureDayStack()
-    }
+final class DateHeader: JTACMonthReusableView {
+    static let identifier = "DateHeader"
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        configureDayStack()
-    }
-
-    private lazy var dayStack: UIStackView = {
+    private lazy var dayStackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .equalCentering
@@ -77,18 +68,31 @@ class DateHeader: JTACMonthReusableView {
         label.textColor = UIColor(named: "SaturdayColor")
         return label
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureDayStack()
+    }
 
-    func configureDayStack() {
-        self.addSubview(dayStack)
-        self.dayStack.snp.makeConstraints { make in
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        configureDayStack()
+    }
+}
+
+extension DateHeader {
+    private func configureDayStack() {
+        self.addSubview(dayStackView)
+        self.dayStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(15)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
+        
         let dayLabels = [sunLabel, monLabel, tueLabel, wedLabel, thuLabel, friLabel, satLabel]
         dayLabels.forEach {
             $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-            dayStack.addArrangedSubview($0)
+            dayStackView.addArrangedSubview($0)
         }
     }
 }

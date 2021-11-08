@@ -9,15 +9,17 @@ import UIKit
 
 import JTAppleCalendar
 
-class CalendarDelegate: JTACMonthViewDelegate {
+final class CalendarDelegate: JTACMonthViewDelegate {
     static let shared = CalendarDelegate()
-    private init() {}
-    var dummyCalendar: [AchievementInfo] = []
+    
+    var calendar: [AchievementInfo] = []
     var formatter: DateFormatter?
 
+    private init() {}
+    
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath)
     -> JTACDayCell {
-        guard let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "date", for: indexPath)
+        guard let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: DateCell.identifier, for: indexPath)
                 as? DateCell else { return JTACDayCell() }
         self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
         return cell
@@ -59,11 +61,11 @@ class CalendarDelegate: JTACMonthViewDelegate {
         if cellState.dateBelongsTo == .thisMonth {
             cell.dateLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
             switch cellState.day {
-            case .saturday :
+            case .saturday:
                 cell.dateLabel.textColor = UIColor(named: "SaturdayColor")
-            case .sunday :
+            case .sunday:
                 cell.dateLabel.textColor = UIColor(named: "SundayColor")
-            default :
+            default:
                 cell.dateLabel.textColor = UIColor(named: "DayColor")
             }
         } else {
@@ -85,7 +87,7 @@ class CalendarDelegate: JTACMonthViewDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
         let dateString = dateFormatter.string(from: date)
-        guard let dateData = dummyCalendar.filter({ "\($0.yearMonth)\($0.day)" == dateString }).first else { return }
+        guard let dateData = calendar.filter({ "\($0.yearMonth)\($0.day)" == dateString }).first else { return }
         let date = "\(dateData.yearMonth)\(dateData.day)"
         let percentage = Double(dateData.achievementCount) / Double(dateData.totalCount)
 

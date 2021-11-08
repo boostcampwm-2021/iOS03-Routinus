@@ -11,6 +11,10 @@
 		0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631B27312AC700DC5970 /* DateHeader.swift */; };
 		0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1632C2733729800DC5970 /* CalendarDelegate.swift */; };
 		14FCD60B27311CF600626E74 /* RoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FCD60A27311CF600626E74 /* RoutineCell.swift */; };
+		441CEDD127378573006C261F /* ContinuityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD027378573006C261F /* ContinuityView.swift */; };
+		441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD227378EBF006C261F /* TodayRoutineView.swift */; };
+		441CEDD627379939006C261F /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD527379939006C261F /* CalendarView.swift */; };
+		441CEDDA2737B381006C261F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD92737B381006C261F /* Category.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -81,6 +85,10 @@
 		14FCD60A27311CF600626E74 /* RoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCell.swift; sourceTree = "<group>"; };
 		21D4AB5FB6AB0717E5C7402C /* Pods-Routinus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.release.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.release.xcconfig"; sourceTree = "<group>"; };
 		2813D98BB29BFEBCA9A154AE /* Pods-Routinus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.debug.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.debug.xcconfig"; sourceTree = "<group>"; };
+		441CEDD027378573006C261F /* ContinuityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityView.swift; sourceTree = "<group>"; };
+		441CEDD227378EBF006C261F /* TodayRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineView.swift; sourceTree = "<group>"; };
+		441CEDD527379939006C261F /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		441CEDD92737B381006C261F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		44AAA2B1272FDF8B002E16C4 /* Routinus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,11 +154,39 @@
 		0DD1631D27312ACA00DC5970 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				441CEDD527379939006C261F /* CalendarView.swift */,
+				0DD1632C2733729800DC5970 /* CalendarDelegate.swift */,
 				0DD1631927311F0200DC5970 /* DateCell.swift */,
 				0DD1631B27312AC700DC5970 /* DateHeader.swift */,
-				0DD1632C2733729800DC5970 /* CalendarDelegate.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		441CEDD4273796C4006C261F /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				441CEDD82737A918006C261F /* Continuity */,
+				441CEDD72737A8E5006C261F /* TodayRoutine */,
+				0DD1631D27312ACA00DC5970 /* Calendar */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		441CEDD72737A8E5006C261F /* TodayRoutine */ = {
+			isa = PBXGroup;
+			children = (
+				441CEDD227378EBF006C261F /* TodayRoutineView.swift */,
+				14FCD60A27311CF600626E74 /* RoutineCell.swift */,
+			);
+			path = TodayRoutine;
+			sourceTree = "<group>";
+		};
+		441CEDD82737A918006C261F /* Continuity */ = {
+			isa = PBXGroup;
+			children = (
+				441CEDD027378573006C261F /* ContinuityView.swift */,
+			);
+			path = Continuity;
 			sourceTree = "<group>";
 		};
 		44AAA2A8272FDF8A002E16C4 = {
@@ -249,6 +285,7 @@
 				E97538FF273220F6004358C5 /* User.swift */,
 				E975390527325538004358C5 /* AchievementInfo.swift */,
 				E9B1298127336EE50072D254 /* TodayRoutine.swift */,
+				441CEDD92737B381006C261F /* Category.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -299,10 +336,9 @@
 		E9797C9D2730F89400A14A0F /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				0DD1631D27312ACA00DC5970 /* Calendar */,
 				44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */,
-				14FCD60A27311CF600626E74 /* RoutineCell.swift */,
 				E9797CC22731258A00A14A0F /* HomeViewModel.swift */,
+				441CEDD4273796C4006C261F /* Subviews */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -571,13 +607,17 @@
 				E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */,
 				E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* Coordinator.swift in Sources */,
+				441CEDDA2737B381006C261F /* Category.swift in Sources */,
+				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
 				E975390627325538004358C5 /* AchievementInfo.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
 				0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */,
 				44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */,
+				441CEDD627379939006C261F /* CalendarView.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
+				441CEDD127378573006C261F /* ContinuityView.swift in Sources */,
 				14FCD60B27311CF600626E74 /* RoutineCell.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				0DD1631A27311F0200DC5970 /* DateCell.swift in Sources */,
