@@ -15,15 +15,15 @@ class Repository {
         return UserDefaults.standard.string(forKey: Repository.userDefaultKey) == nil
     }
 
-    private func saveUUID() {
+    private func saveID() {
         UserDefaults.standard.set(UUID(), forKey: Repository.userDefaultKey)
     }
 
     func checkUserDefaults() {
         if isEmptyUserDefaults() {
             // 저장된 데이터가 없을 때 uuid 저장 & 랜덤 닉네임 생성
-            saveUUID()
-            UserFactory.shared.createRandomNickname()
+            saveID()
+            UserNameFactory.createRandomName()
         }
         // 있으면 별다른 작업을 하지 않는다...?
     }
