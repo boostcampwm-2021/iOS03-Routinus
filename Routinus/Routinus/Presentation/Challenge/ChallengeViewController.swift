@@ -55,6 +55,14 @@ class ChallengeViewController: UIViewController {
     private lazy var dataSource = configureDataSource()
     private lazy var snapshot = Snapshot()
 
+    private lazy var searchButton: UIButton = {
+//        let button = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        button.tintColor = .black
+        return button
+    }()
+
     private var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.backgroundColor = .systemBackground
@@ -78,8 +86,8 @@ class ChallengeViewController: UIViewController {
         collectionView.dataSource = dataSource
 
         self.snapshot.appendSections(Section.allCases)
-        configureViews()
-        bindViews()
+        self.configureViews()
+        self.bindViews()
     }
 
     private func configureDataSource() -> DataSource {
@@ -96,7 +104,6 @@ class ChallengeViewController: UIViewController {
                                                               for: indexPath) as? ChallengeCategoryCell
                 cell?.configureViews()
                 return cell
-
             }
         }
         configureHeader(of: dataSource)
@@ -105,14 +112,19 @@ class ChallengeViewController: UIViewController {
 
     private func configureHeader(of dataSource: DataSource) {
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            guard kind == UICollectionView.elementKindSectionHeader else {
+                return nil
+            }
+
             let view = collectionView.dequeueReusableSupplementaryView(
                         ofKind: kind,
                         withReuseIdentifier: ChallengeCollectionViewHeader.identifier,
                         for: indexPath) as? ChallengeCollectionViewHeader
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+
             view?.title = section.title
             view?.seeAllButton.addTarget(self, action: #selector(self.showWhatsNewViewController), for: .touchUpInside)
-//            view?.removeStackSubviews()
+
 
             switch section {
             case .category:
@@ -145,11 +157,19 @@ class ChallengeViewController: UIViewController {
 extension ChallengeViewController: UICollectionViewDelegate {
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "Challenges"
+        self.navigationController?.navigationBar.addSubview(searchButton)
+        searchButton.frame = CGRect(x: self.view.frame.width, y: 0, width: 40, height: 40)
 
+        searchButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-16)
+        }
         self.view.addSubview(collectionView)
         self.collectionView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-84)
+            make.bottom.equalToSuperview()
         }
     }
 
