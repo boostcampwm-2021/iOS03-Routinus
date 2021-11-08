@@ -14,6 +14,18 @@ public enum RoutinusDatabase {
         FirebaseApp.configure()
     }
     
+    public static func createUser(id: String, name: String) async throws {
+        let db = Firestore.firestore()
+        
+        try await db.collection("user").document().setData([
+            "id": id,
+            "name": name,
+            "continuity_day": 0,
+            "grade": 0,
+            "user_image_category_id": "0"
+        ])
+    }
+    
     public static func user(of id: String) async throws -> UserDTO {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("user")
