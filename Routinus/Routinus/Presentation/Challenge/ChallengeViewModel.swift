@@ -16,7 +16,7 @@ protocol ChallengeViewModelInput {
 }
 
 protocol ChallengeViewModelOutput {
-    var popularChallenge: CurrentValueSubject<[RecommendChallenge], Never> { get }
+    var recommendChallenge: CurrentValueSubject<[RecommendChallenge], Never> { get }
 
     var showChallengeSearchSignal: PassthroughSubject<Void, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
@@ -26,13 +26,16 @@ protocol ChallengeViewModelOutput {
 protocol ChallengeViewModelIO: ChallengeViewModelInput, ChallengeViewModelOutput { }
 
 class ChallengeViewModel: ChallengeViewModelIO {
-    var popularChallenge = CurrentValueSubject<[RecommendChallenge], Never>([])
+    var recommendChallenge = CurrentValueSubject<[RecommendChallenge], Never>([])
 
     var showChallengeSearchSignal = PassthroughSubject<Void, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
     var showChallengeCategorySignal = PassthroughSubject<Category, Never>()
+    
+    let usecase: ChallengeFetchableUsecase
 
-    init() {
+    init(usecase: ChallengeFetchableUsecase) {
+        self.usecase = usecase
         self.fetchChallenge()
     }
 }
@@ -47,7 +50,7 @@ extension ChallengeViewModel {
     }
 
     func didTappedPopularChallenge(index: Int) {
-        let challengeID = self.popularChallenge.value[index].challengeID
+        let challengeID = self.recommendChallenge.value[index].challengeID
         showChallengeDetailSignal.send(challengeID)
     }
 
@@ -58,6 +61,8 @@ extension ChallengeViewModel {
 
 extension ChallengeViewModel {
     private func fetchChallenge() {
-
+        usecase.fetchRecommendChallenge { [weak self] recommendChallenge in
+            self?.recommendChallenge.value = recommendChallenge
+        }
     }
 }
