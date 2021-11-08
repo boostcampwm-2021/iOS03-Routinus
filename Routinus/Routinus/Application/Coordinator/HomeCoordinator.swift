@@ -20,7 +20,9 @@ class HomeCoordinator: RoutinusCoordinator {
 
     func start() {
         let homeRepository = RoutinusRepository()
-        let homeViewModel = HomeViewModel(usecase: HomeFetchUsecase(repository: homeRepository))
+        let homeCreateUsecase = HomeCreateUsecase(repository: homeRepository)
+        let homeFetchUsecase = HomeFetchUsecase(repository: homeRepository)
+        let homeViewModel = HomeViewModel(createUsecase: homeCreateUsecase, fetchUsecase: homeFetchUsecase)
         let homeViewController = HomeViewController(with: homeViewModel)
         
         homeViewModel.showChallengeSignal
