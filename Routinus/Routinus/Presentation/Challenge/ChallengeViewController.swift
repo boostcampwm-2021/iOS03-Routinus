@@ -68,7 +68,6 @@ class ChallengeViewController: UIViewController {
                                 forCellWithReuseIdentifier: ChallengeRecommendCell.identifier)
         collectionView.register(ChallengeCategoryCell.self,
                                 forCellWithReuseIdentifier: ChallengeCategoryCell.identifier)
-
         return collectionView
     }()
 
@@ -78,8 +77,8 @@ class ChallengeViewController: UIViewController {
         collectionView.dataSource = dataSource
 
         self.snapshot.appendSections(Section.allCases)
-        configureViews()
-        bindViews()
+        self.configureViews()
+        self.bindViews()
     }
 
     private func configureDataSource() -> DataSource {
@@ -96,7 +95,6 @@ class ChallengeViewController: UIViewController {
                                                               for: indexPath) as? ChallengeCategoryCell
                 cell?.configureViews()
                 return cell
-
             }
         }
         configureHeader(of: dataSource)
@@ -105,14 +103,18 @@ class ChallengeViewController: UIViewController {
 
     private func configureHeader(of dataSource: DataSource) {
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            guard kind == UICollectionView.elementKindSectionHeader else {
+                return nil
+            }
+
             let view = collectionView.dequeueReusableSupplementaryView(
                         ofKind: kind,
                         withReuseIdentifier: ChallengeCollectionViewHeader.identifier,
                         for: indexPath) as? ChallengeCollectionViewHeader
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+
             view?.title = section.title
             view?.seeAllButton.addTarget(self, action: #selector(self.showWhatsNewViewController), for: .touchUpInside)
-//            view?.removeStackSubviews()
 
             switch section {
             case .category:
