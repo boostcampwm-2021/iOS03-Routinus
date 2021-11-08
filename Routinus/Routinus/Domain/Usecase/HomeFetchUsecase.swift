@@ -17,6 +17,12 @@ protocol HomeFetchableUsecase {
 }
 
 struct HomeFetchUsecase: HomeFetchableUsecase {
+    var repository: HomeRepository
+
+    init(repository: HomeRepository) {
+        self.repository = repository
+    } 
+
     func fetchUserInfo(completion: @escaping (User) -> Void) {
         let id = "BD96E9E9-C0D7-46E6-BDC2-A18705B6E52C"
 
