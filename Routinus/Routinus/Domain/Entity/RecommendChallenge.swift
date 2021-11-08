@@ -7,16 +7,25 @@
 
 import Foundation
 
-struct RecommendChallenge {
+import RoutinusDatabase
+
+struct RecommendChallenge: Hashable {
     let challengeID: String
     let title: String
     let description: String
     let participantCount: Int
-    
+
     init(challengeID: String, title: String, description: String, participantCount: Int) {
         self.challengeID = challengeID
         self.title = title
         self.description = description
         self.participantCount = participantCount
+    }
+
+    init(challengeDTO: ChallengeDTO) {
+        self.challengeID = challengeDTO.id
+        self.title = challengeDTO.title
+        self.description = challengeDTO.decs
+        self.participantCount = challengeDTO.participantCount
     }
 }
