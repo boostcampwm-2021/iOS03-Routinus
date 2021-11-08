@@ -55,6 +55,14 @@ class ChallengeViewController: UIViewController {
     private lazy var dataSource = configureDataSource()
     private lazy var snapshot = Snapshot()
 
+    private lazy var searchButton: UIButton = {
+//        let button = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        button.tintColor = .black
+        return button
+    }()
+
     private var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.backgroundColor = .systemBackground
@@ -147,11 +155,19 @@ class ChallengeViewController: UIViewController {
 extension ChallengeViewController: UICollectionViewDelegate {
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "Challenges"
+        self.navigationController?.navigationBar.addSubview(searchButton)
+        searchButton.frame = CGRect(x: self.view.frame.width, y: 0, width: 40, height: 40)
 
+        searchButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-16)
+        }
         self.view.addSubview(collectionView)
         self.collectionView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-84)
+            make.bottom.equalToSuperview()
         }
     }
 
