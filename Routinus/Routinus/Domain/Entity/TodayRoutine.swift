@@ -15,6 +15,14 @@ struct TodayRoutine {
     let title: String
     let authCount: Int
     let totalCount: Int
+    
+    init(challengeID: String, category: Category, title: String, authCount: Int, totalCount: Int) {
+        self.challengeID = challengeID
+        self.category = category
+        self.title = title
+        self.authCount = authCount
+        self.totalCount = totalCount
+    }
 
     init(todayRoutineDTO: TodayRoutineDTO) {
         self.challengeID = todayRoutineDTO.challengeID
