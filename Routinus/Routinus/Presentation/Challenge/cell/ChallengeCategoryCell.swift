@@ -36,10 +36,10 @@ final class ChallengeCategoryCell: UICollectionViewCell {
         let button = CategoryButton()
         button.setImage(UIImage(named: Category.exercise.categoryImage))
         button.setTitle("운동")
-        button.category = .exercise
 
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTappedCategoryButton))
+        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
+        gesture.configureCategory(category: .exercise)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
@@ -49,10 +49,10 @@ final class ChallengeCategoryCell: UICollectionViewCell {
         let button =  CategoryButton()
         button.setImage(UIImage(systemName: Category.selfDevelopment.categoryImage))
         button.setTitle("자기 계발")
-        button.category = .selfDevelopment
 
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTappedCategoryButton))
+        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
+        gesture.configureCategory(category: .selfDevelopment)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
@@ -62,10 +62,10 @@ final class ChallengeCategoryCell: UICollectionViewCell {
         let button =  CategoryButton()
         button.setImage(UIImage(named: Category.lifeStyle.categoryImage))
         button.setTitle("생활 습관")
-        button.category = .lifeStyle
 
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTappedCategoryButton))
+        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
+        gesture.configureCategory(category: .lifeStyle)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
@@ -75,10 +75,10 @@ final class ChallengeCategoryCell: UICollectionViewCell {
         let button =  CategoryButton()
         button.setImage(UIImage(systemName: Category.finance.categoryImage))
         button.setTitle("돈관리")
-        button.category = .finance
 
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTappedCategoryButton))
+        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
+        gesture.configureCategory(category: .finance)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
@@ -88,10 +88,10 @@ final class ChallengeCategoryCell: UICollectionViewCell {
         let button =  CategoryButton()
         button.setImage(UIImage(systemName: Category.hobby.categoryImage))
         button.setTitle("취미")
-        button.category = .hobby
 
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTappedCategoryButton))
+        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
+        gesture.configureCategory(category: .hobby)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
@@ -101,17 +101,17 @@ final class ChallengeCategoryCell: UICollectionViewCell {
         let button =  CategoryButton()
         button.setImage(UIImage(systemName: Category.etc.categoryImage))
         button.setTitle("기타")
-        button.category = .etc
 
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTappedCategoryButton(_:)))
+        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton(_:)))
         gesture.numberOfTapsRequired = 1
+        gesture.configureCategory(category: .etc)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
     }()
 
-    @objc func didTappedCategoryButton(_ sender: CategoryButton) {
-        guard let category = sender.category else { return }
+    @objc func didTappedCategoryButton(_ gesture: CategoryButtonTapGesture) {
+        guard let category = gesture.category else { return }
         delegate?.didTappedCategoryButton(category: category)
     }
 
