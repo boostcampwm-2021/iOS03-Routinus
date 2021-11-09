@@ -15,6 +15,9 @@
 		0DD1631A27311F0200DC5970 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631927311F0200DC5970 /* DateCell.swift */; };
 		0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631B27312AC700DC5970 /* DateHeader.swift */; };
 		0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1632C2733729800DC5970 /* CalendarDelegate.swift */; };
+		1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF432738FFA600296F9E /* RoutinusRepository.swift */; };
+		1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF4B2739078700296F9E /* UserNameFactory.swift */; };
+		1497CF572739215C00296F9E /* HomeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF562739215C00296F9E /* HomeCreateUsecase.swift */; };
 		14FCD60B27311CF600626E74 /* RoutineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FCD60A27311CF600626E74 /* RoutineCell.swift */; };
 		441CEDD127378573006C261F /* ContinuityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD027378573006C261F /* ContinuityView.swift */; };
 		441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD227378EBF006C261F /* TodayRoutineView.swift */; };
@@ -31,6 +34,7 @@
 		441CEDFB27390378006C261F /* RoutinusDatabase.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 441CEDF727390378006C261F /* RoutinusDatabase.debug.xcconfig */; };
 		441CEDFC27390378006C261F /* RoutinusDatabase.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 441CEDF827390378006C261F /* RoutinusDatabase.release.xcconfig */; };
 		441CEDFD27390378006C261F /* RoutinusDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDF927390378006C261F /* RoutinusDatabase.swift */; };
+		441CEE07273A0832006C261F /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE06273A0831006C261F /* HomeRepository.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -102,6 +106,9 @@
 		0DD1631927311F0200DC5970 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		0DD1631B27312AC700DC5970 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		0DD1632C2733729800DC5970 /* CalendarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDelegate.swift; sourceTree = "<group>"; };
+		1497CF432738FFA600296F9E /* RoutinusRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusRepository.swift; sourceTree = "<group>"; };
+		1497CF4B2739078700296F9E /* UserNameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameFactory.swift; sourceTree = "<group>"; };
+		1497CF562739215C00296F9E /* HomeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCreateUsecase.swift; sourceTree = "<group>"; };
 		14FCD60A27311CF600626E74 /* RoutineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCell.swift; sourceTree = "<group>"; };
 		21D4AB5FB6AB0717E5C7402C /* Pods-Routinus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.release.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.release.xcconfig"; sourceTree = "<group>"; };
 		2813D98BB29BFEBCA9A154AE /* Pods-Routinus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.debug.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.debug.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +125,7 @@
 		441CEDF727390378006C261F /* RoutinusDatabase.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusDatabase.debug.xcconfig; sourceTree = "<group>"; };
 		441CEDF827390378006C261F /* RoutinusDatabase.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusDatabase.release.xcconfig; sourceTree = "<group>"; };
 		441CEDF927390378006C261F /* RoutinusDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutinusDatabase.swift; sourceTree = "<group>"; };
+		441CEE06273A0831006C261F /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		44AAA2B1272FDF8B002E16C4 /* Routinus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -202,6 +210,16 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		1497CF422738FF8C00296F9E /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1497CF432738FFA600296F9E /* RoutinusRepository.swift */,
+				441CEE06273A0831006C261F /* HomeRepository.swift */,
+				1497CF4B2739078700296F9E /* UserNameFactory.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		441CEDD4273796C4006C261F /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +298,7 @@
 				E9797C9B2730F7BC00A14A0F /* Application */,
 				E9797C9A2730F7A200A14A0F /* Presentation */,
 				E97538FD27321BD7004358C5 /* Domain */,
+				1497CF422738FF8C00296F9E /* Data */,
 				44AAA32227338181002E16C4 /* Extensions */,
 				E9797C9C2730F86100A14A0F /* Resources */,
 			);
@@ -337,6 +356,7 @@
 			children = (
 				E9753908273257E5004358C5 /* HomeFetchUsecase.swift */,
 				E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */,
+				1497CF562739215C00296F9E /* HomeCreateUsecase.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -665,7 +685,9 @@
 				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DBBAA3727341C1600B32EB5 /* CollectionViewLayouts.swift in Sources */,
+				441CEE07273A0832006C261F /* HomeRepository.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */,
+				1497CF572739215C00296F9E /* HomeCreateUsecase.swift in Sources */,
 				E9753900273220F6004358C5 /* User.swift in Sources */,
 				0DBBAA3C27341C3600B32EB5 /* ChallengeRecommendCell.swift in Sources */,
 				E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */,
@@ -674,6 +696,8 @@
 				E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				E9493DBF273A390F0095CF6D /* CategoryButtonTapGesture.swift in Sources */,
+				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
+				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
 				441CEDDA2737B381006C261F /* Category.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
 				E975390627325538004358C5 /* AchievementInfo.swift in Sources */,
@@ -702,6 +726,7 @@
 				0DBBAA3E27341C3600B32EB5 /* ChallengeCollectionViewHeader.swift in Sources */,
 				E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */,
 				E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */,
+				1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
 				E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */,
