@@ -17,6 +17,7 @@
 		0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1632C2733729800DC5970 /* CalendarDelegate.swift */; };
 		149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411DB273A314B004BE485 /* CreateViewModel.swift */; };
 		149411E2273A5096004BE485 /* CreateChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E1273A5096004BE485 /* CreateChallenge.swift */; };
+		149411E4273A6314004BE485 /* CreateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E3273A6314004BE485 /* CreateRepository.swift */; };
 		1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF432738FFA600296F9E /* RoutinusRepository.swift */; };
 		1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF4B2739078700296F9E /* UserNameFactory.swift */; };
 		1497CF572739215C00296F9E /* HomeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF562739215C00296F9E /* HomeCreateUsecase.swift */; };
@@ -110,6 +111,7 @@
 		0DD1632C2733729800DC5970 /* CalendarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDelegate.swift; sourceTree = "<group>"; };
 		149411DB273A314B004BE485 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		149411E1273A5096004BE485 /* CreateChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallenge.swift; sourceTree = "<group>"; };
+		149411E3273A6314004BE485 /* CreateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepository.swift; sourceTree = "<group>"; };
 		1497CF432738FFA600296F9E /* RoutinusRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusRepository.swift; sourceTree = "<group>"; };
 		1497CF4B2739078700296F9E /* UserNameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameFactory.swift; sourceTree = "<group>"; };
 		1497CF562739215C00296F9E /* HomeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCreateUsecase.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				441CEE06273A0831006C261F /* HomeRepository.swift */,
 				1497CF4B2739078700296F9E /* UserNameFactory.swift */,
 				E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */,
+				149411E3273A6314004BE485 /* CreateRepository.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -707,6 +710,8 @@
 				E9493DBF273A390F0095CF6D /* CategoryButtonTapGesture.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
+				149411E4273A6314004BE485 /* CreateRepository.swift in Sources */,
+				441CEDDA2737B381006C261F /* Category.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
 				E975390627325538004358C5 /* AchievementInfo.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
