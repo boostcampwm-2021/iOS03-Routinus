@@ -29,7 +29,7 @@ class SearchViewModel: SearchViewModelIO {
     var showChallengeSearchSignal = PassthroughSubject<Void, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
     var showChallengeCategorySignal = PassthroughSubject<Category, Never>()
-    
+
     let usecase: SearchFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
