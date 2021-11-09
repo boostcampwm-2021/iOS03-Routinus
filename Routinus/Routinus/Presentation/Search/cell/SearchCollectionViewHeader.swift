@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class SearchCollectionViewHeader: UICollectionReusableView {
     static let identifier = "SearchCollectionViewHeader"
@@ -36,5 +37,10 @@ class SearchCollectionViewHeader: UICollectionReusableView {
 
     func configureViews() {
         self.addSubview(label)
+
+        self.label.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
     }
 }
