@@ -29,7 +29,10 @@ final class CreateViewController: UIViewController {
     private lazy var createButton: UIButton = {
         var button = UIButton()
         button.setTitle("생성하기", for: .normal)
-        button.setTitleColor(.systemGreen, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.backgroundColor = UIColor(red: 180/255, green: 231/255, blue: 160/255, alpha: 1)
+        button.layer.cornerRadius = 20
         return button
     }()
 
@@ -96,18 +99,21 @@ extension CreateViewController {
         descView.snp.makeConstraints { make in
             make.height.equalTo(240)
         }
-        
+
         stackView.addArrangedSubview(authMethodView)
         authMethodView.snp.makeConstraints { make in
             make.height.equalTo(255)
         }
-        
+
         stackView.addArrangedSubview(authImageRegisterView)
         authImageRegisterView.snp.makeConstraints { make in
             make.height.equalTo(260)
         }
-        
+
         stackView.addArrangedSubview(createButton)
+        createButton.snp.makeConstraints { make in
+            make.height.equalTo(60)
+        }
     }
 
     private func configureViewModel() {

@@ -59,6 +59,7 @@ extension CreateDescView {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.width.equalToSuperview()
+            make.height.equalTo(24)
         }
         
         addSubview(descriptionLabel)
