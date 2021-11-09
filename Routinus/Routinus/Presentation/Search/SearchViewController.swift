@@ -146,7 +146,11 @@ extension SearchViewController {
                         Challenge(challengeID: "ddd", title: "수마시기", imageData: nil),
                         Challenge(challengeID: "ddd", title: "목마시기", imageData: nil),
                         Challenge(challengeID: "ddd", title: "금마시기", imageData: nil),
-                        Challenge(challengeID: "ddd", title: "토마시기", imageData: nil)]
+                        Challenge(challengeID: "ddd", title: "토마시기", imageData: nil),
+                        Challenge(challengeID: "ddd", title: "일마시기", imageData: nil),
+                        Challenge(challengeID: "ddd", title: "부마시기", imageData: nil),
+                        Challenge(challengeID: "ddd", title: "김마시기", imageData: nil),
+                        Challenge(challengeID: "ddd", title: "풀마시기", imageData: nil)]
 
         var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
         let challengeContents = challengeItem.map { SearchContents.challenge($0) }
