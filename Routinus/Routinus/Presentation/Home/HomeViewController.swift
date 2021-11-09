@@ -113,12 +113,19 @@ extension HomeViewController {
     private func configureDelegates() {
         todayRoutineView.delegate = self
         todayRoutineView.dataSource = self
+        todayRoutineView.challengeAdddelegate = self
         
         calendarDelegate.calendar = achievementData
         calendarDelegate.formatter = viewModel?.formatter
 
         calendarView.delegate = calendarDelegate
         calendarView.dataSource = self
+    }
+}
+
+extension HomeViewController: TodayRoutineDelegate {
+    func didTappedAddChallengeButton() {
+        self.viewModel?.didTappedAddChallengeButton()
     }
 }
 

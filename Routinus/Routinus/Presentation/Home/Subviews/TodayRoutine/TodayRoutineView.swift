@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 final class TodayRoutineView: UIView {
+    weak var challengeAdddelegate: TodayRoutineDelegate?
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "오늘 루틴"
@@ -21,7 +23,7 @@ final class TodayRoutineView: UIView {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.tintColor = .black
-//        button.addTarget(self, action: #selector(didTappedAddButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTappedAddChallengeButton), for: .touchUpInside)
         return button
     }()
 
@@ -71,11 +73,11 @@ final class TodayRoutineView: UIView {
     }
 }
 
-//extension HomeViewController {
-//    @objc func didTappedAddButton() {
-//        self.viewModel?.didTappedShowChallengeButton()
-//    }
-//}
+extension TodayRoutineView {
+    @objc func didTappedAddChallengeButton() {
+        self.challengeAdddelegate?.didTappedAddChallengeButton()
+    }
+}
 
 extension TodayRoutineView {
     private func configure() {
@@ -103,4 +105,8 @@ extension TodayRoutineView {
             make.height.equalTo(60)
         }
     }
+}
+
+protocol TodayRoutineDelegate: AnyObject {
+    func didTappedAddChallengeButton()
 }
