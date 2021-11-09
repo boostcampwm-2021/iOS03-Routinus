@@ -15,8 +15,11 @@ protocol HomeRepository {
 }
 
 class RoutinusRepository {
-    // TODO: userIDKey를 HomeRepository protocol로 이동
     static let userIDKey = "id"
+    
+    func userID() -> String? {
+        return UserDefaults.standard.string(forKey: RoutinusRepository.userIDKey)
+    }
 }
 
 extension RoutinusRepository: HomeRepository {
