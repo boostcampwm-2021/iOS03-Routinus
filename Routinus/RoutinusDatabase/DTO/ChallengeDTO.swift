@@ -15,7 +15,7 @@ public struct ChallengeDTO {
     public var authMethod: String
     public var categoryID: String
     public var week: Int
-    public var decs: String
+    public var desc: String
     public var startDate: String
     public var endDate: String
     public var participantCount: Int
@@ -30,7 +30,7 @@ public struct ChallengeDTO {
         self.authMethod = ""
         self.categoryID = ""
         self.week = 0
-        self.decs = ""
+        self.desc = ""
         self.startDate = ""
         self.endDate = ""
         self.participantCount = 0
@@ -48,7 +48,7 @@ public struct ChallengeDTO {
         self.authMethod = authMethod
         self.categoryID = categoryID
         self.week = week
-        self.decs = decs
+        self.desc = decs
         self.startDate = startDate
         self.endDate = endDate
         self.participantCount = participantCount
