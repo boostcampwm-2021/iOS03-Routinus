@@ -40,17 +40,18 @@ final class ChallengeRecommendCell: UICollectionViewCell {
         image.tintColor = .black
         return image
     }()
-    
+
     private lazy var encounterLabel: UILabel = {
         let label = UILabel()
-        label.text = "27명 참가"
+        label.text = "0명 참가"
         return label
     }()
 
-    func configureViews(data: String) {
+    func configureViews(recommendChallenge: RecommendChallenge) {
 
-        self.titleLabel.text = data
-        self.subtitleLabel.text = "subtitle"
+        self.titleLabel.text = recommendChallenge.title
+        self.subtitleLabel.text = recommendChallenge.description
+        self.encounterLabel.text = "\(recommendChallenge.participantCount)명 참가"
 
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 15

@@ -5,7 +5,9 @@
 //  Created by 박상우 on 2021/11/02.
 //
 
+import Combine
 import UIKit
+
 import SnapKit
 
 class ChallengeViewController: UIViewController {
@@ -22,41 +24,31 @@ class ChallengeViewController: UIViewController {
         }
     }
 
-    enum ItemType {
-        case recommend
+    enum ChallengeContents: Hashable {
+        case recommend(RecommendChallenge)
         case category
     }
 
-    struct Item: Hashable {
-        let data: Any
-        let type: ItemType
-        private let identifier: UUID
-
-        init(data: Any, type: ItemType) {
-            self.data = data
-            self.type = type
-            self.identifier = UUID()
-        }
-
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(self.identifier)
-        }
-
-        static func == (lhs: ChallengeViewController.Item, rhs: ChallengeViewController.Item) -> Bool {
-            lhs.identifier == rhs.identifier
-        }
-    }
-
     // MARK: - View Initialize
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, ChallengeContents>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ChallengeContents>
 
     // MARK: - Private Properties
     private lazy var dataSource = configureDataSource()
     private lazy var snapshot = Snapshot()
+    var viewModel: ChallengeViewModelIO?
+    private var cancellables = Set<AnyCancellable>()
+
+    init(with viewModel: ChallengeViewModelIO) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
     private lazy var searchButton: UIButton = {
-//        let button = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: nil)
         let button = UIButton()
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.tintColor = .black
@@ -87,21 +79,22 @@ class ChallengeViewController: UIViewController {
 
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
-        self.bindViews()
+        self.configureViewModel()
     }
 
     private func configureDataSource() -> DataSource {
-        let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, item in
-            switch item.type {
-            case .recommend:
+        let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, content in
+            switch content {
+            case .recommend(let recommendChallenge):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeRecommendCell.identifier,
                                                               for: indexPath) as? ChallengeRecommendCell
-                if let data = item.data as? String { cell?.configureViews(data: data) }
+                cell?.configureViews(recommendChallenge: recommendChallenge)
                 return cell
 
             case .category:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCategoryCell.identifier,
                                                               for: indexPath) as? ChallengeCategoryCell
+                cell?.delegate = self
                 cell?.configureViews()
                 return cell
             }
@@ -125,7 +118,6 @@ class ChallengeViewController: UIViewController {
             view?.title = section.title
             view?.seeAllButton.addTarget(self, action: #selector(self.showWhatsNewViewController), for: .touchUpInside)
 
-
             switch section {
             case .category:
                 view?.addSeeAllButton()
@@ -134,11 +126,6 @@ class ChallengeViewController: UIViewController {
             }
             return view
         }
-    }
-
-    private func applySnapshot(data: [Item], section: Section, animatingDifferences: Bool = true) {
-        self.snapshot.appendItems(data, toSection: section)
-        self.dataSource.apply(self.snapshot)
     }
 
     @objc
@@ -155,6 +142,12 @@ class ChallengeViewController: UIViewController {
 }
 
 extension ChallengeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            self.viewModel?.didTappedPopularChallenge(index: indexPath.item)
+        }
+    }
+
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -180,29 +173,29 @@ extension ChallengeViewController: UICollectionViewDelegate {
         }
     }
 
-    func bindViews() {
-        let recommendItem = [Item.init(data: "수채화로 컬러링하기", type: .recommend),
-                             Item.init(data: "물 e리터 마시기", type: .recommend)]
-        self.applySnapshot(data: recommendItem, section: .recommend)
+    private func configureViewModel() {
+        self.viewModel?.recommendChallenge
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] recommendChallenge in
+                guard let self = self else { return }
+                var snapshot = self.dataSource.snapshot(for: Section.recommend)
+                let contents = recommendChallenge.map { ChallengeContents.recommend($0) }
+                snapshot.append(contents)
+                self.dataSource.apply(snapshot, to: Section.recommend)
+                self.applyCategory()
+            })
+            .store(in: &cancellables)
+    }
 
-        let mainItem = Item.init(data: "category", type: .category)
-        self.applySnapshot(data: [mainItem], section: .category)
+    private func applyCategory() {
+        var snapshot = self.dataSource.snapshot(for: Section.category)
+        snapshot.append([ChallengeContents.category])
+        self.dataSource.apply(snapshot, to: Section.category)
+    }
+}
 
-        // TODO: - 바인딩 부분 수정하기
-//        self.viewModel.$events.receive(on: RunLoop.main).sink { [weak self] events in
-//            guard let self = self else { return }
-//
-//           events.forEach {
-//               let data = Item.init(data: $0, type: .events)
-//               self.applySnapshot(data: data, section: .events)
-//           }
-//        }.store(in: &cancellables)
-//
-//        self.viewModel.$mainEvent.receive(on: RunLoop.main).sink { [weak self] event in
-//            guard let self = self, let event = event else { return }
-//            let mainItem = Item.init(data: event, type: .mainEvent)
-//
-//            self.applySnapshot(data: mainItem, section: .mainEvent)
-//        }.store(in: &cancellables)
+extension ChallengeViewController: ChallengeCategoryCellDelegate {
+    func didTappedCategoryButton(category: Category) {
+        self.viewModel?.didTappedCategoryButton(category: category)
     }
 }
