@@ -102,7 +102,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
         button.setImage(UIImage(systemName: Category.etc.categoryImage))
         button.setTitle("기타")
 
-        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton(_:)))
+        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
         gesture.configureCategory(category: .etc)
         self.isUserInteractionEnabled = true
