@@ -9,25 +9,34 @@ import Combine
 import Foundation
 
 protocol CreateViewModelInput {
-    func didTappedCreateButton(category: String, title: String, thumbImageURL: String, week: String, description: String, authMethod: String, authImageURL: String)
+    func didTappedCreateButton()
 }
 
 protocol CreateViewModelOutput {
-    var createState: CurrentValueSubject<Bool, Never> { get }
+    var createChallenge: CurrentValueSubject<CreateChallenge, Never> { get }
+    var createButtonState: CurrentValueSubject<Bool, Never> { get }
 }
 
 protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
 
 class CreateViewModel: CreateViewModelIO {
-    var createState = CurrentValueSubject<Bool, Never>(false)
-
-    func didTappedCreateButton(category: String, title: String, thumbImageURL: String, week: String, description: String, authMethod: String, authImageURL: String) {
-        guard !category.isEmpty && !title.isEmpty && !thumbImageURL.isEmpty && !week.isEmpty && !description.isEmpty && !authMethod.isEmpty && !authImageURL.isEmpty else {
-            createState.value = false
-            return
+    var createChallenge = CurrentValueSubject<CreateChallenge, Never>(CreateChallenge()) {
+        didSet {
+            validate()
         }
+    }
 
+    var createButtonState = CurrentValueSubject<Bool, Never>(false)
+
+    func validate() {
+        createButtonState.value = !createChallenge.value.isEmpty()
+    }
+
+    func didTappedCreateButton() {
         // TODO: firebase에 저장
-        createState.value = true
     }
 }
+
+
+
+
