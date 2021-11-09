@@ -29,24 +29,13 @@ class ChallengeViewController: UIViewController {
         case category
     }
 
-    // MARK: - View Initialize
     typealias DataSource = UICollectionViewDiffableDataSource<Section, ChallengeContents>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ChallengeContents>
 
-    // MARK: - Private Properties
     private lazy var dataSource = configureDataSource()
     private lazy var snapshot = Snapshot()
     private var viewModel: ChallengeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
-
-    init(with viewModel: ChallengeViewModelIO) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
 
     private lazy var searchButton: UIButton = {
         let button = UIButton()
@@ -72,17 +61,37 @@ class ChallengeViewController: UIViewController {
 
         return collectionView
     }()
+    
+    init(with viewModel: ChallengeViewModelIO) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = dataSource
-
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = dataSource
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
         self.configureViewModel()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.searchButton.isHidden = false
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.searchButton.isHidden = true
+    }
+}
+
+extension ChallengeViewController {
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, content in
             switch content {
@@ -129,30 +138,11 @@ class ChallengeViewController: UIViewController {
         }
     }
 
-    @objc private func didTappedSearchButton(_ sender: UIButton) {
-        let searchViewController = SearchViewController()
-        self.viewModel?.didTappedSearchButton()
-    }
-}
-
-extension ChallengeViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            self.viewModel?.didTappedRecommendChallenge(index: indexPath.item)
-        }
-    }
-
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "Challenges"
-        self.navigationController?.navigationBar.addSubview(searchButton)
-        searchButton.frame = CGRect(x: self.view.frame.width, y: 0, width: 40, height: 40)
-
-        searchButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.lastBaseline.equalToSuperview().offset(-16)
-        }
+        self.configureSearchButton()
         self.view.addSubview(collectionView)
         self.collectionView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
@@ -160,10 +150,13 @@ extension ChallengeViewController: UICollectionViewDelegate {
         }
     }
 
-    static func createLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
-            let layout = CollectionViewLayouts()
-            return layout.section(at: sectionNumber)
+    private func configureSearchButton() {
+        self.navigationController?.navigationBar.addSubview(searchButton)
+        self.searchButton.frame = CGRect(x: self.view.frame.width, y: 0, width: 40, height: 40)
+
+        self.searchButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-16)
+            make.lastBaseline.equalToSuperview().offset(-16)
         }
     }
 
@@ -186,10 +179,31 @@ extension ChallengeViewController: UICollectionViewDelegate {
         snapshot.append([ChallengeContents.category])
         self.dataSource.apply(snapshot, to: Section.category)
     }
+
+    static func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+            let layout = CollectionViewLayouts()
+            return layout.section(at: sectionNumber)
+        }
+    }
+}
+
+extension ChallengeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            self.viewModel?.didTappedRecommendChallenge(index: indexPath.item)
+        }
+    }
 }
 
 extension ChallengeViewController: ChallengeCategoryCellDelegate {
     func didTappedCategoryButton(category: Category) {
         self.viewModel?.didTappedCategoryButton(category: category)
+    }
+}
+
+extension ChallengeViewController {
+    @objc private func didTappedSearchButton(_ sender: UIButton) {
+        self.viewModel?.didTappedSearchButton()
     }
 }
