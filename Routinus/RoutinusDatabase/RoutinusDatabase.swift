@@ -25,7 +25,27 @@ public enum RoutinusDatabase {
             "user_image_category_id": "0"
         ])
     }
-    
+
+    public static func createChallenge(challenge: ChallengeDTO) async throws {
+        let db = Firestore.firestore()
+
+        try await db.collection("challenge").document().setData([
+            "auth_example_image_url": challenge.authExampleImageURL,
+            "auth_method": challenge.authMethod,
+            "category_id": challenge.categoryID,
+            "desc": challenge.desc,
+            "end_date": challenge.endDate,
+            "id": challenge.id,
+            "image_url": challenge.imageURL,
+            "owner_id": challenge.ownerID,
+            "participant_count": challenge.participantCount,
+            "start_date": challenge.startDate,
+            "thumbnail_image_url": challenge.thumbnailImageURL,
+            "title": challenge.title,
+            "week": challenge.week
+        ])
+    }
+
     public static func user(of id: String) async throws -> UserDTO {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("user")
