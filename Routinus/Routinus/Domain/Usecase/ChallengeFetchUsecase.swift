@@ -14,12 +14,16 @@ protocol ChallengeFetchableUsecase {
 }
 
 struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
+    var repository: ChallengeRepository
+    
+    init(repository: ChallengeRepository) {
+        self.repository = repository
+    }
+    
     func fetchRecommendChallenge(completion: @escaping ([RecommendChallenge]) -> Void) {
         Task {
-            guard let list = try? await RoutinusDatabase.challengeInfo() else { return }
-            var challengeList = list
-                .map { RecommendChallenge(challengeDTO: $0) }
-                .sorted { $0.participantCount > $1.participantCount }
+            let recommendChallengeList = await repository.fetchRecommendChallenge()
+            var challengeList = recommendChallengeList.sorted { $0.participantCount > $1.participantCount }
             if challengeList.count > 5 {
                 challengeList = challengeList[..<5].map { $0 }
             }
