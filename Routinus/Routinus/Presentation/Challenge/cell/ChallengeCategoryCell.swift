@@ -46,7 +46,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
     }()
 
     private lazy var selfDevelopmentButton: CategoryButton = {
-        let button =  CategoryButton()
+        let button = CategoryButton()
         button.setImage(UIImage(systemName: Category.selfDevelopment.categoryImage))
         button.setTitle("자기 계발")
 
@@ -59,7 +59,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
     }()
 
     private lazy var lifeStyleButton: CategoryButton = {
-        let button =  CategoryButton()
+        let button = CategoryButton()
         button.setImage(UIImage(named: Category.lifeStyle.categoryImage))
         button.setTitle("생활 습관")
 
@@ -72,7 +72,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
     }()
 
     private lazy var financeButton: CategoryButton = {
-        let button =  CategoryButton()
+        let button = CategoryButton()
         button.setImage(UIImage(systemName: Category.finance.categoryImage))
         button.setTitle("돈관리")
 
@@ -85,7 +85,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
     }()
 
     private lazy var hobbyButton: CategoryButton = {
-        let button =  CategoryButton()
+        let button = CategoryButton()
         button.setImage(UIImage(systemName: Category.hobby.categoryImage))
         button.setTitle("취미")
 
@@ -98,7 +98,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
     }()
 
     private lazy var etcButton: CategoryButton = {
-        let button =  CategoryButton()
+        let button = CategoryButton()
         button.setImage(UIImage(systemName: Category.etc.categoryImage))
         button.setTitle("기타")
 

@@ -129,8 +129,7 @@ class ChallengeViewController: UIViewController {
         }
     }
 
-    @objc
-    private func didTappedSearchButton(_ sender: UIButton) {
+    @objc private func didTappedSearchButton(_ sender: UIButton) {
         let searchViewController = SearchViewController()
         self.viewModel?.didTappedSearchButton()
     }
