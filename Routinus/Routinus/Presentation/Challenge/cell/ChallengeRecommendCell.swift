@@ -67,7 +67,7 @@ final class ChallengeRecommendCell: UICollectionViewCell {
         self.subtitleLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel.snp.leading)
             make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
-            make.trailing.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(-25)
         }
 
         self.addSubview(encounterView)
@@ -87,7 +87,7 @@ final class ChallengeRecommendCell: UICollectionViewCell {
 
         self.encounterView.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel.snp.leading)
-            make.top.equalTo(self.subtitleLabel.snp.bottom).offset(20)
+            make.bottom.equalToSuperview().offset(-20)
             make.trailing.equalTo(self.encounterLabel.snp.trailing).offset(15)
             make.height.equalTo(encounterIcon.snp.height).offset(15)
         }

@@ -17,7 +17,7 @@ class ChallengeViewController: UIViewController {
         var title: String {
             switch self {
             case .recommend:
-                return "추천 챌린지"
+                return ""
             case .category:
                 return "챌린지 카테고리"
             }
@@ -52,6 +52,7 @@ class ChallengeViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.tintColor = .black
+        button.addTarget(self, action: #selector(showSearchViewController), for: .touchUpInside)
         return button
     }()
 
@@ -116,7 +117,7 @@ class ChallengeViewController: UIViewController {
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
             view?.title = section.title
-            view?.seeAllButton.addTarget(self, action: #selector(self.showWhatsNewViewController), for: .touchUpInside)
+            view?.seeAllButton.addTarget(self, action: #selector(self.showSearchViewController), for: .touchUpInside)
 
             switch section {
             case .category:
@@ -129,15 +130,11 @@ class ChallengeViewController: UIViewController {
     }
 
     @objc
-    private func showWhatsNewViewController(_ sender: UIButton) {
-//        let whatsNewViewController = WhatsNewViewContoller()
-//        if sender == self.headerView.whatsNewButton {
-//            whatsNewViewController.viewModel.paging = 0
-//            whatsNewViewController.viewModel.fetchAllNews()
-//        } else {
-//            whatsNewViewController.viewModel.fetchEventNews()
-//        }
-//        self.navigationController?.pushViewController(whatsNewViewController, animated: true)
+    private func showSearchViewController(_ sender: UIButton) {
+        let searchViewController = SearchViewController()
+//        searchViewController.viewModel.paging = 0
+//        searchViewController.viewModel.fetch()
+        self.navigationController?.pushViewController(searchViewController, animated: true)
     }
 }
 
@@ -157,7 +154,7 @@ extension ChallengeViewController: UICollectionViewDelegate {
 
         searchButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalToSuperview().offset(-16)
+            make.lastBaseline.equalToSuperview().offset(-16)
         }
         self.view.addSubview(collectionView)
         self.collectionView.snp.makeConstraints { make in

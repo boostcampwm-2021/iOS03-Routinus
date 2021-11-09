@@ -6,16 +6,52 @@
 //
 
 import UIKit
+import SnapKit
 
-class CategoryButton: UIButton {
-    var categoty: Category?
-    
+class CategoryButton: UIView {
+    private var imageView = UIImageView()
+    private var title = UILabel()
+
+    var category: Category?
+
     override init(frame: CGRect) {
+        self.imageView = UIImageView()
+        self.title = UILabel()
         super.init(frame: frame)
-        
+        configureViews()
     }
 
     required init?(coder aDecoder: NSCoder) {
+        self.imageView = UIImageView()
+        self.title = UILabel()
         super.init(coder: aDecoder)
+        configureViews()
+    }
+
+    func setImage(_ image: UIImage?) {
+        imageView.image = image
+        imageView.tintColor = .black
+    }
+
+    func setTitle(_ text: String) {
+        title.text = text
+        title.tintColor = .black
+    }
+
+    private func configureViews() {
+        self.snp.makeConstraints { make in
+            make.width.height.equalTo(60)
+        }
+
+        self.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.top.centerX.equalToSuperview()
+            make.width.height.equalTo(35)
+        }
+
+        self.addSubview(title)
+        title.snp.makeConstraints { make in
+            make.bottom.centerX.equalToSuperview()
+        }
     }
 }
