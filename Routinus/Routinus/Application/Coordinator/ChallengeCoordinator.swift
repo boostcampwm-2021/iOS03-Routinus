@@ -17,7 +17,8 @@ class ChallengeCoordinator: RoutinusCoordinator {
     }
 
     func start() {
-        let challengeViewController = ChallengeViewController()
+        let challengeViewModel = ChallengeViewModel(usecase: ChallengeFetchUsecase())
+        let challengeViewController = ChallengeViewController(with: challengeViewModel)
         self.navigationController.pushViewController(challengeViewController, animated: false)
     }
 
