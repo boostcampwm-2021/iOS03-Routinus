@@ -10,6 +10,7 @@ import Foundation
 import RoutinusDatabase
 
 protocol CreateRepository {
+    func userID() -> String?
     func save(challenge: ChallengeDTO)
 }
 
