@@ -12,8 +12,6 @@ class CategoryButton: UIView {
     private var imageView = UIImageView()
     private var title = UILabel()
 
-    var category: Category?
-
     override init(frame: CGRect) {
         self.imageView = UIImageView()
         self.title = UILabel()
