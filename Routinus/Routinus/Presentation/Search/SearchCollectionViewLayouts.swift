@@ -12,7 +12,7 @@ class SearchCollectionViewLayouts {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .estimated(30))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .estimated(30))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
@@ -21,7 +21,7 @@ class SearchCollectionViewLayouts {
                                                     elementKind: UICollectionView.elementKindSectionHeader,
                                                     alignment: .topLeading)]
         section.orthogonalScrollingBehavior = .groupPaging
-        section.contentInsets = .init(top: 0, leading: 25, bottom: 20, trailing: 25)
+        section.contentInsets = .init(top: 10, leading: 25, bottom: 20, trailing: 10)
         section.interGroupSpacing = 20
         return section
     }
@@ -40,7 +40,7 @@ class SearchCollectionViewLayouts {
                                                     alignment: .topLeading)]
 
         section.orthogonalScrollingBehavior = .none
-        section.contentInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
+        section.contentInsets = .init(top: 10, leading: 25, bottom: 10, trailing: 25)
         return section
     }
 

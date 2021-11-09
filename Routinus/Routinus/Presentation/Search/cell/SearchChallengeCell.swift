@@ -13,6 +13,7 @@ final class SearchChallengeCell: UICollectionViewCell {
 
     private lazy var challengeImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "folder")
         return imageView
     }()
 
@@ -27,7 +28,7 @@ final class SearchChallengeCell: UICollectionViewCell {
     func configureViews(challenge: Challenge) {
 
         self.titleLabel.text = challenge.title
-        self.challengeImageView.image = UIImage(data: challenge.imageData)
+//        self.challengeImageView.image = UIImage(data: challenge.imageData)
 
         self.addSubview(challengeImageView)
         self.challengeImageView.snp.makeConstraints { make in
@@ -45,5 +46,5 @@ final class SearchChallengeCell: UICollectionViewCell {
 struct Challenge: Hashable {
     let challengeID: String
     let title: String
-    let imageData: Data
+    let imageData: Data?
 }
