@@ -25,7 +25,7 @@ struct RecommendChallenge: Hashable {
     init(challengeDTO: ChallengeDTO) {
         self.challengeID = challengeDTO.id
         self.title = challengeDTO.title
-        self.description = challengeDTO.decs
+        self.description = challengeDTO.desc
         self.participantCount = challengeDTO.participantCount
     }
 }
