@@ -58,18 +58,18 @@ extension CreateDescView {
     private func configureSubviews() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview()
+            make.top.width.equalToSuperview()
         }
         
         addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.left.equalToSuperview()
+            make.width.equalToSuperview()
         }
         
         addSubview(textView)
         textView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(30)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
             make.width.equalToSuperview()
             make.height.equalTo(150)
         }

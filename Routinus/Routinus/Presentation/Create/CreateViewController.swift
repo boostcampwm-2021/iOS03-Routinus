@@ -98,6 +98,10 @@ extension CreateViewController {
         }
         
         stackView.addArrangedSubview(authMethodView)
+        authMethodView.snp.makeConstraints { make in
+            make.height.equalTo(240)
+        }
+        
         stackView.addArrangedSubview(authImageRegisterView)
         stackView.addArrangedSubview(createButton)
     }

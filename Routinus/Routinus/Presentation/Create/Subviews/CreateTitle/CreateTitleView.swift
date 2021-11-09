@@ -54,13 +54,13 @@ extension CreateTitleView {
     private func configureSubviews() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview()
+            make.top.width.equalToSuperview()
         }
 
         addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.left.equalToSuperview()
+            make.width.equalToSuperview()
         }
 
         addSubview(textField)

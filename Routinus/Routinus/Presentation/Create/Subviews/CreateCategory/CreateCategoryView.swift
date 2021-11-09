@@ -54,7 +54,7 @@ extension CreateCategoryView {
     private func configureSubviews() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview()
+            make.top.width.equalToSuperview()
         }
 
         addSubview(categoryPickerView)
