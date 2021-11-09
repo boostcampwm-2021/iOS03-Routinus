@@ -5,19 +5,46 @@
 //  Created by 박상우 on 2021/11/02.
 //
 
+import Combine
 import UIKit
 
 class ChallengeCoordinator: RoutinusCoordinator {
     var parentCoordinator: RoutinusCoordinator?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
+    var cancellables = Set<AnyCancellable>()
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
 
     func start() {
-        let challengeViewController = ChallengeViewController()
+        let challengeViewModel = ChallengeViewModel(usecase: ChallengeFetchUsecase())
+        let challengeViewController = ChallengeViewController(with: challengeViewModel)
+        challengeViewModel.showChallengeSearchSignal
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let searchCoordinator = SearchCoordinator(navigationController: self.navigationController)
+                searchCoordinator.start()
+            }
+            .store(in: &cancellables)
+
+        challengeViewModel.showChallengeDetailSignal
+            .sink { [weak self] challengeID in
+                guard let self = self else { return }
+                let detailCoordinator = DetailCoordinator(navigationController: self.navigationController, challengeID: challengeID)
+                detailCoordinator.start()
+            }
+            .store(in: &cancellables)
+
+        challengeViewModel.showChallengeCategorySignal
+            .sink { [weak self] category in
+                guard let self = self else { return }
+                let searchCoordinator = SearchCoordinator(navigationController: self.navigationController, category: category)
+                searchCoordinator.start()
+            }
+            .store(in: &cancellables)
+
         self.navigationController.pushViewController(challengeViewController, animated: false)
     }
 

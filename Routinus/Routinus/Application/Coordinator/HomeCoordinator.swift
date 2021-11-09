@@ -40,7 +40,7 @@ class HomeCoordinator: RoutinusCoordinator {
                 tapBarCoordinator.moveToChallegeType(type: .detail, challengeID: challengeID)
             }
             .store(in: &cancellables)
-        
+
         homeViewModel.showChallengeAuthSignal
             .sink { [weak self] challengeID in
                 guard let self = self,

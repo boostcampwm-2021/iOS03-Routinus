@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DBBAA3727341C1600B32EB5 /* CollectionViewLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBAA3627341C1600B32EB5 /* CollectionViewLayouts.swift */; };
+		0DBBAA3C27341C3600B32EB5 /* ChallengeRecommendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBAA3927341C3600B32EB5 /* ChallengeRecommendCell.swift */; };
+		0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBAA3A27341C3600B32EB5 /* ChallengeCategoryCell.swift */; };
+		0DBBAA3E27341C3600B32EB5 /* ChallengeCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBBAA3B27341C3600B32EB5 /* ChallengeCollectionViewHeader.swift */; };
+		0DC38F44273A3B9900331C25 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC38F43273A3B9800331C25 /* SearchCoordinator.swift */; };
 		0DD1631A27311F0200DC5970 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631927311F0200DC5970 /* DateCell.swift */; };
 		0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631B27312AC700DC5970 /* DateHeader.swift */; };
 		0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1632C2733729800DC5970 /* CalendarDelegate.swift */; };
@@ -39,6 +44,10 @@
 		44AAA3212732A049002E16C4 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 44AAA3202732A049002E16C4 /* JTAppleCalendar */; };
 		44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA3232733819B002E16C4 /* Date+Extensions.swift */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
+		E9493DBF273A390F0095CF6D /* CategoryButtonTapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DBE273A390F0095CF6D /* CategoryButtonTapGesture.swift */; };
+		E94B497227390FD300708D7B /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B497127390FD300708D7B /* CategoryButton.swift */; };
+		E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B4973273910F400708D7B /* ChallengeViewModel.swift */; };
+		E94B49762739118B00708D7B /* RecommendChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B49752739118B00708D7B /* RecommendChallenge.swift */; };
 		E9753900273220F6004358C5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* User.swift */; };
 		E975390627325538004358C5 /* AchievementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* AchievementInfo.swift */; };
 		E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9753908273257E5004358C5 /* HomeFetchUsecase.swift */; };
@@ -60,6 +69,8 @@
 		E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E994744F2736D54C0054A631 /* DetailCoordinator.swift */; };
 		E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99474512736F4B30054A631 /* AuthCoordinator.swift */; };
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
+		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
+		E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +98,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0DBBAA3627341C1600B32EB5 /* CollectionViewLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayouts.swift; sourceTree = "<group>"; };
+		0DBBAA3927341C3600B32EB5 /* ChallengeRecommendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeRecommendCell.swift; sourceTree = "<group>"; };
+		0DBBAA3A27341C3600B32EB5 /* ChallengeCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeCategoryCell.swift; sourceTree = "<group>"; };
+		0DBBAA3B27341C3600B32EB5 /* ChallengeCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeCollectionViewHeader.swift; sourceTree = "<group>"; };
+		0DC38F43273A3B9800331C25 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		0DD1631927311F0200DC5970 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		0DD1631B27312AC700DC5970 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		0DD1632C2733729800DC5970 /* CalendarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +136,10 @@
 		44AAA2C9272FE13D002E16C4 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		44AAA3232733819B002E16C4 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9493DBE273A390F0095CF6D /* CategoryButtonTapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButtonTapGesture.swift; sourceTree = "<group>"; };
+		E94B497127390FD300708D7B /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
+		E94B4973273910F400708D7B /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
+		E94B49752739118B00708D7B /* RecommendChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendChallenge.swift; sourceTree = "<group>"; };
 		E97538FF273220F6004358C5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E975390527325538004358C5 /* AchievementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementInfo.swift; sourceTree = "<group>"; };
 		E9753908273257E5004358C5 /* HomeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFetchUsecase.swift; sourceTree = "<group>"; };
@@ -141,6 +161,8 @@
 		E994744F2736D54C0054A631 /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
 		E99474512736F4B30054A631 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
+		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
+		E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +187,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DBBAA3827341C3600B32EB5 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0DBBAA3927341C3600B32EB5 /* ChallengeRecommendCell.swift */,
+				0DBBAA3A27341C3600B32EB5 /* ChallengeCategoryCell.swift */,
+				0DBBAA3B27341C3600B32EB5 /* ChallengeCollectionViewHeader.swift */,
+				E94B497127390FD300708D7B /* CategoryButton.swift */,
+				E9493DBE273A390F0095CF6D /* CategoryButtonTapGesture.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		0DD1631D27312ACA00DC5970 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +266,7 @@
 				441CEDEF27390259006C261F /* UserDTO.swift */,
 				441CEDF227390296006C261F /* TodayRoutineDTO.swift */,
 				441CEDF42739029C006C261F /* AchievementInfoDTO.swift */,
+				E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -311,6 +346,7 @@
 				E975390527325538004358C5 /* AchievementInfo.swift */,
 				E9B1298127336EE50072D254 /* TodayRoutine.swift */,
 				441CEDD92737B381006C261F /* Category.swift */,
+				E94B49752739118B00708D7B /* RecommendChallenge.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -319,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				E9753908273257E5004358C5 /* HomeFetchUsecase.swift */,
+				E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */,
 				1497CF562739215C00296F9E /* HomeCreateUsecase.swift */,
 			);
 			path = Usecase;
@@ -378,6 +415,7 @@
 				E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */,
 				E9797CBC27310E1900A14A0F /* HomeCoordinator.swift */,
 				E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */,
+				0DC38F43273A3B9800331C25 /* SearchCoordinator.swift */,
 				E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */,
 				E994744F2736D54C0054A631 /* DetailCoordinator.swift */,
 				E99474512736F4B30054A631 /* AuthCoordinator.swift */,
@@ -388,7 +426,10 @@
 		E9797CA52731066100A14A0F /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				0DBBAA3827341C3600B32EB5 /* cell */,
 				E9797CA62731068300A14A0F /* ChallengeViewController.swift */,
+				0DBBAA3627341C1600B32EB5 /* CollectionViewLayouts.swift */,
+				E94B4973273910F400708D7B /* ChallengeViewModel.swift */,
 			);
 			path = Challenge;
 			sourceTree = "<group>";
@@ -631,6 +672,7 @@
 			files = (
 				441CEDF027390259006C261F /* UserDTO.swift in Sources */,
 				441CEDF52739029C006C261F /* AchievementInfoDTO.swift in Sources */,
+				E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */,
 				441CEDF327390296006C261F /* TodayRoutineDTO.swift in Sources */,
 				441CEDFD27390378006C261F /* RoutinusDatabase.swift in Sources */,
 			);
@@ -640,15 +682,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
+				0DBBAA3727341C1600B32EB5 /* CollectionViewLayouts.swift in Sources */,
 				441CEE07273A0832006C261F /* HomeRepository.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */,
 				1497CF572739215C00296F9E /* HomeCreateUsecase.swift in Sources */,
 				E9753900273220F6004358C5 /* User.swift in Sources */,
+				0DBBAA3C27341C3600B32EB5 /* ChallengeRecommendCell.swift in Sources */,
 				E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */,
+				E94B497227390FD300708D7B /* CategoryButton.swift in Sources */,
 				E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */,
 				E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
+				E9493DBF273A390F0095CF6D /* CategoryButtonTapGesture.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
 				441CEDDA2737B381006C261F /* Category.swift in Sources */,
@@ -667,11 +714,16 @@
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				0DD1631A27311F0200DC5970 /* DateCell.swift in Sources */,
 				E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */,
+				E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */,
 				E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
+				E94B49762739118B00708D7B /* RecommendChallenge.swift in Sources */,
+				0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCell.swift in Sources */,
+				0DC38F44273A3B9900331C25 /* SearchCoordinator.swift in Sources */,
 				E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */,
 				E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */,
 				E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */,
+				0DBBAA3E27341C3600B32EB5 /* ChallengeCollectionViewHeader.swift in Sources */,
 				E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */,
 				E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */,
 				1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */,
