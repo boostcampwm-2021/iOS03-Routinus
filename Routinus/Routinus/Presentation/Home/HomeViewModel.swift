@@ -10,7 +10,7 @@ import Foundation
 
 protocol HomeViewModelInput {
     func didTappedTodayRoutine(index: Int)
-    func didTappedShowChallengeButton()
+    func didTappedAddChallengeButton()
     func didTappedTodayRoutineAuth(index: Int)
 }
 
@@ -57,7 +57,7 @@ extension HomeViewModel {
         self.showChallengeDetailSignal.send(challengeID)
     }
 
-    func didTappedShowChallengeButton() {
+    func didTappedAddChallengeButton() {
         self.showChallengeSignal.send()
     }
 
