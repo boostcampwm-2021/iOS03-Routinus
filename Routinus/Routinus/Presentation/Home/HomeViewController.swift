@@ -18,12 +18,12 @@ final class HomeViewController: UIViewController {
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView()
     
-    private var viewModel: HomeViewModelType?
+    private var viewModel: HomeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
     private var achievementData: [AchievementInfo] = []
     private var calendarDelegate = CalendarDelegate.shared
 
-    init(with viewModel: HomeViewModelType) {
+    init(with viewModel: HomeViewModelIO) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -113,12 +113,19 @@ extension HomeViewController {
     private func configureDelegates() {
         todayRoutineView.delegate = self
         todayRoutineView.dataSource = self
+        todayRoutineView.challengeAdddelegate = self
         
         calendarDelegate.calendar = achievementData
         calendarDelegate.formatter = viewModel?.formatter
 
         calendarView.delegate = calendarDelegate
         calendarView.dataSource = self
+    }
+}
+
+extension HomeViewController: TodayRoutineDelegate {
+    func didTappedAddChallengeButton() {
+        self.viewModel?.didTappedAddChallengeButton()
     }
 }
 

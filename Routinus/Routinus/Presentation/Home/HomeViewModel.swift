@@ -10,7 +10,7 @@ import Foundation
 
 protocol HomeViewModelInput {
     func didTappedTodayRoutine(index: Int)
-    func didTappedShowChallengeButton()
+    func didTappedAddChallengeButton()
     func didTappedTodayRoutineAuth(index: Int)
 }
 
@@ -24,9 +24,9 @@ protocol HomeViewModelOutput {
     var formatter: DateFormatter { get }
 }
 
-protocol HomeViewModelType: HomeViewModelInput, HomeViewModelOutput { }
+protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 
-class HomeViewModel: HomeViewModelType {
+class HomeViewModel: HomeViewModelIO {
     var userInfo = CurrentValueSubject<User, Never>(User())
     var todayRoutine = CurrentValueSubject<[TodayRoutine], Never>([])
     var achievementInfo = CurrentValueSubject<[AchievementInfo], Never>([])
@@ -57,7 +57,7 @@ extension HomeViewModel {
         self.showChallengeDetailSignal.send(challengeID)
     }
 
-    func didTappedShowChallengeButton() {
+    func didTappedAddChallengeButton() {
         self.showChallengeSignal.send()
     }
 
