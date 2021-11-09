@@ -36,7 +36,7 @@ class ChallengeViewController: UIViewController {
     // MARK: - Private Properties
     private lazy var dataSource = configureDataSource()
     private lazy var snapshot = Snapshot()
-    var viewModel: ChallengeViewModelIO?
+    private var viewModel: ChallengeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
     init(with viewModel: ChallengeViewModelIO) {
@@ -52,7 +52,7 @@ class ChallengeViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.tintColor = .black
-        button.addTarget(self, action: #selector(showSearchViewController), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTappedSearchButton), for: .touchUpInside)
         return button
     }()
 
@@ -117,7 +117,7 @@ class ChallengeViewController: UIViewController {
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
             view?.title = section.title
-            view?.seeAllButton.addTarget(self, action: #selector(self.showSearchViewController), for: .touchUpInside)
+            view?.seeAllButton.addTarget(self, action: #selector(self.didTappedSearchButton), for: .touchUpInside)
 
             switch section {
             case .category:
@@ -130,18 +130,16 @@ class ChallengeViewController: UIViewController {
     }
 
     @objc
-    private func showSearchViewController(_ sender: UIButton) {
+    private func didTappedSearchButton(_ sender: UIButton) {
         let searchViewController = SearchViewController()
-//        searchViewController.viewModel.paging = 0
-//        searchViewController.viewModel.fetch()
-        self.navigationController?.pushViewController(searchViewController, animated: true)
+        self.viewModel?.didTappedSearchButton()
     }
 }
 
 extension ChallengeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            self.viewModel?.didTappedPopularChallenge(index: indexPath.item)
+            self.viewModel?.didTappedRecommendChallenge(index: indexPath.item)
         }
     }
 
