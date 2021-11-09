@@ -15,7 +15,7 @@ final class CreateViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 10
+        stackView.spacing = 30
         return stackView
     }()
 
@@ -74,12 +74,24 @@ extension CreateViewController {
 
         stackView.addArrangedSubview(categoryView)
         categoryView.snp.makeConstraints { make in
-            make.height.equalTo(240)
+            make.height.equalTo(220)
         }
-        
+
         stackView.addArrangedSubview(titleView)
+        titleView.snp.makeConstraints { make in
+            make.height.equalTo(120)
+        }
+
         stackView.addArrangedSubview(imageRegisterView)
+        imageRegisterView.snp.makeConstraints { make in
+            make.height.equalTo(220)
+        }
+
         stackView.addArrangedSubview(weekView)
+        weekView.snp.makeConstraints { make in
+            make.height.equalTo(180)
+        }
+
         stackView.addArrangedSubview(descView)
         stackView.addArrangedSubview(authMethodView)
         stackView.addArrangedSubview(authImageRegisterView)
@@ -100,7 +112,7 @@ extension CreateViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return Category.allCases.count
     }
@@ -108,7 +120,7 @@ extension CreateViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return Category.allCases[row].title
     }
-    
+
     // TODO: 테스트용 임시 메소드(추후 삭제)
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print(Category.allCases[row].title)

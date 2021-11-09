@@ -292,8 +292,8 @@
 				441CEE09273A3225006C261F /* CreateCategory */,
 				441CEE0A273A3230006C261F /* CreateTitle */,
 				441CEE0B273A325D006C261F /* CreateImageRegister */,
-				441CEE0D273A32A6006C261F /* CreateDesc */,
 				441CEE0C273A3297006C261F /* CreateWeek */,
+				441CEE0D273A32A6006C261F /* CreateDesc */,
 				441CEE0E273A32B2006C261F /* CreateAuthMethod */,
 				441CEE0F273A32C1006C261F /* CreateAuthImageRegister */,
 			);

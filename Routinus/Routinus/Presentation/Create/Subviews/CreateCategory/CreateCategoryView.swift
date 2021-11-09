@@ -16,15 +16,15 @@ final class CreateCategoryView: UIView {
         label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
-    
+
     private lazy var categoryPickerView = UIPickerView()
-    
+
     weak var delegate: UIPickerViewDelegate? {
         didSet {
             categoryPickerView.delegate = delegate
         }
     }
-    
+
     weak var dataSource: UIPickerViewDataSource? {
         didSet {
             categoryPickerView.delegate = delegate
@@ -59,8 +59,8 @@ extension CreateCategoryView {
 
         addSubview(categoryPickerView)
         categoryPickerView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.left.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(-20)
+            make.width.equalToSuperview()
         }
     }
 }
