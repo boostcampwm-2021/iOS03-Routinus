@@ -21,16 +21,15 @@ struct HomeFetchUsecase: HomeFetchableUsecase {
 
     init(repository: HomeRepository) {
         self.repository = repository
-    } 
+    }
 
     func fetchUserInfo(completion: @escaping (User) -> Void) {
         // TODO: 테스트를 위한 임시 id(챌린지 추가 이후 guard 구문으로 교체)
         let id = "b555645c4804df095d82cb0b951a03b00d69cdeca5afc0a51201e1bfeae75e9b"
 //        guard let id = RoutinusRepository.userID() else { return }
-
+        
         Task {
-            guard let userDTO = try? await RoutinusDatabase.user(of: id) else { return }
-            let userInfo = User(userDTO: userDTO)
+            let userInfo = await repository.fetchUserInfo(by: id)
             completion(userInfo)
         }
     }
@@ -41,9 +40,8 @@ struct HomeFetchUsecase: HomeFetchableUsecase {
 //        guard let id = RoutinusRepository.userID() else { return }
 
         Task {
-            guard let list = try? await RoutinusDatabase.routineList(of: id) else { return }
-            let todayRoutine = list.map { TodayRoutine(todayRoutineDTO: $0) }
-            completion(todayRoutine)
+            let todayRoutineList = await repository.fetchTodayRoutine(by: id)
+            completion(todayRoutineList)
         }
     }
 
@@ -53,9 +51,8 @@ struct HomeFetchUsecase: HomeFetchableUsecase {
 //        guard let id = RoutinusRepository.userID() else { return }
 
         Task {
-            guard let list = try? await RoutinusDatabase.achievementInfo(of: id, in: yearMonth) else { return }
-            let achievementInfo = list.map { AchievementInfo(achievementDTO: $0) }
-            completion(achievementInfo)
+            let acheivementInfoList = await repository.fetchAcheivementInfo(by: id, in: yearMonth)
+            completion(acheivementInfoList)
         }
     }
 }
