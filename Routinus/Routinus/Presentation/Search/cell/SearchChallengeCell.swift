@@ -14,13 +14,14 @@ final class SearchChallengeCell: UICollectionViewCell {
     private lazy var challengeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "folder")
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
@@ -32,13 +33,14 @@ final class SearchChallengeCell: UICollectionViewCell {
 
         self.addSubview(challengeImageView)
         self.challengeImageView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(110)
         }
 
         self.addSubview(titleLabel)
         self.titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.top.equalTo(self.challengeImageView.snp.bottom).offset(10)
+            make.leading.bottom.equalToSuperview()
+            make.top.equalTo(challengeImageView.snp.bottom).offset(10)
         }
     }
 }
