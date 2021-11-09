@@ -26,7 +26,9 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
         // TODO: categoryID 설정
         // TODO: endDate 설정
         guard let ownerID = repository.userID() else { return }
-        let challenge = ChallengeDTO(id: "aa", title: challenge.title, imageURL: challenge.id, authExampleImageURL: challenge.authImageURL, authMethod: challenge.authMethod, categoryID: "1", week: challenge.week, decs: challenge.description, startDate: "20211109", endDate: "20211209", participantCount: 0, ownerID: ownerID, thumbnailImageURL: "")
+        let challenge = ChallengeDTO(id: "aa", title: challenge.title, imageURL: challenge.imageURL, authExampleImageURL: challenge.authImageURL,
+                                     authMethod: challenge.authMethod, categoryID: "1", week: challenge.week, decs: challenge.description,
+                                     startDate: "20211109", endDate: "20211209", participantCount: 0, ownerID: ownerID, thumbnailImageURL: "")
         repository.save(challenge: challenge)
     }
 }

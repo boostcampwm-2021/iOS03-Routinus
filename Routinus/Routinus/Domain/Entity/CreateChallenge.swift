@@ -10,7 +10,7 @@ import Foundation
 import RoutinusDatabase
 
 struct CreateChallenge: Hashable {
-    var id: String
+    var category: String
     var title: String
     var imageURL: String
     var week: Int
@@ -20,13 +20,23 @@ struct CreateChallenge: Hashable {
     
 
     init() {
-        self.id = ""
+        self.category = ""
         self.title = ""
         self.imageURL = ""
         self.week = 0
         self.description = ""
         self.authMethod = ""
         self.authImageURL = ""
+    }
+
+    init(category: String, title: String, imageURL: String, week: Int, description: String, authMethod: String, authImageURL: String) {
+        self.category = category
+        self.title = title
+        self.imageURL = imageURL
+        self.week = week
+        self.description = description
+        self.authMethod = authMethod
+        self.authImageURL = authImageURL
     }
 
     func isEmpty() -> Bool {
