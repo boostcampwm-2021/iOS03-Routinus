@@ -64,7 +64,9 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         self.collectionView.delegate = self
         self.collectionView.dataSource = dataSource
+        self.snapshot.appendSections(Section.allCases)
         self.configureViews()
+        self.viewTests()
     }
 
 }
@@ -130,9 +132,26 @@ extension SearchViewController {
             return layout.section(at: sectionNumber)
         }
     }
-    
+
     private func viewTests() {
-        let popularTermItem = ["운동", "독서", "책읽기"]
+        let popularTermItem = ["운동", "독서", "책읽기", "공부", "영어"]
+
+        var popularSnapshot = self.dataSource.snapshot(for: Section.popularSearchTerm)
+        let popularContents = popularTermItem.map { SearchContents.popularSearchTerm($0) }
+        popularSnapshot.append(popularContents)
+        self.dataSource.apply(popularSnapshot, to: Section.popularSearchTerm)
+
+        let challengeItem = [Challenge(challengeID: "ddd", title: "물마시기", imageData: nil),
+                        Challenge(challengeID: "ddd", title: "화마시기", imageData: nil),
+                        Challenge(challengeID: "ddd", title: "수마시기", imageData: nil),
+                        Challenge(challengeID: "ddd", title: "목마시기", imageData: nil),
+                        Challenge(challengeID: "ddd", title: "금마시기", imageData: nil),
+                        Challenge(challengeID: "ddd", title: "토마시기", imageData: nil)]
+
+        var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
+        let challengeContents = challengeItem.map { SearchContents.challenge($0) }
+        challengeSnapshot.append(challengeContents)
+        self.dataSource.apply(challengeSnapshot, to: Section.challenge)
     }
 }
 
