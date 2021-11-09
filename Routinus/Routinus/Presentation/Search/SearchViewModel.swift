@@ -9,14 +9,14 @@ import Combine
 import Foundation
 
 protocol SearchViewModelInput {
-    func didTappedSearchButton()
-    func didTappedRecommendChallenge(index: Int)
+    func didTappedSearchButton(keyword: String)
+    func didTappedChallenge(index: Int)
 }
 
 protocol SearchViewModelOutput {
     var popularChallenge: CurrentValueSubject<[Challenge], Never> { get }
 
-    var showChallengeSearchSignal: PassthroughSubject<Void, Never> { get }
+    var showChallengeSearchSignal: PassthroughSubject<String, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
     var showChallengeCategorySignal: PassthroughSubject<Category, Never> { get }
 }
@@ -26,7 +26,7 @@ protocol SearchViewModelIO: SearchViewModelInput, SearchViewModelOutput { }
 class SearchViewModel: SearchViewModelIO {
     var popularChallenge = CurrentValueSubject<[Challenge], Never>([])
 
-    var showChallengeSearchSignal = PassthroughSubject<Void, Never>()
+    var showChallengeSearchSignal = PassthroughSubject<String, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
     var showChallengeCategorySignal = PassthroughSubject<Category, Never>()
 
@@ -40,11 +40,11 @@ class SearchViewModel: SearchViewModelIO {
 }
 
 extension SearchViewModel {
-    func didTappedSearchButton() {
-        showChallengeSearchSignal.send()
+    func didTappedSearchButton(keyword: String) {
+        showChallengeSearchSignal.send(keyword)
     }
 
-    func didTappedRecommendChallenge(index: Int) {
+    func didTappedChallenge(index: Int) {
         let challengeID = self.popularChallenge.value[index].challengeID
         showChallengeDetailSignal.send(challengeID)
     }
@@ -52,8 +52,8 @@ extension SearchViewModel {
 
 extension SearchViewModel {
     private func fetchChallenge() {
-        usecase.fetchPopularChallenge { [weak self] recommendChallenge in
-            self?.popularChallenge.value = recommendChallenge
+        usecase.fetchPopularChallenge { [weak self] challenge in
+            self?.popularChallenge.value = challenge
         }
     }
 }
