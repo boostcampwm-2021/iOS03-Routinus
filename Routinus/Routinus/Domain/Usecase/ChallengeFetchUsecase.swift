@@ -17,9 +17,12 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     func fetchRecommendChallenge(completion: @escaping ([RecommendChallenge]) -> Void) {
         Task {
             guard let list = try? await RoutinusDatabase.challengeInfo() else { return }
-            let challengeList = list
+            var challengeList = list
                 .map { RecommendChallenge(challengeDTO: $0) }
                 .sorted { $0.participantCount > $1.participantCount }
+            if challengeList.count > 5 {
+                challengeList = challengeList[..<5].map { $0 }
+            }
             completion(challengeList)
         }
     }
