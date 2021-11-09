@@ -24,9 +24,9 @@ protocol HomeViewModelOutput {
     var formatter: DateFormatter { get }
 }
 
-protocol HomeViewModelType: HomeViewModelInput, HomeViewModelOutput { }
+protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 
-class HomeViewModel: HomeViewModelType {
+class HomeViewModel: HomeViewModelIO {
     var userInfo = CurrentValueSubject<User, Never>(User())
     var todayRoutine = CurrentValueSubject<[TodayRoutine], Never>([])
     var achievementInfo = CurrentValueSubject<[AchievementInfo], Never>([])
