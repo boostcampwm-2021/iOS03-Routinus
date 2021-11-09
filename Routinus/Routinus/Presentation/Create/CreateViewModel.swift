@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 protocol CreateViewModelInput {
+    func validate()
     func didTappedCreateButton()
 }
 
@@ -36,7 +37,3 @@ class CreateViewModel: CreateViewModelIO {
         // TODO: firebase에 저장
     }
 }
-
-
-
-

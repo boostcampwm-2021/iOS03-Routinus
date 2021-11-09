@@ -29,6 +29,6 @@ struct CreateChallenge: Hashable {
     }
 
     func isEmpty() -> Bool {
-        return title.isEmpty && thumbImageURL.isEmpty && description.isEmpty && authMethod.isEmpty && authImageURL.isEmpty
+        return title.isEmpty || thumbImageURL.isEmpty || description.isEmpty || authMethod.isEmpty || authImageURL.isEmpty
     }
 }
