@@ -19,7 +19,9 @@ class ChallengeCoordinator: RoutinusCoordinator {
     }
 
     func start() {
-        let challengeViewModel = ChallengeViewModel(usecase: ChallengeFetchUsecase())
+        let repository = RoutinusRepository()
+        let challengeUsecase = ChallengeFetchUsecase(repository: repository)
+        let challengeViewModel = ChallengeViewModel(usecase: challengeUsecase)
         let challengeViewController = ChallengeViewController(with: challengeViewModel)
         challengeViewModel.showChallengeSearchSignal
             .sink { [weak self] _ in
