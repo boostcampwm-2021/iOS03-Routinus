@@ -83,6 +83,16 @@ class ChallengeViewController: UIViewController {
         self.configureViewModel()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchButton.isHidden = false
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchButton.isHidden = true
+    }
+
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, content in
             switch content {
@@ -146,17 +156,21 @@ extension ChallengeViewController: UICollectionViewDelegate {
         self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "Challenges"
+        configureSearchButton()
+        self.view.addSubview(collectionView)
+        self.collectionView.snp.makeConstraints { make in
+            make.leading.top.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+    }
+
+    private func configureSearchButton() {
         self.navigationController?.navigationBar.addSubview(searchButton)
         searchButton.frame = CGRect(x: self.view.frame.width, y: 0, width: 40, height: 40)
 
         searchButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-16)
             make.lastBaseline.equalToSuperview().offset(-16)
-        }
-        self.view.addSubview(collectionView)
-        self.collectionView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
         }
     }
 
