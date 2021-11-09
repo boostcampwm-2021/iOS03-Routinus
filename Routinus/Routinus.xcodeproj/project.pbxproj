@@ -58,7 +58,7 @@
 		E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CAA2731073F00A14A0F /* MyPageViewController.swift */; };
 		E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CAC2731074B00A14A0F /* ManageViewController.swift */; };
 		E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB0273107A200A14A0F /* DetailViewController.swift */; };
-		E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB2273107BE00A14A0F /* CreateController.swift */; };
+		E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB2273107BE00A14A0F /* CreateViewController.swift */; };
 		E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB5273107F700A14A0F /* SearchViewController.swift */; };
 		E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB82731094900A14A0F /* AuthViewController.swift */; };
 		E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */; };
@@ -150,7 +150,7 @@
 		E9797CAA2731073F00A14A0F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		E9797CAC2731074B00A14A0F /* ManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewController.swift; sourceTree = "<group>"; };
 		E9797CB0273107A200A14A0F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		E9797CB2273107BE00A14A0F /* CreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateController.swift; sourceTree = "<group>"; };
+		E9797CB2273107BE00A14A0F /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		E9797CB5273107F700A14A0F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E9797CB82731094900A14A0F /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCoordinator.swift; sourceTree = "<group>"; };
@@ -453,7 +453,7 @@
 		E9797CAE2731077A00A14A0F /* Create */ = {
 			isa = PBXGroup;
 			children = (
-				E9797CB2273107BE00A14A0F /* CreateController.swift */,
+				E9797CB2273107BE00A14A0F /* CreateViewController.swift */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -716,6 +716,7 @@
 				E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */,
 				E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */,
 				E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */,
+				E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E94B49762739118B00708D7B /* Challenge.swift in Sources */,
 				0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCell.swift in Sources */,
