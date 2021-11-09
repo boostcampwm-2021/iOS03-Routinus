@@ -17,7 +17,6 @@ struct CreateChallenge: Hashable {
     var description: String
     var authMethod: String
     var authImageURL: String
-    
 
     init() {
         self.category = ""
