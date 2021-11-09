@@ -89,10 +89,14 @@ extension CreateViewController {
 
         stackView.addArrangedSubview(weekView)
         weekView.snp.makeConstraints { make in
-            make.height.equalTo(180)
+            make.height.equalTo(170)
         }
 
         stackView.addArrangedSubview(descView)
+        descView.snp.makeConstraints { make in
+            make.height.equalTo(240)
+        }
+        
         stackView.addArrangedSubview(authMethodView)
         stackView.addArrangedSubview(authImageRegisterView)
         stackView.addArrangedSubview(createButton)
