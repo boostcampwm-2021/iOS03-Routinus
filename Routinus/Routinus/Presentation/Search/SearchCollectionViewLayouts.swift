@@ -30,8 +30,8 @@ class SearchCollectionViewLayouts {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(140))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4), heightDimension: .estimated(140))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(140))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
 
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
@@ -41,6 +41,7 @@ class SearchCollectionViewLayouts {
 
         section.orthogonalScrollingBehavior = .none
         section.contentInsets = .init(top: 10, leading: 25, bottom: 10, trailing: 25)
+        section.interGroupSpacing = 10
         return section
     }
 
