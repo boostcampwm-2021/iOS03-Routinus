@@ -11,7 +11,7 @@ import Foundation
 protocol ChallengeViewModelInput {
     func didTappedSearchButton()
     func didTappedSeeAllButton()
-    func didTappedPopularChallenge(index: Int)
+    func didTappedRecommendChallenge(index: Int)
     func didTappedCategoryButton(category: Category)
 }
 
@@ -33,6 +33,7 @@ class ChallengeViewModel: ChallengeViewModelIO {
     var showChallengeCategorySignal = PassthroughSubject<Category, Never>()
     
     let usecase: ChallengeFetchableUsecase
+    var cancellables = Set<AnyCancellable>()
 
     init(usecase: ChallengeFetchableUsecase) {
         self.usecase = usecase
@@ -49,7 +50,7 @@ extension ChallengeViewModel {
         showChallengeSearchSignal.send()
     }
 
-    func didTappedPopularChallenge(index: Int) {
+    func didTappedRecommendChallenge(index: Int) {
         let challengeID = self.recommendChallenge.value[index].challengeID
         showChallengeDetailSignal.send(challengeID)
     }
