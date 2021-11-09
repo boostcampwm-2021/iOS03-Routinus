@@ -10,6 +10,7 @@ import Foundation
 
 protocol CreateViewModelInput {
     func validate()
+    func update(title: String)
     func update(category: String)
     func update(imageURL: String)
     func update(week: Int)
@@ -20,45 +21,56 @@ protocol CreateViewModelInput {
 }
 
 protocol CreateViewModelOutput {
-    var createChallenge: CurrentValueSubject<CreateChallenge, Never> { get }
+    var challenge: CurrentValueSubject<CreateChallenge, Never> { get }
     var createButtonState: CurrentValueSubject<Bool, Never> { get }
 }
 
 protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
 
 class CreateViewModel: CreateViewModelIO {
-    var createChallenge = CurrentValueSubject<CreateChallenge, Never>(CreateChallenge())
+    var challenge = CurrentValueSubject<CreateChallenge, Never>(CreateChallenge())
     var createButtonState = CurrentValueSubject<Bool, Never>(false)
 
+    var createUsecase: ChallengeCreateUsecase
+    var cancellables = Set<AnyCancellable>()
+
+    init(createUsecase: ChallengeCreateUsecase) {
+        self.createUsecase = createUsecase
+    }
+
     func validate() {
-        createButtonState.value = !createChallenge.value.isEmpty()
+        createButtonState.value = !challenge.value.isEmpty()
+    }
+
+    func update(title: String) {
+        challenge.value.title = title
     }
 
     func update(category: String) {
-        createChallenge.value.category = category
+        challenge.value.category = category
     }
 
     func update(imageURL: String) {
-        createChallenge.value.imageURL = imageURL
+        challenge.value.imageURL = imageURL
     }
 
     func update(week: Int) {
-        createChallenge.value.week = week
+        challenge.value.week = week
     }
 
     func update(description: String) {
-        createChallenge.value.description = description
+        challenge.value.description = description
     }
 
     func update(authMethod: String) {
-        createChallenge.value.authMethod = authMethod
+        challenge.value.authMethod = authMethod
     }
 
     func update(authImageURL: String) {
-        createChallenge.value.authImageURL = authImageURL
+        challenge.value.authImageURL = authImageURL
     }
 
     func didTappedCreateButton() {
-        // TODO: firebase에 저장
+        createUsecase.createChallenge(challenge: challenge.value)
     }
 }
