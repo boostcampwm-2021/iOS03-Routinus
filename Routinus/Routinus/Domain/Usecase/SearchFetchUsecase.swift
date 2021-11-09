@@ -11,15 +11,21 @@ import RoutinusDatabase
 
 protocol SearchFetchableUsecase {
     func fetchPopularChallenge(completion: @escaping ([Challenge]) -> Void)
-    func fetchSearchKeyword(keyword: String, completion: @escaping ([Challenge]) -> Void)
+    func fetchSearchChallengeBy(keyword: String, completion: @escaping ([Challenge]) -> Void)
+    func fetchSearchChallengeBy(categoryID: String, completion: @escaping ([Challenge]) -> Void)
 }
 
 struct SearchFetchUsecase: SearchFetchableUsecase {
+    var repository: SearchRepository
+
+    init(repository: SearchRepository) {
+        self.repository = repository
+    }
+
     func fetchPopularChallenge(completion: @escaping ([Challenge]) -> Void) {
         Task {
-            guard let list = try? await RoutinusDatabase.challengeInfo() else { return }
+            let list = await repository.fetchChallenges()
             var challengeList = list
-                .map { Challenge(challengeDTO: $0) }
                 .sorted { $0.participantCount > $1.participantCount }
             if challengeList.count > 6 {
                 challengeList = challengeList[..<6].map { $0 }
@@ -28,17 +34,23 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
         }
     }
 
-    func fetchSearchKeyword(keyword: String, completion: @escaping ([Challenge]) -> Void) {
+    func fetchSearchChallengeBy(keyword: String, completion: @escaping ([Challenge]) -> Void) {
         Task {
-            guard let list = try? await RoutinusDatabase.challengeInfo() else { return }
+            let list = await repository.fetchChallenges()
+            let keywords = searchKeywords(keyword)
+            var results: Set<Challenge> = []
+
             let challengeList = list
-                .map { Challenge(challengeDTO: $0) }
-                .filter { $0.title.contains(keyword) || $0.description.contains(keyword) }
+            keywords.forEach { keyword in
+                list.filter { challenge in
+                    challenge.title.contains(keyword)
+                }.forEach { results.insert($0) }
+            }
             completion(challengeList)
         }
     }
 
-    func fetchSearchCategory(categoryID: String, completion: @escaping ([Challenge]) -> Void) {
+    func fetchSearchChallengeBy(categoryID: String, completion: @escaping ([Challenge]) -> Void) {
         Task {
             guard let list = try? await RoutinusDatabase.challengeInfo() else { return }
             let challengeList = list
@@ -46,5 +58,10 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
                 .filter { $0.categoryID == categoryID }
             completion(challengeList)
         }
+    }
+
+    private func searchKeywords(_ keyword: String) -> [String] {
+        let keywords = keyword.components(separatedBy: " ")
+        return keywords
     }
 }
