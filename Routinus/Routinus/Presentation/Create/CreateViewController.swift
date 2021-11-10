@@ -56,7 +56,6 @@ final class CreateViewController: UIViewController {
 
         configureViews()
         configureViewModel()
-        configureDelegates()
     }
 }
 
@@ -118,29 +117,5 @@ extension CreateViewController {
 
     private func configureViewModel() {
         // TODO: ViewModel 작업 후 Bind
-    }
-
-    private func configureDelegates() {
-        categoryView.delegate = self
-        categoryView.dataSource = self
-    }
-}
-
-extension CreateViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return Challenge.Category.allCases.count
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Challenge.Category.allCases[row].title
-    }
-
-    // TODO: 테스트용 임시 메소드(추후 삭제)
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(Challenge.Category.allCases[row].title)
     }
 }

@@ -17,19 +17,12 @@ final class CreateCategoryView: UIView {
         return label
     }()
 
-    private lazy var categoryPickerView = UIPickerView()
-
-    weak var delegate: UIPickerViewDelegate? {
-        didSet {
-            categoryPickerView.delegate = delegate
-        }
-    }
-
-    weak var dataSource: UIPickerViewDataSource? {
-        didSet {
-            categoryPickerView.delegate = delegate
-        }
-    }
+    private lazy var button: UIButton = {
+        let button = UIButton()
+        button.tintColor = .black
+        button.titleLabel?.font = .systemFont(ofSize: 16)
+        return button
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,20 +41,43 @@ final class CreateCategoryView: UIView {
 
 extension CreateCategoryView {
     private func configure() {
-        configureSubviews()
+        configureButton()
+        configureLayouts()
     }
 
-    private func configureSubviews() {
+    private func configureButton() {
+        var configuration = UIButton.Configuration.tinted()
+        configuration.title = "운동"
+        button.configuration = configuration
+
+        var actions = [UIAction]()
+        for category in Challenge.Category.allCases {
+            let action = UIAction(title: category.title, image: UIImage(systemName: category.symbol)) { action in
+                print(action.title) // TODO: 임시
+            }
+            actions.append(action)
+        }
+        button.menu = UIMenu(title: "",
+                             image: nil,
+                             identifier: nil,
+                             options: .displayInline,
+                             children: actions)
+        button.showsMenuAsPrimaryAction = true
+    }
+
+    private func configureLayouts() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.width.equalToSuperview()
             make.height.equalTo(24)
         }
 
-        addSubview(categoryPickerView)
-        categoryPickerView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(-20)
-            make.width.equalToSuperview()
+        addSubview(button)
+        button.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.left.equalToSuperview()
+            make.width.equalTo(100)
+            make.height.equalTo(40)
         }
     }
 }
