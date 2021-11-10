@@ -80,8 +80,8 @@ struct Challenge: Hashable {
     let participantCount: Int
 
     init(challengeID: String, title: String, introduction: String, category: Category, imageURL: String,
-         authExampleImageURL: String, thumbnailImageURL: String, authMethod: String, startDate: Date,
-         endDate: Date, ownerID: String, week: Int, participantCount: Int) {
+         authExampleImageURL: String, thumbnailImageURL: String, authMethod: String, startDate: Date?,
+         endDate: Date?, ownerID: String, week: Int, participantCount: Int) {
         self.challengeID = challengeID
         self.title = title
         self.introduction = introduction
