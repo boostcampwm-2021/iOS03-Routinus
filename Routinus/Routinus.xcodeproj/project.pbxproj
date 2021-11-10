@@ -22,7 +22,6 @@
 		441CEDD127378573006C261F /* ContinuityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD027378573006C261F /* ContinuityView.swift */; };
 		441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD227378EBF006C261F /* TodayRoutineView.swift */; };
 		441CEDD627379939006C261F /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD527379939006C261F /* CalendarView.swift */; };
-		441CEDDA2737B381006C261F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD92737B381006C261F /* Category.swift */; };
 		441CEDE32738FF1E006C261F /* RoutinusDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 441CEDE22738FF1E006C261F /* RoutinusDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		441CEDE62738FF1E006C261F /* RoutinusDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */; };
 		441CEDE72738FF1E006C261F /* RoutinusDatabase.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -116,7 +115,6 @@
 		441CEDD027378573006C261F /* ContinuityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityView.swift; sourceTree = "<group>"; };
 		441CEDD227378EBF006C261F /* TodayRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineView.swift; sourceTree = "<group>"; };
 		441CEDD527379939006C261F /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		441CEDD92737B381006C261F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutinusDatabase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		441CEDE22738FF1E006C261F /* RoutinusDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutinusDatabase.h; sourceTree = "<group>"; };
 		441CEDEF27390259006C261F /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
@@ -348,7 +346,6 @@
 				E97538FF273220F6004358C5 /* User.swift */,
 				E975390527325538004358C5 /* AchievementInfo.swift */,
 				E9B1298127336EE50072D254 /* TodayRoutine.swift */,
-				441CEDD92737B381006C261F /* Category.swift */,
 				E94B49752739118B00708D7B /* Challenge.swift */,
 			);
 			path = Entity;
@@ -701,7 +698,6 @@
 				E9493DBF273A390F0095CF6D /* CategoryButtonTapGesture.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
-				441CEDDA2737B381006C261F /* Category.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
 				E975390627325538004358C5 /* AchievementInfo.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,

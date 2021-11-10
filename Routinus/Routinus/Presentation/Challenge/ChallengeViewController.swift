@@ -197,7 +197,7 @@ extension ChallengeViewController: UICollectionViewDelegate {
 }
 
 extension ChallengeViewController: ChallengeCategoryCellDelegate {
-    func didTappedCategoryButton(category: Category) {
+    func didTappedCategoryButton(category: Challenge.Category) {
         self.viewModel?.didTappedCategoryButton(category: category)
     }
 }
