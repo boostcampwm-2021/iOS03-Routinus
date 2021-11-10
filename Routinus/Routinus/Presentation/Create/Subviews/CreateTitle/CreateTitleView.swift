@@ -28,6 +28,7 @@ final class CreateTitleView: UIView {
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "예) 아침 6시에 일어나기"
+        textField.borderStyle = .roundedRect
         return textField
     }()
 
@@ -66,7 +67,7 @@ extension CreateTitleView {
 
         addSubview(textField)
         textField.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(30)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
             make.width.equalToSuperview()
         }
     }

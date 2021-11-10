@@ -76,7 +76,7 @@ extension CreateViewController {
 
         stackView.addArrangedSubview(categoryView)
         categoryView.snp.makeConstraints { make in
-            make.height.equalTo(220)
+            make.height.equalTo(100)
         }
 
         stackView.addArrangedSubview(titleView)
