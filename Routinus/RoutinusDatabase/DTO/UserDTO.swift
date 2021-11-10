@@ -22,11 +22,11 @@ public struct UserDTO {
         self.grade = 0
     }
     
-    public init(id: String, name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
+    public init(id: String, user: [String: Any]?) {
         self.id = id
-        self.name = name
-        self.continuityDay = continuityDay
-        self.userImageCategoryID = userImageCategoryID
-        self.grade = grade
+        self.name = user?["name"] as? String ?? ""
+        self.continuityDay = user?["continuity_day"] as? Int ?? 0
+        self.userImageCategoryID =  user?["user_image_category_id"] as? String ?? "0"
+        self.grade = user?["grade"] as? Int ?? 0
     }
 }
