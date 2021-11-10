@@ -67,7 +67,7 @@ struct Challenge: Hashable {
 
     let challengeID: String
     let title: String
-    let description: String
+    let introduction: String
     let category: Category
     let imageURL: String
     let authExampleImageURL: String
@@ -79,12 +79,12 @@ struct Challenge: Hashable {
     let week: Int
     let participantCount: Int
 
-    init(challengeID: String, title: String, description: String, category: Category, imageURL: String,
+    init(challengeID: String, title: String, introduction: String, category: Category, imageURL: String,
          authExampleImageURL: String, thumbnailImageURL: String, authMethod: String, startDate: Date,
          endDate: Date, ownerID: String, week: Int, participantCount: Int) {
         self.challengeID = challengeID
         self.title = title
-        self.description = description
+        self.introduction = introduction
         self.category = category
         self.imageURL = imageURL
         self.authExampleImageURL = authExampleImageURL
@@ -100,7 +100,7 @@ struct Challenge: Hashable {
     init(challengeDTO: ChallengeDTO) {
         self.challengeID = challengeDTO.id
         self.title = challengeDTO.title
-        self.description = challengeDTO.desc
+        self.introduction = challengeDTO.desc
         self.category = Category.category(by: challengeDTO.categoryID)
         self.imageURL = challengeDTO.imageURL
         self.authExampleImageURL = challengeDTO.authExampleImageURL
