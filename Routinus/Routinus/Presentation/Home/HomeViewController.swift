@@ -153,12 +153,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let auth = UIContextualAction(style: .normal, title: "인증하기") { (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            // TODO: - 화면 이동하기
-            self.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
+        let auth = UIContextualAction(style: .normal, title: nil) { [weak self] (_, _, _: @escaping (Bool) -> Void) in
+            self?.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
         }
-        // TODO: - 인증하기 버튼 배경색 정하기
-        auth.backgroundColor = .black
+
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .large)
+        auth.image = UIImage(systemName: "camera", withConfiguration: largeConfig)?
+                        .withTintColor(.white).circularBackground(nil)
+        auth.backgroundColor = .systemBackground
+        auth.title = "auth"
         return UISwipeActionsConfiguration(actions: [auth])
     }
 
