@@ -129,4 +129,8 @@ struct Challenge: Hashable {
         self.week = challengeDTO.week
         self.participantCount = challengeDTO.participantCount
     }
+    
+    func isEmpty() -> Bool {
+        return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
+    }
 }
