@@ -47,7 +47,7 @@ final class ChallengeRecommendCell: UICollectionViewCell {
         return label
     }()
 
-    func configureViews(recommendChallenge: RecommendChallenge) {
+    func configureViews(recommendChallenge: Challenge) {
 
         self.titleLabel.text = recommendChallenge.title
         self.subtitleLabel.text = recommendChallenge.description

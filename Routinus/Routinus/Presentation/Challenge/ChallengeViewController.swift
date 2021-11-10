@@ -25,7 +25,7 @@ class ChallengeViewController: UIViewController {
     }
 
     enum ChallengeContents: Hashable {
-        case recommend(RecommendChallenge)
+        case recommend(Challenge)
         case category
     }
 
