@@ -51,6 +51,26 @@ class SearchViewController: UIViewController {
 
         return collectionView
     }()
+    
+    lazy var backButtonImage: UIImage? = {
+        let image = UIImage(systemName: "chevron.backward")?
+            .withAlignmentRectInsets(UIEdgeInsets(top: 0.0, left: -12.0, bottom: -5.0, right: 0.0))
+        return image
+    }()
+
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        return searchBar
+    }()
+
+    private var backButtonAppearance: UIBarButtonItemAppearance {
+        let backButtonAppearance = UIBarButtonItemAppearance()
+        backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear,
+                                                           .font: UIFont.systemFont(ofSize: 0.0)]
+
+        return backButtonAppearance
+    }
+
     init(with viewModel: SearchViewModelIO) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
@@ -64,9 +84,11 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         self.collectionView.delegate = self
         self.collectionView.dataSource = dataSource
+        self.searchBar.delegate = self
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
         self.viewTests()
+        self.setNavigationBarAppearance()
     }
 
 }
@@ -78,7 +100,8 @@ extension SearchViewController {
             case .popularSearchTerm(let searchTerm):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchPopularTermCell.identifier,
                                                               for: indexPath) as? SearchPopularTermCell
-                cell?.configureViews(searchTerm: searchTerm)
+                cell?.configureViews(term: searchTerm)
+                cell?.delegate = self
                 return cell
 
             case .challenge(let challenge):
@@ -119,6 +142,21 @@ extension SearchViewController {
             make.leading.top.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+    }
+
+    private func setNavigationBarAppearance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .systemBackground
+        appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
+        appearance.backButtonAppearance = backButtonAppearance
+
+        self.navigationItem.titleView = searchBar
+        navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        self.navigationController?.navigationBar.compactAppearance = appearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.tintColor = .black
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
@@ -169,4 +207,25 @@ extension SearchViewController {
 }
 
 extension SearchViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            print(indexPath.item)
+//            self.viewModel?.didTappedChallenge(index: indexPath.item)
+        }
+    }
+}
+
+extension SearchViewController: SearchPopularTermDelegate {
+    func didTappedSearchTermButton(term: String?) {
+        guard let term = term else { return }
+        print(term)
+//        self.viewModel?.didTappedSearchButton(keyword: term)
+    }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // MARK: - TODO viewModel searchText 전달
+        print(searchText)
+    }
 }
