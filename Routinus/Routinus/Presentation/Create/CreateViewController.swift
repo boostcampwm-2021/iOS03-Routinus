@@ -132,15 +132,15 @@ extension CreateViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return Category.allCases.count
+        return Challenge.Category.allCases.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return Category.allCases[row].title
+        return Challenge.Category.allCases[row].title
     }
 
     // TODO: 테스트용 임시 메소드(추후 삭제)
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(Category.allCases[row].title)
+        print(Challenge.Category.allCases[row].title)
     }
 }
