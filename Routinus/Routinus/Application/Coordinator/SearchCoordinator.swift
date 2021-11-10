@@ -21,7 +21,7 @@ class SearchCoordinator: RoutinusCoordinator {
     func start() {
         let repository = RoutinusRepository()
         let searchUsecase = SearchFetchUsecase(repository: repository)
-        let searchViewModel = SearchViewModel(usecase: searchUsecase)
+        let searchViewModel = SearchViewModel(category: category, usecase: searchUsecase)
         let searchViewController = SearchViewController(with: searchViewModel)
         self.navigationController.pushViewController(searchViewController, animated: false)
     }

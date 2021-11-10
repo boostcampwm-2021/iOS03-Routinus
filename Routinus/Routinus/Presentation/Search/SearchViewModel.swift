@@ -10,6 +10,7 @@ import Foundation
 
 protocol SearchViewModelInput {
     func didTappedSearchButton(keyword: String)
+    func didTappedPopularKeyword(keyword: String)
     func didTappedChallenge(index: Int)
 }
 
@@ -18,29 +19,36 @@ protocol SearchViewModelOutput {
 
     var showChallengeSearchSignal: PassthroughSubject<String, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
-    var showChallengeCategorySignal: PassthroughSubject<Category, Never> { get }
 }
 
 protocol SearchViewModelIO: SearchViewModelInput, SearchViewModelOutput { }
 
 class SearchViewModel: SearchViewModelIO {
     var latestChallenge = CurrentValueSubject<[Challenge], Never>([])
+    var popularKeywords = [String]([])
 
     var showChallengeSearchSignal = PassthroughSubject<String, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
-    var showChallengeCategorySignal = PassthroughSubject<Category, Never>()
 
     let usecase: SearchFetchableUsecase
     var cancellables = Set<AnyCancellable>()
+    var searchKeyword: String?
+    var searchCategory: Challenge.Category?
 
-    init(usecase: SearchFetchableUsecase) {
+    init(category: Challenge.Category? = nil, usecase: SearchFetchableUsecase) {
         self.usecase = usecase
+        self.searchCategory = category
+        self.fetchPopularKeywords()
         self.fetchChallenge()
     }
 }
 
 extension SearchViewModel {
     func didTappedSearchButton(keyword: String) {
+        showChallengeSearchSignal.send(keyword)
+    }
+
+    func didTappedPopularKeyword(keyword: String) {
         showChallengeSearchSignal.send(keyword)
     }
 
@@ -51,8 +59,28 @@ extension SearchViewModel {
 }
 
 extension SearchViewModel {
+    private func fetchPopularKeywords() {
+        usecase.fetchPopularKeywords { [weak self] keywords in
+            self?.popularKeywords = keywords
+        }
+    }
+
     private func fetchChallenge() {
+        if searchCategory != nil {
+            fetchCategoryChallenges()
+        } else {
+            fetchLatestChallenges()
+        }
+    }
+
+    private func fetchLatestChallenges() {
         usecase.fetchLatestChallenge { [weak self] challenge in
+            self?.latestChallenge.value = challenge
+        }
+    }
+
+    private func fetchCategoryChallenges() {
+        usecase.fetchSearchChallengeBy(category: searchCategory!) { [weak self] challenge in
             self?.latestChallenge.value = challenge
         }
     }
