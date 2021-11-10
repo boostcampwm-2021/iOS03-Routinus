@@ -11,7 +11,7 @@ import SnapKit
 class SearchCollectionViewHeader: UICollectionReusableView {
     static let identifier = "SearchCollectionViewHeader"
 
-    let label: UILabel = {
+    private lazy var label: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 18)
