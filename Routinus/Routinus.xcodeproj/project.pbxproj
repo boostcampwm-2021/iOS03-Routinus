@@ -79,6 +79,7 @@
 		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
 		E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */; };
 		E9E9D1E8273BA83800F9CCBB /* PopularTermButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* PopularTermButton.swift */; };
+		E9E9D1EB273C1A4200F9CCBB /* SearchBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +180,7 @@
 		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
 		E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
 		E9E9D1E7273BA83800F9CCBB /* PopularTermButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularTermButton.swift; sourceTree = "<group>"; };
+		E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -498,6 +500,7 @@
 		E9797CB4273107E100A14A0F /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				E9E9D1E9273C1A2B00F9CCBB /* Subviews */,
 				E9493DC4273A5E630095CF6D /* cell */,
 				E9493DC2273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift */,
 				E9797CB5273107F700A14A0F /* SearchViewController.swift */,
@@ -512,6 +515,14 @@
 				E9797CB82731094900A14A0F /* AuthViewController.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		E9E9D1E9273C1A2B00F9CCBB /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -740,6 +751,7 @@
 				44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */,
 				0DC38F51273B684300331C25 /* SearchViewModel.swift in Sources */,
 				441CEDD627379939006C261F /* CalendarView.swift in Sources */,
+				E9E9D1EB273C1A4200F9CCBB /* SearchBarContainerView.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				E9E9D1E8273BA83800F9CCBB /* PopularTermButton.swift in Sources */,

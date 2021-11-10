@@ -30,6 +30,7 @@ class SearchViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, SearchContents>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SearchContents>
 
+    private lazy var searchBarView = SearchBarContainerView()
     private lazy var dataSource = configureDataSource()
     private lazy var snapshot = Snapshot()
     private var viewModel: SearchViewModelIO?
@@ -58,11 +59,6 @@ class SearchViewController: UIViewController {
         return image
     }()
 
-    lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        return searchBar
-    }()
-
     private var backButtonAppearance: UIBarButtonItemAppearance {
         let backButtonAppearance = UIBarButtonItemAppearance()
         backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear,
@@ -84,11 +80,10 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         self.collectionView.delegate = self
         self.collectionView.dataSource = dataSource
-        self.searchBar.delegate = self
+        self.searchBarView.searchBar.delegate = self
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
         self.configureViewModel()
-        self.setNavigationBarAppearance()
 //        self.performQuery()
     }
 
@@ -186,7 +181,8 @@ extension SearchViewController {
         appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
         appearance.backButtonAppearance = backButtonAppearance
 
-        self.navigationItem.titleView = searchBar
+        self.searchBarView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
+        self.navigationItem.titleView = searchBarView
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.standardAppearance = appearance
@@ -216,7 +212,7 @@ extension SearchViewController: UICollectionViewDelegate {
 extension SearchViewController: SearchPopularTermDelegate {
     func didTappedSearchTermButton(term: String?) {
         guard let term = term else { return }
-        self.searchBar.text = term
+        self.searchBarView.searchBar.text = term
         self.viewModel?.didChangedSearchText(term)
     }
 }
@@ -231,7 +227,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBar.endEditing(true)
+        self.searchBarView.searchBar.endEditing(true)
     }
 }
 
@@ -245,6 +241,6 @@ extension SearchViewController {
     }
 
     @objc func tappedView(sender: UITapGestureRecognizer) {
-        self.searchBar.endEditing(true)
+        self.searchBarView.searchBar.endEditing(true)
     }
 }
