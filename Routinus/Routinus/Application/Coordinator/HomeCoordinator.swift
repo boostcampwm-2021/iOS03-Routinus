@@ -24,7 +24,7 @@ class HomeCoordinator: RoutinusCoordinator {
         let homeFetchUsecase = HomeFetchUsecase(repository: homeRepository)
         let homeViewModel = HomeViewModel(createUsecase: homeCreateUsecase, fetchUsecase: homeFetchUsecase)
         let homeViewController = HomeViewController(with: homeViewModel)
-        
+
         homeViewModel.showChallengeSignal
             .sink { [weak self] _ in
                 guard let self = self,

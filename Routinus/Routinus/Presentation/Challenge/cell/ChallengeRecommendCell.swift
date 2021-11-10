@@ -26,14 +26,14 @@ final class ChallengeRecommendCell: UICollectionViewCell {
         label.numberOfLines = 2
         return label
     }()
-    
+
     private lazy var encounterView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "MainColor")
         view.layer.cornerRadius = 15
         return view
     }()
-    
+
     private lazy var encounterIcon: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "person")

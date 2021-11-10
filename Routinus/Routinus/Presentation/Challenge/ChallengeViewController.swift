@@ -61,7 +61,7 @@ class ChallengeViewController: UIViewController {
 
         return collectionView
     }()
-    
+
     init(with viewModel: ChallengeViewModelIO) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

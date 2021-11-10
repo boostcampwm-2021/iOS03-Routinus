@@ -29,7 +29,7 @@ struct Challenge: Hashable {
                 return "기타"
             }
         }
-        
+
         var color: String {
             switch self {
             case .exercise:
@@ -80,7 +80,7 @@ struct Challenge: Hashable {
                 return "5"
             }
         }
-        
+
         static func category(by id: String) -> Self {
             switch id {
             case "0":

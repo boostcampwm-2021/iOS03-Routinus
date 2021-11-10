@@ -17,7 +17,7 @@ final class HomeViewController: UIViewController {
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView()
-    
+
     private var viewModel: HomeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
     private var achievementData: [AchievementInfo] = []
@@ -31,7 +31,7 @@ final class HomeViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,14 +63,14 @@ extension HomeViewController {
             make.top.equalToSuperview().offset(10)
             make.height.equalTo(80)
         }
-        
+
         self.contentView.addSubview(todayRoutineView)
         self.todayRoutineView.snp.makeConstraints { make in
             make.height.equalTo(22)
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(self.continuityView.snp.bottom).offset(25)
         }
-        
+
         self.contentView.addSubview(calendarView)
         self.calendarView.snp.makeConstraints { make in
             make.top.equalTo(todayRoutineView.snp.bottom).offset(10)
@@ -109,12 +109,12 @@ extension HomeViewController {
             })
             .store(in: &cancellables)
     }
-    
+
     private func configureDelegates() {
         todayRoutineView.delegate = self
         todayRoutineView.dataSource = self
         todayRoutineView.challengeAdddelegate = self
-        
+
         calendarDelegate.calendar = achievementData
         calendarDelegate.formatter = viewModel?.formatter
 
@@ -191,7 +191,7 @@ extension HomeViewController: JTACMonthViewDataSource {
             var rangeDate: [Date] = []
             let dateComponent = DateComponents(year: dateData.year, month: dateData.month, day: dateData.day)
             guard let date = gregorianCalendar.date(from: dateComponent as DateComponents) else { return }
-            
+
             rangeDate.append(date)
             calendarView.selectDates(rangeDate)
             calendarView.reloadDates(rangeDate)

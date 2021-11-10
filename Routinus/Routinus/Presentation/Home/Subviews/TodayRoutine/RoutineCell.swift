@@ -45,11 +45,11 @@ final class RoutineCell: UITableViewCell {
         super.init(coder: coder)
         self.configureViews()
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
     func configureCell(routine: TodayRoutine) {
         if UIImage(systemName: routine.category.symbol) == nil {
             categoryImageView.image = UIImage(named: routine.category.symbol)

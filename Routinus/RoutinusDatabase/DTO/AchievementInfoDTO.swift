@@ -13,7 +13,7 @@ public struct AchievementInfoDTO {
     public var day: String
     public var achievementCount: Int
     public var totalCount: Int
-    
+
     public init() {
         self.userID = ""
         self.yearMonth = ""
@@ -21,7 +21,7 @@ public struct AchievementInfoDTO {
         self.achievementCount = 0
         self.totalCount = 0
     }
-    
+
     public init(achievement: [String: Any]?) {
         self.userID = achievement?["user_id"] as? String ?? ""
         self.yearMonth = achievement?["year_month"] as? String ?? ""

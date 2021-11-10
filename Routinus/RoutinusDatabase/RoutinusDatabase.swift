@@ -13,10 +13,10 @@ public enum RoutinusDatabase {
     public static func configure() {
         FirebaseApp.configure()
     }
-    
+
     public static func createUser(id: String, name: String) async throws {
         let db = Firestore.firestore()
-        
+
         try await db.collection("user").document().setData([
             "id": id,
             "name": name,

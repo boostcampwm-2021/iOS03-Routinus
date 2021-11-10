@@ -15,11 +15,11 @@ protocol ChallengeFetchableUsecase {
 
 struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     var repository: ChallengeRepository
-    
+
     init(repository: ChallengeRepository) {
         self.repository = repository
     }
-    
+
     func fetchRecommendChallenge(completion: @escaping ([Challenge]) -> Void) {
         Task {
             let recommendChallengeList = await repository.fetchRecommendChallenges()

@@ -68,7 +68,7 @@ final class DateHeader: JTACMonthReusableView {
         label.textColor = UIColor(named: "SaturdayColor")
         return label
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureDayStack()
@@ -88,7 +88,7 @@ extension DateHeader {
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
-        
+
         let dayLabels = [sunLabel, monLabel, tueLabel, wedLabel, thuLabel, friLabel, satLabel]
         dayLabels.forEach {
             $0.font = UIFont.systemFont(ofSize: 18, weight: .semibold)

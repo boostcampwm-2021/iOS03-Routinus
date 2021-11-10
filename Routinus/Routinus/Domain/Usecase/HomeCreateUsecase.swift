@@ -23,7 +23,7 @@ struct HomeCreateUsecase: HomeCreatableUsecase {
         let uuid = UUID().uuidString
         guard let data = uuid.data(using: .utf8) else { return "" }
         let sha256 = SHA256.hash(data: data)
-        return sha256.compactMap{String(format: "%02x", $0)}.joined()
+        return sha256.compactMap {String(format: "%02x", $0)}.joined()
     }
 
     func createUserID() {

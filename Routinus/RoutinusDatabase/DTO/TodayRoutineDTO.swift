@@ -15,7 +15,7 @@ public struct TodayRoutineDTO {
     public var authCount: Int
     public var joinDate: String
     public var endDate: String
-    
+
     public init() {
         self.id = ""
         self.challengeID = ""
