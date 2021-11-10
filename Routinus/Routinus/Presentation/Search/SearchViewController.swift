@@ -219,7 +219,7 @@ extension SearchViewController: SearchPopularTermDelegate {
     func didTappedSearchTermButton(term: String?) {
         guard let term = term else { return }
         print(term)
-//        self.viewModel?.didTappedSearchButton(keyword: term)
+        self.searchBar.text = term
     }
 }
 
@@ -227,6 +227,10 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // MARK: - TODO viewModel searchText 전달
         print(searchText)
+    }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        print("start")
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
