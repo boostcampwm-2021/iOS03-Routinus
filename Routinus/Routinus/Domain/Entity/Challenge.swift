@@ -13,7 +13,7 @@ struct Challenge: Hashable {
     enum Category {
         case exercise, selfDevelopment, lifeStyle, finance, hobby, etc
 
-        var categoryColor: String {
+        var color: String {
             switch self {
             case .exercise:
                 return "ExerciseColor"
@@ -30,7 +30,7 @@ struct Challenge: Hashable {
             }
         }
 
-        var categoryImage: String {
+        var symbol: String {
             switch self {
             case .exercise:
                 return "dumbbell"

@@ -51,15 +51,15 @@ final class RoutineCell: UITableViewCell {
     }
     
     func configureCell(routine: TodayRoutine) {
-        if UIImage(systemName: routine.category.categoryImage) == nil {
-            categoryImageView.image = UIImage(named: routine.category.categoryImage)
+        if UIImage(systemName: routine.category.symbol) == nil {
+            categoryImageView.image = UIImage(named: routine.category.symbol)
         } else {
-            categoryImageView.image = UIImage(systemName: routine.category.categoryImage)
+            categoryImageView.image = UIImage(systemName: routine.category.symbol)
         }
         categoryNameLabel.text = routine.title
         progressView.progress = Float(routine.authCount) / Float(routine.totalCount)
-        progressView.tintColor = UIColor(named: routine.category.categoryColor)
-        progressView.layer.borderColor = UIColor(named: routine.category.categoryColor)?.cgColor
+        progressView.tintColor = UIColor(named: routine.category.color)
+        progressView.layer.borderColor = UIColor(named: routine.category.color)?.cgColor
     }
 }
 

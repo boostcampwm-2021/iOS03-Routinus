@@ -34,7 +34,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var exerciseButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(named: Challenge.Category.exercise.categoryImage))
+        button.setImage(UIImage(named: Challenge.Category.exercise.symbol))
         button.setTitle("운동")
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
@@ -47,7 +47,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var selfDevelopmentButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(systemName: Challenge.Category.selfDevelopment.categoryImage))
+        button.setImage(UIImage(systemName: Challenge.Category.selfDevelopment.symbol))
         button.setTitle("자기 계발")
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
@@ -60,7 +60,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var lifeStyleButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(named: Challenge.Category.lifeStyle.categoryImage))
+        button.setImage(UIImage(named: Challenge.Category.lifeStyle.symbol))
         button.setTitle("생활 습관")
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
@@ -73,7 +73,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var financeButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(systemName: Challenge.Category.finance.categoryImage))
+        button.setImage(UIImage(systemName: Challenge.Category.finance.symbol))
         button.setTitle("돈관리")
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
@@ -86,7 +86,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var hobbyButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(systemName: Challenge.Category.hobby.categoryImage))
+        button.setImage(UIImage(systemName: Challenge.Category.hobby.symbol))
         button.setTitle("취미")
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
@@ -99,7 +99,7 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var etcButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(systemName: Challenge.Category.etc.categoryImage))
+        button.setImage(UIImage(systemName: Challenge.Category.etc.symbol))
         button.setTitle("기타")
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
