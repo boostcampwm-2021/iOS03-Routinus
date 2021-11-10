@@ -17,7 +17,7 @@ class SearchCollectionViewLayouts {
 
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                      heightDimension: .absolute(70)),
+                                                                      heightDimension: .absolute(40)),
                                                     elementKind: UICollectionView.elementKindSectionHeader,
                                                     alignment: .topLeading)]
         section.orthogonalScrollingBehavior = .groupPaging
