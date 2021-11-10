@@ -10,9 +10,26 @@ import Foundation
 import RoutinusDatabase
 
 struct Challenge: Hashable {
-    enum Category {
+    enum Category: CaseIterable {
         case exercise, selfDevelopment, lifeStyle, finance, hobby, etc
 
+        var title: String {
+            switch self {
+            case .exercise:
+                return "운동"
+            case .selfDevelopment:
+                return "자기 계발"
+            case .lifeStyle:
+                return "생활 습관"
+            case .finance:
+                return "돈 관리"
+            case .hobby:
+                return "취미"
+            case .etc:
+                return "기타"
+            }
+        }
+        
         var color: String {
             switch self {
             case .exercise:
@@ -65,23 +82,23 @@ struct Challenge: Hashable {
         }
     }
 
-    let challengeID: String
-    let title: String
-    let introduction: String
-    let category: Category
-    let imageURL: String
-    let authExampleImageURL: String
-    let thumbnailImageURL: String
-    let authMethod: String
-    let startDate: Date?
-    let endDate: Date?
-    let ownerID: String
-    let week: Int
-    let participantCount: Int
+    var challengeID: String
+    var title: String
+    var introduction: String
+    var category: Category
+    var imageURL: String
+    var authExampleImageURL: String
+    var thumbnailImageURL: String
+    var authMethod: String
+    var startDate: Date?
+    var endDate: Date?
+    var ownerID: String
+    var week: Int
+    var participantCount: Int
 
     init(challengeID: String, title: String, introduction: String, category: Category, imageURL: String,
-         authExampleImageURL: String, thumbnailImageURL: String, authMethod: String, startDate: Date,
-         endDate: Date, ownerID: String, week: Int, participantCount: Int) {
+         authExampleImageURL: String, thumbnailImageURL: String, authMethod: String, startDate: Date?,
+         endDate: Date?, ownerID: String, week: Int, participantCount: Int) {
         self.challengeID = challengeID
         self.title = title
         self.introduction = introduction
@@ -111,5 +128,9 @@ struct Challenge: Hashable {
         self.ownerID = challengeDTO.ownerID
         self.week = challengeDTO.week
         self.participantCount = challengeDTO.participantCount
+    }
+    
+    func isEmpty() -> Bool {
+        return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
     }
 }
