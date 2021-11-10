@@ -97,9 +97,10 @@ public enum RoutinusDatabase {
         return achievementInfoList
     }
     
-    public static func challengeInfo() async throws -> [ChallengeDTO] {
+    public static func newChallengeInfo() async throws -> [ChallengeDTO] {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("challenge")
+            .order(by: "start_date")
             .getDocuments()
         
         var challengeList = [ChallengeDTO]()
