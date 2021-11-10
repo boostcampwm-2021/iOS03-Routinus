@@ -10,13 +10,19 @@ import Foundation
 import RoutinusDatabase
 
 protocol SearchRepository {
-    func fetchAllChallenges() async -> [Challenge]
+    func fetchSearchChallengesBy(keyword: String) async -> [Challenge]
+    func fetchSearchChallengesBy(categoryID: String) async -> [Challenge]
     func fetchNewChallenges() async -> [Challenge]
 }
 
 extension RoutinusRepository: SearchRepository {
-    func fetchAllChallenges() async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.allChallenges() else { return [] }
+    func fetchSearchChallengesBy(keyword: String) async -> [Challenge] {
+        guard let list = try? await RoutinusDatabase.searchChallengesBy(keyword: keyword) else { return [] }
+        return list.map { Challenge(challengeDTO: $0) }
+    }
+    
+    func fetchSearchChallengesBy(categoryID: String) async -> [Challenge] {
+        guard let list = try? await RoutinusDatabase.searchChallengesBy(categoryID: categoryID) else { return [] }
         return list.map { Challenge(challengeDTO: $0) }
     }
 

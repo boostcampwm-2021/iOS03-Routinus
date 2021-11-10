@@ -89,6 +89,7 @@ class SearchViewController: UIViewController {
         self.configureViews()
         self.configureViewModel()
         self.setNavigationBarAppearance()
+//        self.performQuery()
     }
 
 }
@@ -159,8 +160,21 @@ extension SearchViewController {
                 guard let self = self else { return }
                 var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
                 let challengeContents = challengeItem.map { SearchContents.challenge($0) }
+                challengeSnapshot.deleteAll()
                 challengeSnapshot.append(challengeContents)
-                self.dataSource.apply(challengeSnapshot, to: Section.challenge)
+                self.dataSource.apply(challengeSnapshot, to: Section.challenge, animatingDifferences: true)
+            })
+            .store(in: &cancellables)
+
+        self.viewModel?.challenges
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challengeItem in
+                guard let self = self else { return }
+                var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
+                let challengeContents = challengeItem.map { SearchContents.challenge($0) }
+                challengeSnapshot.deleteAll()
+                challengeSnapshot.append(challengeContents)
+                self.dataSource.apply(challengeSnapshot, to: Section.challenge, animatingDifferences: true)
             })
             .store(in: &cancellables)
     }
@@ -201,19 +215,14 @@ extension SearchViewController: UICollectionViewDelegate {
 extension SearchViewController: SearchPopularTermDelegate {
     func didTappedSearchTermButton(term: String?) {
         guard let term = term else { return }
-        print(term)
         self.searchBar.text = term
-        self.viewModel?.didTappedSearchButton(keyword: term)
-        performQuery(with: term)
+        self.viewModel?.didChangedSearchText(term)
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // MARK: - TODO viewModel searchText 전달
-        print(searchText)
-//        viewModel?.didTappedSearchButton(keyword: searchText)
-        performQuery(with: searchText)
+        self.viewModel?.didChangedSearchText(searchText)
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -236,24 +245,5 @@ extension SearchViewController {
 
     @objc func tappedView(sender: UITapGestureRecognizer) {
         self.searchBar.endEditing(true)
-    }
-
-    func performQuery(with filter: String?) {
-        self.viewModel?.challenges
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] challengeItem in
-                guard let self = self else { return }
-                var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
-                var challengeContents = challengeItem.map { SearchContents.challenge($0) }
-                if filter != "" {
-                     challengeContents = challengeItem.filter {
-                        $0.title.contains(filter ?? "")
-                    }.map { SearchContents.challenge($0) }
-                }
-                challengeSnapshot.deleteAll()
-                challengeSnapshot.append(challengeContents)
-                self.dataSource.apply(challengeSnapshot, to: Section.challenge, animatingDifferences: true)
-            })
-            .store(in: &cancellables)
     }
 }

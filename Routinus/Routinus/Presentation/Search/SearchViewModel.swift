@@ -9,8 +9,7 @@ import Combine
 import Foundation
 
 protocol SearchViewModelInput {
-    func didTappedSearchButton(keyword: String)
-    func didTappedPopularKeyword(keyword: String)
+    func didChangedSearchText(_ keyword: String)
     func didTappedChallenge(index: Int)
 }
 
@@ -45,12 +44,10 @@ class SearchViewModel: SearchViewModelIO {
 }
 
 extension SearchViewModel {
-    func didTappedSearchButton(keyword: String) {
-        
-    }
-
-    func didTappedPopularKeyword(keyword: String) {
-        showChallengeSearchSignal.send(keyword)
+    func didChangedSearchText(_ keyword: String) {
+        usecase.fetchSearchChallengeBy(keyword: keyword) { [weak self] challenge in
+            self?.challenges.value = challenge
+        }
     }
 
     func didTappedChallenge(index: Int) {
