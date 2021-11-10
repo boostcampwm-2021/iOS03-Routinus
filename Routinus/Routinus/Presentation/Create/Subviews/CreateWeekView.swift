@@ -160,4 +160,8 @@ extension CreateWeekView {
             make.centerY.equalToSuperview()
         }
     }
+
+    func updateEndDate(date: Date) {
+        endDateLabel.text = date.toExtendedString()
+    }
 }

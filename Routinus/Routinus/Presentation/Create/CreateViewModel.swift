@@ -23,12 +23,14 @@ protocol CreateViewModelInput {
 
 protocol CreateViewModelOutput {
     var createButtonState: CurrentValueSubject<Bool, Never> { get }
+    var expectedEndDate: CurrentValueSubject<Date, Never> { get }
 }
 
 protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
 
 class CreateViewModel: CreateViewModelIO {
     var createButtonState = CurrentValueSubject<Bool, Never>(false)
+    var expectedEndDate = CurrentValueSubject<Date, Never>(Date())
     var cancellables = Set<AnyCancellable>()
     var createUsecase: ChallengeCreateUsecase
 
@@ -85,6 +87,8 @@ class CreateViewModel: CreateViewModelIO {
 
     func update(week: Int) {
         self.week = week
+        guard let endDate = createUsecase.endDate(week: week) else { return }
+        expectedEndDate.value = endDate
         self.validate()
     }
 

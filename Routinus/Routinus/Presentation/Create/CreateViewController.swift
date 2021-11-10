@@ -144,6 +144,14 @@ extension CreateViewController {
                 self.createButton.alpha = isEnabled ? 1 : 0.5
             })
             .store(in: &cancellables)
+
+        self.viewModel?.expectedEndDate
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] endDate in
+                guard let self = self else { return }
+                self.weekView.updateEndDate(date: endDate)
+            })
+            .store(in: &cancellables)
     }
 
     private func configureDelegates() {

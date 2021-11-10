@@ -25,28 +25,23 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
         return UUID().uuidString
     }
 
-    private func startDate() -> String {
-        let now = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        return dateFormatter.string(from: now)
+    private func startDate() -> Date {
+        return Date()
     }
 
-    private func endDate(week: Int) -> String? {
+
+    func endDate(week: Int) -> Date? {
         let now = Date()
         let calendar = Calendar.current
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-
         let day = DateComponents(day: week*7)
         guard let endDate = calendar.date(byAdding: day, to: now) else { return nil }
-        return dateFormatter.string(from: endDate)
+        return endDate
     }
 
     func createChallenge(category: Challenge.Category, title: String, imageURL: String, authExampleImageURL: String, authMethod: String, week: Int, introduction: String) {
-        guard let ownerID = repository.userID(), let endDate = endDate(week: week) else { return }
+        guard let ownerID = repository.userID(), let endDate = endDate(week: week)?.toString() else { return }
         let challengeID = createChallengeID()
-        let startDate = startDate()
+        let startDate = startDate().toString()
         let challenge = ChallengeDTO(id: challengeID, title: title, imageURL: imageURL,
                                      authExampleImageURL: authExampleImageURL,
                                      authMethod: authMethod, categoryID: category.id, week: week, decs: introduction,
