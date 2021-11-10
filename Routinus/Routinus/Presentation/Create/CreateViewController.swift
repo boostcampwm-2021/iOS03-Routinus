@@ -22,7 +22,7 @@ final class CreateViewController: UIViewController {
     private lazy var titleView = CreateTitleView()
     private lazy var imageRegisterView = CreateImageRegisterView()
     private lazy var weekView = CreateWeekView()
-    private lazy var descView = CreateDescView()
+    private lazy var introductionView = CreateIntroductionView()
     private lazy var authMethodView = CreateAuthMethodView()
     private lazy var authImageRegisterView = CreateAuthImageRegisterView()
     private lazy var createButton: UIButton = {
@@ -100,8 +100,8 @@ extension CreateViewController {
             make.height.equalTo(200)
         }
 
-        stackView.addArrangedSubview(descView)
-        descView.snp.makeConstraints { make in
+        stackView.addArrangedSubview(introductionView)
+        introductionView.snp.makeConstraints { make in
             make.height.equalTo(240)
         }
 
@@ -135,7 +135,7 @@ extension CreateViewController {
         categoryView.delegate = self
         titleView.delegate = self
         weekView.delegate = self
-        descView.delegate = self
+        introductionView.delegate = self
         authMethodView.delegate = self
     }
 }

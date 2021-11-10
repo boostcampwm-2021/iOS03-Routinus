@@ -40,7 +40,7 @@
 		441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE10273A332D006C261F /* CreateCategoryView.swift */; };
 		441CEE13273A334B006C261F /* CreateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE12273A334B006C261F /* CreateTitleView.swift */; };
 		441CEE15273A33BE006C261F /* CreateImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */; };
-		441CEE17273A33CD006C261F /* CreateDescView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE16273A33CD006C261F /* CreateDescView.swift */; };
+		441CEE17273A33CD006C261F /* CreateIntroductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE16273A33CD006C261F /* CreateIntroductionView.swift */; };
 		441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE18273A33DB006C261F /* CreateWeekView.swift */; };
 		441CEE1B273A33FE006C261F /* CreateAuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */; };
 		441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */; };
@@ -142,7 +142,7 @@
 		441CEE10273A332D006C261F /* CreateCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryView.swift; sourceTree = "<group>"; };
 		441CEE12273A334B006C261F /* CreateTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTitleView.swift; sourceTree = "<group>"; };
 		441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateImageRegisterView.swift; sourceTree = "<group>"; };
-		441CEE16273A33CD006C261F /* CreateDescView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDescView.swift; sourceTree = "<group>"; };
+		441CEE16273A33CD006C261F /* CreateIntroductionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIntroductionView.swift; sourceTree = "<group>"; };
 		441CEE18273A33DB006C261F /* CreateWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWeekView.swift; sourceTree = "<group>"; };
 		441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthMethodView.swift; sourceTree = "<group>"; };
 		441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthImageRegisterView.swift; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 				441CEE12273A334B006C261F /* CreateTitleView.swift */,
 				441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */,
 				441CEE18273A33DB006C261F /* CreateWeekView.swift */,
-				441CEE16273A33CD006C261F /* CreateDescView.swift */,
+				441CEE16273A33CD006C261F /* CreateIntroductionView.swift */,
 				441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */,
 				441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */,
 			);
@@ -771,7 +771,7 @@
 				0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCell.swift in Sources */,
 				0DC38F44273A3B9900331C25 /* SearchCoordinator.swift in Sources */,
 				E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */,
-				441CEE17273A33CD006C261F /* CreateDescView.swift in Sources */,
+				441CEE17273A33CD006C261F /* CreateIntroductionView.swift in Sources */,
 				E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */,
 				E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */,
 				0DBBAA3E27341C3600B32EB5 /* ChallengeCollectionViewHeader.swift in Sources */,

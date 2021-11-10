@@ -1,5 +1,5 @@
 //
-//  CreateDescView.swift
+//  CreateIntroductionView.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/09.
@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class CreateDescView: UIView {
+final class CreateIntroductionView: UIView {
     typealias Tag = CreateViewController.InputTag
     
     private lazy var titleLabel: UILabel = {
@@ -59,7 +59,7 @@ final class CreateDescView: UIView {
     }
 }
 
-extension CreateDescView {
+extension CreateIntroductionView {
     private func configure() {
         configureSubviews()
     }
