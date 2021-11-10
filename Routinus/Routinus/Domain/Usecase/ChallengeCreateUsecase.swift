@@ -10,7 +10,7 @@ import Foundation
 import RoutinusDatabase
 
 protocol ChallengeCreatableUsecase {
-    func createChallenge(challenge: CreateChallenge)
+    func createChallenge(challenge: Challenge)
 }
 
 struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
@@ -43,13 +43,13 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
     }
 
 
-    func createChallenge(challenge: CreateChallenge) {
+    func createChallenge(challenge: Challenge) {
         // TODO: categoryID 설정
         guard let ownerID = repository.userID(), let endDate = endDate(week: challenge.week) else { return }
         let challengeID = createChallengeID()
         let startDate = startDate()
-        let challenge = ChallengeDTO(id: challengeID, title: challenge.title, imageURL: challenge.imageURL, authExampleImageURL: challenge.authImageURL,
-                                     authMethod: challenge.authMethod, categoryID: "1", week: challenge.week, decs: challenge.description,
+        let challenge = ChallengeDTO(id: challengeID, title: challenge.title, imageURL: challenge.imageURL, authExampleImageURL: challenge.authExampleImageURL,
+                                     authMethod: challenge.authMethod, categoryID: "1", week: challenge.week, decs: challenge.introduction,
                                      startDate: startDate, endDate: endDate, participantCount: 0, ownerID: ownerID, thumbnailImageURL: "")
         repository.save(challenge: challenge)
     }

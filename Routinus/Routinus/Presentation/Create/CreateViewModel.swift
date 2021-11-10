@@ -11,24 +11,24 @@ import Foundation
 protocol CreateViewModelInput {
     func validate()
     func update(title: String)
-    func update(category: String)
+    func update(category: Challenge.Category)
     func update(imageURL: String)
     func update(week: Int)
-    func update(description: String)
+    func update(introduction: String)
     func update(authMethod: String)
-    func update(authImageURL: String)
+    func update(authExampleImageURL: String)
     func didTappedCreateButton()
 }
 
 protocol CreateViewModelOutput {
-    var challenge: CurrentValueSubject<CreateChallenge, Never> { get }
+    var challenge: CurrentValueSubject<Challenge, Never> { get }
     var createButtonState: CurrentValueSubject<Bool, Never> { get }
 }
 
 protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
 
 class CreateViewModel: CreateViewModelIO {
-    var challenge = CurrentValueSubject<CreateChallenge, Never>(CreateChallenge())
+    var challenge = CurrentValueSubject<Challenge, Never>(Challenge())
     var createButtonState = CurrentValueSubject<Bool, Never>(false)
 
     var createUsecase: ChallengeCreateUsecase
@@ -46,7 +46,7 @@ class CreateViewModel: CreateViewModelIO {
         challenge.value.title = title
     }
 
-    func update(category: String) {
+    func update(category: Challenge.Category) {
         challenge.value.category = category
     }
 
@@ -58,16 +58,16 @@ class CreateViewModel: CreateViewModelIO {
         challenge.value.week = week
     }
 
-    func update(description: String) {
-        challenge.value.description = description
+    func update(introduction: String) {
+        challenge.value.introduction = introduction
     }
 
     func update(authMethod: String) {
         challenge.value.authMethod = authMethod
     }
 
-    func update(authImageURL: String) {
-        challenge.value.authImageURL = authImageURL
+    func update(authExampleImageURL: String) {
+        challenge.value.authExampleImageURL = authExampleImageURL
     }
 
     func didTappedCreateButton() {
