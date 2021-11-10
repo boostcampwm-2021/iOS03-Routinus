@@ -105,13 +105,8 @@ extension SearchViewController {
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
             view?.title = section.title
+            view?.configureViews()
 
-            switch section {
-            case .popularSearchTerm:
-                view?.configureViews()
-            case .challenge:
-                view?.configureViews()
-            }
             return view
         }
     }
