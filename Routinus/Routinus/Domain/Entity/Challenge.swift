@@ -10,9 +10,26 @@ import Foundation
 import RoutinusDatabase
 
 struct Challenge: Hashable {
-    enum Category {
+    enum Category: CaseIterable {
         case exercise, selfDevelopment, lifeStyle, finance, hobby, etc
 
+        var title: String {
+            switch self {
+            case .exercise:
+                return "운동"
+            case .selfDevelopment:
+                return "자기 계발"
+            case .lifeStyle:
+                return "생활 습관"
+            case .finance:
+                return "돈 관리"
+            case .hobby:
+                return "취미"
+            case .etc:
+                return "기타"
+            }
+        }
+        
         var color: String {
             switch self {
             case .exercise:
