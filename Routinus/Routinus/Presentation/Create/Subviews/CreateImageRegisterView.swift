@@ -43,7 +43,7 @@ final class CreateImageRegisterView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
-    
+
     func setImage(_ image: UIImage) {
         imageView.image = image
     }
@@ -78,6 +78,6 @@ extension CreateImageRegisterView {
 
     @objc private func didTappedImageView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
-        delegate?.didTappedImageView()
+        delegate?.didTappedImageView(CreateViewController.InputTag.image.rawValue)
     }
 }

@@ -45,6 +45,7 @@ final class CreateViewController: UIViewController {
     private var viewModel: CreateViewModelIO?
     private var cancellables = Set<AnyCancellable>()
     private var imagePicker = UIImagePickerController()
+    private var selectedImagePickerTag: InputTag?
 
     // TODO: 임시 생성자 (챌린지 관리화면 작업 후 삭제)
     init() {
@@ -220,14 +221,26 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
 }
 
 extension CreateViewController: CreateImagePickerDelegate {
-    func didTappedImageView() {
-        let alert = UIAlertController(title: "챌린지 대표 이미지 등록",
+    func didTappedImageView(_ tag: Int) {
+        var title = ""
+
+        switch tag {
+        case InputTag.image.rawValue:
+            title = "챌린지 대표 이미지 등록"
+        case InputTag.authImage.rawValue:
+            title = "인증샷 예시 이미지 등록"
+        default:
+            return
+        }
+        
+        let alert = UIAlertController(title: title,
                                       message: "사진 앱이나 카메라 앱을 선택할 수 있습니다.",
                                       preferredStyle: .actionSheet)
 
         let photo = UIAlertAction(title: "사진", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.imagePicker.sourceType = .photoLibrary
+            self.selectedImagePickerTag = .image
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         alert.addAction(photo)
@@ -235,6 +248,7 @@ extension CreateViewController: CreateImagePickerDelegate {
         let camera = UIAlertAction(title: "카메라", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.imagePicker.sourceType = .camera
+            self.selectedImagePickerTag = .authImage
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         alert.addAction(camera)
@@ -250,7 +264,14 @@ extension CreateViewController: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            imageRegisterView.setImage(image) // TODO: 바로 반영하지말고 image, thumbnail로 구분해서 저장해야 함
+            switch selectedImagePickerTag {
+            case .image:
+                imageRegisterView.setImage(image)
+            case .authImage:
+                authImageRegisterView.setImage(image)
+            default:
+                ()
+            }
         }
         dismiss(animated: true, completion: nil)
     }

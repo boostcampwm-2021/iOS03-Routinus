@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 final class CreateAuthImageRegisterView: UIView {
+    weak var delegate: CreateImagePickerDelegate?
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "인증샷 예시를 등록하세요."
@@ -50,11 +52,16 @@ final class CreateAuthImageRegisterView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
+
+    func setImage(_ image: UIImage) {
+        imageView.image = image
+    }
 }
 
 extension CreateAuthImageRegisterView {
     private func configure() {
         configureSubviews()
+        configureGesture()
     }
 
     private func configureSubviews() {
@@ -76,5 +83,16 @@ extension CreateAuthImageRegisterView {
             make.centerX.equalToSuperview()
             make.width.height.equalTo(150)
         }
+    }
+
+    private func configureGesture() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedImageView(_:)))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(recognizer)
+    }
+
+    @objc private func didTappedImageView(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        delegate?.didTappedImageView(CreateViewController.InputTag.authImage.rawValue)
     }
 }

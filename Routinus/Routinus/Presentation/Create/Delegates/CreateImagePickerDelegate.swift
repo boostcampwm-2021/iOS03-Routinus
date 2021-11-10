@@ -8,5 +8,5 @@
 import Foundation
 
 protocol CreateImagePickerDelegate: AnyObject {
-    func didTappedImageView()
+    func didTappedImageView(_ tag: Int)
 }
