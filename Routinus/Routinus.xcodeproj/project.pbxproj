@@ -37,6 +37,13 @@
 		441CEDFC27390378006C261F /* RoutinusDatabase.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 441CEDF827390378006C261F /* RoutinusDatabase.release.xcconfig */; };
 		441CEDFD27390378006C261F /* RoutinusDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDF927390378006C261F /* RoutinusDatabase.swift */; };
 		441CEE07273A0832006C261F /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE06273A0831006C261F /* HomeRepository.swift */; };
+		441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE10273A332D006C261F /* CreateCategoryView.swift */; };
+		441CEE13273A334B006C261F /* CreateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE12273A334B006C261F /* CreateTitleView.swift */; };
+		441CEE15273A33BE006C261F /* CreateImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */; };
+		441CEE17273A33CD006C261F /* CreateDescView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE16273A33CD006C261F /* CreateDescView.swift */; };
+		441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE18273A33DB006C261F /* CreateWeekView.swift */; };
+		441CEE1B273A33FE006C261F /* CreateAuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */; };
+		441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -61,7 +68,7 @@
 		E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CAA2731073F00A14A0F /* MyPageViewController.swift */; };
 		E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CAC2731074B00A14A0F /* ManageViewController.swift */; };
 		E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB0273107A200A14A0F /* DetailViewController.swift */; };
-		E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB2273107BE00A14A0F /* CreateController.swift */; };
+		E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB2273107BE00A14A0F /* CreateViewController.swift */; };
 		E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB5273107F700A14A0F /* SearchViewController.swift */; };
 		E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB82731094900A14A0F /* AuthViewController.swift */; };
 		E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */; };
@@ -131,6 +138,13 @@
 		441CEDF827390378006C261F /* RoutinusDatabase.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusDatabase.release.xcconfig; sourceTree = "<group>"; };
 		441CEDF927390378006C261F /* RoutinusDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutinusDatabase.swift; sourceTree = "<group>"; };
 		441CEE06273A0831006C261F /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
+		441CEE10273A332D006C261F /* CreateCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryView.swift; sourceTree = "<group>"; };
+		441CEE12273A334B006C261F /* CreateTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTitleView.swift; sourceTree = "<group>"; };
+		441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateImageRegisterView.swift; sourceTree = "<group>"; };
+		441CEE16273A33CD006C261F /* CreateDescView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDescView.swift; sourceTree = "<group>"; };
+		441CEE18273A33DB006C261F /* CreateWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWeekView.swift; sourceTree = "<group>"; };
+		441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthMethodView.swift; sourceTree = "<group>"; };
+		441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthImageRegisterView.swift; sourceTree = "<group>"; };
 		44AAA2B1272FDF8B002E16C4 /* Routinus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,7 +170,7 @@
 		E9797CAA2731073F00A14A0F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		E9797CAC2731074B00A14A0F /* ManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewController.swift; sourceTree = "<group>"; };
 		E9797CB0273107A200A14A0F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		E9797CB2273107BE00A14A0F /* CreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateController.swift; sourceTree = "<group>"; };
+		E9797CB2273107BE00A14A0F /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		E9797CB5273107F700A14A0F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E9797CB82731094900A14A0F /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCoordinator.swift; sourceTree = "<group>"; };
@@ -277,6 +291,76 @@
 				E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */,
 			);
 			path = DTO;
+			sourceTree = "<group>";
+		};
+		441CEE08273A31F3006C261F /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				441CEE09273A3225006C261F /* CreateCategory */,
+				441CEE0A273A3230006C261F /* CreateTitle */,
+				441CEE0B273A325D006C261F /* CreateImageRegister */,
+				441CEE0C273A3297006C261F /* CreateWeek */,
+				441CEE0D273A32A6006C261F /* CreateDesc */,
+				441CEE0E273A32B2006C261F /* CreateAuthMethod */,
+				441CEE0F273A32C1006C261F /* CreateAuthImageRegister */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		441CEE09273A3225006C261F /* CreateCategory */ = {
+			isa = PBXGroup;
+			children = (
+				441CEE10273A332D006C261F /* CreateCategoryView.swift */,
+			);
+			path = CreateCategory;
+			sourceTree = "<group>";
+		};
+		441CEE0A273A3230006C261F /* CreateTitle */ = {
+			isa = PBXGroup;
+			children = (
+				441CEE12273A334B006C261F /* CreateTitleView.swift */,
+			);
+			path = CreateTitle;
+			sourceTree = "<group>";
+		};
+		441CEE0B273A325D006C261F /* CreateImageRegister */ = {
+			isa = PBXGroup;
+			children = (
+				441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */,
+			);
+			path = CreateImageRegister;
+			sourceTree = "<group>";
+		};
+		441CEE0C273A3297006C261F /* CreateWeek */ = {
+			isa = PBXGroup;
+			children = (
+				441CEE18273A33DB006C261F /* CreateWeekView.swift */,
+			);
+			path = CreateWeek;
+			sourceTree = "<group>";
+		};
+		441CEE0D273A32A6006C261F /* CreateDesc */ = {
+			isa = PBXGroup;
+			children = (
+				441CEE16273A33CD006C261F /* CreateDescView.swift */,
+			);
+			path = CreateDesc;
+			sourceTree = "<group>";
+		};
+		441CEE0E273A32B2006C261F /* CreateAuthMethod */ = {
+			isa = PBXGroup;
+			children = (
+				441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */,
+			);
+			path = CreateAuthMethod;
+			sourceTree = "<group>";
+		};
+		441CEE0F273A32C1006C261F /* CreateAuthImageRegister */ = {
+			isa = PBXGroup;
+			children = (
+				441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */,
+			);
+			path = CreateAuthImageRegister;
 			sourceTree = "<group>";
 		};
 		44AAA2A8272FDF8A002E16C4 = {
@@ -461,8 +545,9 @@
 		E9797CAE2731077A00A14A0F /* Create */ = {
 			isa = PBXGroup;
 			children = (
-				E9797CB2273107BE00A14A0F /* CreateController.swift */,
-				149411DB273A314B004BE485 /* CreateViewModel.swift */,
+				E9797CB2273107BE00A14A0F /* CreateViewController.swift */,
+        149411DB273A314B004BE485 /* CreateViewModel.swift */,
+				441CEE08273A31F3006C261F /* Subviews */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -692,6 +777,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
+				441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DBBAA3727341C1600B32EB5 /* CollectionViewLayouts.swift in Sources */,
 				441CEE07273A0832006C261F /* HomeRepository.swift in Sources */,
@@ -705,16 +791,20 @@
 				E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				E9493DBF273A390F0095CF6D /* CategoryButtonTapGesture.swift in Sources */,
+				441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
 				149411E4273A6314004BE485 /* CreateRepository.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
 				E975390627325538004358C5 /* AchievementInfo.swift in Sources */,
+				441CEE1B273A33FE006C261F /* CreateAuthMethodView.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
 				0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */,
 				149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */,
 				E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */,
 				44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */,
+				441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */,
+				441CEE13273A334B006C261F /* CreateTitleView.swift in Sources */,
 				441CEDD627379939006C261F /* CalendarView.swift in Sources */,
 				149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
@@ -728,11 +818,13 @@
 				E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */,
 				E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */,
 				E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */,
+				E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E94B49762739118B00708D7B /* Challenge.swift in Sources */,
 				0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCell.swift in Sources */,
 				0DC38F44273A3B9900331C25 /* SearchCoordinator.swift in Sources */,
 				E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */,
+				441CEE17273A33CD006C261F /* CreateDescView.swift in Sources */,
 				E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */,
 				E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */,
 				0DBBAA3E27341C3600B32EB5 /* ChallengeCollectionViewHeader.swift in Sources */,
@@ -741,6 +833,7 @@
 				1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
+				441CEE15273A33BE006C261F /* CreateImageRegisterView.swift in Sources */,
 				E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */,
 				E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */,
 			);
