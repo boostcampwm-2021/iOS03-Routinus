@@ -91,7 +91,7 @@ final class CreateWeekView: UIView {
     }
 
     @objc private func didChangeValue(_ sender: UISegmentedControl) {
-        weekTextField.isEnabled = !(sender.selectedSegmentIndex == 4)
+        print("\(sender.selectedSegmentIndex)") // TODO: 임시
     }
 }
 
