@@ -235,8 +235,10 @@ extension CreateViewController: CreateImagePickerDelegate {
         switch tag {
         case InputTag.image.rawValue:
             title = "챌린지 대표 이미지 등록"
+            selectedImagePickerTag = .image
         case InputTag.authImage.rawValue:
             title = "인증샷 예시 이미지 등록"
+            selectedImagePickerTag = .authImage
         default:
             return
         }
@@ -248,7 +250,6 @@ extension CreateViewController: CreateImagePickerDelegate {
         let photo = UIAlertAction(title: "사진", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.imagePicker.sourceType = .photoLibrary
-            self.selectedImagePickerTag = .image
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         alert.addAction(photo)
@@ -256,7 +257,6 @@ extension CreateViewController: CreateImagePickerDelegate {
         let camera = UIAlertAction(title: "카메라", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.imagePicker.sourceType = .camera
-            self.selectedImagePickerTag = .authImage
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         alert.addAction(camera)
