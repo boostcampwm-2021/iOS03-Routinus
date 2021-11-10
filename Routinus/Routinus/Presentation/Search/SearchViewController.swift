@@ -89,6 +89,7 @@ class SearchViewController: UIViewController {
         self.configureViews()
         self.viewTests()
         self.setNavigationBarAppearance()
+        self.keyboardConfigure()
     }
 
 }
@@ -234,6 +235,20 @@ extension SearchViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
+}
+
+extension SearchViewController {
+    private func keyboardConfigure() {
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedView))
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+        singleTapGestureRecognizer.isEnabled = true
+        singleTapGestureRecognizer.cancelsTouchesInView = false
+        self.collectionView.addGestureRecognizer(singleTapGestureRecognizer)
+    }
+
+    @objc func tappedView(sender: UITapGestureRecognizer) {
         self.searchBar.endEditing(true)
     }
 }
