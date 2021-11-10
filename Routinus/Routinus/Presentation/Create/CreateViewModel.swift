@@ -10,8 +10,8 @@ import Foundation
 
 protocol CreateViewModelInput {
     func validate()
-    func update(title: String)
     func update(category: Challenge.Category)
+    func update(title: String)
     func update(imageURL: String)
     func update(week: Int)
     func update(introduction: String)
@@ -21,56 +21,78 @@ protocol CreateViewModelInput {
 }
 
 protocol CreateViewModelOutput {
-    var challenge: CurrentValueSubject<Challenge, Never> { get }
     var createButtonState: CurrentValueSubject<Bool, Never> { get }
 }
 
 protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
 
 class CreateViewModel: CreateViewModelIO {
-    var challenge = CurrentValueSubject<Challenge, Never>(Challenge())
     var createButtonState = CurrentValueSubject<Bool, Never>(false)
-
-    var createUsecase: ChallengeCreateUsecase
     var cancellables = Set<AnyCancellable>()
+    var createUsecase: ChallengeCreateUsecase
+
+    private var title: String
+    private var category: Challenge.Category?
+    private var imageURL: String
+    private var week: Int
+    private var introduction: String
+    private var authMethod: String
+    private var authExampleImageURL: String
 
     init(createUsecase: ChallengeCreateUsecase) {
         self.createUsecase = createUsecase
+        title = ""
+        imageURL = ""
+        week = 0
+        introduction = ""
+        authMethod = ""
+        authExampleImageURL = ""
     }
 
     func validate() {
-        createButtonState.value = !challenge.value.isEmpty()
-    }
-
-    func update(title: String) {
-        challenge.value.title = title
+        createButtonState.value = !createUsecase.isEmpty(title: title,
+                                                         imageURL: imageURL,
+                                                         introduction: introduction,
+                                                         authMethod: authMethod,
+                                                         authExampleImageURL: authExampleImageURL)
     }
 
     func update(category: Challenge.Category) {
-        challenge.value.category = category
+        self.category = category
+    }
+
+    func update(title: String) {
+        self.title = title
     }
 
     func update(imageURL: String) {
-        challenge.value.imageURL = imageURL
+        self.imageURL = imageURL
     }
 
     func update(week: Int) {
-        challenge.value.week = week
+        self.week = week
     }
 
     func update(introduction: String) {
-        challenge.value.introduction = introduction
+        self.introduction = introduction
     }
 
     func update(authMethod: String) {
-        challenge.value.authMethod = authMethod
+        self.authMethod = authMethod
     }
 
     func update(authExampleImageURL: String) {
-        challenge.value.authExampleImageURL = authExampleImageURL
+        self.authExampleImageURL = authExampleImageURL
     }
 
     func didTappedCreateButton() {
-        createUsecase.createChallenge(challenge: challenge.value)
+        guard let category = category else { return }
+        createUsecase.createChallenge(category: category,
+                                      title: title,
+                                      imageURL: imageURL,
+                                      authExampleImageURL: authExampleImageURL,
+                                      authMethod: authMethod,
+                                      week: week,
+                                      introduction: introduction)
     }
 }

@@ -10,7 +10,8 @@ import Foundation
 import RoutinusDatabase
 
 protocol ChallengeCreatableUsecase {
-    func createChallenge(challenge: Challenge)
+    func createChallenge(category: Challenge.Category, title: String, imageURL: String, authExampleImageURL: String, authMethod: String, week: Int, introduction: String)
+    func isEmpty(title: String, imageURL: String, introduction: String, authMethod: String, authExampleImageURL: String) -> Bool
 }
 
 struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
@@ -42,15 +43,18 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
         return dateFormatter.string(from: endDate)
     }
 
-
-    func createChallenge(challenge: Challenge) {
-        // TODO: categoryID 설정
-        guard let ownerID = repository.userID(), let endDate = endDate(week: challenge.week) else { return }
+    func createChallenge(category: Challenge.Category, title: String, imageURL: String, authExampleImageURL: String, authMethod: String, week: Int, introduction: String) {
+        guard let ownerID = repository.userID(), let endDate = endDate(week: week) else { return }
         let challengeID = createChallengeID()
         let startDate = startDate()
-        let challenge = ChallengeDTO(id: challengeID, title: challenge.title, imageURL: challenge.imageURL, authExampleImageURL: challenge.authExampleImageURL,
-                                     authMethod: challenge.authMethod, categoryID: "1", week: challenge.week, decs: challenge.introduction,
+        let challenge = ChallengeDTO(id: challengeID, title: title, imageURL: imageURL,
+                                     authExampleImageURL: authExampleImageURL,
+                                     authMethod: authMethod, categoryID: category.id, week: week, decs: introduction,
                                      startDate: startDate, endDate: endDate, participantCount: 0, ownerID: ownerID, thumbnailImageURL: "")
         repository.save(challenge: challenge)
+    }
+
+    func isEmpty(title: String, imageURL: String, introduction: String, authMethod: String, authExampleImageURL: String) -> Bool {
+        return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
     }
 }
