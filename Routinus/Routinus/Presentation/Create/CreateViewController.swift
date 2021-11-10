@@ -140,6 +140,7 @@ extension CreateViewController {
     private func configureDelegates() {
         categoryView.delegate = self
         titleView.delegate = self
+        imageRegisterView.delegate = self
         weekView.delegate = self
         introductionView.delegate = self
         authMethodView.delegate = self
@@ -209,5 +210,28 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
         default:
             return true
         }
+    }
+}
+
+extension CreateViewController: CreateImagePickerDelegate {
+    func didTappedImageView() {
+        let alert = UIAlertController(title: "챌린지 대표 이미지 등록",
+                                      message: "사진 앱이나 카메라 앱을 선택할 수 있습니다.",
+                                      preferredStyle: .actionSheet)
+        
+        let photo = UIAlertAction(title: "사진", style: .default) { _ in
+            print("사진 클릭")
+        }
+        alert.addAction(photo)
+        
+        let camera = UIAlertAction(title: "카메라", style: .default) { _ in
+            print("카메라 클릭")
+        }
+        alert.addAction(camera)
+        
+        let cancel = UIAlertAction(title: "취소", style: .destructive, handler: nil)
+        alert.addAction(cancel)
+        
+        present(alert, animated: true, completion: nil)
     }
 }

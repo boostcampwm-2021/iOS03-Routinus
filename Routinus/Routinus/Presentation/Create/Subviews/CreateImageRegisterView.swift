@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 final class CreateImageRegisterView: UIView {
+    weak var delegate: CreateImagePickerDelegate?
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "챌린지 대표 이미지를 등록하세요."
@@ -47,6 +49,7 @@ final class CreateImageRegisterView: UIView {
 extension CreateImageRegisterView {
     private func configure() {
         configureSubviews()
+        configureGesture()
     }
 
     private func configureSubviews() {
@@ -62,5 +65,16 @@ extension CreateImageRegisterView {
             make.centerX.equalToSuperview()
             make.width.height.equalTo(150)
         }
+    }
+
+    private func configureGesture() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedImageView(_:)))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(recognizer)
+    }
+
+    @objc private func didTappedImageView(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        delegate?.didTappedImageView()
     }
 }
