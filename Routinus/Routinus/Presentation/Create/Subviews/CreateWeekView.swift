@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 final class CreateWeekView: UIView {
+    typealias Tag = CreateViewController.InputTag
+    
     enum WeekTitle: String, CaseIterable {
         case one = "1주"
         case two = "2주"
@@ -44,6 +46,7 @@ final class CreateWeekView: UIView {
         textField.text = "1"
         textField.borderStyle = .roundedRect
         textField.textAlignment = .center
+        textField.tag = Tag.week.rawValue
         return textField
     }()
 
@@ -75,6 +78,12 @@ final class CreateWeekView: UIView {
         label.font = .boldSystemFont(ofSize: 14)
         return label
     }()
+    
+    weak var delegate: UITextFieldDelegate? {
+        didSet {
+            self.weekTextField.delegate = delegate
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

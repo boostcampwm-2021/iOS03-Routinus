@@ -44,6 +44,7 @@
 		441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE18273A33DB006C261F /* CreateWeekView.swift */; };
 		441CEE1B273A33FE006C261F /* CreateAuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */; };
 		441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */; };
+		44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -145,6 +146,7 @@
 		441CEE18273A33DB006C261F /* CreateWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWeekView.swift; sourceTree = "<group>"; };
 		441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthMethodView.swift; sourceTree = "<group>"; };
 		441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthImageRegisterView.swift; sourceTree = "<group>"; };
+		44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSubviewDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B1272FDF8B002E16C4 /* Routinus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 		441CEE08273A31F3006C261F /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */,
 				441CEE10273A332D006C261F /* CreateCategoryView.swift */,
 				441CEE12273A334B006C261F /* CreateTitleView.swift */,
 				441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */,
@@ -779,6 +782,7 @@
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
 				441CEE15273A33BE006C261F /* CreateImageRegisterView.swift in Sources */,
 				E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */,
+				44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */,
 				E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

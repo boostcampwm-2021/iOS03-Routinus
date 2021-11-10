@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 final class CreateDescView: UIView {
+    typealias Tag = CreateViewController.InputTag
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "챌린지를 소개하세요."
@@ -32,8 +34,15 @@ final class CreateDescView: UIView {
         textView.layer.cornerRadius = 10
         textView.text = "예) 아침 일찍 일어나서 미라클 모닝을 실천해봅시다 :)"
         textView.font = .systemFont(ofSize: 16)
+        textView.tag = Tag.introduction.rawValue
         return textView
     }()
+    
+    weak var delegate: UITextViewDelegate? {
+        didSet {
+            self.textView.delegate = delegate
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

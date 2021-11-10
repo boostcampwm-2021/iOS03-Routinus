@@ -9,7 +9,6 @@ import Combine
 import Foundation
 
 protocol CreateViewModelInput {
-    func validate()
     func update(category: Challenge.Category)
     func update(title: String)
     func update(imageURL: String)
@@ -49,7 +48,7 @@ class CreateViewModel: CreateViewModelIO {
         self.authExampleImageURL = ""
     }
 
-    func validate() {
+    private func validate() {
         createButtonState.value = !createUsecase.isEmpty(title: title,
                                                          imageURL: imageURL,
                                                          introduction: introduction,
@@ -59,30 +58,37 @@ class CreateViewModel: CreateViewModelIO {
 
     func update(category: Challenge.Category) {
         self.category = category
+        self.validate()
     }
 
     func update(title: String) {
         self.title = title
+        self.validate()
     }
 
     func update(imageURL: String) {
         self.imageURL = imageURL
+        self.validate()
     }
 
     func update(week: Int) {
         self.week = week
+        self.validate()
     }
 
     func update(introduction: String) {
         self.introduction = introduction
+        self.validate()
     }
 
     func update(authMethod: String) {
         self.authMethod = authMethod
+        self.validate()
     }
 
     func update(authExampleImageURL: String) {
         self.authExampleImageURL = authExampleImageURL
+        self.validate()
     }
 
     func didTappedCreateButton() {

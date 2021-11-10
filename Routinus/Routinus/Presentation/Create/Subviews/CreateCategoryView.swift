@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 final class CreateCategoryView: UIView {
+    weak var delegate: CreateSubviewDelegate?
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "어떤 주제와 관련이 있나요?"
@@ -52,8 +54,9 @@ extension CreateCategoryView {
 
         var actions = [UIAction]()
         for category in Challenge.Category.allCases {
-            let action = UIAction(title: category.title, image: UIImage(systemName: category.symbol)) { action in
-                print(action.title) // TODO: 임시
+            let action = UIAction(title: category.title, image: UIImage(systemName: category.symbol)) { [weak self] action in
+                guard let self = self else { return }
+                self.delegate?.didChange(category: category)
             }
             actions.append(action)
         }

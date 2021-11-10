@@ -18,7 +18,6 @@ final class CreateViewController: UIViewController {
         stackView.spacing = 30
         return stackView
     }()
-
     private lazy var categoryView = CreateCategoryView()
     private lazy var titleView = CreateTitleView()
     private lazy var imageRegisterView = CreateImageRegisterView()
@@ -35,13 +34,19 @@ final class CreateViewController: UIViewController {
         button.layer.cornerRadius = 20
         return button
     }()
+    
+    private var viewModel: CreateViewModelIO?
+    private var cancellables = Set<AnyCancellable>()
 
     // TODO: 임시 생성자 (CreateViewModel 작업 후 삭제)
     init() {
+        let repository = RoutinusRepository()
+        let usecase = ChallengeCreateUsecase(repository: repository)
+        viewModel = CreateViewModel(createUsecase: usecase)
         super.init(nibName: nil, bundle: nil)
     }
 
-    // TODO: CreateViewModel 작업 후 주석 해제
+    // TODO: Coordinator 작업 후에 ...
 //    init(with viewModel: CreateViewModelIO) {
 //        self.viewModel = viewModel
 //        super.init(nibName: nil, bundle: nil)
@@ -56,6 +61,7 @@ final class CreateViewController: UIViewController {
 
         configureViews()
         configureViewModel()
+        configureDelegates()
     }
 }
 
@@ -114,8 +120,64 @@ extension CreateViewController {
             make.height.equalTo(60)
         }
     }
-
+    
     private func configureViewModel() {
-        // TODO: ViewModel 작업 후 Bind
+        self.viewModel?.createButtonState
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] isEnabled in
+                guard let self = self else { return }
+                self.createButton.isEnabled = isEnabled
+            })
+            .store(in: &cancellables)
+    }
+    
+    private func configureDelegates() {
+        categoryView.delegate = self
+        titleView.delegate = self
+        weekView.delegate = self
+        descView.delegate = self
+        authMethodView.delegate = self
+    }
+}
+
+extension CreateViewController: CreateSubviewDelegate {
+    func didChange(category: Challenge.Category) {
+        viewModel?.update(category: category)
+    }
+    
+    func didChange(imageURL: String) {
+        viewModel?.update(imageURL: imageURL)
+    }
+    
+    func didChange(authExampleImageURL: String) {
+        viewModel?.update(authExampleImageURL: authExampleImageURL)
+    }
+}
+
+extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
+    enum InputTag: Int {
+        case title = 0, week, introduction, authMethod
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        switch textField.tag {
+        case InputTag.title.rawValue:
+            viewModel?.update(title: textField.text ?? "")
+        case InputTag.week.rawValue:
+            viewModel?.update(week: Int(textField.text ?? "") ?? 0)
+        default:
+            return
+        }
+    }
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        switch textView.tag {
+        case InputTag.introduction.rawValue:
+            viewModel?.update(introduction: textView.text ?? "")
+        case InputTag.authMethod.rawValue:
+            viewModel?.update(authMethod: textView.text ?? "")
+        default:
+            return
+        }
     }
 }

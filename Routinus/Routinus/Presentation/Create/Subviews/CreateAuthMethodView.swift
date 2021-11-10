@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 final class CreateAuthMethodView: UIView {
+    typealias Tag = CreateViewController.InputTag
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "인증 방법을 입력해주세요."
@@ -33,8 +35,15 @@ final class CreateAuthMethodView: UIView {
         textView.layer.cornerRadius = 10
         textView.text = "예) 오늘 날짜와 시간이 보이도록 사진을 찍어주세요!"
         textView.font = .systemFont(ofSize: 16)
+        textView.tag = Tag.authMethod.rawValue
         return textView
     }()
+    
+    weak var delegate: UITextViewDelegate? {
+        didSet {
+            self.textView.delegate = delegate
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

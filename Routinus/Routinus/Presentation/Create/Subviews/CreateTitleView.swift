@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 
 final class CreateTitleView: UIView {
+    typealias Tag = CreateViewController.InputTag
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "챌린지 제목을 입력해주세요."
@@ -29,8 +31,15 @@ final class CreateTitleView: UIView {
         let textField = UITextField()
         textField.placeholder = "예) 아침 6시에 일어나기"
         textField.borderStyle = .roundedRect
+        textField.tag = Tag.title.rawValue
         return textField
     }()
+    
+    weak var delegate: UITextFieldDelegate? {
+        didSet {
+            self.textField.delegate = delegate
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
