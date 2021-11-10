@@ -8,14 +8,14 @@
 import UIKit
 
 class AuthViewController: UIViewController {
-    
+
     lazy var cntLabel: UILabel = {
         let label = UILabel()
         label.text = "AuthView"
-        
+
         return label
     }()
-    
+
     private func setupLayout() {
         self.view.addSubview(cntLabel)
         self.cntLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +29,6 @@ class AuthViewController: UIViewController {
         setupLayout()
         // Do any additional setup after loading the view.
     }
-    
 
     /*
     // MARK: - Navigation

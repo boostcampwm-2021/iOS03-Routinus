@@ -13,7 +13,7 @@ public struct UserDTO {
     public var continuityDay: Int
     public var userImageCategoryID: String
     public var grade: Int
-    
+
     public init() {
         self.id = ""
         self.name = ""
@@ -21,7 +21,7 @@ public struct UserDTO {
         self.userImageCategoryID = ""
         self.grade = 0
     }
-    
+
     public init(id: String, name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
         self.id = id
         self.name = name

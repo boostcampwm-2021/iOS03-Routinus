@@ -8,14 +8,14 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    
+
     lazy var cntLabel: UILabel = {
         let label = UILabel()
         label.text = "DetailView"
-        
+
         return label
     }()
-    
+
     private func setupLayout() {
         self.view.addSubview(cntLabel)
         self.cntLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +28,6 @@ class DetailViewController: UIViewController {
         self.view.backgroundColor = .white
         self.setupLayout()
     }
-    
 
     /*
     // MARK: - Navigation

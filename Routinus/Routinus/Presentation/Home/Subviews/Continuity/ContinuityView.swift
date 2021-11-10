@@ -41,25 +41,25 @@ final class ContinuityView: UIView {
         label.isHidden = true
         return label
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
     }
-    
+
     convenience init() {
         self.init(frame: CGRect.zero)
     }
-    
+
     func configureContents(with userInfo: User) {
         guard !userInfo.name.isEmpty else { return }
         let isZero = userInfo.continuityDay == 0
-        
+
         seedImageView.isHidden = isZero
         initContinuityLabel.isHidden = !isZero
         continuityDayLabel.isHidden = isZero
@@ -73,12 +73,12 @@ extension ContinuityView {
         configureLayout()
         configureSubviews()
     }
-    
+
     private func configureLayout() {
         layer.borderWidth = 1
         layer.cornerRadius = 5
     }
-    
+
     private func configureSubviews() {
         addSubview(seedImageView)
         seedImageView.snp.makeConstraints { make in

@@ -31,7 +31,7 @@ class ChallengeViewModel: ChallengeViewModelIO {
     var showChallengeSearchSignal = PassthroughSubject<Void, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
     var showChallengeCategorySignal = PassthroughSubject<Challenge.Category, Never>()
-    
+
     let usecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 

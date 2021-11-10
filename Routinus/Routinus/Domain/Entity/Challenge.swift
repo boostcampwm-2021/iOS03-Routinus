@@ -29,7 +29,7 @@ struct Challenge: Hashable {
                 return "기타"
             }
         }
-        
+
         var color: String {
             switch self {
             case .exercise:
@@ -63,7 +63,7 @@ struct Challenge: Hashable {
                 return "guitars"
             }
         }
-        
+
         static func category(by id: String) -> Self {
             switch id {
             case "0":
@@ -129,7 +129,7 @@ struct Challenge: Hashable {
         self.week = challengeDTO.week
         self.participantCount = challengeDTO.participantCount
     }
-    
+
     func isEmpty() -> Bool {
         return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
     }

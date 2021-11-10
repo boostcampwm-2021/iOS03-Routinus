@@ -12,7 +12,7 @@ import SnapKit
 
 final class DateCell: JTACDayCell {
     static let identifier = "DateCell"
-    
+
     lazy var dateLabel: UILabel = {
         var label = UILabel()
         label.textAlignment = .center

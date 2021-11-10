@@ -9,9 +9,8 @@ import UIKit
 
 class CategoryButtonTapGesture: UITapGestureRecognizer {
     private (set) var category: Challenge.Category?
-    
+
     func configureCategory(category: Challenge.Category) {
         self.category = category
     }
 }
-
