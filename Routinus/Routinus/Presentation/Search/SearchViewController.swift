@@ -88,8 +88,6 @@ class SearchViewController: UIViewController {
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
         self.viewTests()
-        self.setNavigationBarAppearance()
-        self.keyboardConfigure()
     }
 
 }
@@ -137,8 +135,9 @@ extension SearchViewController {
 
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.prefersLargeTitles = false
         self.view.addSubview(collectionView)
+        self.setNavigationBarAppearance()
+        self.keyboardConfigure()
         self.collectionView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -152,7 +151,8 @@ extension SearchViewController {
         appearance.backButtonAppearance = backButtonAppearance
 
         self.navigationItem.titleView = searchBar
-        navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.compactAppearance = appearance
         self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
