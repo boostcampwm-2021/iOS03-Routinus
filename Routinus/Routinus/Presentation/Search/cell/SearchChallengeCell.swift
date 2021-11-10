@@ -45,8 +45,8 @@ final class SearchChallengeCell: UICollectionViewCell {
     }
 }
 
-struct Challenge: Hashable {
-    let challengeID: String
-    let title: String
-    let imageData: Data?
-}
+//struct Challenge: Hashable {
+//    let challengeID: String
+//    let title: String
+//    let imageData: Data?
+//}
