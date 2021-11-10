@@ -100,7 +100,8 @@ extension SearchViewController {
             case .popularSearchTerm(let searchTerm):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchPopularTermCell.identifier,
                                                               for: indexPath) as? SearchPopularTermCell
-                cell?.configureViews(searchTerm: searchTerm)
+                cell?.configureViews(term: searchTerm)
+                cell?.delegate = self
                 return cell
 
             case .challenge(let challenge):
@@ -211,6 +212,14 @@ extension SearchViewController: UICollectionViewDelegate {
             print(indexPath.item)
 //            self.viewModel?.didTappedChallenge(index: indexPath.item)
         }
+    }
+}
+
+extension SearchViewController: SearchPopularTermDelegate {
+    func didTappedSearchTermButton(term: String?) {
+        guard let term = term else { return }
+        print(term)
+//        self.viewModel?.didTappedSearchButton(keyword: term)
     }
 }
 
