@@ -228,4 +228,8 @@ extension SearchViewController: UISearchBarDelegate {
         // MARK: - TODO viewModel searchText 전달
         print(searchText)
     }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
 }
