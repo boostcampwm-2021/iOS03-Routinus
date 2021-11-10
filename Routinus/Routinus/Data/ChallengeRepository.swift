@@ -10,12 +10,12 @@ import Foundation
 import RoutinusDatabase
 
 protocol ChallengeRepository {
-    func fetchRecommendChallenge() async -> [RecommendChallenge]
+    func fetchRecommendChallenge() async -> [Challenge]
 }
 
 extension RoutinusRepository: ChallengeRepository {
-    func fetchRecommendChallenge() async -> [RecommendChallenge] {
-        guard let list = try? await RoutinusDatabase.challengeInfo() else { return [] }
-        return list.map { RecommendChallenge(challengeDTO: $0) }
+    func fetchRecommendChallenge() async -> [Challenge] {
+        guard let list = try? await RoutinusDatabase.recommendChallengeInfo() else { return [] }
+        return list.map { Challenge(challengeDTO: $0) }
     }
 }
