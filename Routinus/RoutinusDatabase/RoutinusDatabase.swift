@@ -160,10 +160,40 @@ public enum RoutinusDatabase {
         return challengeList
     }
 
-    public static func allChallenges() async throws -> [ChallengeDTO] {
+    public static func searchChallengesBy(keyword: String) async throws -> [ChallengeDTO] {
+        let db = Firestore.firestore()
+        let snapshot = try await db.collection("challenge")
+            .whereField("title", isEqualTo: [keyword])
+            .getDocuments()
+
+        var challengeList = [ChallengeDTO]()
+
+        for document in snapshot.documents {
+            let challengeDTO = ChallengeDTO(
+                id: document["id"] as? String ?? "",
+                title: document["title"] as? String ?? "",
+                imageURL: document["image_url"] as? String ?? "",
+                authExampleImageURL: document["auth_example_image_url"] as? String ?? "",
+                authMethod: document["auth_method"] as? String ?? "",
+                categoryID: document["category_id"] as? String ?? "",
+                week: document["week"] as? Int ?? 0,
+                decs: document["desc"] as? String ?? "",
+                startDate: document["start_date"] as? String ?? "",
+                endDate: document["end_date"] as? String ?? "",
+                participantCount: document["participant_count"] as? Int ?? 0,
+                ownerID: document["owner_id"] as? String ?? "",
+                thumbnailImageURL: document["thumbnail_image_url"] as? String ?? ""
+            )
+            challengeList.append(challengeDTO)
+        }
+        return challengeList
+    }
+    
+    public static func searchChallengesBy(categoryID: String) async throws -> [ChallengeDTO] {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("challenge")
             .order(by: "participant_count", descending: true)
+            .whereField("category_id", arrayContains: categoryID)
             .getDocuments()
 
         var challengeList = [ChallengeDTO]()
