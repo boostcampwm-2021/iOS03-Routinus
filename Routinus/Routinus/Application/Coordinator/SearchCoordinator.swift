@@ -19,7 +19,10 @@ class SearchCoordinator: RoutinusCoordinator {
     }
 
     func start() {
-        let searchViewController = SearchViewController()
+        let repository = RoutinusRepository()
+        let searchUsecase = SearchFetchUsecase(repository: repository)
+        let searchViewModel = SearchViewModel(usecase: searchUsecase)
+        let searchViewController = SearchViewController(with: searchViewModel)
         self.navigationController.pushViewController(searchViewController, animated: false)
     }
 }
