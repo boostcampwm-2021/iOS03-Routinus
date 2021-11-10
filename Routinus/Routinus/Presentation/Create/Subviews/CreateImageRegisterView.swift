@@ -11,7 +11,7 @@ import SnapKit
 
 final class CreateImageRegisterView: UIView {
     weak var delegate: CreateImagePickerDelegate?
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "챌린지 대표 이미지를 등록하세요."
@@ -23,7 +23,6 @@ final class CreateImageRegisterView: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "camera")
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .lightGray
         imageView.tintColor = .black
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.systemGray.cgColor
@@ -43,6 +42,10 @@ final class CreateImageRegisterView: UIView {
 
     convenience init() {
         self.init(frame: CGRect.zero)
+    }
+    
+    func setImage(_ image: UIImage) {
+        imageView.image = image
     }
 }
 

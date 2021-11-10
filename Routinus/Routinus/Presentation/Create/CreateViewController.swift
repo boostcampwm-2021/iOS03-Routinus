@@ -40,6 +40,7 @@ final class CreateViewController: UIViewController {
     
     private var viewModel: CreateViewModelIO?
     private var cancellables = Set<AnyCancellable>()
+    private var imagePicker = UIImagePickerController()
 
     // TODO: 임시 생성자 (챌린지 관리화면 작업 후 삭제)
     init() {
@@ -128,7 +129,7 @@ extension CreateViewController {
             make.height.equalTo(60)
         }
     }
-    
+
     private func configureViewModel() {
         self.viewModel?.createButtonState
             .receive(on: RunLoop.main)
@@ -139,8 +140,9 @@ extension CreateViewController {
             })
             .store(in: &cancellables)
     }
-    
+
     private func configureDelegates() {
+        imagePicker.delegate = self
         categoryView.delegate = self
         titleView.delegate = self
         imageRegisterView.delegate = self
@@ -154,11 +156,11 @@ extension CreateViewController: CreateSubviewDelegate {
     func didChange(category: Challenge.Category) {
         viewModel?.update(category: category)
     }
-    
+
     func didChange(imageURL: String) {
         viewModel?.update(imageURL: imageURL)
     }
-    
+
     func didChange(authExampleImageURL: String) {
         viewModel?.update(authExampleImageURL: authExampleImageURL)
     }
@@ -168,7 +170,7 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
     enum InputTag: Int {
         case title = 0, week, introduction, authMethod
     }
-    
+
     func textFieldDidChangeSelection(_ textField: UITextField) {
         switch textField.tag {
         case InputTag.title.rawValue:
@@ -179,7 +181,7 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
             return
         }
     }
-    
+
     func textViewDidChangeSelection(_ textView: UITextView) {
         switch textView.tag {
         case InputTag.introduction.rawValue:
@@ -221,20 +223,34 @@ extension CreateViewController: CreateImagePickerDelegate {
         let alert = UIAlertController(title: "챌린지 대표 이미지 등록",
                                       message: "사진 앱이나 카메라 앱을 선택할 수 있습니다.",
                                       preferredStyle: .actionSheet)
-        
-        let photo = UIAlertAction(title: "사진", style: .default) { _ in
-            print("사진 클릭")
+
+        let photo = UIAlertAction(title: "사진", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
         }
         alert.addAction(photo)
-        
-        let camera = UIAlertAction(title: "카메라", style: .default) { _ in
-            print("카메라 클릭")
+
+        let camera = UIAlertAction(title: "카메라", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
         }
         alert.addAction(camera)
-        
+
         let cancel = UIAlertAction(title: "취소", style: .destructive, handler: nil)
         alert.addAction(cancel)
-        
+
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension CreateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            imageRegisterView.setImage(image) // TODO: 바로 반영하지말고 image, thumbnail로 구분해서 저장해야 함
+        }
+        dismiss(animated: true, completion: nil)
     }
 }
