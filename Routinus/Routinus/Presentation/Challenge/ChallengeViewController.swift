@@ -25,7 +25,7 @@ class ChallengeViewController: UIViewController {
     }
 
     enum ChallengeContents: Hashable {
-        case recommend(RecommendChallenge)
+        case recommend(Challenge)
         case category
     }
 
@@ -197,7 +197,7 @@ extension ChallengeViewController: UICollectionViewDelegate {
 }
 
 extension ChallengeViewController: ChallengeCategoryCellDelegate {
-    func didTappedCategoryButton(category: Category) {
+    func didTappedCategoryButton(category: Challenge.Category) {
         self.viewModel?.didTappedCategoryButton(category: category)
     }
 }

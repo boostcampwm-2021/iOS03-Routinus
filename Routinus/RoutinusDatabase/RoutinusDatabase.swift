@@ -97,9 +97,10 @@ public enum RoutinusDatabase {
         return achievementInfoList
     }
     
-    public static func challengeInfo() async throws -> [ChallengeDTO] {
+    public static func newChallenge() async throws -> [ChallengeDTO] {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("challenge")
+            .order(by: "start_date")
             .getDocuments()
         
         var challengeList = [ChallengeDTO]()
@@ -124,6 +125,38 @@ public enum RoutinusDatabase {
             challengeList.append(challengeDTO)
         }
         
+        return challengeList
+    }
+    
+    public static func recommendChallenge() async throws -> [ChallengeDTO] {
+        let db = Firestore.firestore()
+        let snapshot = try await db.collection("challenge")
+            .order(by: "participant_count", descending: true)
+            .limit(to: 5)
+            .getDocuments()
+
+        var challengeList = [ChallengeDTO]()
+
+        for document in snapshot.documents {
+            let challengeDTO = ChallengeDTO(
+                id: document["id"] as? String ?? "",
+                title: document["title"] as? String ?? "",
+                imageURL: document["image_url"] as? String ?? "",
+                authExampleImageURL: document["auth_example_image_url"] as? String ?? "",
+                authMethod: document["auth_method"] as? String ?? "",
+                categoryID: document["category_id"] as? String ?? "",
+                week: document["week"] as? Int ?? 0,
+                decs: document["desc"] as? String ?? "",
+                startDate: document["start_date"] as? String ?? "",
+                endDate: document["end_date"] as? String ?? "",
+                participantCount: document["participant_count"] as? Int ?? 0,
+                ownerID: document["owner_id"] as? String ?? "",
+                thumbnailImageURL: document["thumbnail_image_url"] as? String ?? ""
+            )
+
+            challengeList.append(challengeDTO)
+        }
+
         return challengeList
     }
 }

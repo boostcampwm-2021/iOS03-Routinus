@@ -11,9 +11,9 @@ class SearchCoordinator: RoutinusCoordinator {
     var parentCoordinator: RoutinusCoordinator?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
-    var category: Category?
+    var category: Challenge.Category?
 
-    init(navigationController: UINavigationController, category: Category? = nil) {
+    init(navigationController: UINavigationController, category: Challenge.Category? = nil) {
         self.navigationController = navigationController
         self.category = category
     }

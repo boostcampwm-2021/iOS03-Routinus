@@ -12,25 +12,25 @@ protocol ChallengeViewModelInput {
     func didTappedSearchButton()
     func didTappedSeeAllButton()
     func didTappedRecommendChallenge(index: Int)
-    func didTappedCategoryButton(category: Category)
+    func didTappedCategoryButton(category: Challenge.Category)
 }
 
 protocol ChallengeViewModelOutput {
-    var recommendChallenge: CurrentValueSubject<[RecommendChallenge], Never> { get }
+    var recommendChallenge: CurrentValueSubject<[Challenge], Never> { get }
 
     var showChallengeSearchSignal: PassthroughSubject<Void, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
-    var showChallengeCategorySignal: PassthroughSubject<Category, Never> { get }
+    var showChallengeCategorySignal: PassthroughSubject<Challenge.Category, Never> { get }
 }
 
 protocol ChallengeViewModelIO: ChallengeViewModelInput, ChallengeViewModelOutput { }
 
 class ChallengeViewModel: ChallengeViewModelIO {
-    var recommendChallenge = CurrentValueSubject<[RecommendChallenge], Never>([])
+    var recommendChallenge = CurrentValueSubject<[Challenge], Never>([])
 
     var showChallengeSearchSignal = PassthroughSubject<Void, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
-    var showChallengeCategorySignal = PassthroughSubject<Category, Never>()
+    var showChallengeCategorySignal = PassthroughSubject<Challenge.Category, Never>()
     
     let usecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
@@ -55,7 +55,7 @@ extension ChallengeViewModel {
         showChallengeDetailSignal.send(challengeID)
     }
 
-    func didTappedCategoryButton(category: Category) {
+    func didTappedCategoryButton(category: Challenge.Category) {
         showChallengeCategorySignal.send(category)
     }
 }

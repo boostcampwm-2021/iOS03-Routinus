@@ -41,4 +41,10 @@ extension Date {
         
         return "\(year)\(month)"
     }
+    
+    static func toDate(_ str: String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        return formatter.date(from: str)
+    }
 }
