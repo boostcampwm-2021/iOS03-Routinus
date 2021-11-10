@@ -206,6 +206,12 @@ extension SearchViewController {
 }
 
 extension SearchViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            print(indexPath.item)
+//            self.viewModel?.didTappedChallenge(index: indexPath.item)
+        }
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
