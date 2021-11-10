@@ -32,6 +32,7 @@ final class CreateViewController: UIViewController {
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
         button.backgroundColor = UIColor(red: 180/255, green: 231/255, blue: 160/255, alpha: 1)
         button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(didTappedCreateButton(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -62,6 +63,10 @@ final class CreateViewController: UIViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
+    }
+    
+    @objc private func didTappedCreateButton(_ sender: UIButton) {
+        viewModel?.didTappedCreateButton()
     }
 }
 
