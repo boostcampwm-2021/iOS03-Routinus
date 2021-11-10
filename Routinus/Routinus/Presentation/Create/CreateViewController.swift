@@ -11,6 +11,10 @@ import UIKit
 import SnapKit
 
 final class CreateViewController: UIViewController {
+    enum InputTag: Int {
+        case category = 0, title, image, week, introduction, authMethod, authImage
+    }
+    
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
@@ -149,6 +153,7 @@ extension CreateViewController {
         weekView.delegate = self
         introductionView.delegate = self
         authMethodView.delegate = self
+        authImageRegisterView.delegate = self
     }
 }
 
@@ -167,10 +172,6 @@ extension CreateViewController: CreateSubviewDelegate {
 }
 
 extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
-    enum InputTag: Int {
-        case title = 0, week, introduction, authMethod
-    }
-
     func textFieldDidChangeSelection(_ textField: UITextField) {
         switch textField.tag {
         case InputTag.title.rawValue:
