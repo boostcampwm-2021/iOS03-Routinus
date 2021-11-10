@@ -39,7 +39,7 @@ final class CreateViewController: UIViewController {
     private var viewModel: CreateViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
-    // TODO: 임시 생성자 (CreateViewModel 작업 후 삭제)
+    // TODO: 임시 생성자 (챌린지 관리화면 작업 후 삭제)
     init() {
         let repository = RoutinusRepository()
         let usecase = ChallengeCreateUsecase(repository: repository)
@@ -47,11 +47,11 @@ final class CreateViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    // TODO: Coordinator 작업 후에 ...
-//    init(with viewModel: CreateViewModelIO) {
-//        self.viewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
+    // TODO: 챌린지 관리화면 작업 후 삭제
+    init(with viewModel: CreateViewModelIO) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -67,6 +67,7 @@ final class CreateViewController: UIViewController {
     
     @objc private func didTappedCreateButton(_ sender: UIButton) {
         viewModel?.didTappedCreateButton()
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
