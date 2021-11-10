@@ -97,7 +97,7 @@ public enum RoutinusDatabase {
         return achievementInfoList
     }
     
-    public static func newChallengeInfo() async throws -> [ChallengeDTO] {
+    public static func newChallenge() async throws -> [ChallengeDTO] {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("challenge")
             .order(by: "start_date")
@@ -128,7 +128,7 @@ public enum RoutinusDatabase {
         return challengeList
     }
     
-    public static func recommendChallengeInfo() async throws -> [ChallengeDTO] {
+    public static func recommendChallenge() async throws -> [ChallengeDTO] {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("challenge")
             .order(by: "participant_count", descending: true)
