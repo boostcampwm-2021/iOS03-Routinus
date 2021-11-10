@@ -22,7 +22,7 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     
     func fetchRecommendChallenge(completion: @escaping ([Challenge]) -> Void) {
         Task {
-            let recommendChallengeList = await repository.fetchRecommendChallenge()
+            let recommendChallengeList = await repository.fetchRecommendChallenges()
             completion(recommendChallengeList)
         }
     }
