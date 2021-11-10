@@ -12,7 +12,7 @@ import RoutinusDatabase
 protocol SearchFetchableUsecase {
     func fetchPopularChallenge(completion: @escaping ([Challenge]) -> Void)
     func fetchSearchChallengeBy(keyword: String, completion: @escaping ([Challenge]) -> Void)
-    func fetchSearchChallengeBy(categoryID: String, completion: @escaping ([Challenge]) -> Void)
+    func fetchSearchChallengeBy(category: Challenge.Category, completion: @escaping ([Challenge]) -> Void)
 }
 
 struct SearchFetchUsecase: SearchFetchableUsecase {
@@ -50,12 +50,12 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
         }
     }
 
-    func fetchSearchChallengeBy(categoryID: String, completion: @escaping ([Challenge]) -> Void) {
+    func fetchSearchChallengeBy(category: Challenge.Category, completion: @escaping ([Challenge]) -> Void) {
         Task {
-            guard let list = try? await RoutinusDatabase.challengeInfo() else { return }
+            guard let list = try? await RoutinusDatabase.allChallenges() else { return }
             let challengeList = list
                 .map { Challenge(challengeDTO: $0) }
-                .filter { $0.categoryID == categoryID }
+                .filter { $0.category == category }
             completion(challengeList)
         }
     }

@@ -11,11 +11,17 @@ import RoutinusDatabase
 
 protocol SearchRepository {
     func fetchChallenges() async -> [Challenge]
+    func fetchNewChallenges() async -> [Challenge]
 }
 
 extension RoutinusRepository: SearchRepository {
     func fetchChallenges() async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.challengeInfo() else { return [] }
+        guard let list = try? await RoutinusDatabase.newChallenge() else { return [] }
+        return list.map { Challenge(challengeDTO: $0) }
+    }
+    
+    func fetchNewChallenges() async -> [Challenge] {
+        guard let list = try? await RoutinusDatabase.newChallenge() else { return [] }
         return list.map { Challenge(challengeDTO: $0) }
     }
 }
