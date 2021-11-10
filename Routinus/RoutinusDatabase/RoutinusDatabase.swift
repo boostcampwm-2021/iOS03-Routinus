@@ -54,7 +54,7 @@ public enum RoutinusDatabase {
             .getDocuments()
         let document = snapshot.documents.first?.data()
 
-        return UserDTO(id: id, user: document)
+        return UserDTO(user: document)
     }
 
     public static func routineList(of id: String) async throws -> [TodayRoutineDTO] {
@@ -72,7 +72,8 @@ public enum RoutinusDatabase {
                 .whereField("id", isEqualTo: challengeID)
                 .getDocuments()
             let challenge = challengeSnapshot.documents.first?.data()
-            let todayRoutineDTO = TodayRoutineDTO(id: id, todayRoutine: document.data(), challenge: challenge)
+            let todayRoutine = document.data()
+            let todayRoutineDTO = TodayRoutineDTO(todayRoutine: todayRoutine, challenge: challenge)
             todayRoutines.append(todayRoutineDTO)
         }
 
@@ -90,7 +91,7 @@ public enum RoutinusDatabase {
         var achievements = [AchievementInfoDTO]()
 
         for document in snapshot.documents {
-            let achievementDTO = AchievementInfoDTO(id: id, achievement: document.data())
+            let achievementDTO = AchievementInfoDTO(achievement: document.data())
             achievements.append(achievementDTO)
         }
 

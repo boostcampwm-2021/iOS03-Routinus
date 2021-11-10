@@ -22,8 +22,8 @@ public struct UserDTO {
         self.grade = 0
     }
     
-    public init(id: String, user: [String: Any]?) {
-        self.id = id
+    public init(user: [String: Any]?) {
+        self.id = user?["id"] as? String ?? ""
         self.name = user?["name"] as? String ?? ""
         self.continuityDay = user?["continuity_day"] as? Int ?? 0
         self.userImageCategoryID =  user?["user_image_category_id"] as? String ?? "0"

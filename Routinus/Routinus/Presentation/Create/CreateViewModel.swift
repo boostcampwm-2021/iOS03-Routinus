@@ -41,12 +41,12 @@ class CreateViewModel: CreateViewModelIO {
 
     init(createUsecase: ChallengeCreateUsecase) {
         self.createUsecase = createUsecase
-        title = ""
-        imageURL = ""
-        week = 0
-        introduction = ""
-        authMethod = ""
-        authExampleImageURL = ""
+        self.title = ""
+        self.imageURL = ""
+        self.week = 0
+        self.introduction = ""
+        self.authMethod = ""
+        self.authExampleImageURL = ""
     }
 
     func validate() {
