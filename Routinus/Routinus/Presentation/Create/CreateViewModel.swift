@@ -17,6 +17,8 @@ protocol CreateViewModelInput {
     func update(authMethod: String)
     func update(authExampleImageURL: String)
     func didTappedCreateButton()
+    func validateTextView(currentText: String, range: NSRange, text: String) -> Bool
+    func validateTextField(currentText: String, range: NSRange, text: String) -> Bool
 }
 
 protocol CreateViewModelOutput {
@@ -54,6 +56,16 @@ class CreateViewModel: CreateViewModelIO {
                                                          introduction: introduction,
                                                          authMethod: authMethod,
                                                          authExampleImageURL: authExampleImageURL)
+    }
+
+    func validateTextView(currentText: String, range: NSRange, text: String) -> Bool {
+        let newLength = currentText.count + text.count - range.length
+        return newLength <= 150
+    }
+
+    func validateTextField(currentText: String, range: NSRange, text: String) -> Bool {
+        let newLength = currentText.count + text.count - range.length
+        return newLength <= 50
     }
 
     func update(category: Challenge.Category) {

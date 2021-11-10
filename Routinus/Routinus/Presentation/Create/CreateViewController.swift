@@ -186,4 +186,28 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
             return
         }
     }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let viewModel = viewModel, let currentText = textField.text else { return true }
+        switch textField.tag {
+        case InputTag.title.rawValue:
+            return viewModel.validateTextField(currentText: currentText, range: range, text: string)
+        case InputTag.week.rawValue:
+            return viewModel.validateTextField(currentText: currentText, range: range, text: string)
+        default:
+            return true
+        }
+    }
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let viewModel = viewModel, let currentText = textView.text else { return true }
+        switch textView.tag {
+        case InputTag.introduction.rawValue:
+            return viewModel.validateTextView(currentText: currentText, range: range, text: text)
+        case InputTag.authMethod.rawValue:
+            return viewModel.validateTextView(currentText: currentText, range: range, text: text)
+        default:
+            return true
+        }
+    }
 }
