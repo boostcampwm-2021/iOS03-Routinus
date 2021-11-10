@@ -22,11 +22,11 @@ public struct AchievementInfoDTO {
         self.totalCount = 0
     }
     
-    public init(userID: String, yearMonth: String, day: String, achievementCount: Int, totalCount: Int) {
-        self.userID = userID
-        self.yearMonth = yearMonth
-        self.day = day
-        self.achievementCount = achievementCount
-        self.totalCount = totalCount
+    public init(achievement: [String: Any]?) {
+        self.userID = achievement?["user_id"] as? String ?? ""
+        self.yearMonth = achievement?["year_month"] as? String ?? ""
+        self.day = achievement?["day"] as? String ?? ""
+        self.achievementCount = achievement?["achievement_count"] as? Int ?? 0
+        self.totalCount = achievement?["total_count"] as? Int ?? 0
     }
 }
