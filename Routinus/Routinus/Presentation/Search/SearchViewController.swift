@@ -166,17 +166,18 @@ extension SearchViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.challenges
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] challengeItem in
-                guard let self = self else { return }
-                var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
-                let challengeContents = challengeItem.map { SearchContents.challenge($0) }
-                challengeSnapshot.deleteAll()
-                challengeSnapshot.append(challengeContents)
-                self.dataSource.apply(challengeSnapshot, to: Section.challenge, animatingDifferences: true)
-            })
-            .store(in: &cancellables)
+//         self.viewModel?.challenges
+//             .receive(on: RunLoop.main)
+//             .sink(receiveValue: { [weak self] challengeItem in
+//                 guard let self = self else { return }
+//                 var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
+//                 let challengeContents = challengeItem.map { SearchContents.challenge($0) }
+//                 challengeSnapshot.deleteAll()
+//                 challengeSnapshot.append(challengeContents)
+//                 self.dataSource.apply(challengeSnapshot, to: Section.challenge, animatingDifferences: true)
+//
+//             })
+//             .store(in: &cancellables)
     }
 
     private func setNavigationBarAppearance() {
