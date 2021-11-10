@@ -32,6 +32,8 @@ final class CreateViewController: UIViewController {
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
         button.backgroundColor = UIColor(red: 180/255, green: 231/255, blue: 160/255, alpha: 1)
         button.layer.cornerRadius = 20
+        button.isEnabled = false
+        button.alpha = 0.5
         button.addTarget(self, action: #selector(didTappedCreateButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -133,6 +135,7 @@ extension CreateViewController {
             .sink(receiveValue: { [weak self] isEnabled in
                 guard let self = self else { return }
                 self.createButton.isEnabled = isEnabled
+                self.createButton.alpha = isEnabled ? 1 : 0.5
             })
             .store(in: &cancellables)
     }
