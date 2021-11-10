@@ -24,7 +24,7 @@ extension RoutinusRepository: HomeRepository {
 
     func save(id: String, name: String) {
         UserDefaults.standard.set(id, forKey: RoutinusRepository.userIDKey)
-        
+
         Task {
             try await RoutinusDatabase.createUser(id: id, name: name)
         }
