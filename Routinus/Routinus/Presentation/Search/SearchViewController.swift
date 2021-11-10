@@ -140,17 +140,31 @@ extension SearchViewController {
         let popularContents = popularTermItem.map { SearchContents.popularSearchTerm($0) }
         popularSnapshot.append(popularContents)
         self.dataSource.apply(popularSnapshot, to: Section.popularSearchTerm)
-
-        let challengeItem = [Challenge(challengeID: "ddd", title: "물마시기", imageData: nil),
-                        Challenge(challengeID: "ddd", title: "화마시기", imageData: nil),
-                        Challenge(challengeID: "ddd", title: "수마시기", imageData: nil),
-                        Challenge(challengeID: "ddd", title: "목마시기", imageData: nil),
-                        Challenge(challengeID: "ddd", title: "금마시기", imageData: nil),
-                        Challenge(challengeID: "ddd", title: "토마시기", imageData: nil),
-                        Challenge(challengeID: "ddd", title: "일마시기", imageData: nil),
-                        Challenge(challengeID: "ddd", title: "부마시기", imageData: nil),
-                        Challenge(challengeID: "ddd", title: "김마시기", imageData: nil),
-                        Challenge(challengeID: "ddd", title: "풀마시기", imageData: nil)]
+        
+        let challengeItem = [Challenge(challengeID: "x", title: "30분 운동하기", introduction: "x", category: .exercise,
+                                       imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
+                                       startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
+                             Challenge(challengeID: "x", title: "30분 밥먹기", introduction: "x", category: .exercise,
+                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
+                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
+                             Challenge(challengeID: "x", title: "책읽기", introduction: "x", category: .exercise,
+                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
+                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
+                             Challenge(challengeID: "x", title: "독서하기", introduction: "x", category: .exercise,
+                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
+                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
+                             Challenge(challengeID: "x", title: "커밋하기", introduction: "x", category: .exercise,
+                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
+                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
+                             Challenge(challengeID: "x", title: "영어 공부하기", introduction: "x", category: .exercise,
+                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
+                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
+                             Challenge(challengeID: "x", title: "일본어 공부하기", introduction: "x", category: .exercise,
+                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
+                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
+                             Challenge(challengeID: "x", title: "약챙겨먹기", introduction: "x", category: .exercise,
+                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
+                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3)]
 
         var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
         let challengeContents = challengeItem.map { SearchContents.challenge($0) }
