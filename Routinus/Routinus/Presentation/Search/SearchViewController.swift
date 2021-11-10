@@ -32,7 +32,7 @@ class SearchViewController: UIViewController {
 
     private lazy var dataSource = configureDataSource()
     private lazy var snapshot = Snapshot()
-//    private var viewModel
+    private var viewModel: SearchViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
     private var collectionView: UICollectionView = {
@@ -51,8 +51,9 @@ class SearchViewController: UIViewController {
 
         return collectionView
     }()
-    
-    init() {
+
+    init(with viewModel: SearchViewModelIO) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
