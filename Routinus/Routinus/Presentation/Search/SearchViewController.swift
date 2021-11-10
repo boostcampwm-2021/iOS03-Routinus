@@ -87,7 +87,8 @@ class SearchViewController: UIViewController {
         self.searchBar.delegate = self
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
-        self.viewTests()
+        self.configureViewModel()
+        self.setNavigationBarAppearance()
     }
 
 }
@@ -144,6 +145,26 @@ extension SearchViewController {
         }
     }
 
+    private func configureViewModel() {
+        guard let popularTermItem = viewModel?.popularKeywords else { return }
+
+        var popularSnapshot = self.dataSource.snapshot(for: Section.popularSearchTerm)
+        let popularContents = popularTermItem.map { SearchContents.popularSearchTerm($0) }
+        popularSnapshot.append(popularContents)
+        self.dataSource.apply(popularSnapshot, to: Section.popularSearchTerm)
+
+        self.viewModel?.challenges
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challengeItem in
+                guard let self = self else { return }
+                var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
+                let challengeContents = challengeItem.map { SearchContents.challenge($0) }
+                challengeSnapshot.append(challengeContents)
+                self.dataSource.apply(challengeSnapshot, to: Section.challenge)
+            })
+            .store(in: &cancellables)
+    }
+
     private func setNavigationBarAppearance() {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .systemBackground
@@ -166,52 +187,13 @@ extension SearchViewController {
             return layout.section(at: sectionNumber)
         }
     }
-
-    private func viewTests() {
-        let popularTermItem = ["운동", "독서", "책읽기", "공부", "영어"]
-
-        var popularSnapshot = self.dataSource.snapshot(for: Section.popularSearchTerm)
-        let popularContents = popularTermItem.map { SearchContents.popularSearchTerm($0) }
-        popularSnapshot.append(popularContents)
-        self.dataSource.apply(popularSnapshot, to: Section.popularSearchTerm)
-        
-        let challengeItem = [Challenge(challengeID: "x", title: "30분 운동하기", introduction: "x", category: .exercise,
-                                       imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
-                                       startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
-                             Challenge(challengeID: "x", title: "30분 밥먹기", introduction: "x", category: .exercise,
-                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
-                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
-                             Challenge(challengeID: "x", title: "책읽기", introduction: "x", category: .exercise,
-                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
-                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
-                             Challenge(challengeID: "x", title: "독서하기", introduction: "x", category: .exercise,
-                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
-                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
-                             Challenge(challengeID: "x", title: "커밋하기", introduction: "x", category: .exercise,
-                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
-                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
-                             Challenge(challengeID: "x", title: "영어 공부하기", introduction: "x", category: .exercise,
-                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
-                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
-                             Challenge(challengeID: "x", title: "일본어 공부하기", introduction: "x", category: .exercise,
-                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
-                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3),
-                             Challenge(challengeID: "x", title: "약챙겨먹기", introduction: "x", category: .exercise,
-                                                            imageURL: "", authExampleImageURL: "", thumbnailImageURL: "", authMethod: "",
-                                                            startDate: Date.toDate("2021110")!, endDate: Date.toDate("2021113")!, ownerID: "", week: 1, participantCount: 3)]
-
-        var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
-        let challengeContents = challengeItem.map { SearchContents.challenge($0) }
-        challengeSnapshot.append(challengeContents)
-        self.dataSource.apply(challengeSnapshot, to: Section.challenge)
-    }
 }
 
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             print(indexPath.item)
-//            self.viewModel?.didTappedChallenge(index: indexPath.item)
+            self.viewModel?.didTappedChallenge(index: indexPath.item)
         }
     }
 }
@@ -221,6 +203,8 @@ extension SearchViewController: SearchPopularTermDelegate {
         guard let term = term else { return }
         print(term)
         self.searchBar.text = term
+        self.viewModel?.didTappedSearchButton(keyword: term)
+        performQuery(with: term)
     }
 }
 
@@ -228,6 +212,8 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // MARK: - TODO viewModel searchText 전달
         print(searchText)
+//        viewModel?.didTappedSearchButton(keyword: searchText)
+        performQuery(with: searchText)
     }
 
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -250,5 +236,24 @@ extension SearchViewController {
 
     @objc func tappedView(sender: UITapGestureRecognizer) {
         self.searchBar.endEditing(true)
+    }
+
+    func performQuery(with filter: String?) {
+        self.viewModel?.challenges
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challengeItem in
+                guard let self = self else { return }
+                var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
+                var challengeContents = challengeItem.map { SearchContents.challenge($0) }
+                if filter != "" {
+                     challengeContents = challengeItem.filter {
+                        $0.title.contains(filter ?? "")
+                    }.map { SearchContents.challenge($0) }
+                }
+                challengeSnapshot.deleteAll()
+                challengeSnapshot.append(challengeContents)
+                self.dataSource.apply(challengeSnapshot, to: Section.challenge, animatingDifferences: true)
+            })
+            .store(in: &cancellables)
     }
 }

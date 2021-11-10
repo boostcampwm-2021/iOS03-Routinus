@@ -15,7 +15,8 @@ protocol SearchViewModelInput {
 }
 
 protocol SearchViewModelOutput {
-    var latestChallenge: CurrentValueSubject<[Challenge], Never> { get }
+    var challenges: CurrentValueSubject<[Challenge], Never> { get }
+    var popularKeywords: [String] { get }
 
     var showChallengeSearchSignal: PassthroughSubject<String, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
@@ -24,7 +25,7 @@ protocol SearchViewModelOutput {
 protocol SearchViewModelIO: SearchViewModelInput, SearchViewModelOutput { }
 
 class SearchViewModel: SearchViewModelIO {
-    var latestChallenge = CurrentValueSubject<[Challenge], Never>([])
+    var challenges = CurrentValueSubject<[Challenge], Never>([])
     var popularKeywords = [String]([])
 
     var showChallengeSearchSignal = PassthroughSubject<String, Never>()
@@ -45,7 +46,7 @@ class SearchViewModel: SearchViewModelIO {
 
 extension SearchViewModel {
     func didTappedSearchButton(keyword: String) {
-        showChallengeSearchSignal.send(keyword)
+        
     }
 
     func didTappedPopularKeyword(keyword: String) {
@@ -53,7 +54,7 @@ extension SearchViewModel {
     }
 
     func didTappedChallenge(index: Int) {
-        let challengeID = self.latestChallenge.value[index].challengeID
+        let challengeID = self.challenges.value[index].challengeID
         showChallengeDetailSignal.send(challengeID)
     }
 }
@@ -75,13 +76,13 @@ extension SearchViewModel {
 
     private func fetchLatestChallenges() {
         usecase.fetchLatestChallenge { [weak self] challenge in
-            self?.latestChallenge.value = challenge
+            self?.challenges.value = challenge
         }
     }
 
     private func fetchCategoryChallenges() {
         usecase.fetchSearchChallengeBy(category: searchCategory!) { [weak self] challenge in
-            self?.latestChallenge.value = challenge
+            self?.challenges.value = challenge
         }
     }
 }
