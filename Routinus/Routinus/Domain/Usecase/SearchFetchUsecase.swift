@@ -10,7 +10,7 @@ import Foundation
 import RoutinusDatabase
 
 protocol SearchFetchableUsecase {
-    func fetchPopularChallenge(completion: @escaping ([Challenge]) -> Void)
+    func fetchLatestChallenge(completion: @escaping ([Challenge]) -> Void)
     func fetchSearchChallengeBy(keyword: String, completion: @escaping ([Challenge]) -> Void)
     func fetchSearchChallengeBy(category: Challenge.Category, completion: @escaping ([Challenge]) -> Void)
 }
@@ -22,9 +22,9 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
         self.repository = repository
     }
 
-    func fetchPopularChallenge(completion: @escaping ([Challenge]) -> Void) {
+    func fetchLatestChallenge(completion: @escaping ([Challenge]) -> Void) {
         Task {
-            let list = await repository.fetchChallenges()
+            let list = await repository.fetchAllChallenges()
             var challengeList = list
                 .sorted { $0.participantCount > $1.participantCount }
             if challengeList.count > 6 {
@@ -36,7 +36,7 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
 
     func fetchSearchChallengeBy(keyword: String, completion: @escaping ([Challenge]) -> Void) {
         Task {
-            let list = await repository.fetchChallenges()
+            let list = await repository.fetchAllChallenges()
             let keywords = searchKeywords(keyword)
             var results: Set<Challenge> = []
 

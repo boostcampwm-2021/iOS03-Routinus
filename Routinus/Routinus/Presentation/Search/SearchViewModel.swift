@@ -52,7 +52,7 @@ extension SearchViewModel {
 
 extension SearchViewModel {
     private func fetchChallenge() {
-        usecase.fetchPopularChallenge { [weak self] challenge in
+        usecase.fetchLatestChallenge { [weak self] challenge in
             self?.latestChallenge.value = challenge
         }
     }
