@@ -82,19 +82,19 @@ struct Challenge: Hashable {
         }
     }
 
-    let challengeID: String
-    let title: String
-    let introduction: String
-    let category: Category
-    let imageURL: String
-    let authExampleImageURL: String
-    let thumbnailImageURL: String
-    let authMethod: String
-    let startDate: Date?
-    let endDate: Date?
-    let ownerID: String
-    let week: Int
-    let participantCount: Int
+    var challengeID: String
+    var title: String
+    var introduction: String
+    var category: Category
+    var imageURL: String
+    var authExampleImageURL: String
+    var thumbnailImageURL: String
+    var authMethod: String
+    var startDate: Date?
+    var endDate: Date?
+    var ownerID: String
+    var week: Int
+    var participantCount: Int
 
     init(challengeID: String, title: String, introduction: String, category: Category, imageURL: String,
          authExampleImageURL: String, thumbnailImageURL: String, authMethod: String, startDate: Date?,
