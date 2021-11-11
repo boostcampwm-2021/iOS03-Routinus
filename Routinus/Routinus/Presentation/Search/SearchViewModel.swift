@@ -10,7 +10,6 @@ import Foundation
 
 protocol SearchViewModelInput {
     func didChangedSearchText(_ keyword: String)
-    func didTappedPopularKeyword(keyword: String)
     func didTappedChallenge(index: Int)
 }
 
@@ -18,7 +17,6 @@ protocol SearchViewModelOutput {
     var challenges: CurrentValueSubject<[Challenge], Never> { get }
     var popularKeywords: [String] { get }
 
-    var showChallengeSearchSignal: PassthroughSubject<String, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
 }
 
@@ -28,7 +26,6 @@ class SearchViewModel: SearchViewModelIO {
     var challenges = CurrentValueSubject<[Challenge], Never>([])
     var popularKeywords = [String]([])
 
-    var showChallengeSearchSignal = PassthroughSubject<String, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
 
     let usecase: SearchFetchableUsecase
@@ -49,10 +46,6 @@ extension SearchViewModel {
         usecase.fetchSearchChallengeBy(keyword: keyword) { [weak self] challenge in
             self?.challenges.value = challenge
         }
-    }
-
-    func didTappedPopularKeyword(keyword: String) {
-        showChallengeSearchSignal.send(keyword)
     }
 
     func didTappedChallenge(index: Int) {
