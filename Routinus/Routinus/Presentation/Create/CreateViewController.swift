@@ -188,12 +188,12 @@ extension CreateViewController {
 
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo, let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        scrollView.contentInset.bottom = keyboardFrame.size.height * 1.2
+
+        self.view.frame.origin.y = 0 - keyboardFrame.height / 2
     }
 
     @objc func keyboardWillHide(_ notification: Notification) {
-        let contentInset = UIEdgeInsets.zero
-        scrollView.contentInset = contentInset
+        self.view.frame.origin.y = 0
     }
 }
 
@@ -323,7 +323,7 @@ extension CreateViewController: UIImagePickerControllerDelegate, UINavigationCon
                 authImageRegisterView.setImage(image)
                 viewModel?.update(authExampleImageURL: urlString)
             default:
-                ()
+                break
             }
         }
         dismiss(animated: true, completion: nil)
