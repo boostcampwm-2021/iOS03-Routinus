@@ -166,7 +166,6 @@ extension CreateViewController {
         authMethodView.delegate = self
         authImageRegisterView.delegate = self
     }
-
     
     private func configureGesture() {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedScrollView(_:)))
