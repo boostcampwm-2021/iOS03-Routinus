@@ -72,6 +72,7 @@ final class CreateViewController: UIViewController {
         configureViewModel()
         configureDelegates()
         configureGesture()
+        configureNotification()
     }
     
     @objc private func didTappedCreateButton(_ sender: UIButton) {
@@ -165,6 +166,7 @@ extension CreateViewController {
         authMethodView.delegate = self
         authImageRegisterView.delegate = self
     }
+
     
     private func configureGesture() {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedScrollView(_:)))
@@ -177,6 +179,21 @@ extension CreateViewController {
         weekView.hideKeyboard()
         introductionView.hideKeyboard()
         authMethodView.hideKeyboard()
+    }
+
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo, let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        scrollView.contentInset.bottom = keyboardFrame.size.height * 1.2
+    }
+
+    @objc func keyboardWillHide(_ notification: Notification) {
+        let contentInset = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
     }
 }
 
