@@ -55,7 +55,6 @@ final class CreateViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    // TODO: 챌린지 관리화면 작업 후 삭제
     init(with viewModel: CreateViewModelIO) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
