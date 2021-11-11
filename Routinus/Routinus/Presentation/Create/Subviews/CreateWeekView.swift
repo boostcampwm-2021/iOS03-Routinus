@@ -11,14 +11,6 @@ import SnapKit
 
 final class CreateWeekView: UIView {
     typealias Tag = CreateViewController.InputTag
-    
-    enum WeekTitle: String, CaseIterable {
-        case one = "1주"
-        case two = "2주"
-        case three = "3주"
-        case four = "4주"
-        case other = "기타"
-    }
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -27,17 +19,11 @@ final class CreateWeekView: UIView {
         return label
     }()
 
-    private lazy var segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: WeekTitle.allCases.map { $0.rawValue })
-        control.frame = CGRect.zero
-        control.addTarget(self, action: #selector(didChangeValue(_:)), for: .valueChanged)
-        control.selectedSegmentIndex = 0
-        return control
-    }()
-
-    private lazy var weekLeftLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "직접 입력"
+        label.text = "주 단위로 숫자만 입력해주세요."
+        label.font = .systemFont(ofSize: 16)
+        label.textColor = .systemGray
         return label
     }()
 
@@ -50,7 +36,7 @@ final class CreateWeekView: UIView {
         return textField
     }()
 
-    private lazy var weekRightLabel: UILabel = {
+    private lazy var weekLabel: UILabel = {
         let label = UILabel()
         label.text = "주"
         return label
@@ -98,10 +84,6 @@ final class CreateWeekView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
-
-    @objc private func didChangeValue(_ sender: UISegmentedControl) {
-        print("\(sender.selectedSegmentIndex)") // TODO: 임시
-    }
 }
 
 extension CreateWeekView {
@@ -116,34 +98,28 @@ extension CreateWeekView {
             make.height.equalTo(24)
         }
 
-        addSubview(segmentedControl)
-        segmentedControl.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+        addSubview(descriptionLabel)
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.width.equalToSuperview()
-        }
-
-        addSubview(weekLeftLabel)
-        weekLeftLabel.snp.makeConstraints { make in
-            make.top.equalTo(segmentedControl.snp.bottom).offset(25)
-            make.left.equalToSuperview()
         }
 
         addSubview(weekTextField)
         weekTextField.snp.makeConstraints { make in
-            make.centerY.equalTo(weekLeftLabel.snp.centerY)
-            make.left.equalTo(weekLeftLabel.snp.right).offset(20)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
+            make.left.equalToSuperview()
             make.width.equalTo(50)
         }
 
-        addSubview(weekRightLabel)
-        weekRightLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(weekLeftLabel.snp.centerY)
+        addSubview(weekLabel)
+        weekLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(weekTextField.snp.centerY)
             make.left.equalTo(weekTextField.snp.right).offset(10)
         }
 
         addSubview(endDateView)
         endDateView.snp.makeConstraints { make in
-            make.top.equalTo(weekLeftLabel.snp.bottom).offset(25)
+            make.top.equalTo(weekTextField.snp.bottom).offset(20)
             make.width.equalToSuperview()
             make.height.equalTo(40)
         }
