@@ -102,9 +102,9 @@ public enum RoutinusDatabase {
         let snapshot = try await db.collection("challenge")
             .order(by: "start_date")
             .getDocuments()
-        
+
         var challengeList = [ChallengeDTO]()
-        
+
         for document in snapshot.documents {
             let challengeDTO = ChallengeDTO(
                 id: document["id"] as? String ?? "",
@@ -164,6 +164,7 @@ public enum RoutinusDatabase {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("challenge")
             .whereField("title", isEqualTo: [keyword])
+            .order(by: "participant_count", descending: true)
             .getDocuments()
 
         var challengeList = [ChallengeDTO]()
@@ -192,8 +193,8 @@ public enum RoutinusDatabase {
     public static func searchChallengesBy(categoryID: String) async throws -> [ChallengeDTO] {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("challenge")
+            .whereField("category_id", isEqualTo: categoryID)
             .order(by: "participant_count", descending: true)
-            .whereField("category_id", arrayContains: categoryID)
             .getDocuments()
 
         var challengeList = [ChallengeDTO]()
