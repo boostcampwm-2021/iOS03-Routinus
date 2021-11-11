@@ -57,6 +57,7 @@ extension CreateCategoryView {
             let action = UIAction(title: category.title, image: UIImage(systemName: category.symbol)) { [weak self] action in
                 guard let self = self else { return }
                 self.delegate?.didChange(category: category)
+                self.button.configuration?.title = category.title
             }
             actions.append(action)
         }
