@@ -24,7 +24,8 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
     }
 
     func fetchPopularKeywords(completion: @escaping ([String]) -> Void) {
-        completion(["운동", "독서", "책읽기", "공부", "영어"])
+        let keywords = PopularKeyword.allCases.map { $0.rawValue }
+        completion(keywords)
     }
 
     func fetchLatestChallenge(completion: @escaping ([Challenge]) -> Void) {
