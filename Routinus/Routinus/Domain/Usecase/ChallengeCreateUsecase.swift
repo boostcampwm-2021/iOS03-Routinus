@@ -50,9 +50,6 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
     }
 
     func isEmpty(title: String, imageURL: String, introduction: String, authMethod: String, authExampleImageURL: String) -> Bool {
-        
-        // TODO: 이미지 구현 전 테스트를 위한 return문
-//        return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
-        return title.isEmpty || introduction.isEmpty || authMethod.isEmpty
+        return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
     }
 }

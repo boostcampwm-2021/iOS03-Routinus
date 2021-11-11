@@ -269,14 +269,24 @@ extension CreateViewController: CreateImagePickerDelegate {
 }
 
 extension CreateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    typealias InfoKey = UIImagePickerController.InfoKey
+    
     func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                               didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
+        if let image = info[InfoKey.originalImage] as? UIImage {
+            guard let url = info[InfoKey.imageURL] as? URL else {
+                dismiss(animated: true, completion: nil)
+                return
+            }
+            let urlString = url.absoluteString
+            
             switch selectedImagePickerTag {
             case .image:
                 imageRegisterView.setImage(image)
+                viewModel?.update(imageURL: urlString)
             case .authImage:
                 authImageRegisterView.setImage(image)
+                viewModel?.update(authExampleImageURL: urlString)
             default:
                 ()
             }
