@@ -84,7 +84,6 @@ class SearchViewController: UIViewController {
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
         self.configureViewModel()
-//        self.performQuery()
     }
 
 }
@@ -160,19 +159,6 @@ extension SearchViewController {
                 self.dataSource.apply(challengeSnapshot, to: Section.challenge, animatingDifferences: true)
             })
             .store(in: &cancellables)
-
-//         self.viewModel?.challenges
-//             .receive(on: RunLoop.main)
-//             .sink(receiveValue: { [weak self] challengeItem in
-//                 guard let self = self else { return }
-//                 var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
-//                 let challengeContents = challengeItem.map { SearchContents.challenge($0) }
-//                 challengeSnapshot.deleteAll()
-//                 challengeSnapshot.append(challengeContents)
-//                 self.dataSource.apply(challengeSnapshot, to: Section.challenge, animatingDifferences: true)
-//
-//             })
-//             .store(in: &cancellables)
     }
 
     private func setNavigationBarAppearance() {
@@ -200,10 +186,23 @@ extension SearchViewController {
     }
 }
 
+extension SearchViewController {
+    private func keyboardConfigure() {
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedView))
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+        singleTapGestureRecognizer.isEnabled = true
+        singleTapGestureRecognizer.cancelsTouchesInView = false
+        self.collectionView.addGestureRecognizer(singleTapGestureRecognizer)
+    }
+
+    @objc func tappedView(sender: UITapGestureRecognizer) {
+        self.searchBarView.searchBar.endEditing(true)
+    }
+}
+
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            print(indexPath.item)
             self.viewModel?.didTappedChallenge(index: indexPath.item)
         }
     }
@@ -222,25 +221,7 @@ extension SearchViewController: UISearchBarDelegate {
         self.viewModel?.didChangedSearchText(searchText)
     }
 
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        print("start")
-    }
-
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBarView.searchBar.endEditing(true)
-    }
-}
-
-extension SearchViewController {
-    private func keyboardConfigure() {
-        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedView))
-        singleTapGestureRecognizer.numberOfTapsRequired = 1
-        singleTapGestureRecognizer.isEnabled = true
-        singleTapGestureRecognizer.cancelsTouchesInView = false
-        self.collectionView.addGestureRecognizer(singleTapGestureRecognizer)
-    }
-
-    @objc func tappedView(sender: UITapGestureRecognizer) {
         self.searchBarView.searchBar.endEditing(true)
     }
 }
