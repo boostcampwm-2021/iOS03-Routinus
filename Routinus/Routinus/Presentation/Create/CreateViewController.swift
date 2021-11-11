@@ -111,7 +111,7 @@ extension CreateViewController {
 
         stackView.addArrangedSubview(weekView)
         weekView.snp.makeConstraints { make in
-            make.height.equalTo(200)
+            make.height.equalTo(190)
         }
 
         stackView.addArrangedSubview(introductionView)
