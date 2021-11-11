@@ -9,35 +9,27 @@ import UIKit
 
 class AuthViewController: UIViewController {
 
-    lazy var cntLabel: UILabel = {
-        let label = UILabel()
-        label.text = "AuthView"
-
-        return label
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "AuthView")
+        imageView.contentMode = .scaleToFill
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.black.cgColor
+        return imageView
     }()
-
-    private func setupLayout() {
-        self.view.addSubview(cntLabel)
-        self.cntLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.cntLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.cntLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        setupLayout()
-        // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.configureViews()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func configureViews() {
+        self.view.backgroundColor = .white
+        self.view.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.edges.equalTo(self.view.safeAreaLayoutGuide).inset(20)
+        }
     }
-    */
-
 }
