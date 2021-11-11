@@ -43,8 +43,14 @@ class SearchViewModel: SearchViewModelIO {
 
 extension SearchViewModel {
     func didChangedSearchText(_ keyword: String) {
-        usecase.fetchSearchChallengeBy(keyword: keyword) { [weak self] challenge in
-            self?.challenges.value = challenge
+        if keyword == "" {
+            usecase.fetchLatestChallenge { [weak self] challenges in
+                self?.challenges.value = challenges
+            }
+        } else {
+            usecase.fetchSearchChallengeBy(keyword: keyword) { [weak self] challenges in
+                self?.challenges.value = challenges
+            }
         }
     }
 
