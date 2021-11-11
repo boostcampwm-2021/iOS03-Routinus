@@ -259,7 +259,7 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        textField.endEditing(true)
     }
 }
 
