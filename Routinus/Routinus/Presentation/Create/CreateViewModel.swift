@@ -50,6 +50,7 @@ class CreateViewModel: CreateViewModelIO {
         self.introduction = ""
         self.authMethod = ""
         self.authExampleImageURL = ""
+        self.category = .exercise
     }
 
     private func validate() {
