@@ -30,7 +30,7 @@ protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
 
 class CreateViewModel: CreateViewModelIO {
     var createButtonState = CurrentValueSubject<Bool, Never>(false)
-    var expectedEndDate = CurrentValueSubject<Date, Never>(Date())
+    var expectedEndDate = CurrentValueSubject<Date, Never>(Calendar.current.date(byAdding: DateComponents(day: 7), to: Date()) ?? Date())
     var cancellables = Set<AnyCancellable>()
     var createUsecase: ChallengeCreateUsecase
 
