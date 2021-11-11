@@ -10,11 +10,11 @@ import UIKit
 
 class SearchViewController: UIViewController {
     enum Section: CaseIterable {
-        case popularSearchTerm, challenge
+        case popularSearchKeyword, challenge
 
         var title: String {
             switch self {
-            case .popularSearchTerm:
+            case .popularSearchKeyword:
                 return "인기 검색어"
             case .challenge:
                 return "챌린지 목록"
@@ -23,7 +23,7 @@ class SearchViewController: UIViewController {
     }
 
     enum SearchContents: Hashable {
-        case popularSearchTerm(String)
+        case popularSearchKeyword(String)
         case challenge(Challenge)
     }
 
@@ -45,8 +45,8 @@ class SearchViewController: UIViewController {
         collectionView.register(SearchCollectionViewHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SearchCollectionViewHeader.identifier)
-        collectionView.register(SearchPopularTermCell.self,
-                                forCellWithReuseIdentifier: SearchPopularTermCell.identifier)
+        collectionView.register(SearchPopularKeywordCell.self,
+                                forCellWithReuseIdentifier: SearchPopularKeywordCell.identifier)
         collectionView.register(SearchChallengeCell.self,
                                 forCellWithReuseIdentifier: SearchChallengeCell.identifier)
 
@@ -93,10 +93,10 @@ extension SearchViewController {
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, content in
             switch content {
-            case .popularSearchTerm(let searchTerm):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchPopularTermCell.identifier,
-                                                              for: indexPath) as? SearchPopularTermCell
-                cell?.configureViews(term: searchTerm)
+            case .popularSearchKeyword(let keyword):
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchPopularKeywordCell.identifier,
+                                                              for: indexPath) as? SearchPopularKeywordCell
+                cell?.configureViews(keyword: keyword)
                 cell?.delegate = self
                 return cell
 
@@ -142,12 +142,12 @@ extension SearchViewController {
     }
 
     private func configureViewModel() {
-        guard let popularTermItem = viewModel?.popularKeywords else { return }
+        guard let popularKeywordItems = viewModel?.popularKeywords else { return }
 
-        var popularSnapshot = self.dataSource.snapshot(for: Section.popularSearchTerm)
-        let popularContents = popularTermItem.map { SearchContents.popularSearchTerm($0) }
+        var popularSnapshot = self.dataSource.snapshot(for: Section.popularSearchKeyword)
+        let popularContents = popularKeywordItems.map { SearchContents.popularSearchKeyword($0) }
         popularSnapshot.append(popularContents)
-        self.dataSource.apply(popularSnapshot, to: Section.popularSearchTerm)
+        self.dataSource.apply(popularSnapshot, to: Section.popularSearchKeyword)
 
         self.viewModel?.challenges
             .receive(on: RunLoop.main)
@@ -209,11 +209,11 @@ extension SearchViewController: UICollectionViewDelegate {
     }
 }
 
-extension SearchViewController: SearchPopularTermDelegate {
-    func didTappedSearchTermButton(term: String?) {
-        guard let term = term else { return }
-        self.searchBarView.searchBar.text = term
-        self.viewModel?.didChangedSearchText(term)
+extension SearchViewController: SearchPopularKeywordDelegate {
+    func didTappedSearchKeywordButton(keyword: String?) {
+        guard let keyword = keyword else { return }
+        self.searchBarView.searchBar.text = keyword
+        self.viewModel?.didChangedSearchText(keyword)
     }
 }
 

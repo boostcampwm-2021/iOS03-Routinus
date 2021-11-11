@@ -8,7 +8,7 @@
 import UIKit
 
 class SearchCollectionViewLayouts {
-    private var pupularSearchTermLayout: NSCollectionLayoutSection {
+    private var pupularSearchKeywordLayout: NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -47,7 +47,7 @@ class SearchCollectionViewLayouts {
 
     func section(at sectionNumber: Int) -> NSCollectionLayoutSection {
         if sectionNumber == 0 {
-            return self.pupularSearchTermLayout
+            return self.pupularSearchKeywordLayout
         } else {
             return self.challengeLayout
         }
