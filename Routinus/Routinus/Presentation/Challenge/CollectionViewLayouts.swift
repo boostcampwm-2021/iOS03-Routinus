@@ -16,12 +16,8 @@ class CollectionViewLayouts {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                      heightDimension: .absolute(70)),
-                                                    elementKind: UICollectionView.elementKindSectionHeader,
-                                                    alignment: .topLeading)]
         section.orthogonalScrollingBehavior = .groupPaging
-        section.contentInsets = .init(top: 0, leading: 25, bottom: 20, trailing: 25)
+        section.contentInsets = .init(top: 30, leading: 25, bottom: 20, trailing: 25)
         section.interGroupSpacing = 20
         return section
     }

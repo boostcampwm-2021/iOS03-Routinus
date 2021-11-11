@@ -14,6 +14,13 @@ public enum RoutinusDatabase {
     public static func configure() {
         FirebaseApp.configure()
     }
+ 
+    public static func imageURL(id: String, fileName: String) async throws -> URL {
+        let storage = Storage.storage().reference()
+        let imageReference = storage.child("\(id)/\(fileName).jpeg")
+        
+        return try await imageReference.downloadURL()
+    }
 
     public static func createUser(id: String, name: String) async throws {
         let db = Firestore.firestore()
