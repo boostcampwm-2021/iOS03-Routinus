@@ -45,7 +45,7 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
         let challenge = ChallengeDTO(id: challengeID, title: title, imageURL: imageURL,
                                      authExampleImageURL: authExampleImageURL,
                                      authMethod: authMethod, categoryID: category.id, week: week, decs: introduction,
-                                     startDate: startDate, endDate: endDate, participantCount: 0, ownerID: ownerID, thumbnailImageURL: "")
+                                     startDate: startDate, endDate: endDate, participantCount: 1, ownerID: ownerID, thumbnailImageURL: "")
         repository.save(challenge: challenge)
     }
 

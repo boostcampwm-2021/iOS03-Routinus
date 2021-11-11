@@ -44,6 +44,13 @@ public enum RoutinusDatabase {
             "title": challenge.title,
             "week": challenge.week
         ])
+
+        try await db.collection("challenge_participation").document().setData([
+            "auth_count": 0,
+            "challenge_id": challenge.id,
+            "join_date": challenge.startDate,
+            "user_id": challenge.ownerID
+        ])
     }
 
     public static func user(of id: String) async throws -> UserDTO {

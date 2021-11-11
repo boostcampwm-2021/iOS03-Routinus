@@ -46,7 +46,7 @@ class CreateViewModel: CreateViewModelIO {
         self.createUsecase = createUsecase
         self.title = ""
         self.imageURL = ""
-        self.week = 0
+        self.week = 1
         self.introduction = ""
         self.authMethod = ""
         self.authExampleImageURL = ""
