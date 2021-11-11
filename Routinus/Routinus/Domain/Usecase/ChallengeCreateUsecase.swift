@@ -45,14 +45,11 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
         let challenge = ChallengeDTO(id: challengeID, title: title, imageURL: imageURL,
                                      authExampleImageURL: authExampleImageURL,
                                      authMethod: authMethod, categoryID: category.id, week: week, decs: introduction,
-                                     startDate: startDate, endDate: endDate, participantCount: 0, ownerID: ownerID, thumbnailImageURL: "")
+                                     startDate: startDate, endDate: endDate, participantCount: 1, ownerID: ownerID, thumbnailImageURL: "")
         repository.save(challenge: challenge)
     }
 
     func isEmpty(title: String, imageURL: String, introduction: String, authMethod: String, authExampleImageURL: String) -> Bool {
-        
-        // TODO: 이미지 구현 전 테스트를 위한 return문
-//        return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
-        return title.isEmpty || introduction.isEmpty || authMethod.isEmpty
+        return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
     }
 }

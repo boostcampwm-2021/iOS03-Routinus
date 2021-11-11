@@ -54,6 +54,10 @@ final class CreateTitleView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
+    
+    func hideKeyboard() {
+        textField.endEditing(true)
+    }
 }
 
 extension CreateTitleView {

@@ -71,6 +71,8 @@ final class CreateViewController: UIViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
+        configureGesture()
+        configureNotification()
     }
     
     @objc private func didTappedCreateButton(_ sender: UIButton) {
@@ -111,7 +113,7 @@ extension CreateViewController {
 
         stackView.addArrangedSubview(weekView)
         weekView.snp.makeConstraints { make in
-            make.height.equalTo(200)
+            make.height.equalTo(190)
         }
 
         stackView.addArrangedSubview(introductionView)
@@ -163,6 +165,34 @@ extension CreateViewController {
         introductionView.delegate = self
         authMethodView.delegate = self
         authImageRegisterView.delegate = self
+    }
+    
+    private func configureGesture() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedScrollView(_:)))
+        scrollView.addGestureRecognizer(recognizer)
+    }
+    
+    @objc private func didTappedScrollView(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        titleView.hideKeyboard()
+        weekView.hideKeyboard()
+        introductionView.hideKeyboard()
+        authMethodView.hideKeyboard()
+    }
+
+    private func configureNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo, let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+
+        self.view.frame.origin.y = 0 - keyboardFrame.height / 2
+    }
+
+    @objc func keyboardWillHide(_ notification: Notification) {
+        self.view.frame.origin.y = 0
     }
 }
 
@@ -226,6 +256,10 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
             return true
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+    }
 }
 
 extension CreateViewController: CreateImagePickerDelegate {
@@ -269,16 +303,26 @@ extension CreateViewController: CreateImagePickerDelegate {
 }
 
 extension CreateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    typealias InfoKey = UIImagePickerController.InfoKey
+    
     func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                               didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
+        if let image = info[InfoKey.originalImage] as? UIImage {
+            guard let url = info[InfoKey.imageURL] as? URL else {
+                dismiss(animated: true, completion: nil)
+                return
+            }
+            let urlString = url.absoluteString
+            
             switch selectedImagePickerTag {
             case .image:
                 imageRegisterView.setImage(image)
+                viewModel?.update(imageURL: urlString)
             case .authImage:
                 authImageRegisterView.setImage(image)
+                viewModel?.update(authExampleImageURL: urlString)
             default:
-                ()
+                break
             }
         }
         dismiss(animated: true, completion: nil)

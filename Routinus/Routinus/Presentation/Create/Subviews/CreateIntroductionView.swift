@@ -32,7 +32,6 @@ final class CreateIntroductionView: UIView {
         textView.layer.borderColor = UIColor.black.cgColor
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 10
-        textView.text = "예) 아침 일찍 일어나서 미라클 모닝을 실천해봅시다 :)"
         textView.font = .systemFont(ofSize: 16)
         textView.tag = Tag.introduction.rawValue
         return textView
@@ -56,6 +55,10 @@ final class CreateIntroductionView: UIView {
     
     convenience init() {
         self.init(frame: CGRect.zero)
+    }
+    
+    func hideKeyboard() {
+        textView.endEditing(true)
     }
 }
 

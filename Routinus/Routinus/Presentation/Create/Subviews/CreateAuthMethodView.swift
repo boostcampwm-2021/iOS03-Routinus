@@ -33,7 +33,6 @@ final class CreateAuthMethodView: UIView {
         textView.layer.borderColor = UIColor.black.cgColor
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 10
-        textView.text = "예) 오늘 날짜와 시간이 보이도록 사진을 찍어주세요!"
         textView.font = .systemFont(ofSize: 16)
         textView.tag = Tag.authMethod.rawValue
         return textView
@@ -57,6 +56,10 @@ final class CreateAuthMethodView: UIView {
     
     convenience init() {
         self.init(frame: CGRect.zero)
+    }
+    
+    func hideKeyboard() {
+        textView.endEditing(true)
     }
 }
 
