@@ -34,7 +34,6 @@ final class ManageViewController: UIViewController {
     }()
 
     @objc func didTouchAddButton() {
-        print("touched!!!")
         let vc = CreateViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
