@@ -8,6 +8,8 @@
 import UIKit
 
 import SnapKit
+import Kingfisher
+import RoutinusDatabase
 
 final class SearchChallengeCell: UICollectionViewCell {
     static let identifier = "SearchChallengeCell"
@@ -28,7 +30,6 @@ final class SearchChallengeCell: UICollectionViewCell {
     }()
 
     func configureViews(challenge: Challenge) {
-
         self.titleLabel.text = challenge.title
 //        self.challengeImageView.image = UIImage(data: challenge.imageData)
 
@@ -42,6 +43,11 @@ final class SearchChallengeCell: UICollectionViewCell {
         self.titleLabel.snp.makeConstraints { make in
             make.leading.bottom.equalToSuperview()
             make.top.equalTo(challengeImageView.snp.bottom).offset(10)
+        }
+
+        Task {
+            let url = try? await RoutinusDatabase.imageURL(id: challenge.challengeID, fileName: "image")
+            self.challengeImageView.kf.setImage(with: url)
         }
     }
 }
