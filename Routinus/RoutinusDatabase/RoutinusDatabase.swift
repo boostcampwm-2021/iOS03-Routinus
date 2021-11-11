@@ -98,11 +98,11 @@ public enum RoutinusDatabase {
         return achievements
     }
 
-    public static func newChallenge() async throws -> [ChallengeDTO] {
+    public static func allChallenges() async throws -> [ChallengeDTO] {
         let db = Firestore.firestore()
-
         let snapshot = try await db.collection("challenge")
-            .order(by: "start_date")
+            .order(by: "participant_count")
+            .limit(to: 50)
             .getDocuments()
 
         var challenges = [ChallengeDTO]()
@@ -115,12 +115,47 @@ public enum RoutinusDatabase {
         return challenges
     }
 
+    public static func newChallenge() async throws -> [ChallengeDTO] {
+        let db = Firestore.firestore()
+
+        let snapshot = try await db.collection("challenge")
+            .order(by: "start_date")
+            .limit(to: 10)
+            .getDocuments()
+
+        var challenges = [ChallengeDTO]()
+
+        for document in snapshot.documents {
+            let challengeDTO = ChallengeDTO(challenge: document.data())
+            challenges.append(challengeDTO)
+        }
+  
+        return challenges
+    }
+
     public static func recommendChallenge() async throws -> [ChallengeDTO] {
         let db = Firestore.firestore()
 
         let snapshot = try await db.collection("challenge")
             .order(by: "participant_count", descending: true)
             .limit(to: 5)
+            .getDocuments()
+
+        var challenges = [ChallengeDTO]()
+
+        for document in snapshot.documents {
+            let challengeDTO = ChallengeDTO(challenge: document.data())
+            challenges.append(challengeDTO)
+        }
+
+        return challenges
+    }
+
+    public static func searchChallengesBy(categoryID: String) async throws -> [ChallengeDTO] {
+        let db = Firestore.firestore()
+        let snapshot = try await db.collection("challenge")
+            .whereField("category_id", isEqualTo: categoryID)
+            .order(by: "participant_count", descending: true)
             .getDocuments()
 
         var challenges = [ChallengeDTO]()

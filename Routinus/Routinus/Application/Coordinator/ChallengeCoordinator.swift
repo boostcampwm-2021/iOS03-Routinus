@@ -28,6 +28,7 @@ class ChallengeCoordinator: RoutinusCoordinator {
                 guard let self = self else { return }
                 let searchCoordinator = SearchCoordinator(navigationController: self.navigationController)
                 searchCoordinator.start()
+                self.childCoordinator.append(searchCoordinator)
             }
             .store(in: &cancellables)
 
@@ -36,6 +37,7 @@ class ChallengeCoordinator: RoutinusCoordinator {
                 guard let self = self else { return }
                 let detailCoordinator = DetailCoordinator(navigationController: self.navigationController, challengeID: challengeID)
                 detailCoordinator.start()
+                self.childCoordinator.append(detailCoordinator)
             }
             .store(in: &cancellables)
 
@@ -44,6 +46,7 @@ class ChallengeCoordinator: RoutinusCoordinator {
                 guard let self = self else { return }
                 let searchCoordinator = SearchCoordinator(navigationController: self.navigationController, category: category)
                 searchCoordinator.start()
+                self.childCoordinator.append(searchCoordinator)
             }
             .store(in: &cancellables)
 
