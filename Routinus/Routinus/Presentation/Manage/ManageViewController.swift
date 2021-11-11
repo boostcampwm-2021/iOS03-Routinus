@@ -7,27 +7,49 @@
 
 import UIKit
 
+import SnapKit
+
 final class ManageViewController: UIViewController {
-    // TODO: 챌린지 추가 화면으로 이동하기 위한 임시 버튼(추후 삭제)
-    private lazy var foo = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        foo2()
+        configureViews()
     }
-    
-    // TODO: 챌린지 추가 화면으로 이동하기 위한 임시 로직(추후 삭제)
-    func foo2() {
-        view.addSubview(foo)
-        foo.setTitle("화면 이동", for: .normal)
-        foo.backgroundColor = .white
-        foo.setTitleColor(.black, for: .normal)
-        foo.addTarget(self, action: #selector(foo3), for: .touchUpInside)
-    }
-    
-    // TODO: 챌린지 추가 화면으로 이동하기 위한 임시 로직(추후 삭제)
-    @objc func foo3() {
+
+    private lazy var plusButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.addTarget(self, action: #selector(didTouchAddButton), for: .touchUpInside)
+        button.tintColor = UIColor.black
+        return button
+    }()
+
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "ManageView")
+        imageView.contentMode = .scaleToFill
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.black.cgColor
+        return imageView
+    }()
+
+    @objc func didTouchAddButton() {
+        print("touched!!!")
         let vc = CreateViewController()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func configureViews() {
+        self.view.backgroundColor = .white
+        self.view.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.edges.equalTo(self.view.safeAreaLayoutGuide).inset(20)
+        }
+
+        self.view.addSubview(plusButton)
+        plusButton.snp.makeConstraints { make in
+            make.top.equalTo(imageView).offset(30)
+            make.trailing.equalTo(imageView).offset(-20)
+        }
     }
 }
