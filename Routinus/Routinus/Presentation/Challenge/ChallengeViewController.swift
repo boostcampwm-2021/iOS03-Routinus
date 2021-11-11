@@ -145,8 +145,7 @@ extension ChallengeViewController {
         self.configureSearchButton()
         self.view.addSubview(collectionView)
         self.collectionView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
 
