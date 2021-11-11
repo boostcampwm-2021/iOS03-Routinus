@@ -240,6 +240,10 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
             return true
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
 }
 
 extension CreateViewController: CreateImagePickerDelegate {
