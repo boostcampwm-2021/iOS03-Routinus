@@ -17,8 +17,9 @@ protocol SearchRepository {
 
 extension RoutinusRepository: SearchRepository {
     func fetchSearchChallengesBy(keyword: String) async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.searchChallengesBy(keyword: keyword) else { return [] }
+        guard let list = try? await RoutinusDatabase.allChallenges() else { return [] }
         return list.map { Challenge(challengeDTO: $0) }
+                .filter { $0.title.contains(keyword) }
     }
     
     func fetchSearchChallengesBy(categoryID: String) async -> [Challenge] {
