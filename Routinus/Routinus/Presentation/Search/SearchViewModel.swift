@@ -15,7 +15,7 @@ protocol SearchViewModelInput {
 
 protocol SearchViewModelOutput {
     var challenges: CurrentValueSubject<[Challenge], Never> { get }
-    var popularKeywords: [String] { get }
+    var popularKeywords: CurrentValueSubject<[String], Never> { get }
 
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
 }
@@ -24,7 +24,7 @@ protocol SearchViewModelIO: SearchViewModelInput, SearchViewModelOutput { }
 
 class SearchViewModel: SearchViewModelIO {
     var challenges = CurrentValueSubject<[Challenge], Never>([])
-    var popularKeywords = [String]([])
+    var popularKeywords = CurrentValueSubject<[String], Never>([])
 
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
 
@@ -57,7 +57,7 @@ extension SearchViewModel {
 extension SearchViewModel {
     private func fetchPopularKeywords() {
         usecase.fetchPopularKeywords { [weak self] keywords in
-            self?.popularKeywords = keywords
+            self?.popularKeywords.value = keywords
         }
     }
 

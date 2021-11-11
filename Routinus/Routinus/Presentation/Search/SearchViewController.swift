@@ -141,12 +141,15 @@ extension SearchViewController {
     }
 
     private func configureViewModel() {
-        guard let popularKeywordItems = viewModel?.popularKeywords else { return }
-
-        var popularSnapshot = self.dataSource.snapshot(for: Section.popularSearchKeyword)
-        let popularContents = popularKeywordItems.map { SearchContents.popularSearchKeyword($0) }
-        popularSnapshot.append(popularContents)
-        self.dataSource.apply(popularSnapshot, to: Section.popularSearchKeyword)
+        self.viewModel?.popularKeywords
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { keywords in
+                var popularSnapshot = self.dataSource.snapshot(for: Section.popularSearchKeyword)
+                let popularContents = keywords.map { SearchContents.popularSearchKeyword($0) }
+                popularSnapshot.append(popularContents)
+                self.dataSource.apply(popularSnapshot, to: Section.popularSearchKeyword)
+            })
+            .store(in: &cancellables)
 
         self.viewModel?.challenges
             .receive(on: RunLoop.main)
