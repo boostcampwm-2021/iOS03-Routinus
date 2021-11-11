@@ -8,6 +8,7 @@
 import Foundation
 
 import Firebase
+import FirebaseStorage
 
 public enum RoutinusDatabase {
     public static func configure() {
@@ -51,6 +52,16 @@ public enum RoutinusDatabase {
             "join_date": challenge.startDate,
             "user_id": challenge.ownerID
         ])
+        
+        let storage = Storage.storage().reference()
+
+        let imageReference = storage.child("\(challenge.id)/image.jpeg")
+        guard let imageURL = URL(string: challenge.imageURL) else { return }
+        imageReference.putFile(from: imageURL, metadata: nil)
+
+        let authExampleImageReference = storage.child("\(challenge.id)/auth.jpeg")
+        guard let authExampleImageURL = URL(string: challenge.authExampleImageURL) else { return }
+        authExampleImageReference.putFile(from: authExampleImageURL, metadata: nil)
     }
 
     public static func user(of id: String) async throws -> UserDTO {
