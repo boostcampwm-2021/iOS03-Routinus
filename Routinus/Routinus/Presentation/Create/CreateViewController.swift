@@ -13,6 +13,21 @@ import SnapKit
 final class CreateViewController: UIViewController {
     enum InputTag: Int {
         case category = 0, title, image, week, introduction, authMethod, authImage
+
+        var offset: Int {
+            switch self {
+            case .title:
+                return 130
+            case .week:
+                return 530
+            case .introduction:
+                return 750
+            case .authMethod:
+                return 1015
+            default:
+                return 0
+            }
+        }
     }
     
     private lazy var scrollView: UIScrollView = UIScrollView()
@@ -71,12 +86,11 @@ final class CreateViewController: UIViewController {
         configureViewModel()
         configureDelegates()
         configureGesture()
-        configureNotification()
     }
     
     @objc private func didTappedCreateButton(_ sender: UIButton) {
         viewModel?.didTappedCreateButton()
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true) // TODO: Coordinator 구현 후 수정
     }
 }
 
@@ -178,21 +192,6 @@ extension CreateViewController {
         introductionView.hideKeyboard()
         authMethodView.hideKeyboard()
     }
-
-    private func configureNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        guard let userInfo = notification.userInfo, let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-
-        self.view.frame.origin.y = 0 - keyboardFrame.height / 2
-    }
-
-    @objc func keyboardWillHide(_ notification: Notification) {
-        self.view.frame.origin.y = 0
-    }
 }
 
 extension CreateViewController: CreateSubviewDelegate {
@@ -210,6 +209,16 @@ extension CreateViewController: CreateSubviewDelegate {
 }
 
 extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        guard let tag = InputTag(rawValue: textField.tag) else { return }
+        scrollView.setContentOffset(CGPoint(x: 0, y: tag.offset), animated: true)
+    }
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        guard let tag = InputTag(rawValue: textView.tag) else { return }
+        scrollView.setContentOffset(CGPoint(x: 0, y: tag.offset), animated: true)
+    }
+    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         switch textField.tag {
         case InputTag.title.rawValue:
