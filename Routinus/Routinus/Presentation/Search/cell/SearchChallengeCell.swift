@@ -16,8 +16,9 @@ final class SearchChallengeCell: UICollectionViewCell {
 
     private lazy var challengeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "folder")
+        imageView.image = UIImage(systemName: "photo")
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = UIColor(named: "MainColor")
         return imageView
     }()
 
@@ -31,7 +32,6 @@ final class SearchChallengeCell: UICollectionViewCell {
 
     func configureViews(challenge: Challenge) {
         self.titleLabel.text = challenge.title
-//        self.challengeImageView.image = UIImage(data: challenge.imageData)
 
         self.addSubview(challengeImageView)
         self.challengeImageView.snp.makeConstraints { make in
@@ -45,9 +45,14 @@ final class SearchChallengeCell: UICollectionViewCell {
             make.top.equalTo(challengeImageView.snp.bottom).offset(10)
         }
 
+        // TODO: RoutinusDatabase 직접 접근하지 않도록 수정
         Task {
             let url = try? await RoutinusDatabase.imageURL(id: challenge.challengeID, fileName: "image")
-            self.challengeImageView.kf.setImage(with: url)
+            let roundProcessor = RoundCornerImageProcessor(cornerRadius: 20)
+            
+            self.challengeImageView.kf.setImage(with: url,
+                                                placeholder: UIImage(systemName: "photo"),
+                                                options: [.processor(roundProcessor)])
         }
     }
 }
