@@ -10,15 +10,13 @@ import Foundation
 
 protocol SearchViewModelInput {
     func didChangedSearchText(_ keyword: String)
-    func didTappedPopularKeyword(keyword: String)
     func didTappedChallenge(index: Int)
 }
 
 protocol SearchViewModelOutput {
     var challenges: CurrentValueSubject<[Challenge], Never> { get }
-    var popularKeywords: [String] { get }
+    var popularKeywords: CurrentValueSubject<[String], Never> { get }
 
-    var showChallengeSearchSignal: PassthroughSubject<String, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
 }
 
@@ -26,9 +24,8 @@ protocol SearchViewModelIO: SearchViewModelInput, SearchViewModelOutput { }
 
 class SearchViewModel: SearchViewModelIO {
     var challenges = CurrentValueSubject<[Challenge], Never>([])
-    var popularKeywords = [String]([])
+    var popularKeywords = CurrentValueSubject<[String], Never>([])
 
-    var showChallengeSearchSignal = PassthroughSubject<String, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
 
     let usecase: SearchFetchableUsecase
@@ -46,13 +43,15 @@ class SearchViewModel: SearchViewModelIO {
 
 extension SearchViewModel {
     func didChangedSearchText(_ keyword: String) {
-        usecase.fetchSearchChallengeBy(keyword: keyword) { [weak self] challenge in
-            self?.challenges.value = challenge
+        if keyword == "" {
+            usecase.fetchLatestChallenge { [weak self] challenges in
+                self?.challenges.value = challenges
+            }
+        } else {
+            usecase.fetchSearchChallengeBy(keyword: keyword) { [weak self] challenges in
+                self?.challenges.value = challenges
+            }
         }
-    }
-
-    func didTappedPopularKeyword(keyword: String) {
-        showChallengeSearchSignal.send(keyword)
     }
 
     func didTappedChallenge(index: Int) {
@@ -64,7 +63,7 @@ extension SearchViewModel {
 extension SearchViewModel {
     private func fetchPopularKeywords() {
         usecase.fetchPopularKeywords { [weak self] keywords in
-            self?.popularKeywords = keywords
+            self?.popularKeywords.value = keywords
         }
     }
 

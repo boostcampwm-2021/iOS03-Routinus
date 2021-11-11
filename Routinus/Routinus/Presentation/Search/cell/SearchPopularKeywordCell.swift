@@ -15,11 +15,10 @@ class SearchPopularKeywordCell: UICollectionViewCell {
 
     private lazy var popularKeywordButton: SearchPopularKeywordButton = {
         let button = SearchPopularKeywordButton()
-        button.setTitle("", for: .normal)
-        button.tintColor = UIColor.white
-        button.backgroundColor = UIColor(named: "SearchKeywordColor")
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.backgroundColor = UIColor(named: "SundayColor")
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(named: "SearchKeywordColor")?.cgColor
+        button.layer.borderColor = UIColor(named: "SundayColor")?.cgColor
         button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(didTappedSearchKeyword), for: .touchUpInside)
         return button
