@@ -7,23 +7,27 @@
 
 import UIKit
 
-class ManageViewController: UIViewController {
-
+final class ManageViewController: UIViewController {
+    // TODO: 챌린지 추가 화면으로 이동하기 위한 임시 버튼(추후 삭제)
+    private lazy var foo = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        foo2()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // TODO: 챌린지 추가 화면으로 이동하기 위한 임시 로직(추후 삭제)
+    func foo2() {
+        view.addSubview(foo)
+        foo.setTitle("화면 이동", for: .normal)
+        foo.backgroundColor = .white
+        foo.setTitleColor(.black, for: .normal)
+        foo.addTarget(self, action: #selector(foo3), for: .touchUpInside)
     }
-    */
-
+    
+    // TODO: 챌린지 추가 화면으로 이동하기 위한 임시 로직(추후 삭제)
+    @objc func foo3() {
+        let vc = CreateViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }

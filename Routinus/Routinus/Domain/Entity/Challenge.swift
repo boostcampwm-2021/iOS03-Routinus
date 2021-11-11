@@ -64,6 +64,23 @@ struct Challenge: Hashable {
             }
         }
 
+        var id: String {
+            switch self {
+            case .exercise:
+                return "0"
+            case .selfDevelopment:
+                return "1"
+            case .lifeStyle:
+                return "2"
+            case .finance:
+                return "3"
+            case .hobby:
+                return "4"
+            case .etc:
+                return "5"
+            }
+        }
+
         static func category(by id: String) -> Self {
             switch id {
             case "0":
@@ -128,9 +145,5 @@ struct Challenge: Hashable {
         self.ownerID = challengeDTO.ownerID
         self.week = challengeDTO.week
         self.participantCount = challengeDTO.participantCount
-    }
-
-    func isEmpty() -> Bool {
-        return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
     }
 }

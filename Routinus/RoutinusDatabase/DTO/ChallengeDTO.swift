@@ -55,4 +55,20 @@ public struct ChallengeDTO {
         self.ownerID = ownerID
         self.thumbnailImageURL = thumbnailImageURL
     }
+
+    public init(challenge: [String: Any]?) {
+        self.id = challenge?["id"] as? String ?? ""
+        self.title = challenge?["title"] as? String ?? ""
+        self.imageURL = challenge?["image_url"] as? String ?? ""
+        self.authExampleImageURL = challenge?["auth_example_image_url"] as? String ?? ""
+        self.authMethod = challenge?["auth_method"] as? String ?? ""
+        self.categoryID = challenge?["category_id"] as? String ?? ""
+        self.week = challenge?["week"] as? Int ?? 0
+        self.desc = challenge?["desc"] as? String ?? ""
+        self.startDate = challenge?["start_date"] as? String ?? ""
+        self.endDate = challenge?["end_date"] as? String ?? ""
+        self.participantCount = challenge?["participant_count"] as? Int ?? 0
+        self.ownerID = challenge?["owner_id"] as? String ?? ""
+        self.thumbnailImageURL = challenge?["thumbnail_image_url"] as? String ?? ""
+    }
 }

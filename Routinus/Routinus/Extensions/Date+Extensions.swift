@@ -47,4 +47,16 @@ extension Date {
         formatter.dateFormat = "yyyyMMdd"
         return formatter.date(from: str)
     }
+
+    func toString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        return dateFormatter.string(from: self)
+    }
+
+    func toExtendedString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd(E)"
+        return dateFormatter.string(from: self)
+    }
 }
