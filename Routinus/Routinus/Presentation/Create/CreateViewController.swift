@@ -71,6 +71,7 @@ final class CreateViewController: UIViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
+        configureGesture()
     }
     
     @objc private func didTappedCreateButton(_ sender: UIButton) {
@@ -163,6 +164,19 @@ extension CreateViewController {
         introductionView.delegate = self
         authMethodView.delegate = self
         authImageRegisterView.delegate = self
+    }
+    
+    private func configureGesture() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedScrollView(_:)))
+        scrollView.addGestureRecognizer(recognizer)
+    }
+    
+    @objc private func didTappedScrollView(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        titleView.hideKeyboard()
+        weekView.hideKeyboard()
+        introductionView.hideKeyboard()
+        authMethodView.hideKeyboard()
     }
 }
 

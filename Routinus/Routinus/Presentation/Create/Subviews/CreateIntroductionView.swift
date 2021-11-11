@@ -56,6 +56,10 @@ final class CreateIntroductionView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
+    
+    func hideKeyboard() {
+        textView.endEditing(true)
+    }
 }
 
 extension CreateIntroductionView {

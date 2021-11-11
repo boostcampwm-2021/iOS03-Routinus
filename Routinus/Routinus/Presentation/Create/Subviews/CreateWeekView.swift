@@ -84,6 +84,10 @@ final class CreateWeekView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
+    
+    func hideKeyboard() {
+        weekTextField.endEditing(true)
+    }
 }
 
 extension CreateWeekView {
