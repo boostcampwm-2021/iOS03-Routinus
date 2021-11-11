@@ -10,7 +10,7 @@ import Foundation
 class RoutinusRepository {
     static let userIDKey = "id"
 
-    static func userID() -> String? {
+    func userID() -> String? {
         return UserDefaults.standard.string(forKey: RoutinusRepository.userIDKey)
     }
 }

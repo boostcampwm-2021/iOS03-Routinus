@@ -13,7 +13,7 @@ public struct UserDTO {
     public var continuityDay: Int
     public var userImageCategoryID: String
     public var grade: Int
-    
+
     public init() {
         self.id = ""
         self.name = ""
@@ -21,12 +21,12 @@ public struct UserDTO {
         self.userImageCategoryID = ""
         self.grade = 0
     }
-    
-    public init(id: String, name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
-        self.id = id
-        self.name = name
-        self.continuityDay = continuityDay
-        self.userImageCategoryID = userImageCategoryID
-        self.grade = grade
+
+    public init(user: [String: Any]?) {
+        self.id = user?["id"] as? String ?? ""
+        self.name = user?["name"] as? String ?? ""
+        self.continuityDay = user?["continuity_day"] as? Int ?? 0
+        self.userImageCategoryID =  user?["user_image_category_id"] as? String ?? "0"
+        self.grade = user?["grade"] as? Int ?? 0
     }
 }

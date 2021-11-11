@@ -11,12 +11,12 @@ import JTAppleCalendar
 
 final class CalendarDelegate: JTACMonthViewDelegate {
     static let shared = CalendarDelegate()
-    
+
     var calendar: [AchievementInfo] = []
     var formatter: DateFormatter?
 
     private init() {}
-    
+
     func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath)
     -> JTACDayCell {
         guard let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: DateCell.identifier, for: indexPath)

@@ -15,9 +15,14 @@
 		0DC38F51273B684300331C25 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC38F50273B684300331C25 /* SearchViewModel.swift */; };
 		0DC38F53273B688300331C25 /* SearchFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC38F52273B688300331C25 /* SearchFetchUsecase.swift */; };
 		0DC38F55273B689700331C25 /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC38F54273B689700331C25 /* SearchRepository.swift */; };
+		0DC38F59273BA89000331C25 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC38F58273BA89000331C25 /* UIImage+Extensions.swift */; };
 		0DD1631A27311F0200DC5970 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631927311F0200DC5970 /* DateCell.swift */; };
 		0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631B27312AC700DC5970 /* DateHeader.swift */; };
 		0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1632C2733729800DC5970 /* CalendarDelegate.swift */; };
+		14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14572CEC273BF644007E6ECE /* CreateCoordinator.swift */; };
+		149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411DB273A314B004BE485 /* CreateViewModel.swift */; };
+		149411E4273A6314004BE485 /* CreateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E3273A6314004BE485 /* CreateRepository.swift */; };
+		149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */; };
 		1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF432738FFA600296F9E /* RoutinusRepository.swift */; };
 		1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF4B2739078700296F9E /* UserNameFactory.swift */; };
 		1497CF572739215C00296F9E /* HomeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF562739215C00296F9E /* HomeCreateUsecase.swift */; };
@@ -37,6 +42,15 @@
 		441CEDFC27390378006C261F /* RoutinusDatabase.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 441CEDF827390378006C261F /* RoutinusDatabase.release.xcconfig */; };
 		441CEDFD27390378006C261F /* RoutinusDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDF927390378006C261F /* RoutinusDatabase.swift */; };
 		441CEE07273A0832006C261F /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE06273A0831006C261F /* HomeRepository.swift */; };
+		441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE10273A332D006C261F /* CreateCategoryView.swift */; };
+		441CEE13273A334B006C261F /* CreateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE12273A334B006C261F /* CreateTitleView.swift */; };
+		441CEE15273A33BE006C261F /* CreateImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */; };
+		441CEE17273A33CD006C261F /* CreateIntroductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE16273A33CD006C261F /* CreateIntroductionView.swift */; };
+		441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE18273A33DB006C261F /* CreateWeekView.swift */; };
+		441CEE1B273A33FE006C261F /* CreateAuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */; };
+		441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */; };
+		44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */; };
+		44234F18273C0917004D6834 /* CreateImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -66,7 +80,7 @@
 		E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CAA2731073F00A14A0F /* MyPageViewController.swift */; };
 		E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CAC2731074B00A14A0F /* ManageViewController.swift */; };
 		E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB0273107A200A14A0F /* DetailViewController.swift */; };
-		E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB2273107BE00A14A0F /* CreateController.swift */; };
+		E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB2273107BE00A14A0F /* CreateViewController.swift */; };
 		E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB5273107F700A14A0F /* SearchViewController.swift */; };
 		E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB82731094900A14A0F /* AuthViewController.swift */; };
 		E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */; };
@@ -116,9 +130,14 @@
 		0DC38F50273B684300331C25 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		0DC38F52273B688300331C25 /* SearchFetchUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFetchUsecase.swift; sourceTree = "<group>"; };
 		0DC38F54273B689700331C25 /* SearchRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
+		0DC38F58273BA89000331C25 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		0DD1631927311F0200DC5970 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		0DD1631B27312AC700DC5970 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		0DD1632C2733729800DC5970 /* CalendarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDelegate.swift; sourceTree = "<group>"; };
+		14572CEC273BF644007E6ECE /* CreateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoordinator.swift; sourceTree = "<group>"; };
+		149411DB273A314B004BE485 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
+		149411E3273A6314004BE485 /* CreateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepository.swift; sourceTree = "<group>"; };
+		149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreateUsecase.swift; sourceTree = "<group>"; };
 		1497CF432738FFA600296F9E /* RoutinusRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusRepository.swift; sourceTree = "<group>"; };
 		1497CF4B2739078700296F9E /* UserNameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameFactory.swift; sourceTree = "<group>"; };
 		1497CF562739215C00296F9E /* HomeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCreateUsecase.swift; sourceTree = "<group>"; };
@@ -138,6 +157,15 @@
 		441CEDF827390378006C261F /* RoutinusDatabase.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusDatabase.release.xcconfig; sourceTree = "<group>"; };
 		441CEDF927390378006C261F /* RoutinusDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutinusDatabase.swift; sourceTree = "<group>"; };
 		441CEE06273A0831006C261F /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
+		441CEE10273A332D006C261F /* CreateCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryView.swift; sourceTree = "<group>"; };
+		441CEE12273A334B006C261F /* CreateTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTitleView.swift; sourceTree = "<group>"; };
+		441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateImageRegisterView.swift; sourceTree = "<group>"; };
+		441CEE16273A33CD006C261F /* CreateIntroductionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateIntroductionView.swift; sourceTree = "<group>"; };
+		441CEE18273A33DB006C261F /* CreateWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWeekView.swift; sourceTree = "<group>"; };
+		441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthMethodView.swift; sourceTree = "<group>"; };
+		441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthImageRegisterView.swift; sourceTree = "<group>"; };
+		44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSubviewDelegate.swift; sourceTree = "<group>"; };
+		44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateImagePickerDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B1272FDF8B002E16C4 /* Routinus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -168,7 +196,7 @@
 		E9797CAA2731073F00A14A0F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		E9797CAC2731074B00A14A0F /* ManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewController.swift; sourceTree = "<group>"; };
 		E9797CB0273107A200A14A0F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		E9797CB2273107BE00A14A0F /* CreateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateController.swift; sourceTree = "<group>"; };
+		E9797CB2273107BE00A14A0F /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		E9797CB5273107F700A14A0F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E9797CB82731094900A14A0F /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCoordinator.swift; sourceTree = "<group>"; };
@@ -235,9 +263,10 @@
 			children = (
 				1497CF432738FFA600296F9E /* RoutinusRepository.swift */,
 				441CEE06273A0831006C261F /* HomeRepository.swift */,
-				1497CF4B2739078700296F9E /* UserNameFactory.swift */,
 				E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */,
 				0DC38F54273B689700331C25 /* SearchRepository.swift */,
+				149411E3273A6314004BE485 /* CreateRepository.swift */,
+				1497CF4B2739078700296F9E /* UserNameFactory.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -293,6 +322,29 @@
 			path = DTO;
 			sourceTree = "<group>";
 		};
+		441CEE08273A31F3006C261F /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				441CEE10273A332D006C261F /* CreateCategoryView.swift */,
+				441CEE12273A334B006C261F /* CreateTitleView.swift */,
+				441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */,
+				441CEE18273A33DB006C261F /* CreateWeekView.swift */,
+				441CEE16273A33CD006C261F /* CreateIntroductionView.swift */,
+				441CEE1A273A33FE006C261F /* CreateAuthMethodView.swift */,
+				441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		44234F16273C07B3004D6834 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */,
+				44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		44AAA2A8272FDF8A002E16C4 = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				44AAA3232733819B002E16C4 /* Date+Extensions.swift */,
+				0DC38F58273BA89000331C25 /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -390,6 +443,7 @@
 				E9753908273257E5004358C5 /* HomeFetchUsecase.swift */,
 				E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */,
 				0DC38F52273B688300331C25 /* SearchFetchUsecase.swift */,
+				149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */,
 				1497CF562739215C00296F9E /* HomeCreateUsecase.swift */,
 			);
 			path = Usecase;
@@ -453,6 +507,7 @@
 				E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */,
 				E994744F2736D54C0054A631 /* DetailCoordinator.swift */,
 				E99474512736F4B30054A631 /* AuthCoordinator.swift */,
+				14572CEC273BF644007E6ECE /* CreateCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -487,7 +542,10 @@
 		E9797CAE2731077A00A14A0F /* Create */ = {
 			isa = PBXGroup;
 			children = (
-				E9797CB2273107BE00A14A0F /* CreateController.swift */,
+				E9797CB2273107BE00A14A0F /* CreateViewController.swift */,
+				149411DB273A314B004BE485 /* CreateViewModel.swift */,
+				441CEE08273A31F3006C261F /* Subviews */,
+				44234F16273C07B3004D6834 /* Delegates */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -728,7 +786,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44234F18273C0917004D6834 /* CreateImagePickerDelegate.swift in Sources */,
 				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
+				441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DBBAA3727341C1600B32EB5 /* CollectionViewLayouts.swift in Sources */,
 				441CEE07273A0832006C261F /* HomeRepository.swift in Sources */,
@@ -745,17 +805,27 @@
 				E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				E9493DBF273A390F0095CF6D /* CategoryButtonTapGesture.swift in Sources */,
+				441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
+				149411E4273A6314004BE485 /* CreateRepository.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
+				0DC38F59273BA89000331C25 /* UIImage+Extensions.swift in Sources */,
 				E975390627325538004358C5 /* AchievementInfo.swift in Sources */,
+				441CEE1B273A33FE006C261F /* CreateAuthMethodView.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
 				0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */,
+				14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */,
+				149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */,
 				E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */,
 				44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */,
 				0DC38F51273B684300331C25 /* SearchViewModel.swift in Sources */,
 				441CEDD627379939006C261F /* CalendarView.swift in Sources */,
 				E9E9D1EB273C1A4200F9CCBB /* SearchBarContainerView.swift in Sources */,
+				441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */,
+				441CEE13273A334B006C261F /* CreateTitleView.swift in Sources */,
+				441CEDD627379939006C261F /* CalendarView.swift in Sources */,
+				149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				E9E9D1E8273BA83800F9CCBB /* SearchPopularKeywordButton.swift in Sources */,
@@ -767,7 +837,8 @@
 				E9493DC1273A4E5B0095CF6D /* ChallengeRepository.swift in Sources */,
 				E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */,
 				E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */,
-				E9797CB3273107BE00A14A0F /* CreateController.swift in Sources */,
+				E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */,
+				E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E94B49762739118B00708D7B /* Challenge.swift in Sources */,
 				0DC38F55273B689700331C25 /* SearchRepository.swift in Sources */,
@@ -776,6 +847,7 @@
 				E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */,
 				0DC38F53273B688300331C25 /* SearchFetchUsecase.swift in Sources */,
 				E9493DC8273A70280095CF6D /* SearchPopularKeywordCell.swift in Sources */,
+				441CEE17273A33CD006C261F /* CreateIntroductionView.swift in Sources */,
 				E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */,
 				E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */,
 				0DBBAA3E27341C3600B32EB5 /* ChallengeCollectionViewHeader.swift in Sources */,
@@ -785,7 +857,9 @@
 				E9493DC6273A5E9D0095CF6D /* SearchChallengeCell.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
+				441CEE15273A33BE006C261F /* CreateImageRegisterView.swift in Sources */,
 				E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */,
+				44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */,
 				E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

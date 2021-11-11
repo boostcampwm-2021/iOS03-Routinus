@@ -14,7 +14,7 @@ struct User {
     var continuityDay: Int
     var userImageCategoryID: String
     var grade: Int
-    
+
     init() {
         self.name = ""
         self.continuityDay = 0

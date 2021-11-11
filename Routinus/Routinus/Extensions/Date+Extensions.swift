@@ -19,14 +19,14 @@ extension Date {
     public var day: Int {
         return Calendar.current.component(.day, from: self)
     }
-    
+
     static func days(from: String, to: String) -> Int {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd"
 
         guard let fromDate = formatter.date(from: from),
               let toDate = formatter.date(from: to) else { return -1 }
-        
+
         let dateComponents = Calendar.current.dateComponents([.day], from: fromDate, to: toDate)
         guard let days = dateComponents.day else { return -1 }
 
@@ -35,16 +35,28 @@ extension Date {
 
     static func currentYearMonth() -> String {
         let dateComponents = Calendar.current.dateComponents([.year, .month], from: Date.now)
-        
+
         guard let year = dateComponents.year,
               let month = dateComponents.month else { return "" }
-        
+
         return "\(year)\(month)"
     }
-    
+
     static func toDate(_ str: String) -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd"
         return formatter.date(from: str)
+    }
+
+    func toString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        return dateFormatter.string(from: self)
+    }
+
+    func toExtendedString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd(E)"
+        return dateFormatter.string(from: self)
     }
 }

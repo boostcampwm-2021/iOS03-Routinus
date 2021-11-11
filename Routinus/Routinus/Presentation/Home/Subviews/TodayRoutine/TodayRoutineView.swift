@@ -11,7 +11,7 @@ import SnapKit
 
 final class TodayRoutineView: UIView {
     weak var challengeAdddelegate: TodayRoutineDelegate?
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "오늘 루틴"
@@ -35,33 +35,33 @@ final class TodayRoutineView: UIView {
         tableView.register(RoutineCell.self, forCellReuseIdentifier: RoutineCell.identifier)
         return tableView
     }()
-    
+
     weak var delegate: UITableViewDelegate? {
         didSet {
             tableView.delegate = delegate
         }
     }
-    
+
     weak var dataSource: UITableViewDataSource? {
         didSet {
             tableView.dataSource = dataSource
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
     }
-    
+
     convenience init() {
         self.init(frame: CGRect.zero)
     }
-    
+
     func updateTableViewConstraints(cellCount: Int) {
         snp.updateConstraints { make in
             make.height.equalTo(25 + 60 * cellCount)
@@ -83,7 +83,7 @@ extension TodayRoutineView {
     private func configure() {
         configureSubviews()
     }
-    
+
     private func configureSubviews() {
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in

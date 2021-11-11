@@ -15,7 +15,7 @@ public struct TodayRoutineDTO {
     public var authCount: Int
     public var joinDate: String
     public var endDate: String
-    
+
     public init() {
         self.id = ""
         self.challengeID = ""
@@ -24,5 +24,15 @@ public struct TodayRoutineDTO {
         self.authCount = 0
         self.joinDate = ""
         self.endDate = ""
+    }
+
+    public init(todayRoutine: [String: Any]?, challenge: [String: Any]?) {
+        self.id = todayRoutine?["user_id"] as? String ?? ""
+        self.challengeID = todayRoutine?["challenge_id"] as? String ?? ""
+        self.authCount = todayRoutine?["auth_count"] as? Int ?? 0
+        self.joinDate = todayRoutine?["join_date"] as? String ?? ""
+        self.title = challenge?["title"] as? String ?? ""
+        self.endDate = challenge?["end_date"] as? String ?? ""
+        self.categoryID = challenge?["category_id"] as? String ?? ""
     }
 }
