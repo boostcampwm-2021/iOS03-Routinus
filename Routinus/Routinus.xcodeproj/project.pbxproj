@@ -48,6 +48,7 @@
 		441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */; };
 		44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */; };
 		44234F18273C0917004D6834 /* CreateImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */; };
+		44234F1A273CC729004D6834 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 44234F19273CC729004D6834 /* FirebaseStorage */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -199,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				441CEDED27390196006C261F /* FirebaseFirestore in Frameworks */,
+				44234F1A273CC729004D6834 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,6 +572,7 @@
 			name = RoutinusDatabase;
 			packageProductDependencies = (
 				441CEDEC27390196006C261F /* FirebaseFirestore */,
+				44234F19273CC729004D6834 /* FirebaseStorage */,
 			);
 			productName = RoutinusDatabase;
 			productReference = 441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */;
@@ -1119,6 +1122,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		44234F19273CC729004D6834 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 		44AAA3202732A049002E16C4 /* JTAppleCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
