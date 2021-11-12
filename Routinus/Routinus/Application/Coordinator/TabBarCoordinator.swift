@@ -27,11 +27,6 @@ class TabBarCoordinator: NSObject, RoutinusCoordinator {
         configureTabBarController()
     }
 
-    func moveToChallegeType(type: ChallegeType, challengeID: String? = nil) {
-        self.tabBarController.selectedIndex = 1
-        challengeCoordinator?.moveTo(type: type, challengeID: challengeID)
-    }
-
     private func configureTabBarController() {
         let pages: [TabBarPage] = [.home, .challenge, .manage, .myPage]
         let controllers: [UINavigationController] = pages.map { getTabBarController($0) }

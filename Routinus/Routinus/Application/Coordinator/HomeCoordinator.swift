@@ -27,16 +27,16 @@ class HomeCoordinator: RoutinusCoordinator {
 
         homeViewModel.showChallengeSignal
             .sink { [weak self] _ in
-                guard let self = self,
-                      let tapBarCoordinator = self.parentCoordinator as? TabBarCoordinator else { return }
-                tapBarCoordinator.moveToChallegeType(type: .main)
+                guard let self = self else { return }
+                self.navigationController.tabBarController?.selectedIndex = 1
             }
             .store(in: &cancellables)
 
         homeViewModel.showChallengeDetailSignal
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
-                let detailCoordinator = DetailCoordinator.init(navigationController: self.navigationController, challengeID: challengeID)
+                let detailCoordinator = DetailCoordinator.init(navigationController: self.navigationController,
+                                                               challengeID: challengeID)
                 detailCoordinator.start()
             }
             .store(in: &cancellables)
@@ -44,7 +44,8 @@ class HomeCoordinator: RoutinusCoordinator {
         homeViewModel.showChallengeAuthSignal
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
-                let authCoordinator = AuthCoordinator.init(navigationController: self.navigationController, challengeID: challengeID)
+                let authCoordinator = AuthCoordinator.init(navigationController: self.navigationController,
+                                                           challengeID: challengeID)
                 authCoordinator.start()
             }
             .store(in: &cancellables)
