@@ -27,6 +27,7 @@ final class RoutineCell: UITableViewCell {
     private lazy var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .black
         return imageView
     }()
 
