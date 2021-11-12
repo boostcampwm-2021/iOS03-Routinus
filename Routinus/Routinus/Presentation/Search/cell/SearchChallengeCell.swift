@@ -17,8 +17,10 @@ final class SearchChallengeCell: UICollectionViewCell {
     private lazy var challengeImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")
-        imageView.contentMode = .scaleAspectFit
         imageView.tintColor = UIColor(named: "MainColor")
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 5
         return imageView
     }()
 
@@ -48,11 +50,9 @@ final class SearchChallengeCell: UICollectionViewCell {
         // TODO: RoutinusDatabase 직접 접근하지 않도록 수정
         Task {
             let url = try? await RoutinusDatabase.imageURL(id: challenge.challengeID, fileName: "image")
-            let roundProcessor = RoundCornerImageProcessor(cornerRadius: 20)
-            
+
             self.challengeImageView.kf.setImage(with: url,
-                                                placeholder: UIImage(systemName: "photo"),
-                                                options: [.processor(roundProcessor)])
+                                                placeholder: UIImage(systemName: "photo"))
         }
     }
 }
