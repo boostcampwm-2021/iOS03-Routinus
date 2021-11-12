@@ -43,9 +43,9 @@ class HomeCoordinator: RoutinusCoordinator {
 
         homeViewModel.showChallengeAuthSignal
             .sink { [weak self] challengeID in
-                guard let self = self,
-                      let tapBarCoordinator = self.parentCoordinator as? TabBarCoordinator else { return }
-                tapBarCoordinator.moveToChallegeType(type: .auth, challengeID: challengeID)
+                guard let self = self else { return }
+                let authCoordinator = AuthCoordinator.init(navigationController: self.navigationController, challengeID: challengeID)
+                authCoordinator.start()
             }
             .store(in: &cancellables)
 
