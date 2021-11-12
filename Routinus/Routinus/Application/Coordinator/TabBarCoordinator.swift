@@ -8,7 +8,6 @@
 import UIKit
 
 class TabBarCoordinator: NSObject, RoutinusCoordinator {
-    var parentCoordinator: RoutinusCoordinator?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var tabBarController: UITabBarController
@@ -39,22 +38,18 @@ class TabBarCoordinator: NSObject, RoutinusCoordinator {
         case .home:
             let homeCoordinator = HomeCoordinator(navigationController: navigationController)
             homeCoordinator.start()
-            homeCoordinator.parentCoordinator = self
             self.childCoordinator.append(homeCoordinator)
         case .challenge:
             let challengeCoordinator = ChallengeCoordinator(navigationController: navigationController)
             challengeCoordinator.start()
-            challengeCoordinator.parentCoordinator = self
             self.childCoordinator.append(challengeCoordinator)
         case .manage:
             let manageCoordinator = ManageCoordinator(navigationController: navigationController)
             manageCoordinator.start()
-            manageCoordinator.parentCoordinator = self
             self.childCoordinator.append(manageCoordinator)
         case .myPage:
             let myPageCoordinator = MyPageCoordinator(navigationController: navigationController)
             myPageCoordinator.start()
-            myPageCoordinator.parentCoordinator = self
             self.childCoordinator.append(myPageCoordinator)
         }
 

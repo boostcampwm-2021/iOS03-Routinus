@@ -8,7 +8,6 @@
 import UIKit
 
 class DetailCoordinator: RoutinusCoordinator {
-    var parentCoordinator: RoutinusCoordinator?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     let challengeID: String

@@ -9,7 +9,6 @@ import Combine
 import UIKit
 
 class ChallengeCoordinator: RoutinusCoordinator {
-    var parentCoordinator: RoutinusCoordinator?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()

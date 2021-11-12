@@ -8,7 +8,6 @@
 import UIKit
 
 class AuthCoordinator: RoutinusCoordinator {
-    var parentCoordinator: RoutinusCoordinator?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     let challengeID: String
