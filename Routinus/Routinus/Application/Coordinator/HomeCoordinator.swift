@@ -35,9 +35,9 @@ class HomeCoordinator: RoutinusCoordinator {
 
         homeViewModel.showChallengeDetailSignal
             .sink { [weak self] challengeID in
-                guard let self = self,
-                      let tapBarCoordinator = self.parentCoordinator as? TabBarCoordinator else { return }
-                tapBarCoordinator.moveToChallegeType(type: .detail, challengeID: challengeID)
+                guard let self = self else { return }
+                let detailCoordinator = DetailCoordinator.init(navigationController: self.navigationController, challengeID: challengeID)
+                detailCoordinator.start()
             }
             .store(in: &cancellables)
 

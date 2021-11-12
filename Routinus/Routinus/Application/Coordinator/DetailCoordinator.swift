@@ -20,6 +20,13 @@ class DetailCoordinator: RoutinusCoordinator {
 
     func start() {
         let detailViewController = DetailViewController()
-        self.navigationController.pushViewController(detailViewController, animated: false)
+        detailViewController.modalPresentationStyle = .fullScreen
+        let transition = CATransition()
+        transition.duration = 0.35
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        self.navigationController.view.window?.layer.add(transition, forKey: kCATransition)
+        self.navigationController.present(detailViewController, animated: false, completion: nil)
     }
 }
