@@ -28,12 +28,16 @@ class CategoryButton: UIView {
 
     func setImage(_ image: UIImage?) {
         imageView.image = image
-        imageView.tintColor = .black
+        imageView.contentMode = .scaleAspectFit
     }
 
     func setTitle(_ text: String) {
         title.text = text
         title.tintColor = .black
+    }
+
+    func setTintColor(_ color: UIColor?) {
+        imageView.tintColor = color
     }
 
     private func configureViews() {

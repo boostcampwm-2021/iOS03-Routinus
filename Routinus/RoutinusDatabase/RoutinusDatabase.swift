@@ -144,7 +144,7 @@ public enum RoutinusDatabase {
         let db = Firestore.firestore()
 
         let snapshot = try await db.collection("challenge")
-            .order(by: "start_date")
+            .order(by: "start_date", descending: true)
             .limit(to: 10)
             .getDocuments()
 

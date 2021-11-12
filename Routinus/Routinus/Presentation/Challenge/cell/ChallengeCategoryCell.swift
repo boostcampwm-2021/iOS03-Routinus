@@ -34,12 +34,14 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var exerciseButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(named: Challenge.Category.exercise.symbol))
+        let category = Challenge.Category.exercise
+        button.setImage(UIImage(named: category.symbol))
         button.setTitle("운동")
+        button.setTintColor(UIColor(named: category.color))
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: Challenge.Category.exercise)
+        gesture.configureCategory(category: category)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
@@ -47,12 +49,14 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var selfDevelopmentButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(systemName: Challenge.Category.selfDevelopment.symbol))
+        let category = Challenge.Category.selfDevelopment
+        button.setImage(UIImage(systemName: category.symbol))
         button.setTitle("자기 계발")
+        button.setTintColor(UIColor(named: category.color))
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: Challenge.Category.selfDevelopment)
+        gesture.configureCategory(category: category)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
@@ -60,12 +64,14 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var lifeStyleButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(named: Challenge.Category.lifeStyle.symbol))
+        let category = Challenge.Category.lifeStyle
+        button.setImage(UIImage(named: category.symbol))
         button.setTitle("생활 습관")
+        button.setTintColor(UIColor(named: category.color))
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: Challenge.Category.lifeStyle)
+        gesture.configureCategory(category: category)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
@@ -73,12 +79,14 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var financeButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(systemName: Challenge.Category.finance.symbol))
+        let category = Challenge.Category.finance
+        button.setImage(UIImage(systemName: category.symbol))
         button.setTitle("돈관리")
+        button.setTintColor(UIColor(named: category.color))
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: Challenge.Category.finance)
+        gesture.configureCategory(category: category)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
@@ -86,12 +94,14 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var hobbyButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(systemName: Challenge.Category.hobby.symbol))
+        let category = Challenge.Category.hobby
+        button.setImage(UIImage(systemName: category.symbol))
         button.setTitle("취미")
+        button.setTintColor(UIColor(named: category.color))
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: Challenge.Category.hobby)
+        gesture.configureCategory(category: category)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button
@@ -99,12 +109,14 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     private lazy var etcButton: CategoryButton = {
         let button = CategoryButton()
-        button.setImage(UIImage(systemName: Challenge.Category.etc.symbol))
+        let category = Challenge.Category.etc
+        button.setImage(UIImage(systemName: category.symbol))
         button.setTitle("기타")
+        button.setTintColor(UIColor(named: category.color))
 
         let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
         gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: Challenge.Category.etc)
+        gesture.configureCategory(category: category)
         self.isUserInteractionEnabled = true
         button.addGestureRecognizer(gesture)
         return button

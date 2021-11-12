@@ -21,17 +21,18 @@ class SearchCollectionViewLayouts {
                                                     elementKind: UICollectionView.elementKindSectionHeader,
                                                     alignment: .topLeading)]
         section.orthogonalScrollingBehavior = .groupPaging
-        section.contentInsets = .init(top: 10, leading: 25, bottom: 20, trailing: 10)
+        section.contentInsets = .init(top: 5, leading: 25, bottom: 20, trailing: 25)
         section.interGroupSpacing = 20
         return section
     }
 
     private var challengeLayout: NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(140))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .estimated(140))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(140))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        group.interItemSpacing = .fixed(15)
 
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
@@ -41,7 +42,7 @@ class SearchCollectionViewLayouts {
 
         section.orthogonalScrollingBehavior = .none
         section.contentInsets = .init(top: 10, leading: 25, bottom: 10, trailing: 25)
-        section.interGroupSpacing = 10
+        section.interGroupSpacing = 30
         return section
     }
 
