@@ -91,6 +91,8 @@
 		E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC22731258A00A14A0F /* HomeViewModel.swift */; };
 		E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E994744F2736D54C0054A631 /* DetailCoordinator.swift */; };
 		E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99474512736F4B30054A631 /* AuthCoordinator.swift */; };
+		E99D9E5F273FC623008A7E07 /* HomeCreatableUsecaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99D9E5E273FC623008A7E07 /* HomeCreatableUsecaseMock.swift */; };
+		E99D9E61273FC642008A7E07 /* HomeFetchableUsecaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99D9E60273FC642008A7E07 /* HomeFetchableUsecaseMock.swift */; };
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
 		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
 		E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */; };
@@ -105,6 +107,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 441CEDDF2738FF1E006C261F;
 			remoteInfo = RoutinusDatabase;
+		};
+		E99D9E54273FC570008A7E07 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44AAA2A9272FDF8A002E16C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44AAA2B0272FDF8B002E16C4;
+			remoteInfo = Routinus;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -207,6 +216,9 @@
 		E9797CC22731258A00A14A0F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E994744F2736D54C0054A631 /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
 		E99474512736F4B30054A631 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		E99D9E50273FC570008A7E07 /* RoutinusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E99D9E5E273FC623008A7E07 /* HomeCreatableUsecaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCreatableUsecaseMock.swift; sourceTree = "<group>"; };
+		E99D9E60273FC642008A7E07 /* HomeFetchableUsecaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFetchableUsecaseMock.swift; sourceTree = "<group>"; };
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
 		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
 		E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
@@ -231,6 +243,13 @@
 				441CEDE62738FF1E006C261F /* RoutinusDatabase.framework in Frameworks */,
 				44AAA3212732A049002E16C4 /* JTAppleCalendar in Frameworks */,
 				8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E99D9E4D273FC570008A7E07 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +375,7 @@
 				44AAA2B2272FDF8B002E16C4 /* Products */,
 				C6BC838A122CF798FF91016F /* Pods */,
 				E3D71BDBA3D7EC43BE475984 /* Frameworks */,
+				E99D9E51273FC570008A7E07 /* RoutinusTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -364,6 +384,7 @@
 			children = (
 				44AAA2B1272FDF8B002E16C4 /* Routinus.app */,
 				441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */,
+				E99D9E50273FC570008A7E07 /* RoutinusTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -580,6 +601,23 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		E99D9E51273FC570008A7E07 /* RoutinusTests */ = {
+			isa = PBXGroup;
+			children = (
+				E99D9E59273FC591008A7E07 /* MockDatas */,
+			);
+			path = RoutinusTests;
+			sourceTree = "<group>";
+		};
+		E99D9E59273FC591008A7E07 /* MockDatas */ = {
+			isa = PBXGroup;
+			children = (
+				E99D9E60273FC642008A7E07 /* HomeFetchableUsecaseMock.swift */,
+				E99D9E5E273FC623008A7E07 /* HomeCreatableUsecaseMock.swift */,
+			);
+			path = MockDatas;
+			sourceTree = "<group>";
+		};
 		E9E9D1E9273C1A2B00F9CCBB /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -649,6 +687,24 @@
 			productReference = 44AAA2B1272FDF8B002E16C4 /* Routinus.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E99D9E4F273FC570008A7E07 /* RoutinusTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E99D9E58273FC570008A7E07 /* Build configuration list for PBXNativeTarget "RoutinusTests" */;
+			buildPhases = (
+				E99D9E4C273FC570008A7E07 /* Sources */,
+				E99D9E4D273FC570008A7E07 /* Frameworks */,
+				E99D9E4E273FC570008A7E07 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E99D9E55273FC570008A7E07 /* PBXTargetDependency */,
+			);
+			name = RoutinusTests;
+			productName = RoutinusTests;
+			productReference = E99D9E50273FC570008A7E07 /* RoutinusTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -656,7 +712,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					441CEDDF2738FF1E006C261F = {
@@ -664,6 +720,10 @@
 					};
 					44AAA2B0272FDF8B002E16C4 = {
 						CreatedOnToolsVersion = 13.1;
+					};
+					E99D9E4F273FC570008A7E07 = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 44AAA2B0272FDF8B002E16C4;
 					};
 				};
 			};
@@ -686,6 +746,7 @@
 			targets = (
 				44AAA2B0272FDF8B002E16C4 /* Routinus */,
 				441CEDDF2738FF1E006C261F /* RoutinusDatabase */,
+				E99D9E4F273FC570008A7E07 /* RoutinusTests */,
 			);
 		};
 /* End PBXProject section */
@@ -708,6 +769,13 @@
 				44AAA2CA272FE13D002E16C4 /* .swiftlint.yml in Resources */,
 				44AAA2C1272FDF8F002E16C4 /* LaunchScreen.storyboard in Resources */,
 				44AAA2BE272FDF8F002E16C4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E99D9E4E273FC570008A7E07 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -867,6 +935,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E99D9E4C273FC570008A7E07 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E99D9E5F273FC623008A7E07 /* HomeCreatableUsecaseMock.swift in Sources */,
+				E99D9E61273FC642008A7E07 /* HomeFetchableUsecaseMock.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -874,6 +951,11 @@
 			isa = PBXTargetDependency;
 			target = 441CEDDF2738FF1E006C261F /* RoutinusDatabase */;
 			targetProxy = 441CEDE42738FF1E006C261F /* PBXContainerItemProxy */;
+		};
+		E99D9E55273FC570008A7E07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44AAA2B0272FDF8B002E16C4 /* Routinus */;
+			targetProxy = E99D9E54273FC570008A7E07 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1123,6 +1205,52 @@
 			};
 			name = Release;
 		};
+		E99D9E56273FC570008A7E07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DRL89Y339X;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swpark.RoutinusTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Routinus.app/Routinus";
+			};
+			name = Debug;
+		};
+		E99D9E57273FC570008A7E07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DRL89Y339X;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swpark.RoutinusTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Routinus.app/Routinus";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1149,6 +1277,15 @@
 			buildConfigurations = (
 				44AAA2C6272FDF8F002E16C4 /* Debug */,
 				44AAA2C7272FDF8F002E16C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E99D9E58273FC570008A7E07 /* Build configuration list for PBXNativeTarget "RoutinusTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E99D9E56273FC570008A7E07 /* Debug */,
+				E99D9E57273FC570008A7E07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
