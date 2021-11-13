@@ -29,7 +29,6 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
         return Date()
     }
 
-
     func endDate(week: Int) -> Date? {
         let now = Date()
         let calendar = Calendar.current
@@ -39,7 +38,7 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
     }
 
     func createChallenge(category: Challenge.Category, title: String, imageURL: String, authExampleImageURL: String, authMethod: String, week: Int, introduction: String) {
-        guard let ownerID = repository.userID(), let endDate = endDate(week: week)?.toString() else { return }
+        guard let ownerID = RoutinusRepository.userID(), let endDate = endDate(week: week)?.toString() else { return }
         let challengeID = createChallengeID()
         let startDate = startDate().toString()
         let challenge = ChallengeDTO(id: challengeID, title: title, imageURL: imageURL,
