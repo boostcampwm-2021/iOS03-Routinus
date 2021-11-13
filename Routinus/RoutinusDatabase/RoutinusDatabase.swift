@@ -11,29 +11,48 @@ import Firebase
 import FirebaseStorage
 
 public enum RoutinusDatabase {
-    private static let endPoint = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents:runQuery"
-    
+    private static let baseURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
+
     public static func configure() {
         FirebaseApp.configure()
     }
- 
+
     public static func imageURL(id: String, fileName: String) async throws -> URL {
         let storage = Storage.storage().reference()
         let imageReference = storage.child("\(id)/\(fileName).jpeg")
-        
+
         return try await imageReference.downloadURL()
     }
 
     public static func createUser(id: String, name: String) async throws {
-        let db = Firestore.firestore()
+        guard let url = URL(string: "\(baseURL)/user") else { return }
+        var request = URLRequest(url: url)
 
-        try await db.collection("user").document().setData([
-            "id": id,
-            "name": name,
-            "continuity_day": 0,
-            "grade": 0,
-            "user_image_category_id": "0"
-        ])
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = """
+        {
+            "fields": {
+                "id": {
+                    "stringValue": "\(id)"
+                },
+                "name": {
+                    "stringValue": "\(name)"
+                },
+                "grade": {
+                    "integerValue": "0"
+                },
+                "continuity_day": {
+                    "integerValue": "0"
+                },
+                "user_image_category_id": {
+                    "stringValue": "0"
+                }
+            }
+        }
+        """.data(using: .utf8)
+
+        _ = try await URLSession.shared.data(for: request)
     }
 
     public static func createChallenge(challenge: ChallengeDTO) async throws {
@@ -61,7 +80,7 @@ public enum RoutinusDatabase {
             "join_date": challenge.startDate,
             "user_id": challenge.ownerID
         ])
-        
+
         let storage = Storage.storage().reference()
 
         let imageReference = storage.child("\(challenge.id)/image.jpeg")
@@ -74,9 +93,9 @@ public enum RoutinusDatabase {
     }
 
     public static func user(of id: String) async throws -> UserDTO {
-        guard let url = URL(string: endPoint) else { return UserDTO() }
+        guard let url = URL(string: "\(baseURL):runQuery") else { return UserDTO() }
         var request = URLRequest(url: url)
-        
+
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         request.httpBody = """
@@ -108,7 +127,7 @@ public enum RoutinusDatabase {
             }
         }
         """.data(using: .utf8)
-        
+
         let (data, _) = try await URLSession.shared.data(for: request)
         return try JSONDecoder().decode([UserDTO].self, from: data).first ?? UserDTO()
     }
