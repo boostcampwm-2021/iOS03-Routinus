@@ -93,6 +93,7 @@
 		E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99474512736F4B30054A631 /* AuthCoordinator.swift */; };
 		E99D9E5F273FC623008A7E07 /* HomeCreatableUsecaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99D9E5E273FC623008A7E07 /* HomeCreatableUsecaseMock.swift */; };
 		E99D9E61273FC642008A7E07 /* HomeFetchableUsecaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99D9E60273FC642008A7E07 /* HomeFetchableUsecaseMock.swift */; };
+		E99D9E64273FC75E008A7E07 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99D9E63273FC75E008A7E07 /* HomeViewModelTests.swift */; };
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
 		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
 		E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */; };
@@ -219,6 +220,7 @@
 		E99D9E50273FC570008A7E07 /* RoutinusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99D9E5E273FC623008A7E07 /* HomeCreatableUsecaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCreatableUsecaseMock.swift; sourceTree = "<group>"; };
 		E99D9E60273FC642008A7E07 /* HomeFetchableUsecaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFetchableUsecaseMock.swift; sourceTree = "<group>"; };
+		E99D9E63273FC75E008A7E07 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
 		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
 		E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
@@ -604,6 +606,7 @@
 		E99D9E51273FC570008A7E07 /* RoutinusTests */ = {
 			isa = PBXGroup;
 			children = (
+				E99D9E62273FC6B2008A7E07 /* ViewModelTests */,
 				E99D9E59273FC591008A7E07 /* MockDatas */,
 			);
 			path = RoutinusTests;
@@ -616,6 +619,14 @@
 				E99D9E5E273FC623008A7E07 /* HomeCreatableUsecaseMock.swift */,
 			);
 			path = MockDatas;
+			sourceTree = "<group>";
+		};
+		E99D9E62273FC6B2008A7E07 /* ViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				E99D9E63273FC75E008A7E07 /* HomeViewModelTests.swift */,
+			);
+			path = ViewModelTests;
 			sourceTree = "<group>";
 		};
 		E9E9D1E9273C1A2B00F9CCBB /* Subviews */ = {
@@ -941,6 +952,7 @@
 			files = (
 				E99D9E5F273FC623008A7E07 /* HomeCreatableUsecaseMock.swift in Sources */,
 				E99D9E61273FC642008A7E07 /* HomeFetchableUsecaseMock.swift in Sources */,
+				E99D9E64273FC75E008A7E07 /* HomeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
