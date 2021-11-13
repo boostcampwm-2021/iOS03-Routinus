@@ -11,6 +11,8 @@ import Firebase
 import FirebaseStorage
 
 public enum RoutinusDatabase {
+    private static let endPoint = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents:runQuery"
+    
     public static func configure() {
         FirebaseApp.configure()
     }
@@ -72,14 +74,43 @@ public enum RoutinusDatabase {
     }
 
     public static func user(of id: String) async throws -> UserDTO {
-        let db = Firestore.firestore()
-
-        let snapshot = try await db.collection("user")
-            .whereField("id", isEqualTo: id)
-            .getDocuments()
-        let document = snapshot.documents.first?.data()
-
-        return UserDTO(user: document)
+        guard let url = URL(string: endPoint) else { return UserDTO() }
+        var request = URLRequest(url: url)
+        
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = """
+        {
+            "structuredQuery": {
+                "select": {
+                    "fields": [
+                        { "fieldPath": "id" },
+                        { "fieldPath": "name" },
+                        { "fieldPath": "grade" },
+                        { "fieldPath": "continuity_day" },
+                        { "fieldPath": "user_image_category_id" },
+                    ]
+                },
+                "from": {
+                    "collectionId": "user",
+                },
+                "where": {
+                    "fieldFilter": {
+                        "field": {
+                            "fieldPath": "id"
+                        },
+                        "op": "EQUAL",
+                        "value": {
+                            "stringValue": "\(id)"
+                        }
+                    },
+                },
+            }
+        }
+        """.data(using: .utf8)
+        
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([UserDTO].self, from: data).first ?? UserDTO()
     }
 
     public static func routineList(of id: String) async throws -> [TodayRoutineDTO] {
