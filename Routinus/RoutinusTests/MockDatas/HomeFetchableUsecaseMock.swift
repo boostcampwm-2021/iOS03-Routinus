@@ -8,7 +8,7 @@
 import XCTest
 @testable import Routinus
 
-class HomeFetchUsecaseMock: HomeFetchableUsecase {
+class HomeFetchableUsecaseMock: HomeFetchableUsecase {
     init() {}
 
     func fetchUserInfo(completion: @escaping (User) -> Void) {
