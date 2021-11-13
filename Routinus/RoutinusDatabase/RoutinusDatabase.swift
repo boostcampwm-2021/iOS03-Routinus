@@ -80,15 +80,22 @@ public enum RoutinusDatabase {
             "user_id": challenge.ownerID
         ])
 
-        let storage = Storage.storage().reference()
+        Task {
+            try await uploadImage(id: challenge.id, fileName: "image", imageURL: challenge.imageURL)
+            try await uploadImage(id: challenge.id, fileName: "auth", imageURL: challenge.authExampleImageURL)
+        }
+    }
+    
+    public static func uploadImage(id: String, fileName: String, imageURL: String) async throws {
+        guard let url = URL(string: "\(storageURL)?uploadType=media&name=\(id)%2F\(fileName).jpeg"),
+              let imageURL = URL(string: imageURL) else { return }
+        var request = URLRequest(url: url)
 
-        let imageReference = storage.child("\(challenge.id)/image.jpeg")
-        guard let imageURL = URL(string: challenge.imageURL) else { return }
-        imageReference.putFile(from: imageURL, metadata: nil)
+        request.addValue("image/jpeg", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = try? Data(contentsOf: imageURL)
 
-        let authExampleImageReference = storage.child("\(challenge.id)/auth.jpeg")
-        guard let authExampleImageURL = URL(string: challenge.authExampleImageURL) else { return }
-        authExampleImageReference.putFile(from: authExampleImageURL, metadata: nil)
+        _ = try await URLSession.shared.data(for: request)
     }
 
     public static func user(of id: String) async throws -> UserDTO {
