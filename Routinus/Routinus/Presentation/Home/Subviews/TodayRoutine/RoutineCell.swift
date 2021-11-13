@@ -36,6 +36,13 @@ final class RoutineCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         return label
     }()
+    
+    private lazy var leftArrow: UIImageView = {
+        let imageConfig = UIImage.SymbolConfiguration(weight: .semibold)
+        let image = UIImageView(image: UIImage(systemName: "chevron.left.2", withConfiguration: imageConfig))
+        image.tintColor = UIColor(named: "DayColor")
+        return image
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -85,6 +92,12 @@ extension RoutineCell {
         self.contentView.addSubview(categoryNameLabel)
         self.categoryNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(self.categoryImageView.snp.trailing).offset(10)
+            make.centerY.equalToSuperview()
+        }
+        
+        self.contentView.addSubview(leftArrow)
+        self.leftArrow.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-20)
             make.centerY.equalToSuperview()
         }
     }
