@@ -11,21 +11,20 @@ import Firebase
 import FirebaseStorage
 
 public enum RoutinusDatabase {
-    private static let baseURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
+    private static let firestoreURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
+    private static let storageURL = "https://firebasestorage.googleapis.com/v0/b/boostcamp-ios03-routinus.appspot.com/o"
 
     public static func configure() {
         FirebaseApp.configure()
     }
 
-    public static func imageURL(id: String, fileName: String) async throws -> URL {
-        let storage = Storage.storage().reference()
-        let imageReference = storage.child("\(id)/\(fileName).jpeg")
-
-        return try await imageReference.downloadURL()
+    public static func imageURL(id: String, fileName: String) async throws -> URL? {
+        guard let url = URL(string: "\(storageURL)/\(id)%2F\(fileName).jpeg?alt=media") else { return nil }
+        return url
     }
 
     public static func createUser(id: String, name: String) async throws {
-        guard let url = URL(string: "\(baseURL)/user") else { return }
+        guard let url = URL(string: "\(firestoreURL)/user") else { return }
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
@@ -93,7 +92,7 @@ public enum RoutinusDatabase {
     }
 
     public static func user(of id: String) async throws -> UserDTO {
-        guard let url = URL(string: "\(baseURL):runQuery") else { return UserDTO() }
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return UserDTO() }
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
