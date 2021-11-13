@@ -21,6 +21,7 @@
 		0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1632C2733729800DC5970 /* CalendarDelegate.swift */; };
 		14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14572CEC273BF644007E6ECE /* CreateCoordinator.swift */; };
 		145F5322273FAC9B000700A5 /* UpdateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5321273FAC9B000700A5 /* UpdateRepository.swift */; };
+		145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */; };
 		149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411DB273A314B004BE485 /* CreateViewModel.swift */; };
 		149411E4273A6314004BE485 /* CreateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E3273A6314004BE485 /* CreateRepository.swift */; };
 		149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */; };
@@ -138,6 +139,7 @@
 		0DD1632C2733729800DC5970 /* CalendarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDelegate.swift; sourceTree = "<group>"; };
 		14572CEC273BF644007E6ECE /* CreateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoordinator.swift; sourceTree = "<group>"; };
 		145F5321273FAC9B000700A5 /* UpdateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRepository.swift; sourceTree = "<group>"; };
+		145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpdateUsecase.swift; sourceTree = "<group>"; };
 		149411DB273A314B004BE485 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		149411E3273A6314004BE485 /* CreateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepository.swift; sourceTree = "<group>"; };
 		149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreateUsecase.swift; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 				E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */,
 				0DC38F52273B688300331C25 /* SearchFetchUsecase.swift */,
 				149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */,
+				145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */,
 				1497CF562739215C00296F9E /* HomeCreateUsecase.swift */,
 			);
 			path = Usecase;
@@ -856,6 +859,7 @@
 				E9493DC8273A70280095CF6D /* SearchPopularKeywordCell.swift in Sources */,
 				441CEE17273A33CD006C261F /* CreateIntroductionView.swift in Sources */,
 				E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */,
+				145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */,
 				E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */,
 				0DBBAA3E27341C3600B32EB5 /* ChallengeCollectionViewHeader.swift in Sources */,
 				E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */,
