@@ -12,6 +12,7 @@ import RoutinusDatabase
 protocol ChallengeCreatableUsecase {
     func createChallenge(category: Challenge.Category, title: String, imageURL: String, authExampleImageURL: String, authMethod: String, week: Int, introduction: String)
     func isEmpty(title: String, imageURL: String, introduction: String, authMethod: String, authExampleImageURL: String) -> Bool
+    func endDate(week: Int) -> Date?
 }
 
 struct ChallengeCreateUsecase: ChallengeCreatableUsecase {

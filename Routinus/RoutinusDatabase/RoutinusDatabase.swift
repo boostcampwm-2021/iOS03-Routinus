@@ -211,7 +211,7 @@ public enum RoutinusDatabase {
             .whereField("id", isEqualTo: challenge.id)
             .whereField("owner_id", isEqualTo: challenge.ownerID)
             .getDocuments { (result, error) in
-                guard let result = result, error != nil else { return }
+                guard let result = result, error == nil else { return }
                 guard let document = result.documents.first else { return }
                 db.collection("challenge").document(document.documentID).setData([
                     "auth_example_image_url": challenge.authExampleImageURL,

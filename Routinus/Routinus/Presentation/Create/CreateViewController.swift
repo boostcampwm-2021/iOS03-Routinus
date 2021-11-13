@@ -65,8 +65,10 @@ final class CreateViewController: UIViewController {
     // TODO: 임시 생성자 (챌린지 관리화면 작업 후 삭제)
     init() {
         let repository = RoutinusRepository()
-        let usecase = ChallengeCreateUsecase(repository: repository)
-        viewModel = CreateViewModel(createUsecase: usecase)
+        let createUsecase = ChallengeCreateUsecase(repository: repository)
+        let updateUsecase = ChallengeUpdateUsecase(repository: repository)
+        // TODO: - 챌린지ID
+        viewModel = CreateViewModel(challengeID: "086140C6-B8C7-4C5F-83A8-3841BBCE3301", createUsecase: createUsecase, updateUsecase: updateUsecase)
         super.init(nibName: nil, bundle: nil)
     }
 
