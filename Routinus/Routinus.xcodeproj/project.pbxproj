@@ -20,6 +20,7 @@
 		0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631B27312AC700DC5970 /* DateHeader.swift */; };
 		0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1632C2733729800DC5970 /* CalendarDelegate.swift */; };
 		14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14572CEC273BF644007E6ECE /* CreateCoordinator.swift */; };
+		145F5322273FAC9B000700A5 /* UpdateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5321273FAC9B000700A5 /* UpdateRepository.swift */; };
 		149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411DB273A314B004BE485 /* CreateViewModel.swift */; };
 		149411E4273A6314004BE485 /* CreateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E3273A6314004BE485 /* CreateRepository.swift */; };
 		149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */; };
@@ -136,6 +137,7 @@
 		0DD1631B27312AC700DC5970 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
 		0DD1632C2733729800DC5970 /* CalendarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDelegate.swift; sourceTree = "<group>"; };
 		14572CEC273BF644007E6ECE /* CreateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoordinator.swift; sourceTree = "<group>"; };
+		145F5321273FAC9B000700A5 /* UpdateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRepository.swift; sourceTree = "<group>"; };
 		149411DB273A314B004BE485 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		149411E3273A6314004BE485 /* CreateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepository.swift; sourceTree = "<group>"; };
 		149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreateUsecase.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */,
 				0DC38F54273B689700331C25 /* SearchRepository.swift */,
 				149411E3273A6314004BE485 /* CreateRepository.swift */,
+				145F5321273FAC9B000700A5 /* UpdateRepository.swift */,
 				1497CF4B2739078700296F9E /* UserNameFactory.swift */,
 			);
 			path = Data;
@@ -809,6 +812,7 @@
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				E9493DBF273A390F0095CF6D /* CategoryButtonTapGesture.swift in Sources */,
 				441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */,
+				145F5322273FAC9B000700A5 /* UpdateRepository.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
 				149411E4273A6314004BE485 /* CreateRepository.swift in Sources */,

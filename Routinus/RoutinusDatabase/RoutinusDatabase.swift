@@ -193,7 +193,7 @@ public enum RoutinusDatabase {
         return challenges
     }
 
-    public static func challenge(of ownerId: String, challengeId: String) async throws -> ChallengeDTO? {
+    public static func challenge(ownerId: String, challengeId: String) async throws -> ChallengeDTO? {
         let db = Firestore.firestore()
 
         let snapshot = try await db.collection("challenge")
