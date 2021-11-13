@@ -8,7 +8,6 @@
 import Foundation
 
 import Firebase
-import FirebaseStorage
 
 public enum RoutinusDatabase {
     private static let firestoreURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
