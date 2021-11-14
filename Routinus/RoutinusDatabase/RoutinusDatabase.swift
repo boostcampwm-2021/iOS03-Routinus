@@ -42,21 +42,22 @@ public enum RoutinusDatabase {
         _ = try await URLSession.shared.data(for: request)
     }
 
-    public static func createChallenge(challenge: ChallengeDTO) async throws {
+    public static func createChallenge(challenge: ChallengeDTO, imageURL: String, authImageURL: String) async throws {
         Task {
             try await insertChallenge(dto: challenge)
             try await insertChallengeParticipation(dto: challenge)
-            try await uploadImage(id: challenge.id,
+            try await uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
                                   fileName: "image",
-                                  imageURL: challenge.imageURL)
-            try await uploadImage(id: challenge.id,
+                                  imageURL: imageURL)
+            try await uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
                                   fileName: "auth",
-                                  imageURL: challenge.authExampleImageURL)
+                                  imageURL: authImageURL)
         }
     }
 
     public static func insertChallenge(dto: ChallengeDTO) async throws {
-        guard let url = URL(string: "\(firestoreURL)/challenge") else { return }
+        guard let url = URL(string: "\(firestoreURL)/challenge"),
+              let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
@@ -64,25 +65,26 @@ public enum RoutinusDatabase {
         request.httpBody = """
         {
             "fields": {
-                "auth_method": { "stringValue": "\(dto.authMethod)" },
-                "category_id": { "stringValue": "\(dto.categoryID)" },
-                "desc": { "stringValue": "\(dto.desc)" },
-                "end_date": { "stringValue": "\(dto.endDate)" },
-                "id": { "stringValue": "\(dto.id)" },
-                "owner_id": { "stringValue": "\(dto.ownerID)" },
-                "participant_count": { "integerValue": "\(dto.participantCount)" },
-                "start_date": { "stringValue": "\(dto.startDate)" },
-                "title": { "stringValue": "\(dto.title)" },
-                "week": { "integerValue": "\(dto.week)" }
+                "auth_method": { "stringValue": "\(document.authMethod.stringValue)" },
+                "category_id": { "stringValue": "\(document.categoryID.stringValue)" },
+                "desc": { "stringValue": "\(document.desc.stringValue)" },
+                "end_date": { "stringValue": "\(document.endDate.stringValue)" },
+                "id": { "stringValue": "\(document.id.stringValue)" },
+                "owner_id": { "stringValue": "\(document.ownerID.stringValue)" },
+                "participant_count": { "integerValue": "\(document.participantCount.integerValue)" },
+                "start_date": { "stringValue": "\(document.startDate.stringValue)" },
+                "title": { "stringValue": "\(document.title.stringValue)" },
+                "week": { "integerValue": "\(document.week.integerValue)" }
             }
         }
         """.data(using: .utf8)
 
         _ = try await URLSession.shared.data(for: request)
     }
-    
+
     public static func insertChallengeParticipation(dto: ChallengeDTO) async throws {
-        guard let url = URL(string: "\(firestoreURL)/challenge_participation") else { return }
+        guard let url = URL(string: "\(firestoreURL)/challenge_participation"),
+              let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
@@ -91,9 +93,9 @@ public enum RoutinusDatabase {
         {
             "fields": {
                 "auth_count": { "integerValue": "0" },
-                "challenge_id": { "stringValue": "\(dto.id)" },
-                "join_date": { "stringValue": "\(dto.startDate)" },
-                "user_id": { "stringValue": "\(dto.ownerID)" }
+                "challenge_id": { "stringValue": "\(document.id.stringValue)" },
+                "join_date": { "stringValue": "\(document.startDate.stringValue)" },
+                "user_id": { "stringValue": "\(document.ownerID.stringValue)" }
             }
         }
         """.data(using: .utf8)
@@ -201,72 +203,84 @@ public enum RoutinusDatabase {
     }
 
     public static func allChallenges() async throws -> [ChallengeDTO] {
-        let db = Firestore.firestore()
-        let snapshot = try await db.collection("challenge")
-            .order(by: "participant_count")
-            .limit(to: 50)
-            .getDocuments()
-
-        var challenges = [ChallengeDTO]()
-
-        for document in snapshot.documents {
-            let challengeDTO = ChallengeDTO(challenge: document.data())
-            challenges.append(challengeDTO)
-        }
-
-        return challenges
+//        let db = Firestore.firestore()
+//        let snapshot = try await db.collection("challenge")
+//            .order(by: "participant_count")
+//            .limit(to: 50)
+//            .getDocuments()
+//
+//        var challenges = [ChallengeDTO]()
+//
+//        for document in snapshot.documents {
+//            let challengeDTO = ChallengeDTO(challenge: document.data())
+//            challenges.append(challengeDTO)
+//        }
+//
+//        return challenges
+        return []
     }
 
     public static func newChallenge() async throws -> [ChallengeDTO] {
-        let db = Firestore.firestore()
-
-        let snapshot = try await db.collection("challenge")
-            .order(by: "start_date", descending: true)
-            .limit(to: 10)
-            .getDocuments()
-
-        var challenges = [ChallengeDTO]()
-
-        for document in snapshot.documents {
-            let challengeDTO = ChallengeDTO(challenge: document.data())
-            challenges.append(challengeDTO)
-        }
-  
-        return challenges
+//        let db = Firestore.firestore()
+//
+//        let snapshot = try await db.collection("challenge")
+//            .order(by: "start_date", descending: true)
+//            .limit(to: 10)
+//            .getDocuments()
+//
+//        var challenges = [ChallengeDTO]()
+//
+//        for document in snapshot.documents {
+//            let challengeDTO = ChallengeDTO(challenge: document.data())
+//            challenges.append(challengeDTO)
+//        }
+//
+//        return challenges
+        return []
     }
 
     public static func recommendChallenge() async throws -> [ChallengeDTO] {
-        let db = Firestore.firestore()
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
 
-        let snapshot = try await db.collection("challenge")
-            .order(by: "participant_count", descending: true)
-            .limit(to: 5)
-            .getDocuments()
-
-        var challenges = [ChallengeDTO]()
-
-        for document in snapshot.documents {
-            let challengeDTO = ChallengeDTO(challenge: document.data())
-            challenges.append(challengeDTO)
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = """
+        {
+            "structuredQuery": {
+                "from": {
+                    "collectionId": "challenge",
+                },
+                "orderBy": [
+                    {
+                        "field": { "fieldPath": "participant_count" },
+                        "direction": "DESCENDING"
+                    },
+                ],
+                "limit": 5
+            }
         }
+        """.data(using: .utf8)
 
-        return challenges
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
 
     public static func searchChallengesBy(categoryID: String) async throws -> [ChallengeDTO] {
-        let db = Firestore.firestore()
-        let snapshot = try await db.collection("challenge")
-            .whereField("category_id", isEqualTo: categoryID)
-            .order(by: "participant_count", descending: true)
-            .getDocuments()
-
-        var challenges = [ChallengeDTO]()
-
-        for document in snapshot.documents {
-            let challengeDTO = ChallengeDTO(challenge: document.data())
-            challenges.append(challengeDTO)
-        }
-
-        return challenges
+//        let db = Firestore.firestore()
+//        let snapshot = try await db.collection("challenge")
+//            .whereField("category_id", isEqualTo: categoryID)
+//            .order(by: "participant_count", descending: true)
+//            .getDocuments()
+//
+//        var challenges = [ChallengeDTO]()
+//
+//        for document in snapshot.documents {
+//            let challengeDTO = ChallengeDTO(challenge: document.data())
+//            challenges.append(challengeDTO)
+//        }
+//
+//        return challenges
+        return []
     }
 }

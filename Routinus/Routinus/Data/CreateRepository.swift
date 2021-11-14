@@ -11,13 +11,15 @@ import RoutinusDatabase
 
 protocol CreateRepository {
     func userID() -> String?
-    func save(challenge: ChallengeDTO)
+    func save(challenge: ChallengeDTO, imageURL: String, authImageURL: String)
 }
 
 extension RoutinusRepository: CreateRepository {
-    func save(challenge: ChallengeDTO) {
+    func save(challenge: ChallengeDTO, imageURL: String, authImageURL: String) {
         Task {
-            try await RoutinusDatabase.createChallenge(challenge: challenge)
+            try await RoutinusDatabase.createChallenge(challenge: challenge,
+                                                       imageURL: imageURL,
+                                                       authImageURL: authImageURL)
         }
     }
 }
