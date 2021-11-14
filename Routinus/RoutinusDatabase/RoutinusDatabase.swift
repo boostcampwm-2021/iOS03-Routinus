@@ -18,8 +18,7 @@ public enum RoutinusDatabase {
     }
 
     public static func imageURL(id: String, fileName: String) async throws -> URL? {
-        guard let url = URL(string: "\(storageURL)/\(id)%2F\(fileName).jpeg?alt=media") else { return nil }
-        return url
+        return URL(string: "\(storageURL)/\(id)%2F\(fileName).jpeg?alt=media")
     }
 
     public static func createUser(id: String, name: String) async throws {
