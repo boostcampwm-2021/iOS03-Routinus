@@ -30,21 +30,11 @@ public enum RoutinusDatabase {
         request.httpBody = """
         {
             "fields": {
-                "id": {
-                    "stringValue": "\(id)"
-                },
-                "name": {
-                    "stringValue": "\(name)"
-                },
-                "grade": {
-                    "integerValue": "0"
-                },
-                "continuity_day": {
-                    "integerValue": "0"
-                },
-                "user_image_category_id": {
-                    "stringValue": "0"
-                }
+                "id": { "stringValue": "\(id)" },
+                "name": { "stringValue": "\(name)" },
+                "grade": { "integerValue": "0" },
+                "continuity_day": { "integerValue": "0" },
+                "user_image_category_id": { "stringValue": "0" }
             }
         }
         """.data(using: .utf8)
@@ -74,36 +64,16 @@ public enum RoutinusDatabase {
         request.httpBody = """
         {
             "fields": {
-                "auth_method": {
-                    "stringValue": "\(dto.authMethod)"
-                },
-                "category_id": {
-                    "stringValue": "\(dto.categoryID)"
-                },
-                "desc": {
-                    "stringValue": "\(dto.desc)"
-                },
-                "end_date": {
-                    "stringValue": "\(dto.endDate)"
-                },
-                "id": {
-                    "stringValue": "\(dto.id)"
-                },
-                "owner_id": {
-                    "stringValue": "\(dto.ownerID)"
-                },
-                "participation_count": {
-                    "integerValue": "\(dto.participantCount)"
-                },
-                "start_date": {
-                    "stringValue": "\(dto.startDate)"
-                },
-                "title": {
-                    "stringValue": "\(dto.title)"
-                },
-                "week": {
-                    "integerValue": "\(dto.week)"
-                }
+                "auth_method": { "stringValue": "\(dto.authMethod)" },
+                "category_id": { "stringValue": "\(dto.categoryID)" },
+                "desc": { "stringValue": "\(dto.desc)" },
+                "end_date": { "stringValue": "\(dto.endDate)" },
+                "id": { "stringValue": "\(dto.id)" },
+                "owner_id": { "stringValue": "\(dto.ownerID)" },
+                "participation_count": { "integerValue": "\(dto.participantCount)" },
+                "start_date": { "stringValue": "\(dto.startDate)" },
+                "title": { "stringValue": "\(dto.title)" },
+                "week": { "integerValue": "\(dto.week)" }
             }
         }
         """.data(using: .utf8)
@@ -120,18 +90,10 @@ public enum RoutinusDatabase {
         request.httpBody = """
         {
             "fields": {
-                "auth_count": {
-                    "integerValue": "0"
-                },
-                "challenge_id": {
-                    "stringValue": "\(dto.id)"
-                },
-                "join_date": {
-                    "stringValue": "\(dto.startDate)"
-                },
-                "user_id": {
-                    "stringValue": "\(dto.ownerID)"
-                }
+                "auth_count": { "integerValue": "0" },
+                "challenge_id": { "stringValue": "\(dto.id)" },
+                "join_date": { "stringValue": "\(dto.startDate)" },
+                "user_id": { "stringValue": "\(dto.ownerID)" }
             }
         }
         """.data(using: .utf8)
@@ -166,21 +128,15 @@ public enum RoutinusDatabase {
                         { "fieldPath": "name" },
                         { "fieldPath": "grade" },
                         { "fieldPath": "continuity_day" },
-                        { "fieldPath": "user_image_category_id" },
+                        { "fieldPath": "user_image_category_id" }
                     ]
                 },
-                "from": {
-                    "collectionId": "user",
-                },
+                "from": { "collectionId": "user" },
                 "where": {
                     "fieldFilter": {
-                        "field": {
-                            "fieldPath": "id"
-                        },
+                        "field": { "fieldPath": "id" },
                         "op": "EQUAL",
-                        "value": {
-                            "stringValue": "\(id)"
-                        }
+                        "value": { "stringValue": "\(id)" }
                     },
                 },
             }
