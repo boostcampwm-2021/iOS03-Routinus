@@ -165,20 +165,4 @@ struct Challenge: Hashable {
         self.week = Int(document?.week.integerValue ?? "") ?? 0
         self.participantCount = Int(document?.participantCount.integerValue ?? "") ?? 0
     }
-
-//    init(challengeDTO: ChallengeDTO) {
-//        self.challengeID = challengeDTO.id
-//        self.title = challengeDTO.title
-//        self.introduction = challengeDTO.desc
-//        self.category = Category.category(by: challengeDTO.categoryID)
-//        self.imageURL = challengeDTO.imageURL
-//        self.authExampleImageURL = challengeDTO.authExampleImageURL
-//        self.thumbnailImageURL = challengeDTO.thumbnailImageURL
-//        self.authMethod = challengeDTO.authMethod
-//        self.startDate = Date.toDate(challengeDTO.startDate)
-//        self.endDate = Date.toDate(challengeDTO.endDate)
-//        self.ownerID = challengeDTO.ownerID
-//        self.week = challengeDTO.week
-//        self.participantCount = challengeDTO.participantCount
-//    }
 }
