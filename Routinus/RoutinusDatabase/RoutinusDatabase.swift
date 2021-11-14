@@ -141,23 +141,52 @@ public enum RoutinusDatabase {
     }
 
     public static func routineList(of id: String) async throws -> [TodayRoutineDTO] {
-        let db = Firestore.firestore()
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
 
-        let participationSnapshot = try await db.collection("challenge_participation")
-            .whereField("user_id", isEqualTo: id)
-            .getDocuments()
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = """
+        {
+            "structuredQuery": {
+                "from": { "collectionId": "challenge_participation" },
+                "where": {
+                    "fieldFilter": {
+                        "field": { "fieldPath": "user_id" },
+                        "op": "EQUAL",
+                        "value": { "stringValue": "\(id)" }
+                    },
+                },
+            }
+        }
+        """.data(using: .utf8)
 
+        var (data, _) = try await URLSession.shared.data(for: request)
+        let participations = try JSONDecoder().decode([ParticipationDTO].self, from: data)
         var todayRoutines = [TodayRoutineDTO]()
 
-        for document in participationSnapshot.documents {
-            let challengeID = document["challenge_id"] as? String ?? ""
-            let challengeSnapshot = try await db.collection("challenge")
-                .whereField("id", isEqualTo: challengeID)
-                .getDocuments()
-            let challenge = challengeSnapshot.documents.first?.data()
-            let todayRoutine = document.data()
-            let todayRoutineDTO = TodayRoutineDTO(todayRoutine: todayRoutine, challenge: challenge)
-            todayRoutines.append(todayRoutineDTO)
+        for participation in participations {
+            guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
+
+            request.httpBody = """
+            {
+                "structuredQuery": {
+                    "from": { "collectionId": "challenge" },
+                    "where": {
+                        "fieldFilter": {
+                            "field": { "fieldPath": "id" },
+                            "op": "EQUAL",
+                            "value": { "stringValue": "\(challengeID)" }
+                        },
+                    },
+                }
+            }
+            """.data(using: .utf8)
+
+            (data, _) = try await URLSession.shared.data(for: request)
+            let challenge = try JSONDecoder().decode([ChallengeDTO].self, from: data).first ?? ChallengeDTO()
+            let todayRoutine = TodayRoutineDTO(participation: participation, challenge: challenge)
+            todayRoutines.append(todayRoutine)
         }
 
         return todayRoutines
