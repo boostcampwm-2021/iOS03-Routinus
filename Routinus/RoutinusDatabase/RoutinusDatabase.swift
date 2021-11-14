@@ -170,22 +170,52 @@ public enum RoutinusDatabase {
         return todayRoutines
     }
 
-    public static func achievementInfo(of id: String, in yearMonth: String) async throws -> [AchievementInfoDTO] {
-        let db = Firestore.firestore()
+    public static func achievement(of id: String, in yearMonth: String) async throws -> [AchievementDTO] {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
 
-        let snapshot = try await db.collection("achievement_info")
-            .whereField("user_id", isEqualTo: id)
-            .whereField("year_month", isEqualTo: yearMonth)
-            .getDocuments()
-
-        var achievements = [AchievementInfoDTO]()
-
-        for document in snapshot.documents {
-            let achievementDTO = AchievementInfoDTO(achievement: document.data())
-            achievements.append(achievementDTO)
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = """
+        {
+            "structuredQuery": {
+                "select": {
+                    "fields": [
+                        { "fieldPath": "achievement_count" },
+                        { "fieldPath": "day" },
+                        { "fieldPath": "total_count" },
+                        { "fieldPath": "user_id" },
+                        { "fieldPath": "year_month" }
+                    ]
+                },
+                "from": { "collectionId": "achievement" },
+                "where": {
+                    "compositeFilter": {
+                        "filters": [
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "user_id" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(id)" }
+                                }
+                            },
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "year_month" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(yearMonth)" }
+                                },
+                            }
+                        ],
+                        "op": "AND"
+                    }
+                }
+            }
         }
+        """.data(using: .utf8)
 
-        return achievements
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([AchievementDTO].self, from: data)
     }
 
     public static func allChallenges() async throws -> [ChallengeDTO] {

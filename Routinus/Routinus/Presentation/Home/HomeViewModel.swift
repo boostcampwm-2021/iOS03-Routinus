@@ -17,7 +17,7 @@ protocol HomeViewModelInput {
 protocol HomeViewModelOutput {
     var userInfo: CurrentValueSubject<User, Never> { get }
     var todayRoutine: CurrentValueSubject<[TodayRoutine], Never> { get }
-    var achievementInfo: CurrentValueSubject<[AchievementInfo], Never> { get }
+    var achievementInfo: CurrentValueSubject<[Achievement], Never> { get }
     var showChallengeSignal: PassthroughSubject<Void, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
     var showChallengeAuthSignal: PassthroughSubject<String, Never> { get }
@@ -29,7 +29,7 @@ protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 class HomeViewModel: HomeViewModelIO {
     var userInfo = CurrentValueSubject<User, Never>(User())
     var todayRoutine = CurrentValueSubject<[TodayRoutine], Never>([])
-    var achievementInfo = CurrentValueSubject<[AchievementInfo], Never>([])
+    var achievementInfo = CurrentValueSubject<[Achievement], Never>([])
 
     var showChallengeSignal = PassthroughSubject<Void, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()

@@ -1,5 +1,5 @@
 //
-//  AchievementInfo.swift
+//  Achievement.swift
 //  Routinus
 //
 //  Created by 박상우 on 2021/11/03.
@@ -9,7 +9,7 @@ import Foundation
 
 import RoutinusDatabase
 
-struct AchievementInfo {
+struct Achievement {
     let yearMonth: String
     let day: String
     let achievementCount: Int
@@ -22,10 +22,12 @@ struct AchievementInfo {
         self.totalCount = totalCount
     }
 
-    init(achievementDTO: AchievementInfoDTO) {
-        self.yearMonth = achievementDTO.yearMonth
-        self.day = achievementDTO.day
-        self.achievementCount = achievementDTO.achievementCount
-        self.totalCount = achievementDTO.totalCount
+    init(achievementDTO: AchievementDTO) {
+        let document = achievementDTO.document?.fields
+
+        self.yearMonth = document?.yearMonth.stringValue ?? ""
+        self.day = document?.day.stringValue ?? ""
+        self.achievementCount = Int(document?.achievementCount.integerValue ?? "") ?? 0
+        self.totalCount = Int(document?.totalCount.integerValue ?? "") ?? 0
     }
 }
