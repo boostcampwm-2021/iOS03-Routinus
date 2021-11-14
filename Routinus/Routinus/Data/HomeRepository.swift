@@ -36,7 +36,7 @@ extension RoutinusRepository: HomeRepository {
     }
 
     func fetchTodayRoutine(by id: String) async -> [TodayRoutine] {
-        guard let list = try? await RoutinusDatabase.routineList(of: id) else { return [] }
+        guard let list = try? await RoutinusDatabase.routines(of: id) else { return [] }
         return list.map { TodayRoutine(todayRoutineDTO: $0) }
     }
 

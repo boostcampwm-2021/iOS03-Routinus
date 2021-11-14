@@ -87,7 +87,7 @@ public enum RoutinusDatabase {
         return try JSONDecoder().decode([UserDTO].self, from: data).first ?? UserDTO()
     }
 
-    public static func routineList(of id: String) async throws -> [TodayRoutineDTO] {
+    public static func routines(of id: String) async throws -> [TodayRoutineDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
 
@@ -161,7 +161,7 @@ public enum RoutinusDatabase {
         return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
 
-    public static func searchChallengesBy(categoryID: String) async throws -> [ChallengeDTO] {
+    public static func searchChallenges(by categoryID: String) async throws -> [ChallengeDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
 
