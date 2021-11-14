@@ -122,15 +122,6 @@ public enum RoutinusDatabase {
         request.httpBody = """
         {
             "structuredQuery": {
-                "select": {
-                    "fields": [
-                        { "fieldPath": "id" },
-                        { "fieldPath": "name" },
-                        { "fieldPath": "grade" },
-                        { "fieldPath": "continuity_day" },
-                        { "fieldPath": "user_image_category_id" }
-                    ]
-                },
                 "from": { "collectionId": "user" },
                 "where": {
                     "fieldFilter": {
@@ -179,15 +170,6 @@ public enum RoutinusDatabase {
         request.httpBody = """
         {
             "structuredQuery": {
-                "select": {
-                    "fields": [
-                        { "fieldPath": "achievement_count" },
-                        { "fieldPath": "day" },
-                        { "fieldPath": "total_count" },
-                        { "fieldPath": "user_id" },
-                        { "fieldPath": "year_month" }
-                    ]
-                },
                 "from": { "collectionId": "achievement" },
                 "where": {
                     "compositeFilter": {
