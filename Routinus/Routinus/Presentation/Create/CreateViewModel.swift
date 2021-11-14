@@ -74,7 +74,7 @@ class CreateViewModel: CreateViewModelIO {
 
     func validateWeek(currentText: String) -> String {
         guard let week = Int(currentText) else { return "" }
-        return "\(min(max(week, 0), 53))"
+        return "\(min(max(week, 0), 52))"
     }
 
     func update(category: Challenge.Category) {

@@ -21,7 +21,7 @@ final class CreateWeekView: UIView {
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "주 단위로 숫자만 입력해주세요. (최대 53주)"
+        label.text = "주 단위로 숫자만 입력해주세요. (최대 52주)"
         label.font = .systemFont(ofSize: 16)
         label.textColor = .systemGray
         return label
