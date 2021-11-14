@@ -28,7 +28,7 @@ extension RoutinusRepository: UpdateRepository {
                                         imageURL: challenge.imageURL,
                                         authExampleImageURL: challenge.authExampleImageURL,
                                         authMethod: challenge.authMethod,
-                                        categoryID: challenge.challengeID,
+                                        categoryID: challenge.category.id,
                                         week: challenge.week,
                                         decs: challenge.introduction,
                                         startDate: startDate,
