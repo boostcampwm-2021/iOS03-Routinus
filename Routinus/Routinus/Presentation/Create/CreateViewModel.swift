@@ -131,14 +131,14 @@ class CreateViewModel: CreateViewModelIO {
 
     func fetchChallenge() {
         guard let challengeID = challengeID else { return }
-        updateUsecase.fetchChallenge(challengeID: challengeID) { [weak self] cccc in
-            guard let self = self, let challenge = cccc else { return }
+        updateUsecase.fetchChallenge(challengeID: challengeID) { [weak self] existedChallenge in
+            guard let self = self, let challenge = existedChallenge else { return }
             self.challenge.value = challenge
         }
     }
 
     func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String) {
-        guard let challenge = challenge.value, let endDate = updateUsecase.endDate(startDate: challenge.startDate ?? Date(), week: week) else { return }
+        guard let challenge = challenge.value, let startDate = challenge.startDate, let endDate = updateUsecase.endDate(startDate: startDate, week: week) else { return }
         let updateChallenge = Challenge(challengeID: challenge.challengeID,
                                         title: title,
                                         introduction: introduction,
