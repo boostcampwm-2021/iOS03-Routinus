@@ -9,7 +9,7 @@ import Foundation
 
 public struct AchievementDTO: Codable {
     public let document: AchievementFields?
-    
+
     init() {
         self.document = nil
     }
