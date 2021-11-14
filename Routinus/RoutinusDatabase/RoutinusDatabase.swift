@@ -284,20 +284,35 @@ public enum RoutinusDatabase {
     }
 
     public static func searchChallengesBy(categoryID: String) async throws -> [ChallengeDTO] {
-//        let db = Firestore.firestore()
-//        let snapshot = try await db.collection("challenge")
-//            .whereField("category_id", isEqualTo: categoryID)
-//            .order(by: "participant_count", descending: true)
-//            .getDocuments()
-//
-//        var challenges = [ChallengeDTO]()
-//
-//        for document in snapshot.documents {
-//            let challengeDTO = ChallengeDTO(challenge: document.data())
-//            challenges.append(challengeDTO)
-//        }
-//
-//        return challenges
-        return []
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = """
+        {
+            "structuredQuery": {
+                "from": {
+                    "collectionId": "challenge",
+                },
+                "where": {
+                    "fieldFilter": {
+                        "field": { "fieldPath": "category_id" },
+                        "op": "EQUAL",
+                        "value": { "stringValue": "\(categoryID)" }
+                    },
+                },
+                "orderBy": [
+                    {
+                        "field": { "fieldPath": "participant_count" },
+                        "direction": "DESCENDING"
+                    },
+                ]
+            }
+        }
+        """.data(using: .utf8)
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
 }
