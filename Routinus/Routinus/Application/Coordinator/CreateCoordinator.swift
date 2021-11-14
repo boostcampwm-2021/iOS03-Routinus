@@ -18,11 +18,11 @@ class CreateCoordinator: RoutinusCoordinator {
 
     func start() {
         let repository = RoutinusRepository()
-        let challengeCreateUsecase = ChallengeCreateUsecase(repository: repository)
-        let challengeUpdateUsecase = ChallengeUpdateUsecase(repository: repository)
-        // TODO: - challengeID 주입하기
-//        let createViewModel = CreateViewModel(challengeID: <#T##String#>, createUsecase: updateRepository, updateUsecase: <#T##ChallengeUpdatableUsecase#>)
-//        let createViewController = CreateViewController(with: createViewModel)
-//        self.navigationController.pushViewController(createViewController, animated: false)
+        let createUsecase = ChallengeCreateUsecase(repository: repository)
+        let updateUsecase = ChallengeUpdateUsecase(repository: repository)
+        // TODO: - 챌린지 관리 화면으로부터 challengeID 주입받기
+        let createViewModel = CreateViewModel(challengeID: "24F3374C-BFA7-49B2-AE26-F887009DC3DA", createUsecase: createUsecase, updateUsecase: updateUsecase)
+        let createViewController = CreateViewController(with: createViewModel)
+        self.navigationController.pushViewController(createViewController, animated: false)
     }
 }
