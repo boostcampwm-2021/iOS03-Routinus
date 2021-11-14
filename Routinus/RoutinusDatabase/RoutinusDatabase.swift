@@ -70,7 +70,7 @@ public enum RoutinusDatabase {
                 "end_date": { "stringValue": "\(dto.endDate)" },
                 "id": { "stringValue": "\(dto.id)" },
                 "owner_id": { "stringValue": "\(dto.ownerID)" },
-                "participation_count": { "integerValue": "\(dto.participantCount)" },
+                "participant_count": { "integerValue": "\(dto.participantCount)" },
                 "start_date": { "stringValue": "\(dto.startDate)" },
                 "title": { "stringValue": "\(dto.title)" },
                 "week": { "integerValue": "\(dto.week)" }
