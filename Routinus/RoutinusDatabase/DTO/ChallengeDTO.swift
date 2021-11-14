@@ -46,43 +46,43 @@ public struct ChallengeField: Codable {
     public struct AuthMethod: Codable {
         public var stringValue: String
     }
-    
+
     public struct CategoryID: Codable {
         public var stringValue: String
     }
-    
+
     public struct Desc: Codable {
         public var stringValue: String
     }
-    
+
     public struct EndDate: Codable {
         public var stringValue: String
     }
-    
+
     public struct ID: Codable {
         public var stringValue: String
     }
-    
+
     public struct OwnerID: Codable {
         public var stringValue: String
     }
-    
+
     public struct ParticipantCount: Codable {
         public var integerValue: String
     }
-    
+
     public struct StartDate: Codable {
         public var stringValue: String
     }
-    
+
     public struct Title: Codable {
         public var stringValue: String
     }
-    
+
     public struct Week: Codable {
         public var integerValue: String
     }
-    
+
     public var authMethod: AuthMethod
     public var categoryID: CategoryID
     public var desc: Desc
@@ -93,7 +93,7 @@ public struct ChallengeField: Codable {
     public var startDate: StartDate
     public var title: Title
     public var week: Week
-    
+
     public enum CodingKeys: String, CodingKey {
         case desc, id, title, week
         case authMethod = "auth_method"
