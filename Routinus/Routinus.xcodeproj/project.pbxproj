@@ -51,6 +51,7 @@
 		441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */; };
 		44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */; };
 		44234F18273C0917004D6834 /* CreateImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */; };
+		446A07162740ECE6009F8D98 /* ParticipationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A07152740ECE6009F8D98 /* ParticipationDTO.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -166,6 +167,7 @@
 		441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthImageRegisterView.swift; sourceTree = "<group>"; };
 		44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSubviewDelegate.swift; sourceTree = "<group>"; };
 		44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateImagePickerDelegate.swift; sourceTree = "<group>"; };
+		446A07152740ECE6009F8D98 /* ParticipationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationDTO.swift; sourceTree = "<group>"; };
 		44AAA2B1272FDF8B002E16C4 /* Routinus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				441CEDF227390296006C261F /* TodayRoutineDTO.swift */,
 				441CEDF42739029C006C261F /* AchievementDTO.swift */,
 				E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */,
+				446A07152740ECE6009F8D98 /* ParticipationDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -777,6 +780,7 @@
 				441CEDF027390259006C261F /* UserDTO.swift in Sources */,
 				441CEDF52739029C006C261F /* AchievementDTO.swift in Sources */,
 				E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */,
+				446A07162740ECE6009F8D98 /* ParticipationDTO.swift in Sources */,
 				441CEDF327390296006C261F /* TodayRoutineDTO.swift in Sources */,
 				441CEDFD27390378006C261F /* RoutinusDatabase.swift in Sources */,
 			);
