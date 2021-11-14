@@ -53,37 +53,92 @@ public enum RoutinusDatabase {
     }
 
     public static func createChallenge(challenge: ChallengeDTO) async throws {
-        let db = Firestore.firestore()
-
-        try await db.collection("challenge").document().setData([
-            "auth_example_image_url": challenge.authExampleImageURL,
-            "auth_method": challenge.authMethod,
-            "category_id": challenge.categoryID,
-            "desc": challenge.desc,
-            "end_date": challenge.endDate,
-            "id": challenge.id,
-            "image_url": challenge.imageURL,
-            "owner_id": challenge.ownerID,
-            "participant_count": challenge.participantCount,
-            "start_date": challenge.startDate,
-            "thumbnail_image_url": challenge.thumbnailImageURL,
-            "title": challenge.title,
-            "week": challenge.week
-        ])
-
-        try await db.collection("challenge_participation").document().setData([
-            "auth_count": 0,
-            "challenge_id": challenge.id,
-            "join_date": challenge.startDate,
-            "user_id": challenge.ownerID
-        ])
-
         Task {
-            try await uploadImage(id: challenge.id, fileName: "image", imageURL: challenge.imageURL)
-            try await uploadImage(id: challenge.id, fileName: "auth", imageURL: challenge.authExampleImageURL)
+            try await insertChallenge(dto: challenge)
+            try await insertChallengeParticipation(dto: challenge)
+            try await uploadImage(id: challenge.id,
+                                  fileName: "image",
+                                  imageURL: challenge.imageURL)
+            try await uploadImage(id: challenge.id,
+                                  fileName: "auth",
+                                  imageURL: challenge.authExampleImageURL)
         }
     }
+
+    public static func insertChallenge(dto: ChallengeDTO) async throws {
+        guard let url = URL(string: "\(firestoreURL)/challenge") else { return }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = """
+        {
+            "fields": {
+                "auth_method": {
+                    "stringValue": "\(dto.authMethod)"
+                },
+                "category_id": {
+                    "stringValue": "\(dto.categoryID)"
+                },
+                "desc": {
+                    "stringValue": "\(dto.desc)"
+                },
+                "end_date": {
+                    "stringValue": "\(dto.endDate)"
+                },
+                "id": {
+                    "stringValue": "\(dto.id)"
+                },
+                "owner_id": {
+                    "stringValue": "\(dto.ownerID)"
+                },
+                "participation_count": {
+                    "integerValue": "\(dto.participantCount)"
+                },
+                "start_date": {
+                    "stringValue": "\(dto.startDate)"
+                },
+                "title": {
+                    "stringValue": "\(dto.title)"
+                },
+                "week": {
+                    "integerValue": "\(dto.week)"
+                }
+            }
+        }
+        """.data(using: .utf8)
+
+        _ = try await URLSession.shared.data(for: request)
+    }
     
+    public static func insertChallengeParticipation(dto: ChallengeDTO) async throws {
+        guard let url = URL(string: "\(firestoreURL)/challenge_participation") else { return }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        request.httpBody = """
+        {
+            "fields": {
+                "auth_count": {
+                    "integerValue": "0"
+                },
+                "challenge_id": {
+                    "stringValue": "\(dto.id)"
+                },
+                "join_date": {
+                    "stringValue": "\(dto.startDate)"
+                },
+                "user_id": {
+                    "stringValue": "\(dto.ownerID)"
+                }
+            }
+        }
+        """.data(using: .utf8)
+
+        _ = try await URLSession.shared.data(for: request)
+    }
+
     public static func uploadImage(id: String, fileName: String, imageURL: String) async throws {
         guard let url = URL(string: "\(storageURL)?uploadType=media&name=\(id)%2F\(fileName).jpeg"),
               let imageURL = URL(string: imageURL) else { return }
