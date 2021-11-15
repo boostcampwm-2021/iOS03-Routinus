@@ -48,7 +48,7 @@ extension SearchViewModel {
                 self?.challenges.value = challenges
             }
         } else {
-            usecase.fetchSearchChallengeBy(keyword: keyword) { [weak self] challenges in
+            usecase.fetchSearchChallenges(keyword: keyword) { [weak self] challenges in
                 self?.challenges.value = challenges
             }
         }
@@ -83,8 +83,7 @@ extension SearchViewModel {
 
     private func fetchCategoryChallenges() {
         guard let searchCategory = searchCategory else { return }
-        
-        usecase.fetchSearchChallenges(by: searchCategory) { [weak self] challenge in
+        usecase.fetchSearchChallenges(category: searchCategory) { [weak self] challenge in
             self?.challenges.value = challenge
         }
     }
