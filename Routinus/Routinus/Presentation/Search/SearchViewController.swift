@@ -133,7 +133,7 @@ extension SearchViewController {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(collectionView)
         self.setNavigationBarAppearance()
-        self.keyboardConfigure()
+        self.configureKeyboard()
         self.collectionView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -190,7 +190,7 @@ extension SearchViewController {
 }
 
 extension SearchViewController {
-    private func keyboardConfigure() {
+    private func configureKeyboard() {
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedView))
         singleTapGestureRecognizer.numberOfTapsRequired = 1
         singleTapGestureRecognizer.isEnabled = true
