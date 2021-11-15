@@ -54,13 +54,13 @@ public class RoutinusImageManager {
         return try? Data(contentsOf: url)
     }
 
-    public func cachedImageURL(from directory: String, fileName: String) -> URL? {
-        guard let path = path else { return nil }
+    public func cachedImageURL(from directory: String, fileName: String) -> String {
+        guard let path = path else { return "" }
 
         var url = URL(fileURLWithPath: path)
         url.appendPathComponent("\(directory)_\(fileName)")
         url.appendPathExtension("jpeg")
 
-        return url
+        return url.absoluteString
     }
 }

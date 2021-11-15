@@ -9,6 +9,7 @@ import Combine
 import UIKit
 
 import SnapKit
+import RoutinusImageManager
 
 final class CreateViewController: UIViewController {
     enum InputTag: Int {
@@ -321,11 +322,13 @@ extension CreateViewController: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
         if let image = info[InfoKey.originalImage] as? UIImage {
-            guard let url = info[InfoKey.imageURL] as? URL else {
-                dismiss(animated: true, completion: nil)
-                return
+            // TODO: RoutinusImageManager는 repository를 통해 접근하도록 수정해야 함
+            var urlString = ""
+            var fileName = selectedImagePickerTag == .image ? "image" : "auth"
+
+            if let data = image.jpegData(compressionQuality: 1) {
+                urlString = RoutinusImageManager.shared.saveImage(to: "temp", fileName: fileName, imageData: data)
             }
-            let urlString = url.absoluteString
 
             switch selectedImagePickerTag {
             case .image:
