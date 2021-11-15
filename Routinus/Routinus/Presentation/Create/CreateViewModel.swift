@@ -102,8 +102,8 @@ final class CreateViewModel: CreateViewModelIO {
     }
 
     func update(week: Int) {
-        self.week = week
         guard let endDate = createUsecase.endDate(week: week) else { return }
+        self.week = week
         expectedEndDate.value = endDate
         self.validate()
     }
