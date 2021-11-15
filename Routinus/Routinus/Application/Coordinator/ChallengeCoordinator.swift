@@ -22,7 +22,16 @@ final class ChallengeCoordinator: RoutinusCoordinator {
         let challengeUsecase = ChallengeFetchUsecase(repository: repository)
         let challengeViewModel = ChallengeViewModel(usecase: challengeUsecase)
         let challengeViewController = ChallengeViewController(with: challengeViewModel)
-        challengeViewModel.showChallengeSearchSignal
+        challengeViewModel.searchButtonTap
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let searchCoordinator = SearchCoordinator(navigationController: self.navigationController)
+                searchCoordinator.start()
+                self.childCoordinator.append(searchCoordinator)
+            }
+            .store(in: &cancellables)
+        
+        challengeViewModel.seeAllButtonTap
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 let searchCoordinator = SearchCoordinator(navigationController: self.navigationController)
@@ -31,7 +40,7 @@ final class ChallengeCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-        challengeViewModel.showChallengeDetailSignal
+        challengeViewModel.recommendChallengeTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
                 let detailCoordinator = DetailCoordinator(navigationController: self.navigationController,
@@ -41,7 +50,7 @@ final class ChallengeCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-        challengeViewModel.showChallengeCategorySignal
+        challengeViewModel.categoryButtonTap
             .sink { [weak self] category in
                 guard let self = self else { return }
                 let searchCoordinator = SearchCoordinator(navigationController: self.navigationController,
