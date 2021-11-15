@@ -29,7 +29,7 @@ class HomeFetchableUsecaseMock: HomeFetchableUsecase {
         completion(todayRoutine)
     }
 
-    func fetchAcheivements(yearMonth: String, completion: @escaping ([Achievement]) -> Void) {
+    func fetchAchievements(yearMonth: String, completion: @escaping ([Achievement]) -> Void) {
         let achievement = [Achievement(yearMonth: "202111",
                                        day: "06",
                                        achievementCount: 1,

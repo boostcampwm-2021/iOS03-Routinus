@@ -75,7 +75,7 @@ extension HomeViewModel {
     private func fetchMyHomeData() {
         fetchUser()
         fetchTodayRoutine()
-        fetchAcheivement()
+        fetchAchievement()
     }
 
     private func fetchUser() {
@@ -90,8 +90,8 @@ extension HomeViewModel {
         }
     }
 
-    private func fetchAcheivement() {
-        fetchUsecase.fetchAcheivements(yearMonth: Date.currentYearMonth()) { achievement in
+    private func fetchAchievement() {
+        fetchUsecase.fetchAchievements(yearMonth: Date.currentYearMonth()) { achievement in
             self.achievement.value = achievement
         }
     }
