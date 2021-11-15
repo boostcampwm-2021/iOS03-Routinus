@@ -8,7 +8,6 @@
 import UIKit
 
 protocol RoutinusCoordinator: AnyObject {
-    var parentCoordinator: RoutinusCoordinator? { get set }
     var childCoordinator: [RoutinusCoordinator] { get set }
     var navigationController: UINavigationController { get }
 

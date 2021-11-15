@@ -8,7 +8,6 @@
 import UIKit
 
 class ManageCoordinator: RoutinusCoordinator {
-    var parentCoordinator: RoutinusCoordinator?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
 
