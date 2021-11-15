@@ -55,7 +55,7 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
 
     func fetchSearchChallenges(by category: Challenge.Category, completion: @escaping ([Challenge]) -> Void) {
         Task {
-            let categoryID = "\(category)"
+            let categoryID = category.id
             let list =  await repository.fetchSearchChallengesBy(categoryID: categoryID)
             let challenges = list
                 .filter { $0.category == category }
