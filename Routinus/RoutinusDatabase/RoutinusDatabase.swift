@@ -198,12 +198,18 @@ public enum RoutinusDatabase {
         guard let findChallenge = try? await challenge(ownerID: ownerID, challengeID: challengeID),
               let documentID = findChallenge.documentID else { return }
 
-        guard let url = URL(string:
-                                "\(firestoreURL)/challenge/\(documentID)?updateMask.fieldPaths=auth_method&" +
-                            "updateMask.fieldPaths=category_id&updateMask.fieldPaths=title&updateMask.fieldPaths=desc&" +
-                            "updateMask.fieldPaths=week&updateMask.fieldPaths=end_date") else { return }
-        var request = URLRequest(url: url)
+        var urlComponent = URLComponents(string: "\(firestoreURL)/challenge/\(documentID)?")
+        let queryItems = [URLQueryItem(name: "updateMask.fieldPaths", value: "auth_method"),
+                          URLQueryItem(name: "updateMask.fieldPaths", value: "category_id"),
+                          URLQueryItem(name: "updateMask.fieldPaths", value: "title"),
+                          URLQueryItem(name: "updateMask.fieldPaths", value: "desc"),
+                          URLQueryItem(name: "updateMask.fieldPaths", value: "week"),
+                          URLQueryItem(name: "updateMask.fieldPaths", value: "end_date"),
+                        ]
+        urlComponent?.queryItems = queryItems
+        guard let url = urlComponent?.url else { return }
 
+        var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.patch.rawValue
         request.httpBody = RoutinusQuery.updateChallenge(document: challengeField)
