@@ -8,6 +8,10 @@
 import Foundation
 
 public enum RoutinusDatabase {
+    private enum HTTPMethod: String {
+        case post = "POST"
+    }
+
     private static let firestoreURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
     private static let storageURL = "https://firebasestorage.googleapis.com/v0/b/boostcamp-ios03-routinus.appspot.com/o"
 
@@ -20,7 +24,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.createUserQuery(id: id, name: name)
 
         _ = try await URLSession.shared.data(for: request)
@@ -45,7 +49,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.insertChallengeQuery(document: document)
 
         _ = try await URLSession.shared.data(for: request)
@@ -57,7 +61,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.insertChallengeParticipationQuery(document: document)
 
         _ = try await URLSession.shared.data(for: request)
@@ -69,7 +73,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("image/jpeg", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = try? Data(contentsOf: imageURL)
 
         _ = try await URLSession.shared.data(for: request)
@@ -80,7 +84,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.userQuery(of: id)
 
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -92,7 +96,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.routinesQuery(userID: id)
 
         var (data, _) = try await URLSession.shared.data(for: request)
@@ -118,7 +122,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.achievementQuery(of: id, in: yearMonth)
 
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -130,7 +134,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.allChallengesQuery()
 
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -142,7 +146,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.newChallengeQuery()
 
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -154,7 +158,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.recommendChallengeQuery()
 
         let (data, _) = try await URLSession.shared.data(for: request)
@@ -166,7 +170,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.searchChallenges(by: categoryID)
 
         let (data, _) = try await URLSession.shared.data(for: request)
