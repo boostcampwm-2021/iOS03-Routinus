@@ -147,11 +147,14 @@ extension ChallengeViewController {
             make.edges.equalToSuperview()
         }
     }
-    
+
     private func configureNavigationBar() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+        self.navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.title = "Challenges"
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .systemGray
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     private func configureSearchButton() {
