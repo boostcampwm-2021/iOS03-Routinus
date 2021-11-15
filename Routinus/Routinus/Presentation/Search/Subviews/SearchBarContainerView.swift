@@ -37,7 +37,7 @@ final class SearchBarContainerView: UIView {
         self.searchBar.endEditing(true)
     }
 
-    func configureKeyword(keyword: String) {
+    func updateSearchBar(keyword: String) {
         self.searchBar.text = keyword
     }
 }
