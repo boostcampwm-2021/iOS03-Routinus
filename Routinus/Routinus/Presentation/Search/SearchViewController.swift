@@ -80,7 +80,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         self.collectionView.delegate = self
         self.collectionView.dataSource = dataSource
-        self.searchBarView.searchBar.delegate = self
+        self.searchBarView.delegate = self
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
         self.configureViewModel()
@@ -133,7 +133,7 @@ extension SearchViewController {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(collectionView)
         self.setNavigationBarAppearance()
-        self.keyboardConfigure()
+        self.configureKeyboard()
         self.collectionView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -190,7 +190,7 @@ extension SearchViewController {
 }
 
 extension SearchViewController {
-    private func keyboardConfigure() {
+    private func configureKeyboard() {
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedView))
         singleTapGestureRecognizer.numberOfTapsRequired = 1
         singleTapGestureRecognizer.isEnabled = true
@@ -199,7 +199,7 @@ extension SearchViewController {
     }
 
     @objc func tappedView(sender: UITapGestureRecognizer) {
-        self.searchBarView.searchBar.endEditing(true)
+        self.searchBarView.hideKeyboard()
     }
 }
 
@@ -212,9 +212,9 @@ extension SearchViewController: UICollectionViewDelegate {
 }
 
 extension SearchViewController: SearchPopularKeywordDelegate {
-    func didTappedSearchKeywordButton(keyword: String?) {
+    func didTappedKeywordButton(keyword: String?) {
         guard let keyword = keyword else { return }
-        self.searchBarView.searchBar.text = keyword
+        self.searchBarView.updateSearchBar(keyword: keyword)
         self.viewModel?.didChangedSearchText(keyword)
     }
 }
@@ -225,6 +225,6 @@ extension SearchViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBarView.searchBar.endEditing(true)
+        self.searchBarView.hideKeyboard()
     }
 }

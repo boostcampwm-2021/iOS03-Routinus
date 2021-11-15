@@ -13,14 +13,14 @@ final class SearchPopularKeywordCell: UICollectionViewCell {
     static let identifier = "SearchPopularKeywordCell"
     weak var delegate: SearchPopularKeywordDelegate?
 
-    private lazy var popularKeywordButton: SearchPopularKeywordButton = {
-        let button = SearchPopularKeywordButton()
+    private lazy var popularKeywordButton: PopularKeywordButton = {
+        let button = PopularKeywordButton()
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.backgroundColor = UIColor(named: "SundayColor")
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(named: "SundayColor")?.cgColor
         button.layer.cornerRadius = 15
-        button.addTarget(self, action: #selector(didTappedSearchKeyword), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTappedPopularKeyword), for: .touchUpInside)
         return button
     }()
 
@@ -32,12 +32,12 @@ final class SearchPopularKeywordCell: UICollectionViewCell {
             make.leading.top.trailing.bottom.equalToSuperview()
         }
     }
-    
-    @objc func didTappedSearchKeyword(_ sender: SearchPopularKeywordButton) {
-        delegate?.didTappedSearchKeywordButton(keyword: sender.keyword)
+
+    @objc func didTappedPopularKeyword(_ sender: PopularKeywordButton) {
+        delegate?.didTappedKeywordButton(keyword: sender.keyword)
     }
 }
 
 protocol SearchPopularKeywordDelegate: AnyObject {
-    func didTappedSearchKeywordButton(keyword: String?)
+    func didTappedKeywordButton(keyword: String?)
 }

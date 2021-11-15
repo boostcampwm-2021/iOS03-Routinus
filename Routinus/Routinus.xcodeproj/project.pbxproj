@@ -95,7 +95,7 @@
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
 		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
 		E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */; };
-		E9E9D1E8273BA83800F9CCBB /* SearchPopularKeywordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* SearchPopularKeywordButton.swift */; };
+		E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */; };
 		E9E9D1EB273C1A4200F9CCBB /* SearchBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */; };
 /* End PBXBuildFile section */
 
@@ -222,7 +222,7 @@
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
 		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
 		E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
-		E9E9D1E7273BA83800F9CCBB /* SearchPopularKeywordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPopularKeywordButton.swift; sourceTree = "<group>"; };
+		E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeywordButton.swift; sourceTree = "<group>"; };
 		E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -644,7 +644,7 @@
 			isa = PBXGroup;
 			children = (
 				E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */,
-				E9E9D1E7273BA83800F9CCBB /* SearchPopularKeywordButton.swift */,
+				E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -918,7 +918,7 @@
 				149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
-				E9E9D1E8273BA83800F9CCBB /* SearchPopularKeywordButton.swift in Sources */,
+				E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
 				441CEDD127378573006C261F /* ContinuityView.swift in Sources */,
 				14FCD60B27311CF600626E74 /* RoutineCell.swift in Sources */,

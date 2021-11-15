@@ -8,11 +8,17 @@
 import UIKit
 
 final class SearchBarContainerView: UIView {
-    lazy var searchBar: UISearchBar = {
+    private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         return searchBar
     }()
-    
+
+    weak var delegate: UISearchBarDelegate? {
+        didSet {
+            self.searchBar.delegate = delegate
+        }
+    }
+
     init() {
         super.init(frame: CGRect.zero)
         addSubview(searchBar)
@@ -24,6 +30,14 @@ final class SearchBarContainerView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        searchBar.frame = bounds
+        self.searchBar.frame = bounds
+    }
+
+    func hideKeyboard() {
+        self.searchBar.endEditing(true)
+    }
+
+    func updateSearchBar(keyword: String) {
+        self.searchBar.text = keyword
     }
 }

@@ -12,8 +12,8 @@ import RoutinusDatabase
 protocol SearchFetchableUsecase {
     func fetchPopularKeywords(completion: @escaping ([String]) -> Void)
     func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void)
-    func fetchSearchChallengeBy(keyword: String, completion: @escaping ([Challenge]) -> Void)
-    func fetchSearchChallenges(by: Challenge.Category, completion: @escaping ([Challenge]) -> Void)
+    func fetchSearchChallenges(keyword: String, completion: @escaping ([Challenge]) -> Void)
+    func fetchSearchChallenges(category: Challenge.Category, completion: @escaping ([Challenge]) -> Void)
 }
 
 struct SearchFetchUsecase: SearchFetchableUsecase {
@@ -37,7 +37,7 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
         }
     }
 
-    func fetchSearchChallengeBy(keyword: String, completion: @escaping ([Challenge]) -> Void) {
+    func fetchSearchChallenges(keyword: String, completion: @escaping ([Challenge]) -> Void) {
         Task {
             let list = await repository.fetchSearchChallengesBy(keyword: keyword)
             let keywords = searchKeywords(keyword)
@@ -53,9 +53,9 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
         }
     }
 
-    func fetchSearchChallenges(by category: Challenge.Category, completion: @escaping ([Challenge]) -> Void) {
+    func fetchSearchChallenges(category: Challenge.Category, completion: @escaping ([Challenge]) -> Void) {
         Task {
-            let categoryID = "\(category)"
+            let categoryID = category.id
             let list =  await repository.fetchSearchChallengesBy(categoryID: categoryID)
             let challenges = list
                 .filter { $0.category == category }
