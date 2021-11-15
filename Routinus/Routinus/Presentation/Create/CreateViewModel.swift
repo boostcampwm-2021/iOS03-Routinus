@@ -19,21 +19,29 @@ protocol CreateViewModelInput {
     func didTappedCreateButton()
     func validateTextView(currentText: String, range: NSRange, text: String) -> Bool
     func validateTextField(currentText: String, range: NSRange, text: String) -> Bool
+    func fetchChallenge()
+    func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String)
     func validateWeek(currentText: String) -> String
 }
 
 protocol CreateViewModelOutput {
     var createButtonState: CurrentValueSubject<Bool, Never> { get }
     var expectedEndDate: CurrentValueSubject<Date, Never> { get }
+    var challenge: CurrentValueSubject<Challenge?, Never> { get }
 }
 
 protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
 
 class CreateViewModel: CreateViewModelIO {
+
     var createButtonState = CurrentValueSubject<Bool, Never>(false)
     var expectedEndDate = CurrentValueSubject<Date, Never>(Calendar.current.date(byAdding: DateComponents(day: 7), to: Date()) ?? Date())
+    var challenge = CurrentValueSubject<Challenge?, Never>(nil)
+    
     var cancellables = Set<AnyCancellable>()
-    var createUsecase: ChallengeCreateUsecase
+    var createUsecase: ChallengeCreatableUsecase
+    var updateUsecase: ChallengeUpdatableUsecase
+    var challengeID: String?
 
     private var title: String
     private var category: Challenge.Category?
@@ -43,8 +51,9 @@ class CreateViewModel: CreateViewModelIO {
     private var authMethod: String
     private var authExampleImageURL: String
 
-    init(createUsecase: ChallengeCreateUsecase) {
+    init(challengeID: String, createUsecase: ChallengeCreatableUsecase, updateUsecase: ChallengeUpdatableUsecase) {
         self.createUsecase = createUsecase
+        self.updateUsecase = updateUsecase
         self.title = ""
         self.imageURL = ""
         self.week = 1
@@ -52,6 +61,7 @@ class CreateViewModel: CreateViewModelIO {
         self.authMethod = ""
         self.authExampleImageURL = ""
         self.category = .exercise
+        self.challengeID = challengeID
     }
 
     private func validate() {
@@ -123,5 +133,32 @@ class CreateViewModel: CreateViewModelIO {
                                       authMethod: authMethod,
                                       week: week,
                                       introduction: introduction)
+    }
+
+    func fetchChallenge() {
+        guard let challengeID = challengeID else { return }
+        updateUsecase.fetchChallenge(challengeID: challengeID) { [weak self] existedChallenge in
+            guard let self = self, let challenge = existedChallenge else { return }
+            self.challenge.value = challenge
+        }
+    }
+
+    func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String) {
+        guard let challenge = challenge.value, let startDate = challenge.startDate, let endDate = updateUsecase.endDate(startDate: startDate, week: week) else { return }
+        let updateChallenge = Challenge(challengeID: challenge.challengeID,
+                                        title: title,
+                                        introduction: introduction,
+                                        category: category,
+                                        imageURL: imageURL,
+                                        authExampleImageURL: authExampleImageURL,
+                                        thumbnailImageURL: challenge.thumbnailImageURL,
+                                        authMethod: authMethod,
+                                        startDate: challenge.startDate,
+                                        endDate: endDate,
+                                        ownerID: challenge.ownerID,
+                                        week: week,
+                                        participantCount: challenge.participantCount)
+        self.challenge.value = updateChallenge
+        updateUsecase.updateChallenge(challenge: updateChallenge)
     }
 }

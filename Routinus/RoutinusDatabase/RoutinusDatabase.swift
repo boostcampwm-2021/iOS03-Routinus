@@ -176,4 +176,53 @@ public enum RoutinusDatabase {
         let (data, _) = try await URLSession.shared.data(for: request)
         return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
+
+    public static func challenge(ownerId: String, challengeId: String) async throws -> ChallengeDTO? {
+        let db = Firestore.firestore()
+
+//        let snapshot = try await db.collection("challenge")
+//            .whereField("owner_id", isEqualTo: ownerId)
+//            .whereField("id", isEqualTo: challengeId)
+//            .getDocuments()
+//        guard let document = snapshot.documents.first?.data() else { return nil }
+//        return ChallengeDTO(challenge: document)
+        return nil
+    }
+
+    public static func updateChallenge(challenge: ChallengeDTO) {
+        let db = Firestore.firestore()
+
+//        db.collection("challenge")
+//            .whereField("id", isEqualTo: challenge.id)
+//            .whereField("owner_id", isEqualTo: challenge.ownerID)
+//            .getDocuments { (result, error) in
+//                guard let result = result, error == nil else { return }
+//                guard let document = result.documents.first else { return }
+//                db.collection("challenge").document(document.documentID).setData([
+//                    "auth_example_image_url": challenge.authExampleImageURL,
+//                    "auth_method": challenge.authMethod,
+//                    "category_id": challenge.categoryID,
+//                    "desc": challenge.desc,
+//                    "end_date": challenge.endDate,
+//                    "id": challenge.id,
+//                    "image_url": challenge.imageURL,
+//                    "owner_id": challenge.ownerID,
+//                    "participant_count": challenge.participantCount,
+//                    "start_date": challenge.startDate,
+//                    "thumbnail_image_url": challenge.thumbnailImageURL,
+//                    "title": challenge.title,
+//                    "week": challenge.week
+//                ], merge: true)
+//            }
+//
+//        let storage = Storage.storage().reference()
+//
+//        let imageReference = storage.child("\(challenge.id)/image.jpeg")
+//        guard let imageURL = URL(string: challenge.imageURL) else { return }
+//        imageReference.putFile(from: imageURL, metadata: nil)
+//
+//        let authExampleImageReference = storage.child("\(challenge.id)/auth.jpeg")
+//        guard let authExampleImageURL = URL(string: challenge.authExampleImageURL) else { return }
+//        authExampleImageReference.putFile(from: authExampleImageURL, metadata: nil)
+    }
 }
