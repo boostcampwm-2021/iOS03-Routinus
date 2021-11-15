@@ -32,7 +32,7 @@ public class RoutinusImageManager {
     }
 
     @discardableResult
-    public func saveImage(to directory: String, fileName: String, imageData: Data) -> String {
+    public func saveImage(to directory: String, fileName: String, imageData: Data?) -> String {
         guard let path = path else { return "" }
 
         var url = URL(fileURLWithPath: path)

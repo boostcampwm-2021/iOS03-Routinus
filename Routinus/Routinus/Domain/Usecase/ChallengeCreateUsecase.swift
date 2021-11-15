@@ -11,6 +11,7 @@ protocol ChallengeCreatableUsecase {
     func createChallenge(category: Challenge.Category, title: String, imageURL: String, authExampleImageURL: String, authMethod: String, week: Int, introduction: String)
     func isEmpty(title: String, imageURL: String, introduction: String, authMethod: String, authExampleImageURL: String) -> Bool
     func endDate(week: Int) -> Date?
+    func saveImage(to directory: String, fileName: String, data: Data?) -> String
 }
 
 struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
@@ -59,5 +60,9 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
 
     func isEmpty(title: String, imageURL: String, introduction: String, authMethod: String, authExampleImageURL: String) -> Bool {
         return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
+    }
+
+    func saveImage(to directory: String, fileName: String, data: Data?) -> String {
+        return repository.saveImage(to: directory, fileName: fileName, data: data)
     }
 }

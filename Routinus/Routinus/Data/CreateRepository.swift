@@ -8,9 +8,11 @@
 import Foundation
 
 import RoutinusDatabase
+import RoutinusImageManager
 
 protocol CreateRepository {
     func save(challenge: Challenge, imageURL: String, authImageURL: String)
+    func saveImage(to directory: String, fileName: String, data: Data?) -> String
 }
 
 extension RoutinusRepository: CreateRepository {
@@ -34,5 +36,11 @@ extension RoutinusRepository: CreateRepository {
                                                        imageURL: imageURL,
                                                        authImageURL: authImageURL)
         }
+    }
+
+    func saveImage(to directory: String, fileName: String, data: Data?) -> String {
+        return RoutinusImageManager.shared.saveImage(to: directory,
+                                                     fileName: fileName,
+                                                     imageData: data)
     }
 }

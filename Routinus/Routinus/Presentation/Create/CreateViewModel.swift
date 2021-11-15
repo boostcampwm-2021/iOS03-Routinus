@@ -22,6 +22,7 @@ protocol CreateViewModelInput {
     func fetchChallenge()
     func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String)
     func validateWeek(currentText: String) -> String
+    func saveImage(to directory: String, fileName: String, data: Data?) -> String
 }
 
 protocol CreateViewModelOutput {
@@ -137,13 +138,16 @@ final class CreateViewModel: CreateViewModelIO {
     func fetchChallenge() {
         guard let challengeID = challengeID else { return }
         updateUsecase.fetchChallenge(challengeID: challengeID) { [weak self] existedChallenge in
-            guard let self = self, let challenge = existedChallenge else { return }
+            guard let self = self,
+                  let challenge = existedChallenge else { return }
             self.challenge.value = challenge
         }
     }
 
     func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String) {
-        guard let challenge = challenge.value, let startDate = challenge.startDate, let endDate = updateUsecase.endDate(startDate: startDate, week: week) else { return }
+        guard let challenge = challenge.value,
+              let startDate = challenge.startDate,
+              let endDate = updateUsecase.endDate(startDate: startDate, week: week) else { return }
         let updateChallenge = Challenge(challengeID: challenge.challengeID,
                                         title: title,
                                         introduction: introduction,
@@ -159,5 +163,9 @@ final class CreateViewModel: CreateViewModelIO {
                                         participantCount: challenge.participantCount)
         self.challenge.value = updateChallenge
         updateUsecase.updateChallenge(challenge: updateChallenge)
+    }
+
+    func saveImage(to directory: String, fileName: String, data: Data?) -> String {
+        return createUsecase.saveImage(to: directory, fileName: fileName, data: data)
     }
 }
