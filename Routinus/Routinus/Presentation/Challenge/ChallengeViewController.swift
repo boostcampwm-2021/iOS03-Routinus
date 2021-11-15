@@ -140,13 +140,18 @@ extension ChallengeViewController {
 
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Challenges"
+        self.configureNavigationBar()
         self.configureSearchButton()
         self.view.addSubview(collectionView)
         self.collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    private func configureNavigationBar() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+        self.navigationItem.title = "Challenges"
     }
 
     private func configureSearchButton() {

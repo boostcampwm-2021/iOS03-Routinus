@@ -52,20 +52,6 @@ final class SearchViewController: UIViewController {
 
         return collectionView
     }()
-    
-    lazy var backButtonImage: UIImage? = {
-        let image = UIImage(systemName: "chevron.backward")?
-            .withAlignmentRectInsets(UIEdgeInsets(top: 0.0, left: -12.0, bottom: -5.0, right: 0.0))
-        return image
-    }()
-
-    private var backButtonAppearance: UIBarButtonItemAppearance {
-        let backButtonAppearance = UIBarButtonItemAppearance()
-        backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear,
-                                                           .font: UIFont.systemFont(ofSize: 0.0)]
-
-        return backButtonAppearance
-    }
 
     init(with viewModel: SearchViewModelIO) {
         super.init(nibName: nil, bundle: nil)
@@ -132,7 +118,7 @@ extension SearchViewController {
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(collectionView)
-        self.setNavigationBarAppearance()
+        self.configureNavigationBar()
         self.configureKeyboard()
         self.collectionView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
@@ -164,21 +150,11 @@ extension SearchViewController {
             .store(in: &cancellables)
     }
 
-    private func setNavigationBarAppearance() {
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .systemBackground
-        appearance.setBackIndicatorImage(backButtonImage, transitionMaskImage: backButtonImage)
-        appearance.backButtonAppearance = backButtonAppearance
-
+    private func configureNavigationBar() {
         self.searchBarView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
         self.navigationItem.titleView = searchBarView
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.prefersLargeTitles = false
-        self.navigationController?.navigationBar.standardAppearance = appearance
-        self.navigationController?.navigationBar.compactAppearance = appearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationItem.largeTitleDisplayMode = .never
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
