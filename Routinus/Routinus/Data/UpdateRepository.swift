@@ -11,7 +11,7 @@ import RoutinusDatabase
 
 protocol UpdateRepository {
     func fetchChallenge(challengeID: String) async -> Challenge?
-    func update(challenge: Challenge)
+    func update(challenge: Challenge) async
 }
 
 extension RoutinusRepository: UpdateRepository {
@@ -21,7 +21,7 @@ extension RoutinusRepository: UpdateRepository {
         return Challenge(challengeDTO: challengeDTO)
     }
 
-    func update(challenge: Challenge) {
+    func update(challenge: Challenge) async {
         guard let startDate = challenge.startDate?.toString(), let endDate = challenge.endDate?.toString() else { return }
         let challengeDTO = ChallengeDTO(id: challenge.challengeID,
                                         title: challenge.title,
@@ -33,6 +33,6 @@ extension RoutinusRepository: UpdateRepository {
                                         endDate: endDate,
                                         participantCount: challenge.participantCount,
                                         ownerID: challenge.ownerID)
-        RoutinusDatabase.updateChallenge(challenge: challengeDTO)
+        try? await RoutinusDatabase.updateChallenge(challengeDTO: challengeDTO)
     }
 }
