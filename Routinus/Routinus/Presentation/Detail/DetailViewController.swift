@@ -38,6 +38,7 @@ final class DetailViewController: UIViewController {
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.configureViews()
+        self.configureSwipeGesture()
     }
 
     func configureViews() {
@@ -60,6 +61,17 @@ final class DetailViewController: UIViewController {
         }
     }
 
+    func configureSwipeGesture() {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    @objc func swipeAction(_ sender :UISwipeGestureRecognizer){
+        if sender.direction == .left{
+            self.dismiss(animated: false, completion: nil)
+        }
+    }
+
     @objc func didTouchbackButton() {
         let transition = CATransition()
         transition.duration = 0.35
@@ -73,5 +85,11 @@ final class DetailViewController: UIViewController {
     @objc func didTouchAuthButton() {
         let authViewController = AuthViewController()
         self.present(authViewController, animated: true, completion: nil)
+    }
+}
+
+extension DetailViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

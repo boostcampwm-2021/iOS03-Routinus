@@ -19,8 +19,7 @@ final class DetailCoordinator: RoutinusCoordinator {
 
     func start() {
         let detailViewController = DetailViewController()
-        detailViewController.modalPresentationStyle = .fullScreen
-        self.navigationController.configureTransition(from: .right)
-        self.navigationController.present(detailViewController, animated: false, completion: nil)
+        detailViewController.hidesBottomBarWhenPushed = true
+        self.navigationController.pushViewController(detailViewController, animated: true)
     }
 }
