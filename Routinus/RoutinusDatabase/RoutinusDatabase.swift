@@ -32,7 +32,6 @@ public enum RoutinusDatabase {
     }
 
     public static func createChallenge(challenge: ChallengeDTO, imageURL: String, authImageURL: String) async throws {
-        print(imageURL, authImageURL)
         Task {
             try await insertChallenge(dto: challenge)
             try await insertChallengeParticipation(dto: challenge)
