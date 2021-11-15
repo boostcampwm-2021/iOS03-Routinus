@@ -15,7 +15,7 @@ protocol ChallengeRepository {
 
 extension RoutinusRepository: ChallengeRepository {
     func fetchRecommendChallenges() async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.recommendChallenge() else { return [] }
+        guard let list = try? await RoutinusDatabase.recommendChallenges() else { return [] }
         return list.map { Challenge(challengeDTO: $0) }
     }
 }

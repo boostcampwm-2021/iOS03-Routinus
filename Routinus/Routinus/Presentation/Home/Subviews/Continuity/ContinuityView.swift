@@ -34,7 +34,7 @@ final class ContinuityView: UIView {
         return label
     }()
 
-    private lazy var continuityInfoLabel: UILabel = {
+    private lazy var continuityLabel: UILabel = {
         let label = UILabel()
         label.text = "일 연속 달성"
         label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
@@ -56,15 +56,15 @@ final class ContinuityView: UIView {
         self.init(frame: CGRect.zero)
     }
 
-    func configureContents(with userInfo: User) {
-        guard !userInfo.name.isEmpty else { return }
-        let isZero = userInfo.continuityDay == 0
+    func configureContents(with user: User) {
+        guard !user.name.isEmpty else { return }
+        let isZero = user.continuityDay == 0
 
         seedImageView.isHidden = isZero
         initContinuityLabel.isHidden = !isZero
         continuityDayLabel.isHidden = isZero
-        continuityInfoLabel.isHidden = isZero
-        continuityDayLabel.text = !isZero ? "\(userInfo.continuityDay)" : continuityDayLabel.text
+        continuityLabel.isHidden = isZero
+        continuityDayLabel.text = !isZero ? "\(user.continuityDay)" : continuityDayLabel.text
     }
 }
 
@@ -99,8 +99,8 @@ extension ContinuityView {
             make.centerY.equalToSuperview()
         }
 
-        addSubview(continuityInfoLabel)
-        continuityInfoLabel.snp.makeConstraints { make in
+        addSubview(continuityLabel)
+        continuityLabel.snp.makeConstraints { make in
             make.leading.equalTo(continuityDayLabel.snp.trailing).offset(5)
             make.lastBaseline.equalTo(continuityDayLabel.snp.lastBaseline).offset(-2)
         }

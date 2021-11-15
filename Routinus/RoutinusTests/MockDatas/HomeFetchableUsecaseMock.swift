@@ -11,7 +11,7 @@ import XCTest
 class HomeFetchableUsecaseMock: HomeFetchableUsecase {
     init() {}
 
-    func fetchUserInfo(completion: @escaping (User) -> Void) {
+    func fetchUser(completion: @escaping (User) -> Void) {
         let user = User(name: "testName",
                         continuityDay: 2,
                         userImageCategoryID: "1",
@@ -19,7 +19,7 @@ class HomeFetchableUsecaseMock: HomeFetchableUsecase {
         completion(user)
     }
 
-    func fetchTodayRoutine(completion: @escaping ([TodayRoutine]) -> Void) {
+    func fetchTodayRoutines(completion: @escaping ([TodayRoutine]) -> Void) {
         let todayRoutine = [TodayRoutine(challengeID: "mockChallengeID",
                                          category: .exercise,
                                          title: "30분 운동하기",
@@ -28,11 +28,11 @@ class HomeFetchableUsecaseMock: HomeFetchableUsecase {
         completion(todayRoutine)
     }
 
-    func fetchAcheivementInfo(yearMonth: String, completion: @escaping ([AchievementInfo]) -> Void) {
-        let achievementInfo = [AchievementInfo(yearMonth: "202111",
-                                               day: "06",
-                                               achievementCount: 1,
-                                               totalCount: 2)]
-        completion(achievementInfo)
+    func fetchAcheivements(yearMonth: String, completion: @escaping ([Achievement]) -> Void) {
+        let achievement = [Achievement(yearMonth: "202111",
+                                       day: "06",
+                                       achievementCount: 1,
+                                       totalCount: 2)]
+        completion(achievement)
     }
 }

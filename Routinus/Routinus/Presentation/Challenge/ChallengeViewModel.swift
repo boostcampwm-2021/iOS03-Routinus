@@ -62,7 +62,7 @@ extension ChallengeViewModel {
 
 extension ChallengeViewModel {
     private func fetchChallenge() {
-        usecase.fetchRecommendChallenge { [weak self] recommendChallenge in
+        usecase.fetchRecommendChallenges { [weak self] recommendChallenge in
             self?.recommendChallenge.value = recommendChallenge
         }
     }

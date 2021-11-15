@@ -15,9 +15,9 @@ protocol HomeViewModelInput {
 }
 
 protocol HomeViewModelOutput {
-    var userInfo: CurrentValueSubject<User, Never> { get }
+    var user: CurrentValueSubject<User, Never> { get }
     var todayRoutine: CurrentValueSubject<[TodayRoutine], Never> { get }
-    var achievementInfo: CurrentValueSubject<[Achievement], Never> { get }
+    var achievement: CurrentValueSubject<[Achievement], Never> { get }
     var showChallengeSignal: PassthroughSubject<Void, Never> { get }
     var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
     var showChallengeAuthSignal: PassthroughSubject<String, Never> { get }
@@ -27,9 +27,9 @@ protocol HomeViewModelOutput {
 protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 
 class HomeViewModel: HomeViewModelIO {
-    var userInfo = CurrentValueSubject<User, Never>(User())
+    var user = CurrentValueSubject<User, Never>(User())
     var todayRoutine = CurrentValueSubject<[TodayRoutine], Never>([])
-    var achievementInfo = CurrentValueSubject<[Achievement], Never>([])
+    var achievement = CurrentValueSubject<[Achievement], Never>([])
 
     var showChallengeSignal = PassthroughSubject<Void, Never>()
     var showChallengeDetailSignal = PassthroughSubject<String, Never>()
@@ -73,26 +73,26 @@ extension HomeViewModel {
     }
 
     private func fetchMyHomeData() {
-        fetchUserInfo()
+        fetchUser()
         fetchTodayRoutine()
-        fetchAcheivementInfo()
+        fetchAcheivement()
     }
 
-    private func fetchUserInfo() {
-        fetchUsecase.fetchUserInfo { [weak self] user in
-            self?.userInfo.value = user
+    private func fetchUser() {
+        fetchUsecase.fetchUser { [weak self] user in
+            self?.user.value = user
         }
     }
 
     private func fetchTodayRoutine() {
-        fetchUsecase.fetchTodayRoutine { [weak self] todayRoutine in
+        fetchUsecase.fetchTodayRoutines { [weak self] todayRoutine in
             self?.todayRoutine.value = todayRoutine
         }
     }
 
-    private func fetchAcheivementInfo() {
-        fetchUsecase.fetchAcheivementInfo(yearMonth: Date.currentYearMonth()) { achievementInfo in
-            self.achievementInfo.value = achievementInfo
+    private func fetchAcheivement() {
+        fetchUsecase.fetchAcheivements(yearMonth: Date.currentYearMonth()) { achievement in
+            self.achievement.value = achievement
         }
     }
 }

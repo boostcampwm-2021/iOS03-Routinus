@@ -11,9 +11,9 @@ import RoutinusDatabase
 
 protocol SearchFetchableUsecase {
     func fetchPopularKeywords(completion: @escaping ([String]) -> Void)
-    func fetchLatestChallenge(completion: @escaping ([Challenge]) -> Void)
+    func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void)
     func fetchSearchChallengeBy(keyword: String, completion: @escaping ([Challenge]) -> Void)
-    func fetchSearchChallengeBy(category: Challenge.Category, completion: @escaping ([Challenge]) -> Void)
+    func fetchSearchChallenges(by: Challenge.Category, completion: @escaping ([Challenge]) -> Void)
 }
 
 struct SearchFetchUsecase: SearchFetchableUsecase {
@@ -28,12 +28,12 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
         completion(keywords)
     }
 
-    func fetchLatestChallenge(completion: @escaping ([Challenge]) -> Void) {
+    func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void) {
         Task {
-            let list = await repository.fetchNewChallenges()
-            let challengeList = list
+            let list = await repository.fetchLatestChallenges()
+            let challenges = list
                 .sorted { $0.participantCount > $1.participantCount }
-            completion(challengeList)
+            completion(challenges)
         }
     }
 
@@ -43,23 +43,23 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
             let keywords = searchKeywords(keyword)
             var results: Set<Challenge> = []
 
-            let challengeList = list
+            let challenges = list
             keywords.forEach { keyword in
                 list.filter { challenge in
                     challenge.title.contains(keyword)
                 }.forEach { results.insert($0) }
             }
-            completion(challengeList)
+            completion(challenges)
         }
     }
 
-    func fetchSearchChallengeBy(category: Challenge.Category, completion: @escaping ([Challenge]) -> Void) {
+    func fetchSearchChallenges(by category: Challenge.Category, completion: @escaping ([Challenge]) -> Void) {
         Task {
             let categoryID = "\(category)"
             let list =  await repository.fetchSearchChallengesBy(categoryID: categoryID)
-            let challengeList = list
+            let challenges = list
                 .filter { $0.category == category }
-            completion(challengeList)
+            completion(challenges)
         }
     }
 

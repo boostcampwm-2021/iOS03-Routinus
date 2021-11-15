@@ -37,14 +37,14 @@ class SearchViewModel: SearchViewModelIO {
         self.usecase = usecase
         self.searchCategory = category
         self.fetchPopularKeywords()
-        self.fetchChallenge()
+        self.fetchChallenges()
     }
 }
 
 extension SearchViewModel {
     func didChangedSearchText(_ keyword: String) {
         if keyword == "" {
-            usecase.fetchLatestChallenge { [weak self] challenges in
+            usecase.fetchLatestChallenges { [weak self] challenges in
                 self?.challenges.value = challenges
             }
         } else {
@@ -67,7 +67,7 @@ extension SearchViewModel {
         }
     }
 
-    private func fetchChallenge() {
+    private func fetchChallenges() {
         if searchCategory != nil {
             fetchCategoryChallenges()
         } else {
@@ -76,13 +76,15 @@ extension SearchViewModel {
     }
 
     private func fetchLatestChallenges() {
-        usecase.fetchLatestChallenge { [weak self] challenge in
+        usecase.fetchLatestChallenges { [weak self] challenge in
             self?.challenges.value = challenge
         }
     }
 
     private func fetchCategoryChallenges() {
-        usecase.fetchSearchChallengeBy(category: searchCategory!) { [weak self] challenge in
+        guard let searchCategory = searchCategory else { return }
+        
+        usecase.fetchSearchChallenges(by: searchCategory) { [weak self] challenge in
             self?.challenges.value = challenge
         }
     }

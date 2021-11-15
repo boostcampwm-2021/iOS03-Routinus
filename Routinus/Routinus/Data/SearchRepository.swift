@@ -12,12 +12,12 @@ import RoutinusDatabase
 protocol SearchRepository {
     func fetchSearchChallengesBy(keyword: String) async -> [Challenge]
     func fetchSearchChallengesBy(categoryID: String) async -> [Challenge]
-    func fetchNewChallenges() async -> [Challenge]
+    func fetchLatestChallenges() async -> [Challenge]
 }
 
 extension RoutinusRepository: SearchRepository {
     func fetchSearchChallengesBy(keyword: String) async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.allChallenges() else { return [] }
+        guard let list = try? await RoutinusDatabase.latestChallenges() else { return [] }
         return list.map { Challenge(challengeDTO: $0) }
                 .filter { $0.title.contains(keyword) }
     }
@@ -27,8 +27,8 @@ extension RoutinusRepository: SearchRepository {
         return list.map { Challenge(challengeDTO: $0) }
     }
 
-    func fetchNewChallenges() async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.newChallenge() else { return [] }
+    func fetchLatestChallenges() async -> [Challenge] {
+        guard let list = try? await RoutinusDatabase.newChallenges() else { return [] }
         return list.map { Challenge(challengeDTO: $0) }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import RoutinusDatabase
 
 protocol ChallengeFetchableUsecase {
-    func fetchRecommendChallenge(completion: @escaping ([Challenge]) -> Void)
+    func fetchRecommendChallenges(completion: @escaping ([Challenge]) -> Void)
 }
 
 struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
@@ -20,10 +20,10 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
         self.repository = repository
     }
 
-    func fetchRecommendChallenge(completion: @escaping ([Challenge]) -> Void) {
+    func fetchRecommendChallenges(completion: @escaping ([Challenge]) -> Void) {
         Task {
-            let recommendChallengeList = await repository.fetchRecommendChallenges()
-            completion(recommendChallengeList)
+            let recommendChallenges = await repository.fetchRecommendChallenges()
+            completion(recommendChallenges)
         }
     }
 }

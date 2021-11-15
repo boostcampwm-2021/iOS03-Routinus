@@ -20,7 +20,7 @@ final class HomeViewController: UIViewController {
 
     private var viewModel: HomeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
-    private var achievementData: [Achievement] = []
+    private var achievements: [Achievement] = []
     private var calendarDelegate = CalendarDelegate.shared
 
     init(with viewModel: HomeViewModelIO) {
@@ -82,29 +82,29 @@ extension HomeViewController {
     }
 
     private func configureViewModel() {
-        self.viewModel?.userInfo
+        self.viewModel?.user
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] userInfo in
+            .sink(receiveValue: { [weak self] user in
                 guard let self = self else { return }
-                self.navigationItem.title = userInfo.name + "님의 Routine"
-                self.continuityView.configureContents(with: userInfo)
+                self.navigationItem.title = user.name + "님의 Routine"
+                self.continuityView.configureContents(with: user)
             })
             .store(in: &cancellables)
 
         self.viewModel?.todayRoutine
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] routineList in
+            .sink(receiveValue: { [weak self] routines in
                 guard let self = self else { return }
-                self.todayRoutineView.updateTableViewConstraints(cellCount: routineList.count)
+                self.todayRoutineView.updateTableViewConstraints(cellCount: routines.count)
             })
             .store(in: &cancellables)
 
-        self.viewModel?.achievementInfo
+        self.viewModel?.achievement
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] achieveList in
+            .sink(receiveValue: { [weak self] achievements in
                 guard let self = self else { return }
-                self.achievementData = achieveList
-                self.calendarDelegate.calendar = self.achievementData
+                self.achievements = achievements
+                self.calendarDelegate.calendar = self.achievements
                 self.setRangeDates()
             })
             .store(in: &cancellables)
@@ -115,7 +115,7 @@ extension HomeViewController {
         todayRoutineView.dataSource = self
         todayRoutineView.challengeAdddelegate = self
 
-        calendarDelegate.calendar = achievementData
+        calendarDelegate.calendar = achievements
         calendarDelegate.formatter = viewModel?.formatter
 
         calendarView.delegate = calendarDelegate
@@ -145,9 +145,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineCell.identifier, for: indexPath)
                 as? RoutineCell,
-              let routineList = self.viewModel?.todayRoutine.value else { return UITableViewCell() }
+              let routines = self.viewModel?.todayRoutine.value else { return UITableViewCell() }
 
-        cell.configureCell(routine: routineList[indexPath.row])
+        cell.configureCell(routine: routines[indexPath.row])
         cell.selectionStyle = .none
         return cell
     }
@@ -186,7 +186,7 @@ extension HomeViewController: JTACMonthViewDataSource {
 
     func setRangeDates() {
         guard let gregorianCalendar = NSCalendar(calendarIdentifier: .gregorian) else { return }
-        for dates in achievementData {
+        for dates in achievements {
             let formatter = viewModel?.formatter
             formatter?.dateFormat = "yyyyMMdd"
             guard let dateData = formatter?.date(from: "\(dates.yearMonth)\(dates.day)") else { return }

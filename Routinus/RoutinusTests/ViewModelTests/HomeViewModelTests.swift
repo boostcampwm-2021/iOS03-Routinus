@@ -23,11 +23,11 @@ class HomeViewModelTests: XCTestCase {
         cancellables.removeAll()
     }
 
-    func testFetchUserInfoData() {
-        let name = homeViewModel.userInfo.value.name
-        let continuityDay = homeViewModel.userInfo.value.continuityDay
-        let userImageCategoryID = homeViewModel.userInfo.value.userImageCategoryID
-        let grade = homeViewModel.userInfo.value.grade
+    func testFetchUserData() {
+        let name = homeViewModel.user.value.name
+        let continuityDay = homeViewModel.user.value.continuityDay
+        let userImageCategoryID = homeViewModel.user.value.userImageCategoryID
+        let grade = homeViewModel.user.value.grade
         XCTAssertEqual(name, "testName")
         XCTAssertEqual(continuityDay, 2)
         XCTAssertEqual(userImageCategoryID, "1")
@@ -48,10 +48,10 @@ class HomeViewModelTests: XCTestCase {
     }
 
     func testFetchAchivementData() {
-        let yearMonth = homeViewModel.achievementInfo.value.first!.yearMonth
-        let day = homeViewModel.achievementInfo.value.first!.day
-        let achievementCount = homeViewModel.achievementInfo.value.first!.achievementCount
-        let totalCount = homeViewModel.achievementInfo.value.first!.totalCount
+        let yearMonth = homeViewModel.achievement.value.first!.yearMonth
+        let day = homeViewModel.achievement.value.first!.day
+        let achievementCount = homeViewModel.achievement.value.first!.achievementCount
+        let totalCount = homeViewModel.achievement.value.first!.totalCount
         XCTAssertEqual(yearMonth, "202111")
         XCTAssertEqual(day, "06")
         XCTAssertEqual(achievementCount, 1)
