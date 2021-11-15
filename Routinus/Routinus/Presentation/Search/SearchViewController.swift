@@ -80,7 +80,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         self.collectionView.delegate = self
         self.collectionView.dataSource = dataSource
-        self.searchBarView.searchBar.delegate = self
+        self.searchBarView.delegate = self
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
         self.configureViewModel()
@@ -199,7 +199,7 @@ extension SearchViewController {
     }
 
     @objc func tappedView(sender: UITapGestureRecognizer) {
-        self.searchBarView.searchBar.endEditing(true)
+        self.searchBarView.hideKeyboard()
     }
 }
 
@@ -214,7 +214,7 @@ extension SearchViewController: UICollectionViewDelegate {
 extension SearchViewController: SearchPopularKeywordDelegate {
     func didTappedKeywordButton(keyword: String?) {
         guard let keyword = keyword else { return }
-        self.searchBarView.searchBar.text = keyword
+        self.searchBarView.configureKeyword(keyword: keyword)
         self.viewModel?.didChangedSearchText(keyword)
     }
 }
@@ -225,6 +225,6 @@ extension SearchViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBarView.searchBar.endEditing(true)
+        self.searchBarView.hideKeyboard()
     }
 }
