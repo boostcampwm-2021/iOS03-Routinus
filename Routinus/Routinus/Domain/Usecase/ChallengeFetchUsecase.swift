@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusDatabase
-
 protocol ChallengeFetchableUsecase {
     func fetchRecommendChallenges(completion: @escaping ([Challenge]) -> Void)
 }

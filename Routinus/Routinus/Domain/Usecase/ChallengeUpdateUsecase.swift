@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusDatabase
-
 protocol ChallengeUpdatableUsecase {
     func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void)
     func updateChallenge(challenge: Challenge)
