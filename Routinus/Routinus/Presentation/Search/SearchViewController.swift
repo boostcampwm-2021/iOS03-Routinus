@@ -212,7 +212,7 @@ extension SearchViewController: UICollectionViewDelegate {
 }
 
 extension SearchViewController: SearchPopularKeywordDelegate {
-    func didTappedSearchKeywordButton(keyword: String?) {
+    func didTappedKeywordButton(keyword: String?) {
         guard let keyword = keyword else { return }
         self.searchBarView.searchBar.text = keyword
         self.viewModel?.didChangedSearchText(keyword)
