@@ -61,7 +61,7 @@ class HomeViewModelTests: XCTestCase {
     func testDidTappedChallengeAddButton() {
         let expectation = expectation(description: "ChallengeShowSignal")
 
-        homeViewModel.showChallengeSignal
+        homeViewModel.challengeAddButtonTap
             .sink {
                 expectation.fulfill()
             }
@@ -74,7 +74,7 @@ class HomeViewModelTests: XCTestCase {
     func testDidTappedTodayRoutine() {
         let expectation = expectation(description: "ChallengeDetailShowSignal")
 
-        homeViewModel.showChallengeDetailSignal
+        homeViewModel.todayRoutineTap
             .sink { challgenID in
                 if challgenID != "" {
                     expectation.fulfill()
@@ -91,7 +91,7 @@ class HomeViewModelTests: XCTestCase {
     func testDidTappedTodayRoutineAuth() {
         let expectation = expectation(description: "ChallengeAuthShowSignal")
 
-        homeViewModel.showChallengeAuthSignal
+        homeViewModel.todayRoutineAuthTap
             .sink { challgenID in
                 if challgenID != "" {
                     expectation.fulfill()

@@ -17,7 +17,7 @@ protocol SearchViewModelOutput {
     var challenges: CurrentValueSubject<[Challenge], Never> { get }
     var popularKeywords: CurrentValueSubject<[String], Never> { get }
 
-    var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
+    var challengeTap: PassthroughSubject<String, Never> { get }
 }
 
 protocol SearchViewModelIO: SearchViewModelInput, SearchViewModelOutput { }
@@ -26,7 +26,7 @@ final class SearchViewModel: SearchViewModelIO {
     var challenges = CurrentValueSubject<[Challenge], Never>([])
     var popularKeywords = CurrentValueSubject<[String], Never>([])
 
-    var showChallengeDetailSignal = PassthroughSubject<String, Never>()
+    var challengeTap = PassthroughSubject<String, Never>()
 
     let usecase: SearchFetchableUsecase
     var cancellables = Set<AnyCancellable>()
@@ -56,7 +56,7 @@ extension SearchViewModel {
 
     func didTappedChallenge(index: Int) {
         let challengeID = self.challenges.value[index].challengeID
-        showChallengeDetailSignal.send(challengeID)
+        challengeTap.send(challengeID)
     }
 }
 

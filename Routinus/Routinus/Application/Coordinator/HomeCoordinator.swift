@@ -24,14 +24,14 @@ final class HomeCoordinator: RoutinusCoordinator {
         let homeViewModel = HomeViewModel(createUsecase: homeCreateUsecase, fetchUsecase: homeFetchUsecase)
         let homeViewController = HomeViewController(with: homeViewModel)
 
-        homeViewModel.showChallengeSignal
+        homeViewModel.challengeAddButtonTap
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.navigationController.tabBarController?.selectedIndex = 1
             }
             .store(in: &cancellables)
 
-        homeViewModel.showChallengeDetailSignal
+        homeViewModel.todayRoutineTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
                 let detailCoordinator = DetailCoordinator.init(navigationController: self.navigationController,
@@ -40,7 +40,7 @@ final class HomeCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-        homeViewModel.showChallengeAuthSignal
+        homeViewModel.todayRoutineAuthTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
                 let authCoordinator = AuthCoordinator.init(navigationController: self.navigationController,

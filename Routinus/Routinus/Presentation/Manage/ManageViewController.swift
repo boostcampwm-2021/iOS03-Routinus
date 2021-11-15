@@ -34,6 +34,7 @@ final class ManageViewController: UIViewController {
 
     @objc func didTouchAddButton() {
         let vc = CreateViewController()
+        vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
 

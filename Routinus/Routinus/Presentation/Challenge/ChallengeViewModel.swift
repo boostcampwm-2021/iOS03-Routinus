@@ -18,9 +18,10 @@ protocol ChallengeViewModelInput {
 protocol ChallengeViewModelOutput {
     var recommendChallenge: CurrentValueSubject<[Challenge], Never> { get }
 
-    var showChallengeSearchSignal: PassthroughSubject<Void, Never> { get }
-    var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
-    var showChallengeCategorySignal: PassthroughSubject<Challenge.Category, Never> { get }
+    var searchButtonTap: PassthroughSubject<Void, Never> { get }
+    var seeAllButtonTap: PassthroughSubject<Void, Never> { get }
+    var recommendChallengeTap: PassthroughSubject<String, Never> { get }
+    var categoryButtonTap: PassthroughSubject<Challenge.Category, Never> { get }
 }
 
 protocol ChallengeViewModelIO: ChallengeViewModelInput, ChallengeViewModelOutput { }
@@ -28,9 +29,10 @@ protocol ChallengeViewModelIO: ChallengeViewModelInput, ChallengeViewModelOutput
 final class ChallengeViewModel: ChallengeViewModelIO {
     var recommendChallenge = CurrentValueSubject<[Challenge], Never>([])
 
-    var showChallengeSearchSignal = PassthroughSubject<Void, Never>()
-    var showChallengeDetailSignal = PassthroughSubject<String, Never>()
-    var showChallengeCategorySignal = PassthroughSubject<Challenge.Category, Never>()
+    var searchButtonTap = PassthroughSubject<Void, Never>()
+    var seeAllButtonTap = PassthroughSubject<Void, Never>()
+    var recommendChallengeTap = PassthroughSubject<String, Never>()
+    var categoryButtonTap = PassthroughSubject<Challenge.Category, Never>()
 
     let usecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
@@ -43,20 +45,20 @@ final class ChallengeViewModel: ChallengeViewModelIO {
 
 extension ChallengeViewModel {
     func didTappedSearchButton() {
-        showChallengeSearchSignal.send()
+        searchButtonTap.send()
     }
 
     func didTappedSeeAllButton() {
-        showChallengeSearchSignal.send()
+        seeAllButtonTap.send()
     }
 
     func didTappedRecommendChallenge(index: Int) {
         let challengeID = self.recommendChallenge.value[index].challengeID
-        showChallengeDetailSignal.send(challengeID)
+        recommendChallengeTap.send(challengeID)
     }
 
     func didTappedCategoryButton(category: Challenge.Category) {
-        showChallengeCategorySignal.send(category)
+        categoryButtonTap.send(category)
     }
 }
 

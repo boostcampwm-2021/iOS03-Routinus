@@ -15,7 +15,7 @@ final class DetailViewController: UIViewController {
         button.tintColor = UIColor.black
         return button
     }()
-    
+
     private lazy var authButton: UIButton = {
         let button = UIButton()
         button.setTitle("인증하기", for: .normal)
@@ -52,7 +52,7 @@ final class DetailViewController: UIViewController {
             make.top.equalToSuperview().offset(70)
             make.leading.equalToSuperview().offset(30)
         }
-        
+
         self.view.addSubview(authButton)
         authButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

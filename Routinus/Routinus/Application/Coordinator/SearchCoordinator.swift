@@ -26,7 +26,7 @@ final class SearchCoordinator: RoutinusCoordinator {
         let searchViewController = SearchViewController(with: searchViewModel)
         self.navigationController.pushViewController(searchViewController, animated: false)
 
-        searchViewModel.showChallengeDetailSignal
+        searchViewModel.challengeTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
                 let detailCoordinator = DetailCoordinator(

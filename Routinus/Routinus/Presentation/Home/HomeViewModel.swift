@@ -18,9 +18,9 @@ protocol HomeViewModelOutput {
     var user: CurrentValueSubject<User, Never> { get }
     var todayRoutine: CurrentValueSubject<[TodayRoutine], Never> { get }
     var achievement: CurrentValueSubject<[Achievement], Never> { get }
-    var showChallengeSignal: PassthroughSubject<Void, Never> { get }
-    var showChallengeDetailSignal: PassthroughSubject<String, Never> { get }
-    var showChallengeAuthSignal: PassthroughSubject<String, Never> { get }
+    var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
+    var todayRoutineTap: PassthroughSubject<String, Never> { get }
+    var todayRoutineAuthTap: PassthroughSubject<String, Never> { get }
     var formatter: DateFormatter { get }
 }
 
@@ -31,9 +31,9 @@ final class HomeViewModel: HomeViewModelIO {
     var todayRoutine = CurrentValueSubject<[TodayRoutine], Never>([])
     var achievement = CurrentValueSubject<[Achievement], Never>([])
 
-    var showChallengeSignal = PassthroughSubject<Void, Never>()
-    var showChallengeDetailSignal = PassthroughSubject<String, Never>()
-    var showChallengeAuthSignal = PassthroughSubject<String, Never>()
+    var challengeAddButtonTap = PassthroughSubject<Void, Never>()
+    var todayRoutineTap = PassthroughSubject<String, Never>()
+    var todayRoutineAuthTap = PassthroughSubject<String, Never>()
 
     var createUsecase: HomeCreatableUsecase
     var fetchUsecase: HomeFetchableUsecase
@@ -54,16 +54,16 @@ final class HomeViewModel: HomeViewModelIO {
 extension HomeViewModel {
     func didTappedTodayRoutine(index: Int) {
         let challengeID = self.todayRoutine.value[index].challengeID
-        self.showChallengeDetailSignal.send(challengeID)
+        self.todayRoutineTap.send(challengeID)
     }
 
     func didTappedAddChallengeButton() {
-        self.showChallengeSignal.send()
+        self.challengeAddButtonTap.send()
     }
 
     func didTappedTodayRoutineAuth(index: Int) {
         let challengeID = self.todayRoutine.value[index].challengeID
-        self.showChallengeAuthSignal.send(challengeID)
+        self.todayRoutineAuthTap.send(challengeID)
     }
 }
 
@@ -75,7 +75,7 @@ extension HomeViewModel {
     private func fetchMyHomeData() {
         fetchUser()
         fetchTodayRoutine()
-        fetchAcheivement()
+        fetchAchievement()
     }
 
     private func fetchUser() {
@@ -90,8 +90,8 @@ extension HomeViewModel {
         }
     }
 
-    private func fetchAcheivement() {
-        fetchUsecase.fetchAcheivements(yearMonth: Date.currentYearMonth()) { achievement in
+    private func fetchAchievement() {
+        fetchUsecase.fetchAchievements(yearMonth: Date.currentYearMonth()) { achievement in
             self.achievement.value = achievement
         }
     }
