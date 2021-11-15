@@ -16,8 +16,6 @@ final class SearchChallengeCell: UICollectionViewCell {
 
     private lazy var challengeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "photo")
-        imageView.tintColor = UIColor(named: "MainColor")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 5
@@ -52,7 +50,7 @@ final class SearchChallengeCell: UICollectionViewCell {
             let url = try? await RoutinusDatabase.imageURL(id: challenge.challengeID, fileName: "image")
 
             self.challengeImageView.kf.setImage(with: url,
-                                                placeholder: UIImage(systemName: "photo"))
+                                                placeholder: nil)
         }
     }
 }
