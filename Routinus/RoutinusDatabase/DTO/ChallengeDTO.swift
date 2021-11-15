@@ -36,9 +36,14 @@ public struct ChallengeDTO: Codable {
                                    week: ChallengeField.Week(integerValue: "\(week)"))
         self.document = ChallengeFields(fields: field)
     }
+
+    var documentID: String? {
+        return self.document?.name?.components(separatedBy: "/").last
+    }
 }
 
 public struct ChallengeFields: Codable {
+    public var name: String?
     public var fields: ChallengeField
 }
 

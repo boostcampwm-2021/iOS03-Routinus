@@ -10,6 +10,7 @@ import Foundation
 public enum RoutinusDatabase {
     private enum HTTPMethod: String {
         case post = "POST"
+        case patch = "PATCH"
     }
 
     private static let firestoreURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
@@ -189,31 +190,26 @@ public enum RoutinusDatabase {
         return try JSONDecoder().decode([ChallengeDTO].self, from: data).first ?? ChallengeDTO()
     }
 
-    public static func updateChallenge(challenge: ChallengeDTO) {
- //       let db = Firestore.firestore()
+    public static func updateChallenge(challengeDTO: ChallengeDTO) async throws {
+        guard let ownerID = challengeDTO.document?.fields.ownerID.stringValue,
+              let challengeID = challengeDTO.document?.fields.id.stringValue,
+              let challengeField = challengeDTO.document?.fields else { return }
 
-//        db.collection("challenge")
-//            .whereField("id", isEqualTo: challenge.id)
-//            .whereField("owner_id", isEqualTo: challenge.ownerID)
-//            .getDocuments { (result, error) in
-//                guard let result = result, error == nil else { return }
-//                guard let document = result.documents.first else { return }
-//                db.collection("challenge").document(document.documentID).setData([
-//                    "auth_example_image_url": challenge.authExampleImageURL,
-//                    "auth_method": challenge.authMethod,
-//                    "category_id": challenge.categoryID,
-//                    "desc": challenge.desc,
-//                    "end_date": challenge.endDate,
-//                    "id": challenge.id,
-//                    "image_url": challenge.imageURL,
-//                    "owner_id": challenge.ownerID,
-//                    "participant_count": challenge.participantCount,
-//                    "start_date": challenge.startDate,
-//                    "thumbnail_image_url": challenge.thumbnailImageURL,
-//                    "title": challenge.title,
-//                    "week": challenge.week
-//                ], merge: true)
-//            }
+        guard let findChallenge = try? await challenge(ownerID: ownerID, challengeID: challengeID),
+              let documentID = findChallenge.documentID else { return }
+
+        guard let url = URL(string:
+                                "\(firestoreURL)/challenge/\(documentID)?updateMask.fieldPaths=auth_method&" +
+                            "updateMask.fieldPaths=category_id&updateMask.fieldPaths=title&updateMask.fieldPaths=desc&" +
+                            "updateMask.fieldPaths=week&updateMask.fieldPaths=end_date") else { return }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.patch.rawValue
+        request.httpBody = RoutinusQuery.updateChallenge(document: challengeField)
+
+        try await URLSession.shared.data(for: request)
+
 //
 //        let storage = Storage.storage().reference()
 //
