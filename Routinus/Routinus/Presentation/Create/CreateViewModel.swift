@@ -50,7 +50,7 @@ final class CreateViewModel: CreateViewModelIO {
     private var authMethod: String
     private var authExampleImageURL: String
 
-    init(challengeID: String, createUsecase: ChallengeCreatableUsecase, updateUsecase: ChallengeUpdatableUsecase) {
+    init(challengeID: String? = nil, createUsecase: ChallengeCreatableUsecase, updateUsecase: ChallengeUpdatableUsecase) {
         self.createUsecase = createUsecase
         self.updateUsecase = updateUsecase
         self.title = ""
