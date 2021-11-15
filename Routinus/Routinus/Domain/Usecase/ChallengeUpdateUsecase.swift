@@ -41,7 +41,7 @@ struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
 
     func updateChallenge(challenge: Challenge) {
         Task {
-            await repository.update(challenge: challenge)
+            await repository.update(challenge: challenge, imageURL: challenge.imageURL, authImageURL: challenge.authExampleImageURL)
         }
     }
 }

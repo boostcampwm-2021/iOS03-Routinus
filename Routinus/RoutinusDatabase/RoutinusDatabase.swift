@@ -32,6 +32,7 @@ public enum RoutinusDatabase {
     }
 
     public static func createChallenge(challenge: ChallengeDTO, imageURL: String, authImageURL: String) async throws {
+        print(imageURL, authImageURL)
         Task {
             try await insertChallenge(dto: challenge)
             try await insertChallengeParticipation(dto: challenge)
@@ -190,6 +191,19 @@ public enum RoutinusDatabase {
         return try JSONDecoder().decode([ChallengeDTO].self, from: data).first ?? ChallengeDTO()
     }
 
+    public static func patchChallenge(challengeDTO: ChallengeDTO, imageURL: String, authImageURL: String) async throws {
+
+        Task {
+            try await updateChallenge(challengeDTO: challengeDTO)
+            try await uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
+                                  fileName: "image",
+                                  imageURL: imageURL)
+            try await uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
+                                  fileName: "auth",
+                                  imageURL: authImageURL)
+        }
+    }
+
     public static func updateChallenge(challengeDTO: ChallengeDTO) async throws {
         guard let ownerID = challengeDTO.document?.fields.ownerID.stringValue,
               let challengeID = challengeDTO.document?.fields.id.stringValue,
@@ -215,16 +229,5 @@ public enum RoutinusDatabase {
         request.httpBody = RoutinusQuery.updateChallenge(document: challengeField)
 
         try await URLSession.shared.data(for: request)
-
-//
-//        let storage = Storage.storage().reference()
-//
-//        let imageReference = storage.child("\(challenge.id)/image.jpeg")
-//        guard let imageURL = URL(string: challenge.imageURL) else { return }
-//        imageReference.putFile(from: imageURL, metadata: nil)
-//
-//        let authExampleImageReference = storage.child("\(challenge.id)/auth.jpeg")
-//        guard let authExampleImageURL = URL(string: challenge.authExampleImageURL) else { return }
-//        authExampleImageReference.putFile(from: authExampleImageURL, metadata: nil)
     }
 }
