@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class SearchViewController: UIViewController {
+final class SearchViewController: UIViewController {
     enum Section: CaseIterable {
         case popularSearchKeyword, challenge
 

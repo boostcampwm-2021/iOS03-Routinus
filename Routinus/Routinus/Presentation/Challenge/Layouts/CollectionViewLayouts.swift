@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CollectionViewLayouts {
+final class CollectionViewLayouts {
     private var recommendLayout: NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)

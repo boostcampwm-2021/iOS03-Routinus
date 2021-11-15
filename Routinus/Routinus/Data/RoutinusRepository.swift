@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RoutinusRepository {
+final class RoutinusRepository {
     static let userIDKey = "id"
 
     static func userID() -> String? {

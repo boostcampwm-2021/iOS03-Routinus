@@ -7,8 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
-
+final class DetailViewController: UIViewController {
     private lazy var backButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
@@ -75,5 +74,4 @@ class DetailViewController: UIViewController {
         let authViewController = AuthViewController()
         self.present(authViewController, animated: true, completion: nil)
     }
-
 }

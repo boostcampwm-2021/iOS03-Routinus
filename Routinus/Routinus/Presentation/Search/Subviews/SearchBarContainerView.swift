@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchBarContainerView: UIView {
+final class SearchBarContainerView: UIView {
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         return searchBar

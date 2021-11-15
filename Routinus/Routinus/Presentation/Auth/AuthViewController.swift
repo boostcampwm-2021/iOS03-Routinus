@@ -7,8 +7,7 @@
 
 import UIKit
 
-class AuthViewController: UIViewController {
-
+final class AuthViewController: UIViewController {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "AuthView")

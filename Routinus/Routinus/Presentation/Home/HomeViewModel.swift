@@ -26,7 +26,7 @@ protocol HomeViewModelOutput {
 
 protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 
-class HomeViewModel: HomeViewModelIO {
+final class HomeViewModel: HomeViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
     var todayRoutine = CurrentValueSubject<[TodayRoutine], Never>([])
     var achievement = CurrentValueSubject<[Achievement], Never>([])

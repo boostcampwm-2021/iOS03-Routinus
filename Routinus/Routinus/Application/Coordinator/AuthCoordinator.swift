@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthCoordinator: RoutinusCoordinator {
+final class AuthCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     let challengeID: String

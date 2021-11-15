@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class SearchHeader: UICollectionReusableView {
+final class SearchHeader: UICollectionReusableView {
     static let identifier = "SearchHeader"
 
     private lazy var label: UILabel = {

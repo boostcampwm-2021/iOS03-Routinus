@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-class ChallengeViewController: UIViewController {
+final class ChallengeViewController: UIViewController {
     enum Section: CaseIterable {
         case recommend, category
 

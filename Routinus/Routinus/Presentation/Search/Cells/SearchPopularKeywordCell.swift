@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class SearchPopularKeywordCell: UICollectionViewCell {
+final class SearchPopularKeywordCell: UICollectionViewCell {
     static let identifier = "SearchPopularKeywordCell"
     weak var delegate: SearchPopularKeywordDelegate?
 

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CategoryButton: UIView {
+final class CategoryButton: UIView {
     private var imageView = UIImageView()
     private var title = UILabel()
 
@@ -58,7 +58,7 @@ class CategoryButton: UIView {
     }
 }
 
-class CategoryButtonTapGesture: UITapGestureRecognizer {
+final class CategoryButtonTapGesture: UITapGestureRecognizer {
     private (set) var category: Challenge.Category?
 
     func configureCategory(category: Challenge.Category) {

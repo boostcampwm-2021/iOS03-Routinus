@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChallengeHeader: UICollectionReusableView {
+final class ChallengeHeader: UICollectionReusableView {
     static let identifier = "ChallengeHeader"
 
     let label: UILabel = {

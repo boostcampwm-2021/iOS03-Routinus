@@ -22,7 +22,7 @@ protocol SearchViewModelOutput {
 
 protocol SearchViewModelIO: SearchViewModelInput, SearchViewModelOutput { }
 
-class SearchViewModel: SearchViewModelIO {
+final class SearchViewModel: SearchViewModelIO {
     var challenges = CurrentValueSubject<[Challenge], Never>([])
     var popularKeywords = CurrentValueSubject<[String], Never>([])
 

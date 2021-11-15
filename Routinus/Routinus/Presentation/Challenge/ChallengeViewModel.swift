@@ -25,7 +25,7 @@ protocol ChallengeViewModelOutput {
 
 protocol ChallengeViewModelIO: ChallengeViewModelInput, ChallengeViewModelOutput { }
 
-class ChallengeViewModel: ChallengeViewModelIO {
+final class ChallengeViewModel: ChallengeViewModelIO {
     var recommendChallenge = CurrentValueSubject<[Challenge], Never>([])
 
     var showChallengeSearchSignal = PassthroughSubject<Void, Never>()

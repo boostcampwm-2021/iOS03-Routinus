@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyPageCoordinator: RoutinusCoordinator {
+final class MyPageCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
 

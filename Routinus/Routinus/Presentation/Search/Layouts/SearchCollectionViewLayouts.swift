@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchCollectionViewLayouts {
+final class SearchCollectionViewLayouts {
     private var pupularSearchKeywordLayout: NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
