@@ -15,7 +15,7 @@ final class DetailViewController: UIViewController {
         button.tintColor = UIColor.black
         return button
     }()
-    
+
     private lazy var authButton: UIButton = {
         let button = UIButton()
         button.setTitle("인증하기", for: .normal)
@@ -38,7 +38,6 @@ final class DetailViewController: UIViewController {
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.prefersLargeTitles = false
         self.configureViews()
-        self.configureSwipeGesture()
     }
 
     func configureViews() {
@@ -53,22 +52,11 @@ final class DetailViewController: UIViewController {
             make.top.equalToSuperview().offset(70)
             make.leading.equalToSuperview().offset(30)
         }
-        
+
         self.view.addSubview(authButton)
         authButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-90)
-        }
-    }
-
-    func configureSwipeGesture() {
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-    }
-    
-    @objc func swipeAction(_ sender :UISwipeGestureRecognizer){
-        if sender.direction == .left{
-            self.dismiss(animated: false, completion: nil)
         }
     }
 
@@ -85,11 +73,5 @@ final class DetailViewController: UIViewController {
     @objc func didTouchAuthButton() {
         let authViewController = AuthViewController()
         self.present(authViewController, animated: true, completion: nil)
-    }
-}
-
-extension DetailViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }
