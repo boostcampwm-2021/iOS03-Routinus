@@ -12,7 +12,8 @@ class HomeFetchableUsecaseMock: HomeFetchableUsecase {
     init() {}
 
     func fetchUser(completion: @escaping (User) -> Void) {
-        let user = User(name: "testName",
+        let user = User(id: "testID",
+                        name: "testName",
                         continuityDay: 2,
                         userImageCategoryID: "1",
                         grade: 2)

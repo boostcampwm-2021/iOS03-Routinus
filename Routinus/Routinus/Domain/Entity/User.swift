@@ -23,6 +23,14 @@ struct User {
         self.userImageCategoryID = ""
         self.grade = 0
     }
+    
+    init(id: String, name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
+        self.id = id
+        self.name = name
+        self.continuityDay = continuityDay
+        self.userImageCategoryID = userImageCategoryID
+        self.grade = grade
+    }
 
     init(userDTO: UserDTO) {
         let document = userDTO.document?.fields
