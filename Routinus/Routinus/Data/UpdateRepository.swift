@@ -10,14 +10,14 @@ import Foundation
 import RoutinusDatabase
 
 protocol UpdateRepository {
-    func fetchChallenge(challengeId: String) async -> Challenge?
+    func fetchChallenge(challengeID: String) async -> Challenge?
     func update(challenge: Challenge)
 }
 
 extension RoutinusRepository: UpdateRepository {
-    func fetchChallenge(challengeId: String) async -> Challenge? {
+    func fetchChallenge(challengeID: String) async -> Challenge? {
         guard let ownerID = RoutinusRepository.userID() else { return nil }
-        guard let challengeDTO = try? await RoutinusDatabase.challenge(ownerId: ownerID, challengeId: challengeId) else { return nil }
+        guard let challengeDTO = try? await RoutinusDatabase.challenge(ownerID: ownerID, challengeID: challengeID) else { return nil }
         return Challenge(challengeDTO: challengeDTO)
     }
 

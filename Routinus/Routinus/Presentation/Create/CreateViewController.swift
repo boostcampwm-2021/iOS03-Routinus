@@ -68,8 +68,15 @@ final class CreateViewController: UIViewController {
         let createUsecase = ChallengeCreateUsecase(repository: repository)
         let updateUsecase = ChallengeUpdateUsecase(repository: repository)
         // TODO: - 챌린지 관리화면으로부터 챌린지ID 받기
-        viewModel = CreateViewModel(challengeID: "24F3374C-BFA7-49B2-AE26-F887009DC3DA", createUsecase: createUsecase, updateUsecase: updateUsecase)
+        viewModel = CreateViewModel(challengeID: "4960F6DB-6F48-4718-9542-16C07201C1BB", createUsecase: createUsecase, updateUsecase: updateUsecase)
+        viewModel?.fetchChallenge()
         super.init(nibName: nil, bundle: nil)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        sleep(2)
+        print(viewModel?.challenge.value)
     }
 
     init(with viewModel: CreateViewModelIO) {

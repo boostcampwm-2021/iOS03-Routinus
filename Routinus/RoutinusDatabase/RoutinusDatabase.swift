@@ -177,16 +177,16 @@ public enum RoutinusDatabase {
         return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
 
-    public static func challenge(ownerId: String, challengeId: String) async throws -> ChallengeDTO? {
-//        let db = Firestore.firestore()
+    public static func challenge(ownerID: String, challengeID: String) async throws -> ChallengeDTO {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return ChallengeDTO() }
+        var request = URLRequest(url: url)
 
-//        let snapshot = try await db.collection("challenge")
-//            .whereField("owner_id", isEqualTo: ownerId)
-//            .whereField("id", isEqualTo: challengeId)
-//            .getDocuments()
-//        guard let document = snapshot.documents.first?.data() else { return nil }
-//        return ChallengeDTO(challenge: document)
-        return nil
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.challenge(ownerID: ownerID, challengeID: challengeID)
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([ChallengeDTO].self, from: data).first ?? ChallengeDTO()
     }
 
     public static func updateChallenge(challenge: ChallengeDTO) {
