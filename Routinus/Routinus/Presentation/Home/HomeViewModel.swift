@@ -41,7 +41,7 @@ class HomeViewModel: HomeViewModelIO {
 
     let formatter = DateFormatter()
 
-    init(createUsecase: HomeCreateUsecase, fetchUsecase: HomeFetchableUsecase) {
+    init(createUsecase: HomeCreatableUsecase, fetchUsecase: HomeFetchableUsecase) {
         self.createUsecase = createUsecase
         self.fetchUsecase = fetchUsecase
 
