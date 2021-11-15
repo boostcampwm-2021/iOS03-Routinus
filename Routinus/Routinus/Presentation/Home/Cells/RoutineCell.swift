@@ -19,7 +19,8 @@ final class RoutineCell: UITableViewCell {
         progressView.clipsToBounds = true
         progressView.progressViewStyle = .bar
 
-        progressView.layer.sublayers![1].cornerRadius = 25
+        guard let progressBar = progressView.layer.sublayers?[1] else { return UIProgressView() }
+        progressBar.cornerRadius = 25
         progressView.subviews[1].clipsToBounds = true
         return progressView
     }()
