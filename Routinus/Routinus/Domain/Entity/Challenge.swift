@@ -149,18 +149,20 @@ struct Challenge: Hashable {
     }
 
     init(challengeDTO: ChallengeDTO) {
-        self.challengeID = challengeDTO.id
-        self.title = challengeDTO.title
-        self.introduction = challengeDTO.desc
-        self.category = Category.category(by: challengeDTO.categoryID)
-        self.imageURL = challengeDTO.imageURL
-        self.authExampleImageURL = challengeDTO.authExampleImageURL
-        self.thumbnailImageURL = challengeDTO.thumbnailImageURL
-        self.authMethod = challengeDTO.authMethod
-        self.startDate = Date.toDate(challengeDTO.startDate)
-        self.endDate = Date.toDate(challengeDTO.endDate)
-        self.ownerID = challengeDTO.ownerID
-        self.week = challengeDTO.week
-        self.participantCount = challengeDTO.participantCount
+        let document = challengeDTO.document?.fields
+
+        self.challengeID = document?.id.stringValue ?? ""
+        self.title = document?.title.stringValue ?? ""
+        self.introduction = document?.desc.stringValue ?? ""
+        self.category = Category.category(by: document?.categoryID.stringValue ?? "")
+        self.imageURL = ""
+        self.authExampleImageURL = ""
+        self.thumbnailImageURL = ""
+        self.authMethod = document?.authMethod.stringValue ?? ""
+        self.startDate = Date.toDate(document?.startDate.stringValue ?? "")
+        self.endDate = Date.toDate(document?.endDate.stringValue ?? "")
+        self.ownerID = document?.ownerID.stringValue ?? ""
+        self.week = Int(document?.week.integerValue ?? "") ?? 0
+        self.participantCount = Int(document?.participantCount.integerValue ?? "") ?? 0
     }
 }

@@ -33,13 +33,9 @@
 		441CEDE32738FF1E006C261F /* RoutinusDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 441CEDE22738FF1E006C261F /* RoutinusDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		441CEDE62738FF1E006C261F /* RoutinusDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */; };
 		441CEDE72738FF1E006C261F /* RoutinusDatabase.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		441CEDED27390196006C261F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 441CEDEC27390196006C261F /* FirebaseFirestore */; };
 		441CEDF027390259006C261F /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDEF27390259006C261F /* UserDTO.swift */; };
 		441CEDF327390296006C261F /* TodayRoutineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDF227390296006C261F /* TodayRoutineDTO.swift */; };
-		441CEDF52739029C006C261F /* AchievementInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDF42739029C006C261F /* AchievementInfoDTO.swift */; };
-		441CEDFA27390378006C261F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 441CEDF627390378006C261F /* GoogleService-Info.plist */; };
-		441CEDFB27390378006C261F /* RoutinusDatabase.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 441CEDF727390378006C261F /* RoutinusDatabase.debug.xcconfig */; };
-		441CEDFC27390378006C261F /* RoutinusDatabase.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 441CEDF827390378006C261F /* RoutinusDatabase.release.xcconfig */; };
+		441CEDF52739029C006C261F /* AchievementDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDF42739029C006C261F /* AchievementDTO.swift */; };
 		441CEDFD27390378006C261F /* RoutinusDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDF927390378006C261F /* RoutinusDatabase.swift */; };
 		441CEE07273A0832006C261F /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE06273A0831006C261F /* HomeRepository.swift */; };
 		441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE10273A332D006C261F /* CreateCategoryView.swift */; };
@@ -51,7 +47,8 @@
 		441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */; };
 		44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */; };
 		44234F18273C0917004D6834 /* CreateImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */; };
-		44234F1A273CC729004D6834 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 44234F19273CC729004D6834 /* FirebaseStorage */; };
+		446A07162740ECE6009F8D98 /* ParticipationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A07152740ECE6009F8D98 /* ParticipationDTO.swift */; };
+		446A071B2740F629009F8D98 /* RoutinusQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A071A2740F628009F8D98 /* RoutinusQuery.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -72,7 +69,7 @@
 		E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B4973273910F400708D7B /* ChallengeViewModel.swift */; };
 		E94B49762739118B00708D7B /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B49752739118B00708D7B /* Challenge.swift */; };
 		E9753900273220F6004358C5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* User.swift */; };
-		E975390627325538004358C5 /* AchievementInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* AchievementInfo.swift */; };
+		E975390627325538004358C5 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* Achievement.swift */; };
 		E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9753908273257E5004358C5 /* HomeFetchUsecase.swift */; };
 		E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797C9F2730FF9C00A14A0F /* RoutinusCoordinator.swift */; };
 		E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */; };
@@ -152,10 +149,7 @@
 		441CEDE22738FF1E006C261F /* RoutinusDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutinusDatabase.h; sourceTree = "<group>"; };
 		441CEDEF27390259006C261F /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		441CEDF227390296006C261F /* TodayRoutineDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineDTO.swift; sourceTree = "<group>"; };
-		441CEDF42739029C006C261F /* AchievementInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementInfoDTO.swift; sourceTree = "<group>"; };
-		441CEDF627390378006C261F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		441CEDF727390378006C261F /* RoutinusDatabase.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusDatabase.debug.xcconfig; sourceTree = "<group>"; };
-		441CEDF827390378006C261F /* RoutinusDatabase.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = RoutinusDatabase.release.xcconfig; sourceTree = "<group>"; };
+		441CEDF42739029C006C261F /* AchievementDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDTO.swift; sourceTree = "<group>"; };
 		441CEDF927390378006C261F /* RoutinusDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutinusDatabase.swift; sourceTree = "<group>"; };
 		441CEE06273A0831006C261F /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 		441CEE10273A332D006C261F /* CreateCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryView.swift; sourceTree = "<group>"; };
@@ -167,6 +161,8 @@
 		441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthImageRegisterView.swift; sourceTree = "<group>"; };
 		44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSubviewDelegate.swift; sourceTree = "<group>"; };
 		44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateImagePickerDelegate.swift; sourceTree = "<group>"; };
+		446A07152740ECE6009F8D98 /* ParticipationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationDTO.swift; sourceTree = "<group>"; };
+		446A071A2740F628009F8D98 /* RoutinusQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusQuery.swift; sourceTree = "<group>"; };
 		44AAA2B1272FDF8B002E16C4 /* Routinus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -188,7 +184,7 @@
 		E94B4973273910F400708D7B /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
 		E94B49752739118B00708D7B /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		E97538FF273220F6004358C5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		E975390527325538004358C5 /* AchievementInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementInfo.swift; sourceTree = "<group>"; };
+		E975390527325538004358C5 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		E9753908273257E5004358C5 /* HomeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFetchUsecase.swift; sourceTree = "<group>"; };
 		E9797C9F2730FF9C00A14A0F /* RoutinusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusCoordinator.swift; sourceTree = "<group>"; };
 		E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -219,8 +215,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				441CEDED27390196006C261F /* FirebaseFirestore in Frameworks */,
-				44234F1A273CC729004D6834 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,9 +300,7 @@
 				441CEDF127390260006C261F /* DTO */,
 				441CEDE22738FF1E006C261F /* RoutinusDatabase.h */,
 				441CEDF927390378006C261F /* RoutinusDatabase.swift */,
-				441CEDF627390378006C261F /* GoogleService-Info.plist */,
-				441CEDF727390378006C261F /* RoutinusDatabase.debug.xcconfig */,
-				441CEDF827390378006C261F /* RoutinusDatabase.release.xcconfig */,
+				446A071A2740F628009F8D98 /* RoutinusQuery.swift */,
 			);
 			path = RoutinusDatabase;
 			sourceTree = "<group>";
@@ -318,8 +310,9 @@
 			children = (
 				441CEDEF27390259006C261F /* UserDTO.swift */,
 				441CEDF227390296006C261F /* TodayRoutineDTO.swift */,
-				441CEDF42739029C006C261F /* AchievementInfoDTO.swift */,
+				441CEDF42739029C006C261F /* AchievementDTO.swift */,
 				E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */,
+				446A07152740ECE6009F8D98 /* ParticipationDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -431,7 +424,7 @@
 			isa = PBXGroup;
 			children = (
 				E97538FF273220F6004358C5 /* User.swift */,
-				E975390527325538004358C5 /* AchievementInfo.swift */,
+				E975390527325538004358C5 /* Achievement.swift */,
 				E9B1298127336EE50072D254 /* TodayRoutine.swift */,
 				E94B49752739118B00708D7B /* Challenge.swift */,
 				E91C1915273CACDD00D11127 /* PopularKeyword.swift */,
@@ -617,8 +610,6 @@
 			);
 			name = RoutinusDatabase;
 			packageProductDependencies = (
-				441CEDEC27390196006C261F /* FirebaseFirestore */,
-				44234F19273CC729004D6834 /* FirebaseStorage */,
 			);
 			productName = RoutinusDatabase;
 			productReference = 441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */;
@@ -678,7 +669,6 @@
 			mainGroup = 44AAA2A8272FDF8A002E16C4;
 			packageReferences = (
 				0DD1631627311ECA00DC5970 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */,
-				44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 44AAA2B2272FDF8B002E16C4 /* Products */;
 			projectDirPath = "";
@@ -695,9 +685,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				441CEDFA27390378006C261F /* GoogleService-Info.plist in Resources */,
-				441CEDFB27390378006C261F /* RoutinusDatabase.debug.xcconfig in Resources */,
-				441CEDFC27390378006C261F /* RoutinusDatabase.release.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,8 +765,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				441CEDF027390259006C261F /* UserDTO.swift in Sources */,
-				441CEDF52739029C006C261F /* AchievementInfoDTO.swift in Sources */,
+				441CEDF52739029C006C261F /* AchievementDTO.swift in Sources */,
+				446A071B2740F629009F8D98 /* RoutinusQuery.swift in Sources */,
 				E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */,
+				446A07162740ECE6009F8D98 /* ParticipationDTO.swift in Sources */,
 				441CEDF327390296006C261F /* TodayRoutineDTO.swift in Sources */,
 				441CEDFD27390378006C261F /* RoutinusDatabase.swift in Sources */,
 			);
@@ -814,7 +803,7 @@
 				149411E4273A6314004BE485 /* CreateRepository.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
 				0DC38F59273BA89000331C25 /* UIImage+Extensions.swift in Sources */,
-				E975390627325538004358C5 /* AchievementInfo.swift in Sources */,
+				E975390627325538004358C5 /* Achievement.swift in Sources */,
 				441CEE1B273A33FE006C261F /* CreateAuthMethodView.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
 				0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */,
@@ -1164,27 +1153,9 @@
 				version = 8.0.3;
 			};
 		};
-		44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = exactVersion;
-				version = 8.9.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		441CEDEC27390196006C261F /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		44234F19273CC729004D6834 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44AAA304273120EB002E16C4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
 		44AAA3202732A049002E16C4 /* JTAppleCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0DD1631627311ECA00DC5970 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */;
