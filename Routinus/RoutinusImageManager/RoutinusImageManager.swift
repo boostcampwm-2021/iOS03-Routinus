@@ -7,45 +7,38 @@
 
 import Foundation
 
-public class RoutinusImageManager {
-    public static let shared = RoutinusImageManager()
-
-    private let fileManager = FileManager.default
-    private var path: String?
-
-    private init() {
-        if let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
-                                                          .userDomainMask,
-                                                          true).first {
-            self.path = path
-        }
-    }
-
-    public func isExist(in directory: String, fileName: String) -> Bool {
-        guard let path = path else { return false }
+public enum RoutinusImageManager {
+    public static func isExist(in directory: String, fileName: String) -> Bool {
+        guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
+                                                             .userDomainMask,
+                                                             true).first else { return false }
 
         var url = URL(fileURLWithPath: path)
         url.appendPathComponent("\(directory)_\(fileName)")
         url.appendPathExtension("jpeg")
 
-        return fileManager.fileExists(atPath: url.path)
+        return FileManager.default.fileExists(atPath: url.path)
     }
 
     @discardableResult
-    public func saveImage(to directory: String, fileName: String, imageData: Data?) -> String {
-        guard let path = path else { return "" }
+    public static func saveImage(to directory: String, fileName: String, imageData: Data?) -> String {
+        guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
+                                                             .userDomainMask,
+                                                             true).first else { return "" }
 
         var url = URL(fileURLWithPath: path)
         url.appendPathComponent("\(directory)_\(fileName)")
         url.appendPathExtension("jpeg")
 
-        return fileManager.createFile(atPath: url.path,
-                                      contents: imageData,
-                                      attributes: nil) ? url.absoluteString : ""
+        return FileManager.default.createFile(atPath: url.path,
+                                              contents: imageData,
+                                              attributes: nil) ? url.absoluteString : ""
     }
 
-    public func cachedImageData(from directory: String, fileName: String) -> Data? {
-        guard let path = path else { return nil }
+    public static func cachedImageData(from directory: String, fileName: String) -> Data? {
+        guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
+                                                             .userDomainMask,
+                                                             true).first else { return nil }
 
         var url = URL(fileURLWithPath: path)
         url.appendPathComponent("\(directory)_\(fileName)")
@@ -54,8 +47,10 @@ public class RoutinusImageManager {
         return try? Data(contentsOf: url)
     }
 
-    public func cachedImageURL(from directory: String, fileName: String) -> String {
-        guard let path = path else { return "" }
+    public static func cachedImageURL(from directory: String, fileName: String) -> String {
+        guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
+                                                             .userDomainMask,
+                                                             true).first else { return "" }
 
         var url = URL(fileURLWithPath: path)
         url.appendPathComponent("\(directory)_\(fileName)")

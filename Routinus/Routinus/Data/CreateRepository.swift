@@ -39,8 +39,8 @@ extension RoutinusRepository: CreateRepository {
     }
 
     func saveImage(to directory: String, fileName: String, data: Data?) -> String {
-        return RoutinusImageManager.shared.saveImage(to: directory,
-                                                     fileName: fileName,
-                                                     imageData: data)
+        return RoutinusImageManager.saveImage(to: directory,
+                                              fileName: fileName,
+                                              imageData: data)
     }
 }
