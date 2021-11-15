@@ -80,10 +80,10 @@ extension HomeViewController {
             make.bottom.equalToSuperview().offset(-50)
         }
     }
-    
+
     private func configureNavigationBar() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .systemGray
         self.navigationItem.backBarButtonItem = backBarButtonItem
