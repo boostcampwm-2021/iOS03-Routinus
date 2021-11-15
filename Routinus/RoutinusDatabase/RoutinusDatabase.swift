@@ -178,7 +178,7 @@ public enum RoutinusDatabase {
     }
 
     public static func challenge(ownerId: String, challengeId: String) async throws -> ChallengeDTO? {
-        let db = Firestore.firestore()
+//        let db = Firestore.firestore()
 
 //        let snapshot = try await db.collection("challenge")
 //            .whereField("owner_id", isEqualTo: ownerId)
@@ -190,7 +190,7 @@ public enum RoutinusDatabase {
     }
 
     public static func updateChallenge(challenge: ChallengeDTO) {
-        let db = Firestore.firestore()
+ //       let db = Firestore.firestore()
 
 //        db.collection("challenge")
 //            .whereField("id", isEqualTo: challenge.id)

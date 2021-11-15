@@ -25,17 +25,14 @@ extension RoutinusRepository: UpdateRepository {
         guard let startDate = challenge.startDate?.toString(), let endDate = challenge.endDate?.toString() else { return }
         let challengeDTO = ChallengeDTO(id: challenge.challengeID,
                                         title: challenge.title,
-                                        imageURL: challenge.imageURL,
-                                        authExampleImageURL: challenge.authExampleImageURL,
                                         authMethod: challenge.authMethod,
                                         categoryID: challenge.category.id,
                                         week: challenge.week,
-                                        decs: challenge.introduction,
+                                        desc: challenge.introduction,
                                         startDate: startDate,
                                         endDate: endDate,
                                         participantCount: challenge.participantCount,
-                                        ownerID: challenge.ownerID,
-                                        thumbnailImageURL: challenge.thumbnailImageURL)
+                                        ownerID: challenge.ownerID)
         RoutinusDatabase.updateChallenge(challenge: challengeDTO)
     }
 }
