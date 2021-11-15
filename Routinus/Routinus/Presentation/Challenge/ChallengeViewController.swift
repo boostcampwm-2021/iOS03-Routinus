@@ -51,9 +51,9 @@ class ChallengeViewController: UIViewController {
 
         collectionView.showsVerticalScrollIndicator = false
 
-        collectionView.register(ChallengeCollectionViewHeader.self,
+        collectionView.register(ChallengeHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: ChallengeCollectionViewHeader.identifier)
+                                withReuseIdentifier: ChallengeHeader.identifier)
         collectionView.register(ChallengeRecommendCell.self,
                                 forCellWithReuseIdentifier: ChallengeRecommendCell.identifier)
         collectionView.register(ChallengeCategoryCell.self,
@@ -121,8 +121,8 @@ extension ChallengeViewController {
 
             let view = collectionView.dequeueReusableSupplementaryView(
                         ofKind: kind,
-                        withReuseIdentifier: ChallengeCollectionViewHeader.identifier,
-                        for: indexPath) as? ChallengeCollectionViewHeader
+                        withReuseIdentifier: ChallengeHeader.identifier,
+                        for: indexPath) as? ChallengeHeader
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
             view?.title = section.title

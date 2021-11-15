@@ -1,5 +1,5 @@
 //
-//  SearchCollectionViewHeader.swift
+//  SearchHeader.swift
 //  Routinus
 //
 //  Created by 박상우 on 2021/11/09.
@@ -9,8 +9,8 @@ import UIKit
 
 import SnapKit
 
-class SearchCollectionViewHeader: UICollectionReusableView {
-    static let identifier = "SearchCollectionViewHeader"
+class SearchHeader: UICollectionReusableView {
+    static let identifier = "SearchHeader"
 
     private lazy var label: UILabel = {
         let label = UILabel()

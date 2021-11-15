@@ -16,7 +16,6 @@ protocol ChallengeUpdatableUsecase {
 }
 
 struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
-
     var repository: UpdateRepository
 
     init(repository: UpdateRepository) {

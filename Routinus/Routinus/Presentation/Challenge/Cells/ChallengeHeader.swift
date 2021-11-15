@@ -1,5 +1,5 @@
 //
-//  ChallengeCollectionViewHeader.swift
+//  ChallengeHeader.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/04.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class ChallengeCollectionViewHeader: UICollectionReusableView {
-    static let identifier = "ChallengeCollectionViewHeader"
+class ChallengeHeader: UICollectionReusableView {
+    static let identifier = "ChallengeHeader"
 
     let label: UILabel = {
         let label = UILabel()

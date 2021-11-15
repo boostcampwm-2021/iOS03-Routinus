@@ -42,9 +42,9 @@ class SearchViewController: UIViewController {
 
         collectionView.showsVerticalScrollIndicator = false
 
-        collectionView.register(SearchCollectionViewHeader.self,
+        collectionView.register(SearchHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: SearchCollectionViewHeader.identifier)
+                                withReuseIdentifier: SearchHeader.identifier)
         collectionView.register(SearchPopularKeywordCell.self,
                                 forCellWithReuseIdentifier: SearchPopularKeywordCell.identifier)
         collectionView.register(SearchChallengeCell.self,
@@ -118,8 +118,8 @@ extension SearchViewController {
 
             let view = collectionView.dequeueReusableSupplementaryView(
                         ofKind: kind,
-                        withReuseIdentifier: SearchCollectionViewHeader.identifier,
-                        for: indexPath) as? SearchCollectionViewHeader
+                        withReuseIdentifier: SearchHeader.identifier,
+                        for: indexPath) as? SearchHeader
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
             view?.title = section.title
