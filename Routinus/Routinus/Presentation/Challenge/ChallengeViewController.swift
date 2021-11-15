@@ -85,8 +85,8 @@ final class ChallengeViewController: UIViewController {
         self.searchButton.isHidden = false
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         self.searchButton.isHidden = true
     }
 }
