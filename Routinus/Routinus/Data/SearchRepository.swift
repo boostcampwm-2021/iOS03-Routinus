@@ -23,7 +23,7 @@ extension RoutinusRepository: SearchRepository {
     }
     
     func fetchSearchChallengesBy(categoryID: String) async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.searchChallengesBy(categoryID: categoryID) else { return [] }
+        guard let list = try? await RoutinusDatabase.searchChallenges(by: categoryID) else { return [] }
         return list.map { Challenge(challengeDTO: $0) }
     }
 

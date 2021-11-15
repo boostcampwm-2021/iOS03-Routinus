@@ -7,190 +7,174 @@
 
 import Foundation
 
-import Firebase
-import FirebaseStorage
-
 public enum RoutinusDatabase {
-    public static func configure() {
-        FirebaseApp.configure()
+    private enum HTTPMethod: String {
+        case post = "POST"
     }
- 
-    public static func imageURL(id: String, fileName: String) async throws -> URL {
-        let storage = Storage.storage().reference()
-        let imageReference = storage.child("\(id)/\(fileName).jpeg")
-        
-        return try await imageReference.downloadURL()
+
+    private static let firestoreURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
+    private static let storageURL = "https://firebasestorage.googleapis.com/v0/b/boostcamp-ios03-routinus.appspot.com/o"
+
+    public static func imageURL(id: String, fileName: String) async throws -> URL? {
+        return URL(string: "\(storageURL)/\(id)%2F\(fileName).jpeg?alt=media")
     }
 
     public static func createUser(id: String, name: String) async throws {
-        let db = Firestore.firestore()
+        guard let url = URL(string: "\(firestoreURL)/user") else { return }
+        var request = URLRequest(url: url)
 
-        try await db.collection("user").document().setData([
-            "id": id,
-            "name": name,
-            "continuity_day": 0,
-            "grade": 0,
-            "user_image_category_id": "0"
-        ])
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.createUserQuery(id: id, name: name)
+
+        _ = try await URLSession.shared.data(for: request)
     }
 
-    public static func createChallenge(challenge: ChallengeDTO) async throws {
-        let db = Firestore.firestore()
+    public static func createChallenge(challenge: ChallengeDTO, imageURL: String, authImageURL: String) async throws {
+        Task {
+            try await insertChallenge(dto: challenge)
+            try await insertChallengeParticipation(dto: challenge)
+            try await uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
+                                  fileName: "image",
+                                  imageURL: imageURL)
+            try await uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
+                                  fileName: "auth",
+                                  imageURL: authImageURL)
+        }
+    }
 
-        try await db.collection("challenge").document().setData([
-            "auth_example_image_url": challenge.authExampleImageURL,
-            "auth_method": challenge.authMethod,
-            "category_id": challenge.categoryID,
-            "desc": challenge.desc,
-            "end_date": challenge.endDate,
-            "id": challenge.id,
-            "image_url": challenge.imageURL,
-            "owner_id": challenge.ownerID,
-            "participant_count": challenge.participantCount,
-            "start_date": challenge.startDate,
-            "thumbnail_image_url": challenge.thumbnailImageURL,
-            "title": challenge.title,
-            "week": challenge.week
-        ])
+    public static func insertChallenge(dto: ChallengeDTO) async throws {
+        guard let url = URL(string: "\(firestoreURL)/challenge"),
+              let document = dto.document?.fields else { return }
+        var request = URLRequest(url: url)
 
-        try await db.collection("challenge_participation").document().setData([
-            "auth_count": 0,
-            "challenge_id": challenge.id,
-            "join_date": challenge.startDate,
-            "user_id": challenge.ownerID
-        ])
-        
-        let storage = Storage.storage().reference()
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.insertChallengeQuery(document: document)
 
-        let imageReference = storage.child("\(challenge.id)/image.jpeg")
-        guard let imageURL = URL(string: challenge.imageURL) else { return }
-        imageReference.putFile(from: imageURL, metadata: nil)
+        _ = try await URLSession.shared.data(for: request)
+    }
 
-        let authExampleImageReference = storage.child("\(challenge.id)/auth.jpeg")
-        guard let authExampleImageURL = URL(string: challenge.authExampleImageURL) else { return }
-        authExampleImageReference.putFile(from: authExampleImageURL, metadata: nil)
+    public static func insertChallengeParticipation(dto: ChallengeDTO) async throws {
+        guard let url = URL(string: "\(firestoreURL)/challenge_participation"),
+              let document = dto.document?.fields else { return }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.insertChallengeParticipationQuery(document: document)
+
+        _ = try await URLSession.shared.data(for: request)
+    }
+
+    public static func uploadImage(id: String, fileName: String, imageURL: String) async throws {
+        guard let url = URL(string: "\(storageURL)?uploadType=media&name=\(id)%2F\(fileName).jpeg"),
+              let imageURL = URL(string: imageURL) else { return }
+        var request = URLRequest(url: url)
+
+        request.addValue("image/jpeg", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = try? Data(contentsOf: imageURL)
+
+        _ = try await URLSession.shared.data(for: request)
     }
 
     public static func user(of id: String) async throws -> UserDTO {
-        let db = Firestore.firestore()
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return UserDTO() }
+        var request = URLRequest(url: url)
 
-        let snapshot = try await db.collection("user")
-            .whereField("id", isEqualTo: id)
-            .getDocuments()
-        let document = snapshot.documents.first?.data()
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.userQuery(of: id)
 
-        return UserDTO(user: document)
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([UserDTO].self, from: data).first ?? UserDTO()
     }
 
-    public static func routineList(of id: String) async throws -> [TodayRoutineDTO] {
-        let db = Firestore.firestore()
+    public static func routines(of id: String) async throws -> [TodayRoutineDTO] {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
 
-        let participationSnapshot = try await db.collection("challenge_participation")
-            .whereField("user_id", isEqualTo: id)
-            .getDocuments()
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.routinesQuery(userID: id)
 
+        var (data, _) = try await URLSession.shared.data(for: request)
+        let participations = try JSONDecoder().decode([ParticipationDTO].self, from: data)
         var todayRoutines = [TodayRoutineDTO]()
 
-        for document in participationSnapshot.documents {
-            let challengeID = document["challenge_id"] as? String ?? ""
-            let challengeSnapshot = try await db.collection("challenge")
-                .whereField("id", isEqualTo: challengeID)
-                .getDocuments()
-            let challenge = challengeSnapshot.documents.first?.data()
-            let todayRoutine = document.data()
-            let todayRoutineDTO = TodayRoutineDTO(todayRoutine: todayRoutine, challenge: challenge)
-            todayRoutines.append(todayRoutineDTO)
+        for participation in participations {
+            guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
+
+            request.httpBody = RoutinusQuery.routinesQuery(challengeID: challengeID)
+
+            (data, _) = try await URLSession.shared.data(for: request)
+            let challenge = try JSONDecoder().decode([ChallengeDTO].self, from: data).first ?? ChallengeDTO()
+            let todayRoutine = TodayRoutineDTO(participation: participation, challenge: challenge)
+            todayRoutines.append(todayRoutine)
         }
 
         return todayRoutines
     }
 
-    public static func achievementInfo(of id: String, in yearMonth: String) async throws -> [AchievementInfoDTO] {
-        let db = Firestore.firestore()
+    public static func achievement(of id: String, in yearMonth: String) async throws -> [AchievementDTO] {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
 
-        let snapshot = try await db.collection("achievement_info")
-            .whereField("user_id", isEqualTo: id)
-            .whereField("year_month", isEqualTo: yearMonth)
-            .getDocuments()
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.achievementQuery(of: id, in: yearMonth)
 
-        var achievements = [AchievementInfoDTO]()
-
-        for document in snapshot.documents {
-            let achievementDTO = AchievementInfoDTO(achievement: document.data())
-            achievements.append(achievementDTO)
-        }
-
-        return achievements
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([AchievementDTO].self, from: data)
     }
 
     public static func allChallenges() async throws -> [ChallengeDTO] {
-        let db = Firestore.firestore()
-        let snapshot = try await db.collection("challenge")
-            .order(by: "participant_count")
-            .limit(to: 50)
-            .getDocuments()
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
 
-        var challenges = [ChallengeDTO]()
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.allChallengesQuery()
 
-        for document in snapshot.documents {
-            let challengeDTO = ChallengeDTO(challenge: document.data())
-            challenges.append(challengeDTO)
-        }
-
-        return challenges
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
 
     public static func newChallenge() async throws -> [ChallengeDTO] {
-        let db = Firestore.firestore()
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
 
-        let snapshot = try await db.collection("challenge")
-            .order(by: "start_date", descending: true)
-            .limit(to: 10)
-            .getDocuments()
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.newChallengeQuery()
 
-        var challenges = [ChallengeDTO]()
-
-        for document in snapshot.documents {
-            let challengeDTO = ChallengeDTO(challenge: document.data())
-            challenges.append(challengeDTO)
-        }
-  
-        return challenges
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
 
     public static func recommendChallenge() async throws -> [ChallengeDTO] {
-        let db = Firestore.firestore()
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
 
-        let snapshot = try await db.collection("challenge")
-            .order(by: "participant_count", descending: true)
-            .limit(to: 5)
-            .getDocuments()
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.recommendChallengeQuery()
 
-        var challenges = [ChallengeDTO]()
-
-        for document in snapshot.documents {
-            let challengeDTO = ChallengeDTO(challenge: document.data())
-            challenges.append(challengeDTO)
-        }
-
-        return challenges
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
 
-    public static func searchChallengesBy(categoryID: String) async throws -> [ChallengeDTO] {
-        let db = Firestore.firestore()
-        let snapshot = try await db.collection("challenge")
-            .whereField("category_id", isEqualTo: categoryID)
-            .order(by: "participant_count", descending: true)
-            .getDocuments()
+    public static func searchChallenges(by categoryID: String) async throws -> [ChallengeDTO] {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
 
-        var challenges = [ChallengeDTO]()
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.searchChallenges(by: categoryID)
 
-        for document in snapshot.documents {
-            let challengeDTO = ChallengeDTO(challenge: document.data())
-            challenges.append(challengeDTO)
-        }
-
-        return challenges
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
 
     public static func challenge(ownerId: String, challengeId: String) async throws -> ChallengeDTO? {

@@ -222,11 +222,14 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let viewModel = viewModel else { return }
         switch textField.tag {
         case InputTag.title.rawValue:
-            viewModel?.update(title: textField.text ?? "")
+            viewModel.update(title: textField.text ?? "")
         case InputTag.week.rawValue:
-            viewModel?.update(week: Int(textField.text ?? "") ?? 0)
+            let week = viewModel.validateWeek(currentText: textField.text ?? "")
+            textField.text = week
+            viewModel.update(week: Int(week) ?? 0)
         default:
             return
         }

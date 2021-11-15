@@ -10,29 +10,27 @@ import Foundation
 import RoutinusDatabase
 
 struct User {
+    var id: String
     var name: String
     var continuityDay: Int
     var userImageCategoryID: String
     var grade: Int
 
     init() {
+        self.id = ""
         self.name = ""
         self.continuityDay = 0
         self.userImageCategoryID = ""
         self.grade = 0
     }
 
-    init(name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
-        self.name = name
-        self.continuityDay = continuityDay
-        self.userImageCategoryID = userImageCategoryID
-        self.grade = grade
-    }
-
     init(userDTO: UserDTO) {
-        self.name = userDTO.name
-        self.continuityDay = userDTO.continuityDay
-        self.userImageCategoryID = userDTO.userImageCategoryID
-        self.grade = userDTO.grade
+        let document = userDTO.document?.fields
+        
+        self.id = document?.id.stringValue ?? ""
+        self.name = document?.name.stringValue ?? ""
+        self.continuityDay = Int(document?.continuityDay.integerValue ?? "") ?? 0
+        self.userImageCategoryID = document?.userImageCategoryID.stringValue ?? ""
+        self.grade = Int(document?.grade.integerValue ?? "") ?? 0
     }
 }

@@ -12,7 +12,7 @@ import JTAppleCalendar
 final class CalendarDelegate: JTACMonthViewDelegate {
     static let shared = CalendarDelegate()
 
-    var calendar: [AchievementInfo] = []
+    var calendar: [Achievement] = []
     var formatter: DateFormatter?
 
     private init() {}

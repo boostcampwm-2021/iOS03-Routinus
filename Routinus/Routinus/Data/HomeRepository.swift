@@ -14,7 +14,7 @@ protocol HomeRepository {
     func save(id: String, name: String)
     func fetchUserInfo(by id: String) async -> User
     func fetchTodayRoutine(by id: String) async -> [TodayRoutine]
-    func fetchAcheivementInfo(by id: String, in yearMonth: String) async -> [AchievementInfo]
+    func fetchAcheivementInfo(by id: String, in yearMonth: String) async -> [Achievement]
 }
 
 extension RoutinusRepository: HomeRepository {
@@ -36,12 +36,12 @@ extension RoutinusRepository: HomeRepository {
     }
 
     func fetchTodayRoutine(by id: String) async -> [TodayRoutine] {
-        guard let list = try? await RoutinusDatabase.routineList(of: id) else { return [] }
+        guard let list = try? await RoutinusDatabase.routines(of: id) else { return [] }
         return list.map { TodayRoutine(todayRoutineDTO: $0) }
     }
 
-    func fetchAcheivementInfo(by id: String, in yearMonth: String) async -> [AchievementInfo] {
-        guard let list = try? await RoutinusDatabase.achievementInfo(of: id, in: yearMonth) else { return [] }
-        return list.map { AchievementInfo(achievementDTO: $0) }
+    func fetchAcheivementInfo(by id: String, in yearMonth: String) async -> [Achievement] {
+        guard let list = try? await RoutinusDatabase.achievement(of: id, in: yearMonth) else { return [] }
+        return list.map { Achievement(achievementDTO: $0) }
     }
 }

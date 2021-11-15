@@ -7,68 +7,100 @@
 
 import Foundation
 
-public struct ChallengeDTO {
-    public var id: String
-    public var title: String
-    public var imageURL: String
-    public var authExampleImageURL: String
-    public var authMethod: String
-    public var categoryID: String
-    public var week: Int
-    public var desc: String
-    public var startDate: String
-    public var endDate: String
-    public var participantCount: Int
-    public var ownerID: String
-    public var thumbnailImageURL: String
+public struct ChallengeDTO: Codable {
+    public var document: ChallengeFields?
 
     public init() {
-        self.id = ""
-        self.title = ""
-        self.imageURL = ""
-        self.authExampleImageURL = ""
-        self.authMethod = ""
-        self.categoryID = ""
-        self.week = 0
-        self.desc = ""
-        self.startDate = ""
-        self.endDate = ""
-        self.participantCount = 0
-        self.ownerID = ""
-        self.thumbnailImageURL = ""
+        self.document = nil
     }
 
-    public init(id: String, title: String, imageURL: String, authExampleImageURL: String,
-                authMethod: String, categoryID: String, week: Int, decs: String, startDate: String,
-                endDate: String, participantCount: Int, ownerID: String, thumbnailImageURL: String) {
-        self.id = id
-        self.title = title
-        self.imageURL = imageURL
-        self.authExampleImageURL = authExampleImageURL
-        self.authMethod = authMethod
-        self.categoryID = categoryID
-        self.week = week
-        self.desc = decs
-        self.startDate = startDate
-        self.endDate = endDate
-        self.participantCount = participantCount
-        self.ownerID = ownerID
-        self.thumbnailImageURL = thumbnailImageURL
+    public init(id: String,
+                title: String,
+                authMethod: String,
+                categoryID: String,
+                week: Int,
+                desc: String,
+                startDate: String,
+                endDate: String,
+                participantCount: Int,
+                ownerID: String) {
+        let field = ChallengeField(authMethod: ChallengeField.AuthMethod(stringValue: authMethod),
+                                   categoryID: ChallengeField.CategoryID(stringValue: categoryID),
+                                   desc: ChallengeField.Desc(stringValue: desc),
+                                   endDate: ChallengeField.EndDate(stringValue: endDate),
+                                   id: ChallengeField.ID(stringValue: id),
+                                   ownerID: ChallengeField.OwnerID(stringValue: ownerID),
+                                   participantCount: ChallengeField.ParticipantCount(integerValue: "\(participantCount)"),
+                                   startDate: ChallengeField.StartDate(stringValue: startDate),
+                                   title: ChallengeField.Title(stringValue: title),
+                                   week: ChallengeField.Week(integerValue: "\(week)"))
+        self.document = ChallengeFields(fields: field)
+    }
+}
+
+public struct ChallengeFields: Codable {
+    public var fields: ChallengeField
+}
+
+public struct ChallengeField: Codable {
+    public struct AuthMethod: Codable {
+        public var stringValue: String
     }
 
-    public init(challenge: [String: Any]?) {
-        self.id = challenge?["id"] as? String ?? ""
-        self.title = challenge?["title"] as? String ?? ""
-        self.imageURL = challenge?["image_url"] as? String ?? ""
-        self.authExampleImageURL = challenge?["auth_example_image_url"] as? String ?? ""
-        self.authMethod = challenge?["auth_method"] as? String ?? ""
-        self.categoryID = challenge?["category_id"] as? String ?? ""
-        self.week = challenge?["week"] as? Int ?? 0
-        self.desc = challenge?["desc"] as? String ?? ""
-        self.startDate = challenge?["start_date"] as? String ?? ""
-        self.endDate = challenge?["end_date"] as? String ?? ""
-        self.participantCount = challenge?["participant_count"] as? Int ?? 0
-        self.ownerID = challenge?["owner_id"] as? String ?? ""
-        self.thumbnailImageURL = challenge?["thumbnail_image_url"] as? String ?? ""
+    public struct CategoryID: Codable {
+        public var stringValue: String
+    }
+
+    public struct Desc: Codable {
+        public var stringValue: String
+    }
+
+    public struct EndDate: Codable {
+        public var stringValue: String
+    }
+
+    public struct ID: Codable {
+        public var stringValue: String
+    }
+
+    public struct OwnerID: Codable {
+        public var stringValue: String
+    }
+
+    public struct ParticipantCount: Codable {
+        public var integerValue: String
+    }
+
+    public struct StartDate: Codable {
+        public var stringValue: String
+    }
+
+    public struct Title: Codable {
+        public var stringValue: String
+    }
+
+    public struct Week: Codable {
+        public var integerValue: String
+    }
+
+    public var authMethod: AuthMethod
+    public var categoryID: CategoryID
+    public var desc: Desc
+    public var endDate: EndDate
+    public var id: ID
+    public var ownerID: OwnerID
+    public var participantCount: ParticipantCount
+    public var startDate: StartDate
+    public var title: Title
+    public var week: Week
+
+    public enum CodingKeys: String, CodingKey {
+        case desc, id, title, week
+        case authMethod = "auth_method"
+        case categoryID = "category_id"
+        case endDate = "end_date"
+        case ownerID = "owner_id"
+        case participantCount = "participant_count"
+        case startDate = "start_date"
     }
 }

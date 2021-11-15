@@ -21,6 +21,7 @@ protocol CreateViewModelInput {
     func validateTextField(currentText: String, range: NSRange, text: String) -> Bool
     func fetchChallenge()
     func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String)
+    func validateWeek(currentText: String) -> String
 }
 
 protocol CreateViewModelOutput {
@@ -79,6 +80,11 @@ class CreateViewModel: CreateViewModelIO {
     func validateTextField(currentText: String, range: NSRange, text: String) -> Bool {
         let newLength = currentText.count + text.count - range.length
         return newLength <= 50
+    }
+
+    func validateWeek(currentText: String) -> String {
+        guard let week = Int(currentText) else { return "" }
+        return "\(min(max(week, 0), 52))"
     }
 
     func update(category: Challenge.Category) {
