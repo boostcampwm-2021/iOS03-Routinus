@@ -9,6 +9,7 @@ import Foundation
 
 public enum RoutinusDatabase {
     private enum HTTPMethod: String {
+        case get = "GET"
         case post = "POST"
         case patch = "PATCH"
     }
@@ -17,7 +18,7 @@ public enum RoutinusDatabase {
     private static let storageURL = "https://firebasestorage.googleapis.com/v0/b/boostcamp-ios03-routinus.appspot.com/o"
 
     public static func imageURL(id: String,
-                                filename: String) async throws -> URL? {
+                                filename: String) -> URL? {
         return URL(string: "\(storageURL)/\(id)%2F\(filename).jpeg?alt=media")
     }
 
@@ -110,6 +111,22 @@ public enum RoutinusDatabase {
 
         URLSession.shared.dataTask(with: request) { _, _, _ in
             completion?()
+        }.resume()
+    }
+
+    public static func imageData(from id: String,
+                                 filename: String,
+                                 completion: ((Data?) -> Void)? = nil) {
+        guard let url = imageURL(id: id, filename: filename) else {
+            completion?(nil)
+            return
+        }
+        var request = URLRequest(url: url)
+
+        request.httpMethod = HTTPMethod.get.rawValue
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            completion?(data)
         }.resume()
     }
 
