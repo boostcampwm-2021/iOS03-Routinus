@@ -21,7 +21,7 @@ protocol AuthViewModelIO: AuthViewModelInput, AuthViewModelOutput { }
 class AuthViewModel: AuthViewModelIO {
     var challenge = PassthroughSubject<Challenge, Never>()
     var usecase: AuthFetchableUsecase
-    
+
     init(challengeID: String, usecase: AuthFetchableUsecase) {
         self.usecase = usecase
         self.fetchChallenge(challengeID: challengeID)
@@ -30,7 +30,7 @@ class AuthViewModel: AuthViewModelIO {
 
 extension AuthViewModel {
     func didTappedAuthButton() {
-        
+
     }
 }
 
