@@ -37,14 +37,21 @@ public enum RoutinusDatabase {
                                        completion: @escaping () -> Void) {
         insertChallenge(dto: challenge)
         insertChallengeParticipation(dto: challenge)
-        uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
-                    filename: "image",
-                    imageURL: imageURL) {
+
+        let uploadQueue = DispatchQueue(label: "uploadQueue")
+        let group = DispatchGroup()
+
+        uploadQueue.async(group: group) {
+            uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
+                        filename: "image",
+                        imageURL: imageURL)
             uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
                         filename: "auth",
-                        imageURL: authImageURL) {
-                completion()
-            }
+                        imageURL: authImageURL)
+        }
+
+        group.notify(queue: uploadQueue) {
+            completion()
         }
     }
 
@@ -81,7 +88,7 @@ public enum RoutinusDatabase {
     public static func uploadImage(id: String,
                                    filename: String,
                                    imageURL: String,
-                                   completion: @escaping () -> Void) {
+                                   completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(storageURL)?uploadType=media&name=\(id)%2F\(filename).jpeg"),
               let imageURL = URL(string: imageURL) else { return }
         var request = URLRequest(url: url)
@@ -91,7 +98,7 @@ public enum RoutinusDatabase {
         request.httpBody = try? Data(contentsOf: imageURL)
 
         URLSession.shared.dataTask(with: request) { _, _, _ in
-            completion()
+            completion?()
         }.resume()
     }
 
