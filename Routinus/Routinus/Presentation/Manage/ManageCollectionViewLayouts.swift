@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ManageCollectionViewLayouts {
+final class ManageCollectionViewLayouts {
     private var challengeLayout: NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .estimated(140))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)

@@ -23,7 +23,7 @@ final class ManageViewController: UIViewController {
     private var viewModel: ManageViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
-    lazy var plusButton: UIBarButtonItem = {
+    lazy var addButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "plus"),
                                      style: .plain, target: self,
                                      action: #selector(didTouchAddButton))
@@ -34,7 +34,6 @@ final class ManageViewController: UIViewController {
     private var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.backgroundColor = .systemBackground
-
         collectionView.showsVerticalScrollIndicator = false
 
         collectionView.register(SearchChallengeCell.self,
@@ -54,12 +53,9 @@ final class ManageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = dataSource
-        self.snapshot.appendSections(Section.allCases)
-        self.configureViewModel()
-        self.dataSource = configureDataSource()
         self.configureViews()
+        self.configureViewModel()
+        self.configureCollectionView()
     }
 }
 
@@ -72,8 +68,9 @@ extension ManageViewController {
             make.bottom.equalToSuperview()
         }
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.title = "내가 개설한 챌린지"
-        self.navigationItem.rightBarButtonItem = self.plusButton
+        self.navigationItem.rightBarButtonItem = self.addButton
     }
 
     private func configureViewModel() {
@@ -87,6 +84,13 @@ extension ManageViewController {
                 self.dataSource.apply(challengeSnapshot, to: Section.challenge)
             })
             .store(in: &cancellables)
+    }
+
+    private func configureCollectionView() {
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = dataSource
+        self.snapshot.appendSections(Section.allCases)
+        self.dataSource = configureDataSource()
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
