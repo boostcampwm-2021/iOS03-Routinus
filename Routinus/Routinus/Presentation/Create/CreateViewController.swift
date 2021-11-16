@@ -320,18 +320,20 @@ extension CreateViewController: UIImagePickerControllerDelegate, UINavigationCon
 
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
-        if let image = info[InfoKey.originalImage] as? UIImage {
+        if let originalImage = info[InfoKey.originalImage] as? UIImage {
+            let image = originalImage.resizedImage(.main)
+
             switch selectedImagePickerTag {
             case .image:
                 let url = viewModel?.saveImage(to: "temp",
                                                filename: "image",
-                                               data: image.jpegData(compressionQuality: 1))
+                                               data: image.jpegData(compressionQuality: 0.9))
                 viewModel?.update(imageURL: url)
                 imageRegisterView.setImage(image)
             case .authImage:
                 let url = viewModel?.saveImage(to: "temp",
                                                filename: "auth",
-                                               data: image.jpegData(compressionQuality: 1))
+                                               data: image.jpegData(compressionQuality: 0.9))
                 viewModel?.update(authExampleImageURL: url)
                 authImageRegisterView.setImage(image)
             default:
