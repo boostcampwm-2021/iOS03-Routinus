@@ -20,8 +20,10 @@ protocol AuthViewModelIO: AuthViewModelInput, AuthViewModelOutput { }
 
 class AuthViewModel: AuthViewModelIO {
     var challenge = PassthroughSubject<Challenge, Never>()
+    var usecase: AuthFetchableUsecase
     
-    init(challengeID: String) {
+    init(challengeID: String, usecase: AuthFetchableUsecase) {
+        self.usecase = usecase
         self.fetchChallenge(challengeID: challengeID)
     }
 }
@@ -34,6 +36,10 @@ extension AuthViewModel {
 
 extension AuthViewModel {
     private func fetchChallenge(challengeID: String) {
-        
+        usecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
+            guard let self = self,
+                  let challenge = challenge else { return }
+            self.challenge.send(challenge)
+        }
     }
 }
