@@ -142,8 +142,8 @@ struct Challenge: Hashable {
         self.authExampleImageURL = ""
         self.thumbnailImageURL = ""
         self.authMethod = document?.authMethod.stringValue ?? ""
-        self.startDate = Date.toDate(document?.startDate.stringValue ?? "")
-        self.endDate = Date.toDate(document?.endDate.stringValue ?? "")
+        self.startDate = Date(document?.startDate.stringValue ?? "")
+        self.endDate = Date(document?.endDate.stringValue ?? "")
         self.ownerID = document?.ownerID.stringValue ?? ""
         self.week = Int(document?.week.integerValue ?? "") ?? 0
         self.participantCount = Int(document?.participantCount.integerValue ?? "") ?? 0

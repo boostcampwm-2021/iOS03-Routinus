@@ -8,6 +8,16 @@
 import Foundation
 
 extension Date {
+    init(_ dateString: String) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd"
+        guard let date = formatter.date(from: dateString) else {
+            self.init(timeInterval: 0, since: Date())
+            return
+        }
+        self.init(timeInterval: 0, since: date)
+    }
+
     public var year: Int {
         return Calendar.current.component(.year, from: self)
     }
@@ -40,12 +50,6 @@ extension Date {
               let month = dateComponents.month else { return "" }
 
         return "\(year)\(month)"
-    }
-
-    static func toDate(_ str: String) -> Date? {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd"
-        return formatter.date(from: str)
     }
 
     func toString() -> String {
