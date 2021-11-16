@@ -11,12 +11,22 @@ import RoutinusDatabase
 import RoutinusImageManager
 
 protocol CreateRepository {
-    func save(challenge: Challenge, imageURL: String, authImageURL: String)
-    func saveImage(to directory: String, filename: String, data: Data?) -> String?
+    func save(challenge: Challenge,
+              imageURL: String,
+              thumbnailImageURL: String,
+              authExampleImageURL: String,
+              authExampleThumbnailImageURL: String)
+    func saveImage(to directory: String,
+                   filename: String,
+                   data: Data?) -> String?
 }
 
 extension RoutinusRepository: CreateRepository {
-    func save(challenge: Challenge, imageURL: String, authImageURL: String) {
+    func save(challenge: Challenge,
+              imageURL: String,
+              thumbnailImageURL: String,
+              authExampleImageURL: String,
+              authExampleThumbnailImageURL: String) {
         guard let startDate = challenge.startDate?.toString(),
               let endDate = challenge.endDate?.toString() else { return }
 
@@ -33,12 +43,16 @@ extension RoutinusRepository: CreateRepository {
 
         RoutinusDatabase.createChallenge(challenge: challengeDTO,
                                          imageURL: imageURL,
-                                         authImageURL: authImageURL) {
+                                         thumbnailImageURL: thumbnailImageURL,
+                                         authExampleImageURL: authExampleImageURL,
+                                         authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
             RoutinusImageManager.removeTempCachedImages()
         }
     }
 
-    func saveImage(to directory: String, filename: String, data: Data?) -> String? {
+    func saveImage(to directory: String,
+                   filename: String,
+                   data: Data?) -> String? {
         return RoutinusImageManager.saveImage(to: directory,
                                               filename: filename,
                                               imageData: data)

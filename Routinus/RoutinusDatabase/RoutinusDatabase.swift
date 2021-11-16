@@ -35,7 +35,9 @@ public enum RoutinusDatabase {
 
     public static func createChallenge(challenge: ChallengeDTO,
                                        imageURL: String,
-                                       authImageURL: String,
+                                       thumbnailImageURL: String,
+                                       authExampleImageURL: String,
+                                       authExampleThumbnailImageURL: String,
                                        completion: @escaping () -> Void) {
         insertChallenge(dto: challenge)
         insertChallengeParticipation(dto: challenge)
@@ -44,12 +46,19 @@ public enum RoutinusDatabase {
         let group = DispatchGroup()
 
         uploadQueue.async(group: group) {
-            uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
+            let id = challenge.document?.fields.id.stringValue ?? ""
+            uploadImage(id: id,
                         filename: "image",
                         imageURL: imageURL)
-            uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
+            uploadImage(id: id,
+                        filename: "thumbnail_image",
+                        imageURL: thumbnailImageURL)
+            uploadImage(id: id,
                         filename: "auth",
-                        imageURL: authImageURL)
+                        imageURL: authExampleImageURL)
+            uploadImage(id: id,
+                        filename: "thumbnail_auth",
+                        imageURL: authExampleThumbnailImageURL)
         }
 
         group.notify(queue: uploadQueue) {
@@ -222,7 +231,9 @@ public enum RoutinusDatabase {
 
     public static func patchChallenge(challengeDTO: ChallengeDTO,
                                       imageURL: String,
-                                      authImageURL: String,
+                                      thumbnailImageURL: String,
+                                      authExampleImageURL: String,
+                                      authExampleThumbnailImageURL: String,
                                       completion: @escaping () -> Void) {
         updateChallenge(challengeDTO: challengeDTO)
         
@@ -230,12 +241,19 @@ public enum RoutinusDatabase {
         let group = DispatchGroup()
 
         patchQueue.async(group: group) {
-            uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
+            let id = challengeDTO.document?.fields.id.stringValue ?? ""
+            uploadImage(id: id,
                         filename: "image",
                         imageURL: imageURL)
-            uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
+            uploadImage(id: id,
+                        filename: "thumbnail_image",
+                        imageURL: thumbnailImageURL)
+            uploadImage(id: id,
                         filename: "auth",
-                        imageURL: authImageURL)
+                        imageURL: authExampleImageURL)
+            uploadImage(id: id,
+                        filename: "thumbnail_auth",
+                        imageURL: authExampleImageURL)
         }
 
         group.notify(queue: patchQueue) {

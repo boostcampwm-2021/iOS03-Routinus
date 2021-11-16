@@ -11,8 +11,13 @@ import RoutinusDatabase
 import RoutinusImageManager
 
 protocol UpdateRepository {
-    func fetchChallenge(challengeID: String, completion: @escaping (Challenge) -> Void)
-    func update(challenge: Challenge, imageURL: String, authImageURL: String) async
+    func fetchChallenge(challengeID: String,
+                        completion: @escaping (Challenge) -> Void)
+    func update(challenge: Challenge,
+                imageURL: String,
+                thumbnailImageURL: String,
+                authExampleImageURL: String,
+                authExampleThumbnailImageURL: String) async
 }
 
 extension RoutinusRepository: UpdateRepository {
@@ -25,7 +30,11 @@ extension RoutinusRepository: UpdateRepository {
         }
     }
 
-    func update(challenge: Challenge, imageURL: String, authImageURL: String) async {
+    func update(challenge: Challenge,
+                imageURL: String,
+                thumbnailImageURL: String,
+                authExampleImageURL: String,
+                authExampleThumbnailImageURL: String) async {
         guard let startDate = challenge.startDate?.toString(), let endDate = challenge.endDate?.toString() else { return }
         let challengeDTO = ChallengeDTO(id: challenge.challengeID,
                                         title: challenge.title,
@@ -39,7 +48,9 @@ extension RoutinusRepository: UpdateRepository {
                                         ownerID: challenge.ownerID)
         RoutinusDatabase.patchChallenge(challengeDTO: challengeDTO,
                                         imageURL: imageURL,
-                                        authImageURL: authImageURL) {
+                                        thumbnailImageURL: thumbnailImageURL,
+                                        authExampleImageURL: authExampleImageURL,
+                                        authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
             RoutinusImageManager.removeTempCachedImages()
         }
     }
