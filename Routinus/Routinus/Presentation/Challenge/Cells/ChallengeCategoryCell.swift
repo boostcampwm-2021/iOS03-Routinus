@@ -21,135 +21,15 @@ final class ChallengeCategoryCell: UICollectionViewCell {
     private lazy var xStackView1: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 30
+        stack.distribution = .equalSpacing
         return stack
     }()
 
     private lazy var xStackView2: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 30
+        stack.distribution = .equalSpacing
         return stack
-    }()
-
-    private lazy var exerciseButton: CategoryButton = {
-        let button = CategoryButton()
-        let category = Challenge.Category.exercise
-        button.setImage(UIImage(named: category.symbol))
-        button.setTitle(category.title)
-        button.setTintColor(UIColor(named: category.color))
-
-        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
-        gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: category)
-        self.isUserInteractionEnabled = true
-        button.addGestureRecognizer(gesture)
-        return button
-    }()
-
-    private lazy var studyButton: CategoryButton = {
-        let button = CategoryButton()
-        let category = Challenge.Category.study
-        button.setImage(UIImage(systemName: category.symbol))
-        button.setTitle(category.title)
-        button.setTintColor(UIColor(named: category.color))
-
-        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
-        gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: category)
-        self.isUserInteractionEnabled = true
-        button.addGestureRecognizer(gesture)
-        return button
-    }()
-
-    private lazy var readButton: CategoryButton = {
-        let button = CategoryButton()
-        let category = Challenge.Category.read
-        button.setImage(UIImage(systemName: category.symbol))
-        button.setTitle(category.title)
-        button.setTintColor(UIColor(named: category.color))
-
-        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
-        gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: category)
-        self.isUserInteractionEnabled = true
-        button.addGestureRecognizer(gesture)
-        return button
-    }()
-
-    private lazy var lifeStyleButton: CategoryButton = {
-        let button = CategoryButton()
-        let category = Challenge.Category.lifeStyle
-        button.setImage(UIImage(named: category.symbol))
-        button.setTitle(category.title)
-        button.setTintColor(UIColor(named: category.color))
-
-        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
-        gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: category)
-        self.isUserInteractionEnabled = true
-        button.addGestureRecognizer(gesture)
-        return button
-    }()
-
-    private lazy var financeButton: CategoryButton = {
-        let button = CategoryButton()
-        let category = Challenge.Category.finance
-        button.setImage(UIImage(systemName: category.symbol))
-        button.setTitle(category.title)
-        button.setTintColor(UIColor(named: category.color))
-
-        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
-        gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: category)
-        self.isUserInteractionEnabled = true
-        button.addGestureRecognizer(gesture)
-        return button
-    }()
-
-    private lazy var hobbyButton: CategoryButton = {
-        let button = CategoryButton()
-        let category = Challenge.Category.hobby
-        button.setImage(UIImage(systemName: category.symbol))
-        button.setTitle(category.title)
-        button.setTintColor(UIColor(named: category.color))
-
-        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
-        gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: category)
-        self.isUserInteractionEnabled = true
-        button.addGestureRecognizer(gesture)
-        return button
-    }()
-
-    private lazy var emotionManageButton: CategoryButton = {
-        let button = CategoryButton()
-        let category = Challenge.Category.emotionManage
-        button.setImage(UIImage(systemName: category.symbol))
-        button.setTitle(category.title)
-        button.setTintColor(UIColor(named: category.color))
-
-        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
-        gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: category)
-        self.isUserInteractionEnabled = true
-        button.addGestureRecognizer(gesture)
-        return button
-    }()
-
-    private lazy var etcButton: CategoryButton = {
-        let button = CategoryButton()
-        let category = Challenge.Category.etc
-        button.setImage(UIImage(systemName: category.symbol))
-        button.setTitle(category.title)
-        button.setTintColor(UIColor(named: category.color))
-
-        let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
-        gesture.numberOfTapsRequired = 1
-        gesture.configureCategory(category: category)
-        self.isUserInteractionEnabled = true
-        button.addGestureRecognizer(gesture)
-        return button
     }()
 
     @objc func didTappedCategoryButton(_ gesture: CategoryButtonTapGesture) {
@@ -160,20 +40,33 @@ final class ChallengeCategoryCell: UICollectionViewCell {
     func configureViews() {
         self.addSubview(yStackView)
         yStackView.snp.makeConstraints { make in
-            make.centerX.top.equalToSuperview()
+            make.leading.top.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
 
         self.yStackView.addArrangedSubview(xStackView1)
-        xStackView1.addArrangedSubview(exerciseButton)
-        xStackView1.addArrangedSubview(studyButton)
-        xStackView1.addArrangedSubview(readButton)
-        xStackView1.addArrangedSubview(lifeStyleButton)
-
         self.yStackView.addArrangedSubview(xStackView2)
-        xStackView2.addArrangedSubview(financeButton)
-        xStackView2.addArrangedSubview(hobbyButton)
-        xStackView2.addArrangedSubview(emotionManageButton)
-        xStackView2.addArrangedSubview(etcButton)
+
+        for (index, category) in Challenge.Category.allCases.enumerated() {
+            let button = CategoryButton()
+            button.setImage(UIImage(named: category.symbol) != nil
+                            ? UIImage(named: category.symbol)
+                            : UIImage(systemName: category.symbol))
+            button.setTitle(category.title)
+            button.setTintColor(UIColor(named: category.color))
+
+            let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
+            gesture.numberOfTapsRequired = 1
+            gesture.configureCategory(category: category)
+            self.isUserInteractionEnabled = true
+            button.addGestureRecognizer(gesture)
+
+            if index < 4 {
+                self.xStackView1.addArrangedSubview(button)
+            } else {
+                self.xStackView2.addArrangedSubview(button)
+            }
+        }
     }
 }
 

@@ -62,6 +62,9 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController {
     private func configureViews() {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 20.0
+
         self.view.backgroundColor = .white
         self.configureNavigationBar()
 
@@ -84,8 +87,8 @@ extension HomeViewController {
 
         self.contentView.addSubview(continuityView)
         self.continuityView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.leading.equalToSuperview().offset(offset)
+            make.trailing.equalToSuperview().offset(-offset)
             make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
             make.height.equalTo(80)
         }
@@ -99,8 +102,8 @@ extension HomeViewController {
 
         self.contentView.addSubview(calendarView)
         self.calendarView.snp.makeConstraints { make in
-            make.top.equalTo(todayRoutineView.snp.bottom).offset(20)
-            make.width.equalToSuperview().offset(-20)
+            make.top.equalTo(todayRoutineView.snp.bottom).offset(offset)
+            make.width.equalToSuperview().offset(-offset)
             make.centerX.equalToSuperview()
             make.height.equalTo(450)
         }
@@ -188,11 +191,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             self?.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
         }
 
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .large)
-        auth.image = UIImage(systemName: "camera", withConfiguration: largeConfig)?
-                        .withTintColor(.white).circularBackground(nil)
-        auth.backgroundColor = .systemBackground
-        auth.title = "auth"
+        auth.backgroundColor = .systemGreen
+        auth.title = "인증하기"
         return UISwipeActionsConfiguration(actions: [auth])
     }
 
