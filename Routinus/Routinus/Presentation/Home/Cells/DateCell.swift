@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class CalendarDateCell: UICollectionViewCell {
-    static let reuseIdentifier = "dateCell"
+final class DateCell: UICollectionViewCell {
+    static let reuseIdentifier = "DateCell"
 
     private lazy var selectionBackgroundView: UIView = {
         let view = UIView()
@@ -27,7 +27,7 @@ final class CalendarDateCell: UICollectionViewCell {
         return label
     }()
 
-    private lazy var accessibilityDateFormatter: DateFormatter = {
+    private lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = Calendar(identifier: .gregorian)
         dateFormatter.setLocalizedDateFormatFromTemplate("EEEE, MMMM d")
@@ -39,7 +39,7 @@ final class CalendarDateCell: UICollectionViewCell {
             guard let day = day else { return }
 
             numberLabel.text = day.number
-            accessibilityLabel = accessibilityDateFormatter.string(from: day.date)
+            accessibilityLabel = dateFormatter.string(from: day.date)
             updateSelectionStatus()
         }
     }
@@ -88,7 +88,7 @@ final class CalendarDateCell: UICollectionViewCell {
     }
 }
 
-extension CalendarDateCell {
+extension DateCell {
     func applyDayColor(_ day: Int) {
         switch day {
         case 0:
@@ -101,7 +101,7 @@ extension CalendarDateCell {
     }
 }
 
-private extension CalendarDateCell {
+private extension DateCell {
     func updateSelectionStatus() {
         guard let day = day else { return }
 

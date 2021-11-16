@@ -69,8 +69,8 @@ final class CalendarView: UIView {
         self.addSubview(headerView)
 
         calendarView.register(
-            CalendarDateCell.self,
-            forCellWithReuseIdentifier: CalendarDateCell.reuseIdentifier
+            DateCell.self,
+            forCellWithReuseIdentifier: DateCell.reuseIdentifier
         )
 
         headerView.baseDate = self.viewModel?.baseDate.value ?? Date()

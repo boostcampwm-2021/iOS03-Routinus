@@ -185,8 +185,8 @@ extension HomeViewController: UICollectionViewDataSource {
         let day = self.viewModel?.days.value[indexPath.row]
 
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CalendarDateCell.reuseIdentifier,
-            for: indexPath) as? CalendarDateCell else { return UICollectionViewCell() }
+            withReuseIdentifier: DateCell.reuseIdentifier,
+            for: indexPath) as? DateCell else { return UICollectionViewCell() }
         cell.day = day
         cell.achievementRate = day?.achievementRate
         return cell
