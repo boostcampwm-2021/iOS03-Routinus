@@ -8,7 +8,6 @@
 import Combine
 import UIKit
 
-import JTAppleCalendar
 import SnapKit
 
 final class HomeViewController: UIViewController {
@@ -86,7 +85,7 @@ extension HomeViewController {
             make.centerX.equalToSuperview()
             make.height.equalTo(450)
         }
-        
+
         self.contentView.snp.makeConstraints { make in
             make.bottom.equalTo(self.calendarView.snp.bottom)
         }
@@ -112,7 +111,7 @@ extension HomeViewController {
 
         self.viewModel?.days
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] days in
+            .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 self.calendarView.reloadData()
             })
