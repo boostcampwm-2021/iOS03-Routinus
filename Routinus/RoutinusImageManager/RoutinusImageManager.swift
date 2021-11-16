@@ -29,20 +29,23 @@ public enum RoutinusImageManager {
         return (try? FileManager.default.contentsOfDirectory(atPath: url.path)) ?? []
     }
 
-    // TODO: 제대로 동작하는지 테스트 필요
-    public static func cachedImageData(from directory: String, filename: String) -> Data? {
+    public static func cachedImageData(from directory: String,
+                                       filename: String,
+                                       completion: ((Data?) -> Void)? = nil) {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
-                                                             true).first else { return nil }
+                                                             true).first else {
+            completion?(nil)
+            return
+        }
 
         var url = URL(fileURLWithPath: path)
         url.appendPathComponent("\(directory)_\(filename)")
         url.appendPathExtension("jpeg")
 
-        return try? Data(contentsOf: url)
+        completion?(try? Data(contentsOf: url))
     }
 
-    // TODO: 제대로 동작하는지 테스트 필요
     public static func cachedImageURL(from directory: String, filename: String) -> String {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
@@ -90,7 +93,6 @@ public enum RoutinusImageManager {
 
 // TODO: 개발 완료 후 삭제(개발/테스트용으로 작성된 메소드)
 extension RoutinusImageManager {
-    // TODO: 제대로 동작하는지 테스트 필요
     public static func removeAllCachedImages() {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
