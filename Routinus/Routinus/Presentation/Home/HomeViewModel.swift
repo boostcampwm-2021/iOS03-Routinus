@@ -122,7 +122,7 @@ extension HomeViewModel {
         self.formatter.locale = Calendar.current.locale
     }
 
-    func monthMetadata(for baseDate: Date) throws -> MonthMetadata {
+    private func monthMetadata(for baseDate: Date) throws -> MonthMetadata {
         guard let numberOfDaysInMonth = calendar.range(of: .day, in: .month, for: baseDate)?.count,
               let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: baseDate))
         else {
@@ -159,21 +159,21 @@ extension HomeViewModel {
         return days
     }
 
-    func generateDay(offsetBy dayOffset: Int, for baseDate: Date, isWithinDisplayedMonth: Bool) -> Day {
+    private func generateDay(offsetBy dayOffset: Int, for baseDate: Date, isWithinDisplayedMonth: Bool) -> Day {
         let date = calendar.date(byAdding: .day, value: dayOffset, to: baseDate) ?? baseDate
         let achievement = achievement.filter { "\($0.yearMonth)\($0.day)" == date.toString() }
         return Day(
             date: date,
             number: "\(date.day)",
             isSelected: selectedDates.contains(date),
-            achievementRate: (achievement.count == 0
-                              ? 0
-                              : Double(achievement.first?.achievementCount ?? 0) / Double(achievement.first?.totalCount ?? 0)),
+            achievementRate: (achievement.count > 0
+                              ? Double(achievement.first?.achievementCount ?? 0) / Double(achievement.first?.totalCount ?? 0)
+                              : 0),
             isWithinDisplayedMonth: isWithinDisplayedMonth
         )
     }
 
-    func generateStartOfNextMonth(using firstDayOfDisplayedMonth: Date) -> [Day] {
+    private func generateStartOfNextMonth(using firstDayOfDisplayedMonth: Date) -> [Day] {
         guard let lastDayInMonth = calendar.date(
             byAdding: DateComponents(month: 1, day: -1),
             to: firstDayOfDisplayedMonth)

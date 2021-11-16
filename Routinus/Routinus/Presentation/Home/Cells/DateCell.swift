@@ -34,17 +34,18 @@ final class DateCell: UICollectionViewCell {
         return dateFormatter
     }()
 
-    var day: Day? {
+    private var day: Day? {
         didSet {
             guard let day = day else { return }
 
             numberLabel.text = day.number
             accessibilityLabel = dateFormatter.string(from: day.date)
+            achievementRate = day.achievementRate
             updateSelectionStatus()
         }
     }
 
-    var achievementRate: Double? {
+    private var achievementRate: Double? {
         didSet {
             guard let achievementRate = achievementRate else { return }
             selectionBackgroundView.alpha = achievementRate
@@ -89,6 +90,10 @@ final class DateCell: UICollectionViewCell {
 }
 
 extension DateCell {
+    func setDay(_ day: Day?) {
+        self.day = day
+    }
+
     func applyDayColor(_ day: Int) {
         switch day {
         case 0:
