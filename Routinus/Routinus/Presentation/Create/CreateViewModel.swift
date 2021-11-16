@@ -50,7 +50,8 @@ final class CreateViewModel: CreateViewModelIO {
     private var authMethod: String
     private var authExampleImageURL: String
 
-    init(challengeID: String, createUsecase: ChallengeCreatableUsecase, updateUsecase: ChallengeUpdatableUsecase) {
+    init(challengeID: String? = nil, createUsecase: ChallengeCreatableUsecase, updateUsecase: ChallengeUpdatableUsecase) {
+        self.challengeID = challengeID
         self.createUsecase = createUsecase
         self.updateUsecase = updateUsecase
         self.title = ""
@@ -60,7 +61,6 @@ final class CreateViewModel: CreateViewModelIO {
         self.authMethod = ""
         self.authExampleImageURL = ""
         self.category = .exercise
-        self.challengeID = challengeID
     }
 
     private func validate() {
@@ -102,8 +102,8 @@ final class CreateViewModel: CreateViewModelIO {
     }
 
     func update(week: Int) {
-        self.week = week
         guard let endDate = createUsecase.endDate(week: week) else { return }
+        self.week = week
         expectedEndDate.value = endDate
         self.validate()
     }

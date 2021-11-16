@@ -217,4 +217,50 @@ internal enum RoutinusQuery {
         }
         """.data(using: .utf8)
     }
+
+    internal static func challenge(ownerID: String, challengeID: String) -> Data? {
+        return """
+        {
+            "structuredQuery": {
+                "from": { "collectionId": "challenge" },
+                "where": {
+                    "compositeFilter": {
+                        "filters": [
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "owner_id" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(ownerID)" }
+                                }
+                            },
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "id" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(challengeID)" }
+                                },
+                            }
+                        ],
+                        "op": "AND"
+                    }
+                }
+            }
+        }
+        """.data(using: .utf8)
+    }
+
+    internal static func updateChallenge(document: ChallengeField) -> Data? {
+        return """
+        {
+            "fields": {
+                "auth_method": { "stringValue": "\(document.authMethod.stringValue)" },
+                "category_id": { "stringValue": "\(document.categoryID.stringValue)" },
+                "desc": { "stringValue": "\(document.desc.stringValue)" },
+                "end_date": { "stringValue": "\(document.endDate.stringValue)" },
+                "title": { "stringValue": "\(document.title.stringValue)" },
+                "week": { "integerValue": "\(document.week.integerValue)" }
+            }
+        }
+        """.data(using: .utf8)
+    }
 }
