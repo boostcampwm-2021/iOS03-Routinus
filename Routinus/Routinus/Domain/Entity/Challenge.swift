@@ -11,20 +11,24 @@ import RoutinusDatabase
 
 struct Challenge: Hashable {
     enum Category: CaseIterable {
-        case exercise, selfDevelopment, lifeStyle, finance, hobby, etc
+        case exercise, study, read, lifeStyle, finance, hobby, emotionManage, etc
 
         var title: String {
             switch self {
             case .exercise:
                 return "운동"
-            case .selfDevelopment:
-                return "자기 계발"
+            case .study:
+                return "공부"
+            case .read:
+                return "독서"
             case .lifeStyle:
                 return "생활 습관"
             case .finance:
                 return "돈 관리"
             case .hobby:
                 return "취미"
+            case .emotionManage:
+                return "감정 관리"
             case .etc:
                 return "기타"
             }
@@ -34,14 +38,18 @@ struct Challenge: Hashable {
             switch self {
             case .exercise:
                 return "ExerciseColor"
-            case .selfDevelopment:
-                return "SelfDevelopmentColor"
+            case .study:
+                return "StudyColor"
+            case .read:
+                return "ReadColor"
             case .lifeStyle:
                 return "LifeStyleColor"
             case .finance:
                 return "FinanceColor"
             case .hobby:
                 return "HobbyColor"
+            case .emotionManage:
+                return "EmotionManageColor"
             case .etc:
                 return "ETCColor"
             }
@@ -51,14 +59,18 @@ struct Challenge: Hashable {
             switch self {
             case .exercise:
                 return "dumbbell"
-            case .selfDevelopment:
-                return "pencil"
+            case .study:
+                return "highlighter"
+            case .read:
+                return "text.book.closed"
             case .lifeStyle:
                 return "check.calendar"
             case .finance:
                 return "creditcard.and.123"
             case .hobby:
                 return "play.circle"
+            case .emotionManage:
+                return "heart.circle"
             case .etc:
                 return "guitars"
             }
@@ -68,16 +80,20 @@ struct Challenge: Hashable {
             switch self {
             case .exercise:
                 return "0"
-            case .selfDevelopment:
+            case .study:
                 return "1"
-            case .lifeStyle:
+            case .read:
                 return "2"
-            case .finance:
+            case .lifeStyle:
                 return "3"
-            case .hobby:
+            case .finance:
                 return "4"
-            case .etc:
+            case .hobby:
                 return "5"
+            case .emotionManage:
+                return "6"
+            case .etc:
+                return "7"
             }
         }
 
@@ -86,13 +102,17 @@ struct Challenge: Hashable {
             case "0":
                 return exercise
             case "1":
-                return selfDevelopment
+                return study
             case "2":
-                return lifeStyle
+                return read
             case "3":
-                return finance
+                return lifeStyle
             case "4":
+                return finance
+            case "5":
                 return hobby
+            case "6":
+                return emotionManage
             default:
                 return etc
             }

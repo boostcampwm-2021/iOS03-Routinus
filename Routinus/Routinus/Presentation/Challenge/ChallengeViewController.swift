@@ -85,8 +85,8 @@ final class ChallengeViewController: UIViewController {
         self.searchButton.isHidden = false
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         self.searchButton.isHidden = true
     }
 }
@@ -140,13 +140,21 @@ extension ChallengeViewController {
 
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Challenges"
+        self.configureNavigationBar()
         self.configureSearchButton()
         self.view.addSubview(collectionView)
         self.collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+
+    private func configureNavigationBar() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationItem.title = "Challenges"
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .black
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     private func configureSearchButton() {

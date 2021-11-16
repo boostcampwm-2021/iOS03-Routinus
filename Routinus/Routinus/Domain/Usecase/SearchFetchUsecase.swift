@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusDatabase
-
 protocol SearchFetchableUsecase {
     func fetchPopularKeywords(completion: @escaping ([String]) -> Void)
     func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void)

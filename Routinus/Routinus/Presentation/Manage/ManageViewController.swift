@@ -50,5 +50,13 @@ final class ManageViewController: UIViewController {
             make.top.equalTo(imageView).offset(30)
             make.trailing.equalTo(imageView).offset(-20)
         }
+        
+        self.configureNavigationBar()
+    }
+
+    private func configureNavigationBar() {
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .black
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 }

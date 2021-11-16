@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusDatabase
-
 protocol ChallengeUpdatableUsecase {
     func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void)
     func updateChallenge(challenge: Challenge)
@@ -31,7 +29,7 @@ struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
 
     func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void) {
         Task {
-            guard let challenge = await repository.fetchChallenge(challengeId: challengeID) else {
+            guard let challenge = await repository.fetchChallenge(challengeID: challengeID) else {
                 completion(nil)
                 return
             }
@@ -40,6 +38,8 @@ struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
     }
 
     func updateChallenge(challenge: Challenge) {
-        repository.update(challenge: challenge)
+        Task {
+            await repository.update(challenge: challenge, imageURL: challenge.imageURL, authImageURL: challenge.authExampleImageURL)
+        }
     }
 }

@@ -7,12 +7,11 @@
 
 import Foundation
 
-import RoutinusDatabase
-
 protocol ChallengeCreatableUsecase {
     func createChallenge(category: Challenge.Category, title: String, imageURL: String, authExampleImageURL: String, authMethod: String, week: Int, introduction: String)
     func isEmpty(title: String, imageURL: String, introduction: String, authMethod: String, authExampleImageURL: String) -> Bool
     func endDate(week: Int) -> Date?
+    func saveImage(to directory: String, filename: String, data: Data?) -> String?
 }
 
 struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
@@ -40,23 +39,30 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
 
     func createChallenge(category: Challenge.Category, title: String, imageURL: String, authExampleImageURL: String, authMethod: String, week: Int, introduction: String) {
         guard let ownerID = RoutinusRepository.userID(),
-              let endDate = endDate(week: week)?.toString() else { return }
+              let endDate = endDate(week: week) else { return }
         let challengeID = createChallengeID()
-        let startDate = startDate().toString()
-        let challenge = ChallengeDTO(id: challengeID,
-                                     title: title,
-                                     authMethod: authMethod,
-                                     categoryID: category.id,
-                                     week: week,
-                                     desc: introduction,
-                                     startDate: startDate,
-                                     endDate: endDate,
-                                     participantCount: 1,
-                                     ownerID: ownerID)
+        let challenge = Challenge(challengeID: challengeID,
+                                  title: title,
+                                  introduction: introduction,
+                                  category: category,
+                                  imageURL: imageURL,
+                                  authExampleImageURL: authExampleImageURL,
+                                  thumbnailImageURL: "",
+                                  authMethod: authMethod,
+                                  startDate: startDate(),
+                                  endDate: endDate,
+                                  ownerID: ownerID,
+                                  week: week,
+                                  participantCount: 1)
+
         repository.save(challenge: challenge, imageURL: imageURL, authImageURL: authExampleImageURL)
     }
 
     func isEmpty(title: String, imageURL: String, introduction: String, authMethod: String, authExampleImageURL: String) -> Bool {
         return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
+    }
+
+    func saveImage(to directory: String, filename: String, data: Data?) -> String? {
+        return repository.saveImage(to: directory, filename: filename, data: data)
     }
 }

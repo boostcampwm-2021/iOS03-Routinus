@@ -11,17 +11,18 @@ import Foundation
 protocol CreateViewModelInput {
     func update(category: Challenge.Category)
     func update(title: String)
-    func update(imageURL: String)
+    func update(imageURL: String?)
     func update(week: Int)
     func update(introduction: String)
     func update(authMethod: String)
-    func update(authExampleImageURL: String)
+    func update(authExampleImageURL: String?)
     func didTappedCreateButton()
     func validateTextView(currentText: String, range: NSRange, text: String) -> Bool
     func validateTextField(currentText: String, range: NSRange, text: String) -> Bool
     func fetchChallenge()
     func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String)
     func validateWeek(currentText: String) -> String
+    func saveImage(to directory: String, filename: String, data: Data?) -> String?
 }
 
 protocol CreateViewModelOutput {
@@ -50,7 +51,8 @@ final class CreateViewModel: CreateViewModelIO {
     private var authMethod: String
     private var authExampleImageURL: String
 
-    init(challengeID: String, createUsecase: ChallengeCreatableUsecase, updateUsecase: ChallengeUpdatableUsecase) {
+    init(challengeID: String? = nil, createUsecase: ChallengeCreatableUsecase, updateUsecase: ChallengeUpdatableUsecase) {
+        self.challengeID = challengeID
         self.createUsecase = createUsecase
         self.updateUsecase = updateUsecase
         self.title = ""
@@ -60,7 +62,6 @@ final class CreateViewModel: CreateViewModelIO {
         self.authMethod = ""
         self.authExampleImageURL = ""
         self.category = .exercise
-        self.challengeID = challengeID
     }
 
     private func validate() {
@@ -96,14 +97,14 @@ final class CreateViewModel: CreateViewModelIO {
         self.validate()
     }
 
-    func update(imageURL: String) {
-        self.imageURL = imageURL
+    func update(imageURL: String?) {
+        self.imageURL = imageURL ?? ""
         self.validate()
     }
 
     func update(week: Int) {
-        self.week = week
         guard let endDate = createUsecase.endDate(week: week) else { return }
+        self.week = week
         expectedEndDate.value = endDate
         self.validate()
     }
@@ -118,8 +119,8 @@ final class CreateViewModel: CreateViewModelIO {
         self.validate()
     }
 
-    func update(authExampleImageURL: String) {
-        self.authExampleImageURL = authExampleImageURL
+    func update(authExampleImageURL: String?) {
+        self.authExampleImageURL = authExampleImageURL ?? ""
         self.validate()
     }
 
@@ -137,13 +138,16 @@ final class CreateViewModel: CreateViewModelIO {
     func fetchChallenge() {
         guard let challengeID = challengeID else { return }
         updateUsecase.fetchChallenge(challengeID: challengeID) { [weak self] existedChallenge in
-            guard let self = self, let challenge = existedChallenge else { return }
+            guard let self = self,
+                  let challenge = existedChallenge else { return }
             self.challenge.value = challenge
         }
     }
 
     func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String) {
-        guard let challenge = challenge.value, let startDate = challenge.startDate, let endDate = updateUsecase.endDate(startDate: startDate, week: week) else { return }
+        guard let challenge = challenge.value,
+              let startDate = challenge.startDate,
+              let endDate = updateUsecase.endDate(startDate: startDate, week: week) else { return }
         let updateChallenge = Challenge(challengeID: challenge.challengeID,
                                         title: title,
                                         introduction: introduction,
@@ -159,5 +163,9 @@ final class CreateViewModel: CreateViewModelIO {
                                         participantCount: challenge.participantCount)
         self.challenge.value = updateChallenge
         updateUsecase.updateChallenge(challenge: updateChallenge)
+    }
+
+    func saveImage(to directory: String, filename: String, data: Data?) -> String? {
+        return createUsecase.saveImage(to: directory, filename: filename, data: data)
     }
 }

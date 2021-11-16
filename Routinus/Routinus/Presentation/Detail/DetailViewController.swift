@@ -36,12 +36,13 @@ final class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.navigationController?.navigationBar.prefersLargeTitles = false
         self.configureViews()
     }
 
     func configureViews() {
         self.view.backgroundColor = .white
+        self.configureNavigationBar()
+
         self.view.addSubview(imageView)
         imageView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide).inset(20)
@@ -58,6 +59,10 @@ final class DetailViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-90)
         }
+    }
+
+    private func configureNavigationBar() {
+        self.navigationItem.largeTitleDisplayMode = .never
     }
 
     @objc func didTouchbackButton() {

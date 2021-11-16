@@ -50,7 +50,7 @@ final class HomeViewController: UIViewController {
 extension HomeViewController {
     private func configureViews() {
         self.view.backgroundColor = .white
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.configureNavigationBar()
 
         self.view.addSubview(scrollView)
         self.scrollView.snp.makeConstraints { make in
@@ -88,6 +88,14 @@ extension HomeViewController {
         self.contentView.snp.makeConstraints { make in
             make.bottom.equalTo(self.calendarView.snp.bottom)
         }
+    }
+
+    private func configureNavigationBar() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .black
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     private func configureViewModel() {
