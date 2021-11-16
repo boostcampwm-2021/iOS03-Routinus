@@ -284,6 +284,7 @@
 				441CEDD027378573006C261F /* ContinuityView.swift */,
 				441CEDD227378EBF006C261F /* TodayRoutineView.swift */,
 				441CEDD527379939006C261F /* CalendarView.swift */,
+				0DD1631B27312AC700DC5970 /* CalendarHeader.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -338,7 +339,6 @@
 			isa = PBXGroup;
 			children = (
 				14FCD60A27311CF600626E74 /* RoutineCell.swift */,
-				0DD1631B27312AC700DC5970 /* CalendarHeader.swift */,
 				0DD1631927311F0200DC5970 /* DateCell.swift */,
 			);
 			path = Cells;

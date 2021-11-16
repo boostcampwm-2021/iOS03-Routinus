@@ -38,7 +38,6 @@ final class HomeViewController: UIViewController {
         configureDelegates()
     }
 
-    // TODO: 필요한 부분인지 확인하기
     override func viewWillTransition(
         to size: CGSize,
         with coordinator: UIViewControllerTransitionCoordinator
