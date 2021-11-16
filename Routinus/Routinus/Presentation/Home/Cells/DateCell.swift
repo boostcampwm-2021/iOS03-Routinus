@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CalendarDateCell: UICollectionViewCell {
+final class CalendarDateCell: UICollectionViewCell {
     static let reuseIdentifier = "dateCell"
 
     private lazy var selectionBackgroundView: UIView = {
@@ -125,7 +125,7 @@ private extension CalendarDateCell {
         accessibilityTraits.insert(.selected)
         accessibilityHint = nil
 
-        numberLabel.textColor = isSmallScreenSize ? UIColor(named: "MainColor") : .white
+        numberLabel.textColor = isSmallScreenSize ? UIColor(named: "MainColor") : UIColor(named: "DayColor")
         selectionBackgroundView.isHidden = isSmallScreenSize
     }
 
@@ -142,7 +142,7 @@ private extension CalendarDateCell {
             color = UIColor(named: "DayColor")
         }
 
-        numberLabel.textColor = isWithinDisplayedMonth ? color : .secondaryLabel
+        numberLabel.textColor = isWithinDisplayedMonth ? color : .systemGray3
         selectionBackgroundView.isHidden = true
     }
 }
