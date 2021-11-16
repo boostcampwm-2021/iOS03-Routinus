@@ -19,6 +19,10 @@
 		0DD1631A27311F0200DC5970 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631927311F0200DC5970 /* DateCell.swift */; };
 		0DD1631C27312AC700DC5970 /* CalendarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631B27312AC700DC5970 /* CalendarHeader.swift */; };
 		0DE03398274329BA0026F502 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE03397274329B90026F502 /* Calendar.swift */; };
+		0DE0339A274355700026F502 /* ManageCollectionViewLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE033992743556F0026F502 /* ManageCollectionViewLayouts.swift */; };
+		0DE0339C274355770026F502 /* ManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0339B274355760026F502 /* ManageViewModel.swift */; };
+		0DE0339E274355BE0026F502 /* ManageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0339D274355BE0026F502 /* ManageRepository.swift */; };
+		0DE033A0274355C80026F502 /* ManageFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0339F274355C80026F502 /* ManageFetchUsecase.swift */; };
 		14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14572CEC273BF644007E6ECE /* CreateCoordinator.swift */; };
 		145F5322273FAC9B000700A5 /* UpdateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5321273FAC9B000700A5 /* UpdateRepository.swift */; };
 		145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */; };
@@ -64,6 +68,9 @@
 		44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA3232733819B002E16C4 /* Date+Extensions.swift */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
 		E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C1915273CACDD00D11127 /* PopularKeyword.swift */; };
+		E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044127434D4700D82B1D /* AuthMethodView.swift */; };
+		E937044427434D6300D82B1D /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044327434D6300D82B1D /* PreviewView.swift */; };
+		E937044627434D8F00D82B1D /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044527434D8F00D82B1D /* AuthButton.swift */; };
 		E9493DC1273A4E5B0095CF6D /* ChallengeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */; };
 		E9493DC3273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC2273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift */; };
 		E9493DC6273A5E9D0095CF6D /* SearchChallengeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC5273A5E9D0095CF6D /* SearchChallengeCell.swift */; };
@@ -154,6 +161,10 @@
 		0DD1631927311F0200DC5970 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		0DD1631B27312AC700DC5970 /* CalendarHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeader.swift; sourceTree = "<group>"; };
 		0DE03397274329B90026F502 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
+		0DE033992743556F0026F502 /* ManageCollectionViewLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageCollectionViewLayouts.swift; sourceTree = "<group>"; };
+		0DE0339B274355760026F502 /* ManageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageViewModel.swift; sourceTree = "<group>"; };
+		0DE0339D274355BE0026F502 /* ManageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageRepository.swift; sourceTree = "<group>"; };
+		0DE0339F274355C80026F502 /* ManageFetchUsecase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageFetchUsecase.swift; sourceTree = "<group>"; };
 		14572CEC273BF644007E6ECE /* CreateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoordinator.swift; sourceTree = "<group>"; };
 		145F5321273FAC9B000700A5 /* UpdateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRepository.swift; sourceTree = "<group>"; };
 		145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpdateUsecase.swift; sourceTree = "<group>"; };
@@ -201,6 +212,9 @@
 		44AAA3232733819B002E16C4 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C1915273CACDD00D11127 /* PopularKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeyword.swift; sourceTree = "<group>"; };
+		E937044127434D4700D82B1D /* AuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMethodView.swift; sourceTree = "<group>"; };
+		E937044327434D6300D82B1D /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		E937044527434D8F00D82B1D /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRepository.swift; sourceTree = "<group>"; };
 		E9493DC2273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewLayouts.swift; sourceTree = "<group>"; };
 		E9493DC5273A5E9D0095CF6D /* SearchChallengeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChallengeCell.swift; sourceTree = "<group>"; };
@@ -294,6 +308,7 @@
 				0DC38F54273B689700331C25 /* SearchRepository.swift */,
 				149411E3273A6314004BE485 /* CreateRepository.swift */,
 				145F5321273FAC9B000700A5 /* UpdateRepository.swift */,
+				0DE0339D274355BE0026F502 /* ManageRepository.swift */,
 				1497CF4B2739078700296F9E /* UserNameFactory.swift */,
 			);
 			path = Data;
@@ -462,6 +477,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E937044027434D2400D82B1D /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				E937044327434D6300D82B1D /* PreviewView.swift */,
+				E937044527434D8F00D82B1D /* AuthButton.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		E93704472743A95100D82B1D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E937044127434D4700D82B1D /* AuthMethodView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		E9493DC4273A5E630095CF6D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +534,7 @@
 				0DC38F52273B688300331C25 /* SearchFetchUsecase.swift */,
 				149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */,
 				145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */,
+				0DE0339F274355C80026F502 /* ManageFetchUsecase.swift */,
 				1497CF562739215C00296F9E /* HomeCreateUsecase.swift */,
 			);
 			path = Usecase;
@@ -519,6 +552,7 @@
 				E9797CB7273108EA00A14A0F /* Auth */,
 				E9797CA92731072700A14A0F /* Manage */,
 				E9797CA8273106E300A14A0F /* MyPage */,
+				E93704472743A95100D82B1D /* Common */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -595,6 +629,8 @@
 			isa = PBXGroup;
 			children = (
 				E9797CAC2731074B00A14A0F /* ManageViewController.swift */,
+				0DE0339B274355760026F502 /* ManageViewModel.swift */,
+				0DE033992743556F0026F502 /* ManageCollectionViewLayouts.swift */,
 			);
 			path = Manage;
 			sourceTree = "<group>";
@@ -634,6 +670,7 @@
 			isa = PBXGroup;
 			children = (
 				E9797CB82731094900A14A0F /* AuthViewController.swift */,
+				E937044027434D2400D82B1D /* Subviews */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -957,10 +994,12 @@
 				E9753900273220F6004358C5 /* User.swift in Sources */,
 				0DBBAA3C27341C3600B32EB5 /* ChallengeRecommendCell.swift in Sources */,
 				E9493DC3273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift in Sources */,
+				0DE0339A274355700026F502 /* ManageCollectionViewLayouts.swift in Sources */,
 				E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */,
 				E94B497227390FD300708D7B /* CategoryButton.swift in Sources */,
 				E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */,
 				E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */,
+				0DE0339E274355BE0026F502 /* ManageRepository.swift in Sources */,
 				E9753909273257E5004358C5 /* HomeFetchUsecase.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */,
@@ -988,6 +1027,8 @@
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
+				0DE0339C274355770026F502 /* ManageViewModel.swift in Sources */,
+				0DE033A0274355C80026F502 /* ManageFetchUsecase.swift in Sources */,
 				441CEDD127378573006C261F /* ContinuityView.swift in Sources */,
 				14FCD60B27311CF600626E74 /* RoutineCell.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
@@ -995,6 +1036,7 @@
 				E9493DC1273A4E5B0095CF6D /* ChallengeRepository.swift in Sources */,
 				E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */,
 				E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */,
+				E937044627434D8F00D82B1D /* AuthButton.swift in Sources */,
 				E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */,
 				E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
@@ -1002,6 +1044,7 @@
 				0DE03398274329BA0026F502 /* Calendar.swift in Sources */,
 				0DC38F55273B689700331C25 /* SearchRepository.swift in Sources */,
 				0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCell.swift in Sources */,
+				E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */,
 				0DC38F44273A3B9900331C25 /* SearchCoordinator.swift in Sources */,
 				E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */,
 				0DC38F53273B688300331C25 /* SearchFetchUsecase.swift in Sources */,
@@ -1009,6 +1052,7 @@
 				441CEE17273A33CD006C261F /* CreateIntroductionView.swift in Sources */,
 				E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */,
 				145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */,
+				E937044427434D6300D82B1D /* PreviewView.swift in Sources */,
 				E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */,
 				0DBBAA3E27341C3600B32EB5 /* ChallengeHeader.swift in Sources */,
 				E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */,
