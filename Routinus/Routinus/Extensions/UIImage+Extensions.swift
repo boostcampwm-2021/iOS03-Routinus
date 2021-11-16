@@ -8,6 +8,34 @@
 import UIKit
 
 extension UIImage {
+    enum RoutinusImageType {
+        case main
+        case thumbnail
+
+        var width: CGFloat {
+            switch self {
+            case .main:
+                return CGFloat(200.0)
+            case .thumbnail:
+                return CGFloat(80.0)
+            }
+        }
+    }
+
+    func resizedImage(_ type: RoutinusImageType) -> UIImage {
+        guard size.width >= type.width else { return self }
+
+        let width = type.width
+        let scale = width / size.width
+        let height = size.height * scale
+        let size = CGSize(width: width, height: height)
+        let render = UIGraphicsImageRenderer(size: size)
+
+        return render.image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+
     func circularBackground(_ color: UIColor?) -> UIImage? {
         let circleDiameter = max((size.width * 2) - 10, (size.height * 2) - 10)
         let circleRadius = circleDiameter * 0.5

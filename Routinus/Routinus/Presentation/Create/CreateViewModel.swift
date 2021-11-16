@@ -12,17 +12,33 @@ protocol CreateViewModelInput {
     func update(category: Challenge.Category)
     func update(title: String)
     func update(imageURL: String?)
+    func update(thumbnailImageURL: String?)
     func update(week: Int)
     func update(introduction: String)
     func update(authMethod: String)
     func update(authExampleImageURL: String?)
+    func update(authExampleThumbnailImageURL: String?)
     func didTappedCreateButton()
-    func validateTextView(currentText: String, range: NSRange, text: String) -> Bool
-    func validateTextField(currentText: String, range: NSRange, text: String) -> Bool
+    func validateTextView(currentText: String,
+                          range: NSRange,
+                          text: String) -> Bool
+    func validateTextField(currentText: String,
+                           range: NSRange,
+                           text: String) -> Bool
     func fetchChallenge()
-    func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String)
+    func updateChallenge(category: Challenge.Category,
+                         title: String,
+                         imageURL: String,
+                         thumbnailImageURL: String,
+                         week: Int,
+                         introduction: String,
+                         authMethod: String,
+                         authExampleImageURL: String,
+                         authExampleThumbnailImageURL: String)
     func validateWeek(currentText: String) -> String
-    func saveImage(to directory: String, filename: String, data: Data?) -> String?
+    func saveImage(to directory: String,
+                   filename: String,
+                   data: Data?) -> String?
 }
 
 protocol CreateViewModelOutput {
@@ -46,22 +62,28 @@ final class CreateViewModel: CreateViewModelIO {
     private var title: String
     private var category: Challenge.Category?
     private var imageURL: String
+    private var thumbnailImageURL: String
     private var week: Int
     private var introduction: String
     private var authMethod: String
     private var authExampleImageURL: String
+    private var authExampleThumbnailImageURL: String
 
-    init(challengeID: String? = nil, createUsecase: ChallengeCreatableUsecase, updateUsecase: ChallengeUpdatableUsecase) {
+    init(challengeID: String? = nil,
+         createUsecase: ChallengeCreatableUsecase,
+         updateUsecase: ChallengeUpdatableUsecase) {
         self.challengeID = challengeID
         self.createUsecase = createUsecase
         self.updateUsecase = updateUsecase
         self.title = ""
+        self.category = .exercise
         self.imageURL = ""
+        self.thumbnailImageURL = ""
         self.week = 1
         self.introduction = ""
         self.authMethod = ""
         self.authExampleImageURL = ""
-        self.category = .exercise
+        self.authExampleThumbnailImageURL = ""
     }
 
     private func validate() {
@@ -102,6 +124,11 @@ final class CreateViewModel: CreateViewModelIO {
         self.validate()
     }
 
+    func update(thumbnailImageURL: String?) {
+        self.thumbnailImageURL = thumbnailImageURL ?? ""
+        self.validate()
+    }
+
     func update(week: Int) {
         guard let endDate = createUsecase.endDate(week: week) else { return }
         self.week = week
@@ -124,12 +151,19 @@ final class CreateViewModel: CreateViewModelIO {
         self.validate()
     }
 
+    func update(authExampleThumbnailImageURL: String?) {
+        self.authExampleThumbnailImageURL = authExampleThumbnailImageURL ?? ""
+        self.validate()
+    }
+
     func didTappedCreateButton() {
         guard let category = category else { return }
         createUsecase.createChallenge(category: category,
                                       title: title,
                                       imageURL: imageURL,
+                                      thumbnailImageURL: thumbnailImageURL,
                                       authExampleImageURL: authExampleImageURL,
+                                      authExampleThumbnailImageURL: authExampleThumbnailImageURL,
                                       authMethod: authMethod,
                                       week: week,
                                       introduction: introduction)
@@ -144,7 +178,15 @@ final class CreateViewModel: CreateViewModelIO {
         }
     }
 
-    func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String) {
+    func updateChallenge(category: Challenge.Category,
+                         title: String,
+                         imageURL: String,
+                         thumbnailImageURL: String,
+                         week: Int,
+                         introduction: String,
+                         authMethod: String,
+                         authExampleImageURL: String,
+                         authExampleThumbnailImageURL: String) {
         guard let challenge = challenge.value,
               let startDate = challenge.startDate,
               let endDate = updateUsecase.endDate(startDate: startDate, week: week) else { return }
@@ -153,8 +195,9 @@ final class CreateViewModel: CreateViewModelIO {
                                         introduction: introduction,
                                         category: category,
                                         imageURL: imageURL,
+                                        thumbnailImageURL: thumbnailImageURL,
                                         authExampleImageURL: authExampleImageURL,
-                                        thumbnailImageURL: challenge.thumbnailImageURL,
+                                        authExampleThumbnailImageURL: authExampleThumbnailImageURL,
                                         authMethod: authMethod,
                                         startDate: challenge.startDate,
                                         endDate: endDate,

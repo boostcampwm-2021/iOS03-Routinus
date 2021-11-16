@@ -320,20 +320,31 @@ extension CreateViewController: UIImagePickerControllerDelegate, UINavigationCon
 
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
-        if let image = info[InfoKey.originalImage] as? UIImage {
+        if let originalImage = info[InfoKey.originalImage] as? UIImage {
+            let mainImage = originalImage.resizedImage(.main)
+            let thumbnailImage = originalImage.resizedImage(.thumbnail)
+
             switch selectedImagePickerTag {
             case .image:
-                let url = viewModel?.saveImage(to: "temp",
-                                               filename: "image",
-                                               data: image.jpegData(compressionQuality: 1))
-                viewModel?.update(imageURL: url)
-                imageRegisterView.setImage(image)
+                let mainImageURL = viewModel?.saveImage(to: "temp",
+                                                        filename: "image",
+                                                        data: mainImage.jpegData(compressionQuality: 0.9))
+                let thumbnailImageURL = viewModel?.saveImage(to: "temp",
+                                                             filename: "thumbnail_image",
+                                                             data: thumbnailImage.jpegData(compressionQuality: 0.9))
+                viewModel?.update(imageURL: mainImageURL)
+                viewModel?.update(thumbnailImageURL: thumbnailImageURL)
+                imageRegisterView.setImage(thumbnailImage)
             case .authImage:
-                let url = viewModel?.saveImage(to: "temp",
-                                               filename: "auth",
-                                               data: image.jpegData(compressionQuality: 1))
-                viewModel?.update(authExampleImageURL: url)
-                authImageRegisterView.setImage(image)
+                let mainImageURL = viewModel?.saveImage(to: "temp",
+                                                        filename: "auth",
+                                                        data: mainImage.jpegData(compressionQuality: 0.9))
+                let thumbnailImageURL = viewModel?.saveImage(to: "temp",
+                                                             filename: "thumbnail_auth",
+                                                             data: thumbnailImage.jpegData(compressionQuality: 0.9))
+                viewModel?.update(authExampleImageURL: mainImageURL)
+                viewModel?.update(authExampleThumbnailImageURL: thumbnailImageURL)
+                authImageRegisterView.setImage(thumbnailImage)
             default:
                 break
             }

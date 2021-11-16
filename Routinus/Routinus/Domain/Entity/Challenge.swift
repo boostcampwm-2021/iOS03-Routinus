@@ -124,8 +124,9 @@ struct Challenge: Hashable {
     var introduction: String
     var category: Category
     var imageURL: String
-    var authExampleImageURL: String
     var thumbnailImageURL: String
+    var authExampleImageURL: String
+    var authExampleThumbnailImageURL: String
     var authMethod: String
     var startDate: Date?
     var endDate: Date?
@@ -133,16 +134,28 @@ struct Challenge: Hashable {
     var week: Int
     var participantCount: Int
 
-    init(challengeID: String, title: String, introduction: String, category: Category, imageURL: String,
-         authExampleImageURL: String, thumbnailImageURL: String, authMethod: String, startDate: Date?,
-         endDate: Date?, ownerID: String, week: Int, participantCount: Int) {
+    init(challengeID: String,
+         title: String,
+         introduction: String,
+         category: Category,
+         imageURL: String,
+         thumbnailImageURL: String,
+         authExampleImageURL: String,
+         authExampleThumbnailImageURL: String,
+         authMethod: String,
+         startDate: Date?,
+         endDate: Date?,
+         ownerID: String,
+         week: Int,
+         participantCount: Int) {
         self.challengeID = challengeID
         self.title = title
         self.introduction = introduction
         self.category = category
         self.imageURL = imageURL
-        self.authExampleImageURL = authExampleImageURL
         self.thumbnailImageURL = thumbnailImageURL
+        self.authExampleImageURL = authExampleImageURL
+        self.authExampleThumbnailImageURL = authExampleThumbnailImageURL
         self.authMethod = authMethod
         self.startDate = startDate
         self.endDate = endDate
@@ -159,8 +172,9 @@ struct Challenge: Hashable {
         self.introduction = document?.desc.stringValue ?? ""
         self.category = Category.category(by: document?.categoryID.stringValue ?? "")
         self.imageURL = ""
-        self.authExampleImageURL = ""
         self.thumbnailImageURL = ""
+        self.authExampleImageURL = ""
+        self.authExampleThumbnailImageURL = ""
         self.authMethod = document?.authMethod.stringValue ?? ""
         self.startDate = Date(dateString: document?.startDate.stringValue ?? "")
         self.endDate = Date(dateString: document?.endDate.stringValue ?? "")

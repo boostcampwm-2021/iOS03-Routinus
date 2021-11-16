@@ -16,11 +16,13 @@ public enum RoutinusDatabase {
     private static let firestoreURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
     private static let storageURL = "https://firebasestorage.googleapis.com/v0/b/boostcamp-ios03-routinus.appspot.com/o"
 
-    public static func imageURL(id: String, filename: String) async throws -> URL? {
+    public static func imageURL(id: String,
+                                filename: String) async throws -> URL? {
         return URL(string: "\(storageURL)/\(id)%2F\(filename).jpeg?alt=media")
     }
 
-    public static func createUser(id: String, name: String) async throws {
+    public static func createUser(id: String,
+                                  name: String) async throws {
         guard let url = URL(string: "\(firestoreURL)/user") else { return }
         var request = URLRequest(url: url)
 
@@ -31,20 +33,41 @@ public enum RoutinusDatabase {
         _ = try await URLSession.shared.data(for: request)
     }
 
-    public static func createChallenge(challenge: ChallengeDTO, imageURL: String, authImageURL: String) async throws {
-        Task {
-            try await insertChallenge(dto: challenge)
-            try await insertChallengeParticipation(dto: challenge)
-            try await uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
-                                  filename: "image",
-                                  imageURL: imageURL)
-            try await uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
-                                  filename: "auth",
-                                  imageURL: authImageURL)
+    public static func createChallenge(challenge: ChallengeDTO,
+                                       imageURL: String,
+                                       thumbnailImageURL: String,
+                                       authExampleImageURL: String,
+                                       authExampleThumbnailImageURL: String,
+                                       completion: @escaping () -> Void) {
+        insertChallenge(dto: challenge)
+        insertChallengeParticipation(dto: challenge)
+
+        let uploadQueue = DispatchQueue(label: "uploadQueue")
+        let group = DispatchGroup()
+
+        uploadQueue.async(group: group) {
+            let id = challenge.document?.fields.id.stringValue ?? ""
+            uploadImage(id: id,
+                        filename: "image",
+                        imageURL: imageURL)
+            uploadImage(id: id,
+                        filename: "thumbnail_image",
+                        imageURL: thumbnailImageURL)
+            uploadImage(id: id,
+                        filename: "auth",
+                        imageURL: authExampleImageURL)
+            uploadImage(id: id,
+                        filename: "thumbnail_auth",
+                        imageURL: authExampleThumbnailImageURL)
+        }
+
+        group.notify(queue: uploadQueue) {
+            completion()
         }
     }
 
-    public static func insertChallenge(dto: ChallengeDTO) async throws {
+    public static func insertChallenge(dto: ChallengeDTO,
+                                       completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(firestoreURL)/challenge"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
@@ -53,10 +76,13 @@ public enum RoutinusDatabase {
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.insertChallengeQuery(document: document)
 
-        _ = try await URLSession.shared.data(for: request)
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            completion?()
+        }.resume()
     }
 
-    public static func insertChallengeParticipation(dto: ChallengeDTO) async throws {
+    public static func insertChallengeParticipation(dto: ChallengeDTO,
+                                                    completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(firestoreURL)/challenge_participation"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
@@ -65,10 +91,15 @@ public enum RoutinusDatabase {
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.insertChallengeParticipationQuery(document: document)
 
-        _ = try await URLSession.shared.data(for: request)
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            completion?()
+        }.resume()
     }
 
-    public static func uploadImage(id: String, filename: String, imageURL: String) async throws {
+    public static func uploadImage(id: String,
+                                   filename: String,
+                                   imageURL: String,
+                                   completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(storageURL)?uploadType=media&name=\(id)%2F\(filename).jpeg"),
               let imageURL = URL(string: imageURL) else { return }
         var request = URLRequest(url: url)
@@ -77,7 +108,9 @@ public enum RoutinusDatabase {
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = try? Data(contentsOf: imageURL)
 
-        _ = try await URLSession.shared.data(for: request)
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            completion?()
+        }.resume()
     }
 
     public static func user(of id: String) async throws -> UserDTO {
@@ -118,7 +151,8 @@ public enum RoutinusDatabase {
         return todayRoutines
     }
 
-    public static func achievement(of id: String, in yearMonth: String) async throws -> [AchievementDTO] {
+    public static func achievement(of id: String,
+                                   in yearMonth: String) async throws -> [AchievementDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
 
@@ -190,55 +224,83 @@ public enum RoutinusDatabase {
         return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
 
-    public static func challenge(ownerID: String, challengeID: String) async throws -> ChallengeDTO {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return ChallengeDTO() }
+    public static func challenge(ownerID: String,
+                                 challengeID: String,
+                                 completion: @escaping (ChallengeDTO) -> Void) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.challenge(ownerID: ownerID, challengeID: challengeID)
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        return try JSONDecoder().decode([ChallengeDTO].self, from: data).first ?? ChallengeDTO()
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let dto = try? JSONDecoder().decode([ChallengeDTO].self, from: data).first
+            completion(dto ?? ChallengeDTO())
+        }.resume()
     }
 
-    public static func patchChallenge(challengeDTO: ChallengeDTO, imageURL: String, authImageURL: String) async throws {
+    public static func patchChallenge(challengeDTO: ChallengeDTO,
+                                      imageURL: String,
+                                      thumbnailImageURL: String,
+                                      authExampleImageURL: String,
+                                      authExampleThumbnailImageURL: String,
+                                      completion: @escaping () -> Void) {
+        updateChallenge(challengeDTO: challengeDTO)
+        
+        let patchQueue = DispatchQueue(label: "patchQueue")
+        let group = DispatchGroup()
 
-        Task {
-            try await updateChallenge(challengeDTO: challengeDTO)
-            try await uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
-                                  filename: "image",
-                                  imageURL: imageURL)
-            try await uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
-                                  filename: "auth",
-                                  imageURL: authImageURL)
+        patchQueue.async(group: group) {
+            let id = challengeDTO.document?.fields.id.stringValue ?? ""
+            uploadImage(id: id,
+                        filename: "image",
+                        imageURL: imageURL)
+            uploadImage(id: id,
+                        filename: "thumbnail_image",
+                        imageURL: thumbnailImageURL)
+            uploadImage(id: id,
+                        filename: "auth",
+                        imageURL: authExampleImageURL)
+            uploadImage(id: id,
+                        filename: "thumbnail_auth",
+                        imageURL: authExampleImageURL)
+        }
+
+        group.notify(queue: patchQueue) {
+            completion()
         }
     }
 
-    public static func updateChallenge(challengeDTO: ChallengeDTO) async throws {
+    public static func updateChallenge(challengeDTO: ChallengeDTO,
+                                       completion: (() -> Void)? = nil) {
         guard let ownerID = challengeDTO.document?.fields.ownerID.stringValue,
               let challengeID = challengeDTO.document?.fields.id.stringValue,
               let challengeField = challengeDTO.document?.fields else { return }
 
-        guard let findChallenge = try? await challenge(ownerID: ownerID, challengeID: challengeID),
-              let documentID = findChallenge.documentID else { return }
+        challenge(ownerID: ownerID, challengeID: challengeID) { dto in
+            let documentID = dto.documentID
+            var urlComponent = URLComponents(string: "\(firestoreURL)/challenge/\(documentID)?")
+            let queryItems = [
+                URLQueryItem(name: "updateMask.fieldPaths", value: "auth_method"),
+                URLQueryItem(name: "updateMask.fieldPaths", value: "category_id"),
+                URLQueryItem(name: "updateMask.fieldPaths", value: "title"),
+                URLQueryItem(name: "updateMask.fieldPaths", value: "desc"),
+                URLQueryItem(name: "updateMask.fieldPaths", value: "week"),
+                URLQueryItem(name: "updateMask.fieldPaths", value: "end_date")
+            ]
+            urlComponent?.queryItems = queryItems
+            guard let url = urlComponent?.url else { return }
 
-        var urlComponent = URLComponents(string: "\(firestoreURL)/challenge/\(documentID)?")
-        let queryItems = [URLQueryItem(name: "updateMask.fieldPaths", value: "auth_method"),
-                          URLQueryItem(name: "updateMask.fieldPaths", value: "category_id"),
-                          URLQueryItem(name: "updateMask.fieldPaths", value: "title"),
-                          URLQueryItem(name: "updateMask.fieldPaths", value: "desc"),
-                          URLQueryItem(name: "updateMask.fieldPaths", value: "week"),
-                          URLQueryItem(name: "updateMask.fieldPaths", value: "end_date"),
-                        ]
-        urlComponent?.queryItems = queryItems
-        guard let url = urlComponent?.url else { return }
+            var request = URLRequest(url: url)
+            request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = HTTPMethod.patch.rawValue
+            request.httpBody = RoutinusQuery.updateChallenge(document: challengeField)
 
-        var request = URLRequest(url: url)
-        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = HTTPMethod.patch.rawValue
-        request.httpBody = RoutinusQuery.updateChallenge(document: challengeField)
-
-        _ = try await URLSession.shared.data(for: request)
+            URLSession.shared.dataTask(with: request) { _, _, _ in
+                completion?()
+            }.resume()
+        }
     }
 }
