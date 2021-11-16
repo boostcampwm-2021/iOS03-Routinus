@@ -12,7 +12,8 @@ final class InformationView: UIView {
     private lazy var infomationStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.backgroundColor = .white
+        stackView.distribution = .fill
+        stackView.backgroundColor = .blue
         stackView.spacing = 5
         return stackView
     }()
@@ -20,7 +21,9 @@ final class InformationView: UIView {
     private lazy var titleStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 5
+        stackView.backgroundColor = .yellow
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
         return stackView
     }()
 
@@ -40,6 +43,7 @@ final class InformationView: UIView {
 
     private lazy var weekStackView: UIStackView = {
         var stackView = UIStackView()
+        stackView.backgroundColor = .red
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         return stackView
@@ -71,6 +75,7 @@ final class InformationView: UIView {
     private lazy var endDateStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .horizontal
+        stackView.backgroundColor = .red
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -103,7 +108,8 @@ final class InformationView: UIView {
     private lazy var introductionView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 5
-        view.backgroundColor = UIColor(named: "LightGrayColor")
+        view.backgroundColor = .red
+        //view.backgroundColor = UIColor(named: "LightGrayColor")
         return view
     }()
 
@@ -140,10 +146,10 @@ extension InformationView {
 
         infomationStackView.addArrangedSubview(titleStackView)
         titleStackView.snp.makeConstraints { make in
+            make.height.equalTo(20)
             make.top.equalToSuperview().offset(5)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(20)
         }
 
         titleStackView.addArrangedSubview(categoryImageView)
@@ -210,10 +216,10 @@ extension InformationView {
 
         infomationStackView.addArrangedSubview(introductionView)
         introductionView.snp.makeConstraints { make in
+            make.height.equalTo(60)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(5)
-            make.height.equalTo(60)
         }
 
         introductionView.addSubview(introductionLabel)

@@ -13,8 +13,7 @@ final class DetailViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 50
-        stackView.distribution = .fillProportionally
+        stackView.spacing = 5
         stackView.backgroundColor = UIColor(named: "LightGrayColor")
         return stackView
     }()
@@ -28,6 +27,54 @@ final class DetailViewController: UIViewController {
 
     private lazy var informationView = InformationView()
 
+    private lazy var authStackView: UIStackView = {
+        var stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.backgroundColor = .yellow
+        stackView.spacing = 5
+        return stackView
+    }()
+
+    private lazy var authTitleLabel: UILabel = {
+        var label = UILabel()
+        label.text = "인증 방법"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        return label
+    }()
+
+    private lazy var authImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = UIImage(named: "walk")
+        imageView.backgroundColor = .red
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
+    private lazy var authMethodView: UIView = {
+        var view = UIView()
+        view.layer.cornerRadius = 5
+        view.backgroundColor = UIColor(named: "LightGrayColor")
+        return view
+    }()
+
+    private lazy var authMethodLabel: UILabel = {
+        var label = UILabel()
+        label.text = "[1만보] 이상 걸음 수가 기록된 [앱 화면] 또는 [스마트 워치] 사진 올리기"
+        label.numberOfLines = 0
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        return label
+    }()
+
+    private lazy var challengeButton: UIButton = {
+        var button = UIButton()
+        button.setTitle("참여하기", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.backgroundColor = UIColor(red: 180/255, green: 231/255, blue: 160/255, alpha: 1)
+        button.layer.cornerRadius = 20
+        //button.addTarget(self, action: #selector(), for: .touchUpInside)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,20 +93,60 @@ final class DetailViewController: UIViewController {
 
         scrollView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.top.bottom.left.right.equalToSuperview()
+            make.top.bottom.leading.trailing.equalToSuperview()
             make.centerX.equalToSuperview()
         }
 
         // 0. 메인 이미지
         stackView.addArrangedSubview(mainImageView)
         mainImageView.snp.makeConstraints { make in
-            make.height.equalTo(200)
+            make.height.equalTo(300)
         }
 
         // 1. 상세 정보 스택
         stackView.addArrangedSubview(informationView)
         informationView.snp.makeConstraints { make in
-            make.height.equalTo(180)
+            make.height.equalTo(250)
+        }
+
+        // 2. 인증 방법 스택
+        stackView.addArrangedSubview(authStackView)
+        authStackView.snp.makeConstraints { make in
+            make.height.equalTo(200)
+        }
+
+        authStackView.addArrangedSubview(authTitleLabel)
+        authTitleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(5)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(20)
+        }
+
+        authStackView.addArrangedSubview(authImageView)
+        authImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.width.equalTo(80)
+            make.height.equalTo(80)
+        }
+
+        authStackView.addArrangedSubview(authMethodView)
+        authMethodView.snp.makeConstraints { make in
+            make.height.equalTo(60)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(5)
+        }
+
+        authMethodView.addSubview(authMethodLabel)
+        authMethodLabel.snp.makeConstraints { make in
+            make.top.bottom.leading.trailing.equalToSuperview().offset(3)
+        }
+
+        stackView.addArrangedSubview(challengeButton)
+        challengeButton.snp.makeConstraints { make in
+            make.height.equalTo(60)
         }
     }
 
