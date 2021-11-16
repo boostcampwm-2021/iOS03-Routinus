@@ -17,8 +17,8 @@
 		0DC38F55273B689700331C25 /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC38F54273B689700331C25 /* SearchRepository.swift */; };
 		0DC38F59273BA89000331C25 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC38F58273BA89000331C25 /* UIImage+Extensions.swift */; };
 		0DD1631A27311F0200DC5970 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631927311F0200DC5970 /* DateCell.swift */; };
-		0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631B27312AC700DC5970 /* DateHeader.swift */; };
-		0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1632C2733729800DC5970 /* CalendarDelegate.swift */; };
+		0DD1631C27312AC700DC5970 /* CalendarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD1631B27312AC700DC5970 /* CalendarHeader.swift */; };
+		0DE03398274329BA0026F502 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE03397274329B90026F502 /* Calendar.swift */; };
 		14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14572CEC273BF644007E6ECE /* CreateCoordinator.swift */; };
 		145F5322273FAC9B000700A5 /* UpdateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5321273FAC9B000700A5 /* UpdateRepository.swift */; };
 		145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */; };
@@ -141,8 +141,8 @@
 		0DC38F54273B689700331C25 /* SearchRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
 		0DC38F58273BA89000331C25 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		0DD1631927311F0200DC5970 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
-		0DD1631B27312AC700DC5970 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
-		0DD1632C2733729800DC5970 /* CalendarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDelegate.swift; sourceTree = "<group>"; };
+		0DD1631B27312AC700DC5970 /* CalendarHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeader.swift; sourceTree = "<group>"; };
+		0DE03397274329B90026F502 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		14572CEC273BF644007E6ECE /* CreateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoordinator.swift; sourceTree = "<group>"; };
 		145F5321273FAC9B000700A5 /* UpdateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRepository.swift; sourceTree = "<group>"; };
 		145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpdateUsecase.swift; sourceTree = "<group>"; };
@@ -338,7 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				14FCD60A27311CF600626E74 /* RoutineCell.swift */,
-				0DD1631B27312AC700DC5970 /* DateHeader.swift */,
+				0DD1631B27312AC700DC5970 /* CalendarHeader.swift */,
 				0DD1631927311F0200DC5970 /* DateCell.swift */,
 			);
 			path = Cells;
@@ -350,14 +350,6 @@
 				E94B497127390FD300708D7B /* CategoryButton.swift */,
 			);
 			path = Subviews;
-			sourceTree = "<group>";
-		};
-		446A071E2741F5CD009F8D98 /* Delegates */ = {
-			isa = PBXGroup;
-			children = (
-				0DD1632C2733729800DC5970 /* CalendarDelegate.swift */,
-			);
-			path = Delegates;
 			sourceTree = "<group>";
 		};
 		446A071F2741F611009F8D98 /* Layouts */ = {
@@ -465,6 +457,7 @@
 				E9B1298127336EE50072D254 /* TodayRoutine.swift */,
 				E94B49752739118B00708D7B /* Challenge.swift */,
 				E91C1915273CACDD00D11127 /* PopularKeyword.swift */,
+				0DE03397274329B90026F502 /* Calendar.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -524,7 +517,6 @@
 				E9797CC22731258A00A14A0F /* HomeViewModel.swift */,
 				441CEDD4273796C4006C261F /* Subviews */,
 				446A071C2741F4F6009F8D98 /* Cells */,
-				446A071E2741F5CD009F8D98 /* Delegates */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -882,7 +874,7 @@
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DBBAA3727341C1600B32EB5 /* CollectionViewLayouts.swift in Sources */,
 				441CEE07273A0832006C261F /* HomeRepository.swift in Sources */,
-				0DD1631C27312AC700DC5970 /* DateHeader.swift in Sources */,
+				0DD1631C27312AC700DC5970 /* CalendarHeader.swift in Sources */,
 				E9493DCC273A75220095CF6D /* SearchHeader.swift in Sources */,
 				1497CF572739215C00296F9E /* HomeCreateUsecase.swift in Sources */,
 				E9753900273220F6004358C5 /* User.swift in Sources */,
@@ -904,7 +896,6 @@
 				E975390627325538004358C5 /* Achievement.swift in Sources */,
 				441CEE1B273A33FE006C261F /* CreateAuthMethodView.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
-				0DD1632D2733729800DC5970 /* CalendarDelegate.swift in Sources */,
 				14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */,
 				149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */,
 				E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */,
@@ -931,6 +922,7 @@
 				E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E94B49762739118B00708D7B /* Challenge.swift in Sources */,
+				0DE03398274329BA0026F502 /* Calendar.swift in Sources */,
 				0DC38F55273B689700331C25 /* SearchRepository.swift in Sources */,
 				0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCell.swift in Sources */,
 				0DC38F44273A3B9900331C25 /* SearchCoordinator.swift in Sources */,

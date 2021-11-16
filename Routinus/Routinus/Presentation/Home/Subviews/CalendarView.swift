@@ -2,134 +2,112 @@
 //  CalendarView.swift
 //  Routinus
 //
-//  Created by 유석환 on 2021/11/07.
+//  Created by 김민서 on 2021/11/14.
 //
 
+import Combine
 import UIKit
 
-import JTAppleCalendar
-import SnapKit
-
 final class CalendarView: UIView {
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "요약"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        return label
+    private lazy var calendarView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isScrollEnabled = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+
+        layout.collectionView?.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        layout.collectionView?.layer.cornerCurve = .continuous
+        layout.collectionView?.layer.cornerRadius = 15
+        return collectionView
     }()
 
-    private lazy var previousMonthButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("<", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        return button
-    }()
+    private lazy var headerView = CalendarHeader(
+        didTapLastMonthCompletionHandler: { [weak self] in
+            guard let self = self else { return }
+            self.viewModel?.changeDate(month: -1)
+            self.calendarView.reloadData()
+        },
+        didTapNextMonthCompletionHandler: { [weak self] in
+            guard let self = self else { return }
+            self.viewModel?.changeDate(month: 1)
+            self.calendarView.reloadData()
+        })
 
-    private lazy var nextMonthButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(">", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        return button
-    }()
+    private var viewModel: HomeViewModelIO? = nil
+    private var cancellables = Set<AnyCancellable>()
 
-    private lazy var monthLabel: UILabel = {
-        let label = UILabel()
-        label.text = "yyyy.nn월"
-        return label
-    }()
-
-    private lazy var jtacMonthView: JTACMonthView = {
-        let view = JTACMonthView(frame: CGRect.zero)
-        view.scrollDirection = .horizontal
-        view.scrollingMode = .stopAtEachCalendarFrame
-        view.isPagingEnabled = true
-        view.isUserInteractionEnabled = false
-        view.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
-        view.layer.cornerRadius = 15
-        view.register(DateCell.self, forCellWithReuseIdentifier: DateCell.identifier)
-        view.register(DateHeader.self,
-                      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                      withReuseIdentifier: DateHeader.identifier)
-        return view
-    }()
-
-    weak var delegate: JTACMonthViewDelegate? {
+    weak var delegate: UICollectionViewDelegateFlowLayout? {
         didSet {
-            jtacMonthView.calendarDelegate = delegate
+            calendarView.delegate = delegate
         }
     }
 
-    weak var dataSource: JTACMonthViewDataSource? {
+    weak var dataSource: UICollectionViewDataSource? {
         didSet {
-            jtacMonthView.calendarDataSource = dataSource
+            calendarView.dataSource = dataSource
         }
+    }
+
+    init(viewModel: HomeViewModelIO?) {
+        self.viewModel = viewModel
+        super.init(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 0, height: 0)))
+        self.configureView()
+        self.configureViewModel()
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        self.configureView()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configure()
+        self.configureView()
     }
 
-    convenience init() {
-        self.init(frame: CGRect.zero)
+    func configureView() {
+        self.addSubview(calendarView)
+        self.addSubview(headerView)
+
+        var constraints = [
+            headerView.leadingAnchor.constraint(equalTo: self.readableContentGuide.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: self.readableContentGuide.trailingAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 85),
+            headerView.topAnchor.constraint(equalTo: self.readableContentGuide.topAnchor)
+        ]
+
+        constraints.append(contentsOf: [
+            calendarView.leadingAnchor.constraint(equalTo: self.headerView.leadingAnchor),
+            calendarView.trailingAnchor.constraint(equalTo: self.headerView.trailingAnchor),
+            calendarView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor),
+            calendarView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8)
+        ])
+
+        NSLayoutConstraint.activate(constraints)
+
+        calendarView.register(
+            CalendarDateCell.self,
+            forCellWithReuseIdentifier: CalendarDateCell.reuseIdentifier
+        )
+
+        headerView.baseDate = self.viewModel?.baseDate.value ?? Date()
     }
 
-    func setMonthLabelText(_ text: String) {
-        monthLabel.text = text
+    func reloadData() {
+        self.calendarView.reloadData()
     }
 
-    func selectDates(_ dates: [Date]) {
-        jtacMonthView.selectDates(dates)
-    }
-
-    func reloadDates(_ dates: [Date]) {
-        jtacMonthView.reloadDates(dates)
-    }
-}
-
-extension CalendarView {
-    private func configure() {
-        configureSubviews()
-    }
-
-    private func configureSubviews() {
-        addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview()
-            make.height.equalTo(50)
-        }
-
-        addSubview(nextMonthButton)
-        nextMonthButton.snp.makeConstraints { make in
-            make.centerY.equalTo(titleLabel.snp.centerY)
-            make.trailing.equalToSuperview()
-            make.height.equalTo(50)
-        }
-
-        addSubview(monthLabel)
-        monthLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(titleLabel.snp.centerY)
-            make.trailing.equalTo(nextMonthButton.snp.leading).offset(-10)
-            make.height.equalTo(50)
-        }
-
-        addSubview(previousMonthButton)
-        previousMonthButton.snp.makeConstraints { make in
-            make.centerY.equalTo(titleLabel.snp.centerY)
-            make.trailing.equalTo(monthLabel.snp.leading).offset(-10)
-            make.height.equalTo(50)
-        }
-
-        addSubview(jtacMonthView)
-        jtacMonthView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.width.equalToSuperview()
-            make.height.equalTo(300)
-        }
+    private func configureViewModel() {
+        self.viewModel?.baseDate
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] baseDate in
+                guard let self = self else { return }
+                self.headerView.baseDate = self.viewModel?.baseDate.value ?? Date()
+                self.calendarView.reloadInputViews()
+            })
+            .store(in: &cancellables)
     }
 }

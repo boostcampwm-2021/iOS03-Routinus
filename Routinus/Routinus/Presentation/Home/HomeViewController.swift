@@ -16,12 +16,11 @@ final class HomeViewController: UIViewController {
     private lazy var contentView: UIView = UIView()
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
-    private lazy var calendarView = CalendarView()
+    private lazy var calendarView = CalendarView(viewModel: viewModel)
 
     private var viewModel: HomeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
     private var achievements: [Achievement] = []
-    private var calendarDelegate = CalendarDelegate.shared
 
     init(with viewModel: HomeViewModelIO) {
         self.viewModel = viewModel
@@ -38,6 +37,15 @@ final class HomeViewController: UIViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
+    }
+
+    // TODO: 필요한 부분인지 확인하기
+    override func viewWillTransition(
+        to size: CGSize,
+        with coordinator: UIViewControllerTransitionCoordinator
+    ) {
+        super.viewWillTransition(to: size, with: coordinator)
+        calendarView.reloadData()
     }
 }
 
@@ -73,11 +81,14 @@ extension HomeViewController {
 
         self.contentView.addSubview(calendarView)
         self.calendarView.snp.makeConstraints { make in
-            make.top.equalTo(todayRoutineView.snp.bottom).offset(10)
-            make.width.equalToSuperview().offset(-40)
+            make.top.equalTo(todayRoutineView.snp.bottom).offset(20)
+            make.width.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
-            make.height.equalTo(350)
-            make.bottom.equalToSuperview().offset(-50)
+            make.height.equalTo(450)
+        }
+        
+        self.contentView.snp.makeConstraints { make in
+            make.bottom.equalTo(self.calendarView.snp.bottom)
         }
     }
 
@@ -99,13 +110,11 @@ extension HomeViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.achievement
+        self.viewModel?.days
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] achievements in
+            .sink(receiveValue: { [weak self] days in
                 guard let self = self else { return }
-                self.achievements = achievements
-                self.calendarDelegate.calendar = self.achievements
-                self.setRangeDates()
+                self.calendarView.reloadData()
             })
             .store(in: &cancellables)
     }
@@ -115,10 +124,7 @@ extension HomeViewController {
         todayRoutineView.dataSource = self
         todayRoutineView.challengeAdddelegate = self
 
-        calendarDelegate.calendar = achievements
-        calendarDelegate.formatter = viewModel?.formatter
-
-        calendarView.delegate = calendarDelegate
+        calendarView.delegate = self
         calendarView.dataSource = self
     }
 }
@@ -171,33 +177,32 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension HomeViewController: JTACMonthViewDataSource {
-    func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
-        todayDate()
-        return ConfigurationParameters(startDate: Date(), endDate: Date())
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.viewModel?.days.value.count ?? 0
     }
 
-    func todayDate() {
-        let formatter = viewModel?.formatter
-        formatter?.dateFormat = "yyyy년 MM월"
-        let currentDate = formatter?.string(from: Date())
-        calendarView.setMonthLabelText(currentDate ?? "")
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let day = self.viewModel?.days.value[indexPath.row]
+
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CalendarDateCell.reuseIdentifier,
+            for: indexPath) as? CalendarDateCell else { return UICollectionViewCell() }
+        cell.day = day
+        cell.achievementRate = day?.achievementRate
+        return cell
     }
+}
 
-    func setRangeDates() {
-        guard let gregorianCalendar = NSCalendar(calendarIdentifier: .gregorian) else { return }
-        for dates in achievements {
-            let formatter = viewModel?.formatter
-            formatter?.dateFormat = "yyyyMMdd"
-            guard let dateData = formatter?.date(from: "\(dates.yearMonth)\(dates.day)") else { return }
-
-            var rangeDate: [Date] = []
-            let dateComponent = DateComponents(year: dateData.year, month: dateData.month, day: dateData.day)
-            guard let date = gregorianCalendar.date(from: dateComponent as DateComponents) else { return }
-
-            rangeDate.append(date)
-            calendarView.selectDates(rangeDate)
-            calendarView.reloadDates(rangeDate)
-        }
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let width = Int(collectionView.frame.width / 7)
+        let height = 55
+        return CGSize(width: width, height: height)
     }
 }
