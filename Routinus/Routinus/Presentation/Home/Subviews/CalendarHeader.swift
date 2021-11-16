@@ -11,7 +11,7 @@ final class CalendarHeader: UIView {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 24, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.text = "요약"
         return label
     }()
@@ -19,7 +19,7 @@ final class CalendarHeader: UIView {
     lazy var monthLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 24, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.text = "Month"
         return label
     }()

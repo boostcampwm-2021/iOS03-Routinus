@@ -19,7 +19,7 @@ protocol HomeViewModelInput {
 protocol HomeViewModelOutput {
     var user: CurrentValueSubject<User, Never> { get }
     var todayRoutine: CurrentValueSubject<[TodayRoutine], Never> { get }
-    var achievement: [Achievement] { get }
+    var achievements: [Achievement] { get }
     var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
     var todayRoutineTap: PassthroughSubject<String, Never> { get }
     var todayRoutineAuthTap: PassthroughSubject<String, Never> { get }
@@ -35,7 +35,7 @@ protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 final class HomeViewModel: HomeViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
     var todayRoutine = CurrentValueSubject<[TodayRoutine], Never>([])
-    var achievement = [Achievement]([])
+    var achievements = [Achievement]([])
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var todayRoutineTap = PassthroughSubject<String, Never>()
@@ -105,8 +105,8 @@ extension HomeViewModel {
 
     private func fetchAchievement() {
         fetchUsecase.fetchAchievements(yearMonth: Date.currentYearMonth()) { achievement in
-            self.selectedDates = achievement.map { Date("\($0.yearMonth)\($0.day)") }
-            self.achievement = achievement
+            self.selectedDates = achievement.map { Date(dateString: "\($0.yearMonth)\($0.day)") }
+            self.achievements = achievement
             self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
         }
     }
@@ -114,7 +114,7 @@ extension HomeViewModel {
 
 extension HomeViewModel {
     enum CalendarDataError: Error {
-        case metadataGeneration
+        case metadataGenerationFailed
     }
 
     func setDateFormatter() {
@@ -126,7 +126,7 @@ extension HomeViewModel {
         guard let numberOfDaysInMonth = calendar.range(of: .day, in: .month, for: baseDate)?.count,
               let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: baseDate))
         else {
-            throw CalendarDataError.metadataGeneration
+            throw CalendarDataError.metadataGenerationFailed
         }
 
         let firstDayWeekday = calendar.component(.weekday, from: firstDayOfMonth)
@@ -161,7 +161,7 @@ extension HomeViewModel {
 
     private func generateDay(offsetBy dayOffset: Int, for baseDate: Date, isWithinDisplayedMonth: Bool) -> Day {
         let date = calendar.date(byAdding: .day, value: dayOffset, to: baseDate) ?? baseDate
-        let achievement = achievement.filter { "\($0.yearMonth)\($0.day)" == date.toString() }
+        let achievement = achievements.filter { "\($0.yearMonth)\($0.day)" == date.toString() }
         return Day(
             date: date,
             number: "\(date.day)",
@@ -177,14 +177,10 @@ extension HomeViewModel {
         guard let lastDayInMonth = calendar.date(
             byAdding: DateComponents(month: 1, day: -1),
             to: firstDayOfDisplayedMonth)
-        else {
-            return []
-        }
+        else { return [] }
 
         let additionalDays = 7 - calendar.component(.weekday, from: lastDayInMonth)
-        guard additionalDays > 0 else {
-            return []
-        }
+        guard additionalDays > 0 else { return [] }
 
         let days: [Day] = (1...additionalDays).map {
             generateDay(offsetBy: $0, for: lastDayInMonth, isWithinDisplayedMonth: false)

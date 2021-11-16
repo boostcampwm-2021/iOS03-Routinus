@@ -54,20 +54,16 @@ final class DateCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(selectionBackgroundView)
-        contentView.addSubview(numberLabel)
+        configureViews()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        contentView.addSubview(selectionBackgroundView)
-        contentView.addSubview(numberLabel)
+        configureViews()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        NSLayoutConstraint.deactivate(selectionBackgroundView.constraints)
 
         let size = traitCollection.horizontalSizeClass == .compact ?
           min(min(frame.width, frame.height) - 10, 60) : 45
@@ -103,6 +99,11 @@ extension DateCell {
         default:
             self.numberLabel.textColor = UIColor(named: "DayColor")
         }
+    }
+
+    private func configureViews() {
+        contentView.addSubview(selectionBackgroundView)
+        contentView.addSubview(numberLabel)
     }
 }
 
