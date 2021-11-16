@@ -29,7 +29,7 @@ final class CreateViewController: UIViewController {
             }
         }
     }
-    
+
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
@@ -56,7 +56,7 @@ final class CreateViewController: UIViewController {
         button.addTarget(self, action: #selector(didTappedCreateButton(_:)), for: .touchUpInside)
         return button
     }()
-    
+
     private var viewModel: CreateViewModelIO?
     private var cancellables = Set<AnyCancellable>()
     private var imagePicker = UIImagePickerController()
@@ -89,7 +89,7 @@ final class CreateViewController: UIViewController {
         configureDelegates()
         configureGesture()
     }
-    
+
     @objc private func didTappedCreateButton(_ sender: UIButton) {
         viewModel?.didTappedCreateButton()
         self.navigationController?.popViewController(animated: true) // TODO: Coordinator 구현 후 수정
@@ -181,12 +181,12 @@ extension CreateViewController {
         authMethodView.delegate = self
         authImageRegisterView.delegate = self
     }
-    
+
     private func configureGesture() {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedScrollView(_:)))
         scrollView.addGestureRecognizer(recognizer)
     }
-    
+
     @objc private func didTappedScrollView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
         titleView.hideKeyboard()
@@ -220,7 +220,7 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
         guard let tag = InputTag(rawValue: textView.tag) else { return }
         scrollView.setContentOffset(CGPoint(x: 0, y: tag.offset), animated: true)
     }
-    
+
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let viewModel = viewModel else { return }
         switch textField.tag {
@@ -269,7 +269,7 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
             return true
         }
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
     }
@@ -289,7 +289,7 @@ extension CreateViewController: CreateImagePickerDelegate {
         default:
             return
         }
-        
+
         let alert = UIAlertController(title: title,
                                       message: "사진 앱이나 카메라 앱을 선택할 수 있습니다.",
                                       preferredStyle: .actionSheet)
@@ -317,23 +317,23 @@ extension CreateViewController: CreateImagePickerDelegate {
 
 extension CreateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     typealias InfoKey = UIImagePickerController.InfoKey
-    
+
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
         if let image = info[InfoKey.originalImage] as? UIImage {
-            guard let url = info[InfoKey.imageURL] as? URL else {
-                dismiss(animated: true, completion: nil)
-                return
-            }
-            let urlString = url.absoluteString
-            
             switch selectedImagePickerTag {
             case .image:
+                let url = viewModel?.saveImage(to: "temp",
+                                               filename: "image",
+                                               data: image.jpegData(compressionQuality: 1))
+                viewModel?.update(imageURL: url)
                 imageRegisterView.setImage(image)
-                viewModel?.update(imageURL: urlString)
             case .authImage:
+                let url = viewModel?.saveImage(to: "temp",
+                                               filename: "auth",
+                                               data: image.jpegData(compressionQuality: 1))
+                viewModel?.update(authExampleImageURL: url)
                 authImageRegisterView.setImage(image)
-                viewModel?.update(authExampleImageURL: urlString)
             default:
                 break
             }

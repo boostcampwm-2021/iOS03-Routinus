@@ -16,8 +16,8 @@ public enum RoutinusDatabase {
     private static let firestoreURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
     private static let storageURL = "https://firebasestorage.googleapis.com/v0/b/boostcamp-ios03-routinus.appspot.com/o"
 
-    public static func imageURL(id: String, fileName: String) async throws -> URL? {
-        return URL(string: "\(storageURL)/\(id)%2F\(fileName).jpeg?alt=media")
+    public static func imageURL(id: String, filename: String) async throws -> URL? {
+        return URL(string: "\(storageURL)/\(id)%2F\(filename).jpeg?alt=media")
     }
 
     public static func createUser(id: String, name: String) async throws {
@@ -36,10 +36,10 @@ public enum RoutinusDatabase {
             try await insertChallenge(dto: challenge)
             try await insertChallengeParticipation(dto: challenge)
             try await uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
-                                  fileName: "image",
+                                  filename: "image",
                                   imageURL: imageURL)
             try await uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
-                                  fileName: "auth",
+                                  filename: "auth",
                                   imageURL: authImageURL)
         }
     }
@@ -68,8 +68,8 @@ public enum RoutinusDatabase {
         _ = try await URLSession.shared.data(for: request)
     }
 
-    public static func uploadImage(id: String, fileName: String, imageURL: String) async throws {
-        guard let url = URL(string: "\(storageURL)?uploadType=media&name=\(id)%2F\(fileName).jpeg"),
+    public static func uploadImage(id: String, filename: String, imageURL: String) async throws {
+        guard let url = URL(string: "\(storageURL)?uploadType=media&name=\(id)%2F\(filename).jpeg"),
               let imageURL = URL(string: imageURL) else { return }
         var request = URLRequest(url: url)
 

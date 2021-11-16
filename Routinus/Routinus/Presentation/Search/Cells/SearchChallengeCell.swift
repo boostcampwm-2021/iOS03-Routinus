@@ -47,7 +47,7 @@ final class SearchChallengeCell: UICollectionViewCell {
 
         // TODO: RoutinusDatabase 직접 접근하지 않도록 수정
         Task {
-            let url = try? await RoutinusDatabase.imageURL(id: challenge.challengeID, fileName: "image")
+            let url = try? await RoutinusDatabase.imageURL(id: challenge.challengeID, filename: "image")
 
             self.challengeImageView.kf.setImage(with: url,
                                                 placeholder: nil)

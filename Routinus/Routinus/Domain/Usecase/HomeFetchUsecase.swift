@@ -8,8 +8,6 @@
 import Combine
 import Foundation
 
-import RoutinusDatabase
-
 protocol HomeFetchableUsecase {
     func fetchUser(completion: @escaping (User) -> Void)
     func fetchTodayRoutines(completion: @escaping ([TodayRoutine]) -> Void)
