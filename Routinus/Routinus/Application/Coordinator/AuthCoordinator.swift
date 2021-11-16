@@ -19,6 +19,7 @@ final class AuthCoordinator: RoutinusCoordinator {
 
     func start() {
         let authViewController = AuthViewController()
-        self.navigationController.present(authViewController, animated: true)
+        authViewController.hidesBottomBarWhenPushed = true
+        self.navigationController.pushViewController(authViewController, animated: true)
     }
 }

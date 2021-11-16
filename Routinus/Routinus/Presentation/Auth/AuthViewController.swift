@@ -8,27 +8,67 @@
 import UIKit
 
 final class AuthViewController: UIViewController {
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "AuthView")
-        imageView.contentMode = .scaleToFill
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.black.cgColor
-        return imageView
+    private lazy var scrollView: UIScrollView = UIScrollView()
+    private lazy var stackView: UIStackView = {
+        var stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 30
+        return stackView
     }()
+    private lazy var authMethodView = AuthMethodView()
+    private lazy var previewView = PreviewView()
+    private lazy var authButton = AuthButton()
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        configureViews()
+    }
+}
+
+extension AuthViewController {
+    private func configureViews() {
         self.view.backgroundColor = .white
-        self.navigationController?.navigationBar.prefersLargeTitles = false
-        self.configureViews()
+        self.configureNavigationBar()
+
+        self.view.addSubview(scrollView)
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
+        self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        self.scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        self.scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        self.scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+
+        self.scrollView.addSubview(stackView)
+        self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.stackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
+        self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -20).isActive = true
+        self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 20).isActive = true
+        self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor, constant: -20).isActive = true
+        self.stackView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor).isActive = true
+
+        self.stackView.addArrangedSubview(authMethodView)
+        self.authMethodView.translatesAutoresizingMaskIntoConstraints = false
+        self.authMethodView.heightAnchor.constraint(equalToConstant: 240).isActive = true
+
+        self.stackView.addArrangedSubview(previewView)
+        self.previewView.translatesAutoresizingMaskIntoConstraints = false
+        self.previewView.heightAnchor.constraint(equalTo: self.previewView.widthAnchor, multiplier: 1).isActive = true
+
+        self.stackView.addArrangedSubview(authButton)
+        self.authButton.translatesAutoresizingMaskIntoConstraints = false
+        self.authButton.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
+        self.authButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 
-    func configureViews() {
-        self.view.backgroundColor = .white
-        self.view.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.edges.equalTo(self.view.safeAreaLayoutGuide).inset(20)
-        }
+    private func configureNavigationBar() {
+        self.navigationItem.largeTitleDisplayMode = .never
     }
 }
