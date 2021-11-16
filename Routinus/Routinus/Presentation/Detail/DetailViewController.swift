@@ -26,43 +26,7 @@ final class DetailViewController: UIViewController {
     }()
 
     private lazy var informationView = InformationView()
-
-    private lazy var authStackView: UIStackView = {
-        var stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 5
-        stackView.backgroundColor = .white
-        return stackView
-    }()
-
-    private lazy var authTitleLabel: UILabel = {
-        var label = UILabel()
-        label.text = "인증 방법"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        return label
-    }()
-
-    private lazy var authImageView: UIImageView = {
-        var imageView = UIImageView()
-        imageView.image = UIImage(named: "walk")
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-
-    private lazy var authMethodView: UIView = {
-        var view = UIView()
-        view.layer.cornerRadius = 5
-        view.backgroundColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)
-        return view
-    }()
-
-    private lazy var authMethodLabel: UILabel = {
-        var label = UILabel()
-        label.text = "[1만보] 이상 걸음 수가 기록된 [앱 화면] 또는 [스마트 워치] 사진 올리기"
-        label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        return label
-    }()
+    private lazy var authMethodView = AuthMethodView()
 
     private lazy var challengeButton: UIButton = {
         var button = UIButton()
@@ -96,51 +60,19 @@ final class DetailViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
 
-        // 0. 메인 이미지
         stackView.addArrangedSubview(mainImageView)
         mainImageView.snp.makeConstraints { make in
             make.height.equalTo(300)
         }
 
-        // 1. 상세 정보 스택
         stackView.addArrangedSubview(informationView)
         informationView.snp.makeConstraints { make in
             make.height.equalTo(250)
         }
 
-        // 2. 인증 방법 스택
-        stackView.addArrangedSubview(authStackView)
-        authStackView.snp.makeConstraints { make in
-            make.height.equalTo(200)
-        }
-
-        authStackView.addArrangedSubview(authTitleLabel)
-        authTitleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(5)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(20)
-        }
-
-        authStackView.addArrangedSubview(authImageView)
-        authImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        }
-
-        authStackView.addArrangedSubview(authMethodView)
+        stackView.addArrangedSubview(authMethodView)
         authMethodView.snp.makeConstraints { make in
-            make.height.equalTo(60)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(5)
-        }
-
-        authMethodView.addSubview(authMethodLabel)
-        authMethodLabel.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview().offset(3)
+            make.height.equalTo(270)
         }
 
         stackView.addArrangedSubview(challengeButton)
