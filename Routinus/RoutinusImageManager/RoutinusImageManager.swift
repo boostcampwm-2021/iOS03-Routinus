@@ -21,10 +21,10 @@ public enum RoutinusImageManager {
     }
 
     @discardableResult
-    public static func saveImage(to directory: String, filename: String, imageData: Data?) -> String {
+    public static func saveImage(to directory: String, filename: String, imageData: Data?) -> String? {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
-                                                             true).first else { return "" }
+                                                             true).first else { return nil }
 
         var url = URL(fileURLWithPath: path)
         url.appendPathComponent("\(directory)_\(filename)")
@@ -32,7 +32,7 @@ public enum RoutinusImageManager {
 
         return FileManager.default.createFile(atPath: url.path,
                                               contents: imageData,
-                                              attributes: nil) ? url.absoluteString : ""
+                                              attributes: nil) ? url.absoluteString : nil
     }
 
     public static func cachedImageData(from directory: String, filename: String) -> Data? {

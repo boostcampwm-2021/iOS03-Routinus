@@ -325,13 +325,13 @@ extension CreateViewController: UIImagePickerControllerDelegate, UINavigationCon
             case .image:
                 let url = viewModel?.saveImage(to: "temp",
                                                filename: "image",
-                                               data: image.jpegData(compressionQuality: 1)) ?? ""
+                                               data: image.jpegData(compressionQuality: 1))
                 viewModel?.update(imageURL: url)
                 imageRegisterView.setImage(image)
             case .authImage:
                 let url = viewModel?.saveImage(to: "temp",
                                                filename: "auth",
-                                               data: image.jpegData(compressionQuality: 1)) ?? ""
+                                               data: image.jpegData(compressionQuality: 1))
                 viewModel?.update(authExampleImageURL: url)
                 authImageRegisterView.setImage(image)
             default:

@@ -12,7 +12,7 @@ import RoutinusImageManager
 
 protocol CreateRepository {
     func save(challenge: Challenge, imageURL: String, authImageURL: String)
-    func saveImage(to directory: String, filename: String, data: Data?) -> String
+    func saveImage(to directory: String, filename: String, data: Data?) -> String?
 }
 
 extension RoutinusRepository: CreateRepository {
@@ -38,7 +38,7 @@ extension RoutinusRepository: CreateRepository {
         }
     }
 
-    func saveImage(to directory: String, filename: String, data: Data?) -> String {
+    func saveImage(to directory: String, filename: String, data: Data?) -> String? {
         return RoutinusImageManager.saveImage(to: directory,
                                               filename: filename,
                                               imageData: data)

@@ -11,18 +11,18 @@ import Foundation
 protocol CreateViewModelInput {
     func update(category: Challenge.Category)
     func update(title: String)
-    func update(imageURL: String)
+    func update(imageURL: String?)
     func update(week: Int)
     func update(introduction: String)
     func update(authMethod: String)
-    func update(authExampleImageURL: String)
+    func update(authExampleImageURL: String?)
     func didTappedCreateButton()
     func validateTextView(currentText: String, range: NSRange, text: String) -> Bool
     func validateTextField(currentText: String, range: NSRange, text: String) -> Bool
     func fetchChallenge()
     func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String)
     func validateWeek(currentText: String) -> String
-    func saveImage(to directory: String, filename: String, data: Data?) -> String
+    func saveImage(to directory: String, filename: String, data: Data?) -> String?
 }
 
 protocol CreateViewModelOutput {
@@ -97,8 +97,8 @@ final class CreateViewModel: CreateViewModelIO {
         self.validate()
     }
 
-    func update(imageURL: String) {
-        self.imageURL = imageURL
+    func update(imageURL: String?) {
+        self.imageURL = imageURL ?? ""
         self.validate()
     }
 
@@ -119,8 +119,8 @@ final class CreateViewModel: CreateViewModelIO {
         self.validate()
     }
 
-    func update(authExampleImageURL: String) {
-        self.authExampleImageURL = authExampleImageURL
+    func update(authExampleImageURL: String?) {
+        self.authExampleImageURL = authExampleImageURL ?? ""
         self.validate()
     }
 
@@ -165,7 +165,7 @@ final class CreateViewModel: CreateViewModelIO {
         updateUsecase.updateChallenge(challenge: updateChallenge)
     }
 
-    func saveImage(to directory: String, filename: String, data: Data?) -> String {
+    func saveImage(to directory: String, filename: String, data: Data?) -> String? {
         return createUsecase.saveImage(to: directory, filename: filename, data: data)
     }
 }
