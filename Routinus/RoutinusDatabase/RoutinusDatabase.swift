@@ -31,20 +31,25 @@ public enum RoutinusDatabase {
         _ = try await URLSession.shared.data(for: request)
     }
 
-    public static func createChallenge(challenge: ChallengeDTO, imageURL: String, authImageURL: String) async throws {
-        Task {
-            try await insertChallenge(dto: challenge)
-            try await insertChallengeParticipation(dto: challenge)
-            try await uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
-                                  filename: "image",
-                                  imageURL: imageURL)
-            try await uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
-                                  filename: "auth",
-                                  imageURL: authImageURL)
+    public static func createChallenge(challenge: ChallengeDTO,
+                                       imageURL: String,
+                                       authImageURL: String,
+                                       completion: @escaping () -> Void) {
+        insertChallenge(dto: challenge)
+        insertChallengeParticipation(dto: challenge)
+        uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
+                    filename: "image",
+                    imageURL: imageURL) {
+            uploadImage(id: challenge.document?.fields.id.stringValue ?? "",
+                        filename: "auth",
+                        imageURL: authImageURL) {
+                completion()
+            }
         }
     }
 
-    public static func insertChallenge(dto: ChallengeDTO) async throws {
+    public static func insertChallenge(dto: ChallengeDTO,
+                                       completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(firestoreURL)/challenge"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
@@ -53,10 +58,13 @@ public enum RoutinusDatabase {
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.insertChallengeQuery(document: document)
 
-        _ = try await URLSession.shared.data(for: request)
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            completion?()
+        }.resume()
     }
 
-    public static func insertChallengeParticipation(dto: ChallengeDTO) async throws {
+    public static func insertChallengeParticipation(dto: ChallengeDTO,
+                                                    completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(firestoreURL)/challenge_participation"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
@@ -65,10 +73,15 @@ public enum RoutinusDatabase {
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.insertChallengeParticipationQuery(document: document)
 
-        _ = try await URLSession.shared.data(for: request)
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            completion?()
+        }.resume()
     }
 
-    public static func uploadImage(id: String, filename: String, imageURL: String) async throws {
+    public static func uploadImage(id: String,
+                                   filename: String,
+                                   imageURL: String,
+                                   completion: @escaping () -> Void) {
         guard let url = URL(string: "\(storageURL)?uploadType=media&name=\(id)%2F\(filename).jpeg"),
               let imageURL = URL(string: imageURL) else { return }
         var request = URLRequest(url: url)
@@ -77,7 +90,9 @@ public enum RoutinusDatabase {
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = try? Data(contentsOf: imageURL)
 
-        _ = try await URLSession.shared.data(for: request)
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            completion()
+        }.resume()
     }
 
     public static func user(of id: String) async throws -> UserDTO {
@@ -190,43 +205,51 @@ public enum RoutinusDatabase {
         return try JSONDecoder().decode([ChallengeDTO].self, from: data).first ?? ChallengeDTO()
     }
 
-    public static func patchChallenge(challengeDTO: ChallengeDTO, imageURL: String, authImageURL: String) async throws {
-
-        Task {
-            try await updateChallenge(challengeDTO: challengeDTO)
-            try await uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
-                                  filename: "image",
-                                  imageURL: imageURL)
-            try await uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
-                                  filename: "auth",
-                                  imageURL: authImageURL)
+    public static func patchChallenge(challengeDTO: ChallengeDTO,
+                                      imageURL: String,
+                                      authImageURL: String,
+                                      completion: @escaping () -> Void) {
+        updateChallenge(challengeDTO: challengeDTO)
+        uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
+                    filename: "image",
+                    imageURL: imageURL) {
+            uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
+                        filename: "auth",
+                        imageURL: authImageURL) {
+                completion()
+            }
         }
     }
 
-    public static func updateChallenge(challengeDTO: ChallengeDTO) async throws {
-        guard let ownerID = challengeDTO.document?.fields.ownerID.stringValue,
-              let challengeID = challengeDTO.document?.fields.id.stringValue,
-              let challengeField = challengeDTO.document?.fields else { return }
-
-        guard let findChallenge = try? await challenge(ownerID: ownerID, challengeID: challengeID),
-              let documentID = findChallenge.documentID else { return }
-
-        var urlComponent = URLComponents(string: "\(firestoreURL)/challenge/\(documentID)?")
-        let queryItems = [URLQueryItem(name: "updateMask.fieldPaths", value: "auth_method"),
-                          URLQueryItem(name: "updateMask.fieldPaths", value: "category_id"),
-                          URLQueryItem(name: "updateMask.fieldPaths", value: "title"),
-                          URLQueryItem(name: "updateMask.fieldPaths", value: "desc"),
-                          URLQueryItem(name: "updateMask.fieldPaths", value: "week"),
-                          URLQueryItem(name: "updateMask.fieldPaths", value: "end_date"),
-                        ]
-        urlComponent?.queryItems = queryItems
-        guard let url = urlComponent?.url else { return }
-
-        var request = URLRequest(url: url)
-        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = HTTPMethod.patch.rawValue
-        request.httpBody = RoutinusQuery.updateChallenge(document: challengeField)
-
-        _ = try await URLSession.shared.data(for: request)
+    public static func updateChallenge(challengeDTO: ChallengeDTO,
+                                       completion: (() -> Void)? = nil) {
+//        guard let ownerID = challengeDTO.document?.fields.ownerID.stringValue,
+//              let challengeID = challengeDTO.document?.fields.id.stringValue,
+//              let challengeField = challengeDTO.document?.fields else { return }
+//
+//        guard let findChallenge = try? await challenge(ownerID: ownerID,
+//                                                       challengeID: challengeID),
+//              let documentID = findChallenge.documentID else { return }
+//
+//        var urlComponent = URLComponents(string: "\(firestoreURL)/challenge/\(documentID)?")
+//        let queryItems = [
+//            URLQueryItem(name: "updateMask.fieldPaths", value: "auth_method"),
+//            URLQueryItem(name: "updateMask.fieldPaths", value: "category_id"),
+//            URLQueryItem(name: "updateMask.fieldPaths", value: "title"),
+//            URLQueryItem(name: "updateMask.fieldPaths", value: "desc"),
+//            URLQueryItem(name: "updateMask.fieldPaths", value: "week"),
+//            URLQueryItem(name: "updateMask.fieldPaths", value: "end_date")
+//        ]
+//        urlComponent?.queryItems = queryItems
+//        guard let url = urlComponent?.url else { return }
+//
+//        var request = URLRequest(url: url)
+//        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+//        request.httpMethod = HTTPMethod.patch.rawValue
+//        request.httpBody = RoutinusQuery.updateChallenge(document: challengeField)
+//
+//        URLSession.shared.dataTask(with: request) { _, _, _ in
+//            completion?()
+//        }.resume()
     }
 }

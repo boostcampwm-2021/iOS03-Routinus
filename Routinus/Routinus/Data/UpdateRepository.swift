@@ -8,6 +8,7 @@
 import Foundation
 
 import RoutinusDatabase
+import RoutinusImageManager
 
 protocol UpdateRepository {
     func fetchChallenge(challengeID: String) async -> Challenge?
@@ -33,6 +34,10 @@ extension RoutinusRepository: UpdateRepository {
                                         endDate: endDate,
                                         participantCount: challenge.participantCount,
                                         ownerID: challenge.ownerID)
-        try? await RoutinusDatabase.patchChallenge(challengeDTO: challengeDTO, imageURL: imageURL, authImageURL: authImageURL)
+        RoutinusDatabase.patchChallenge(challengeDTO: challengeDTO,
+                                        imageURL: imageURL,
+                                        authImageURL: authImageURL) {
+            RoutinusImageManager.removeTempCachedImages()
+        }
     }
 }

@@ -30,11 +30,10 @@ extension RoutinusRepository: CreateRepository {
                                         endDate: endDate,
                                         participantCount: 1,
                                         ownerID: challenge.ownerID)
-        
-        Task {
-            try await RoutinusDatabase.createChallenge(challenge: challengeDTO,
-                                                       imageURL: imageURL,
-                                                       authImageURL: authImageURL)
+
+        RoutinusDatabase.createChallenge(challenge: challengeDTO,
+                                         imageURL: imageURL,
+                                         authImageURL: authImageURL) {
             RoutinusImageManager.removeTempCachedImages()
         }
     }
