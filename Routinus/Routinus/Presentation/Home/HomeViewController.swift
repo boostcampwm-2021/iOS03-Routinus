@@ -85,7 +85,7 @@ extension HomeViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationItem.largeTitleDisplayMode = .always
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .systemGray
+        backBarButtonItem.tintColor = .black
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 

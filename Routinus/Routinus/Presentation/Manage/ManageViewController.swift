@@ -56,7 +56,7 @@ final class ManageViewController: UIViewController {
 
     private func configureNavigationBar() {
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .systemGray
+        backBarButtonItem.tintColor = .black
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 }
