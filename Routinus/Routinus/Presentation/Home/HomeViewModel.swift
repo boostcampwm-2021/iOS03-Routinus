@@ -138,9 +138,7 @@ extension HomeViewModel {
     }
 
     func generateDaysInMonth(for baseDate: Date) -> [Day] {
-        guard let metadata = try? monthMetadata(for: baseDate) else {
-            preconditionFailure("An error occurred when generating the metadata for \(baseDate)")
-        }
+        guard let metadata = try? monthMetadata(for: baseDate) else { return [] }
 
         let numberOfDaysInMonth = metadata.numberOfDays
         let offsetInInitialRow = metadata.firstDayWeekday

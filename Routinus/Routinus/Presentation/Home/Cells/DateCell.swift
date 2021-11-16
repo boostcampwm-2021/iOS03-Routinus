@@ -108,7 +108,10 @@ private extension DateCell {
         if day.isSelected {
             applySelectedStyle()
         } else {
-            applyDefaultStyle(isWithinDisplayedMonth: day.isWithinDisplayedMonth, weekday: Calendar.current.component(.weekday, from: day.date))
+            applyDefaultStyle(
+                isWithinDisplayedMonth: day.isWithinDisplayedMonth,
+                weekday: Calendar.current.component(.weekday, from: day.date)
+            )
         }
     }
 
