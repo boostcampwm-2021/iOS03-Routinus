@@ -12,8 +12,8 @@ final class InformationView: UIView {
     private lazy var infomationStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
+        stackView.backgroundColor = .white
         stackView.distribution = .fill
-        stackView.backgroundColor = .blue
         stackView.spacing = 5
         return stackView
     }()
@@ -21,8 +21,7 @@ final class InformationView: UIView {
     private lazy var titleStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.backgroundColor = .yellow
-        stackView.axis = .horizontal
+        stackView.spacing = 10
         stackView.distribution = .fillProportionally
         return stackView
     }()
@@ -43,7 +42,6 @@ final class InformationView: UIView {
 
     private lazy var weekStackView: UIStackView = {
         var stackView = UIStackView()
-        stackView.backgroundColor = .red
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         return stackView
@@ -75,7 +73,6 @@ final class InformationView: UIView {
     private lazy var endDateStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.backgroundColor = .red
         stackView.distribution = .equalSpacing
         return stackView
     }()
@@ -108,8 +105,7 @@ final class InformationView: UIView {
     private lazy var introductionView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 5
-        view.backgroundColor = .red
-        //view.backgroundColor = UIColor(named: "LightGrayColor")
+        view.backgroundColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)
         return view
     }()
 
@@ -120,6 +116,11 @@ final class InformationView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .darkGray
         return label
+    }()
+
+    private lazy var emptyView: UIView = {
+        var view = UIView()
+        return view
     }()
 
     override init(frame: CGRect) {
@@ -219,12 +220,16 @@ extension InformationView {
             make.height.equalTo(60)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(5)
         }
 
         introductionView.addSubview(introductionLabel)
         introductionLabel.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview().offset(3)
+            make.top.bottom.leading.trailing.equalToSuperview().offset(5)
+        }
+
+        infomationStackView.addArrangedSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.height.equalTo(5)
         }
     }
 }

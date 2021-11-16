@@ -14,7 +14,7 @@ final class DetailViewController: UIViewController {
         var stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 5
-        stackView.backgroundColor = UIColor(named: "LightGrayColor")
+        stackView.backgroundColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)
         return stackView
     }()
 
@@ -30,8 +30,8 @@ final class DetailViewController: UIViewController {
     private lazy var authStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.backgroundColor = .yellow
         stackView.spacing = 5
+        stackView.backgroundColor = .white
         return stackView
     }()
 
@@ -45,7 +45,6 @@ final class DetailViewController: UIViewController {
     private lazy var authImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.image = UIImage(named: "walk")
-        imageView.backgroundColor = .red
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -53,7 +52,7 @@ final class DetailViewController: UIViewController {
     private lazy var authMethodView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 5
-        view.backgroundColor = UIColor(named: "LightGrayColor")
+        view.backgroundColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)
         return view
     }()
 
