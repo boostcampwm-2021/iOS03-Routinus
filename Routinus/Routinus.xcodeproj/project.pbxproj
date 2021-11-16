@@ -22,6 +22,7 @@
 		14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14572CEC273BF644007E6ECE /* CreateCoordinator.swift */; };
 		145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */; };
 		148387382743817F00731F98 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148387372743817F00731F98 /* InformationView.swift */; };
+		1483873C2743F2FF00731F98 /* ParticipantButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1483873B2743F2FF00731F98 /* ParticipantButton.swift */; };
 		149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411DB273A314B004BE485 /* CreateViewModel.swift */; };
 		149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */; };
 		1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF432738FFA600296F9E /* RoutinusRepository.swift */; };
@@ -166,6 +167,7 @@
 		14572CEC273BF644007E6ECE /* CreateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoordinator.swift; sourceTree = "<group>"; };
 		145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpdateUsecase.swift; sourceTree = "<group>"; };
 		148387372743817F00731F98 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
+		1483873B2743F2FF00731F98 /* ParticipantButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantButton.swift; sourceTree = "<group>"; };
 		149411DB273A314B004BE485 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreateUsecase.swift; sourceTree = "<group>"; };
 		1497CF432738FFA600296F9E /* RoutinusRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusRepository.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				148387372743817F00731F98 /* InformationView.swift */,
+				1483873B2743F2FF00731F98 /* ParticipantButton.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1000,6 +1003,7 @@
 				44234F18273C0917004D6834 /* CreateImagePickerDelegate.swift in Sources */,
 				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
 				441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */,
+				1483873C2743F2FF00731F98 /* ParticipantButton.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DBBAA3727341C1600B32EB5 /* CollectionViewLayouts.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* CalendarHeader.swift in Sources */,

@@ -141,95 +141,75 @@ final class InformationView: UIView {
 extension InformationView {
     private func configureSubviews() {
         addSubview(infomationStackView)
-        infomationStackView.snp.makeConstraints { make in
-            make.leading.trailing.top.bottom.equalToSuperview()
-        }
+        infomationStackView.translatesAutoresizingMaskIntoConstraints = false
+        infomationStackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        infomationStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        infomationStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        infomationStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
 
         infomationStackView.addArrangedSubview(titleStackView)
-        titleStackView.snp.makeConstraints { make in
-            make.height.equalTo(20)
-            make.top.equalToSuperview().offset(5)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-        }
+        titleStackView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        titleStackView.topAnchor.constraint(equalTo: infomationStackView.topAnchor, constant: 5).isActive = true
+        titleStackView.leadingAnchor.constraint(equalTo: infomationStackView.leadingAnchor, constant: 20).isActive = true
+        titleStackView.trailingAnchor.constraint(equalTo: infomationStackView.trailingAnchor, constant: -20).isActive = true
 
         titleStackView.addArrangedSubview(categoryImageView)
-        categoryImageView.snp.makeConstraints { make in
-            make.width.equalTo(20)
-            make.height.equalTo(20)
-        }
+        categoryImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        categoryImageView.heightAnchor.constraint(equalTo: categoryImageView.widthAnchor, multiplier: 1).isActive = true
 
         titleStackView.addArrangedSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.width.equalTo(50)
-            make.height.equalTo(20)
-        }
+        titleLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
         infomationStackView.addArrangedSubview(weekStackView)
-        weekStackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(20)
-        }
+        weekStackView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        weekStackView.leadingAnchor.constraint(equalTo: infomationStackView.leadingAnchor, constant: 20).isActive = true
+        weekStackView.trailingAnchor.constraint(equalTo: infomationStackView.trailingAnchor, constant: -20).isActive = true
 
         weekStackView.addArrangedSubview(weekTitleLabel)
-        weekTitleLabel.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(20)
-        }
-
-        weekStackView.addArrangedSubview(weekView)
-        weekView.snp.makeConstraints { make in
-            make.width.equalTo(60)
-            make.height.equalTo(20)
-        }
+        weekTitleLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        weekTitleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
         weekView.addSubview(weekLabel)
-        weekLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-        }
+        weekLabel.translatesAutoresizingMaskIntoConstraints = false
+        weekLabel.centerXAnchor.constraint(equalTo: weekView.centerXAnchor).isActive = true
+        weekLabel.centerYAnchor.constraint(equalTo: weekView.centerYAnchor).isActive = true
+
+        weekStackView.addArrangedSubview(weekView)
+        weekView.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        weekView.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
         infomationStackView.addArrangedSubview(endDateStackView)
-        endDateStackView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(20)
-        }
+        endDateStackView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        endDateStackView.leadingAnchor.constraint(equalTo: infomationStackView.leadingAnchor, constant: 20).isActive = true
+        endDateStackView.trailingAnchor.constraint(equalTo: infomationStackView.trailingAnchor, constant: -20).isActive = true
 
         endDateStackView.addArrangedSubview(endDateTitleLabel)
-        endDateTitleLabel.snp.makeConstraints { make in
-            make.width.equalTo(40)
-            make.height.equalTo(20)
-        }
+        endDateTitleLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        endDateTitleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
         endDateStackView.addArrangedSubview(endDateLabel)
-        endDateLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.width.equalTo(170)
-            make.height.equalTo(20)
-        }
+        endDateLabel.widthAnchor.constraint(equalToConstant: 170).isActive = true
+        endDateLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        endDateLabel.trailingAnchor.constraint(equalTo: endDateStackView.trailingAnchor, constant: -20).isActive = true
 
         infomationStackView.addArrangedSubview(introductionTitleLabel)
-        introductionTitleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.height.equalTo(20)
-        }
+        introductionTitleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        introductionTitleLabel.leadingAnchor.constraint(equalTo: infomationStackView.leadingAnchor, constant: 20).isActive = true
 
         infomationStackView.addArrangedSubview(introductionView)
-        introductionView.snp.makeConstraints { make in
-            make.height.equalTo(60)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().inset(20)
-        }
+        introductionView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        introductionView.leadingAnchor.constraint(equalTo: infomationStackView.leadingAnchor, constant: 20).isActive = true
+        introductionView.trailingAnchor.constraint(equalTo: infomationStackView.trailingAnchor, constant: -20).isActive = true
 
         introductionView.addSubview(introductionLabel)
-        introductionLabel.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview().offset(5)
-        }
+        introductionLabel.translatesAutoresizingMaskIntoConstraints = false
+        introductionLabel.leadingAnchor.constraint(equalTo: introductionView.leadingAnchor, constant: 5).isActive = true
+        introductionLabel.trailingAnchor.constraint(equalTo: introductionView.trailingAnchor, constant: -5).isActive = true
+        introductionLabel.topAnchor.constraint(equalTo: introductionView.topAnchor, constant: 5).isActive = true
+        introductionLabel.bottomAnchor.constraint(equalTo: introductionView.bottomAnchor, constant: -5).isActive = true
 
         infomationStackView.addArrangedSubview(emptyView)
-        emptyView.snp.makeConstraints { make in
-            make.height.equalTo(5)
-        }
+        emptyView.heightAnchor.constraint(equalToConstant: 5).isActive = true
     }
 }

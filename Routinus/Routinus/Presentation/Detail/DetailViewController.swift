@@ -25,19 +25,15 @@ final class DetailViewController: UIViewController {
         return imageView
     }()
 
+    private lazy var participantView: UIView = {
+        var view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+
     private lazy var informationView = InformationView()
     private lazy var authMethodView = AuthMethodView()
-
-    private lazy var challengeButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("참여하기", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        button.backgroundColor = UIColor(red: 180/255, green: 231/255, blue: 160/255, alpha: 1)
-        button.layer.cornerRadius = 20
-        //button.addTarget(self, action: #selector(), for: .touchUpInside)
-        return button
-    }()
+    private lazy var participantButton = ParticipantButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,35 +46,38 @@ final class DetailViewController: UIViewController {
         self.configureNavigationBar()
 
         view.addSubview(scrollView)
-        scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
 
         scrollView.addSubview(stackView)
-        stackView.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview()
-            make.centerX.equalToSuperview()
-        }
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
 
         stackView.addArrangedSubview(mainImageView)
-        mainImageView.snp.makeConstraints { make in
-            make.height.equalTo(300)
-        }
+        mainImageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
 
         stackView.addArrangedSubview(informationView)
-        informationView.snp.makeConstraints { make in
-            make.height.equalTo(250)
-        }
+        informationView.heightAnchor.constraint(equalToConstant: 250).isActive = true
 
         stackView.addArrangedSubview(authMethodView)
-        authMethodView.snp.makeConstraints { make in
-            make.height.equalTo(270)
-        }
+        authMethodView.heightAnchor.constraint(equalToConstant: 270).isActive = true
 
-        stackView.addArrangedSubview(challengeButton)
-        challengeButton.snp.makeConstraints { make in
-            make.height.equalTo(60)
-        }
+        stackView.addArrangedSubview(participantView)
+        participantView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+
+        participantView.addSubview(participantButton)
+        participantButton.translatesAutoresizingMaskIntoConstraints = false
+        participantButton.topAnchor.constraint(equalTo: participantView.topAnchor, constant: 5).isActive = true
+        participantButton.bottomAnchor.constraint(equalTo: participantView.bottomAnchor, constant: -5).isActive = true
+        participantButton.leadingAnchor.constraint(equalTo: participantView.leadingAnchor, constant: 20).isActive = true
+        participantButton.trailingAnchor.constraint(equalTo: participantView.trailingAnchor, constant: -20).isActive = true
     }
 
     private func configureNavigationBar() {
