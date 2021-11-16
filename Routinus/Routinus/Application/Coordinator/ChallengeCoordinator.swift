@@ -30,7 +30,7 @@ final class ChallengeCoordinator: RoutinusCoordinator {
                 self.childCoordinator.append(searchCoordinator)
             }
             .store(in: &cancellables)
-        
+
         challengeViewModel.seeAllButtonTap
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -61,9 +61,5 @@ final class ChallengeCoordinator: RoutinusCoordinator {
             .store(in: &cancellables)
 
         self.navigationController.pushViewController(challengeViewController, animated: false)
-    }
-
-    private func resetToRoot() {
-        self.navigationController.popToRootViewController(animated: false)
     }
 }

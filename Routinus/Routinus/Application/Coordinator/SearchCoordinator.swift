@@ -24,7 +24,7 @@ final class SearchCoordinator: RoutinusCoordinator {
         let searchUsecase = SearchFetchUsecase(repository: repository)
         let searchViewModel = SearchViewModel(category: category, usecase: searchUsecase)
         let searchViewController = SearchViewController(with: searchViewModel)
-        self.navigationController.pushViewController(searchViewController, animated: false)
+        self.navigationController.pushViewController(searchViewController, animated: true)
 
         searchViewModel.challengeTap
             .sink { [weak self] challengeID in
