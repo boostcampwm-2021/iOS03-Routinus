@@ -16,11 +16,13 @@ public enum RoutinusDatabase {
     private static let firestoreURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
     private static let storageURL = "https://firebasestorage.googleapis.com/v0/b/boostcamp-ios03-routinus.appspot.com/o"
 
-    public static func imageURL(id: String, filename: String) async throws -> URL? {
+    public static func imageURL(id: String,
+                                filename: String) async throws -> URL? {
         return URL(string: "\(storageURL)/\(id)%2F\(filename).jpeg?alt=media")
     }
 
-    public static func createUser(id: String, name: String) async throws {
+    public static func createUser(id: String,
+                                  name: String) async throws {
         guard let url = URL(string: "\(firestoreURL)/user") else { return }
         var request = URLRequest(url: url)
 
@@ -140,7 +142,8 @@ public enum RoutinusDatabase {
         return todayRoutines
     }
 
-    public static func achievement(of id: String, in yearMonth: String) async throws -> [AchievementDTO] {
+    public static func achievement(of id: String,
+                                   in yearMonth: String) async throws -> [AchievementDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
 
