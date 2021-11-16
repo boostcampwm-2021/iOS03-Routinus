@@ -195,10 +195,10 @@ public enum RoutinusDatabase {
         Task {
             try await updateChallenge(challengeDTO: challengeDTO)
             try await uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
-                                  fileName: "image",
+                                  filename: "image",
                                   imageURL: imageURL)
             try await uploadImage(id: challengeDTO.document?.fields.id.stringValue ?? "",
-                                  fileName: "auth",
+                                  filename: "auth",
                                   imageURL: authImageURL)
         }
     }
@@ -227,6 +227,6 @@ public enum RoutinusDatabase {
         request.httpMethod = HTTPMethod.patch.rawValue
         request.httpBody = RoutinusQuery.updateChallenge(document: challengeField)
 
-        try await URLSession.shared.data(for: request)
+        _ = try await URLSession.shared.data(for: request)
     }
 }
