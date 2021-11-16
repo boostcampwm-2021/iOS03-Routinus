@@ -5,58 +5,118 @@
 //  Created by 박상우 on 2021/11/02.
 //
 
+import Combine
 import UIKit
 
 import SnapKit
 
 final class ManageViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureViews()
+    enum Section: CaseIterable {
+        case challenge
     }
 
-    private lazy var plusButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.addTarget(self, action: #selector(didTouchAddButton), for: .touchUpInside)
-        button.tintColor = UIColor.black
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Challenge>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Challenge>
+
+    private lazy var dataSource = configureDataSource()
+    private lazy var snapshot = Snapshot()
+    private var viewModel: ManageViewModelIO?
+    private var cancellables = Set<AnyCancellable>()
+
+    lazy var plusButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(systemName: "plus"),
+                                     style: .plain, target: self,
+                                     action: #selector(didTouchAddButton))
+        button.tintColor = .black
         return button
     }()
 
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "ManageView")
-        imageView.contentMode = .scaleToFill
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.black.cgColor
-        return imageView
+    private var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.backgroundColor = .systemBackground
+
+        collectionView.showsVerticalScrollIndicator = false
+
+        collectionView.register(SearchChallengeCell.self,
+                                forCellWithReuseIdentifier: SearchChallengeCell.identifier)
+
+        return collectionView
     }()
 
+    init(with viewModel: ManageViewModelIO) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = dataSource
+        self.snapshot.appendSections(Section.allCases)
+        self.configureViewModel()
+        self.dataSource = configureDataSource()
+        self.configureViews()
+    }
+}
+
+extension ManageViewController {
+    private func configureViews() {
+        self.view.backgroundColor = .systemBackground
+        self.view.addSubview(collectionView)
+        self.collectionView.snp.makeConstraints { make in
+            make.leading.top.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "내가 개설한 챌린지"
+        self.navigationItem.rightBarButtonItem = self.plusButton
+    }
+
+    private func configureViewModel() {
+        self.viewModel?.challenges
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challengeItem in
+                guard let self = self else { return }
+                var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
+                let challengeContents = challengeItem
+                challengeSnapshot.append(challengeContents)
+                self.dataSource.apply(challengeSnapshot, to: Section.challenge)
+            })
+            .store(in: &cancellables)
+    }
+
+    static func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+            let layout = ManageCollectionViewLayouts()
+            return layout.section(at: sectionNumber)
+        }
+    }
+}
+
+extension ManageViewController {
     @objc func didTouchAddButton() {
-        let vc = CreateViewController()
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.viewModel?.didTappedAddButton()
     }
+}
 
-    func configureViews() {
-        self.view.backgroundColor = .white
-        self.view.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.edges.equalTo(self.view.safeAreaLayoutGuide).inset(20)
+extension ManageViewController {
+    private func configureDataSource() -> DataSource {
+        let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, challenge in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchChallengeCell.identifier,
+                                                              for: indexPath) as? SearchChallengeCell
+            cell?.configureViews(challenge: challenge)
+            return cell
         }
-
-        self.view.addSubview(plusButton)
-        plusButton.snp.makeConstraints { make in
-            make.top.equalTo(imageView).offset(30)
-            make.trailing.equalTo(imageView).offset(-20)
-        }
-        
-        self.configureNavigationBar()
+        return dataSource
     }
+}
 
-    private func configureNavigationBar() {
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .black
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+extension ManageViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.viewModel?.didTappedChallenge(index: indexPath.item)
     }
 }

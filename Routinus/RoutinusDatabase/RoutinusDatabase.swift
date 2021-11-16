@@ -166,13 +166,25 @@ public enum RoutinusDatabase {
         return try JSONDecoder().decode([ChallengeDTO].self, from: data)
     }
 
-    public static func searchChallenges(by categoryID: String) async throws -> [ChallengeDTO] {
+    public static func searchChallenges(ownerID: String) async throws -> [ChallengeDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.searchChallenges(by: categoryID)
+        request.httpBody = RoutinusQuery.searchChallenges(ownerID: ownerID)
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
+    }
+
+    public static func searchChallenges(categoryID: String) async throws -> [ChallengeDTO] {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.searchChallenges(categoryID: categoryID)
 
         let (data, _) = try await URLSession.shared.data(for: request)
         return try JSONDecoder().decode([ChallengeDTO].self, from: data)
