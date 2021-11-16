@@ -21,6 +21,7 @@
 		0DE0339C274355770026F502 /* ManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0339B274355760026F502 /* ManageViewModel.swift */; };
 		14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14572CEC273BF644007E6ECE /* CreateCoordinator.swift */; };
 		145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */; };
+		148387382743817F00731F98 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148387372743817F00731F98 /* InformationView.swift */; };
 		149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411DB273A314B004BE485 /* CreateViewModel.swift */; };
 		149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */; };
 		1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF432738FFA600296F9E /* RoutinusRepository.swift */; };
@@ -164,6 +165,7 @@
 		0DE0339B274355760026F502 /* ManageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageViewModel.swift; sourceTree = "<group>"; };
 		14572CEC273BF644007E6ECE /* CreateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoordinator.swift; sourceTree = "<group>"; };
 		145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpdateUsecase.swift; sourceTree = "<group>"; };
+		148387372743817F00731F98 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		149411DB273A314B004BE485 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreateUsecase.swift; sourceTree = "<group>"; };
 		1497CF432738FFA600296F9E /* RoutinusRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusRepository.swift; sourceTree = "<group>"; };
@@ -299,6 +301,14 @@
 				0DBBAA3A27341C3600B32EB5 /* ChallengeCategoryCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		148387342743807D00731F98 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				148387372743817F00731F98 /* InformationView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		1497CF422738FF8C00296F9E /* Data */ = {
@@ -653,6 +663,7 @@
 			isa = PBXGroup;
 			children = (
 				E9797CB0273107A200A14A0F /* DetailViewController.swift */,
+				148387342743807D00731F98 /* Subviews */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -1046,6 +1057,8 @@
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E94B49762739118B00708D7B /* Challenge.swift in Sources */,
 				0DE03398274329BA0026F502 /* Calendar.swift in Sources */,
+				0DC38F55273B689700331C25 /* SearchRepository.swift in Sources */,
+				148387382743817F00731F98 /* InformationView.swift in Sources */,
 				0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCell.swift in Sources */,
 				E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */,
 				0DC38F44273A3B9900331C25 /* SearchCoordinator.swift in Sources */,
