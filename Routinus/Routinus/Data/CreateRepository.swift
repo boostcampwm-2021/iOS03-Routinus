@@ -35,6 +35,7 @@ extension RoutinusRepository: CreateRepository {
             try await RoutinusDatabase.createChallenge(challenge: challengeDTO,
                                                        imageURL: imageURL,
                                                        authImageURL: authImageURL)
+            RoutinusImageManager.removeTempCachedImages()
         }
     }
 
