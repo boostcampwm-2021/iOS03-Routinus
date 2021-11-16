@@ -21,9 +21,9 @@ extension RoutinusRepository: SearchRepository {
         return list.map { Challenge(challengeDTO: $0) }
                 .filter { $0.title.contains(keyword) }
     }
-    
+
     func fetchSearchChallengesBy(categoryID: String) async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.searchChallenges(by: categoryID) else { return [] }
+        guard let list = try? await RoutinusDatabase.searchChallenges(categoryID: categoryID) else { return [] }
         return list.map { Challenge(challengeDTO: $0) }
     }
 
