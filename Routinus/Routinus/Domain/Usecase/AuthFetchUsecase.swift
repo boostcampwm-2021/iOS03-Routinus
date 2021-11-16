@@ -12,15 +12,15 @@ protocol AuthFetchableUsecase {
 }
 
 struct AuthFetchUsecase: AuthFetchableUsecase {
-    var repository: UpdateRepository
+    var repository: AuthRepository
 
-    init(repository: UpdateRepository) {
+    init(repository: AuthRepository) {
         self.repository = repository
     }
 
     func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void) {
         Task {
-            let challenge = await repository.fetchChallenge(challengeID: challengeID)
+            let challenge = await repository.fetchAuthChallenge(challengeID: challengeID)
             completion(challenge)
         }
     }
