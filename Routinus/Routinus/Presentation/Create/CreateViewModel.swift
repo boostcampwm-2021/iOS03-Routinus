@@ -22,7 +22,7 @@ protocol CreateViewModelInput {
     func fetchChallenge()
     func updateChallenge(category: Challenge.Category, title: String, imageURL: String, week: Int, introduction: String, authMethod: String, authExampleImageURL: String)
     func validateWeek(currentText: String) -> String
-    func saveImage(to directory: String, fileName: String, data: Data?) -> String
+    func saveImage(to directory: String, filename: String, data: Data?) -> String
 }
 
 protocol CreateViewModelOutput {
@@ -165,7 +165,7 @@ final class CreateViewModel: CreateViewModelIO {
         updateUsecase.updateChallenge(challenge: updateChallenge)
     }
 
-    func saveImage(to directory: String, fileName: String, data: Data?) -> String {
-        return createUsecase.saveImage(to: directory, fileName: fileName, data: data)
+    func saveImage(to directory: String, filename: String, data: Data?) -> String {
+        return createUsecase.saveImage(to: directory, filename: filename, data: data)
     }
 }
