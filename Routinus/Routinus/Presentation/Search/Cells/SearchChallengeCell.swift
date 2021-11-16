@@ -8,13 +8,12 @@
 import UIKit
 
 import SnapKit
-import Kingfisher
 import RoutinusDatabase
 
 final class SearchChallengeCell: UICollectionViewCell {
     static let identifier = "SearchChallengeCell"
 
-    private lazy var challengeImageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -30,11 +29,29 @@ final class SearchChallengeCell: UICollectionViewCell {
         return label
     }()
 
-    func configureViews(challenge: Challenge) {
-        self.titleLabel.text = challenge.title
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureViews()
+    }
 
-        self.addSubview(challengeImageView)
-        self.challengeImageView.snp.makeConstraints { make in
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configureViews()
+    }
+
+    func setTitle(_ title: String) {
+        titleLabel.text = title
+    }
+
+    func setImage(_ image: UIImage) {
+        imageView.image = image
+    }
+}
+
+extension SearchChallengeCell {
+    private func configureViews() {
+        self.addSubview(imageView)
+        self.imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(110)
         }
@@ -42,15 +59,7 @@ final class SearchChallengeCell: UICollectionViewCell {
         self.addSubview(titleLabel)
         self.titleLabel.snp.makeConstraints { make in
             make.leading.bottom.equalToSuperview()
-            make.top.equalTo(challengeImageView.snp.bottom).offset(10)
-        }
-
-        // TODO: RoutinusDatabase 직접 접근하지 않도록 수정
-        Task {
-            let url = try? await RoutinusDatabase.imageURL(id: challenge.challengeID, filename: "image")
-
-            self.challengeImageView.kf.setImage(with: url,
-                                                placeholder: nil)
+            make.top.equalTo(imageView.snp.bottom).offset(10)
         }
     }
 }
