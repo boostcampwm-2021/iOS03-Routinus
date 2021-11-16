@@ -11,6 +11,7 @@ final class PreviewView: UIView {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
+        stackView.alignment = .center
         stackView.spacing = 10
         stackView.clipsToBounds = true
         return stackView
@@ -26,6 +27,7 @@ final class PreviewView: UIView {
     private lazy var previewLabel: UILabel = {
         let label = UILabel()
         label.text = "Preview"
+        label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 26)
         return label
     }()
@@ -67,6 +69,9 @@ extension PreviewView {
         self.previewImageView.translatesAutoresizingMaskIntoConstraints = false
         self.previewImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
         self.previewImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+
+        self.previewLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.previewLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         [previewImageView, previewLabel].forEach { self.stackView.addArrangedSubview($0) }
 
         self.addSubview(timeLabel)
