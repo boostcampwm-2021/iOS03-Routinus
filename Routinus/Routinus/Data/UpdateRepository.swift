@@ -11,15 +11,18 @@ import RoutinusDatabase
 import RoutinusImageManager
 
 protocol UpdateRepository {
-    func fetchChallenge(challengeID: String) async -> Challenge?
+    func fetchChallenge(challengeID: String, completion: @escaping (Challenge) -> Void)
     func update(challenge: Challenge, imageURL: String, authImageURL: String) async
 }
 
 extension RoutinusRepository: UpdateRepository {
-    func fetchChallenge(challengeID: String) async -> Challenge? {
-        guard let ownerID = RoutinusRepository.userID() else { return nil }
-        guard let challengeDTO = try? await RoutinusDatabase.challenge(ownerID: ownerID, challengeID: challengeID) else { return nil }
-        return Challenge(challengeDTO: challengeDTO)
+    func fetchChallenge(challengeID: String,
+                        completion: @escaping (Challenge) -> Void) {
+        guard let ownerID = RoutinusRepository.userID() else { return }
+        RoutinusDatabase.challenge(ownerID: ownerID,
+                                   challengeID: challengeID) { dto in
+            completion(Challenge(challengeDTO: dto))
+        }
     }
 
     func update(challenge: Challenge, imageURL: String, authImageURL: String) async {

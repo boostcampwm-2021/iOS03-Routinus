@@ -28,11 +28,7 @@ struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
     }
 
     func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void) {
-        Task {
-            guard let challenge = await repository.fetchChallenge(challengeID: challengeID) else {
-                completion(nil)
-                return
-            }
+        repository.fetchChallenge(challengeID: challengeID) { challenge in
             completion(challenge)
         }
     }
