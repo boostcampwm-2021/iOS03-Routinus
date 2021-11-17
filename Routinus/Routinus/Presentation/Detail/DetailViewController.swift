@@ -66,9 +66,13 @@ final class DetailViewController: UIViewController {
         informationView.heightAnchor.constraint(equalToConstant: 250).isActive = true
 
         stackView.addArrangedSubview(authMethodView)
-        authMethodView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        authMethodView.heightAnchor.constraint(equalToConstant: 400).isActive = true
 
-        stackView.addArrangedSubview(participantView)
+        view.addSubview(participantView)
+        participantView.translatesAutoresizingMaskIntoConstraints = false
+        participantView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        participantView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        participantView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         participantView.heightAnchor.constraint(equalToConstant: 100).isActive = true
 
         participantView.addSubview(participantButton)
@@ -77,6 +81,7 @@ final class DetailViewController: UIViewController {
         participantButton.bottomAnchor.constraint(equalTo: participantView.bottomAnchor, constant: -20).isActive = true
         participantButton.leadingAnchor.constraint(equalTo: participantView.leadingAnchor, constant: 20).isActive = true
         participantButton.trailingAnchor.constraint(equalTo: participantView.trailingAnchor, constant: -20).isActive = true
+
     }
 
     private func configureNavigationBar() {
