@@ -41,8 +41,10 @@ final class HomeViewModel: HomeViewModelIO {
     var todayRoutineTap = PassthroughSubject<String, Never>()
     var todayRoutineAuthTap = PassthroughSubject<String, Never>()
 
-    var createUsecase: HomeCreatableUsecase
-    var fetchUsecase: HomeFetchableUsecase
+    var userCreateUsecase: UserCreatableUsecase
+    var userFetchUsecase: UserFetchableUsecase
+    var todayRoutineFetchUsecase: TodayRoutineFetchableUsecase
+    var achievementFetchUsecase: AchievementFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
     var days = CurrentValueSubject<[Day], Never>([])
@@ -52,9 +54,14 @@ final class HomeViewModel: HomeViewModelIO {
 
     let formatter = DateFormatter()
 
-    init(createUsecase: HomeCreatableUsecase, fetchUsecase: HomeFetchableUsecase) {
-        self.createUsecase = createUsecase
-        self.fetchUsecase = fetchUsecase
+    init(userCreateUsecase: UserCreatableUsecase,
+         userFetchUsecase: UserFetchableUsecase,
+         todayRoutineFetchUsecase: TodayRoutineFetchableUsecase,
+         achievementFetchUsecase: AchievementFetchableUsecase) {
+        self.userCreateUsecase = userCreateUsecase
+        self.userFetchUsecase = userFetchUsecase
+        self.todayRoutineFetchUsecase = todayRoutineFetchUsecase
+        self.achievementFetchUsecase = achievementFetchUsecase
 
         setDateFormatter()
         self.baseDate.value = Date()
@@ -82,7 +89,7 @@ extension HomeViewModel {
 
 extension HomeViewModel {
     private func createUserID() {
-        createUsecase.createUserID()
+        userCreateUsecase.createUserID()
     }
 
     private func fetchMyHomeData() {
@@ -92,19 +99,19 @@ extension HomeViewModel {
     }
 
     private func fetchUser() {
-        fetchUsecase.fetchUser { [weak self] user in
+        userFetchUsecase.fetchUser { [weak self] user in
             self?.user.value = user
         }
     }
 
     private func fetchTodayRoutine() {
-        fetchUsecase.fetchTodayRoutines { [weak self] todayRoutine in
+        todayRoutineFetchUsecase.fetchTodayRoutines { [weak self] todayRoutine in
             self?.todayRoutine.value = todayRoutine
         }
     }
 
     private func fetchAchievement() {
-        fetchUsecase.fetchAchievements(yearMonth: Date.currentYearMonth()) { achievement in
+        achievementFetchUsecase.fetchAchievements(yearMonth: Date.currentYearMonth()) { achievement in
             self.selectedDates = achievement.map { Date(dateString: "\($0.yearMonth)\($0.day)") }
             self.achievements = achievement
             self.days.value = self.generateDaysInMonth(for: self.baseDate.value)

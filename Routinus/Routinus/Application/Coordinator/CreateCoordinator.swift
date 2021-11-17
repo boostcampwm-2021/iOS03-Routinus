@@ -17,10 +17,16 @@ final class CreateCoordinator: RoutinusCoordinator {
 
     func start() {
         let repository = RoutinusRepository()
-        let createUsecase = ChallengeCreateUsecase(repository: repository)
-        let updateUsecase = ChallengeUpdateUsecase(repository: repository)
+        let challengeCreateUsecase = ChallengeCreateUsecase(repository: repository)
+        let challengeUpdateUsecase = ChallengeUpdateUsecase(repository: repository)
+        let challengeFetchUsecase = ChallengeFetchUsecase(repository: repository)
+        let imageSaveUsecase = ImageSaveUsecase(repository: repository)
         // TODO: - 챌린지 관리 화면으로부터 challengeID 주입받기
-        let createViewModel = CreateViewModel(challengeID: "24F3374C-BFA7-49B2-AE26-F887009DC3DA", createUsecase: createUsecase, updateUsecase: updateUsecase)
+        let createViewModel = CreateViewModel(challengeID: "24F3374C-BFA7-49B2-AE26-F887009DC3DA",
+                                              challengeCreateUsecase: challengeCreateUsecase,
+                                              challengeUpdateUsecase: challengeUpdateUsecase,
+                                              challengeFetchUsecase: challengeFetchUsecase,
+                                              imageSaveUsecase: imageSaveUsecase)
         let createViewController = CreateViewController(with: createViewModel)
         createViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(createViewController, animated: true)

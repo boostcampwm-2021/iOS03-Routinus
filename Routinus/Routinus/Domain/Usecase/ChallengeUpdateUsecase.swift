@@ -8,15 +8,14 @@
 import Foundation
 
 protocol ChallengeUpdatableUsecase {
-    func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void)
     func updateChallenge(challenge: Challenge)
     func endDate(startDate: Date, week: Int) -> Date?
 }
 
 struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
-    var repository: UpdateRepository
+    var repository: ChallengeRepository
 
-    init(repository: UpdateRepository) {
+    init(repository: ChallengeRepository) {
         self.repository = repository
     }
 
@@ -25,12 +24,6 @@ struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
         let day = DateComponents(day: week*7)
         guard let endDate = calendar.date(byAdding: day, to: startDate) else { return nil }
         return endDate
-    }
-
-    func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void) {
-        repository.fetchChallenge(challengeID: challengeID) { challenge in
-            completion(challenge)
-        }
     }
 
     func updateChallenge(challenge: Challenge) {
