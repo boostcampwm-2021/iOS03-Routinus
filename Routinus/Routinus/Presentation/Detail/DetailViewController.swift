@@ -20,7 +20,7 @@ final class DetailViewController: UIViewController {
 
     private lazy var mainImageView: UIImageView = {
         var imageView = UIImageView()
-        imageView.image = UIImage(named: "walk")
+        imageView.backgroundColor = .brown
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
