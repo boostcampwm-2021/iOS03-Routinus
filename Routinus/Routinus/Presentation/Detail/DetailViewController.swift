@@ -13,7 +13,7 @@ final class DetailViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 5
+        stackView.spacing = 3
         stackView.backgroundColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)
         return stackView
     }()
@@ -67,15 +67,15 @@ final class DetailViewController: UIViewController {
         informationView.heightAnchor.constraint(equalToConstant: 250).isActive = true
 
         stackView.addArrangedSubview(authMethodView)
-        authMethodView.heightAnchor.constraint(equalToConstant: 270).isActive = true
+        authMethodView.heightAnchor.constraint(equalToConstant: 300).isActive = true
 
         stackView.addArrangedSubview(participantView)
-        participantView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        participantView.heightAnchor.constraint(equalToConstant: 100).isActive = true
 
         participantView.addSubview(participantButton)
         participantButton.translatesAutoresizingMaskIntoConstraints = false
-        participantButton.topAnchor.constraint(equalTo: participantView.topAnchor, constant: 5).isActive = true
-        participantButton.bottomAnchor.constraint(equalTo: participantView.bottomAnchor, constant: -5).isActive = true
+        participantButton.topAnchor.constraint(equalTo: participantView.topAnchor, constant: 20).isActive = true
+        participantButton.bottomAnchor.constraint(equalTo: participantView.bottomAnchor, constant: -20).isActive = true
         participantButton.leadingAnchor.constraint(equalTo: participantView.leadingAnchor, constant: 20).isActive = true
         participantButton.trailingAnchor.constraint(equalTo: participantView.trailingAnchor, constant: -20).isActive = true
     }

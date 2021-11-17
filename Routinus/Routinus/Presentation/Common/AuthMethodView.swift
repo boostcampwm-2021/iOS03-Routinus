@@ -61,7 +61,7 @@ extension AuthMethodView {
     private func configureSubviews() {
         self.addSubview(titleLabel)
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
+        self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
         self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
 
         self.addSubview(methodImageView)
@@ -76,6 +76,7 @@ extension AuthMethodView {
         self.methodView.topAnchor.constraint(equalTo: self.methodImageView.bottomAnchor, constant: 15).isActive = true
         self.methodView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         self.methodView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        
         self.methodView.heightAnchor.constraint(equalToConstant: 60).isActive = true
 
         methodView.addSubview(methodLabel)

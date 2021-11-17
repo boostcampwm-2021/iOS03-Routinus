@@ -149,7 +149,7 @@ extension InformationView {
 
         infomationStackView.addArrangedSubview(titleStackView)
         titleStackView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        titleStackView.topAnchor.constraint(equalTo: infomationStackView.topAnchor, constant: 5).isActive = true
+        titleStackView.topAnchor.constraint(equalTo: infomationStackView.topAnchor, constant: 20).isActive = true
         titleStackView.leadingAnchor.constraint(equalTo: infomationStackView.leadingAnchor, constant: 20).isActive = true
         titleStackView.trailingAnchor.constraint(equalTo: infomationStackView.trailingAnchor, constant: -20).isActive = true
 
@@ -210,6 +210,6 @@ extension InformationView {
         introductionLabel.bottomAnchor.constraint(equalTo: introductionView.bottomAnchor, constant: -5).isActive = true
 
         infomationStackView.addArrangedSubview(emptyView)
-        emptyView.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        emptyView.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
 }
