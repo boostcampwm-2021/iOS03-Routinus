@@ -13,7 +13,6 @@ final class PreviewView: UIView {
     private lazy var preview: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "MainColor")
-
         return view
     }()
 
