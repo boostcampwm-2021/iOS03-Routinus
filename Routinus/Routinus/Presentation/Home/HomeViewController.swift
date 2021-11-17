@@ -13,6 +13,11 @@ import SnapKit
 final class HomeViewController: UIViewController {
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var contentView: UIView = UIView()
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width <= 350 ? 30 : 34, weight: .bold)
+        return label
+    }()
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView(viewModel: viewModel)
@@ -36,6 +41,14 @@ final class HomeViewController: UIViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     override func viewWillTransition(
@@ -62,11 +75,18 @@ extension HomeViewController {
             make.width.centerX.top.bottom.equalToSuperview()
         }
 
+        self.contentView.addSubview(titleLabel)
+        self.titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(15)
+            make.trailing.equalToSuperview().offset(-20)
+            make.top.equalTo(accessibilityActivationPoint).offset(48)
+        }
+
         self.contentView.addSubview(continuityView)
         self.continuityView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.top.equalToSuperview().offset(10)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
             make.height.equalTo(80)
         }
 
@@ -91,8 +111,6 @@ extension HomeViewController {
     }
 
     private func configureNavigationBar() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .black
         self.navigationItem.backBarButtonItem = backBarButtonItem
@@ -103,7 +121,7 @@ extension HomeViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] user in
                 guard let self = self else { return }
-                self.navigationItem.title = user.name + "님의 Routine"
+                self.titleLabel.text = user.name + "님의 Routine"
                 self.continuityView.configureContents(with: user)
             })
             .store(in: &cancellables)
@@ -155,8 +173,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineCell.identifier, for: indexPath)
-                as? RoutineCell,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTableViewCell.identifier, for: indexPath)
+                as? RoutineTableViewCell,
               let routines = self.viewModel?.todayRoutine.value else { return UITableViewCell() }
 
         cell.configureCell(routine: routines[indexPath.row])
@@ -164,7 +182,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let auth = UIContextualAction(style: .normal, title: nil) { [weak self] (_, _, _: @escaping (Bool) -> Void) in
             self?.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
         }
@@ -177,14 +196,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return UISwipeActionsConfiguration(actions: [auth])
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
         guard let challengeID = viewModel?.todayRoutine.value[indexPath.row].challengeID else { return }
         self.viewModel?.didTappedTodayRoutine(index: indexPath.row)
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         self.viewModel?.days.value.count ?? 0
     }
 
@@ -193,19 +214,17 @@ extension HomeViewController: UICollectionViewDataSource {
         let day = self.viewModel?.days.value[indexPath.row]
 
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: DateCell.reuseIdentifier,
-            for: indexPath) as? DateCell else { return UICollectionViewCell() }
+            withReuseIdentifier: DateCollectionViewCell.reuseIdentifier,
+            for: indexPath) as? DateCollectionViewCell else { return UICollectionViewCell() }
         cell.setDay(day)
         return cell
     }
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = Int(collectionView.frame.width / 7)
         let height = 55
         return CGSize(width: width, height: height)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RoutineCell: UITableViewCell {
+final class RoutineTableViewCell: UITableViewCell {
     static let identifier: String = "RoutineCell"
 
     private lazy var progressView: UIProgressView = {
@@ -72,7 +72,7 @@ final class RoutineCell: UITableViewCell {
     }
 }
 
-extension RoutineCell {
+extension RoutineTableViewCell {
     private func configureViews() {
         self.backgroundColor = .white
 

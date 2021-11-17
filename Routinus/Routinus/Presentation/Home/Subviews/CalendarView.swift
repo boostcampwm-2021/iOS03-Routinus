@@ -9,6 +9,14 @@ import Combine
 import UIKit
 
 final class CalendarView: UIView {
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.text = "요약"
+        return label
+    }()
+
     private lazy var calendarView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -33,6 +41,11 @@ final class CalendarView: UIView {
         didTappedNextMonthCompletionHandler: { [weak self] in
             guard let self = self else { return }
             self.viewModel?.changeDate(month: 1)
+            self.calendarView.reloadData()
+        },
+        didTappedTodayCompletionHandler: { [weak self] in
+            guard let self = self else { return }
+            self.viewModel?.changeDate(month: 0)
             self.calendarView.reloadData()
         })
 
@@ -65,12 +78,13 @@ final class CalendarView: UIView {
     }
 
     func configureView() {
+        self.addSubview(titleLabel)
         self.addSubview(calendarView)
         self.addSubview(headerView)
 
         calendarView.register(
-            DateCell.self,
-            forCellWithReuseIdentifier: DateCell.reuseIdentifier
+            DateCollectionViewCell.self,
+            forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier
         )
 
         headerView.baseDate = self.viewModel?.baseDate.value ?? Date()
@@ -80,10 +94,14 @@ final class CalendarView: UIView {
         super.layoutSubviews()
 
         NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: self.readableContentGuide.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: self.readableContentGuide.trailingAnchor),
+            titleLabel.topAnchor.constraint(equalTo: self.readableContentGuide.topAnchor, constant: 10),
+
             headerView.leadingAnchor.constraint(equalTo: self.readableContentGuide.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: self.readableContentGuide.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 85),
-            headerView.topAnchor.constraint(equalTo: self.readableContentGuide.topAnchor),
+            headerView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 20),
 
             calendarView.leadingAnchor.constraint(equalTo: self.headerView.leadingAnchor),
             calendarView.trailingAnchor.constraint(equalTo: self.headerView.trailingAnchor),

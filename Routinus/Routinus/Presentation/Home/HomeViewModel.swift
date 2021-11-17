@@ -197,7 +197,8 @@ extension HomeViewModel {
     }
 
     func changeDate(month: Int) {
-        self.baseDate.value = self.calendar.date(byAdding: .month, value: month, to: self.baseDate.value) ?? Date()
+        let changedDate = self.calendar.date(byAdding: .month, value: month, to: self.baseDate.value) ?? Date()
+        self.baseDate.value = month == 0 ? Date() : changedDate
         self.days.value = generateDaysInMonth(for: baseDate.value)
     }
 }

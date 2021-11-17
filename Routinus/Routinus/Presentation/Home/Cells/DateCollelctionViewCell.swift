@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DateCell: UICollectionViewCell {
+final class DateCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "DateCell"
 
     private lazy var selectionBackgroundView: UIView = {
@@ -85,7 +85,7 @@ final class DateCell: UICollectionViewCell {
     }
 }
 
-extension DateCell {
+extension DateCollectionViewCell {
     func setDay(_ day: Day?) {
         self.day = day
     }
@@ -107,7 +107,7 @@ extension DateCell {
     }
 }
 
-private extension DateCell {
+private extension DateCollectionViewCell {
     func updateSelectionStatus() {
         guard let day = day else { return }
 
@@ -124,8 +124,7 @@ private extension DateCell {
     var isSmallScreenSize: Bool {
         let isCompact = traitCollection.horizontalSizeClass == .compact
         let smallWidth = UIScreen.main.bounds.width <= 350
-        let widthGreaterThanHeight =
-        UIScreen.main.bounds.width > UIScreen.main.bounds.height
+        let widthGreaterThanHeight = UIScreen.main.bounds.width > UIScreen.main.bounds.height
 
         return isCompact && (smallWidth || widthGreaterThanHeight)
     }
