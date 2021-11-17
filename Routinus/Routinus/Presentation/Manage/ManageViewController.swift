@@ -36,8 +36,8 @@ final class ManageViewController: UIViewController {
         collectionView.backgroundColor = .systemBackground
         collectionView.showsVerticalScrollIndicator = false
 
-        collectionView.register(SearchChallengeCell.self,
-                                forCellWithReuseIdentifier: SearchChallengeCell.identifier)
+        collectionView.register(ChallengeCollectionViewCell.self,
+                                forCellWithReuseIdentifier: ChallengeCollectionViewCell.identifier)
 
         return collectionView
     }()
@@ -110,8 +110,8 @@ extension ManageViewController {
 extension ManageViewController {
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, challenge in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchChallengeCell.identifier,
-                                                          for: indexPath) as? SearchChallengeCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCollectionViewCell.identifier,
+                                                          for: indexPath) as? ChallengeCollectionViewCell
             cell?.setTitle(challenge.title)
             // TODO: setImage(SearchVC 로직 merge되면 구현)
             return cell
