@@ -139,6 +139,8 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
             let thumbnailImageURL = viewModel?.saveImage(to: "temp",
                                                          filename: "thumbnail_userAuth",
                                                          data: thumbnailImage.jpegData(compressionQuality: 0.9))
+            self.viewModel?.update(userAuthImageURL: mainImageURL)
+            self.viewModel?.update(userAuthThumbnailImageURL: thumbnailImageURL)
             previewView.setImage(thumbnailImage)
         }
         dismiss(animated: true, completion: nil)

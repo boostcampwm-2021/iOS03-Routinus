@@ -10,6 +10,8 @@ import Foundation
 
 protocol AuthViewModelInput {
     func didTappedAuthButton()
+    func update(userAuthImageURL: String?)
+    func update(userAuthThumbnailImageURL: String?)
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)?)
@@ -29,6 +31,9 @@ class AuthViewModel: AuthViewModelIO {
     var challengeFetchUsecase: ChallengeFetchableUsecase
     var imageFetchUsecase: ImageFetchableUsecase
     var imageSaveUsecase: ImageSavableUsecase
+    
+    private var userAuthImageURL: String
+    private var userAuthThumbnailImageURL: String
 
     init(challengeID: String,
          challengeFetchUsecase: ChallengeFetchableUsecase,
@@ -37,6 +42,8 @@ class AuthViewModel: AuthViewModelIO {
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
         self.imageSaveUsecase = imageSaveUsecase
+        self.userAuthImageURL = ""
+        self.userAuthThumbnailImageURL = ""
         self.fetchChallenge(challengeID: challengeID)
     }
 }
@@ -44,6 +51,14 @@ class AuthViewModel: AuthViewModelIO {
 extension AuthViewModel {
     func didTappedAuthButton() {
 
+    }
+    
+    func update(userAuthImageURL: String?) {
+        self.userAuthImageURL = userAuthImageURL ?? ""
+    }
+    
+    func update(userAuthThumbnailImageURL: String?) {
+        self.userAuthThumbnailImageURL = userAuthThumbnailImageURL ?? ""
     }
 
     func imageData(from directory: String,
