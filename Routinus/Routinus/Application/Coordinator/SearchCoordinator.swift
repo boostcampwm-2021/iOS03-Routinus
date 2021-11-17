@@ -24,7 +24,7 @@ final class SearchCoordinator: RoutinusCoordinator {
         let imageFetchUsecase = ImageFetchUsecase(repository: repository)
         let challengeFetchUsecase = ChallengeFetchUsecase(repository: repository)
         let searchViewModel = SearchViewModel(category: category,
-                                              imageFetchusecase: imageFetchUsecase,
+                                              imageFetchUsecase: imageFetchUsecase,
                                               challengeFetchUsecase: challengeFetchUsecase)
         let searchViewController = SearchViewController(with: searchViewModel)
         self.navigationController.pushViewController(searchViewController, animated: true)

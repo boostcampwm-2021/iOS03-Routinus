@@ -31,17 +31,17 @@ final class SearchViewModel: SearchViewModelIO {
 
     var challengeTap = PassthroughSubject<String, Never>()
 
-    let imageFetchusecase: ImageFetchableUsecase
+    let imageFetchUsecase: ImageFetchableUsecase
     let challengeFetchUsecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
     var searchKeyword: String?
     var searchCategory: Challenge.Category?
 
     init(category: Challenge.Category? = nil,
-         imageFetchusecase: ImageFetchableUsecase,
+         imageFetchUsecase: ImageFetchableUsecase,
          challengeFetchUsecase: ChallengeFetchableUsecase) {
         self.searchCategory = category
-        self.imageFetchusecase = imageFetchusecase
+        self.imageFetchUsecase = imageFetchUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
         self.fetchPopularKeywords()
         self.fetchChallenges()
@@ -69,7 +69,7 @@ extension SearchViewModel {
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)? = nil) {
-        imageFetchusecase.fetchImageData(from: directory, filename: filename) { data in
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
         }
     }
