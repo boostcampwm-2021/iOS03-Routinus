@@ -52,6 +52,7 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         self.configureViews()
         self.configureViewModel()
+        participantButton.delegate = self
     }
 
     init(with viewModel: DetailViewModelIO) {
@@ -146,10 +147,15 @@ final class DetailViewController: UIViewController {
             })
             .store(in: &cancellables)
     }
-}
 
-extension DetailViewController {
     @objc private func didTappedEditBarButton(_ sender: UIBarButtonItem) {
         viewModel?.didTappedEditBarButton()
     }
 }
+
+extension DetailViewController: ParticipantButtonDelegate {
+    func didTappedParticipantButton() {
+        viewModel?.didTappedParticipationButton()
+    }
+}
+

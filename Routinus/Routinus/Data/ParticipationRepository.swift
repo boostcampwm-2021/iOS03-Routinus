@@ -10,6 +10,7 @@ import RoutinusDatabase
 
 protocol ParticipationRepository {
     func fetchChallengeParticipation(userID: String, challengeID: String, completion: @escaping (Participation?) -> Void)
+    func save(challengeID: String, joinDate: String)
 }
 
 extension RoutinusRepository: ParticipationRepository {
@@ -21,5 +22,11 @@ extension RoutinusRepository: ParticipationRepository {
             }
             completion(Participation(participationDTO: dto))
         }
+    }
+
+    func save(challengeID: String, joinDate: String) {
+        guard let userID = RoutinusRepository.userID() else { return }
+        let dto = ParticipationDTO(authCount: 0, challengeID: challengeID, joinDate: joinDate, userID: userID)
+        RoutinusDatabase.insertChallengeParticipation(dto: dto, completion: nil)
     }
 }

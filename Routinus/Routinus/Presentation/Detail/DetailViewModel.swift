@@ -19,6 +19,7 @@ protocol DetailViewModelInput {
                    filename: String,
                    completion: ((Data?) -> Void)?)
     func didTappedEditBarButton()
+    func didTappedParticipationButton()
 }
 
 protocol DetailViewModelOutput {
@@ -27,6 +28,7 @@ protocol DetailViewModelOutput {
 
     var challenge: PassthroughSubject<Challenge, Never> { get }
     var editBarButtonTap: PassthroughSubject<String, Never> { get }
+    var participationButtonTap: PassthroughSubject<Void, Never> { get }
 }
 
 protocol DetailViewModelIO: DetailViewModelInput, DetailViewModelOutput { }
@@ -37,18 +39,25 @@ class DetailViewModel: DetailViewModelIO {
 
     var challenge = PassthroughSubject<Challenge, Never>()
     var editBarButtonTap = PassthroughSubject<String, Never>()
+    var participationButtonTap = PassthroughSubject<Void, Never>()
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
     let imageFetchUsecase: ImageFetchableUsecase
     let participationFetchUsecase: ParticipationFetchableUsecase
+    let participationCreateUsecase: ParticipationCreatableUsecase
     var cancellables = Set<AnyCancellable>()
     var challengeID: String?
 
-    init(challengeID: String, challengeFetchUsecase: ChallengeFetchableUsecase, imageFetchUsecase: ImageFetchableUsecase, participationFetchUsecase: ParticipationFetchableUsecase) {
+    init(challengeID: String,
+         challengeFetchUsecase: ChallengeFetchableUsecase,
+         imageFetchUsecase: ImageFetchableUsecase,
+         participationFetchUsecase: ParticipationFetchableUsecase,
+         participationCreateUsecase: ParticipationCreatableUsecase) {
         self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
         self.participationFetchUsecase = participationFetchUsecase
+        self.participationCreateUsecase = participationCreateUsecase
         self.fetchChallenge()
     }
 }
@@ -57,6 +66,14 @@ extension DetailViewModel {
     func didTappedEditBarButton() {
         guard let challengeID = challengeID else { return }
         self.editBarButtonTap.send(challengeID)
+    }
+
+    func didTappedParticipationButton() {
+        if participationAuthState.value == .unParticipation {
+            guard let challengeID = challengeID else { return }
+            participationCreateUsecase.createParticipation(challengeID: challengeID)
+            self.participationAuthState.value = .unAuth
+        }
     }
 }
 

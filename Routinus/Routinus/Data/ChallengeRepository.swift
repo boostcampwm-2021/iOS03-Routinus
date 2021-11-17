@@ -105,7 +105,13 @@ extension RoutinusRepository: ChallengeRepository {
                                         participantCount: 1,
                                         ownerID: challenge.ownerID)
 
+        let participationDTO = ParticipationDTO(authCount: 0,
+                                                challengeID: challenge.challengeID,
+                                                joinDate: startDate,
+                                                userID: challenge.ownerID)
+
         RoutinusDatabase.createChallenge(challenge: challengeDTO,
+                                         participation: participationDTO,
                                          imageURL: imageURL,
                                          thumbnailImageURL: thumbnailImageURL,
                                          authExampleImageURL: authExampleImageURL,

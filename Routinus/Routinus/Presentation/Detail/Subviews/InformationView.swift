@@ -198,7 +198,7 @@ extension InformationView {
     }
 
     func updateViews(challenge: Challenge) {
-        guard let endDate = challenge.endDate?.toExtendedString() else { return }
+        guard let endDate = challenge.endDate?.toDateWithWeekdayString() else { return }
         let image = challenge.category == .exercise || challenge.category == .lifeStyle ? UIImage(named: challenge.category.symbol) : UIImage(systemName: challenge.category.symbol)
         categoryImageView.image = image
         titleLabel.text = challenge.title

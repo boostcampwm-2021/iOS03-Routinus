@@ -40,13 +40,14 @@ public enum RoutinusDatabase {
     }
 
     public static func createChallenge(challenge: ChallengeDTO,
+                                       participation: ParticipationDTO,
                                        imageURL: String,
                                        thumbnailImageURL: String,
                                        authExampleImageURL: String,
                                        authExampleThumbnailImageURL: String,
                                        completion: (() -> Void)?) {
         insertChallenge(dto: challenge, completion: nil)
-        insertChallengeParticipation(dto: challenge, completion: nil)
+        insertChallengeParticipation(dto: participation, completion:nil)
 
         let uploadQueue = DispatchQueue(label: "uploadQueue")
         let group = DispatchGroup()
@@ -116,8 +117,9 @@ public enum RoutinusDatabase {
         }.resume()
     }
 
-    public static func insertChallengeParticipation(dto: ChallengeDTO,
-                                                    completion: (() -> Void)?) {
+
+    public static func insertChallengeParticipation(dto: ParticipationDTO,
+                                                    completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(firestoreURL)/challenge_participation"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
