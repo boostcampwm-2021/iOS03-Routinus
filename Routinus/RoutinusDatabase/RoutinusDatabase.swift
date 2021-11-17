@@ -26,7 +26,6 @@ public enum RoutinusDatabase {
                                   name: String) async throws {
         guard let url = URL(string: "\(firestoreURL)/user") else { return }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.createUserQuery(id: id, name: name)
@@ -76,7 +75,6 @@ public enum RoutinusDatabase {
         guard let url = URL(string: "\(firestoreURL)/challenge"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.insertChallengeQuery(document: document)
@@ -91,7 +89,6 @@ public enum RoutinusDatabase {
         guard let url = URL(string: "\(firestoreURL)/challenge_participation"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.insertChallengeParticipationQuery(document: document)
@@ -108,7 +105,6 @@ public enum RoutinusDatabase {
         guard let url = URL(string: "\(storageURL)?uploadType=media&name=\(id)%2F\(filename).jpeg"),
               let imageURL = URL(string: imageURL) else { return }
         var request = URLRequest(url: url)
-
         request.addValue("image/jpeg", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = try? Data(contentsOf: imageURL)
@@ -126,7 +122,6 @@ public enum RoutinusDatabase {
             return
         }
         var request = URLRequest(url: url)
-
         request.httpMethod = HTTPMethod.get.rawValue
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
@@ -137,7 +132,6 @@ public enum RoutinusDatabase {
     public static func user(of id: String) async throws -> UserDTO {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return UserDTO() }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.userQuery(of: id)
@@ -149,7 +143,6 @@ public enum RoutinusDatabase {
     public static func routines(of id: String) async throws -> [TodayRoutineDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.routinesQuery(userID: id)
@@ -160,7 +153,6 @@ public enum RoutinusDatabase {
 
         for participation in participations {
             guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
-
             request.httpBody = RoutinusQuery.routinesQuery(challengeID: challengeID)
 
             (data, _) = try await URLSession.shared.data(for: request)
@@ -176,7 +168,6 @@ public enum RoutinusDatabase {
                                    in yearMonth: String) async throws -> [AchievementDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.achievementQuery(of: id, in: yearMonth)
@@ -200,7 +191,6 @@ public enum RoutinusDatabase {
     public static func newChallenges() async throws -> [ChallengeDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.newChallengeQuery()
@@ -212,7 +202,6 @@ public enum RoutinusDatabase {
     public static func recommendChallenges() async throws -> [ChallengeDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.recommendChallengeQuery()
@@ -224,7 +213,6 @@ public enum RoutinusDatabase {
     public static func searchChallenges(ownerID: String) async throws -> [ChallengeDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.searchChallenges(ownerID: ownerID)
@@ -236,7 +224,6 @@ public enum RoutinusDatabase {
     public static func searchChallenges(categoryID: String) async throws -> [ChallengeDTO] {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.searchChallenges(categoryID: categoryID)
@@ -250,7 +237,6 @@ public enum RoutinusDatabase {
                                  completion: ((ChallengeDTO) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.challenge(ownerID: ownerID, challengeID: challengeID)
@@ -316,8 +302,8 @@ public enum RoutinusDatabase {
                 URLQueryItem(name: "updateMask.fieldPaths", value: "end_date")
             ]
             urlComponent?.queryItems = queryItems
-            guard let url = urlComponent?.url else { return }
 
+            guard let url = urlComponent?.url else { return }
             var request = URLRequest(url: url)
             request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
             request.httpMethod = HTTPMethod.patch.rawValue
