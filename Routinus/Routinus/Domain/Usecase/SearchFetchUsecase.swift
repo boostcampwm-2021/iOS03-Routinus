@@ -10,8 +10,13 @@ import Foundation
 protocol SearchFetchableUsecase {
     func fetchPopularKeywords(completion: @escaping ([String]) -> Void)
     func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void)
-    func fetchSearchChallenges(keyword: String, completion: @escaping ([Challenge]) -> Void)
-    func fetchSearchChallenges(category: Challenge.Category, completion: @escaping ([Challenge]) -> Void)
+    func fetchSearchChallenges(keyword: String,
+                               completion: @escaping ([Challenge]) -> Void)
+    func fetchSearchChallenges(category: Challenge.Category,
+                               completion: @escaping ([Challenge]) -> Void)
+    func fetchImageData(from directory: String,
+                        filename: String,
+                        completion: ((Data?) -> Void)?)
 }
 
 struct SearchFetchUsecase: SearchFetchableUsecase {
@@ -58,6 +63,14 @@ struct SearchFetchUsecase: SearchFetchableUsecase {
             let challenges = list
                 .filter { $0.category == category }
             completion(challenges)
+        }
+    }
+
+    func fetchImageData(from directory: String,
+                        filename: String,
+                        completion: ((Data?) -> Void)? = nil) {
+        repository.fetchImageData(from: directory, filename: filename) { data in
+            completion?(data)
         }
     }
 

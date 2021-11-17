@@ -88,7 +88,16 @@ extension SearchViewController {
             case .challenge(let challenge):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchChallengeCell.identifier,
                                                               for: indexPath) as? SearchChallengeCell
-                cell?.configureViews(challenge: challenge)
+                cell?.setTitle(challenge.title)
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                     filename: "thumbnail_image") { data in
+                    guard let data = data else { return }
+                    guard let image = UIImage(data: data) else { return }
+
+                    DispatchQueue.main.async {
+                        cell?.setImage(image)
+                    }
+                }
                 return cell
             }
         }

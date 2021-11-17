@@ -111,8 +111,9 @@ extension ManageViewController {
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, challenge in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchChallengeCell.identifier,
-                                                              for: indexPath) as? SearchChallengeCell
-            cell?.configureViews(challenge: challenge)
+                                                          for: indexPath) as? SearchChallengeCell
+            cell?.setTitle(challenge.title)
+            // TODO: setImage(SearchVC 로직 merge되면 구현)
             return cell
         }
         return dataSource

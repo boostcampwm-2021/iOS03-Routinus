@@ -11,6 +11,9 @@ import Foundation
 protocol SearchViewModelInput {
     func didChangedSearchText(_ keyword: String)
     func didTappedChallenge(index: Int)
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)?)
 }
 
 protocol SearchViewModelOutput {
@@ -57,6 +60,14 @@ extension SearchViewModel {
     func didTappedChallenge(index: Int) {
         let challengeID = self.challenges.value[index].challengeID
         challengeTap.send(challengeID)
+    }
+
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)? = nil) {
+        usecase.fetchImageData(from: directory, filename: filename) { data in
+            completion?(data)
+        }
     }
 }
 
