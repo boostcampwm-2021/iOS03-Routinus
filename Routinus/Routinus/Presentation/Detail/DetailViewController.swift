@@ -47,31 +47,14 @@ final class DetailViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-
-        scrollView.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-
-        stackView.addArrangedSubview(mainImageView)
-        mainImageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-
-        stackView.addArrangedSubview(informationView)
-        informationView.heightAnchor.constraint(equalToConstant: 250).isActive = true
-
-        stackView.addArrangedSubview(authMethodView)
-        authMethodView.heightAnchor.constraint(equalToConstant: 400).isActive = true
 
         view.addSubview(participantView)
         participantView.translatesAutoresizingMaskIntoConstraints = false
         participantView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         participantView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        participantView.topAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         participantView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         participantView.heightAnchor.constraint(equalToConstant: 100).isActive = true
 
@@ -82,6 +65,22 @@ final class DetailViewController: UIViewController {
         participantButton.leadingAnchor.constraint(equalTo: participantView.leadingAnchor, constant: 20).isActive = true
         participantButton.trailingAnchor.constraint(equalTo: participantView.trailingAnchor, constant: -20).isActive = true
 
+        scrollView.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+
+        stackView.addArrangedSubview(mainImageView)
+        self.mainImageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
+        self.mainImageView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
+        self.mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor, multiplier: 1).isActive = true
+
+        stackView.addArrangedSubview(informationView)
+
+        stackView.addArrangedSubview(authMethodView)
     }
 
     private func configureNavigationBar() {

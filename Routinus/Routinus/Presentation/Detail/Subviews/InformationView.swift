@@ -111,6 +111,7 @@ final class InformationView: UIView {
 
     private lazy var introductionLabel: UILabel = {
         var label = UILabel()
+//        label.text = "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄹㅇㄹㅇ ㅁㄹㅇㅍㄹㅇㄹㅁㄹㅇㄹㅁㄹㅁㅇㄹㅁㅇㄹㅁㅇㄹㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄹㅇㄹㅇ ㅁㄹㅇㅍㄹㅇㄹㅁㄹㅇㄹㅁㄹㅁㅇㄹㅁㅇㄹㅁㅇㄹㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄹㅇㄹㅇ ㅁㄹㅇㅍㄹㅇㄹㅁㄹㅇㄹㅁㄹㅁㅇㄹㅁㅇㄹㅁㅇㄹㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄹㅇㄹㅇ ㅁㄹㅇㅍㄹㅇㄹㅁㄹㅇㄹㅁㄹㅁㅇㄹ"
         label.text = "꾸준히 할 수 있는 운동을 찾으시거나 다이어트 중인데 헬스장은 가기 싫으신분들 함께 1만보씩 걸어요~"
         label.numberOfLines = 0
         label.font = UIFont.boldSystemFont(ofSize: 14)
@@ -192,14 +193,13 @@ extension InformationView {
         introductionTitleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
         stackView.addArrangedSubview(introductionView)
-        introductionView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-
         introductionView.addSubview(introductionLabel)
+
         introductionLabel.translatesAutoresizingMaskIntoConstraints = false
-        introductionLabel.leadingAnchor.constraint(equalTo: introductionView.leadingAnchor, constant: 5).isActive = true
-        introductionLabel.trailingAnchor.constraint(equalTo: introductionView.trailingAnchor, constant: -5).isActive = true
-        introductionLabel.topAnchor.constraint(equalTo: introductionView.topAnchor, constant: 5).isActive = true
-        introductionLabel.bottomAnchor.constraint(equalTo: introductionView.bottomAnchor, constant: -5).isActive = true
+        introductionLabel.leadingAnchor.constraint(equalTo: introductionView.leadingAnchor, constant: 10).isActive = true
+        introductionLabel.trailingAnchor.constraint(equalTo: introductionView.trailingAnchor, constant: -10).isActive = true
+        introductionLabel.topAnchor.constraint(equalTo: introductionView.topAnchor, constant: 10).isActive = true
+        introductionLabel.bottomAnchor.constraint(equalTo: introductionView.bottomAnchor, constant: -10).isActive = true
 
     }
 }

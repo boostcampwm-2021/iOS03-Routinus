@@ -76,14 +76,13 @@ extension AuthMethodView {
         self.methodView.topAnchor.constraint(equalTo: self.methodImageView.bottomAnchor, constant: 15).isActive = true
         self.methodView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         self.methodView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
-        
-        self.methodView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        self.methodView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
 
         methodView.addSubview(methodLabel)
         self.methodLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.methodLabel.leadingAnchor.constraint(equalTo: self.methodView.leadingAnchor, constant: 5).isActive = true
-        self.methodLabel.trailingAnchor.constraint(equalTo: self.methodView.trailingAnchor, constant: -5).isActive = true
-        self.methodLabel.topAnchor.constraint(equalTo: self.methodView.topAnchor, constant: 5).isActive = true
-        self.methodLabel.bottomAnchor.constraint(equalTo: self.methodView.bottomAnchor, constant: -5).isActive = true
+        self.methodLabel.leadingAnchor.constraint(equalTo: self.methodView.leadingAnchor, constant: 10).isActive = true
+        self.methodLabel.trailingAnchor.constraint(equalTo: self.methodView.trailingAnchor, constant: -10).isActive = true
+        self.methodLabel.topAnchor.constraint(equalTo: self.methodView.topAnchor, constant: 10).isActive = true
+        self.methodLabel.bottomAnchor.constraint(equalTo: self.methodView.bottomAnchor, constant: -10).isActive = true
     }
 }
