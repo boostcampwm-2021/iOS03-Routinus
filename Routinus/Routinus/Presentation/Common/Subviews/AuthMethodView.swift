@@ -94,4 +94,14 @@ extension AuthMethodView {
         self.methodLabel.topAnchor.constraint(equalTo: self.methodView.topAnchor, constant: 10).isActive = true
         self.methodLabel.bottomAnchor.constraint(equalTo: self.methodView.bottomAnchor, constant: -10).isActive = true
     }
+
+    func updateLabel(to text: String) {
+        methodLabel.text = text
+    }
+
+    func updateImage(to data: Data) {
+        DispatchQueue.main.async {
+            self.methodImageView.image = UIImage(data: data)
+        }
+    }
 }

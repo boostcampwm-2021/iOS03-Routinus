@@ -116,6 +116,11 @@ final class DetailViewController: UIViewController {
                     self.mainImageView.image = image
                 })
                 self.informationView.updateViews(challenge: challenge)
+                self.authMethodView.updateLabel(to: challenge.authMethod)
+                self.viewModel?.imageData(from: challenge.challengeID, filename: "thumbnail_auth", completion: { data in
+                    guard let data = data else { return }
+                    self.authMethodView.updateImage(to: data)
+                })
             })
             .store(in: &cancellables)
     }
