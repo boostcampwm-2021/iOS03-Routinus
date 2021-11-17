@@ -322,6 +322,14 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		148A09ED2744C26100809CB8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E9493DC5273A5E9D0095CF6D /* SearchChallengeCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		1497CF422738FF8C00296F9E /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,6 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				148A09EB2744BC6300809CB8 /* Subviews */,
+				148A09ED2744C26100809CB8 /* Cells */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -521,7 +530,6 @@
 			children = (
 				E9493DCB273A75220095CF6D /* SearchHeader.swift */,
 				E9493DC7273A70280095CF6D /* SearchPopularKeywordCell.swift */,
-				E9493DC5273A5E9D0095CF6D /* SearchChallengeCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
