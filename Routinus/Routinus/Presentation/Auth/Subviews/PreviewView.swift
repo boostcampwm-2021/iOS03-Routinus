@@ -63,8 +63,14 @@ final class PreviewView: UIView {
     }
 
     @objc func didTappedAuthButton() {
-        print("touch")
         self.delegate?.didTappedAuthButton()
+    }
+
+    func setImage(_ image: UIImage) {
+        let backgroundImage = UIImageView(frame: self.bounds)
+        backgroundImage.image = image
+        backgroundImage.contentMode = .scaleToFill
+        self.insertSubview(backgroundImage, at: 0)
     }
 }
 
