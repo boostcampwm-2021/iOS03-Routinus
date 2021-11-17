@@ -8,7 +8,7 @@
 import UIKit
 
 final class CalendarHeader: UIView {
-    private lazy var todayLabel: UIButton = {
+    private lazy var todayButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("오늘", for: .normal)
@@ -73,7 +73,7 @@ final class CalendarHeader: UIView {
     var baseDate = Date() {
         didSet {
             monthLabel.text = dateFormatter.string(from: baseDate)
-            todayLabel.isHidden = baseDate.toString() == Date().toString() ? true : false
+            todayButton.isHidden = baseDate.toString() == Date().toString()
         }
     }
 
@@ -86,8 +86,7 @@ final class CalendarHeader: UIView {
          didTappedTodayCompletionHandler: @escaping (() -> Void)) {
         self.didTappedLastMonthCompletionHandler = didTappedLastMonthCompletionHandler
         self.didTappedNextMonthCompletionHandler = didTappedNextMonthCompletionHandler
-        self.didTappedTodayCompletionHandler =
-            didTappedTodayCompletionHandler
+        self.didTappedTodayCompletionHandler = didTappedTodayCompletionHandler
 
         super.init(frame: CGRect.zero)
 
@@ -130,7 +129,7 @@ extension CalendarHeader {
         self.layer.cornerCurve = .continuous
         self.layer.cornerRadius = 15
 
-        self.addSubview(todayLabel)
+        self.addSubview(todayButton)
         self.addSubview(monthLabel)
         self.addSubview(previousMonthButton)
         self.addSubview(nextMonthButton)
@@ -152,20 +151,20 @@ extension CalendarHeader {
         super.layoutSubviews()
 
         NSLayoutConstraint.activate([
-            todayLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            todayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            todayButton.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            todayButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
 
             nextMonthButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            nextMonthButton.centerYAnchor.constraint(equalTo: todayLabel.centerYAnchor),
+            nextMonthButton.centerYAnchor.constraint(equalTo: todayButton.centerYAnchor),
             nextMonthButton.widthAnchor.constraint(equalToConstant: 36),
             nextMonthButton.heightAnchor.constraint(equalToConstant: 36),
 
             monthLabel.trailingAnchor.constraint(equalTo: nextMonthButton.leadingAnchor),
             monthLabel.widthAnchor.constraint(equalToConstant: 100),
-            monthLabel.centerYAnchor.constraint(equalTo: todayLabel.centerYAnchor),
+            monthLabel.centerYAnchor.constraint(equalTo: todayButton.centerYAnchor),
 
             previousMonthButton.trailingAnchor.constraint(equalTo: monthLabel.leadingAnchor),
-            previousMonthButton.centerYAnchor.constraint(equalTo: todayLabel.centerYAnchor),
+            previousMonthButton.centerYAnchor.constraint(equalTo: todayButton.centerYAnchor),
             previousMonthButton.widthAnchor.constraint(equalToConstant: 36),
             previousMonthButton.heightAnchor.constraint(equalToConstant: 36),
 
