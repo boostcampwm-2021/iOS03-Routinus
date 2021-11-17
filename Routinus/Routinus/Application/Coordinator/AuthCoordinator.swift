@@ -19,8 +19,9 @@ final class AuthCoordinator: RoutinusCoordinator {
 
     func start() {
         let repository = RoutinusRepository()
-        let authUsecase = AuthFetchUsecase(repository: repository)
-        let authViewModel = AuthViewModel(challengeID: challengeID, usecase: authUsecase)
+        let challengeFetchUsecase = ChallengeFetchUsecase(repository: repository)
+        let authViewModel = AuthViewModel(challengeID: challengeID,
+                                          challengeFetchUsecase: challengeFetchUsecase)
         let authViewController = AuthViewController(viewModel: authViewModel)
         authViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(authViewController, animated: true)
