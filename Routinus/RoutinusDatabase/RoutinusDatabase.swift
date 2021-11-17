@@ -153,28 +153,47 @@ public enum RoutinusDatabase {
         }.resume()
     }
 
-    public static func routines(of id: String) async throws -> [TodayRoutineDTO] {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+    public static func routines(of id: String,
+                                completion: (([TodayRoutineDTO]) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?([])
+            return
+        }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.routinesQuery(userID: id)
 
-        var (data, _) = try await URLSession.shared.data(for: request)
-        let participations = try JSONDecoder().decode([ParticipationDTO].self, from: data)
-        var todayRoutines = [TodayRoutineDTO]()
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data,
+                  let participations = try? JSONDecoder().decode([ParticipationDTO].self,
+                                                                 from: data) else { return }
+            var todayRoutines = [TodayRoutineDTO]()
+            completion?(todayRoutines) // TODO: fetch 로직 수정해야 함
 
-        for participation in participations {
-            guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
-            request.httpBody = RoutinusQuery.routinesQuery(challengeID: challengeID)
-
-            (data, _) = try await URLSession.shared.data(for: request)
-            let challenge = try JSONDecoder().decode([ChallengeDTO].self, from: data).first ?? ChallengeDTO()
-            let todayRoutine = TodayRoutineDTO(participation: participation, challenge: challenge)
-            todayRoutines.append(todayRoutine)
-        }
-
-        return todayRoutines
+//            let fetchQueue = DispatchQueue(label: "fetchQueue")
+//            let group = DispatchGroup()
+//
+//            fetchQueue.async(group: group) {
+//                for participation in participations {
+//                    guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
+//                    request.httpBody = RoutinusQuery.routinesQuery(challengeID: challengeID)
+//
+//                    URLSession.shared.dataTask(with: request) { data, _, _ in
+//                        guard let data = data,
+//                              let challenge = try? JSONDecoder().decode([ChallengeDTO].self,
+//                                                                        from: data).first else { return }
+//                        let todayRoutine = TodayRoutineDTO(participation: participation,
+//                                                           challenge: challenge)
+//                        todayRoutines.append(todayRoutine)
+//                    }.resume()
+//                }
+//            }
+//
+//            group.notify(queue: fetchQueue) {
+//                completion?(todayRoutines)
+//            }
+        }.resume()
     }
 
     public static func achievements(of id: String,
