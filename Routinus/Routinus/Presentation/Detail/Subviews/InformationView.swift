@@ -141,6 +141,9 @@ final class InformationView: UIView {
 extension InformationView {
     private func configureSubviews() {
         addSubview(stackView)
+
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
@@ -149,9 +152,6 @@ extension InformationView {
 
         stackView.addArrangedSubview(titleStackView)
         titleStackView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        titleStackView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 20).isActive = true
-        titleStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
-        titleStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
 
         titleStackView.addArrangedSubview(categoryImageView)
         categoryImageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
@@ -163,8 +163,6 @@ extension InformationView {
 
         stackView.addArrangedSubview(weekStackView)
         weekStackView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        weekStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
-        weekStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
 
         weekStackView.addArrangedSubview(weekTitleLabel)
         weekTitleLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
@@ -181,8 +179,6 @@ extension InformationView {
 
         stackView.addArrangedSubview(endDateStackView)
         endDateStackView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        endDateStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
-        endDateStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
 
         endDateStackView.addArrangedSubview(endDateTitleLabel)
         endDateTitleLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
@@ -191,16 +187,12 @@ extension InformationView {
         endDateStackView.addArrangedSubview(endDateLabel)
         endDateLabel.widthAnchor.constraint(equalToConstant: 170).isActive = true
         endDateLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        endDateLabel.trailingAnchor.constraint(equalTo: endDateStackView.trailingAnchor, constant: -20).isActive = true
 
         stackView.addArrangedSubview(introductionTitleLabel)
         introductionTitleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        introductionTitleLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
 
         stackView.addArrangedSubview(introductionView)
         introductionView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        introductionView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
-        introductionView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
 
         introductionView.addSubview(introductionLabel)
         introductionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -209,7 +201,5 @@ extension InformationView {
         introductionLabel.topAnchor.constraint(equalTo: introductionView.topAnchor, constant: 5).isActive = true
         introductionLabel.bottomAnchor.constraint(equalTo: introductionView.bottomAnchor, constant: -5).isActive = true
 
-        stackView.addArrangedSubview(emptyView)
-        emptyView.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
 }
