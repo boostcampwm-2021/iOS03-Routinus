@@ -16,6 +16,11 @@ final class AuthViewController: UIViewController {
         stackView.spacing = 30
         return stackView
     }()
+    private lazy var authView: UIView = {
+        var view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
     private lazy var authMethodView = AuthMethodView()
     private lazy var previewView = PreviewView()
     private lazy var authButton = AuthButton()
@@ -50,9 +55,23 @@ extension AuthViewController {
         self.view.addSubview(scrollView)
         self.scrollView.translatesAutoresizingMaskIntoConstraints = false
         self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        self.scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         self.scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         self.scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
+        self.view.addSubview(authView)
+        self.authView.translatesAutoresizingMaskIntoConstraints = false
+        self.authView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        self.authView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        self.authView.topAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        self.authView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        self.authView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+
+        self.authView.addSubview(authButton)
+        self.authButton.translatesAutoresizingMaskIntoConstraints = false
+        self.authButton.topAnchor.constraint(equalTo: authView.topAnchor, constant: 20).isActive = true
+        self.authButton.bottomAnchor.constraint(equalTo: authView.bottomAnchor, constant: -20).isActive = true
+        self.authButton.leadingAnchor.constraint(equalTo: authView.leadingAnchor, constant: 20).isActive = true
+        self.authButton.trailingAnchor.constraint(equalTo: authView.trailingAnchor, constant: -20).isActive = true
 
         self.scrollView.addSubview(stackView)
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,11 +86,6 @@ extension AuthViewController {
         self.stackView.addArrangedSubview(previewView)
         self.previewView.translatesAutoresizingMaskIntoConstraints = false
         self.previewView.heightAnchor.constraint(equalTo: self.previewView.widthAnchor, multiplier: 1).isActive = true
-
-        self.stackView.addArrangedSubview(authButton)
-        self.authButton.translatesAutoresizingMaskIntoConstraints = false
-        self.authButton.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
-        self.authButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 
     private func configureNavigationBar() {
