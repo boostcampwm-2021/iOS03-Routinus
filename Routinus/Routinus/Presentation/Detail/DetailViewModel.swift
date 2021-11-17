@@ -59,6 +59,7 @@ class DetailViewModel: DetailViewModelIO {
         self.participationFetchUsecase = participationFetchUsecase
         self.participationCreateUsecase = participationCreateUsecase
         self.fetchChallenge()
+        self.fetchParticipation()
     }
 }
 
@@ -91,8 +92,7 @@ extension DetailViewModel {
         guard let challengeID = challengeID else { return }
         participationFetchUsecase.fetchParticipation(challengeID: challengeID) { [weak self] participation in
             guard let self = self else { return }
-            // particia 있으면 -> 인증하기 or 인증완료 
-            // 없으면 -> 참여하기
+            // TODO: Participation 있는 경우에는 인증하기 or 인증완료 구분하기 TODO
             self.participationAuthState.value = participation == nil ? .unParticipation : .unAuth
         }
     }
