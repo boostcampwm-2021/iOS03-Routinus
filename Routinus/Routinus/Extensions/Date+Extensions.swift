@@ -18,6 +18,16 @@ extension Date {
         self.init(timeInterval: 0, since: date)
     }
 
+    init(hourMinuteString: String) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HHmm"
+        guard let date = formatter.date(from: hourMinuteString) else {
+            self.init(timeInterval: 0, since: Date())
+            return
+        }
+        self.init(timeInterval: 0, since: date)
+    }
+
     public var year: Int {
         return Calendar.current.component(.year, from: self)
     }
@@ -55,6 +65,12 @@ extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
+        return dateFormatter.string(from: self)
+    }
+
+    func toStringHourMinute() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HHmm"
         return dateFormatter.string(from: self)
     }
 
