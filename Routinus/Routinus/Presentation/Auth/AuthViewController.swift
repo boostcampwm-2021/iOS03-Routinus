@@ -22,6 +22,7 @@ final class AuthViewController: UIViewController {
     
     private var viewModel: AuthViewModelIO?
     private var cancellables = Set<AnyCancellable>()
+    private var imagePicker = UIImagePickerController()
 
     init(viewModel: AuthViewModelIO) {
         self.viewModel = viewModel
@@ -37,6 +38,7 @@ final class AuthViewController: UIViewController {
 
         configureViews()
         configureViewModel()
+        configureDelegates()
     }
 }
 
@@ -86,5 +88,40 @@ extension AuthViewController {
                 self.navigationItem.title = challenge.title
             })
             .store(in: &cancellables)
+    }
+
+    private func configureDelegates() {
+        self.imagePicker.delegate = self
+        self.previewView.delegate = self
+    }
+}
+
+extension AuthViewController: PreviewViewDelegate {
+    func didTappedAuthButton() {
+        self.imagePicker.sourceType = .camera
+        self.present(self.imagePicker, animated: true, completion: nil)
+    }
+}
+
+extension AuthViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    typealias InfoKey = UIImagePickerController.InfoKey
+
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
+        if let originalImage = info[InfoKey.originalImage] as? UIImage {
+            let mainImage = originalImage.resizedImage(.main)
+            let thumbnailImage = originalImage.resizedImage(.thumbnail)
+            
+//            let mainImageURL = viewModel?.saveImage(to: "temp",
+//                                                    filename: "auth",
+//                                                    data: mainImage.jpegData(compressionQuality: 0.9))
+//            let thumbnailImageURL = viewModel?.saveImage(to: "temp",
+//                                                         filename: "thumbnail_auth",
+//                                                         data: thumbnailImage.jpegData(compressionQuality: 0.9))
+//            viewModel?.update(authExampleImageURL: mainImageURL)
+//            viewModel?.update(authExampleThumbnailImageURL: thumbnailImageURL)
+            previewView.setImage(thumbnailImage)
+        }
+        dismiss(animated: true, completion: nil)
     }
 }
