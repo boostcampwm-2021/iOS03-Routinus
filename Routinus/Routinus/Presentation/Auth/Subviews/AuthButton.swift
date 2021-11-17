@@ -31,6 +31,11 @@ final class AuthButton: UIButton {
     @objc func didTappedAuthButton() {
         delegate?.didTappedAuthButton()
     }
+    
+    func configureEnabled(isEnabled: Bool) {
+        self.isEnabled = isEnabled
+        self.alpha = isEnabled ? 1 : 0.5
+    }
 }
 
 protocol AuthButtonDelegate: AnyObject {
