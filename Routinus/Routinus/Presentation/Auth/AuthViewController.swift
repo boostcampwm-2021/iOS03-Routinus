@@ -84,7 +84,6 @@ extension AuthViewController {
             .sink(receiveValue: { [weak self] challenge in
                 guard let self = self else { return }
                 self.navigationItem.title = challenge.title
-                self.authMethodView.configureContents(challenge: challenge)
             })
             .store(in: &cancellables)
     }
