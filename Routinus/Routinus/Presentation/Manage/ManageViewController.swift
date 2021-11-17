@@ -60,7 +60,7 @@ final class ManageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.viewModel?.didLoadedManageView()
+        self.didLoadedSearchView()
     }
 }
 
@@ -112,7 +112,7 @@ extension ManageViewController {
         self.viewModel?.didTappedAddButton()
     }
 
-    func loadSearchView() {
+    func didLoadedSearchView() {
         self.viewModel?.didLoadedManageView()
     }
 }

@@ -11,7 +11,7 @@ import Foundation
 protocol SearchViewModelInput {
     func didChangedSearchText(_ keyword: String)
     func didTappedChallenge(index: Int)
-    func didEnterSearchView()
+    func didLoadedSearchView()
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)?)
@@ -66,7 +66,7 @@ extension SearchViewModel {
         challengeTap.send(challengeID)
     }
 
-    func didEnterSearchView() {
+    func didLoadedSearchView() {
         self.fetchChallenges()
     }
 
