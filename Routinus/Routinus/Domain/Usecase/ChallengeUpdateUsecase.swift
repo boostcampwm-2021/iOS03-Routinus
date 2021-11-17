@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ChallengeUpdatableUsecase {
-    func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void)
+//    func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void)
     func updateChallenge(challenge: Challenge)
     func endDate(startDate: Date, week: Int) -> Date?
 }
@@ -27,11 +27,11 @@ struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
         return endDate
     }
 
-    func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void) {
-        repository.fetchChallenge(challengeID: challengeID) { challenge in
-            completion(challenge)
-        }
-    }
+//    func fetchChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void) {
+//        repository.fetchChallenge(challengeID: challengeID) { challenge in
+//            completion(challenge)
+//        }
+//    }
 
     func updateChallenge(challenge: Challenge) {
         Task {

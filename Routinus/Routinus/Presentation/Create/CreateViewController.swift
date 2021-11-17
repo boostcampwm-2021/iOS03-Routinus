@@ -67,8 +67,12 @@ final class CreateViewController: UIViewController {
         let repository = RoutinusRepository()
         let createUsecase = ChallengeCreateUsecase(repository: repository)
         let updateUsecase = ChallengeUpdateUsecase(repository: repository)
+        let fetchUsecase = ChallengeFetchUsecase(repository: repository)
         // TODO: - 챌린지 관리화면으로부터 챌린지ID 받기
-        viewModel = CreateViewModel(challengeID: "EC46C8EE-D62D-41EF-8FC3-61FBC34F1148", createUsecase: createUsecase, updateUsecase: updateUsecase)
+        viewModel = CreateViewModel(challengeID: "EC46C8EE-D62D-41EF-8FC3-61FBC34F1148",
+                                    challengeCreateUsecase: createUsecase,
+                                    challengeUpdateUsecase: updateUsecase,
+                                    challengeFetchUsecase: fetchUsecase)
         super.init(nibName: nil, bundle: nil)
     }
 

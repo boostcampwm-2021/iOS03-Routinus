@@ -53,10 +53,11 @@ final class CreateViewModel: CreateViewModelIO {
     var createButtonState = CurrentValueSubject<Bool, Never>(false)
     var expectedEndDate = CurrentValueSubject<Date, Never>(Calendar.current.date(byAdding: DateComponents(day: 7), to: Date()) ?? Date())
     var challenge = CurrentValueSubject<Challenge?, Never>(nil)
-    
+
     var cancellables = Set<AnyCancellable>()
-    var createUsecase: ChallengeCreatableUsecase
-    var updateUsecase: ChallengeUpdatableUsecase
+    var challengeCreateUsecase: ChallengeCreatableUsecase
+    var challengeUpdateUsecase: ChallengeUpdatableUsecase
+    var challengeFetchUsecase: ChallengeFetchableUsecase
     var challengeID: String?
 
     private var title: String
@@ -70,11 +71,13 @@ final class CreateViewModel: CreateViewModelIO {
     private var authExampleThumbnailImageURL: String
 
     init(challengeID: String? = nil,
-         createUsecase: ChallengeCreatableUsecase,
-         updateUsecase: ChallengeUpdatableUsecase) {
+         challengeCreateUsecase: ChallengeCreatableUsecase,
+         challengeUpdateUsecase: ChallengeUpdatableUsecase,
+         challengeFetchUsecase: ChallengeFetchableUsecase) {
         self.challengeID = challengeID
-        self.createUsecase = createUsecase
-        self.updateUsecase = updateUsecase
+        self.challengeCreateUsecase = challengeCreateUsecase
+        self.challengeUpdateUsecase = challengeUpdateUsecase
+        self.challengeFetchUsecase = challengeFetchUsecase
         self.title = ""
         self.category = .exercise
         self.imageURL = ""
@@ -87,7 +90,7 @@ final class CreateViewModel: CreateViewModelIO {
     }
 
     private func validate() {
-        createButtonState.value = !createUsecase.isEmpty(title: title,
+        createButtonState.value = !challengeCreateUsecase.isEmpty(title: title,
                                                          imageURL: imageURL,
                                                          introduction: introduction,
                                                          authMethod: authMethod,
@@ -130,7 +133,7 @@ final class CreateViewModel: CreateViewModelIO {
     }
 
     func update(week: Int) {
-        guard let endDate = createUsecase.endDate(week: week) else { return }
+        guard let endDate = challengeCreateUsecase.endDate(week: week) else { return }
         self.week = week
         expectedEndDate.value = endDate
         self.validate()
@@ -158,7 +161,7 @@ final class CreateViewModel: CreateViewModelIO {
 
     func didTappedCreateButton() {
         guard let category = category else { return }
-        createUsecase.createChallenge(category: category,
+        challengeCreateUsecase.createChallenge(category: category,
                                       title: title,
                                       imageURL: imageURL,
                                       thumbnailImageURL: thumbnailImageURL,
@@ -171,7 +174,7 @@ final class CreateViewModel: CreateViewModelIO {
 
     func fetchChallenge() {
         guard let challengeID = challengeID else { return }
-        updateUsecase.fetchChallenge(challengeID: challengeID) { [weak self] existedChallenge in
+        challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] existedChallenge in
             guard let self = self,
                   let challenge = existedChallenge else { return }
             self.challenge.value = challenge
@@ -189,7 +192,7 @@ final class CreateViewModel: CreateViewModelIO {
                          authExampleThumbnailImageURL: String) {
         guard let challenge = challenge.value,
               let startDate = challenge.startDate,
-              let endDate = updateUsecase.endDate(startDate: startDate, week: week) else { return }
+              let endDate = challengeUpdateUsecase.endDate(startDate: startDate, week: week) else { return }
         let updateChallenge = Challenge(challengeID: challenge.challengeID,
                                         title: title,
                                         introduction: introduction,
@@ -205,10 +208,10 @@ final class CreateViewModel: CreateViewModelIO {
                                         week: week,
                                         participantCount: challenge.participantCount)
         self.challenge.value = updateChallenge
-        updateUsecase.updateChallenge(challenge: updateChallenge)
+        challengeUpdateUsecase.updateChallenge(challenge: updateChallenge)
     }
 
     func saveImage(to directory: String, filename: String, data: Data?) -> String? {
-        return createUsecase.saveImage(to: directory, filename: filename, data: data)
+        return challengeCreateUsecase.saveImage(to: directory, filename: filename, data: data)
     }
 }
