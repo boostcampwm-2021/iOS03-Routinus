@@ -17,6 +17,7 @@ protocol ChallengeFetchableUsecase {
     func fetchCreationChallengesByMe(completion: @escaping ([Challenge]) -> Void)
     func fetchEdittingChallenge(challengeID: String,
                         completion: @escaping (Challenge?) -> Void)
+    func fetchChallenge(challengeID: String, completion: @escaping (Challenge) -> Void)
 }
 
 struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
@@ -80,6 +81,12 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
 
     func fetchEdittingChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void) {
         repository.fetchEdittingChallenge(challengeID: challengeID) { challenge in
+            completion(challenge)
+        }
+    }
+
+    func fetchChallenge(challengeID: String, completion: @escaping (Challenge) -> Void) {
+        repository.fetchChallenge(challengeID: challengeID) { challenge in
             completion(challenge)
         }
     }
