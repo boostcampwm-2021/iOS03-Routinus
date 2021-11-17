@@ -190,60 +190,91 @@ public enum RoutinusDatabase {
         }.resume()
     }
 
-    public static func latestChallenges() async throws -> [ChallengeDTO] {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+    public static func latestChallenges(completion: (([ChallengeDTO]) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?([])
+            return
+        }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.allChallengesQuery()
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let list = try? JSONDecoder().decode([ChallengeDTO].self, from: data)
+            completion?(list ?? [])
+        }.resume()
     }
 
-    public static func newChallenges() async throws -> [ChallengeDTO] {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+    public static func newChallenges(completion: (([ChallengeDTO]) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?([])
+            return
+        }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.newChallengeQuery()
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let list = try? JSONDecoder().decode([ChallengeDTO].self, from: data)
+            completion?(list ?? [])
+        }.resume()
     }
 
-    public static func recommendChallenges() async throws -> [ChallengeDTO] {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+    public static func recommendChallenges(completion: (([ChallengeDTO]) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?([])
+            return
+        }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.recommendChallengeQuery()
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let list = try? JSONDecoder().decode([ChallengeDTO].self, from: data)
+            completion?(list ?? [])
+        }.resume()
     }
 
-    public static func searchChallenges(ownerID: String) async throws -> [ChallengeDTO] {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+    public static func searchChallenges(ownerID: String,
+                                        completion: (([ChallengeDTO]) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?([])
+            return
+        }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.searchChallenges(ownerID: ownerID)
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let list = try? JSONDecoder().decode([ChallengeDTO].self, from: data)
+            completion?(list ?? [])
+        }.resume()
     }
 
-    public static func searchChallenges(categoryID: String) async throws -> [ChallengeDTO] {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+    public static func searchChallenges(categoryID: String,
+                                        completion: (([ChallengeDTO]) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?([])
+            return
+        }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.searchChallenges(categoryID: categoryID)
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        return try JSONDecoder().decode([ChallengeDTO].self, from: data)
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let list = try? JSONDecoder().decode([ChallengeDTO].self, from: data)
+            completion?(list ?? [])
+        }.resume()
     }
 
     public static func challenge(ownerID: String,
