@@ -81,11 +81,9 @@ final class CalendarHeader: UIView {
     let didTappedNextMonthCompletionHandler: (() -> Void)
     let didTappedTodayCompletionHandler: (() -> Void)
 
-    init(
-        didTappedLastMonthCompletionHandler: @escaping (() -> Void),
-        didTappedNextMonthCompletionHandler: @escaping (() -> Void),
-        didTappedTodayCompletionHandler: @escaping (() -> Void)
-    ) {
+    init(didTappedLastMonthCompletionHandler: @escaping (() -> Void),
+         didTappedNextMonthCompletionHandler: @escaping (() -> Void),
+         didTappedTodayCompletionHandler: @escaping (() -> Void)) {
         self.didTappedLastMonthCompletionHandler = didTappedLastMonthCompletionHandler
         self.didTappedNextMonthCompletionHandler = didTappedNextMonthCompletionHandler
         self.didTappedTodayCompletionHandler =
@@ -189,7 +187,7 @@ extension CalendarHeader {
     @objc func didTappedNextMonthButton() {
         didTappedNextMonthCompletionHandler()
     }
-    
+
     @objc func didTappedTodayButton() {
         didTappedTodayCompletionHandler()
     }
