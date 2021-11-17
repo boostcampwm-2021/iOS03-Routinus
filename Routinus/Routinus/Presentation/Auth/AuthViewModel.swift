@@ -31,7 +31,8 @@ class AuthViewModel: AuthViewModelIO {
     var challengeFetchUsecase: ChallengeFetchableUsecase
     var imageFetchUsecase: ImageFetchableUsecase
     var imageSaveUsecase: ImageSavableUsecase
-    
+
+    private var challengeID: String
     private var userAuthImageURL: String
     private var userAuthThumbnailImageURL: String
 
@@ -39,6 +40,7 @@ class AuthViewModel: AuthViewModelIO {
          challengeFetchUsecase: ChallengeFetchableUsecase,
          imageFetchUsecase: ImageFetchableUsecase,
          imageSaveUsecase: ImageSavableUsecase) {
+        self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
         self.imageSaveUsecase = imageSaveUsecase
