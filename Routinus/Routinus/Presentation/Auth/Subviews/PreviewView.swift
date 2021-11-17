@@ -36,7 +36,7 @@ final class PreviewView: UIView {
         button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 15
-        button.addTarget(self, action: #selector(didTappedAuthButton), for: .touchUpInside)
+        button.isUserInteractionEnabled = false
         return button
     }()
 
