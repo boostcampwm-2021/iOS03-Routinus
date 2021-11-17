@@ -12,19 +12,23 @@ protocol DetailViewModelInput {
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)?)
+    func didTappedEditBarButton()
 }
 
 protocol DetailViewModelOutput {
-    var challenge: PassthroughSubject<Challenge, Never> { get }
     var ownerState: CurrentValueSubject<Bool, Never> { get }
+
+    var challenge: PassthroughSubject<Challenge, Never> { get }
+    var editBarButtonTap: PassthroughSubject<String, Never> { get }
 }
 
 protocol DetailViewModelIO: DetailViewModelInput, DetailViewModelOutput { }
 
 class DetailViewModel: DetailViewModelIO {
+    var ownerState = CurrentValueSubject<Bool, Never>(false)
 
     var challenge = PassthroughSubject<Challenge, Never>()
-    var ownerState = CurrentValueSubject<Bool, Never>(false)
+    var editBarButtonTap = PassthroughSubject<String, Never>()
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
     let imageFetchUsecase: ImageFetchableUsecase
@@ -40,8 +44,11 @@ class DetailViewModel: DetailViewModelIO {
 }
 
 extension DetailViewModel {
+    func didTappedEditBarButton() {
+        guard let challengeID = challengeID else { return }
+        self.editBarButtonTap.send(challengeID)
+    }
 }
-
 
 extension DetailViewModel {
     private func fetchChallenge() {

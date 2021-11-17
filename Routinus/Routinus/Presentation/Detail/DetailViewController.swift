@@ -37,7 +37,7 @@ final class DetailViewController: UIViewController {
         barButtonItem.image = UIImage(systemName: "pencil")
         barButtonItem.tintColor = .black
         barButtonItem.target = self
-        barButtonItem.action = nil
+        barButtonItem.action = #selector(didTappedEditBarButton(_:))
         return barButtonItem
     }()
 
@@ -137,5 +137,11 @@ final class DetailViewController: UIViewController {
                 self.navigationItem.rightBarButtonItem = rightBarButtonItem
             })
             .store(in: &cancellables)
+    }
+}
+
+extension DetailViewController {
+    @objc private func didTappedEditBarButton(_ sender: UIBarButtonItem) {
+        viewModel?.didTappedEditBarButton()
     }
 }
