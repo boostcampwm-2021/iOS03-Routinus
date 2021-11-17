@@ -70,10 +70,10 @@ final class PreviewView: UIView {
     }
 
     func setImage(_ image: UIImage) {
-        let backgroundImage = UIImageView(frame: self.bounds)
+        let backgroundImage = UIImageView(frame: preview.bounds)
         backgroundImage.image = image
         backgroundImage.contentMode = .scaleToFill
-        self.insertSubview(backgroundImage, at: 0)
+        self.preview.addSubview(backgroundImage)
     }
 }
 
