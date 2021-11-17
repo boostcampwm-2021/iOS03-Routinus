@@ -10,6 +10,13 @@ import UIKit
 final class PreviewView: UIView {
     weak var delegate: PreviewViewDelegate?
 
+    private lazy var preview: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "MainColor")
+
+        return view
+    }()
+
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -18,7 +25,7 @@ final class PreviewView: UIView {
         stackView.clipsToBounds = true
         return stackView
     }()
-    
+
     private lazy var authButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "camera.fill"), for: .normal)
@@ -80,8 +87,14 @@ extension PreviewView {
     }
 
     private func configureSubviews() {
-        self.backgroundColor = UIColor(named: "MainColor")
-        self.addSubview(stackView)
+        self.addSubview(preview)
+        self.preview.translatesAutoresizingMaskIntoConstraints = false
+        self.preview.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.preview.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.preview.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        self.preview.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        
+        preview.addSubview(stackView)
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         self.stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
@@ -94,7 +107,7 @@ extension PreviewView {
         self.previewLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         [authButton, previewLabel].forEach { self.stackView.addArrangedSubview($0) }
 
-        self.addSubview(timeLabel)
+        preview.addSubview(timeLabel)
         self.timeLabel.translatesAutoresizingMaskIntoConstraints = false
         self.timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.timeLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
