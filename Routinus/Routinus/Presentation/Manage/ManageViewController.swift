@@ -57,6 +57,11 @@ final class ManageViewController: UIViewController {
         self.configureViewModel()
         self.configureCollectionView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel?.didLoadedManageView()
+    }
 }
 
 extension ManageViewController {
@@ -80,6 +85,7 @@ extension ManageViewController {
                 guard let self = self else { return }
                 var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
                 let challengeContents = challengeItem
+                challengeSnapshot.deleteAll()
                 challengeSnapshot.append(challengeContents)
                 self.dataSource.apply(challengeSnapshot, to: Section.challenge)
             })
@@ -104,6 +110,10 @@ extension ManageViewController {
 extension ManageViewController {
     @objc func didTouchAddButton() {
         self.viewModel?.didTappedAddButton()
+    }
+
+    func loadSearchView() {
+        self.viewModel?.didLoadedManageView()
     }
 }
 
