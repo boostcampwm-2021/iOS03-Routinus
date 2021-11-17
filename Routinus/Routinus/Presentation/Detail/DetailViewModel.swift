@@ -9,6 +9,9 @@ import Combine
 import Foundation
 
 protocol DetailViewModelInput {
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)?)
 }
 
 protocol DetailViewModelOutput {
@@ -22,12 +25,14 @@ class DetailViewModel: DetailViewModelIO {
     var challenge = PassthroughSubject<Challenge, Never>()
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
+    let imageFetchUsecase: ImageFetchableUsecase
     var cancellables = Set<AnyCancellable>()
     var challengeID: String?
 
-    init(challengeID: String, challengeFetchUsecase: ChallengeFetchableUsecase) {
+    init(challengeID: String, challengeFetchUsecase: ChallengeFetchableUsecase, imageFetchUsecase: ImageFetchableUsecase) {
         self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
+        self.imageFetchUsecase = imageFetchUsecase
         self.fetchChallenge()
     }
 }
@@ -42,6 +47,14 @@ extension DetailViewModel {
         challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
             guard let self = self else { return }
             self.challenge.send(challenge) 
+        }
+    }
+
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)? = nil) {
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+            completion?(data)
         }
     }
 }

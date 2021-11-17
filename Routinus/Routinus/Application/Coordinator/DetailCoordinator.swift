@@ -23,7 +23,8 @@ final class DetailCoordinator: RoutinusCoordinator {
 
         let repository = RoutinusRepository()
         let challengeFetchUsecase = ChallengeFetchUsecase(repository: repository)
-        let detailViewModel = DetailViewModel(challengeID: challengeID, challengeFetchUsecase: challengeFetchUsecase)
+        let imageFetchUsecase = ImageFetchUsecase(repository: repository)
+        let detailViewModel = DetailViewModel(challengeID: challengeID, challengeFetchUsecase: challengeFetchUsecase, imageFetchUsecase: imageFetchUsecase)
         let detailViewController = DetailViewController(with: detailViewModel)
         self.navigationController.pushViewController(detailViewController, animated: true)
     }
