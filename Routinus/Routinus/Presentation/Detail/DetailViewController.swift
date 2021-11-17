@@ -115,6 +115,7 @@ final class DetailViewController: UIViewController {
                     guard let image = UIImage(data: data) else { return }
                     self.mainImageView.image = image
                 })
+                self.informationView.updateViews(challenge: challenge)
             })
             .store(in: &cancellables)
     }
