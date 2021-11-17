@@ -444,4 +444,19 @@ public enum RoutinusDatabase {
             }.resume()
         }
     }
+
+    public static func challengeParticipation(userID: String, challengeID: String, completion: @escaping (ParticipationDTO?) -> Void) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.challengeParticipation(userID: userID, challengeID: challengeID)
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let dto = try? JSONDecoder().decode([ParticipationDTO].self, from: data).first
+            completion(dto ?? nil)
+        }.resume()
+    }
 }

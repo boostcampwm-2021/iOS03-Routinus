@@ -137,6 +137,14 @@ final class DetailViewController: UIViewController {
                 self.navigationItem.rightBarButtonItem = rightBarButtonItem
             })
             .store(in: &cancellables)
+
+        self.viewModel?.participationAuthState
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] participationState in
+                guard let self = self else { return }
+                self.participantButton.updateButtonTitle(state: participationState)
+            })
+            .store(in: &cancellables)
     }
 }
 

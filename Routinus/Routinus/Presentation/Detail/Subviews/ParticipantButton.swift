@@ -12,7 +12,7 @@ final class ParticipantButton: UIButton {
 
     init() {
         super.init(frame: .zero)
-        self.setTitle("참여하기", for: .normal)
+        self.setTitle(ParticipationAuthState.unParticipation.rawValue, for: .normal)
         self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 26)
         self.setTitleColor(.black, for: .normal)
         self.backgroundColor = UIColor(named: "MainColor")
@@ -30,6 +30,10 @@ final class ParticipantButton: UIButton {
 
     @objc func didTappedAuthButton() {
         delegate?.didTappedParticipantButton()
+    }
+
+    func updateButtonTitle(state: ParticipationAuthState) {
+        self.setTitle(state.rawValue, for: .normal)
     }
 }
 
