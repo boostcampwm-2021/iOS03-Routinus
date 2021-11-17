@@ -58,7 +58,7 @@ extension ChallengeCollectionViewCell {
 
         self.addSubview(titleLabel)
         self.titleLabel.snp.makeConstraints { make in
-            make.leading.bottom.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview()
             make.top.equalTo(imageView.snp.bottom).offset(10)
         }
     }

@@ -37,7 +37,7 @@ final class RoutineTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         return label
     }()
-    
+
     private lazy var leftArrow: UIImageView = {
         let imageConfig = UIImage.SymbolConfiguration(weight: .semibold)
         let image = UIImageView(image: UIImage(systemName: "chevron.left.2", withConfiguration: imageConfig))
@@ -74,11 +74,15 @@ final class RoutineTableViewCell: UITableViewCell {
 
 extension RoutineTableViewCell {
     private func configureViews() {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 20.0
+
         self.backgroundColor = .white
 
         self.contentView.addSubview(progressView)
         self.progressView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
+            make.leading.equalToSuperview().offset(offset)
+            make.trailing.equalToSuperview().offset(-offset)
             make.height.equalToSuperview().offset(-10)
             make.centerY.equalToSuperview()
         }
@@ -86,7 +90,7 @@ extension RoutineTableViewCell {
         self.contentView.addSubview(categoryImageView)
         self.categoryImageView.snp.makeConstraints { make in
             make.width.height.equalTo(30)
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(offset + 20)
             make.centerY.equalToSuperview()
         }
 
@@ -95,10 +99,10 @@ extension RoutineTableViewCell {
             make.leading.equalTo(self.categoryImageView.snp.trailing).offset(10)
             make.centerY.equalToSuperview()
         }
-        
+
         self.contentView.addSubview(leftArrow)
         self.leftArrow.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-20)
+            make.trailing.equalToSuperview().offset(-(20 + offset))
             make.centerY.equalToSuperview()
         }
     }

@@ -9,6 +9,9 @@ import UIKit
 
 final class CollectionViewLayouts {
     private var recommendLayout: NSCollectionLayoutSection {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 25.0
+
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -17,12 +20,15 @@ final class CollectionViewLayouts {
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
-        section.contentInsets = .init(top: 30, leading: 25, bottom: 20, trailing: 25)
+        section.contentInsets = .init(top: 30, leading: offset, bottom: 20, trailing: offset)
         section.interGroupSpacing = 20
         return section
     }
 
     private var mainLayout: NSCollectionLayoutSection {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 25.0
+
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(200))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -36,7 +42,7 @@ final class CollectionViewLayouts {
                                                     alignment: .topLeading)]
 
         section.orthogonalScrollingBehavior = .none
-        section.contentInsets = .init(top: 0, leading: 25, bottom: 0, trailing: 25)
+        section.contentInsets = .init(top: 0, leading: offset, bottom: 0, trailing: offset)
         return section
     }
 

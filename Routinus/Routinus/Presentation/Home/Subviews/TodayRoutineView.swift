@@ -85,22 +85,25 @@ extension TodayRoutineView {
     }
 
     private func configureSubviews() {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 20.0
+
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(offset)
             make.top.equalToSuperview()
         }
 
         addSubview(addButton)
         addButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-20)
+            make.trailing.equalToSuperview().offset(-offset)
             make.top.equalToSuperview()
         }
 
         addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.width.equalToSuperview().offset(-40)
+            make.width.equalToSuperview()
             make.centerX.equalToSuperview()
             make.height.equalTo(60)
         }

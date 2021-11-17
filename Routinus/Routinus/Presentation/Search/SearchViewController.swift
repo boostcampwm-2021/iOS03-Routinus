@@ -72,6 +72,11 @@ final class SearchViewController: UIViewController {
         self.configureViewModel()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        didLoadedSearchView()
+    }
+
 }
 
 extension SearchViewController {
@@ -211,5 +216,9 @@ extension SearchViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBarView.hideKeyboard()
+    }
+
+    func didLoadedSearchView() {
+        self.viewModel?.didLoadedSearchView()
     }
 }
