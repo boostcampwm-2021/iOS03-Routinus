@@ -34,11 +34,11 @@ final class ChallengeViewModel: ChallengeViewModelIO {
     var recommendChallengeTap = PassthroughSubject<String, Never>()
     var categoryButtonTap = PassthroughSubject<Challenge.Category, Never>()
 
-    let usecase: ChallengeFetchableUsecase
+    let challengeFetchUsecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
     init(usecase: ChallengeFetchableUsecase) {
-        self.usecase = usecase
+        self.challengeFetchUsecase = usecase
         self.fetchChallenge()
     }
 }
@@ -64,7 +64,7 @@ extension ChallengeViewModel {
 
 extension ChallengeViewModel {
     private func fetchChallenge() {
-        usecase.fetchRecommendChallenges { [weak self] recommendChallenge in
+        challengeFetchUsecase.fetchRecommendChallenges { [weak self] recommendChallenge in
             self?.recommendChallenge.value = recommendChallenge
         }
     }
