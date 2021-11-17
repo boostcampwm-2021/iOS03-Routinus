@@ -5,6 +5,7 @@
 //  Created by 박상우 on 2021/11/02.
 //
 
+import Combine
 import UIKit
 
 final class AuthViewController: UIViewController {
@@ -18,8 +19,12 @@ final class AuthViewController: UIViewController {
     private lazy var authMethodView = AuthMethodView()
     private lazy var previewView = PreviewView()
     private lazy var authButton = AuthButton()
+    
+    private var viewModel: AuthViewModelIO?
+    private var cancellables = Set<AnyCancellable>()
 
-    init() {
+    init(viewModel: AuthViewModelIO) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -31,6 +36,7 @@ final class AuthViewController: UIViewController {
         super.viewDidLoad()
 
         configureViews()
+        configureViewModel()
     }
 }
 
@@ -70,5 +76,15 @@ extension AuthViewController {
 
     private func configureNavigationBar() {
         self.navigationItem.largeTitleDisplayMode = .never
+    }
+
+    private func configureViewModel() {
+        self.viewModel?.challenge
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challenge in
+                guard let self = self else { return }
+                self.navigationItem.title = challenge.title
+            })
+            .store(in: &cancellables)
     }
 }

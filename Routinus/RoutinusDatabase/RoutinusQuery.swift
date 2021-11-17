@@ -237,6 +237,25 @@ internal enum RoutinusQuery {
         """.data(using: .utf8)
     }
 
+    internal static func challenge(challengeID: String) -> Data? {
+        return """
+        {
+            "structuredQuery": {
+                "from": {
+                    "collectionId": "challenge",
+                },
+                "where": {
+                    "fieldFilter": {
+                        "field": { "fieldPath": "id" },
+                        "op": "EQUAL",
+                        "value": { "stringValue": "\(challengeID)" }
+                    },
+                }
+            }
+        }
+        """.data(using: .utf8)
+    }
+
     internal static func challenge(ownerID: String, challengeID: String) -> Data? {
         return """
         {
