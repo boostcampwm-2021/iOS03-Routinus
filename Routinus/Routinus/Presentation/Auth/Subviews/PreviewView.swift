@@ -8,6 +8,8 @@
 import UIKit
 
 final class PreviewView: UIView {
+    weak var delegate: PreviewViewDelegate?
+
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -16,12 +18,19 @@ final class PreviewView: UIView {
         stackView.clipsToBounds = true
         return stackView
     }()
-
-    private lazy var previewImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "camera.fill"))
-        imageView.tintColor = .black
-        imageView.contentMode = .scaleAspectFill
-        return imageView
+    
+    private lazy var authButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "camera.fill"), for: .normal)
+        button.tintColor = .black
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 15
+        button.addTarget(self, action: #selector(didTappedAuthButton), for: .touchUpInside)
+        return button
     }()
 
     private lazy var previewLabel: UILabel = {
@@ -52,6 +61,11 @@ final class PreviewView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
+
+    @objc func didTappedAuthButton() {
+        print("touch")
+        self.delegate?.didTappedAuthButton()
+    }
 }
 
 extension PreviewView {
@@ -66,17 +80,21 @@ extension PreviewView {
         self.stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
 
-        self.previewImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.previewImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        self.previewImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        self.authButton.translatesAutoresizingMaskIntoConstraints = false
+        self.authButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        self.authButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
 
         self.previewLabel.translatesAutoresizingMaskIntoConstraints = false
         self.previewLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        [previewImageView, previewLabel].forEach { self.stackView.addArrangedSubview($0) }
+        [authButton, previewLabel].forEach { self.stackView.addArrangedSubview($0) }
 
         self.addSubview(timeLabel)
         self.timeLabel.translatesAutoresizingMaskIntoConstraints = false
         self.timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.timeLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
     }
+}
+
+protocol PreviewViewDelegate: AnyObject {
+    func didTappedAuthButton()
 }
