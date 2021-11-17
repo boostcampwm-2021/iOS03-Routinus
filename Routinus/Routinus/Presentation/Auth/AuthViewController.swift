@@ -58,13 +58,11 @@ extension AuthViewController {
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         self.stackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
         self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -20).isActive = true
-        self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 20).isActive = true
-        self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor, constant: -20).isActive = true
+        self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor).isActive = true
+        self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor).isActive = true
         self.stackView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor).isActive = true
 
         self.stackView.addArrangedSubview(authMethodView)
-        self.authMethodView.translatesAutoresizingMaskIntoConstraints = false
-        self.authMethodView.heightAnchor.constraint(equalToConstant: 240).isActive = true
 
         self.stackView.addArrangedSubview(previewView)
         self.previewView.translatesAutoresizingMaskIntoConstraints = false
