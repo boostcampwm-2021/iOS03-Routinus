@@ -39,7 +39,7 @@ public enum RoutinusDatabase {
                                        thumbnailImageURL: String,
                                        authExampleImageURL: String,
                                        authExampleThumbnailImageURL: String,
-                                       completion: @escaping () -> Void) {
+                                       completion: (() -> Void)?) {
         insertChallenge(dto: challenge, completion: nil)
         insertChallengeParticipation(dto: challenge, completion: nil)
 
@@ -67,7 +67,7 @@ public enum RoutinusDatabase {
         }
 
         group.notify(queue: uploadQueue) {
-            completion()
+            completion?()
         }
     }
 
@@ -247,7 +247,7 @@ public enum RoutinusDatabase {
 
     public static func challenge(ownerID: String,
                                  challengeID: String,
-                                 completion: @escaping (ChallengeDTO) -> Void) {
+                                 completion: ((ChallengeDTO) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
 
@@ -258,7 +258,7 @@ public enum RoutinusDatabase {
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
             let dto = try? JSONDecoder().decode([ChallengeDTO].self, from: data).first
-            completion(dto ?? ChallengeDTO())
+            completion?(dto ?? ChallengeDTO())
         }.resume()
     }
 
@@ -267,7 +267,7 @@ public enum RoutinusDatabase {
                                       thumbnailImageURL: String,
                                       authExampleImageURL: String,
                                       authExampleThumbnailImageURL: String,
-                                      completion: @escaping () -> Void) {
+                                      completion: (() -> Void)?) {
         updateChallenge(challengeDTO: challengeDTO, completion: nil)
         
         let patchQueue = DispatchQueue(label: "patchQueue")
@@ -294,7 +294,7 @@ public enum RoutinusDatabase {
         }
 
         group.notify(queue: patchQueue) {
-            completion()
+            completion?()
         }
     }
 
