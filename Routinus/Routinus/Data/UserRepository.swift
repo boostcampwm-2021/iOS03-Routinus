@@ -11,7 +11,8 @@ import RoutinusDatabase
 
 protocol UserRepository {
     func isEmptyUserID() -> Bool
-    func save(id: String, name: String)
+    func save(id: String,
+              name: String)
     func fetchUser(by id: String) async -> User
 }
 
