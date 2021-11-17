@@ -171,16 +171,23 @@ public enum RoutinusDatabase {
         return todayRoutines
     }
 
-    public static func achievement(of id: String,
-                                   in yearMonth: String) async throws -> [AchievementDTO] {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return [] }
+    public static func achievements(of id: String,
+                                    in yearMonth: String,
+                                    completion: (([AchievementDTO]) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?([])
+            return
+        }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.achievementQuery(of: id, in: yearMonth)
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        return try JSONDecoder().decode([AchievementDTO].self, from: data)
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let list = try? JSONDecoder().decode([AchievementDTO].self, from: data)
+            completion?(list ?? [])
+        }.resume()
     }
 
     public static func latestChallenges() async throws -> [ChallengeDTO] {
