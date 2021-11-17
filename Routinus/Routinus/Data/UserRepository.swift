@@ -24,11 +24,11 @@ extension RoutinusRepository: UserRepository {
 
     func save(id: String,
               name: String) {
-        UserDefaults.standard.set(id, forKey: RoutinusRepository.userIDKey)
-
-        Task {
-            try await RoutinusDatabase.createUser(id: id, name: name)
-        }
+        UserDefaults.standard.set(id,
+                                  forKey: RoutinusRepository.userIDKey)
+        RoutinusDatabase.createUser(id: id,
+                                    name: name,
+                                    completion: nil)
     }
 
     func fetchUser(by id: String,

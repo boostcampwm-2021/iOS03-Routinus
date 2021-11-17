@@ -23,14 +23,20 @@ public enum RoutinusDatabase {
     }
 
     public static func createUser(id: String,
-                                  name: String) async throws {
-        guard let url = URL(string: "\(firestoreURL)/user") else { return }
+                                  name: String,
+                                  completion: (() -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL)/user") else {
+            completion?()
+            return
+        }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.createUserQuery(id: id, name: name)
 
-        _ = try await URLSession.shared.data(for: request)
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            completion?()
+        }.resume()
     }
 
     public static func createChallenge(challenge: ChallengeDTO,
