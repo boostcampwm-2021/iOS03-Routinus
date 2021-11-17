@@ -77,7 +77,7 @@
 		E937044627434D8F00D82B1D /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044527434D8F00D82B1D /* AuthButton.swift */; };
 		E9493DC1273A4E5B0095CF6D /* ChallengeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */; };
 		E9493DC3273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC2273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift */; };
-		E9493DC6273A5E9D0095CF6D /* SearchChallengeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC5273A5E9D0095CF6D /* SearchChallengeCell.swift */; };
+		E9493DC6273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC5273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift */; };
 		E9493DC8273A70280095CF6D /* SearchPopularKeywordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC7273A70280095CF6D /* SearchPopularKeywordCell.swift */; };
 		E9493DCC273A75220095CF6D /* SearchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DCB273A75220095CF6D /* SearchHeader.swift */; };
 		E94B497227390FD300708D7B /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B497127390FD300708D7B /* CategoryButton.swift */; };
@@ -224,7 +224,7 @@
 		E937044527434D8F00D82B1D /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRepository.swift; sourceTree = "<group>"; };
 		E9493DC2273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewLayouts.swift; sourceTree = "<group>"; };
-		E9493DC5273A5E9D0095CF6D /* SearchChallengeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChallengeCell.swift; sourceTree = "<group>"; };
+		E9493DC5273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCollectionViewCell.swift; sourceTree = "<group>"; };
 		E9493DC7273A70280095CF6D /* SearchPopularKeywordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPopularKeywordCell.swift; sourceTree = "<group>"; };
 		E9493DCB273A75220095CF6D /* SearchHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHeader.swift; sourceTree = "<group>"; };
 		E94B497127390FD300708D7B /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
@@ -325,7 +325,7 @@
 		148A09ED2744C26100809CB8 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				E9493DC5273A5E9D0095CF6D /* SearchChallengeCell.swift */,
+				E9493DC5273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1077,7 +1077,6 @@
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E94B49762739118B00708D7B /* Challenge.swift in Sources */,
 				0DE03398274329BA0026F502 /* Calendar.swift in Sources */,
-				0DC38F55273B689700331C25 /* SearchRepository.swift in Sources */,
 				148387382743817F00731F98 /* InformationView.swift in Sources */,
 				0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCell.swift in Sources */,
 				E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */,
@@ -1093,7 +1092,7 @@
 				E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */,
 				E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */,
 				1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */,
-				E9493DC6273A5E9D0095CF6D /* SearchChallengeCell.swift in Sources */,
+				E9493DC6273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
 				441CEE15273A33BE006C261F /* CreateImageRegisterView.swift in Sources */,
