@@ -89,19 +89,4 @@ final class DetailViewController: UIViewController {
         rightBarButtonItem.tintColor = .black
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
     }
-
-    @objc func didTouchbackButton() {
-        let transition = CATransition()
-        transition.duration = 0.35
-        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-        transition.type = CATransitionType.push
-        transition.subtype = CATransitionSubtype.fromLeft
-        self.view.window!.layer.add(transition, forKey: nil)
-        self.dismiss(animated: false)
-    }
-
-    @objc func didTouchAuthButton() {
-        let authViewController = AuthViewController()
-        self.present(authViewController, animated: true, completion: nil)
-    }
 }
