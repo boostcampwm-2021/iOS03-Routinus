@@ -32,7 +32,7 @@ final class TodayRoutineView: UIView {
         tableView.estimatedRowHeight = 100
         tableView.alwaysBounceVertical = false
         tableView.separatorStyle = .none
-        tableView.register(RoutineCell.self, forCellReuseIdentifier: RoutineCell.identifier)
+        tableView.register(RoutineTableViewCell.self, forCellReuseIdentifier: RoutineTableViewCell.identifier)
         return tableView
     }()
 
