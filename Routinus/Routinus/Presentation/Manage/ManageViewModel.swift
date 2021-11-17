@@ -28,11 +28,11 @@ class ManageViewModel: ManageViewModelIO {
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var challengeTap = PassthroughSubject<String, Never>()
 
-    let usecase: ManageFetchableUsecase
+    let challengeFetchUsecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
-    init(usecase: ManageFetchableUsecase) {
-        self.usecase = usecase
+    init(challengeFetchUsecase: ChallengeFetchableUsecase) {
+        self.challengeFetchUsecase = challengeFetchUsecase
         self.fetchChallenges()
     }
 }
@@ -50,7 +50,7 @@ extension ManageViewModel {
 
 extension ManageViewModel {
     private func fetchChallenges() {
-        usecase.fetchChallenges { [weak self] challenge in
+        challengeFetchUsecase.fetchCreationChallengesByMe { [weak self] challenge in
             self?.challenges.value = challenge
         }
     }

@@ -14,6 +14,7 @@ protocol ChallengeFetchableUsecase {
                                completion: @escaping ([Challenge]) -> Void)
     func fetchSearchChallenges(category: Challenge.Category,
                                completion: @escaping ([Challenge]) -> Void)
+    func fetchCreationChallengesByMe(completion: @escaping ([Challenge]) -> Void)
 }
 
 struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
@@ -62,6 +63,16 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
             let challenges = list
                 .filter { $0.category == category }
             completion(challenges)
+        }
+    }
+
+    func fetchCreationChallengesByMe(completion: @escaping ([Challenge]) -> Void) {
+        Task {
+            guard let id = RoutinusRepository.userID() else { return }
+
+            let list = await repository.fetchChallenges(by: id)
+            let challengeList = list
+            completion(challengeList)
         }
     }
 }

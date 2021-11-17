@@ -14,6 +14,7 @@ protocol ChallengeRepository {
     func fetchSearchChallengesBy(keyword: String) async -> [Challenge]
     func fetchSearchChallengesBy(categoryID: String) async -> [Challenge]
     func fetchLatestChallenges() async -> [Challenge]
+    func fetchChallenges(by userID: String) async -> [Challenge]
 }
 
 extension RoutinusRepository: ChallengeRepository {
@@ -35,6 +36,11 @@ extension RoutinusRepository: ChallengeRepository {
 
     func fetchLatestChallenges() async -> [Challenge] {
         guard let list = try? await RoutinusDatabase.newChallenges() else { return [] }
+        return list.map { Challenge(challengeDTO: $0) }
+    }
+
+    func fetchChallenges(by userID: String) async -> [Challenge] {
+        guard let list = try? await RoutinusDatabase.searchChallenges(ownerID: userID) else { return [] }
         return list.map { Challenge(challengeDTO: $0) }
     }
 }
