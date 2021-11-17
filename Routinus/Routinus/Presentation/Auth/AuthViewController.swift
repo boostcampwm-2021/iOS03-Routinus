@@ -96,8 +96,17 @@ extension AuthViewController {
         self.viewModel?.challenge
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challenge in
-                guard let self = self else { return }
+                guard let self = self,
+                      let challenge = challenge else { return }
                 self.navigationItem.title = challenge.title
+                self.authMethodView.configureMethodLabel(introduction: challenge.introduction)
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                          filename: "thumbnail_image",
+                                          completion: { data in
+                    DispatchQueue.main.async {
+                        self.authMethodView.configureMethodImage(data: data)
+                    }
+                })
             })
             .store(in: &cancellables)
     }
@@ -123,15 +132,13 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
         if let originalImage = info[InfoKey.originalImage] as? UIImage {
             let mainImage = originalImage.resizedImage(.main)
             let thumbnailImage = originalImage.resizedImage(.thumbnail)
-            
-//            let mainImageURL = viewModel?.saveImage(to: "temp",
-//                                                    filename: "auth",
-//                                                    data: mainImage.jpegData(compressionQuality: 0.9))
-//            let thumbnailImageURL = viewModel?.saveImage(to: "temp",
-//                                                         filename: "thumbnail_auth",
-//                                                         data: thumbnailImage.jpegData(compressionQuality: 0.9))
-//            viewModel?.update(authExampleImageURL: mainImageURL)
-//            viewModel?.update(authExampleThumbnailImageURL: thumbnailImageURL)
+
+            let mainImageURL = viewModel?.saveImage(to: "temp",
+                                                    filename: "userAuth",
+                                                    data: mainImage.jpegData(compressionQuality: 0.9))
+            let thumbnailImageURL = viewModel?.saveImage(to: "temp",
+                                                         filename: "thumbnail_userAuth",
+                                                         data: thumbnailImage.jpegData(compressionQuality: 0.9))
             previewView.setImage(thumbnailImage)
         }
         dismiss(animated: true, completion: nil)
