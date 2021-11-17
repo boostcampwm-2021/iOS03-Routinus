@@ -8,23 +8,27 @@
 import UIKit
 
 final class CalendarHeader: UIView {
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        label.text = "요약"
-        return label
+    private lazy var todayLabel: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("오늘", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.isHidden = true
+
+        button.addTarget(self, action: #selector(didTappedTodayButton), for: .touchUpInside)
+        return button
     }()
 
-    lazy var monthLabel: UILabel = {
+    private lazy var monthLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.text = "Month"
+        label.textAlignment = .center
         return label
     }()
 
-    lazy var previousMonthButton: UIButton = {
+    private lazy var previousMonthButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
@@ -34,7 +38,7 @@ final class CalendarHeader: UIView {
         return button
     }()
 
-    lazy var nextMonthButton: UIButton = {
+    private lazy var nextMonthButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
@@ -44,14 +48,14 @@ final class CalendarHeader: UIView {
         return button
     }()
 
-    lazy var dayOfWeekStackView: UIStackView = {
+    private lazy var dayOfWeekStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
         return stackView
     }()
 
-    lazy var separatorView: UIView = {
+    private lazy var separatorView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.label.withAlphaComponent(0.2)
@@ -69,18 +73,23 @@ final class CalendarHeader: UIView {
     var baseDate = Date() {
         didSet {
             monthLabel.text = dateFormatter.string(from: baseDate)
+            todayLabel.isHidden = baseDate.toString() == Date().toString() ? true : false
         }
     }
 
     let didTappedLastMonthCompletionHandler: (() -> Void)
     let didTappedNextMonthCompletionHandler: (() -> Void)
+    let didTappedTodayCompletionHandler: (() -> Void)
 
     init(
         didTappedLastMonthCompletionHandler: @escaping (() -> Void),
-        didTappedNextMonthCompletionHandler: @escaping (() -> Void)
+        didTappedNextMonthCompletionHandler: @escaping (() -> Void),
+        didTappedTodayCompletionHandler: @escaping (() -> Void)
     ) {
         self.didTappedLastMonthCompletionHandler = didTappedLastMonthCompletionHandler
         self.didTappedNextMonthCompletionHandler = didTappedNextMonthCompletionHandler
+        self.didTappedTodayCompletionHandler =
+            didTappedTodayCompletionHandler
 
         super.init(frame: CGRect.zero)
 
@@ -123,7 +132,7 @@ extension CalendarHeader {
         self.layer.cornerCurve = .continuous
         self.layer.cornerRadius = 15
 
-        self.addSubview(titleLabel)
+        self.addSubview(todayLabel)
         self.addSubview(monthLabel)
         self.addSubview(previousMonthButton)
         self.addSubview(nextMonthButton)
@@ -145,17 +154,22 @@ extension CalendarHeader {
         super.layoutSubviews()
 
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            todayLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            todayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
 
             nextMonthButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            nextMonthButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            nextMonthButton.centerYAnchor.constraint(equalTo: todayLabel.centerYAnchor),
+            nextMonthButton.widthAnchor.constraint(equalToConstant: 36),
+            nextMonthButton.heightAnchor.constraint(equalToConstant: 36),
 
-            monthLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            monthLabel.trailingAnchor.constraint(equalTo: nextMonthButton.leadingAnchor, constant: -10),
+            monthLabel.trailingAnchor.constraint(equalTo: nextMonthButton.leadingAnchor),
+            monthLabel.widthAnchor.constraint(equalToConstant: 100),
+            monthLabel.centerYAnchor.constraint(equalTo: todayLabel.centerYAnchor),
 
-            previousMonthButton.trailingAnchor.constraint(equalTo: monthLabel.leadingAnchor, constant: -10),
-            previousMonthButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            previousMonthButton.trailingAnchor.constraint(equalTo: monthLabel.leadingAnchor),
+            previousMonthButton.centerYAnchor.constraint(equalTo: todayLabel.centerYAnchor),
+            previousMonthButton.widthAnchor.constraint(equalToConstant: 36),
+            previousMonthButton.heightAnchor.constraint(equalToConstant: 36),
 
             dayOfWeekStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             dayOfWeekStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -174,5 +188,9 @@ extension CalendarHeader {
 
     @objc func didTappedNextMonthButton() {
         didTappedNextMonthCompletionHandler()
+    }
+    
+    @objc func didTappedTodayButton() {
+        didTappedTodayCompletionHandler()
     }
 }
