@@ -314,6 +314,14 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		148A09EB2744BC6300809CB8 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				E937044127434D4700D82B1D /* AuthMethodView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		1497CF422738FF8C00296F9E /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,7 +511,7 @@
 		E93704472743A95100D82B1D /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E937044127434D4700D82B1D /* AuthMethodView.swift */,
+				148A09EB2744BC6300809CB8 /* Subviews */,
 			);
 			path = Common;
 			sourceTree = "<group>";
