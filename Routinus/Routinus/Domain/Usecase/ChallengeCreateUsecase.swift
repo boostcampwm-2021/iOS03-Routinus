@@ -23,15 +23,12 @@ protocol ChallengeCreatableUsecase {
                  authMethod: String,
                  authExampleImageURL: String) -> Bool
     func endDate(week: Int) -> Date?
-    func saveImage(to directory: String,
-                   filename: String,
-                   data: Data?) -> String?
 }
 
 struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
-    var repository: CreateRepository
+    var repository: ChallengeRepository
 
-    init(repository: CreateRepository) {
+    init(repository: ChallengeRepository) {
         self.repository = repository
     }
 
@@ -91,13 +88,5 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
                  authMethod: String,
                  authExampleImageURL: String) -> Bool {
         return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
-    }
-
-    func saveImage(to directory: String,
-                   filename: String,
-                   data: Data?) -> String? {
-        return repository.saveImage(to: directory,
-                                    filename: filename,
-                                    data: data)
     }
 }

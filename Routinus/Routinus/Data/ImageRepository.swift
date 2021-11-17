@@ -14,6 +14,9 @@ protocol ImageRepository {
     func fetchImageData(from directory: String,
                         filename: String,
                         completion: ((Data?) -> Void)?)
+    func saveImage(to directory: String,
+                   filename: String,
+                   data: Data?) -> String?
 }
 
 extension RoutinusRepository: ImageRepository {
@@ -30,5 +33,13 @@ extension RoutinusRepository: ImageRepository {
                 completion?(data)
             }
         }
+    }
+
+    func saveImage(to directory: String,
+                   filename: String,
+                   data: Data?) -> String? {
+        return RoutinusImageManager.saveImage(to: directory,
+                                              filename: filename,
+                                              imageData: data)
     }
 }

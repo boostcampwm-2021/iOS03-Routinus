@@ -58,6 +58,7 @@ final class CreateViewModel: CreateViewModelIO {
     var challengeCreateUsecase: ChallengeCreatableUsecase
     var challengeUpdateUsecase: ChallengeUpdatableUsecase
     var challengeFetchUsecase: ChallengeFetchableUsecase
+    var imageSaveUsecase: ImageSavableUsecase
     var challengeID: String?
 
     private var title: String
@@ -73,11 +74,13 @@ final class CreateViewModel: CreateViewModelIO {
     init(challengeID: String? = nil,
          challengeCreateUsecase: ChallengeCreatableUsecase,
          challengeUpdateUsecase: ChallengeUpdatableUsecase,
-         challengeFetchUsecase: ChallengeFetchableUsecase) {
+         challengeFetchUsecase: ChallengeFetchableUsecase,
+         imageSaveUsecase: ImageSavableUsecase) {
         self.challengeID = challengeID
         self.challengeCreateUsecase = challengeCreateUsecase
         self.challengeUpdateUsecase = challengeUpdateUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
+        self.imageSaveUsecase = imageSaveUsecase
         self.title = ""
         self.category = .exercise
         self.imageURL = ""
@@ -212,6 +215,6 @@ final class CreateViewModel: CreateViewModelIO {
     }
 
     func saveImage(to directory: String, filename: String, data: Data?) -> String? {
-        return challengeCreateUsecase.saveImage(to: directory, filename: filename, data: data)
+        return imageSaveUsecase.saveImage(to: directory, filename: filename, data: data)
     }
 }

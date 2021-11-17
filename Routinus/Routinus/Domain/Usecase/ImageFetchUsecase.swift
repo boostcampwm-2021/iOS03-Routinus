@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusDatabase
-
 protocol ImageFetchableUsecase {
     func fetchImageData(from directory: String,
                         filename: String,

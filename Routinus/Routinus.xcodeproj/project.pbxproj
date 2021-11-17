@@ -20,10 +20,8 @@
 		0DE0339A274355700026F502 /* ManageCollectionViewLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE033992743556F0026F502 /* ManageCollectionViewLayouts.swift */; };
 		0DE0339C274355770026F502 /* ManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0339B274355760026F502 /* ManageViewModel.swift */; };
 		14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14572CEC273BF644007E6ECE /* CreateCoordinator.swift */; };
-		145F5322273FAC9B000700A5 /* UpdateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5321273FAC9B000700A5 /* UpdateRepository.swift */; };
 		145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */; };
 		149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411DB273A314B004BE485 /* CreateViewModel.swift */; };
-		149411E4273A6314004BE485 /* CreateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E3273A6314004BE485 /* CreateRepository.swift */; };
 		149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */; };
 		1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF432738FFA600296F9E /* RoutinusRepository.swift */; };
 		1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF4B2739078700296F9E /* UserNameFactory.swift */; };
@@ -70,6 +68,7 @@
 		E901EFDE2744CBDE00B14847 /* UserFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFDD2744CBDE00B14847 /* UserFetchUsecase.swift */; };
 		E901EFE02744CC4F00B14847 /* AchievementFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFDF2744CC4F00B14847 /* AchievementFetchUsecase.swift */; };
 		E901EFE22744CC6E00B14847 /* AchievementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE12744CC6E00B14847 /* AchievementRepository.swift */; };
+		E901EFE42744D41600B14847 /* ImageSaveUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE32744D41600B14847 /* ImageSaveUsecase.swift */; };
 		E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C1915273CACDD00D11127 /* PopularKeyword.swift */; };
 		E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044127434D4700D82B1D /* AuthMethodView.swift */; };
 		E937044427434D6300D82B1D /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044327434D6300D82B1D /* PreviewView.swift */; };
@@ -164,10 +163,8 @@
 		0DE033992743556F0026F502 /* ManageCollectionViewLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageCollectionViewLayouts.swift; sourceTree = "<group>"; };
 		0DE0339B274355760026F502 /* ManageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageViewModel.swift; sourceTree = "<group>"; };
 		14572CEC273BF644007E6ECE /* CreateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoordinator.swift; sourceTree = "<group>"; };
-		145F5321273FAC9B000700A5 /* UpdateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRepository.swift; sourceTree = "<group>"; };
 		145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpdateUsecase.swift; sourceTree = "<group>"; };
 		149411DB273A314B004BE485 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
-		149411E3273A6314004BE485 /* CreateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRepository.swift; sourceTree = "<group>"; };
 		149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreateUsecase.swift; sourceTree = "<group>"; };
 		1497CF432738FFA600296F9E /* RoutinusRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusRepository.swift; sourceTree = "<group>"; };
 		1497CF4B2739078700296F9E /* UserNameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameFactory.swift; sourceTree = "<group>"; };
@@ -216,6 +213,7 @@
 		E901EFDD2744CBDE00B14847 /* UserFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFetchUsecase.swift; sourceTree = "<group>"; };
 		E901EFDF2744CC4F00B14847 /* AchievementFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementFetchUsecase.swift; sourceTree = "<group>"; };
 		E901EFE12744CC6E00B14847 /* AchievementRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementRepository.swift; sourceTree = "<group>"; };
+		E901EFE32744D41600B14847 /* ImageSaveUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaveUsecase.swift; sourceTree = "<group>"; };
 		E91C1915273CACDD00D11127 /* PopularKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeyword.swift; sourceTree = "<group>"; };
 		E937044127434D4700D82B1D /* AuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMethodView.swift; sourceTree = "<group>"; };
 		E937044327434D6300D82B1D /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
@@ -308,13 +306,11 @@
 			children = (
 				1497CF432738FFA600296F9E /* RoutinusRepository.swift */,
 				E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */,
-				149411E3273A6314004BE485 /* CreateRepository.swift */,
-				145F5321273FAC9B000700A5 /* UpdateRepository.swift */,
 				1497CF4B2739078700296F9E /* UserNameFactory.swift */,
-				E901EFD32744BD3400B14847 /* ImageRepository.swift */,
 				E901EFD72744C9E300B14847 /* UserRepository.swift */,
 				E901EFDB2744CAF900B14847 /* TodayRoutineRepository.swift */,
 				E901EFE12744CC6E00B14847 /* AchievementRepository.swift */,
+				E901EFD32744BD3400B14847 /* ImageRepository.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -542,6 +538,7 @@
 				E901EFD92744CAA800B14847 /* TodayRoutineFetchUsecase.swift */,
 				E901EFDF2744CC4F00B14847 /* AchievementFetchUsecase.swift */,
 				E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */,
+				E901EFE32744D41600B14847 /* ImageSaveUsecase.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -1008,10 +1005,8 @@
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */,
 				E901EFDE2744CBDE00B14847 /* UserFetchUsecase.swift in Sources */,
-				145F5322273FAC9B000700A5 /* UpdateRepository.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
-				149411E4273A6314004BE485 /* CreateRepository.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
 				0DC38F59273BA89000331C25 /* UIImage+Extensions.swift in Sources */,
 				E975390627325538004358C5 /* Achievement.swift in Sources */,
@@ -1072,6 +1067,7 @@
 				E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */,
 				E901EFE22744CC6E00B14847 /* AchievementRepository.swift in Sources */,
 				44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */,
+				E901EFE42744D41600B14847 /* ImageSaveUsecase.swift in Sources */,
 				E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
