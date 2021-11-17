@@ -8,14 +8,14 @@
 import CryptoKit
 import Foundation
 
-protocol HomeCreatableUsecase {
+protocol UserCreatableUsecase {
     func createUserID()
 }
 
-struct HomeCreateUsecase: HomeCreatableUsecase {
-    var repository: HomeRepository
+struct UserCreateUsecase: UserCreatableUsecase {
+    var repository: UserRepository
 
-    init(repository: HomeRepository) {
+    init(repository: UserRepository) {
         self.repository = repository
     }
 
