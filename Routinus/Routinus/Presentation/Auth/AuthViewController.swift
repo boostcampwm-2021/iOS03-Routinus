@@ -109,11 +109,20 @@ extension AuthViewController {
                 })
             })
             .store(in: &cancellables)
+
+        self.viewModel?.authButtonState
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] isEnabled in
+                guard let self = self else { return }
+                self.authButton.configureEnabled(isEnabled: isEnabled)
+            })
+            .store(in: &cancellables)
     }
 
     private func configureDelegates() {
         self.imagePicker.delegate = self
         self.previewView.delegate = self
+        self.authButton.delegate = self
     }
 }
 
@@ -121,6 +130,13 @@ extension AuthViewController: PreviewViewDelegate {
     func didTappedPreviewView() {
         self.imagePicker.sourceType = .camera
         self.present(self.imagePicker, animated: true, completion: nil)
+    }
+}
+
+extension AuthViewController: AuthButtonDelegate {
+    func didTappedAuthButton() {
+        self.viewModel?.didTappedAuthButton()
+        self.navigationController?.popViewController(animated: true) 
     }
 }
 
