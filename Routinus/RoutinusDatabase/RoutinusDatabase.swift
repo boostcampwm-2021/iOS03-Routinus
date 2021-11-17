@@ -129,15 +129,22 @@ public enum RoutinusDatabase {
         }.resume()
     }
 
-    public static func user(of id: String) async throws -> UserDTO {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return UserDTO() }
+    public static func user(of id: String,
+                            completion: ((UserDTO) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?(UserDTO())
+            return
+        }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.userQuery(of: id)
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        return try JSONDecoder().decode([UserDTO].self, from: data).first ?? UserDTO()
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let dto = try? JSONDecoder().decode([UserDTO].self, from: data).first
+            completion?(dto ?? UserDTO())
+        }.resume()
     }
 
     public static func routines(of id: String) async throws -> [TodayRoutineDTO] {
@@ -235,7 +242,10 @@ public enum RoutinusDatabase {
     public static func challenge(ownerID: String,
                                  challengeID: String,
                                  completion: ((ChallengeDTO) -> Void)?) {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?(ChallengeDTO())
+            return
+        }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue

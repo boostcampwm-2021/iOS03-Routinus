@@ -13,7 +13,8 @@ protocol UserRepository {
     func isEmptyUserID() -> Bool
     func save(id: String,
               name: String)
-    func fetchUser(by id: String) async -> User
+    func fetchUser(by id: String,
+                   completion: ((User) -> Void)?)
 }
 
 extension RoutinusRepository: UserRepository {
@@ -30,8 +31,10 @@ extension RoutinusRepository: UserRepository {
         }
     }
 
-    func fetchUser(by id: String) async -> User {
-        guard let userDTO = try? await RoutinusDatabase.user(of: id) else { return User() }
-        return User(userDTO: userDTO)
+    func fetchUser(by id: String,
+                   completion: ((User) -> Void)?) {
+        RoutinusDatabase.user(of: id) { dto in
+            completion?(User(userDTO: dto))
+        }
     }
 }
