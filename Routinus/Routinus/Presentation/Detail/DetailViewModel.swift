@@ -40,7 +40,7 @@ extension DetailViewModel {
     private func fetchChallenge() {
         guard let challengeID = challengeID else { return }
         challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
-            guard let self = self, let challenge = challenge else { return }
+            guard let self = self else { return }
             self.challenge.send(challenge) 
         }
     }

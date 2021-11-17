@@ -98,9 +98,7 @@ final class DetailViewController: UIViewController {
 
     private func configureNavigationBar() {
         self.navigationItem.largeTitleDisplayMode = .never
-        // TODO: 챌린지 연동
         // TODO: 작성자인 경우에만 rightBarButtonItem 보이기
-        self.navigationItem.title = "1만보 걷기"
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: nil)
         rightBarButtonItem.tintColor = .black
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
