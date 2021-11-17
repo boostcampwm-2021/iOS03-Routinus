@@ -10,7 +10,7 @@ import UIKit
 final class PreviewView: UIView {
     weak var delegate: PreviewViewDelegate?
 
-    private lazy var preview: UIView = {
+    private lazy var previewView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "MainColor")
         return view
@@ -69,10 +69,10 @@ final class PreviewView: UIView {
     }
 
     func setImage(_ image: UIImage) {
-        let backgroundImage = UIImageView(frame: preview.bounds)
+        let backgroundImage = UIImageView(frame: previewView.bounds)
         backgroundImage.image = image
         backgroundImage.contentMode = .scaleToFill
-        self.preview.addSubview(backgroundImage)
+        self.previewView.addSubview(backgroundImage)
     }
 }
 
@@ -83,14 +83,14 @@ extension PreviewView {
     }
 
     private func configureSubviews() {
-        self.addSubview(preview)
-        self.preview.translatesAutoresizingMaskIntoConstraints = false
-        self.preview.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        self.preview.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.preview.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        self.preview.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        self.addSubview(previewView)
+        self.previewView.translatesAutoresizingMaskIntoConstraints = false
+        self.previewView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.previewView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.previewView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        self.previewView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
 
-        preview.addSubview(stackView)
+        previewView.addSubview(stackView)
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         self.stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
@@ -103,7 +103,7 @@ extension PreviewView {
         self.previewLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
         [authButton, previewLabel].forEach { self.stackView.addArrangedSubview($0) }
 
-        preview.addSubview(timeLabel)
+        previewView.addSubview(timeLabel)
         self.timeLabel.translatesAutoresizingMaskIntoConstraints = false
         self.timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.timeLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
@@ -111,16 +111,16 @@ extension PreviewView {
 
     private func configureGesture() {
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedPreview(_:)))
-        self.preview.isUserInteractionEnabled = true
-        self.preview.addGestureRecognizer(recognizer)
+        self.previewView.isUserInteractionEnabled = true
+        self.previewView.addGestureRecognizer(recognizer)
     }
 
     @objc private func didTappedPreview(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
-        delegate?.didTappedPreview()
+        delegate?.didTappedPreviewView()
     }
 }
 
 protocol PreviewViewDelegate: AnyObject {
-    func didTappedPreview()
+    func didTappedPreviewView()
 }
