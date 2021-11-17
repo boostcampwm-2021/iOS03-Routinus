@@ -58,7 +58,6 @@ final class HomeViewModel: HomeViewModelIO {
          userFetchUsecase: UserFetchableUsecase,
          todayRoutineFetchUsecase: TodayRoutineFetchableUsecase,
          achievementFetchUsecase: AchievementFetchableUsecase) {
-        
         self.userCreateUsecase = userCreateUsecase
         self.userFetchUsecase = userFetchUsecase
         self.todayRoutineFetchUsecase = todayRoutineFetchUsecase
