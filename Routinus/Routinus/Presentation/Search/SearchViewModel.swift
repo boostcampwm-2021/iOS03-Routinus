@@ -31,14 +31,18 @@ final class SearchViewModel: SearchViewModelIO {
 
     var challengeTap = PassthroughSubject<String, Never>()
 
-    let usecase: SearchFetchableUsecase
+    let imageFetchusecase: ImageFetchableUsecase
+    let challengeFetchUsecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
     var searchKeyword: String?
     var searchCategory: Challenge.Category?
 
-    init(category: Challenge.Category? = nil, usecase: SearchFetchableUsecase) {
-        self.usecase = usecase
+    init(category: Challenge.Category? = nil,
+         imageFetchusecase: ImageFetchableUsecase,
+         challengeFetchUsecase: ChallengeFetchableUsecase) {
         self.searchCategory = category
+        self.imageFetchusecase = imageFetchusecase
+        self.challengeFetchUsecase = challengeFetchUsecase
         self.fetchPopularKeywords()
         self.fetchChallenges()
     }
@@ -47,11 +51,11 @@ final class SearchViewModel: SearchViewModelIO {
 extension SearchViewModel {
     func didChangedSearchText(_ keyword: String) {
         if keyword == "" {
-            usecase.fetchLatestChallenges { [weak self] challenges in
+            challengeFetchUsecase.fetchLatestChallenges { [weak self] challenges in
                 self?.challenges.value = challenges
             }
         } else {
-            usecase.fetchSearchChallenges(keyword: keyword) { [weak self] challenges in
+            challengeFetchUsecase.fetchSearchChallenges(keyword: keyword) { [weak self] challenges in
                 self?.challenges.value = challenges
             }
         }
@@ -65,7 +69,7 @@ extension SearchViewModel {
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)? = nil) {
-        usecase.fetchImageData(from: directory, filename: filename) { data in
+        imageFetchusecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
         }
     }
@@ -73,9 +77,8 @@ extension SearchViewModel {
 
 extension SearchViewModel {
     private func fetchPopularKeywords() {
-        usecase.fetchPopularKeywords { [weak self] keywords in
-            self?.popularKeywords.value = keywords
-        }
+        let popularKeywords = PopularKeyword.allCases.map { $0.rawValue }
+        self.popularKeywords.value = popularKeywords
     }
 
     private func fetchChallenges() {
@@ -87,14 +90,14 @@ extension SearchViewModel {
     }
 
     private func fetchLatestChallenges() {
-        usecase.fetchLatestChallenges { [weak self] challenge in
+        challengeFetchUsecase.fetchLatestChallenges { [weak self] challenge in
             self?.challenges.value = challenge
         }
     }
 
     private func fetchCategoryChallenges() {
         guard let searchCategory = searchCategory else { return }
-        usecase.fetchSearchChallenges(category: searchCategory) { [weak self] challenge in
+        challengeFetchUsecase.fetchSearchChallenges(category: searchCategory) { [weak self] challenge in
             self?.challenges.value = challenge
         }
     }
