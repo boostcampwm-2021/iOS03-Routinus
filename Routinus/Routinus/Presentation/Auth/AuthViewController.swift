@@ -79,7 +79,7 @@ extension AuthViewController {
 }
 
 extension AuthViewController: PreviewViewDelegate {
-    func didTappedAuthButton() {
+    func didTappedPreview() {
         self.imagePicker.sourceType = .camera
         self.present(self.imagePicker, animated: true, completion: nil)
     }

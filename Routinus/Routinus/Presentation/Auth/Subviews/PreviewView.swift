@@ -69,10 +69,6 @@ final class PreviewView: UIView {
         self.init(frame: CGRect.zero)
     }
 
-    @objc func didTappedAuthButton() {
-        self.delegate?.didTappedAuthButton()
-    }
-
     func setImage(_ image: UIImage) {
         let backgroundImage = UIImageView(frame: self.bounds)
         backgroundImage.image = image
@@ -84,6 +80,7 @@ final class PreviewView: UIView {
 extension PreviewView {
     private func configure() {
         configureSubviews()
+        configureGesture()
     }
 
     private func configureSubviews() {
@@ -93,7 +90,7 @@ extension PreviewView {
         self.preview.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.preview.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         self.preview.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
-        
+
         preview.addSubview(stackView)
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         self.stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -112,8 +109,19 @@ extension PreviewView {
         self.timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.timeLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
     }
+
+    private func configureGesture() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedPreview(_:)))
+        self.preview.isUserInteractionEnabled = true
+        self.preview.addGestureRecognizer(recognizer)
+    }
+
+    @objc private func didTappedPreview(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        delegate?.didTappedPreview()
+    }
 }
 
 protocol PreviewViewDelegate: AnyObject {
-    func didTappedAuthButton()
+    func didTappedPreview()
 }
