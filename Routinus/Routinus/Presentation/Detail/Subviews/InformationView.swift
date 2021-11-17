@@ -14,7 +14,7 @@ final class InformationView: UIView {
         stackView.axis = .vertical
         stackView.backgroundColor = .white
         stackView.distribution = .fill
-        stackView.spacing = 5
+        stackView.spacing = 10
         return stackView
     }()
 
