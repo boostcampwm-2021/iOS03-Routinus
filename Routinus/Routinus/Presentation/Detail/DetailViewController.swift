@@ -5,6 +5,7 @@
 //  Created by 박상우 on 2021/11/02.
 //
 
+import Combine
 import UIKit
 
 final class DetailViewController: UIViewController {
@@ -35,12 +36,25 @@ final class DetailViewController: UIViewController {
     private lazy var authMethodView = AuthMethodView()
     private lazy var participantButton = ParticipantButton()
 
+    private var viewModel: DetailViewModelIO?
+    private var cancellables = Set<AnyCancellable>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViews()
+        self.configureViewModel()
     }
 
-    func configureViews() {
+    init(with viewModel: DetailViewModelIO) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    private func configureViews() {
         self.view.backgroundColor = .white
         self.configureNavigationBar()
 
@@ -79,7 +93,6 @@ final class DetailViewController: UIViewController {
         self.mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor, multiplier: 1).isActive = true
 
         stackView.addArrangedSubview(informationView)
-
         stackView.addArrangedSubview(authMethodView)
     }
 
@@ -91,5 +104,15 @@ final class DetailViewController: UIViewController {
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: nil)
         rightBarButtonItem.tintColor = .black
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+
+    private func configureViewModel() {
+        self.viewModel?.challenge
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challenge in
+                guard let self = self else { return }
+                self.navigationItem.title = challenge.title
+            })
+            .store(in: &cancellables)
     }
 }

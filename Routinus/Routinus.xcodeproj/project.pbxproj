@@ -24,6 +24,7 @@
 		145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */; };
 		148387382743817F00731F98 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148387372743817F00731F98 /* InformationView.swift */; };
 		1483873C2743F2FF00731F98 /* ParticipantButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1483873B2743F2FF00731F98 /* ParticipantButton.swift */; };
+		148A09EF2744C5C800809CB8 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148A09EE2744C5C800809CB8 /* DetailViewModel.swift */; };
 		149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411DB273A314B004BE485 /* CreateViewModel.swift */; };
 		149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */; };
 		1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF432738FFA600296F9E /* RoutinusRepository.swift */; };
@@ -175,6 +176,7 @@
 		145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpdateUsecase.swift; sourceTree = "<group>"; };
 		148387372743817F00731F98 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		1483873B2743F2FF00731F98 /* ParticipantButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantButton.swift; sourceTree = "<group>"; };
+		148A09EE2744C5C800809CB8 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		149411DB273A314B004BE485 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreateUsecase.swift; sourceTree = "<group>"; };
 		1497CF432738FFA600296F9E /* RoutinusRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusRepository.swift; sourceTree = "<group>"; };
@@ -699,6 +701,7 @@
 			isa = PBXGroup;
 			children = (
 				E9797CB0273107A200A14A0F /* DetailViewController.swift */,
+				148A09EE2744C5C800809CB8 /* DetailViewModel.swift */,
 				148387342743807D00731F98 /* Subviews */,
 			);
 			path = Detail;
@@ -1096,6 +1099,7 @@
 				E9493DC6273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
+				148A09EF2744C5C800809CB8 /* DetailViewModel.swift in Sources */,
 				441CEE15273A33BE006C261F /* CreateImageRegisterView.swift in Sources */,
 				E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */,
 				E901EFE22744CC6E00B14847 /* AchievementRepository.swift in Sources */,

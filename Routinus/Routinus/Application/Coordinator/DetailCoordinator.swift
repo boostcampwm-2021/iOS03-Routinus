@@ -10,7 +10,7 @@ import UIKit
 final class DetailCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
-    let challengeID: String
+    let challengeID: String?
 
     init(navigationController: UINavigationController, challengeID: String) {
         self.navigationController = navigationController
@@ -18,8 +18,13 @@ final class DetailCoordinator: RoutinusCoordinator {
     }
 
     func start() {
-        let detailViewController = DetailViewController()
-        detailViewController.hidesBottomBarWhenPushed = true
+        guard let challengeID = challengeID else { return
+        }
+
+        let repository = RoutinusRepository()
+        let challengeFetchUsecase = ChallengeFetchUsecase(repository: repository)
+        let detailViewModel = DetailViewModel(challengeID: challengeID, challengeFetchUsecase: challengeFetchUsecase)
+        let detailViewController = DetailViewController(with: detailViewModel)
         self.navigationController.pushViewController(detailViewController, animated: true)
     }
 }
