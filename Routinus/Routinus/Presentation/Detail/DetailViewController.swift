@@ -14,7 +14,7 @@ final class DetailViewController: UIViewController {
         var stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 3
-        stackView.backgroundColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)
+        stackView.backgroundColor = .systemGray5
         return stackView
     }()
 
