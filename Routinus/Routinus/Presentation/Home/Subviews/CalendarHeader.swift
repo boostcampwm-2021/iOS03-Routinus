@@ -77,9 +77,9 @@ final class CalendarHeader: UIView {
         }
     }
 
-    let didTappedLastMonthCompletionHandler: (() -> Void)
-    let didTappedNextMonthCompletionHandler: (() -> Void)
-    let didTappedTodayCompletionHandler: (() -> Void)
+    private let didTappedLastMonthCompletionHandler: (() -> Void)
+    private let didTappedNextMonthCompletionHandler: (() -> Void)
+    private let didTappedTodayCompletionHandler: (() -> Void)
 
     init(didTappedLastMonthCompletionHandler: @escaping (() -> Void),
          didTappedNextMonthCompletionHandler: @escaping (() -> Void),
