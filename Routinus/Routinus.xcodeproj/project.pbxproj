@@ -77,8 +77,6 @@
 		E937044427434D6300D82B1D /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044327434D6300D82B1D /* PreviewView.swift */; };
 		E937044627434D8F00D82B1D /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044527434D8F00D82B1D /* AuthButton.swift */; };
 		E93704492743B2F800D82B1D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93704482743B2F800D82B1D /* AuthViewModel.swift */; };
-		E937044B27440F3100D82B1D /* AuthFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044A27440F3100D82B1D /* AuthFetchUsecase.swift */; };
-		E937044D2744195F00D82B1D /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044C2744195F00D82B1D /* AuthRepository.swift */; };
 		E9493DC1273A4E5B0095CF6D /* ChallengeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */; };
 		E9493DC3273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC2273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift */; };
 		E9493DC6273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC5273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift */; };
@@ -228,8 +226,6 @@
 		E937044327434D6300D82B1D /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		E937044527434D8F00D82B1D /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		E93704482743B2F800D82B1D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
-		E937044A27440F3100D82B1D /* AuthFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFetchUsecase.swift; sourceTree = "<group>"; };
-		E937044C2744195F00D82B1D /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRepository.swift; sourceTree = "<group>"; };
 		E9493DC2273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewLayouts.swift; sourceTree = "<group>"; };
 		E9493DC5273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -348,7 +344,6 @@
 				E901EFDB2744CAF900B14847 /* TodayRoutineRepository.swift */,
 				E901EFE12744CC6E00B14847 /* AchievementRepository.swift */,
 				E901EFD32744BD3400B14847 /* ImageRepository.swift */,
-				E937044C2744195F00D82B1D /* AuthRepository.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -577,9 +572,6 @@
 				E901EFDF2744CC4F00B14847 /* AchievementFetchUsecase.swift */,
 				E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */,
 				E901EFE32744D41600B14847 /* ImageSaveUsecase.swift */,
-				0DE0339F274355C80026F502 /* ManageFetchUsecase.swift */,
-				1497CF562739215C00296F9E /* HomeCreateUsecase.swift */,
-				E937044A27440F3100D82B1D /* AuthFetchUsecase.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -1050,7 +1042,6 @@
 				441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */,
 				E901EFDE2744CBDE00B14847 /* UserFetchUsecase.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
-				E937044B27440F3100D82B1D /* AuthFetchUsecase.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
 				0DC38F59273BA89000331C25 /* UIImage+Extensions.swift in Sources */,
