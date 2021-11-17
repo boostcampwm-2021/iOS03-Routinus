@@ -16,6 +16,7 @@ protocol DetailViewModelInput {
 
 protocol DetailViewModelOutput {
     var challenge: PassthroughSubject<Challenge, Never> { get }
+    var ownerState: CurrentValueSubject<Bool, Never> { get }
 }
 
 protocol DetailViewModelIO: DetailViewModelInput, DetailViewModelOutput { }
@@ -23,6 +24,7 @@ protocol DetailViewModelIO: DetailViewModelInput, DetailViewModelOutput { }
 class DetailViewModel: DetailViewModelIO {
 
     var challenge = PassthroughSubject<Challenge, Never>()
+    var ownerState = CurrentValueSubject<Bool, Never>(false)
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
     let imageFetchUsecase: ImageFetchableUsecase
@@ -46,7 +48,8 @@ extension DetailViewModel {
         guard let challengeID = challengeID else { return }
         challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
             guard let self = self else { return }
-            self.challenge.send(challenge) 
+            self.ownerState.value = self.isChallengeOwner(challenge: challenge)
+            self.challenge.send(challenge)
         }
     }
 
@@ -56,5 +59,10 @@ extension DetailViewModel {
         imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
         }
+    }
+
+    private func isChallengeOwner(challenge: Challenge) -> Bool {
+        // TODO: userID 가져오는 로직 별도 분리
+        return challenge.ownerID == RoutinusRepository.userID()
     }
 }

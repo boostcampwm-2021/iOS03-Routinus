@@ -32,6 +32,15 @@ final class DetailViewController: UIViewController {
         return view
     }()
 
+    private lazy var editBarButtonItem: UIBarButtonItem = {
+        var barButtonItem = UIBarButtonItem()
+        barButtonItem.image = UIImage(systemName: "pencil")
+        barButtonItem.tintColor = .black
+        barButtonItem.target = self
+        barButtonItem.action = nil
+        return barButtonItem
+    }()
+
     private lazy var informationView = InformationView()
     private lazy var authMethodView = AuthMethodView()
     private lazy var participantButton = ParticipantButton()
@@ -98,10 +107,6 @@ final class DetailViewController: UIViewController {
 
     private func configureNavigationBar() {
         self.navigationItem.largeTitleDisplayMode = .never
-        // TODO: 작성자인 경우에만 rightBarButtonItem 보이기
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: nil)
-        rightBarButtonItem.tintColor = .black
-        self.navigationItem.rightBarButtonItem = rightBarButtonItem
     }
 
     private func configureViewModel() {
@@ -121,6 +126,15 @@ final class DetailViewController: UIViewController {
                     guard let data = data else { return }
                     self.authMethodView.updateImage(to: data)
                 })
+            })
+            .store(in: &cancellables)
+
+        self.viewModel?.ownerState
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] ownerState in
+                guard let self = self else { return }
+                let rightBarButtonItem = ownerState ? self.editBarButtonItem : nil
+                self.navigationItem.rightBarButtonItem = rightBarButtonItem
             })
             .store(in: &cancellables)
     }
