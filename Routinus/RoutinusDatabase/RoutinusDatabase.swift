@@ -539,7 +539,7 @@ public enum RoutinusDatabase {
         }
     }
 
-    public static func updateChallengeParticipation(challengeID: String,
+    public static func updateChallengeParticipationAuthCount(challengeID: String,
                                                     userID: String,
                                                     completion: (() -> Void)?) {
 
@@ -552,7 +552,7 @@ public enum RoutinusDatabase {
                                                     challengeID: challengeID,
                                                     joinDate: joinDate,
                                                     userID: userID)
-            
+
             guard let participationField = participationDTO.document?.fields else { return }
             let documentID = dto.documentID ?? ""
             var urlComponent = URLComponents(string: "\(firestoreURL)/challenge_participation/\(documentID)?")
@@ -603,7 +603,7 @@ public enum RoutinusDatabase {
                                                 userID: userID,
                                                 achievementCount: achievementCount + 1,
                                                 yearMonth: yearMonth)
-            
+
             guard let achievementField = achievementDTO.document?.fields else { return }
             let documentID = dto.documentID ?? ""
             var urlComponent = URLComponents(string: "\(firestoreURL)/achievement/\(documentID)?")

@@ -43,7 +43,7 @@ extension RoutinusRepository: ParticipationRepository {
 
     func updateAuthCount(challengeID: String) {
         guard let userID = RoutinusRepository.userID() else { return }
-        RoutinusDatabase.updateChallengeParticipation(challengeID: challengeID,
+        RoutinusDatabase.updateChallengeParticipationAuthCount(challengeID: challengeID,
                                                       userID: userID,
                                                       completion: nil)
     }

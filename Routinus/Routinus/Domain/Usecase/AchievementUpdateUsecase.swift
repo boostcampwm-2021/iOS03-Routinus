@@ -22,9 +22,8 @@ struct AchievementUpdateUsecase: AchievementUpdatableUsecase {
         guard let userID = RoutinusRepository.userID() else { return }
         let yearMonth = Date().toYearMonthString()
         let day = Date().toDayString()
-        self.repository.updateAchievement(userID: userID,
+        self.repository.updateAchievementCount(userID: userID,
                                           yearMonth: yearMonth,
                                           day: day)
     }
-   
 }
