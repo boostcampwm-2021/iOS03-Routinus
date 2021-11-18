@@ -130,6 +130,6 @@ extension CreateWeekView {
     }
 
     func updateEndDate(date: Date) {
-        endDateLabel.text = date.toExtendedString()
+        endDateLabel.text = date.toDateWithWeekdayString()
     }
 }

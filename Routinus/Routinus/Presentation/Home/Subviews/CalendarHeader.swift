@@ -67,7 +67,7 @@ final class CalendarHeader: UIView {
     var baseDate = Date() {
         didSet {
             monthLabel.text = dateFormatter.string(from: baseDate)
-            todayButton.isHidden = baseDate.toString() == Date().toString()
+            todayButton.isHidden = baseDate.toDateString() == Date().toDateString()
         }
     }
 
