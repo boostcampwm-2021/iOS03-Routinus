@@ -35,7 +35,7 @@ protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 final class HomeViewModel: HomeViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
     var todayRoutines = CurrentValueSubject<[TodayRoutine], Never>([])
-    var achievements = [Achievement]([])
+    var achievements = [Achievement]()
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var todayRoutineTap = PassthroughSubject<String, Never>()
