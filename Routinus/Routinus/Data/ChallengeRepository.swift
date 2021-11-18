@@ -11,11 +11,14 @@ import RoutinusDatabase
 import RoutinusImageManager
 
 protocol ChallengeRepository {
-    func fetchRecommendChallenges() async -> [Challenge]
-    func fetchSearchChallengesBy(keyword: String) async -> [Challenge]
-    func fetchSearchChallengesBy(categoryID: String) async -> [Challenge]
-    func fetchLatestChallenges() async -> [Challenge]
-    func fetchChallenges(by userID: String) async -> [Challenge]
+    func fetchRecommendChallenges(completion: (([Challenge]) -> Void)?)
+    func fetchSearchChallengesBy(keyword: String,
+                                 completion: (([Challenge]) -> Void)?)
+    func fetchSearchChallengesBy(categoryID: String,
+                                 completion: (([Challenge]) -> Void)?)
+    func fetchLatestChallenges(completion: (([Challenge]) -> Void)?)
+    func fetchChallenges(by userID: String,
+                         completion: (([Challenge]) -> Void)?)
     func fetchEdittingChallenge(challengeID: String,
                                 completion: @escaping (Challenge) -> Void)
     func fetchChallenge(challengeID: String,
@@ -33,30 +36,39 @@ protocol ChallengeRepository {
 }
 
 extension RoutinusRepository: ChallengeRepository {
-    func fetchRecommendChallenges() async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.recommendChallenges() else { return [] }
-        return list.map { Challenge(challengeDTO: $0) }
+    func fetchRecommendChallenges(completion: (([Challenge]) -> Void)?) {
+        RoutinusDatabase.recommendChallenges() { list in
+            completion?(list.map { Challenge(challengeDTO: $0) })
+        }
     }
 
-    func fetchSearchChallengesBy(keyword: String) async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.latestChallenges() else { return [] }
-        return list.map { Challenge(challengeDTO: $0) }
+    func fetchSearchChallengesBy(keyword: String,
+                                 completion: (([Challenge]) -> Void)?) {
+        RoutinusDatabase.latestChallenges() { list in
+            let challenges = list.map { Challenge(challengeDTO: $0) }
                 .filter { $0.title.contains(keyword) }
+            completion?(challenges)
+        }
     }
 
-    func fetchSearchChallengesBy(categoryID: String) async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.searchChallenges(categoryID: categoryID) else { return [] }
-        return list.map { Challenge(challengeDTO: $0) }
+    func fetchSearchChallengesBy(categoryID: String,
+                                 completion: (([Challenge]) -> Void)?) {
+        RoutinusDatabase.searchChallenges(categoryID: categoryID) { list in
+            completion?(list.map { Challenge(challengeDTO: $0) })
+        }
     }
 
-    func fetchLatestChallenges() async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.newChallenges() else { return [] }
-        return list.map { Challenge(challengeDTO: $0) }
+    func fetchLatestChallenges(completion: (([Challenge]) -> Void)?) {
+        RoutinusDatabase.newChallenges() { list in
+            completion?(list.map { Challenge(challengeDTO: $0) })
+        }
     }
 
-    func fetchChallenges(by userID: String) async -> [Challenge] {
-        guard let list = try? await RoutinusDatabase.searchChallenges(ownerID: userID) else { return [] }
-        return list.map { Challenge(challengeDTO: $0) }
+    func fetchChallenges(by userID: String,
+                         completion: (([Challenge]) -> Void)?) {
+        RoutinusDatabase.searchChallenges(ownerID: userID) { list in
+            completion?(list.map { Challenge(challengeDTO: $0) })
+        }
     }
 
     func fetchEdittingChallenge(challengeID: String,
@@ -82,7 +94,6 @@ extension RoutinusRepository: ChallengeRepository {
               authExampleThumbnailImageURL: String) {
         guard let startDate = challenge.startDate?.toDateString(),
               let endDate = challenge.endDate?.toDateString() else { return }
-
         let challengeDTO = ChallengeDTO(id: challenge.challengeID,
                                         title: challenge.title,
                                         authMethod: challenge.authMethod,
@@ -120,6 +131,7 @@ extension RoutinusRepository: ChallengeRepository {
                                         endDate: endDate,
                                         participantCount: challenge.participantCount,
                                         ownerID: challenge.ownerID)
+
         RoutinusDatabase.patchChallenge(challengeDTO: challengeDTO,
                                         imageURL: imageURL,
                                         thumbnailImageURL: thumbnailImageURL,

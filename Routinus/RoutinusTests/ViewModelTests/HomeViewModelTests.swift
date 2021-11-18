@@ -35,11 +35,11 @@ class HomeViewModelTests: XCTestCase {
     }
 
     func testFetchRoutineData() {
-        let chllangeID = homeViewModel.todayRoutine.value.first!.challengeID
-        let category = homeViewModel.todayRoutine.value.first!.category
-        let title = homeViewModel.todayRoutine.value.first!.title
-        let authCount = homeViewModel.todayRoutine.value.first!.authCount
-        let totalCount = homeViewModel.todayRoutine.value.first!.totalCount
+        let chllangeID = homeViewModel.todayRoutines.value.first!.challengeID
+        let category = homeViewModel.todayRoutines.value.first!.category
+        let title = homeViewModel.todayRoutines.value.first!.title
+        let authCount = homeViewModel.todayRoutines.value.first!.authCount
+        let totalCount = homeViewModel.todayRoutines.value.first!.totalCount
         XCTAssertEqual(chllangeID, "mockChallengeID")
         XCTAssertEqual(category, .exercise)
         XCTAssertEqual(title, "30분 운동하기")

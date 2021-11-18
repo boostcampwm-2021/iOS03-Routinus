@@ -18,7 +18,7 @@ protocol HomeViewModelInput {
 
 protocol HomeViewModelOutput {
     var user: CurrentValueSubject<User, Never> { get }
-    var todayRoutine: CurrentValueSubject<[TodayRoutine], Never> { get }
+    var todayRoutines: CurrentValueSubject<[TodayRoutine], Never> { get }
     var achievements: [Achievement] { get }
     var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
     var todayRoutineTap: PassthroughSubject<String, Never> { get }
@@ -34,8 +34,8 @@ protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 
 final class HomeViewModel: HomeViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
-    var todayRoutine = CurrentValueSubject<[TodayRoutine], Never>([])
-    var achievements = [Achievement]([])
+    var todayRoutines = CurrentValueSubject<[TodayRoutine], Never>([])
+    var achievements = [Achievement]()
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var todayRoutineTap = PassthroughSubject<String, Never>()
@@ -73,7 +73,7 @@ final class HomeViewModel: HomeViewModelIO {
 
 extension HomeViewModel {
     func didTappedTodayRoutine(index: Int) {
-        let challengeID = self.todayRoutine.value[index].challengeID
+        let challengeID = self.todayRoutines.value[index].challengeID
         self.todayRoutineTap.send(challengeID)
     }
 
@@ -82,7 +82,7 @@ extension HomeViewModel {
     }
 
     func didTappedTodayRoutineAuth(index: Int) {
-        let challengeID = self.todayRoutine.value[index].challengeID
+        let challengeID = self.todayRoutines.value[index].challengeID
         self.todayRoutineAuthTap.send(challengeID)
     }
 }
@@ -106,7 +106,7 @@ extension HomeViewModel {
 
     private func fetchTodayRoutine() {
         todayRoutineFetchUsecase.fetchTodayRoutines { [weak self] todayRoutine in
-            self?.todayRoutine.value = todayRoutine
+            self?.todayRoutines.value = todayRoutine
         }
     }
 

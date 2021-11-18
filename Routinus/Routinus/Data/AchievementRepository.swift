@@ -11,13 +11,16 @@ import RoutinusDatabase
 
 protocol AchievementRepository {
     func fetchAcheivements(by id: String,
-                           in yearMonth: String) async -> [Achievement]
+                           in yearMonth: String,
+                           completion: (([Achievement]) -> Void)?)
 }
 
 extension RoutinusRepository: AchievementRepository {
     func fetchAcheivements(by id: String,
-                           in yearMonth: String) async -> [Achievement] {
-        guard let list = try? await RoutinusDatabase.achievement(of: id, in: yearMonth) else { return [] }
-        return list.map { Achievement(achievementDTO: $0) }
+                           in yearMonth: String,
+                           completion: (([Achievement]) -> Void)?) {
+        RoutinusDatabase.achievements(of: id, in: yearMonth) { list in
+            completion?(list.map { Achievement(achievementDTO: $0) })
+        }
     }
 }

@@ -29,54 +29,48 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     }
 
     func fetchRecommendChallenges(completion: @escaping ([Challenge]) -> Void) {
-        Task {
-            let recommendChallenges = await repository.fetchRecommendChallenges()
-            completion(recommendChallenges)
+        repository.fetchRecommendChallenges() { challenges in
+            completion(challenges)
         }
     }
 
     func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void) {
-        Task {
-            let list = await repository.fetchLatestChallenges()
-            let challenges = list
-                .sorted { $0.participantCount > $1.participantCount }
+        repository.fetchLatestChallenges() { list in
+            let challenges = list.sorted { $0.participantCount > $1.participantCount }
             completion(challenges)
         }
     }
 
-    func fetchSearchChallenges(keyword: String, completion: @escaping ([Challenge]) -> Void) {
-        Task {
-            let list = await repository.fetchSearchChallengesBy(keyword: keyword)
+    func fetchSearchChallenges(keyword: String,
+                               completion: @escaping ([Challenge]) -> Void) {
+        repository.fetchSearchChallengesBy(keyword: keyword) { list in
             let keywords = keyword.components(separatedBy: " ")
             var results: Set<Challenge> = []
 
-            let challenges = list
             keywords.forEach { keyword in
                 list.filter { challenge in
                     challenge.title.contains(keyword)
-                }.forEach { results.insert($0) }
+                }.forEach {
+                    results.insert($0)
+                }
             }
-            completion(challenges)
+            completion(Array(results))
         }
     }
 
-    func fetchSearchChallenges(category: Challenge.Category, completion: @escaping ([Challenge]) -> Void) {
-        Task {
-            let categoryID = category.id
-            let list =  await repository.fetchSearchChallengesBy(categoryID: categoryID)
-            let challenges = list
-                .filter { $0.category == category }
+    func fetchSearchChallenges(category: Challenge.Category,
+                               completion: @escaping ([Challenge]) -> Void) {
+        let categoryID = category.id
+        repository.fetchSearchChallengesBy(categoryID: categoryID) { list in
+            let challenges = list.filter { $0.category == category }
             completion(challenges)
         }
     }
 
     func fetchCreationChallengesByMe(completion: @escaping ([Challenge]) -> Void) {
-        Task {
-            guard let id = RoutinusRepository.userID() else { return }
-
-            let list = await repository.fetchChallenges(by: id)
-            let challengeList = list
-            completion(challengeList)
+        guard let id = RoutinusRepository.userID() else { return }
+        repository.fetchChallenges(by: id) { list in
+            completion(list)
         }
     }
 

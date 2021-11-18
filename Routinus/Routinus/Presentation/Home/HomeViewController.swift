@@ -115,7 +115,7 @@ extension HomeViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.todayRoutine
+        self.viewModel?.todayRoutines
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routines in
                 guard let self = self else { return }
@@ -135,7 +135,7 @@ extension HomeViewController {
     private func configureDelegates() {
         todayRoutineView.delegate = self
         todayRoutineView.dataSource = self
-        todayRoutineView.challengeAdddelegate = self
+        todayRoutineView.challengeAddDelegate = self
 
         calendarView.delegate = self
         calendarView.dataSource = self
@@ -154,7 +154,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel?.todayRoutine.value.count ?? 0
+        return self.viewModel?.todayRoutines.value.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -184,7 +184,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
-        guard let challengeID = viewModel?.todayRoutine.value[indexPath.row].challengeID else { return }
+        guard let challengeID = viewModel?.todayRoutines.value[indexPath.row].challengeID else { return }
         self.viewModel?.didTappedTodayRoutine(index: indexPath.row)
     }
 }
