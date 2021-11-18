@@ -102,8 +102,6 @@ extension AuthMethodView {
     }
 
     func updateImage(to data: Data) {
-        DispatchQueue.main.async {
-            self.methodImageView.image = UIImage(data: data)
-        }
+        self.methodImageView.image = UIImage(data: data)
     }
 }

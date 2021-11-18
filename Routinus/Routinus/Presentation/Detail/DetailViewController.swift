@@ -19,6 +19,15 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
 
+    private lazy var editBarButtonItem: UIBarButtonItem = {
+        var barButtonItem = UIBarButtonItem()
+        barButtonItem.image = UIImage(systemName: "pencil")
+        barButtonItem.tintColor = .black
+        barButtonItem.target = self
+        barButtonItem.action = #selector(didTappedEditBarButton(_:))
+        return barButtonItem
+    }()
+
     private lazy var mainImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.backgroundColor = .brown
@@ -30,15 +39,6 @@ final class DetailViewController: UIViewController {
         var view = UIView()
         view.backgroundColor = .white
         return view
-    }()
-
-    private lazy var editBarButtonItem: UIBarButtonItem = {
-        var barButtonItem = UIBarButtonItem()
-        barButtonItem.image = UIImage(systemName: "pencil")
-        barButtonItem.tintColor = .black
-        barButtonItem.target = self
-        barButtonItem.action = #selector(didTappedEditBarButton(_:))
-        return barButtonItem
     }()
 
     private lazy var informationView = InformationView()
@@ -116,7 +116,9 @@ final class DetailViewController: UIViewController {
             .sink(receiveValue: { [weak self] challenge in
                 guard let self = self else { return }
                 self.navigationItem.title = challenge.title
-                self.viewModel?.imageData(from: challenge.challengeID, filename: "image", completion: { data in
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                          filename: "image",
+                                          completion: { data in
                     guard let data = data else { return }
                     guard let image = UIImage(data: data) else { return }
                     DispatchQueue.main.async {
@@ -125,9 +127,13 @@ final class DetailViewController: UIViewController {
                 })
                 self.informationView.updateViews(challenge: challenge)
                 self.authMethodView.updateLabel(to: challenge.authMethod)
-                self.viewModel?.imageData(from: challenge.challengeID, filename: "thumbnail_auth", completion: { data in
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                          filename: "thumbnail_auth",
+                                          completion: { data in
                     guard let data = data else { return }
-                    self.authMethodView.updateImage(to: data)
+                    DispatchQueue.main.async {
+                        self.authMethodView.updateImage(to: data)
+                    }
                 })
             })
             .store(in: &cancellables)
