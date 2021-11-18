@@ -32,7 +32,7 @@ protocol ChallengeRepository {
                 imageURL: String,
                 thumbnailImageURL: String,
                 authExampleImageURL: String,
-                authExampleThumbnailImageURL: String) async
+                authExampleThumbnailImageURL: String)
 }
 
 extension RoutinusRepository: ChallengeRepository {
@@ -124,7 +124,7 @@ extension RoutinusRepository: ChallengeRepository {
                 imageURL: String,
                 thumbnailImageURL: String,
                 authExampleImageURL: String,
-                authExampleThumbnailImageURL: String) async {
+                authExampleThumbnailImageURL: String) {
         guard let startDate = challenge.startDate?.toDateString(),
               let endDate = challenge.endDate?.toDateString() else { return }
         let challengeDTO = ChallengeDTO(id: challenge.challengeID,
