@@ -23,11 +23,13 @@ final class AuthCoordinator: RoutinusCoordinator {
         let imageFetchUsecase = ImageFetchUsecase(repository: repository)
         let imageSaveUsecase = ImageSaveUsecase(repository: repository)
         let challengeAuthCreateUsecase = ChallengeAuthCreateUsecase(repository: repository)
+        let participationUpdateUsecase = ParticipationUpdateUsecase(repository: repository)
         let authViewModel = AuthViewModel(challengeID: challengeID,
                                           challengeFetchUsecase: challengeFetchUsecase,
                                           imageFetchUsecase: imageFetchUsecase,
                                           imageSaveUsecase: imageSaveUsecase,
-                                          challengeAuthCreateUsecase: challengeAuthCreateUsecase)
+                                          challengeAuthCreateUsecase: challengeAuthCreateUsecase,
+                                          participationUpdateUsecase: participationUpdateUsecase)
         let authViewController = AuthViewController(viewModel: authViewModel)
         authViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(authViewController, animated: true)
