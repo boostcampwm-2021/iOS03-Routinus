@@ -32,7 +32,6 @@ final class AuthMethodView: UIView {
 
     private lazy var methodLabel: UILabel = {
         var label = UILabel()
-        label.text = "1만보 이상 걸음 수가 기록된 앱 화면 또는 스마트 워치 사진 올리기"
         label.numberOfLines = 0
         label.textColor = .darkGray
         label.font = UIFont.boldSystemFont(ofSize: 15)
