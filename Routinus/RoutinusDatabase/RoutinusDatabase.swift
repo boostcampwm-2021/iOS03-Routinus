@@ -233,6 +233,7 @@ public enum RoutinusDatabase {
             }
 
             group.notify(queue: fetchQueue) {
+                todayRoutines.sort { $0.challengeID > $1.challengeID }
                 completion?(todayRoutines)
                 todayAchievement(of: id,
                                  totalCount: todayRoutines.count,
