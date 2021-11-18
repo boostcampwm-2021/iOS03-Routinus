@@ -48,6 +48,7 @@ final class HomeViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.viewModel?.fetchMyHomeData()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
