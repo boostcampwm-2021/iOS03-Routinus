@@ -472,7 +472,7 @@ public enum RoutinusDatabase {
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
             let dto = try? JSONDecoder().decode([ChallengeAuthDTO].self, from: data).first 
-            completion(dto ?? nil)
+            completion(dto)
         }.resume()
     }
 }
