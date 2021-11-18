@@ -41,14 +41,14 @@ internal enum RoutinusQuery {
         """.data(using: .utf8)
     }
 
-    internal static func insertChallengeParticipationQuery(document: ChallengeField) -> Data? {
+    internal static func insertChallengeParticipationQuery(document: ParticipationField) -> Data? {
         return """
         {
             "fields": {
                 "auth_count": { "integerValue": "0" },
-                "challenge_id": { "stringValue": "\(document.id.stringValue)" },
-                "join_date": { "stringValue": "\(document.startDate.stringValue)" },
-                "user_id": { "stringValue": "\(document.ownerID.stringValue)" }
+                "challenge_id": { "stringValue": "\(document.challengeID.stringValue)" },
+                "join_date": { "stringValue": "\(document.joinDate.stringValue)" },
+                "user_id": { "stringValue": "\(document.userID.stringValue)" }
             }
         }
         """.data(using: .utf8)
@@ -314,4 +314,36 @@ internal enum RoutinusQuery {
         }
         """.data(using: .utf8)
     }
+
+    internal static func challengeParticipation(userID: String, challengeID: String) -> Data? {
+        return """
+        {
+            "structuredQuery": {
+                "from": { "collectionId": "challenge_participation" },
+                "where": {
+                    "compositeFilter": {
+                        "filters": [
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "user_id" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(userID)" }
+                                }
+                            },
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "challenge_id" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(challengeID)" }
+                                },
+                            }
+                        ],
+                        "op": "AND"
+                    }
+                }
+            }
+        }
+        """.data(using: .utf8)
+    }
+
 }

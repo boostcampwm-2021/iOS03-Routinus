@@ -13,6 +13,14 @@ public struct ParticipationDTO: Codable {
     init() {
         self.document = nil
     }
+
+    public init(authCount: Int, challengeID: String, joinDate: String, userID: String) {
+        let field = ParticipationField(authCount: ParticipationField.AuthCount(integerValue: String(authCount)),
+                                       challengeID: ParticipationField.ChallengeID(stringValue: challengeID),
+                                       joinDate: ParticipationField.JoinDate(stringValue: joinDate),
+                                       userID: ParticipationField.UserID(stringValue: userID))
+        self.document = ParticipationFields(fields: field)
+    }
 }
 
 public struct ParticipationFields: Codable {

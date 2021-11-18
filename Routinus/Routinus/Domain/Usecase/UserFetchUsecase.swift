@@ -9,6 +9,7 @@ import Foundation
 
 protocol UserFetchableUsecase {
     func fetchUser(completion: @escaping (User) -> Void)
+    func fetchUserID() -> String?
 }
 
 struct UserFetchUsecase: UserFetchableUsecase {
@@ -26,5 +27,9 @@ struct UserFetchUsecase: UserFetchableUsecase {
         repository.fetchUser(by: id) { user in
             completion(user)
         }
+    }
+
+    func fetchUserID() -> String? {
+        return RoutinusRepository.userID()
     }
 }

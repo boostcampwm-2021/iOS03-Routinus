@@ -18,6 +18,8 @@ final class AuthMethodView: UIView {
     private lazy var methodImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .brown
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
@@ -30,7 +32,6 @@ final class AuthMethodView: UIView {
 
     private lazy var methodLabel: UILabel = {
         var label = UILabel()
-        label.text = "1만보 이상 걸음 수가 기록된 앱 화면 또는 스마트 워치 사진 올리기"
         label.numberOfLines = 0
         label.textColor = .darkGray
         label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -93,5 +94,13 @@ extension AuthMethodView {
         self.methodLabel.trailingAnchor.constraint(equalTo: self.methodView.trailingAnchor, constant: -10).isActive = true
         self.methodLabel.topAnchor.constraint(equalTo: self.methodView.topAnchor, constant: 10).isActive = true
         self.methodLabel.bottomAnchor.constraint(equalTo: self.methodView.bottomAnchor, constant: -10).isActive = true
+    }
+
+    func update(to text: String) {
+        methodLabel.text = text
+    }
+
+    func update(to data: Data) {
+        self.methodImageView.image = UIImage(data: data)
     }
 }

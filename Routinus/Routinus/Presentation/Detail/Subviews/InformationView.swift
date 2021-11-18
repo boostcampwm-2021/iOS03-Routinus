@@ -22,20 +22,18 @@ final class InformationView: UIView {
         var stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 10
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         return stackView
     }()
 
     private lazy var categoryImageView: UIImageView = {
         var imageView = UIImageView()
-        imageView.image = UIImage(named: Challenge.Category.exercise.symbol)
         imageView.tintColor = .black
         return imageView
     }()
 
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
-        label.text = "1만보 걷기"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
@@ -64,7 +62,6 @@ final class InformationView: UIView {
 
     private lazy var weekLabel: UILabel = {
         var label = UILabel()
-        label.text = "4주"
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = .darkGray
         return label
@@ -87,7 +84,6 @@ final class InformationView: UIView {
 
     private lazy var endDateLabel: UILabel = {
         var label = UILabel()
-        label.text = "2021년 11월 7일 일요일"
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textAlignment = .right
         label.textColor = .darkGray
@@ -111,7 +107,6 @@ final class InformationView: UIView {
 
     private lazy var introductionLabel: UILabel = {
         var label = UILabel()
-        label.text = "꾸준히 할 수 있는 운동을 찾으시거나 다이어트 중인데 헬스장은 가기 싫으신분들 함께 1만보씩 걸어요~"
         label.numberOfLines = 0
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .darkGray
@@ -200,5 +195,15 @@ extension InformationView {
         introductionLabel.topAnchor.constraint(equalTo: introductionView.topAnchor, constant: 10).isActive = true
         introductionLabel.bottomAnchor.constraint(equalTo: introductionView.bottomAnchor, constant: -10).isActive = true
 
+    }
+
+    func update(to challenge: Challenge) {
+        guard let endDate = challenge.endDate?.toDateWithWeekdayString() else { return }
+        let image = challenge.category == .exercise || challenge.category == .lifeStyle ? UIImage(named: challenge.category.symbol) : UIImage(systemName: challenge.category.symbol)
+        categoryImageView.image = image
+        titleLabel.text = challenge.title
+        weekLabel.text = "\(challenge.week)주"
+        endDateLabel.text = endDate
+        introductionLabel.text = challenge.introduction
     }
 }

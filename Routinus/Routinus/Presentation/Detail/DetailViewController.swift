@@ -5,6 +5,7 @@
 //  Created by 박상우 on 2021/11/02.
 //
 
+import Combine
 import UIKit
 
 final class DetailViewController: UIViewController {
@@ -16,6 +17,15 @@ final class DetailViewController: UIViewController {
         stackView.spacing = 3
         stackView.backgroundColor = .systemGray5
         return stackView
+    }()
+
+    private lazy var editBarButtonItem: UIBarButtonItem = {
+        var barButtonItem = UIBarButtonItem()
+        barButtonItem.image = UIImage(systemName: "pencil")
+        barButtonItem.tintColor = .black
+        barButtonItem.target = self
+        barButtonItem.action = #selector(didTappedEditBarButton(_:))
+        return barButtonItem
     }()
 
     private lazy var mainImageView: UIImageView = {
@@ -35,12 +45,26 @@ final class DetailViewController: UIViewController {
     private lazy var authMethodView = AuthMethodView()
     private lazy var participantButton = ParticipantButton()
 
+    private var viewModel: DetailViewModelIO?
+    private var cancellables = Set<AnyCancellable>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViews()
+        self.configureViewModel()
+        self.configureDelegate()
     }
 
-    func configureViews() {
+    init(with viewModel: DetailViewModelIO) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    private func configureViews() {
         self.view.backgroundColor = .white
         self.configureNavigationBar()
 
@@ -79,17 +103,71 @@ final class DetailViewController: UIViewController {
         self.mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor, multiplier: 1).isActive = true
 
         stackView.addArrangedSubview(informationView)
-
         stackView.addArrangedSubview(authMethodView)
     }
 
     private func configureNavigationBar() {
         self.navigationItem.largeTitleDisplayMode = .never
-        // TODO: 챌린지 연동
-        // TODO: 작성자인 경우에만 rightBarButtonItem 보이기
-        self.navigationItem.title = "1만보 걷기"
-        let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: nil)
-        rightBarButtonItem.tintColor = .black
-        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+    }
+
+    private func configureViewModel() {
+        self.viewModel?.challenge
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challenge in
+                guard let self = self else { return }
+                self.navigationItem.title = challenge.title
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                          filename: "image",
+                                          completion: { data in
+                    guard let data = data else { return }
+                    guard let image = UIImage(data: data) else { return }
+                    DispatchQueue.main.async {
+                        self.mainImageView.image = image
+                    }
+                })
+                self.informationView.update(to: challenge)
+                self.authMethodView.update(to: challenge.authMethod)
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                          filename: "thumbnail_auth",
+                                          completion: { data in
+                    guard let data = data else { return }
+                    DispatchQueue.main.async {
+                        self.authMethodView.update(to: data)
+                    }
+                })
+            })
+            .store(in: &cancellables)
+
+        self.viewModel?.ownerState
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] ownerState in
+                guard let self = self else { return }
+                let rightBarButtonItem = ownerState ? self.editBarButtonItem : nil
+                self.navigationItem.rightBarButtonItem = rightBarButtonItem
+            })
+            .store(in: &cancellables)
+
+        self.viewModel?.participationAuthState
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] participationState in
+                guard let self = self else { return }
+                self.participantButton.update(to: participationState)
+            })
+            .store(in: &cancellables)
+    }
+
+    private func configureDelegate() {
+        participantButton.delegate = self
+    }
+
+    @objc private func didTappedEditBarButton(_ sender: UIBarButtonItem) {
+        viewModel?.didTappedEditBarButton()
     }
 }
+
+extension DetailViewController: ParticipantButtonDelegate {
+    func didTappedParticipantButton() {
+        viewModel?.didTappedParticipationButton()
+    }
+}
+
