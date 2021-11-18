@@ -52,7 +52,7 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         self.configureViews()
         self.configureViewModel()
-        participantButton.delegate = self
+        self.configureDelegate()
     }
 
     init(with viewModel: DetailViewModelIO) {
@@ -125,14 +125,14 @@ final class DetailViewController: UIViewController {
                         self.mainImageView.image = image
                     }
                 })
-                self.informationView.updateViews(challenge: challenge)
-                self.authMethodView.updateLabel(to: challenge.authMethod)
+                self.informationView.update(to: challenge)
+                self.authMethodView.update(to: challenge.authMethod)
                 self.viewModel?.imageData(from: challenge.challengeID,
                                           filename: "thumbnail_auth",
                                           completion: { data in
                     guard let data = data else { return }
                     DispatchQueue.main.async {
-                        self.authMethodView.updateImage(to: data)
+                        self.authMethodView.update(to: data)
                     }
                 })
             })
@@ -151,9 +151,13 @@ final class DetailViewController: UIViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] participationState in
                 guard let self = self else { return }
-                self.participantButton.updateButtonTitle(state: participationState)
+                self.participantButton.update(to: participationState)
             })
             .store(in: &cancellables)
+    }
+
+    private func configureDelegate() {
+        participantButton.delegate = self
     }
 
     @objc private func didTappedEditBarButton(_ sender: UIBarButtonItem) {

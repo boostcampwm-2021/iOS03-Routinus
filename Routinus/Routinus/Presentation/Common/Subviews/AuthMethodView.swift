@@ -97,11 +97,11 @@ extension AuthMethodView {
         self.methodLabel.bottomAnchor.constraint(equalTo: self.methodView.bottomAnchor, constant: -10).isActive = true
     }
 
-    func updateLabel(to text: String) {
+    func update(to text: String) {
         methodLabel.text = text
     }
 
-    func updateImage(to data: Data) {
+    func update(to data: Data) {
         self.methodImageView.image = UIImage(data: data)
     }
 }

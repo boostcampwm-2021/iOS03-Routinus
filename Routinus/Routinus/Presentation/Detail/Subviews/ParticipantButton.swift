@@ -32,7 +32,7 @@ final class ParticipantButton: UIButton {
         delegate?.didTappedParticipantButton()
     }
 
-    func updateButtonTitle(state: ParticipationAuthState) {
+    func update(to state: ParticipationAuthState) {
         self.setTitle(state.rawValue, for: .normal)
     }
 }
