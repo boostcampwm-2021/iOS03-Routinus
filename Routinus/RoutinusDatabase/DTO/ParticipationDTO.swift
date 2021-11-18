@@ -21,9 +21,14 @@ public struct ParticipationDTO: Codable {
                                        userID: ParticipationField.UserID(stringValue: userID))
         self.document = ParticipationFields(fields: field)
     }
+
+    var documentID: String? {
+        return self.document?.name?.components(separatedBy: "/").last
+    }
 }
 
 public struct ParticipationFields: Codable {
+    public var name: String?
     public let fields: ParticipationField
 }
 
