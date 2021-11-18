@@ -53,7 +53,7 @@ extension CreateCategoryView {
         var actions = [UIAction]()
         for category in Challenge.Category.allCases {
             let image = UIImage(systemName: category.symbol) == nil ? UIImage(named: category.symbol) : UIImage(systemName: category.symbol)
-            let action = UIAction(title: category.title, image: image) { [weak self] action in
+            let action = UIAction(title: category.title, image: image) { [weak self] _ in
                 guard let self = self else { return }
                 self.delegate?.didChange(category: category)
                 self.button.configuration?.title = category.title

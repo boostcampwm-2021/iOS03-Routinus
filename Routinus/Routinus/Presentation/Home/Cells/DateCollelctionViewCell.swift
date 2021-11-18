@@ -1,5 +1,5 @@
 //
-//  DateCell.swift
+//  DateCollectionViewCell.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/02.
@@ -8,7 +8,7 @@
 import UIKit
 
 final class DateCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "DateCell"
+    static let reuseIdentifier = "DateCollectionViewCell"
 
     private lazy var selectionBackgroundView: UIView = {
         let view = UIView()
@@ -72,8 +72,8 @@ final class DateCollectionViewCell: UICollectionViewCell {
         selectionBackgroundView.anchor(centerX: selectionBackgroundView.superview?.centerXAnchor,
                                        centerY: selectionBackgroundView.superview?.centerYAnchor,
                                        width: size)
-        let constraint = selectionBackgroundView.heightAnchor.constraint(equalToConstant:
-                                                                            selectionBackgroundView.frame.width)
+        let constraint = selectionBackgroundView.heightAnchor
+            .constraint(equalToConstant: selectionBackgroundView.frame.width)
         constraint.priority = UILayoutPriority(900)
         constraint.isActive = true
 

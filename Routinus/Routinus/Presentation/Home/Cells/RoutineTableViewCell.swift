@@ -1,5 +1,5 @@
 //
-//  RoutineCell.swift
+//  RoutineTableViewCell.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/02.
@@ -8,7 +8,7 @@
 import UIKit
 
 final class RoutineTableViewCell: UITableViewCell {
-    static let identifier: String = "RoutineCell"
+    static let identifier: String = "RoutineTableViewCell"
 
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView()

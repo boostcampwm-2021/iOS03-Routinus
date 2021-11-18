@@ -89,10 +89,12 @@ public enum RoutinusDatabase {
             let id = challengeAuth.document?.fields.challengeID.stringValue ?? ""
             uploadImage(id: id,
                         filename: "userAuth",
-                        imageURL: userAuthImageURL)
+                        imageURL: userAuthImageURL,
+                        completion: nil)
             uploadImage(id: id,
                         filename: "thumbnail_userAuth",
-                        imageURL: userAuthThumbnailImageURL)
+                        imageURL: userAuthThumbnailImageURL,
+                        completion: nil)
         }
 
         group.notify(queue: uploadQueue) {

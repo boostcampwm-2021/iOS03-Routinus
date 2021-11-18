@@ -164,7 +164,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTableViewCell.identifier, for: indexPath)
                 as? RoutineTableViewCell,
-              let routines = self.viewModel?.todayRoutine.value else { return UITableViewCell() }
+              let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
 
         cell.configureCell(routine: routines[indexPath.row])
         cell.selectionStyle = .none
