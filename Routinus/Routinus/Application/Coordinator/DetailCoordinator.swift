@@ -37,6 +37,7 @@ final class DetailCoordinator: RoutinusCoordinator {
                                               userFetchUsecase: userFetchUsecase,
                                               challengeAuthFetchUsecase: challengeAuthFetchUsecase)
         let detailViewController = DetailViewController(with: detailViewModel)
+        detailViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(detailViewController, animated: true)
 
         detailViewModel.editBarButtonTap
