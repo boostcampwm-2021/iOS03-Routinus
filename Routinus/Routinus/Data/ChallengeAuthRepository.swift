@@ -31,7 +31,7 @@ extension RoutinusRepository: ChallengeAuthRepository {
                                                 userID: challengeAuth.userID,
                                                 date: date,
                                                 time: time)
-        
+
         RoutinusDatabase.createChallengeAuth(challengeAuth: challengeAuthDTO,
                                              userAuthImageURL: userAuthImageURL,
                                              userAuthThumbnailImageURL: userAuthThumbnailImageURL) {

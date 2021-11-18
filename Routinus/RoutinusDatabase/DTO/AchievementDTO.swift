@@ -13,9 +13,27 @@ public struct AchievementDTO: Codable {
     init() {
         self.document = nil
     }
+    
+    public init(totalCount: Int,
+                day: String,
+                userID: String,
+                achievementCount: Int,
+                yearMonth: String) {
+        let field = AchievementField(totalCount: AchievementField.TotalCount(integerValue: String(totalCount)),
+                                     day: AchievementField.Day(stringValue: day),
+                                     userID: AchievementField.UserID(stringValue: userID),
+                                     achievementCount: AchievementField.AchievementCount(integerValue: String(achievementCount)),
+                                     yearMonth: AchievementField.YearMonth(stringValue: yearMonth))
+        self.document = AchievementFields(fields: field)
+    }
+
+    var documentID: String? {
+        return self.document?.name?.components(separatedBy: "/").last
+    }
 }
 
 public struct AchievementFields: Codable {
+    public var name: String?
     public let fields: AchievementField
 }
 

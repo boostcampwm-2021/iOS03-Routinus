@@ -111,7 +111,7 @@ extension PreviewView {
     }
 
     private func configureGesture() {
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedPreviewView(_:)))
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedPreviewView))
         self.previewView.isUserInteractionEnabled = true
         self.previewView.addGestureRecognizer(recognizer)
     }

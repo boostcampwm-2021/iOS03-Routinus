@@ -34,6 +34,8 @@ class AuthViewModel: AuthViewModelIO {
     var imageFetchUsecase: ImageFetchableUsecase
     var imageSaveUsecase: ImageSavableUsecase
     var challengeAuthCreateUsecase: ChallengeAuthCreatableUsecase
+    var participationUpdateUsecase: ParticipationUpdatableUsecase
+    var achievementUpdateUsecase: AchievementUpdatableUsecase
 
     private var challengeID: String
     private var userAuthImageURL: String
@@ -43,12 +45,16 @@ class AuthViewModel: AuthViewModelIO {
          challengeFetchUsecase: ChallengeFetchableUsecase,
          imageFetchUsecase: ImageFetchableUsecase,
          imageSaveUsecase: ImageSavableUsecase,
-         challengeAuthCreateUsecase: ChallengeAuthCreatableUsecase) {
+         challengeAuthCreateUsecase: ChallengeAuthCreatableUsecase,
+         participationUpdateUsecase: ParticipationUpdatableUsecase,
+         achievementUpdateUsecase: AchievementUpdatableUsecase) {
         self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
         self.imageSaveUsecase = imageSaveUsecase
         self.challengeAuthCreateUsecase = challengeAuthCreateUsecase
+        self.participationUpdateUsecase = participationUpdateUsecase
+        self.achievementUpdateUsecase = achievementUpdateUsecase
         self.userAuthImageURL = ""
         self.userAuthThumbnailImageURL = ""
         self.fetchChallenge(challengeID: challengeID)
@@ -64,6 +70,8 @@ extension AuthViewModel {
         self.challengeAuthCreateUsecase.createChallengeAuth(challengeID: challengeID,
                                                             userAuthImageURL: userAuthImageURL,
                                                             userAuthThumbnailImageURL: userAuthThumbnailImageURL)
+        self.participationUpdateUsecase.updateParticipationAuthCount(challengeID: challengeID)
+        self.achievementUpdateUsecase.updateAchievementCount()
     }
 
     func update(userAuthImageURL: String?) {

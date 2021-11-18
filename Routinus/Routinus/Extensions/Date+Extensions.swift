@@ -68,6 +68,18 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 
+    func toYearMonthString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMM"
+        return dateFormatter.string(from: self)
+    }
+
+    func toDayString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        return dateFormatter.string(from: self)
+    }
+
     func toTimeString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HHmm"

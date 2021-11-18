@@ -440,4 +440,24 @@ internal enum RoutinusQuery {
         }
         """.data(using: .utf8)
     }
+
+    internal static func updateChallengeParticipation(document: ParticipationField) -> Data? {
+        return """
+        {
+            "fields": {
+                "auth_count": { "integerValue": "\(document.authCount.integerValue)" }
+            }
+        }
+        """.data(using: .utf8)
+    }
+
+    internal static func updateAchievement(document: AchievementField) -> Data? {
+        return """
+        {
+            "fields": {
+                "achievement_count": { "integerValue": "\(document.achievementCount.integerValue)" }
+            }
+        }
+        """.data(using: .utf8)
+    }
 }
