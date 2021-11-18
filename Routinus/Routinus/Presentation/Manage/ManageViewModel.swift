@@ -12,6 +12,9 @@ protocol ManageViewModelInput {
     func didTappedAddButton()
     func didTappedChallenge(index: Int)
     func didLoadedManageView()
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)?)
 }
 
 protocol ManageViewModelOutput {
@@ -29,10 +32,13 @@ class ManageViewModel: ManageViewModelIO {
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var challengeTap = PassthroughSubject<String, Never>()
 
+    let imageFetchUsecase: ImageFetchableUsecase
     let challengeFetchUsecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
-    init(challengeFetchUsecase: ChallengeFetchableUsecase) {
+    init(imageFetchUsecase: ImageFetchableUsecase,
+         challengeFetchUsecase: ChallengeFetchableUsecase) {
+        self.imageFetchUsecase = imageFetchUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
     }
 }
@@ -49,6 +55,15 @@ extension ManageViewModel {
 
     func didLoadedManageView() {
         fetchChallenges()
+    }
+
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)?) {
+        imageFetchUsecase.fetchImageData(from: directory,
+                                         filename: filename) { data in
+            completion?(data)
+        }
     }
 }
 
