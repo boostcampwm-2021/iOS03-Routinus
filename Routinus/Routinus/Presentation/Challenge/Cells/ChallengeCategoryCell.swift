@@ -39,10 +39,8 @@ final class ChallengeCategoryCell: UICollectionViewCell {
 
     func configureViews() {
         self.addSubview(yStackView)
-        yStackView.snp.makeConstraints { make in
-            make.leading.top.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
+        yStackView.anchor(horizontal: yStackView.superview,
+                          top: yStackView.superview?.topAnchor)
 
         self.yStackView.addArrangedSubview(xStackView1)
         self.yStackView.addArrangedSubview(xStackView2)

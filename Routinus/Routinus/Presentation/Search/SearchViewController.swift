@@ -134,10 +134,8 @@ extension SearchViewController {
         self.view.addSubview(collectionView)
         self.configureNavigationBar()
         self.configureKeyboard()
-        self.collectionView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
+        collectionView.anchor(horizontal: collectionView.superview,
+                              vertical: collectionView.superview)
     }
 
     private func configureViewModel() {

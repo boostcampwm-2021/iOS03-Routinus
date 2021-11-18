@@ -8,8 +8,6 @@
 import Combine
 import UIKit
 
-import SnapKit
-
 final class ManageViewController: UIViewController {
     enum Section: CaseIterable {
         case challenge
@@ -57,7 +55,7 @@ final class ManageViewController: UIViewController {
         self.configureViewModel()
         self.configureCollectionView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.didLoadedSearchView()
@@ -68,10 +66,8 @@ extension ManageViewController {
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(collectionView)
-        self.collectionView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
+        collectionView.anchor(horizontal: collectionView.superview,
+                              vertical: collectionView.superview)
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.title = "내가 개설한 챌린지"

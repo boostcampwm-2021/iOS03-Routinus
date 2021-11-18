@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RoutinusSnap
 
 final class RoutineTableViewCell: UITableViewCell {
     static let identifier: String = "RoutineCell"
@@ -80,30 +81,21 @@ extension RoutineTableViewCell {
         self.backgroundColor = .white
 
         self.contentView.addSubview(progressView)
-        self.progressView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(offset)
-            make.trailing.equalToSuperview().offset(-offset)
-            make.height.equalToSuperview().offset(-10)
-            make.centerY.equalToSuperview()
-        }
+        progressView.anchor(horizontal: progressView.superview, paddingHorizontal: offset,
+                            centerY: progressView.superview?.centerYAnchor,
+                            height: contentView.frame.height + 5)
 
         self.contentView.addSubview(categoryImageView)
-        self.categoryImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(30)
-            make.leading.equalToSuperview().offset(offset + 20)
-            make.centerY.equalToSuperview()
-        }
+        categoryImageView.anchor(left: categoryImageView.superview?.leftAnchor, paddingLeft: offset + 20,
+                                 centerY: categoryImageView.superview?.centerYAnchor,
+                                 width: 30, height: 30)
 
         self.contentView.addSubview(categoryNameLabel)
-        self.categoryNameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.categoryImageView.snp.trailing).offset(10)
-            make.centerY.equalToSuperview()
-        }
+        categoryNameLabel.anchor(left: categoryImageView.rightAnchor, paddingLeft: 10,
+                                 centerY: categoryNameLabel.superview?.centerYAnchor)
 
         self.contentView.addSubview(leftArrow)
-        self.leftArrow.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-(20 + offset))
-            make.centerY.equalToSuperview()
-        }
+        leftArrow.anchor(right: leftArrow.superview?.rightAnchor, paddingRight: 20 + offset,
+                         centerY: leftArrow.superview?.centerYAnchor)
     }
 }

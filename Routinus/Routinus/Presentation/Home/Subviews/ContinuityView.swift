@@ -7,8 +7,6 @@
 
 import UIKit
 
-import SnapKit
-
 final class ContinuityView: UIView {
     private lazy var seedImageView: UIImageView = {
         let imageView = UIImageView()
@@ -81,28 +79,20 @@ extension ContinuityView {
 
     private func configureSubviews() {
         addSubview(seedImageView)
-        seedImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(60)
-            make.leading.equalToSuperview().offset(20)
-            make.centerY.equalToSuperview()
-        }
+        seedImageView.anchor(left: seedImageView.superview?.leftAnchor, paddingLeft: 20,
+                             centerY: seedImageView.superview?.centerYAnchor,
+                             width: 60, height: 60)
 
         addSubview(initContinuityLabel)
-        initContinuityLabel.snp.makeConstraints { make in
-            make.leading.equalTo(seedImageView.snp.trailing).offset(20)
-            make.centerY.equalToSuperview()
-        }
+        initContinuityLabel.anchor(left: seedImageView.rightAnchor, paddingLeft: 20,
+                                   centerY: initContinuityLabel.superview?.centerYAnchor)
 
         addSubview(continuityDayLabel)
-        continuityDayLabel.snp.makeConstraints { make in
-            make.leading.equalTo(seedImageView.snp.trailing).offset(20)
-            make.centerY.equalToSuperview()
-        }
+        continuityDayLabel.anchor(left: seedImageView.rightAnchor, paddingLeft: 10,
+                                  centerY: continuityDayLabel.superview?.centerYAnchor)
 
         addSubview(continuityLabel)
-        continuityLabel.snp.makeConstraints { make in
-            make.leading.equalTo(continuityDayLabel.snp.trailing).offset(5)
-            make.lastBaseline.equalTo(continuityDayLabel.snp.lastBaseline).offset(-2)
-        }
+        continuityLabel.anchor(left: continuityDayLabel.rightAnchor, paddingLeft: 5,
+                               bottom: continuityDayLabel.bottomAnchor, paddingBottom: 8)
     }
 }

@@ -7,8 +7,6 @@
 
 import UIKit
 
-import SnapKit
-
 final class SearchHeader: UICollectionReusableView {
     static let identifier = "SearchHeader"
 
@@ -16,10 +14,10 @@ final class SearchHeader: UICollectionReusableView {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        
+
         return label
     }()
-    
+
     var title: String = "" {
         didSet {
             self.label.text = title
@@ -39,9 +37,7 @@ final class SearchHeader: UICollectionReusableView {
     func configureViews() {
         self.addSubview(label)
 
-        self.label.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
+        label.anchor(left: label.superview?.leftAnchor,
+                     centerY: label.superview?.centerYAnchor)
     }
 }

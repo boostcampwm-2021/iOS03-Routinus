@@ -8,8 +8,6 @@
 import Combine
 import UIKit
 
-import SnapKit
-
 final class HomeViewController: UIViewController {
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var contentView: UIView = UIView()
@@ -69,48 +67,36 @@ extension HomeViewController {
         self.configureNavigationBar()
 
         self.view.addSubview(scrollView)
-        self.scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(self.view.safeAreaLayoutGuide)
-        }
+        scrollView.anchor(edges: self.view.safeAreaLayoutGuide)
 
         self.scrollView.addSubview(contentView)
-        self.contentView.snp.makeConstraints { make in
-            make.width.centerX.top.bottom.equalToSuperview()
-        }
+        contentView.anchor(centerX: contentView.superview?.centerXAnchor,
+                           vertical: contentView.superview,
+                           width: UIScreen.main.bounds.width)
 
         self.contentView.addSubview(titleLabel)
-        self.titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().offset(-20)
-            make.top.equalTo(accessibilityActivationPoint).offset(48)
-        }
+        titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: offset,
+                          top: titleLabel.superview?.topAnchor, paddingTop: smallWidth ? 28 : 32,
+                          height: 80)
 
         self.contentView.addSubview(continuityView)
-        self.continuityView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(offset)
-            make.trailing.equalToSuperview().offset(-offset)
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
-            make.height.equalTo(80)
-        }
+        continuityView.anchor(horizontal: continuityView.superview, paddingHorizontal: offset,
+                              top: titleLabel.bottomAnchor, paddingTop: 10,
+                              height: 80)
 
         self.contentView.addSubview(todayRoutineView)
-        self.todayRoutineView.snp.makeConstraints { make in
-            make.height.equalTo(22)
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(self.continuityView.snp.bottom).offset(25)
-        }
+        todayRoutineView.anchor(horizontal: todayRoutineView.superview,
+                                top: self.continuityView.bottomAnchor, paddingTop: 25)
+        let constraint = todayRoutineView.heightAnchor.constraint(equalToConstant: 25)
+        constraint.priority = UILayoutPriority(900)
+        constraint.isActive = true
 
         self.contentView.addSubview(calendarView)
-        self.calendarView.snp.makeConstraints { make in
-            make.top.equalTo(todayRoutineView.snp.bottom).offset(offset)
-            make.width.equalToSuperview().offset(-offset)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(450)
-        }
-
-        self.contentView.snp.makeConstraints { make in
-            make.bottom.equalTo(self.calendarView.snp.bottom)
-        }
+        calendarView.anchor(centerX: calendarView.superview?.centerXAnchor,
+                            top: todayRoutineView.bottomAnchor, paddingTop: offset,
+                            width: UIScreen.main.bounds.width - offset,
+                            height: 450)
+        contentView.anchor(bottom: calendarView.bottomAnchor)
     }
 
     private func configureNavigationBar() {

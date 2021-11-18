@@ -7,8 +7,6 @@
 
 import UIKit
 
-import SnapKit
-
 final class SearchPopularKeywordCell: UICollectionViewCell {
     static let identifier = "SearchPopularKeywordCell"
     weak var delegate: SearchPopularKeywordDelegate?
@@ -28,9 +26,8 @@ final class SearchPopularKeywordCell: UICollectionViewCell {
         self.popularKeywordButton.keyword = keyword
         self.popularKeywordButton.setTitle(keyword, for: .normal)
         self.addSubview(popularKeywordButton)
-        self.popularKeywordButton.snp.makeConstraints { make in
-            make.leading.top.trailing.bottom.equalToSuperview()
-        }
+        popularKeywordButton.anchor(horizontal: popularKeywordButton.superview,
+                                    vertical: popularKeywordButton.superview)
     }
 
     @objc func didTappedPopularKeyword(_ sender: PopularKeywordButton) {
