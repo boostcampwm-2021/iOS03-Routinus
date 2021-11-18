@@ -125,9 +125,9 @@ extension HomeViewController {
                 guard let self = self else { return }
                 var snapshot = Snapshot()
                 snapshot.appendSections([0])
-                debugPrint(routines)
                 snapshot.appendItems(routines)
                 self.dataSource.apply(snapshot)
+                self.todayRoutineView.updateTableViewConstraints(cellCount: routines.count)
             })
             .store(in: &cancellables)
 
