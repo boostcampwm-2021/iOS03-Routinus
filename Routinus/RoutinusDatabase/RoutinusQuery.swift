@@ -148,7 +148,7 @@ internal enum RoutinusQuery {
         }
         """.data(using: .utf8)
     }
-    
+
     internal static func achievementQuery(of id: String, in yearMonth: String, day: String) -> Data? {
         return """
         {

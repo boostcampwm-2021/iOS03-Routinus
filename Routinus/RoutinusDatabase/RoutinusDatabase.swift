@@ -540,14 +540,14 @@ public enum RoutinusDatabase {
     }
 
     public static func updateChallengeParticipationAuthCount(challengeID: String,
-                                                    userID: String,
-                                                    completion: (() -> Void)?) {
-
+                                                             userID: String,
+                                                             completion: (() -> Void)?) {
         challengeParticipation(userID: userID, challengeID: challengeID) { dto in
             guard let dto = dto,
-                  let authCount = Int(dto.document?.fields.authCount.integerValue ?? "0"),
-                  let joinDate = dto.document?.fields.joinDate.stringValue else { return }
-
+                  let document = dto.document,
+                  let authCount = Int(document.fields.authCount.integerValue) else { return }
+            
+            let joinDate = document.fields.joinDate.stringValue
             let participationDTO = ParticipationDTO(authCount: authCount + 1,
                                                     challengeID: challengeID,
                                                     joinDate: joinDate,
@@ -592,11 +592,11 @@ public enum RoutinusDatabase {
                                               yearMonth: String,
                                               day: String,
                                               completion: (() -> Void)?) {
-
         achievement(userID: userID, yearMonth: yearMonth, day: day) { dto in
             guard let dto = dto,
-                  let achievementCount = Int(dto.document?.fields.achievementCount.integerValue ?? "0"),
-                  let totalCount = Int(dto.document?.fields.totalCount.integerValue ?? "0") else { return }
+                  let document = dto.document,
+                  let achievementCount = Int(document.fields.achievementCount.integerValue),
+                  let totalCount = Int(document.fields.totalCount.integerValue) else { return }
 
             let achievementDTO = AchievementDTO(totalCount: totalCount,
                                                 day: day,
