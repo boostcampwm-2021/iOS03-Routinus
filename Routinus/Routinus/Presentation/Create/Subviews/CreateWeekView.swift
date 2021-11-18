@@ -7,8 +7,6 @@
 
 import UIKit
 
-import SnapKit
-
 final class CreateWeekView: UIView {
     typealias Tag = CreateViewController.InputTag
 
@@ -58,14 +56,14 @@ final class CreateWeekView: UIView {
         label.font = .systemFont(ofSize: 14)
         return label
     }()
-    
+
     private lazy var endDateLabel: UILabel = {
         let label = UILabel()
         label.text = "1999.01.01(금)"
         label.font = .boldSystemFont(ofSize: 14)
         return label
     }()
-    
+
     weak var delegate: UITextFieldDelegate? {
         didSet {
             self.weekTextField.delegate = delegate
@@ -85,7 +83,7 @@ final class CreateWeekView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
-    
+
     func hideKeyboard() {
         weekTextField.endEditing(true)
     }
@@ -98,48 +96,37 @@ extension CreateWeekView {
 
     private func configureSubviews() {
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.width.equalToSuperview()
-            make.height.equalTo(24)
-        }
+        titleLabel.anchor(top: titleLabel.superview?.topAnchor,
+                          width: UIScreen.main.bounds.width - 40,
+                          height: 24)
 
         addSubview(descriptionLabel)
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.width.equalToSuperview()
-        }
+        descriptionLabel.anchor(top: titleLabel.bottomAnchor, paddingTop: 10,
+                                width: UIScreen.main.bounds.width - 40)
 
         addSubview(weekTextField)
-        weekTextField.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview()
-            make.width.equalTo(50)
-        }
+        weekTextField.anchor(left: weekTextField.superview?.leftAnchor,
+                             top: descriptionLabel.bottomAnchor, paddingTop: 20,
+                             width: 50)
 
         addSubview(weekLabel)
-        weekLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(weekTextField.snp.centerY)
-            make.left.equalTo(weekTextField.snp.right).offset(10)
-        }
+        weekLabel.anchor(left: weekTextField.rightAnchor, paddingLeft: 10,
+                         centerY: weekTextField.centerYAnchor)
 
         addSubview(endDateView)
-        endDateView.snp.makeConstraints { make in
-            make.top.equalTo(weekTextField.snp.bottom).offset(20)
-            make.width.equalToSuperview()
-            make.height.equalTo(40)
-        }
-        
+        endDateView.anchor(top: weekTextField.bottomAnchor, paddingTop: 20,
+                           width: UIScreen.main.bounds.width - 40,
+                           height: 40)
+
         endDateView.addSubview(endTitleLabel)
-        endTitleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
-            make.centerY.equalToSuperview()
-        }
-        
+        endTitleLabel.anchor(left: endTitleLabel.superview?.leftAnchor, paddingLeft: 10,
+                             centerY: endTitleLabel.superview?.centerYAnchor)
+
         endDateView.addSubview(endDateLabel)
-        endDateLabel.snp.makeConstraints { make in
-            make.left.equalTo(endTitleLabel.snp.right).offset(10)
-            make.centerY.equalToSuperview()
-        }
+        endDateLabel.anchor(left: endTitleLabel.rightAnchor, paddingLeft: 10,
+                            centerY: endDateLabel.superview?.centerYAnchor)
+
+        anchor(bottom: endDateLabel.bottomAnchor)
     }
 
     func updateEndDate(date: Date) {

@@ -10,7 +10,6 @@ import UIKit
 final class CalendarHeader: UIView {
     private lazy var todayButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("오늘", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.isHidden = true
@@ -21,7 +20,6 @@ final class CalendarHeader: UIView {
 
     private lazy var monthLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.text = "Month"
         label.textAlignment = .center
@@ -30,7 +28,6 @@ final class CalendarHeader: UIView {
 
     private lazy var previousMonthButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         button.tintColor = .black
 
@@ -40,7 +37,6 @@ final class CalendarHeader: UIView {
 
     private lazy var nextMonthButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         button.tintColor = .black
 
@@ -50,14 +46,12 @@ final class CalendarHeader: UIView {
 
     private lazy var dayOfWeekStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually
         return stackView
     }()
 
     private lazy var separatorView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.label.withAlphaComponent(0.2)
         return view
     }()
@@ -121,8 +115,6 @@ extension CalendarHeader {
     }
 
     private func configureViews() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-
         self.backgroundColor = .systemGroupedBackground
 
         self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -150,33 +142,26 @@ extension CalendarHeader {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        NSLayoutConstraint.activate([
-            todayButton.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            todayButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+        todayButton.anchor(left: todayButton.superview?.leftAnchor, paddingLeft: 15,
+                           top: todayButton.superview?.topAnchor, paddingTop: 15)
 
-            nextMonthButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            nextMonthButton.centerYAnchor.constraint(equalTo: todayButton.centerYAnchor),
-            nextMonthButton.widthAnchor.constraint(equalToConstant: 36),
-            nextMonthButton.heightAnchor.constraint(equalToConstant: 36),
+        nextMonthButton.anchor(right: nextMonthButton.superview?.rightAnchor, paddingRight: 10,
+                               centerY: todayButton.centerYAnchor,
+                               width: 36, height: 36)
 
-            monthLabel.trailingAnchor.constraint(equalTo: nextMonthButton.leadingAnchor),
-            monthLabel.widthAnchor.constraint(equalToConstant: 100),
-            monthLabel.centerYAnchor.constraint(equalTo: todayButton.centerYAnchor),
+        monthLabel.anchor(right: nextMonthButton.leftAnchor, paddingRight: 10,
+                          centerY: todayButton.centerYAnchor)
 
-            previousMonthButton.trailingAnchor.constraint(equalTo: monthLabel.leadingAnchor),
-            previousMonthButton.centerYAnchor.constraint(equalTo: todayButton.centerYAnchor),
-            previousMonthButton.widthAnchor.constraint(equalToConstant: 36),
-            previousMonthButton.heightAnchor.constraint(equalToConstant: 36),
+        previousMonthButton.anchor(right: monthLabel.leftAnchor, paddingRight: 10,
+                                   centerY: todayButton.centerYAnchor,
+                                   width: 36, height: 36)
 
-            dayOfWeekStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            dayOfWeekStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            dayOfWeekStackView.bottomAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: -5),
+        dayOfWeekStackView.anchor(horizontal: dayOfWeekStackView.superview,
+                                  bottom: separatorView.bottomAnchor, paddingBottom: 5)
 
-            separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            separatorView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            separatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            separatorView.heightAnchor.constraint(equalToConstant: 1)
-        ])
+        separatorView.anchor(horizontal: separatorView.superview,
+                             bottom: separatorView.superview?.bottomAnchor,
+                             height: 1)
     }
 
     @objc func didTappedPreviousMonthButton() {

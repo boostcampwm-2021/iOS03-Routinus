@@ -11,7 +11,6 @@ import UIKit
 final class CalendarView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.text = "요약"
         return label
@@ -24,7 +23,6 @@ final class CalendarView: UIView {
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         layout.collectionView?.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         layout.collectionView?.layer.cornerCurve = .continuous
@@ -93,21 +91,16 @@ final class CalendarView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: self.readableContentGuide.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: self.readableContentGuide.trailingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: self.readableContentGuide.topAnchor, constant: 10),
+        titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: 10,
+                          top: readableContentGuide.topAnchor, paddingTop: 10)
 
-            headerView.leadingAnchor.constraint(equalTo: self.readableContentGuide.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: self.readableContentGuide.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 85),
-            headerView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 20),
+        headerView.anchor(horizontal: headerView.superview,
+                          top: titleLabel.bottomAnchor, paddingTop: 20,
+                          height: 85)
 
-            calendarView.leadingAnchor.constraint(equalTo: self.headerView.leadingAnchor),
-            calendarView.trailingAnchor.constraint(equalTo: self.headerView.trailingAnchor),
-            calendarView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor),
-            calendarView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8)
-        ])
+        calendarView.anchor(horizontal: headerView,
+                            top: headerView.bottomAnchor,
+                            height: self.frame.height * 0.8)
     }
 
     private func configureViewModel() {

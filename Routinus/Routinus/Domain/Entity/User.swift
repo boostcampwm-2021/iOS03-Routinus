@@ -23,7 +23,7 @@ struct User {
         self.userImageCategoryID = ""
         self.grade = 0
     }
-    
+
     init(id: String, name: String, continuityDay: Int, userImageCategoryID: String, grade: Int) {
         self.id = id
         self.name = name
@@ -34,7 +34,7 @@ struct User {
 
     init(userDTO: UserDTO) {
         let document = userDTO.document?.fields
-        
+
         self.id = document?.id.stringValue ?? ""
         self.name = document?.name.stringValue ?? ""
         self.continuityDay = Int(document?.continuityDay.integerValue ?? "") ?? 0

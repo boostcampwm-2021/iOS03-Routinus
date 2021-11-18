@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 final class CategoryButton: UIView {
     private var imageView = UIImageView()
@@ -41,20 +40,16 @@ final class CategoryButton: UIView {
     }
 
     private func configureViews() {
-        self.snp.makeConstraints { make in
-            make.width.height.equalTo(60)
-        }
+        anchor(width: 60, height: 60)
 
         self.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.top.centerX.equalToSuperview()
-            make.width.height.equalTo(35)
-        }
+        imageView.anchor(centerX: imageView.superview?.centerXAnchor,
+                         top: imageView.superview?.topAnchor,
+                         width: 35, height: 35)
 
         self.addSubview(title)
-        title.snp.makeConstraints { make in
-            make.bottom.centerX.equalToSuperview()
-        }
+        title.anchor(centerX: title.superview?.centerXAnchor,
+                     bottom: title.superview?.bottomAnchor)
     }
 }
 

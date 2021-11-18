@@ -8,8 +8,6 @@
 import Combine
 import UIKit
 
-import SnapKit
-
 final class ChallengeViewController: UIViewController {
     enum Section: CaseIterable {
         case recommend, category
@@ -143,9 +141,7 @@ extension ChallengeViewController {
         self.configureNavigationBar()
         self.configureSearchButton()
         self.view.addSubview(collectionView)
-        self.collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        collectionView.anchor(edges: collectionView.superview)
     }
 
     private func configureNavigationBar() {
@@ -160,11 +156,8 @@ extension ChallengeViewController {
     private func configureSearchButton() {
         self.navigationController?.navigationBar.addSubview(searchButton)
         self.searchButton.frame = CGRect(x: self.view.frame.width, y: 0, width: 40, height: 40)
-
-        self.searchButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-16)
-            make.lastBaseline.equalToSuperview().offset(-16)
-        }
+        searchButton.anchor(right: searchButton.superview?.rightAnchor, paddingRight: 16,
+                            bottom: searchButton.superview?.lastBaselineAnchor, paddingBottom: 16)
     }
 
     private func configureViewModel() {
