@@ -157,7 +157,7 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
                                                          data: thumbnailImage.jpegData(compressionQuality: 0.9))
             self.viewModel?.update(userAuthImageURL: mainImageURL)
             self.viewModel?.update(userAuthThumbnailImageURL: thumbnailImageURL)
-            previewView.setImage(thumbnailImage)
+            previewView.setImage(mainImage)
         }
         dismiss(animated: true, completion: nil)
     }
