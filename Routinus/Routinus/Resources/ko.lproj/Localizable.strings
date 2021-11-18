@@ -1,0 +1,45 @@
+/* 
+  Localizable.strings
+  Routinus
+
+  Created by 김민서 on 2021/11/18.
+  
+*/
+
+// titles
+"%@ routine" = "%@님의 Routine";
+"my challenges" = "내가 개설한 챌린지";
+
+// home
+"in a row" = "일 연속 달성!";
+"today routine" = "오늘 루틴";
+"summary" = "요약";
+"mon" = "월";
+"tue" = "화";
+"wed" = "수";
+"thu" = "목";
+"fri" = "금";
+"sat" = "토";
+"sun" = "일";
+
+//challenge
+"challenge category" = "챌린지 카테고리";
+"exercise" = "운동";
+"study" = "공부";
+"read" = "독서";
+"lifeStyle" = "생활 습관";
+"finance" = "돈 관리";
+"hobby" = "취미";
+"emotionManage" = "감정 관리";
+"etc" = "기타";
+
+// search
+"popular keyword" = "인기 검색어";
+"challenge list" = "챌린지 목록";
+
+// myPage
+"Theme setting" = "테마 설정";
+"Alarm setting" = "알람 설정";
+"Email inquiry" = "이메일 문의";
+"Q&A" = "자주 묻는 질문";
+"Open Source Licenses" = "오픈소스 라이선스";

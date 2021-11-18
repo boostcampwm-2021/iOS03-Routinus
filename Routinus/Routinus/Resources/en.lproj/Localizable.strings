@@ -1,0 +1,45 @@
+/* 
+  Localizable.strings
+  Routinus
+
+  Created by 김민서 on 2021/11/18.
+  
+*/
+
+// titles
+"%@ routine" = "%@'s Routine";
+"my challenges" = "My Challenges";
+
+// home
+"in a row" = "days achieved!";
+"today routine" = "Today's Routine";
+"summary" = "Summary";
+"mon" = "M";
+"tue" = "T";
+"wed" = "W";
+"thu" = "T";
+"fri" = "F";
+"sat" = "S";
+"sun" = "S";
+
+// challenge
+"challenge category" = "Challenge Category";
+"exercise" = "Exercise";
+"study" = "Study";
+"read" = "Reading";
+"lifeStyle" = "Life style";
+"finance" = "Finance";
+"hobby" = "Hobby";
+"emotionManage" = "Emotion";
+"etc" = "etc.";
+
+// search
+"popular keyword" = "Popular Keyword";
+"challenge list" = "Challenge List";
+
+// myPage
+"Theme setting" = "Theme setting";
+"Alarm setting" = "Alarm setting";
+"Email inquiry" = "Email inquiry";
+"Q&A" = "Q&A";
+"Open Source Licenses" = "Open Source Licenses";
