@@ -18,13 +18,14 @@ final class AuthViewController: UIViewController {
     }()
     private lazy var authView: UIView = {
         var view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        view.layer.opacity = 0.6
         return view
     }()
     private lazy var authMethodView = AuthMethodView()
     private lazy var previewView = PreviewView()
     private lazy var authButton = AuthButton()
-    
+
     private var viewModel: AuthViewModelIO?
     private var cancellables = Set<AnyCancellable>()
     private var imagePicker = UIImagePickerController()
@@ -57,21 +58,17 @@ extension AuthViewController {
         self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         self.scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         self.scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        
+
         self.view.addSubview(authView)
-        self.authView.translatesAutoresizingMaskIntoConstraints = false
-        self.authView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        self.authView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        self.authView.topAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        self.authView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        self.authView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        authView.anchor(horizontal: authView.superview,
+                        top: scrollView.bottomAnchor,
+                        bottom: view.bottomAnchor,
+                        height: 90)
 
         self.authView.addSubview(authButton)
-        self.authButton.translatesAutoresizingMaskIntoConstraints = false
-        self.authButton.topAnchor.constraint(equalTo: authView.topAnchor, constant: 20).isActive = true
-        self.authButton.bottomAnchor.constraint(equalTo: authView.bottomAnchor, constant: -20).isActive = true
-        self.authButton.leadingAnchor.constraint(equalTo: authView.leadingAnchor, constant: 20).isActive = true
-        self.authButton.trailingAnchor.constraint(equalTo: authView.trailingAnchor, constant: -20).isActive = true
+        authButton.anchor(horizontal: authButton.superview, paddingHorizontal: 20,
+                          top: authButton.superview?.topAnchor, paddingTop: 10,
+                          bottom: authButton.superview?.bottomAnchor, paddingBottom: 30)
 
         self.scrollView.addSubview(stackView)
         self.stackView.translatesAutoresizingMaskIntoConstraints = false

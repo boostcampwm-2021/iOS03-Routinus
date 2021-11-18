@@ -37,7 +37,7 @@ final class DetailViewController: UIViewController {
 
     private lazy var participantView: UIView = {
         var view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(white: 1, alpha: 0.5)
         return view
     }()
 
@@ -74,20 +74,17 @@ final class DetailViewController: UIViewController {
         scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
 
+        participantView.alpha = 0.5
         view.addSubview(participantView)
-        participantView.translatesAutoresizingMaskIntoConstraints = false
-        participantView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        participantView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        participantView.topAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        participantView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        participantView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        participantView.anchor(horizontal: participantView.superview,
+                               top: scrollView.bottomAnchor,
+                               bottom: view.bottomAnchor,
+                               height: 90)
 
         participantView.addSubview(participantButton)
-        participantButton.translatesAutoresizingMaskIntoConstraints = false
-        participantButton.topAnchor.constraint(equalTo: participantView.topAnchor, constant: 20).isActive = true
-        participantButton.bottomAnchor.constraint(equalTo: participantView.bottomAnchor, constant: -20).isActive = true
-        participantButton.leadingAnchor.constraint(equalTo: participantView.leadingAnchor, constant: 20).isActive = true
-        participantButton.trailingAnchor.constraint(equalTo: participantView.trailingAnchor, constant: -20).isActive = true
+        participantButton.anchor(horizontal: participantButton.superview, paddingHorizontal: 20,
+                                 top: participantButton.superview?.topAnchor, paddingTop: 10,
+                                 bottom: participantButton.superview?.bottomAnchor, paddingBottom: 30)
 
         scrollView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
