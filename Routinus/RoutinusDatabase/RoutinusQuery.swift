@@ -149,44 +149,6 @@ internal enum RoutinusQuery {
         """.data(using: .utf8)
     }
 
-    internal static func achievementQuery(of id: String, in yearMonth: String, day: String) -> Data? {
-        return """
-        {
-            "structuredQuery": {
-                "from": { "collectionId": "achievement" },
-                "where": {
-                    "compositeFilter": {
-                        "filters": [
-                            {
-                                "fieldFilter": {
-                                    "field": { "fieldPath": "user_id" },
-                                    "op": "EQUAL",
-                                    "value": { "stringValue": "\(id)" }
-                                }
-                            },
-                            {
-                                "fieldFilter": {
-                                    "field": { "fieldPath": "year_month" },
-                                    "op": "EQUAL",
-                                    "value": { "stringValue": "\(yearMonth)" }
-                                },
-                            },
-                            {
-                                "fieldFilter": {
-                                    "field": { "fieldPath": "day" },
-                                    "op": "EQUAL",
-                                    "value": { "stringValue": "\(day)" }
-                                },
-                            }
-                        ],
-                        "op": "AND"
-                    }
-                }
-            }
-        }
-        """.data(using: .utf8)
-    }
-
     internal static func allChallengesQuery() -> Data? {
         return """
         {

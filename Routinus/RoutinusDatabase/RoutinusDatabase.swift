@@ -324,7 +324,7 @@ public enum RoutinusDatabase {
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.achievementQuery(of: userID, in: yearMonth, day: day)
+        request.httpBody = RoutinusQuery.todayAchievementQuery(of: userID, yearMonth: yearMonth, day: day)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
