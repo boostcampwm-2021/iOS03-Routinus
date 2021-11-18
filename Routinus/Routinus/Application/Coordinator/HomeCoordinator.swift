@@ -41,6 +41,7 @@ final class HomeCoordinator: RoutinusCoordinator {
                 guard let self = self else { return }
                 let detailCoordinator = DetailCoordinator.init(navigationController: self.navigationController,
                                                                challengeID: challengeID)
+                self.childCoordinator.append(detailCoordinator)
                 detailCoordinator.start()
             }
             .store(in: &cancellables)
@@ -50,6 +51,7 @@ final class HomeCoordinator: RoutinusCoordinator {
                 guard let self = self else { return }
                 let authCoordinator = AuthCoordinator.init(navigationController: self.navigationController,
                                                            challengeID: challengeID)
+                self.childCoordinator.append(authCoordinator)
                 authCoordinator.start()
             }
             .store(in: &cancellables)

@@ -13,6 +13,7 @@ final class ParticipantButton: UIButton {
     init() {
         super.init(frame: .zero)
         self.setTitle(ParticipationAuthState.notParticipating.rawValue, for: .normal)
+        self.isEnabled = true
         self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 26)
         self.setTitleColor(.black, for: .normal)
         self.backgroundColor = UIColor(named: "MainColor")
