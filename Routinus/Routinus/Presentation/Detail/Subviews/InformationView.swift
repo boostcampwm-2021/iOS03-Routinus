@@ -57,7 +57,7 @@ final class InformationView: UIView {
     private lazy var weekView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 5
-        view.backgroundColor = UIColor(named: "SundayColor")
+        view.backgroundColor = UIColor(named: "WeekColor")
         return view
     }()
 

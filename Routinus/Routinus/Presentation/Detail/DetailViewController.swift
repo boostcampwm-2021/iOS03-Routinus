@@ -54,7 +54,7 @@ final class DetailViewController: UIViewController {
         self.configureViewModel()
         self.configureDelegate()
     }
-
+    
     init(with viewModel: DetailViewModelIO) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
