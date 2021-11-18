@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 final class TodayRoutineView: UIView {
-    weak var challengeAdddelegate: TodayRoutineDelegate?
+    weak var challengeAddDelegate: TodayRoutineDelegate?
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -75,7 +75,7 @@ final class TodayRoutineView: UIView {
 
 extension TodayRoutineView {
     @objc func didTappedAddChallengeButton() {
-        self.challengeAdddelegate?.didTappedAddChallengeButton()
+        self.challengeAddDelegate?.didTappedAddChallengeButton()
     }
 }
 

@@ -128,7 +128,7 @@ extension HomeViewController {
     private func configureDelegates() {
         todayRoutineView.delegate = self
         todayRoutineView.dataSource = self
-        todayRoutineView.challengeAdddelegate = self
+        todayRoutineView.challengeAddDelegate = self
 
         calendarView.delegate = self
         calendarView.dataSource = self
