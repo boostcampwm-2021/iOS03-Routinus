@@ -13,9 +13,14 @@ public struct AchievementDTO: Codable {
     init() {
         self.document = nil
     }
+
+    var documentID: String? {
+        return self.document?.name?.components(separatedBy: "/").last
+    }
 }
 
 public struct AchievementFields: Codable {
+    public var name: String?
     public let fields: AchievementField
 }
 
