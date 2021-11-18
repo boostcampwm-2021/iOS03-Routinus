@@ -106,6 +106,18 @@ extension CreateCategoryView {
             }
             alert.addAction(action)
         }
+
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+
+        let height = NSLayoutConstraint(item: alert.view,
+                                        attribute: NSLayoutConstraint.Attribute.height,
+                                        relatedBy: NSLayoutConstraint.Relation.equal,
+                                        toItem: nil,
+                                        attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+                                        multiplier: 1,
+                                        constant: UIScreen.main.bounds.height * 0.6)
+        alert.view.addConstraint(height)
         return alert
     }
 }
