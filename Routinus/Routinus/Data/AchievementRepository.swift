@@ -14,6 +14,8 @@ protocol AchievementRepository {
                            in yearMonth: String,
                            completion: (([Achievement]) -> Void)?)
     
+    func updateAchievement(userID: String, yearMonth: String, day: String)
+    
 }
 
 extension RoutinusRepository: AchievementRepository {
@@ -23,5 +25,8 @@ extension RoutinusRepository: AchievementRepository {
         RoutinusDatabase.achievements(of: id, in: yearMonth) { list in
             completion?(list.map { Achievement(achievementDTO: $0) })
         }
+    }
+    
+    func updateAchievement(userID: String, yearMonth: String, day: String) {
     }
 }
