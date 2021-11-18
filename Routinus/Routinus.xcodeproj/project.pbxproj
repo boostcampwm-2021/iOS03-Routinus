@@ -468,6 +468,14 @@
 			path = RoutinusImageManager;
 			sourceTree = "<group>";
 		};
+		446A0734274622F4009F8D98 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				0DE033992743556F0026F502 /* ManageCollectionViewLayouts.swift */,
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
 		44AAA2A8272FDF8A002E16C4 = {
 			isa = PBXGroup;
 			children = (
@@ -693,7 +701,7 @@
 			children = (
 				E9797CAC2731074B00A14A0F /* ManageViewController.swift */,
 				0DE0339B274355760026F502 /* ManageViewModel.swift */,
-				0DE033992743556F0026F502 /* ManageCollectionViewLayouts.swift */,
+				446A0734274622F4009F8D98 /* Layouts */,
 			);
 			path = Manage;
 			sourceTree = "<group>";
