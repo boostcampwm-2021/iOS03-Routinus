@@ -46,9 +46,16 @@ extension CreateCategoryView {
     }
 
     private func configureButton() {
-        var configuration = UIButton.Configuration.tinted()
-        configuration.title = "exercise".localized
-        button.configuration = configuration
+        if #available(iOS 15.0, *) {
+            var configuration = UIButton.Configuration.tinted()
+            configuration.title = "exercise".localized
+            button.configuration = configuration
+        } else {
+            button.backgroundColor = .systemGray4
+            button.setTitle("exercise".localized, for: .normal)
+            button.setTitleColor(.black, for: .normal)
+            button.layer.cornerRadius = 5
+        }
 
         var actions = [UIAction]()
         for category in Challenge.Category.allCases {
@@ -58,7 +65,7 @@ extension CreateCategoryView {
             let action = UIAction(title: category.title, image: image) { [weak self] _ in
                 guard let self = self else { return }
                 self.delegate?.didChange(category: category)
-                self.button.configuration?.title = category.title
+                self.button.setTitle(category.title, for: .normal)
             }
             actions.append(action)
         }
@@ -101,8 +108,8 @@ extension CreateCategoryView {
             let action = UIAlertAction(title: category.title,
                                        style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                    self.delegate?.didChange(category: category)
-                    self.button.configuration?.title = category.title
+                self.delegate?.didChange(category: category)
+                self.button.setTitle(category.title, for: .normal)
             }
             alert.addAction(action)
         }

@@ -27,8 +27,8 @@ struct ChallengeAuthCreateUsecase: ChallengeAuthCreatableUsecase {
 
         let challengeAuth = ChallengeAuth(challengeID: challengeID,
                                           userID: userID,
-                                          date: Date.now,
-                                          time: Date.now)
+                                          date: Date(),
+                                          time: Date())
 
         repository.save(challengeAuth: challengeAuth,
                         userAuthImageURL: userAuthImageURL,

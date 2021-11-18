@@ -54,7 +54,7 @@ extension Date {
     }
 
     static func currentYearMonth() -> String {
-        let dateComponents = Calendar.current.dateComponents([.year, .month], from: Date.now)
+        let dateComponents = Calendar.current.dateComponents([.year, .month], from: Date())
 
         guard let year = dateComponents.year,
               let month = dateComponents.month else { return "" }
