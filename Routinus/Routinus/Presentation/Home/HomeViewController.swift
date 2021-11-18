@@ -8,11 +8,14 @@
 import Combine
 import UIKit
 
-import SnapKit
-
 final class HomeViewController: UIViewController {
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var contentView: UIView = UIView()
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width <= 350 ? 30 : 34, weight: .bold)
+        return label
+    }()
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView(viewModel: viewModel)
@@ -38,6 +41,14 @@ final class HomeViewController: UIViewController {
         configureDelegates()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
     override func viewWillTransition(
         to size: CGSize,
         with coordinator: UIViewControllerTransitionCoordinator
@@ -49,50 +60,46 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController {
     private func configureViews() {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 20.0
+
         self.view.backgroundColor = .white
         self.configureNavigationBar()
 
         self.view.addSubview(scrollView)
-        self.scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(self.view.safeAreaLayoutGuide)
-        }
+        scrollView.anchor(edges: self.view.safeAreaLayoutGuide)
 
         self.scrollView.addSubview(contentView)
-        self.contentView.snp.makeConstraints { make in
-            make.width.centerX.top.bottom.equalToSuperview()
-        }
+        contentView.anchor(centerX: contentView.superview?.centerXAnchor,
+                           vertical: contentView.superview,
+                           width: UIScreen.main.bounds.width)
+
+        self.contentView.addSubview(titleLabel)
+        titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: offset,
+                          top: titleLabel.superview?.topAnchor, paddingTop: smallWidth ? 28 : 32,
+                          height: 80)
 
         self.contentView.addSubview(continuityView)
-        self.continuityView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.top.equalToSuperview().offset(10)
-            make.height.equalTo(80)
-        }
+        continuityView.anchor(horizontal: continuityView.superview, paddingHorizontal: offset,
+                              top: titleLabel.bottomAnchor, paddingTop: 10,
+                              height: 80)
 
         self.contentView.addSubview(todayRoutineView)
-        self.todayRoutineView.snp.makeConstraints { make in
-            make.height.equalTo(22)
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(self.continuityView.snp.bottom).offset(25)
-        }
+        todayRoutineView.anchor(horizontal: todayRoutineView.superview,
+                                top: self.continuityView.bottomAnchor, paddingTop: 25)
+        let constraint = todayRoutineView.heightAnchor.constraint(equalToConstant: 25)
+        constraint.priority = UILayoutPriority(900)
+        constraint.isActive = true
 
         self.contentView.addSubview(calendarView)
-        self.calendarView.snp.makeConstraints { make in
-            make.top.equalTo(todayRoutineView.snp.bottom).offset(20)
-            make.width.equalToSuperview().offset(-20)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(450)
-        }
-
-        self.contentView.snp.makeConstraints { make in
-            make.bottom.equalTo(self.calendarView.snp.bottom)
-        }
+        calendarView.anchor(centerX: calendarView.superview?.centerXAnchor,
+                            top: todayRoutineView.bottomAnchor, paddingTop: offset,
+                            width: UIScreen.main.bounds.width - offset,
+                            height: 450)
+        contentView.anchor(bottom: calendarView.bottomAnchor)
     }
 
     private func configureNavigationBar() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .always
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .black
         self.navigationItem.backBarButtonItem = backBarButtonItem
@@ -103,7 +110,7 @@ extension HomeViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] user in
                 guard let self = self else { return }
-                self.navigationItem.title = user.name + "님의 Routine"
+                self.titleLabel.text = user.name + "님의 Routine"
                 self.continuityView.configureContents(with: user)
             })
             .store(in: &cancellables)
@@ -155,36 +162,36 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineCell.identifier, for: indexPath)
-                as? RoutineCell,
-              let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTableViewCell.identifier, for: indexPath)
+                as? RoutineTableViewCell,
+              let routines = self.viewModel?.todayRoutine.value else { return UITableViewCell() }
 
         cell.configureCell(routine: routines[indexPath.row])
         cell.selectionStyle = .none
         return cell
     }
 
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let auth = UIContextualAction(style: .normal, title: nil) { [weak self] (_, _, _: @escaping (Bool) -> Void) in
             self?.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
         }
 
-        let largeConfig = UIImage.SymbolConfiguration(pointSize: 17, weight: .bold, scale: .large)
-        auth.image = UIImage(systemName: "camera", withConfiguration: largeConfig)?
-                        .withTintColor(.white).circularBackground(nil)
-        auth.backgroundColor = .systemBackground
-        auth.title = "auth"
+        auth.backgroundColor = .systemGreen
+        auth.title = "인증하기"
         return UISwipeActionsConfiguration(actions: [auth])
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
         guard let challengeID = viewModel?.todayRoutines.value[indexPath.row].challengeID else { return }
         self.viewModel?.didTappedTodayRoutine(index: indexPath.row)
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         self.viewModel?.days.value.count ?? 0
     }
 
@@ -193,19 +200,17 @@ extension HomeViewController: UICollectionViewDataSource {
         let day = self.viewModel?.days.value[indexPath.row]
 
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: DateCell.reuseIdentifier,
-            for: indexPath) as? DateCell else { return UICollectionViewCell() }
+            withReuseIdentifier: DateCollectionViewCell.reuseIdentifier,
+            for: indexPath) as? DateCollectionViewCell else { return UICollectionViewCell() }
         cell.setDay(day)
         return cell
     }
 }
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = Int(collectionView.frame.width / 7)
         let height = 55
         return CGSize(width: width, height: height)

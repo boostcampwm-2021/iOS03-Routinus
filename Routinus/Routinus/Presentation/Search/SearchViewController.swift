@@ -47,8 +47,8 @@ final class SearchViewController: UIViewController {
                                 withReuseIdentifier: SearchHeader.identifier)
         collectionView.register(SearchPopularKeywordCell.self,
                                 forCellWithReuseIdentifier: SearchPopularKeywordCell.identifier)
-        collectionView.register(SearchChallengeCell.self,
-                                forCellWithReuseIdentifier: SearchChallengeCell.identifier)
+        collectionView.register(ChallengeCollectionViewCell.self,
+                                forCellWithReuseIdentifier: ChallengeCollectionViewCell.identifier)
 
         return collectionView
     }()
@@ -72,6 +72,11 @@ final class SearchViewController: UIViewController {
         self.configureViewModel()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        didLoadedSearchView()
+    }
+
 }
 
 extension SearchViewController {
@@ -86,8 +91,8 @@ extension SearchViewController {
                 return cell
 
             case .challenge(let challenge):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchChallengeCell.identifier,
-                                                              for: indexPath) as? SearchChallengeCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCollectionViewCell.identifier,
+                                                              for: indexPath) as? ChallengeCollectionViewCell
                 cell?.setTitle(challenge.title)
                 self.viewModel?.imageData(from: challenge.challengeID,
                                      filename: "thumbnail_image") { data in
@@ -129,10 +134,8 @@ extension SearchViewController {
         self.view.addSubview(collectionView)
         self.configureNavigationBar()
         self.configureKeyboard()
-        self.collectionView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
+        collectionView.anchor(horizontal: collectionView.superview,
+                              vertical: collectionView.superview)
     }
 
     private func configureViewModel() {
@@ -211,5 +214,9 @@ extension SearchViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBarView.hideKeyboard()
+    }
+
+    func didLoadedSearchView() {
+        self.viewModel?.didLoadedSearchView()
     }
 }

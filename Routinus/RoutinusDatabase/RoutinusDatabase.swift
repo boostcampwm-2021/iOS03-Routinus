@@ -321,6 +321,22 @@ public enum RoutinusDatabase {
         }.resume()
     }
 
+    public static func challenge(challengeID: String,
+                                 completion: @escaping (ChallengeDTO) -> Void) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.challenge(challengeID: challengeID)
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let dto = try? JSONDecoder().decode([ChallengeDTO].self, from: data).first
+            completion(dto ?? ChallengeDTO())
+        }.resume()
+    }
+
     public static func patchChallenge(challengeDTO: ChallengeDTO,
                                       imageURL: String,
                                       thumbnailImageURL: String,
@@ -328,7 +344,7 @@ public enum RoutinusDatabase {
                                       authExampleThumbnailImageURL: String,
                                       completion: (() -> Void)?) {
         updateChallenge(challengeDTO: challengeDTO, completion: nil)
-        
+
         let patchQueue = DispatchQueue(label: "patchQueue")
         let group = DispatchGroup()
 

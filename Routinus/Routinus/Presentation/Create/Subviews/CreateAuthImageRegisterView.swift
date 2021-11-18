@@ -7,8 +7,6 @@
 
 import UIKit
 
-import SnapKit
-
 final class CreateAuthImageRegisterView: UIView {
     weak var delegate: CreateImagePickerDelegate?
 
@@ -66,23 +64,19 @@ extension CreateAuthImageRegisterView {
 
     private func configureSubviews() {
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.width.equalToSuperview()
-            make.height.equalTo(24)
-        }
+        titleLabel.anchor(top: titleLabel.superview?.topAnchor,
+                          width: UIScreen.main.bounds.width - 40)
 
         addSubview(descriptionLabel)
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.width.equalToSuperview()
-        }
+        descriptionLabel.anchor(top: titleLabel.bottomAnchor, paddingTop: 10,
+                                width: UIScreen.main.bounds.width - 40)
 
         addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(30)
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(150)
-        }
+        imageView.anchor(centerX: imageView.superview?.centerXAnchor,
+                         top: descriptionLabel.bottomAnchor, paddingTop: 30,
+                         width: 150, height: 150)
+
+        anchor(bottom: imageView.bottomAnchor)
     }
 
     private func configureGesture() {

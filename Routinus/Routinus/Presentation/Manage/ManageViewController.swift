@@ -8,8 +8,6 @@
 import Combine
 import UIKit
 
-import SnapKit
-
 final class ManageViewController: UIViewController {
     enum Section: CaseIterable {
         case challenge
@@ -36,8 +34,8 @@ final class ManageViewController: UIViewController {
         collectionView.backgroundColor = .systemBackground
         collectionView.showsVerticalScrollIndicator = false
 
-        collectionView.register(SearchChallengeCell.self,
-                                forCellWithReuseIdentifier: SearchChallengeCell.identifier)
+        collectionView.register(ChallengeCollectionViewCell.self,
+                                forCellWithReuseIdentifier: ChallengeCollectionViewCell.identifier)
 
         return collectionView
     }()
@@ -57,16 +55,19 @@ final class ManageViewController: UIViewController {
         self.configureViewModel()
         self.configureCollectionView()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.didLoadedSearchView()
+    }
 }
 
 extension ManageViewController {
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(collectionView)
-        self.collectionView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
+        collectionView.anchor(horizontal: collectionView.superview,
+                              vertical: collectionView.superview)
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.title = "내가 개설한 챌린지"
@@ -80,6 +81,7 @@ extension ManageViewController {
                 guard let self = self else { return }
                 var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
                 let challengeContents = challengeItem
+                challengeSnapshot.deleteAll()
                 challengeSnapshot.append(challengeContents)
                 self.dataSource.apply(challengeSnapshot, to: Section.challenge)
             })
@@ -105,13 +107,17 @@ extension ManageViewController {
     @objc func didTouchAddButton() {
         self.viewModel?.didTappedAddButton()
     }
+
+    func didLoadedSearchView() {
+        self.viewModel?.didLoadedManageView()
+    }
 }
 
 extension ManageViewController {
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, challenge in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchChallengeCell.identifier,
-                                                          for: indexPath) as? SearchChallengeCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCollectionViewCell.identifier,
+                                                          for: indexPath) as? ChallengeCollectionViewCell
             cell?.setTitle(challenge.title)
             // TODO: setImage(SearchVC 로직 merge되면 구현)
             return cell

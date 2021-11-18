@@ -7,18 +7,16 @@
 
 import UIKit
 
-import SnapKit
-
 final class CreateAuthMethodView: UIView {
     typealias Tag = CreateViewController.InputTag
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "인증 방법을 입력해주세요."
         label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
-    
+
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "실천여부를 알 수 있도록 구체적인 인증방법을 적어주세요. (최대 150자)"
@@ -27,7 +25,7 @@ final class CreateAuthMethodView: UIView {
         label.numberOfLines = 2
         return label
     }()
-    
+
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.layer.borderColor = UIColor.black.cgColor
@@ -37,23 +35,23 @@ final class CreateAuthMethodView: UIView {
         textView.tag = Tag.authMethod.rawValue
         return textView
     }()
-    
+
     weak var delegate: UITextViewDelegate? {
         didSet {
             self.textView.delegate = delegate
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
     }
-    
+
     convenience init() {
         self.init(frame: CGRect.zero)
     }
@@ -67,25 +65,21 @@ extension CreateAuthMethodView {
     private func configure() {
         configureSubviews()
     }
-    
+
     private func configureSubviews() {
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.width.equalToSuperview()
-            make.height.equalTo(24)
-        }
-        
+        titleLabel.anchor(top: titleLabel.superview?.topAnchor,
+                          width: UIScreen.main.bounds.width - 40)
+
         addSubview(descriptionLabel)
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.width.equalToSuperview()
-        }
-        
+        descriptionLabel.anchor(top: titleLabel.bottomAnchor, paddingTop: 10,
+                                width: UIScreen.main.bounds.width - 40)
+
         addSubview(textView)
-        textView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-            make.width.equalToSuperview()
-            make.height.equalTo(150)
-        }
+        textView.anchor(top: descriptionLabel.bottomAnchor, paddingTop: 20,
+                        width: UIScreen.main.bounds.width - 40,
+                        height: 150)
+
+        anchor(bottom: textView.bottomAnchor)
     }
 }

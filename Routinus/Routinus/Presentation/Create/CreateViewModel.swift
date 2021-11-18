@@ -177,7 +177,7 @@ final class CreateViewModel: CreateViewModelIO {
 
     func fetchChallenge() {
         guard let challengeID = challengeID else { return }
-        challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] existedChallenge in
+        challengeFetchUsecase.fetchEdittingChallenge(challengeID: challengeID) { [weak self] existedChallenge in
             guard let self = self,
                   let challenge = existedChallenge else { return }
             self.challenge.value = challenge

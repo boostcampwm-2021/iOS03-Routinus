@@ -11,6 +11,7 @@ import Foundation
 protocol ManageViewModelInput {
     func didTappedAddButton()
     func didTappedChallenge(index: Int)
+    func didLoadedManageView()
 }
 
 protocol ManageViewModelOutput {
@@ -33,7 +34,6 @@ class ManageViewModel: ManageViewModelIO {
 
     init(challengeFetchUsecase: ChallengeFetchableUsecase) {
         self.challengeFetchUsecase = challengeFetchUsecase
-        self.fetchChallenges()
     }
 }
 
@@ -45,6 +45,10 @@ extension ManageViewModel {
     func didTappedChallenge(index: Int) {
         let challengeID = self.challenges.value[index].challengeID
         challengeTap.send(challengeID)
+    }
+
+    func didLoadedManageView() {
+        fetchChallenges()
     }
 }
 

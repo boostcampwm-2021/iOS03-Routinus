@@ -9,6 +9,13 @@ import Combine
 import UIKit
 
 final class CalendarView: UIView {
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.text = "요약"
+        return label
+    }()
+
     private lazy var calendarView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -16,7 +23,6 @@ final class CalendarView: UIView {
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         layout.collectionView?.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         layout.collectionView?.layer.cornerCurve = .continuous
@@ -33,6 +39,11 @@ final class CalendarView: UIView {
         didTappedNextMonthCompletionHandler: { [weak self] in
             guard let self = self else { return }
             self.viewModel?.changeDate(month: 1)
+            self.calendarView.reloadData()
+        },
+        didTappedTodayCompletionHandler: { [weak self] in
+            guard let self = self else { return }
+            self.viewModel?.changeDate(month: 0)
             self.calendarView.reloadData()
         })
 
@@ -65,12 +76,13 @@ final class CalendarView: UIView {
     }
 
     func configureView() {
+        self.addSubview(titleLabel)
         self.addSubview(calendarView)
         self.addSubview(headerView)
 
         calendarView.register(
-            DateCell.self,
-            forCellWithReuseIdentifier: DateCell.reuseIdentifier
+            DateCollectionViewCell.self,
+            forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier
         )
 
         headerView.baseDate = self.viewModel?.baseDate.value ?? Date()
@@ -79,17 +91,16 @@ final class CalendarView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        NSLayoutConstraint.activate([
-            headerView.leadingAnchor.constraint(equalTo: self.readableContentGuide.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: self.readableContentGuide.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 85),
-            headerView.topAnchor.constraint(equalTo: self.readableContentGuide.topAnchor),
+        titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: 10,
+                          top: readableContentGuide.topAnchor, paddingTop: 10)
 
-            calendarView.leadingAnchor.constraint(equalTo: self.headerView.leadingAnchor),
-            calendarView.trailingAnchor.constraint(equalTo: self.headerView.trailingAnchor),
-            calendarView.topAnchor.constraint(equalTo: self.headerView.bottomAnchor),
-            calendarView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8)
-        ])
+        headerView.anchor(horizontal: headerView.superview,
+                          top: titleLabel.bottomAnchor, paddingTop: 20,
+                          height: 85)
+
+        calendarView.anchor(horizontal: headerView,
+                            top: headerView.bottomAnchor,
+                            height: self.frame.height * 0.8)
     }
 
     private func configureViewModel() {

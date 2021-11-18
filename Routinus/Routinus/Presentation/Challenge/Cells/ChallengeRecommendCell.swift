@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 final class ChallengeRecommendCell: UICollectionViewCell {
     static let identifier = "recommendCell"
@@ -57,39 +56,27 @@ final class ChallengeRecommendCell: UICollectionViewCell {
         self.layer.cornerRadius = 15
 
         self.addSubview(titleLabel)
-        self.titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(25)
-            make.top.equalToSuperview().offset(35)
-            make.trailing.equalToSuperview()
-        }
+        titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: 25,
+                          top: titleLabel.superview?.topAnchor, paddingTop: 35)
 
         self.addSubview(subtitleLabel)
-        self.subtitleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp.leading)
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
-            make.trailing.equalToSuperview().offset(-25)
-        }
+        subtitleLabel.anchor(horizontal: titleLabel,
+                             top: titleLabel.bottomAnchor, paddingTop: 5)
 
         self.addSubview(encounterView)
 
         self.encounterView.addSubview(encounterIcon)
-        self.encounterIcon.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(15)
-            make.centerY.equalToSuperview()
-            make.width.height.equalTo(16)
-        }
+        encounterIcon.anchor(left: encounterIcon.superview?.leftAnchor, paddingLeft: 15,
+                             centerY: encounterIcon.superview?.centerYAnchor,
+                             width: 16, height: 16)
 
         self.encounterView.addSubview(encounterLabel)
-        self.encounterLabel.snp.makeConstraints { make in
-            make.leading.equalTo(self.encounterIcon.snp.trailing).offset(5)
-            make.centerY.equalToSuperview()
-        }
+        encounterLabel.anchor(left: encounterIcon.rightAnchor, paddingLeft: 5,
+                              centerY: encounterLabel.superview?.centerYAnchor)
 
-        self.encounterView.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp.leading)
-            make.bottom.equalToSuperview().offset(-20)
-            make.trailing.equalTo(self.encounterLabel.snp.trailing).offset(15)
-            make.height.equalTo(encounterIcon.snp.height).offset(15)
-        }
+        encounterView.anchor(left: titleLabel.leftAnchor,
+                             right: encounterLabel.rightAnchor, paddingRight: -15,
+                             bottom: encounterView.superview?.bottomAnchor, paddingBottom: 20,
+                             height: encounterIcon.frame.height + 25)
     }
 }

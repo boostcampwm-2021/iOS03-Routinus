@@ -7,12 +7,11 @@
 
 import UIKit
 
-final class DateCell: UICollectionViewCell {
+final class DateCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "DateCell"
 
     private lazy var selectionBackgroundView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         view.backgroundColor = UIColor(named: "MainColor")
         return view
@@ -20,7 +19,6 @@ final class DateCell: UICollectionViewCell {
 
     private lazy var numberLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.textColor = .label
@@ -68,24 +66,22 @@ final class DateCell: UICollectionViewCell {
         let size = traitCollection.horizontalSizeClass == .compact ?
           min(min(frame.width, frame.height) - 10, 60) : 45
 
-        NSLayoutConstraint.activate([
-          numberLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-          numberLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+        numberLabel.anchor(centerX: numberLabel.superview?.centerXAnchor,
+                           centerY: numberLabel.superview?.centerYAnchor)
 
-          selectionBackgroundView.centerYAnchor
-            .constraint(equalTo: numberLabel.centerYAnchor),
-          selectionBackgroundView.centerXAnchor
-            .constraint(equalTo: numberLabel.centerXAnchor),
-          selectionBackgroundView.widthAnchor.constraint(equalToConstant: size),
-          selectionBackgroundView.heightAnchor
-            .constraint(equalTo: selectionBackgroundView.widthAnchor)
-        ])
+        selectionBackgroundView.anchor(centerX: selectionBackgroundView.superview?.centerXAnchor,
+                                       centerY: selectionBackgroundView.superview?.centerYAnchor,
+                                       width: size)
+        let constraint = selectionBackgroundView.heightAnchor.constraint(equalToConstant:
+                                                                            selectionBackgroundView.frame.width)
+        constraint.priority = UILayoutPriority(900)
+        constraint.isActive = true
 
         selectionBackgroundView.layer.cornerRadius = size / 2
     }
 }
 
-extension DateCell {
+extension DateCollectionViewCell {
     func setDay(_ day: Day?) {
         self.day = day
     }
@@ -107,7 +103,7 @@ extension DateCell {
     }
 }
 
-private extension DateCell {
+private extension DateCollectionViewCell {
     func updateSelectionStatus() {
         guard let day = day else { return }
 
@@ -124,8 +120,7 @@ private extension DateCell {
     var isSmallScreenSize: Bool {
         let isCompact = traitCollection.horizontalSizeClass == .compact
         let smallWidth = UIScreen.main.bounds.width <= 350
-        let widthGreaterThanHeight =
-        UIScreen.main.bounds.width > UIScreen.main.bounds.height
+        let widthGreaterThanHeight = UIScreen.main.bounds.width > UIScreen.main.bounds.height
 
         return isCompact && (smallWidth || widthGreaterThanHeight)
     }

@@ -19,6 +19,8 @@ protocol ChallengeRepository {
     func fetchLatestChallenges(completion: (([Challenge]) -> Void)?)
     func fetchChallenges(by userID: String,
                          completion: (([Challenge]) -> Void)?)
+    func fetchEdittingChallenge(challengeID: String,
+                                completion: @escaping (Challenge) -> Void)
     func fetchChallenge(challengeID: String,
                         completion: @escaping (Challenge) -> Void)
     func save(challenge: Challenge,
@@ -69,11 +71,18 @@ extension RoutinusRepository: ChallengeRepository {
         }
     }
 
-    func fetchChallenge(challengeID: String,
-                        completion: @escaping (Challenge) -> Void) {
+    func fetchEdittingChallenge(challengeID: String,
+                                completion: @escaping (Challenge) -> Void) {
         guard let ownerID = RoutinusRepository.userID() else { return }
         RoutinusDatabase.challenge(ownerID: ownerID,
                                    challengeID: challengeID) { dto in
+            completion(Challenge(challengeDTO: dto))
+        }
+    }
+
+    func fetchChallenge(challengeID: String,
+                        completion: @escaping (Challenge) -> Void) {
+        RoutinusDatabase.challenge(challengeID: challengeID) { dto in
             completion(Challenge(challengeDTO: dto))
         }
     }

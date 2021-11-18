@@ -1,5 +1,5 @@
 //
-//  SearchChallengeCell.swift
+//  ChallengeCollectionViewCell.swift
 //  Routinus
 //
 //  Created by 박상우 on 2021/11/09.
@@ -7,11 +7,8 @@
 
 import UIKit
 
-import SnapKit
-import RoutinusDatabase
-
-final class SearchChallengeCell: UICollectionViewCell {
-    static let identifier = "SearchChallengeCell"
+final class ChallengeCollectionViewCell: UICollectionViewCell {
+    static let identifier = "ChallengeCollectionViewCell"
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -48,18 +45,16 @@ final class SearchChallengeCell: UICollectionViewCell {
     }
 }
 
-extension SearchChallengeCell {
+extension ChallengeCollectionViewCell {
     private func configureViews() {
         self.addSubview(imageView)
-        self.imageView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(110)
-        }
+        imageView.anchor(horizontal: imageView.superview,
+                         top: imageView.superview?.topAnchor,
+                         height: 110)
 
         self.addSubview(titleLabel)
-        self.titleLabel.snp.makeConstraints { make in
-            make.leading.bottom.equalToSuperview()
-            make.top.equalTo(imageView.snp.bottom).offset(10)
-        }
+        titleLabel.anchor(horizontal: titleLabel.superview,
+                          top: imageView.bottomAnchor, paddingTop: 10,
+                          bottom: titleLabel.superview?.bottomAnchor)
     }
 }

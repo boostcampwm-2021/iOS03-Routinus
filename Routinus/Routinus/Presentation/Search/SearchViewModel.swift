@@ -11,6 +11,7 @@ import Foundation
 protocol SearchViewModelInput {
     func didChangedSearchText(_ keyword: String)
     func didTappedChallenge(index: Int)
+    func didLoadedSearchView()
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)?)
@@ -44,7 +45,6 @@ final class SearchViewModel: SearchViewModelIO {
         self.imageFetchUsecase = imageFetchUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
         self.fetchPopularKeywords()
-        self.fetchChallenges()
     }
 }
 
@@ -64,6 +64,10 @@ extension SearchViewModel {
     func didTappedChallenge(index: Int) {
         let challengeID = self.challenges.value[index].challengeID
         challengeTap.send(challengeID)
+    }
+
+    func didLoadedSearchView() {
+        self.fetchChallenges()
     }
 
     func imageData(from directory: String,
