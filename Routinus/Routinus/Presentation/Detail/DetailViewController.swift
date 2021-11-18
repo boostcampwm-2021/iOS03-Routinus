@@ -185,7 +185,6 @@ final class DetailViewController: UIViewController {
 
 extension DetailViewController: ParticipantButtonDelegate {
     func didTappedParticipantButton() {
-        viewModel?.didTappedParticipationButton()
+        viewModel?.didTappedParticipationAuthButton()
     }
 }
-

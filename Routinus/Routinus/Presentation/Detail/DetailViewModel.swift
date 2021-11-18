@@ -19,7 +19,7 @@ protocol DetailViewModelInput {
                    filename: String,
                    completion: ((Data?) -> Void)?)
     func didTappedEditBarButton()
-    func didTappedParticipationButton()
+    func didTappedParticipationAuthButton()
 }
 
 protocol DetailViewModelOutput {
@@ -77,7 +77,7 @@ extension DetailViewModel {
         self.editBarButtonTap.send(challengeID)
     }
 
-    func didTappedParticipationButton() {
+    func didTappedParticipationAuthButton() {
         guard let challengeID = challengeID else { return }
         if participationAuthState.value == .notParticipating {
             participationCreateUsecase.createParticipation(challengeID: challengeID)
