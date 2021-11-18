@@ -19,8 +19,10 @@ final class ManageCoordinator: RoutinusCoordinator {
 
     func start() {
         let repository = RoutinusRepository()
+        let imageFetchUsecase = ImageFetchUsecase(repository: repository)
         let challengeFetchUsecase = ChallengeFetchUsecase(repository: repository)
-        let manageViewModel = ManageViewModel(challengeFetchUsecase: challengeFetchUsecase)
+        let manageViewModel = ManageViewModel(imageFetchUsecase: imageFetchUsecase,
+                                              challengeFetchUsecase: challengeFetchUsecase)
         let manageViewController = ManageViewController(with: manageViewModel)
 
         manageViewModel.challengeTap

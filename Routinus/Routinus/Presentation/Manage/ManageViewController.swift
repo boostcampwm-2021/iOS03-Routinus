@@ -119,7 +119,15 @@ extension ManageViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCollectionViewCell.identifier,
                                                           for: indexPath) as? ChallengeCollectionViewCell
             cell?.setTitle(challenge.title)
-            // TODO: setImage(SearchVC 로직 merge되면 구현)
+            self.viewModel?.imageData(from: challenge.challengeID,
+                                      filename: "thumbnail_image") { data in
+                guard let data = data,
+                      let image = UIImage(data: data) else { return }
+
+                DispatchQueue.main.async {
+                    cell?.setImage(image)
+                }
+            }
             return cell
         }
         return dataSource
