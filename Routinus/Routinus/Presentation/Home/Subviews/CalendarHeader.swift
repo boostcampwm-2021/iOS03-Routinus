@@ -150,7 +150,8 @@ extension CalendarHeader {
                                width: 36, height: 36)
 
         monthLabel.anchor(right: nextMonthButton.leftAnchor, paddingRight: 10,
-                          centerY: todayButton.centerYAnchor)
+                          centerY: todayButton.centerYAnchor,
+                          width: 100)
 
         previousMonthButton.anchor(right: monthLabel.leftAnchor, paddingRight: 10,
                                    centerY: todayButton.centerYAnchor,
