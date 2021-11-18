@@ -179,6 +179,11 @@ extension CreateViewController: CreateSubviewDelegate {
     func didChange(authExampleImageURL: String) {
         viewModel?.update(authExampleImageURL: authExampleImageURL)
     }
+
+    func didTappedCategoryButton() {
+        let alert = categoryView.categoryAction
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
@@ -217,7 +222,9 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
         }
     }
 
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
         guard let viewModel = viewModel, let currentText = textField.text else { return true }
         switch textField.tag {
         case InputTag.title.rawValue:
@@ -229,7 +236,9 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
         }
     }
 
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView,
+                  shouldChangeTextIn range: NSRange,
+                  replacementText text: String) -> Bool {
         guard let viewModel = viewModel, let currentText = textView.text else { return true }
         switch textView.tag {
         case InputTag.introduction.rawValue:

@@ -9,7 +9,7 @@ import UIKit
 
 final class CreateCategoryView: UIView {
     weak var delegate: CreateSubviewDelegate?
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "어떤 주제와 관련이 있나요?"
@@ -52,7 +52,9 @@ extension CreateCategoryView {
 
         var actions = [UIAction]()
         for category in Challenge.Category.allCases {
-            let image = UIImage(systemName: category.symbol) == nil ? UIImage(named: category.symbol) : UIImage(systemName: category.symbol)
+            let image = UIImage(systemName: category.symbol) == nil
+                        ? UIImage(named: category.symbol)
+                        : UIImage(systemName: category.symbol)
             let action = UIAction(title: category.title, image: image) { [weak self] _ in
                 guard let self = self else { return }
                 self.delegate?.didChange(category: category)
@@ -60,12 +62,17 @@ extension CreateCategoryView {
             }
             actions.append(action)
         }
-        button.menu = UIMenu(title: "",
-                             image: nil,
-                             identifier: nil,
-                             options: .displayInline,
-                             children: actions)
-        button.showsMenuAsPrimaryAction = true
+
+        if #available(iOS 14.0, *) {
+            button.menu = UIMenu(title: "",
+                                 image: nil,
+                                 identifier: nil,
+                                 options: .displayInline,
+                                 children: actions)
+            button.showsMenuAsPrimaryAction = true
+        } else {
+            button.addTarget(self, action: #selector(didTappedCategoryButton), for: .touchUpInside)
+        }
     }
 
     private func configureLayouts() {
@@ -79,5 +86,26 @@ extension CreateCategoryView {
                       width: 100, height: 40)
 
         anchor(bottom: button.bottomAnchor)
+    }
+
+    @objc func didTappedCategoryButton(_ sender: UIButton) {
+        delegate?.didTappedCategoryButton()
+    }
+
+    var categoryAction: UIAlertController {
+        let alert = UIAlertController(title: "카테고리",
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+
+        for category in Challenge.Category.allCases {
+            let action = UIAlertAction(title: category.title,
+                                       style: .default) { [weak self] _ in
+                guard let self = self else { return }
+                    self.delegate?.didChange(category: category)
+                    self.button.configuration?.title = category.title
+            }
+            alert.addAction(action)
+        }
+        return alert
     }
 }

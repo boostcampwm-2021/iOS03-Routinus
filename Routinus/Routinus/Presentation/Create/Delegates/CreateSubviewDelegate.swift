@@ -11,4 +11,5 @@ protocol CreateSubviewDelegate: AnyObject {
     func didChange(category: Challenge.Category)
     func didChange(imageURL: String)
     func didChange(authExampleImageURL: String)
+    func didTappedCategoryButton()
 }
