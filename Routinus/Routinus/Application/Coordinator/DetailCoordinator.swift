@@ -40,10 +40,21 @@ final class DetailCoordinator: RoutinusCoordinator {
         self.navigationController.pushViewController(detailViewController, animated: true)
 
         detailViewModel.editBarButtonTap
-            .sink { [weak self] challengeID  in
+            .sink { [weak self] challengeID in
                 guard let self = self else { return }
                 let createCoordinator = CreateCoordinator(navigationController: self.navigationController, challengeID: challengeID)
                 createCoordinator.start()
+                self.childCoordinator.append(createCoordinator)
+            }
+            .store(in: &cancellables)
+
+        detailViewModel.authButtonTap
+            .sink { [ weak self ] challengeID in
+                guard let self = self else { return }
+                let authCoordinator = AuthCoordinator(navigationController: self.navigationController,
+                                                      challengeID: challengeID)
+                authCoordinator.start()
+                self.childCoordinator.append(authCoordinator)
             }
             .store(in: &cancellables)
     }

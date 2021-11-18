@@ -29,6 +29,7 @@ protocol DetailViewModelOutput {
     var challenge: PassthroughSubject<Challenge, Never> { get }
     var editBarButtonTap: PassthroughSubject<String, Never> { get }
     var participationButtonTap: PassthroughSubject<Void, Never> { get }
+    var authButtonTap: PassthroughSubject<String, Never> { get }
 }
 
 protocol DetailViewModelIO: DetailViewModelInput, DetailViewModelOutput { }
@@ -40,6 +41,7 @@ class DetailViewModel: DetailViewModelIO {
     var challenge = PassthroughSubject<Challenge, Never>()
     var editBarButtonTap = PassthroughSubject<String, Never>()
     var participationButtonTap = PassthroughSubject<Void, Never>()
+    var authButtonTap = PassthroughSubject<String, Never>()
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
     let imageFetchUsecase: ImageFetchableUsecase
@@ -76,10 +78,13 @@ extension DetailViewModel {
     }
 
     func didTappedParticipationButton() {
+        guard let challengeID = challengeID else { return }
         if participationAuthState.value == .notParticipating {
-            guard let challengeID = challengeID else { return }
             participationCreateUsecase.createParticipation(challengeID: challengeID)
             self.participationAuthState.value = .notAuthenticating
+            // TODO: 참여하기 버튼 클릭 시 alert 띄우기
+        } else if participationAuthState.value == .notAuthenticating {
+            authButtonTap.send(challengeID)
         }
     }
 }

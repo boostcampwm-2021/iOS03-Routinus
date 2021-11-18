@@ -36,6 +36,7 @@ final class SearchCoordinator: RoutinusCoordinator {
                     navigationController: self.navigationController, challengeID: challengeID
                 )
                 detailCoordinator.start()
+                self.childCoordinator.append(detailCoordinator)
             }
             .store(in: &cancellables)
     }
