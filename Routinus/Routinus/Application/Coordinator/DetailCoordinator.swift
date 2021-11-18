@@ -28,12 +28,14 @@ final class DetailCoordinator: RoutinusCoordinator {
         let participationFetchUsecase = ParticipationFetchUsecase(repository: repository)
         let participationCreateUsecase = ParticipationCreateUsecase(repository: repository)
         let userFetchUsecase = UserFetchUsecase(repository: repository)
+        let challengeAuthFetchUsecase = ChallengeAuthFetchUsecase(repository: repository)
         let detailViewModel = DetailViewModel(challengeID: challengeID,
                                               challengeFetchUsecase: challengeFetchUsecase,
                                               imageFetchUsecase: imageFetchUsecase,
                                               participationFetchUsecase: participationFetchUsecase,
                                               participationCreateUsecase: participationCreateUsecase,
-                                              userFetchUsecase: userFetchUsecase)
+                                              userFetchUsecase: userFetchUsecase,
+                                              challengeAuthFetchUsecase: challengeAuthFetchUsecase)
         let detailViewController = DetailViewController(with: detailViewModel)
         self.navigationController.pushViewController(detailViewController, animated: true)
 

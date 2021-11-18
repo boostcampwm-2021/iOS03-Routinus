@@ -46,6 +46,7 @@ class DetailViewModel: DetailViewModelIO {
     let participationFetchUsecase: ParticipationFetchableUsecase
     let participationCreateUsecase: ParticipationCreatableUsecase
     let userFetchUsecase: UserFetchableUsecase
+    let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
     var cancellables = Set<AnyCancellable>()
     var challengeID: String?
 
@@ -54,15 +55,17 @@ class DetailViewModel: DetailViewModelIO {
          imageFetchUsecase: ImageFetchableUsecase,
          participationFetchUsecase: ParticipationFetchableUsecase,
          participationCreateUsecase: ParticipationCreatableUsecase,
-         userFetchUsecase: UserFetchableUsecase) {
+         userFetchUsecase: UserFetchableUsecase,
+         challengeAuthFetchUsecase: ChallengeAuthFetchUsecase) {
         self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
         self.participationFetchUsecase = participationFetchUsecase
         self.participationCreateUsecase = participationCreateUsecase
         self.userFetchUsecase = userFetchUsecase
+        self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
         self.fetchChallenge()
-        self.fetchParticipation()
+        self.updateParticipationAuthState()
     }
 }
 
@@ -91,12 +94,34 @@ extension DetailViewModel {
         }
     }
 
-    private func fetchParticipation() {
+    private func fetchParticipation(completion: @escaping (Participation?) -> Void) {
         guard let challengeID = challengeID else { return }
         participationFetchUsecase.fetchParticipation(challengeID: challengeID) { [weak self] participation in
             guard let self = self else { return }
+            completion(participation)
             // TODO: Participation 있는 경우에는 인증하기 or 인증완료 구분하기 TODO
-            self.participationAuthState.value = participation == nil ? .notParticipating : .notAuthenticating
+        }
+    }
+
+    private func fetchAuth(completion: @escaping (ChallengeAuth?) -> Void) {
+        guard let challengeID = challengeID else { return }
+        challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { [weak self] challengeAuth in
+            guard let self = self else { return }
+            completion(challengeAuth)
+        }
+    }
+
+    private func updateParticipationAuthState() {
+        fetchParticipation { [weak self] participation in
+            guard let self = self else { return }
+            if participation == nil {
+                self.participationAuthState.value = .notParticipating
+            } else {
+                self.fetchAuth { [weak self] challengeAuth in
+                    guard let self = self else { return }
+                    self.participationAuthState.value = challengeAuth == nil ? .notAuthenticating : .authenticated
+                }
+            }
         }
     }
 
