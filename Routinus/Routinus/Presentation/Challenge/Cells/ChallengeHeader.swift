@@ -14,7 +14,7 @@ final class ChallengeHeader: UICollectionReusableView {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        
+
         return label
     }()
 

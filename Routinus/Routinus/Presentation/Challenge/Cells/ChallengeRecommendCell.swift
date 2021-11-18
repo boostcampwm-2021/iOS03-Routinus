@@ -76,7 +76,9 @@ final class ChallengeRecommendCell: UICollectionViewCell {
 
         encounterView.anchor(left: titleLabel.leftAnchor,
                              right: encounterLabel.rightAnchor, paddingRight: -15,
-                             bottom: encounterView.superview?.bottomAnchor, paddingBottom: 20,
-                             height: encounterIcon.frame.height + 25)
+                             bottom: encounterView.superview?.bottomAnchor, paddingBottom: 20)
+        let constraint = encounterView.heightAnchor.constraint(equalToConstant: 30)
+        constraint.priority = UILayoutPriority(900)
+        constraint.isActive = true
     }
 }
