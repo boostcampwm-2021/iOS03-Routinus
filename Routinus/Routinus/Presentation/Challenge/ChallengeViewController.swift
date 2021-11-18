@@ -17,7 +17,7 @@ final class ChallengeViewController: UIViewController {
             case .recommend:
                 return ""
             case .category:
-                return "챌린지 카테고리"
+                return "challenge category".localized
             }
         }
     }

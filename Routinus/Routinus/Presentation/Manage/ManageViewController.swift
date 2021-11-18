@@ -70,7 +70,7 @@ extension ManageViewController {
                               vertical: collectionView.superview)
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationItem.title = "내가 개설한 챌린지"
+        self.navigationItem.title = "my challenges".localized
         self.navigationItem.rightBarButtonItem = self.addButton
     }
 

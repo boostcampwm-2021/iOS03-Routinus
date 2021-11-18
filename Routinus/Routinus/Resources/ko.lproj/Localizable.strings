@@ -37,6 +37,11 @@
 "popular keyword" = "인기 검색어";
 "challenge list" = "챌린지 목록";
 
+// detail
+"participate" = "참여하기";
+"certify" = "인증하기";
+"certified" = "인증 완료";
+
 // myPage
 "Theme setting" = "테마 설정";
 "Alarm setting" = "알람 설정";

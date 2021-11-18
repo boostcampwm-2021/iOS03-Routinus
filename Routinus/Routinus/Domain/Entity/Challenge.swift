@@ -16,21 +16,21 @@ struct Challenge: Hashable {
         var title: String {
             switch self {
             case .exercise:
-                return "운동"
+                return "exercise".localized
             case .study:
-                return "공부"
+                return "study".localized
             case .read:
-                return "독서"
+                return "read".localized
             case .lifeStyle:
-                return "생활 습관"
+                return "lifeStyle".localized
             case .finance:
-                return "돈 관리"
+                return "finance".localized
             case .hobby:
-                return "취미"
+                return "hobby".localized
             case .emotionManage:
-                return "감정 관리"
+                return "emotionManage".localized
             case .etc:
-                return "기타"
+                return "etc".localized
             }
         }
 

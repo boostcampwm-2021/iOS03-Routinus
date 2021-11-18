@@ -15,9 +15,9 @@ final class SearchViewController: UIViewController {
         var title: String {
             switch self {
             case .popularSearchKeyword:
-                return "인기 검색어"
+                return "popular keyword".localized
             case .challenge:
-                return "챌린지 목록"
+                return "challenge list".localized
             }
         }
     }

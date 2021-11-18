@@ -114,7 +114,7 @@ extension HomeViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] user in
                 guard let self = self else { return }
-                self.titleLabel.text = user.name + "님의 Routine"
+                self.titleLabel.text = "%@ routine".localized(with: user.name)
                 self.continuityView.configureContents(with: user)
             })
             .store(in: &cancellables)
@@ -181,7 +181,7 @@ extension HomeViewController: UITableViewDelegate {
         }
 
         auth.backgroundColor = .systemGreen
-        auth.title = "인증하기"
+        auth.title = "certify".localized
         return UISwipeActionsConfiguration(actions: [auth])
     }
 

@@ -34,7 +34,7 @@ final class ContinuityView: UIView {
 
     private lazy var continuityLabel: UILabel = {
         let label = UILabel()
-        label.text = "일 연속 달성"
+        label.text = "in a row".localized
         label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         label.isHidden = true
         return label

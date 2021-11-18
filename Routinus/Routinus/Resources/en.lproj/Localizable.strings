@@ -37,6 +37,11 @@
 "popular keyword" = "Popular Keyword";
 "challenge list" = "Challenge List";
 
+// detail
+"participate" = "Participate";
+"certify" = "Certify";
+"certified" = "Certified!";
+
 // myPage
 "Theme setting" = "Theme setting";
 "Alarm setting" = "Alarm setting";

@@ -96,19 +96,19 @@ extension CalendarHeader {
     private func dayOfWeekLetter(for dayNumber: Int) -> String {
         switch dayNumber {
         case 1:
-            return "S"
+            return "sun".localized
         case 2:
-            return "M"
+            return "mon".localized
         case 3:
-            return "T"
+            return "tue".localized
         case 4:
-            return "W"
+            return "wed".localized
         case 5:
-            return "T"
+            return "thu".localized
         case 6:
-            return "F"
+            return "fri".localized
         case 7:
-            return "S"
+            return "sat".localized
         default:
             return ""
         }
