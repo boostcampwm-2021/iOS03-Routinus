@@ -99,7 +99,6 @@ extension DetailViewModel {
         participationFetchUsecase.fetchParticipation(challengeID: challengeID) { [weak self] participation in
             guard let self = self else { return }
             completion(participation)
-            // TODO: Participation 있는 경우에는 인증하기 or 인증완료 구분하기 TODO
         }
     }
 
