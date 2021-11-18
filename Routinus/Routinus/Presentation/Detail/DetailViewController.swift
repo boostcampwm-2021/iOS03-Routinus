@@ -37,7 +37,7 @@ final class DetailViewController: UIViewController {
 
     private lazy var participantView: UIView = {
         var view = UIView()
-        view.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        view.backgroundColor = .white
         return view
     }()
 
@@ -74,7 +74,6 @@ final class DetailViewController: UIViewController {
         scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
 
-        participantView.alpha = 0.5
         view.addSubview(participantView)
         participantView.anchor(horizontal: participantView.superview,
                                top: scrollView.bottomAnchor,

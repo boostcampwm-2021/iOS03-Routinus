@@ -18,8 +18,7 @@ final class AuthViewController: UIViewController {
     }()
     private lazy var authView: UIView = {
         var view = UIView()
-        view.backgroundColor = UIColor(white: 1, alpha: 0.5)
-        view.layer.opacity = 0.6
+        view.backgroundColor = .white
         return view
     }()
     private lazy var authMethodView = AuthMethodView()
