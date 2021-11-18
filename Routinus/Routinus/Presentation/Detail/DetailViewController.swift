@@ -154,10 +154,28 @@ final class DetailViewController: UIViewController {
                 self.participantButton.update(to: participationState)
             })
             .store(in: &cancellables)
+
+        self.viewModel?.participationButtonTap
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
+                self.showAlert()
+            })
+            .store(in: &cancellables)
     }
 
     private func configureDelegate() {
         participantButton.delegate = self
+    }
+
+    private func showAlert() {
+        let alert = UIAlertController(title: "알림", message: "챌린지에 참여되었습니다.", preferredStyle: .alert)
+        let confirm = UIAlertAction(title: "확인", style: .default, handler: nil)
+        let close = UIAlertAction(title: "닫기", style: .destructive, handler: nil)
+
+        alert.addAction(confirm)
+        alert.addAction(close)
+        present(alert, animated: true, completion: nil)
     }
 
     @objc private func didTappedEditBarButton(_ sender: UIBarButtonItem) {

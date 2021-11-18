@@ -82,7 +82,7 @@ extension DetailViewModel {
         if participationAuthState.value == .notParticipating {
             participationCreateUsecase.createParticipation(challengeID: challengeID)
             self.participationAuthState.value = .notAuthenticating
-            // TODO: 참여하기 버튼 클릭 시 alert 띄우기
+            participationButtonTap.send()
         } else if participationAuthState.value == .notAuthenticating {
             authButtonTap.send(challengeID)
         }
