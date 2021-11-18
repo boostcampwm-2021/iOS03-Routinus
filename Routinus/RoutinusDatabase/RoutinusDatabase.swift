@@ -66,6 +66,30 @@ public enum RoutinusDatabase {
             completion()
         }
     }
+    
+    public static func createChallengeAuth(challengeAuth: ChallengeAuthDTO,
+                                           userAuthImageURL: String,
+                                           userAuthThumbnailImageURL: String,
+                                           completion: @escaping () -> Void) {
+        insertChallengeAuth(dto: challengeAuth)
+
+        let uploadQueue = DispatchQueue(label: "uploadQueue")
+        let group = DispatchGroup()
+
+        uploadQueue.async(group: group) {
+            let id = challengeAuth.document?.fields.challengeID.stringValue ?? ""
+            uploadImage(id: id,
+                        filename: "userAuth",
+                        imageURL: userAuthImageURL)
+            uploadImage(id: id,
+                        filename: "thumbnail_userAuth",
+                        imageURL: userAuthThumbnailImageURL)
+        }
+
+        group.notify(queue: uploadQueue) {
+            completion()
+        }
+    }
 
     public static func insertChallenge(dto: ChallengeDTO,
                                        completion: (() -> Void)? = nil) {
@@ -91,6 +115,21 @@ public enum RoutinusDatabase {
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = RoutinusQuery.insertChallengeParticipationQuery(document: document)
+
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            completion?()
+        }.resume()
+    }
+
+    public static func insertChallengeAuth(dto: ChallengeAuthDTO,
+                                           completion: (() -> Void)? = nil) {
+        guard let url = URL(string: "\(firestoreURL)/challenge_auth"),
+              let document = dto.document?.fields else { return }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.insertChallengeAuthQuery(document: document)
 
         URLSession.shared.dataTask(with: request) { _, _, _ in
             completion?()

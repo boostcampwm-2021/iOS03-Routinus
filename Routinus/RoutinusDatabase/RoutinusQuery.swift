@@ -53,6 +53,19 @@ internal enum RoutinusQuery {
         }
         """.data(using: .utf8)
     }
+    
+    internal static func insertChallengeAuthQuery(document: ChallengeAuthField) -> Data? {
+        return """
+        {
+            "fields": {
+                "challenge_id": { "stringValue": "\(document.challengeID.stringValue)" },
+                "user_id": { "stringValue": "\(document.userID.stringValue)" },
+                "date": { "stringValue": "\(document.date.stringValue)" },
+                "time": { "stringValue": "\(document.time.stringValue)" }
+            }
+        }
+        """.data(using: .utf8)
+    }
 
     internal static func userQuery(of id: String) -> Data? {
         return """
