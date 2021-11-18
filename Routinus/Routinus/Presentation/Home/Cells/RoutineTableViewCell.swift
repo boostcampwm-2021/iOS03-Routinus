@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RoutinusSnap
 
 final class RoutineTableViewCell: UITableViewCell {
     static let identifier: String = "RoutineCell"
