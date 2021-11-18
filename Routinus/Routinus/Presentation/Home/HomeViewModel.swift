@@ -168,7 +168,7 @@ extension HomeViewModel {
 
     private func generateDay(offsetBy dayOffset: Int, for baseDate: Date, isWithinDisplayedMonth: Bool) -> Day {
         let date = calendar.date(byAdding: .day, value: dayOffset, to: baseDate) ?? baseDate
-        let achievement = achievements.filter { "\($0.yearMonth)\($0.day)" == date.toString() }
+        let achievement = achievements.filter { "\($0.yearMonth)\($0.day)" == date.toDateString() }
         return Day(
             date: date,
             number: "\(date.day)",

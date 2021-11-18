@@ -31,6 +31,6 @@ struct ChallengeAuth {
         self.challengeID = document?.challengeID.stringValue ?? ""
         self.userID = document?.userID.stringValue ?? ""
         self.date = Date(dateString: document?.date.stringValue ?? "")
-        self.time = Date(hourMinuteString: document?.time.stringValue ?? "")
+        self.time = Date(timeString: document?.time.stringValue ?? "")
     }
 }

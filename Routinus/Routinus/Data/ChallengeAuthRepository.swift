@@ -20,8 +20,8 @@ extension RoutinusRepository: ChallengeAuthRepository {
     func save(challengeAuth: ChallengeAuth,
               userAuthImageURL: String,
               userAuthThumbnailImageURL: String) {
-        guard let date = challengeAuth.date?.toString(),
-              let time = challengeAuth.time?.toStringHourMinute() else { return }
+        guard let date = challengeAuth.date?.toDateString(),
+              let time = challengeAuth.time?.toTimeString() else { return }
 
         let challengeAuthDTO = ChallengeAuthDTO(challengeID: challengeAuth.challengeID,
                                                 userID: challengeAuth.userID,
