@@ -37,7 +37,7 @@ extension RoutinusRepository: ParticipationRepository {
         let dto = ParticipationDTO(authCount: 0, challengeID: challengeID, joinDate: joinDate, userID: userID)
         RoutinusDatabase.insertChallengeParticipation(dto: dto, completion: nil)
     }
-    
+
     func updateAuthCount(challengeID: String) {
         guard let userID = RoutinusRepository.userID() else { return }
         RoutinusDatabase.updateChallengeParticipation(challengeID: challengeID,
