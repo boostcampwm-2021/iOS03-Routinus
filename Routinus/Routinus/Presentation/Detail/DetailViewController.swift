@@ -116,10 +116,12 @@ final class DetailViewController: UIViewController {
             .sink(receiveValue: { [weak self] challenge in
                 guard let self = self else { return }
                 self.navigationItem.title = challenge.title
-                self.viewModel?.imageData(from: challenge.challengeID, filename: "thumbnail_image", completion: { data in
+                self.viewModel?.imageData(from: challenge.challengeID, filename: "image", completion: { data in
                     guard let data = data else { return }
                     guard let image = UIImage(data: data) else { return }
-                    self.mainImageView.image = image
+                    DispatchQueue.main.async {
+                        self.mainImageView.image = image
+                    }
                 })
                 self.informationView.updateViews(challenge: challenge)
                 self.authMethodView.updateLabel(to: challenge.authMethod)
