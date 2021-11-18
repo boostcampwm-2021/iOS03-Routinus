@@ -16,7 +16,8 @@ final class HomeViewController: UIViewController {
     private lazy var contentView: UIView = UIView()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width <= 350 ? 30 : 34, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width <= 350 ? 30 : 34,
+                                       weight: .bold)
         return label
     }()
     private lazy var continuityView = ContinuityView()
@@ -26,7 +27,7 @@ final class HomeViewController: UIViewController {
 
     private var viewModel: HomeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
-    private var achievements: [Achievement] = []
+    private var achievements = [Achievement]()
 
     init(with viewModel: HomeViewModelIO) {
         self.viewModel = viewModel
@@ -47,16 +48,15 @@ final class HomeViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.viewModel?.fetchMyHomeData()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
-    override func viewWillTransition(
-        to size: CGSize,
-        with coordinator: UIViewControllerTransitionCoordinator
-    ) {
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         calendarView.reloadData()
     }
@@ -156,27 +156,22 @@ extension HomeViewController: TodayRoutineDelegate {
     }
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+extension HomeViewController: UITableViewDelegate {
+    func configureDataSource() -> DataSource {
+        let dataSource = DataSource(tableView: todayRoutineView.tableView) { tableView, indexPath, _ in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTableViewCell.identifier,
+                                                           for: indexPath) as? RoutineTableViewCell,
+                  let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
+            cell.configureCell(routine: routines[indexPath.row])
+            cell.selectionStyle = .none
+            return cell
+        }
+        return dataSource
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel?.todayRoutines.value.count ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView,
+                   heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTableViewCell.identifier, for: indexPath)
-                as? RoutineTableViewCell,
-              let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
-
-        cell.configureCell(routine: routines[indexPath.row])
-        cell.selectionStyle = .none
-        return cell
     }
 
     func tableView(_ tableView: UITableView,
@@ -194,21 +189,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                    didSelectRowAt indexPath: IndexPath) {
         guard let challengeID = viewModel?.todayRoutines.value[indexPath.row].challengeID else { return }
         self.viewModel?.didTappedTodayRoutine(index: indexPath.row)
-    }
-}
-
-extension HomeViewController {
-    func configureDataSource() -> DataSource {
-        let dataSource = DataSource(tableView: todayRoutineView.tableView) { tableView, indexPath, _ in
-
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTableViewCell.identifier,
-                                                     for: indexPath) as? RoutineTableViewCell,
-                  let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
-            cell.configureCell(routine: routines[indexPath.row])
-            cell.selectionStyle = .none
-            return cell
-        }
-        return dataSource
     }
 }
 

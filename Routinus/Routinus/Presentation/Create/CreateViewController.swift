@@ -267,8 +267,17 @@ extension CreateViewController: CreateImagePickerDelegate {
 
         let camera = UIAlertAction(title: "카메라", style: .default) { [weak self] _ in
             guard let self = self else { return }
+#if targetEnvironment(simulator)
+            let alert = UIAlertController(title: "알림",
+                                          message: "시뮬레이터에서는 카메라를 이용할 수 없습니다.",
+                                          preferredStyle: .alert)
+            let cancel = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+#else
             self.imagePicker.sourceType = .camera
             self.present(self.imagePicker, animated: true, completion: nil)
+#endif
         }
         alert.addAction(camera)
 
