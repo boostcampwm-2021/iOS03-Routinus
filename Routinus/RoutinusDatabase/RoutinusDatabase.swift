@@ -437,6 +437,23 @@ public enum RoutinusDatabase {
         }.resume()
     }
 
+    public static func challengeParticipation(userID: String,
+                                              challengeID: String,
+                                              completion: @escaping (ParticipationDTO?) -> Void) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.challengeParticipation(userID: userID, challengeID: challengeID)
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let dto = try? JSONDecoder().decode([ParticipationDTO].self, from: data).first
+            completion(dto ?? nil)
+        }.resume()
+    }
+
     public static func patchChallenge(challengeDTO: ChallengeDTO,
                                       imageURL: String,
                                       thumbnailImageURL: String,
@@ -504,19 +521,30 @@ public enum RoutinusDatabase {
         }
     }
 
-    public static func challengeParticipation(userID: String, challengeID: String, completion: @escaping (ParticipationDTO?) -> Void) {
-        guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
-        var request = URLRequest(url: url)
+    public static func updateChallengeParticipation(participationDTO: ParticipationDTO,
+                                                    completion: (() -> Void)?) {
+        guard let challengeID = participationDTO.document?.fields.challengeID.stringValue,
+              let userID = participationDTO.document?.fields.userID.stringValue,
+              let participationField = participationDTO.document?.fields else { return }
 
-        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.challengeParticipation(userID: userID, challengeID: challengeID)
+        challengeParticipation(userID: userID, challengeID: challengeID) { dto in
+            let documentID = dto?.documentID ?? ""
+            var urlComponent = URLComponents(string: "\(firestoreURL)/challenge_participation/\(documentID)?")
+            let queryItems = [
+                URLQueryItem(name: "updateMask.fieldPaths", value: "auth_count")
+            ]
+            urlComponent?.queryItems = queryItems
 
-        URLSession.shared.dataTask(with: request) { data, _, _ in
-            guard let data = data else { return }
-            let dto = try? JSONDecoder().decode([ParticipationDTO].self, from: data).first
-            completion(dto ?? nil)
-        }.resume()
+            guard let url = urlComponent?.url else { return }
+            var request = URLRequest(url: url)
+            request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = HTTPMethod.patch.rawValue
+            request.httpBody = RoutinusQuery.updateChallengeParticipation(document: participationField)
+
+            URLSession.shared.dataTask(with: request) { _, _, _ in
+                completion?()
+            }.resume()
+        }
     }
 
     public static func challengeAuth(todayDate: String, userID: String, challengeID: String, completion: @escaping (ChallengeAuthDTO?) -> Void) {
