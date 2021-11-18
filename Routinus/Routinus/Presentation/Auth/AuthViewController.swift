@@ -101,7 +101,7 @@ extension AuthViewController {
                 self.navigationItem.title = challenge.title
                 self.authMethodView.configureMethodLabel(introduction: challenge.introduction)
                 self.viewModel?.imageData(from: challenge.challengeID,
-                                          filename: "thumbnail_image",
+                                          filename: "thumbnail_auth",
                                           completion: { data in
                     DispatchQueue.main.async {
                         self.authMethodView.configureMethodImage(data: data)
