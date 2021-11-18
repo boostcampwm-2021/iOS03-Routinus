@@ -78,14 +78,6 @@ final class CreateViewController: UIViewController {
         configureGesture()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        // TODO: challengeID가 있을 때 challenge.value로 view 갱신하기
-        viewModel?.fetchChallenge()
-        sleep(3)
-        print(viewModel?.challenge.value)
-    }
-
     @objc private func didTappedCreateButton(_ sender: UIButton) {
         viewModel?.didTappedCreateButton()
         self.navigationController?.popViewController(animated: true) // TODO: Coordinator 구현 후 수정
