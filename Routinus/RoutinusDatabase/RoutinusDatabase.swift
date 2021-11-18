@@ -521,14 +521,22 @@ public enum RoutinusDatabase {
         }
     }
 
-    public static func updateChallengeParticipation(participationDTO: ParticipationDTO,
+    public static func updateChallengeParticipation(challengeID: String,
+                                                    userID: String,
                                                     completion: (() -> Void)?) {
-        guard let challengeID = participationDTO.document?.fields.challengeID.stringValue,
-              let userID = participationDTO.document?.fields.userID.stringValue,
-              let participationField = participationDTO.document?.fields else { return }
 
         challengeParticipation(userID: userID, challengeID: challengeID) { dto in
-            let documentID = dto?.documentID ?? ""
+            guard let dto = dto,
+                  let authCount = Int(dto.document?.fields.authCount.integerValue ?? "0"),
+                  let joinDate = dto.document?.fields.joinDate.stringValue else { return }
+
+            let participationDTO = ParticipationDTO(authCount: authCount + 1,
+                                                    challengeID: challengeID,
+                                                    joinDate: joinDate,
+                                                    userID: userID)
+            
+            guard let participationField = participationDTO.document?.fields else { return }
+            let documentID = dto.documentID ?? ""
             var urlComponent = URLComponents(string: "\(firestoreURL)/challenge_participation/\(documentID)?")
             let queryItems = [
                 URLQueryItem(name: "updateMask.fieldPaths", value: "auth_count")
