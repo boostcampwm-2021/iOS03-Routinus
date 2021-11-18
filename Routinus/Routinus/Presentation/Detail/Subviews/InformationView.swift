@@ -28,6 +28,7 @@ final class InformationView: UIView {
 
     private lazy var categoryImageView: UIImageView = {
         var imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .black
         return imageView
     }()
