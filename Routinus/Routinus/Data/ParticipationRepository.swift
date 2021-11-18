@@ -17,7 +17,8 @@ protocol ParticipationRepository {
 extension RoutinusRepository: ParticipationRepository {
     func fetchChallengeParticipation(userID: String, challengeID: String, completion: @escaping (Participation?) -> Void) {
         RoutinusDatabase.challengeParticipation(userID: userID, challengeID: challengeID) { dto in
-            guard let dto = dto, dto.document != nil else {
+            guard let dto = dto,
+                  dto.document != nil else {
                 completion(nil)
                 return
             }

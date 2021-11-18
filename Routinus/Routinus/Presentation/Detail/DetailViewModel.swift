@@ -9,9 +9,9 @@ import Combine
 import Foundation
 
 enum ParticipationAuthState: String {
-    case unParticipation = "참여하기"
-    case unAuth = "인증하기"
-    case completion = "인증완료"
+    case notParticipating = "참여하기"
+    case notAuthenticating = "인증하기"
+    case authenticated = "인증완료"
 }
 
 protocol DetailViewModelInput {
@@ -35,7 +35,7 @@ protocol DetailViewModelIO: DetailViewModelInput, DetailViewModelOutput { }
 
 class DetailViewModel: DetailViewModelIO {
     var ownerState = CurrentValueSubject<Bool, Never>(false)
-    var participationAuthState = CurrentValueSubject<ParticipationAuthState, Never>(.unParticipation)
+    var participationAuthState = CurrentValueSubject<ParticipationAuthState, Never>(.notParticipating)
 
     var challenge = PassthroughSubject<Challenge, Never>()
     var editBarButtonTap = PassthroughSubject<String, Never>()
@@ -73,10 +73,10 @@ extension DetailViewModel {
     }
 
     func didTappedParticipationButton() {
-        if participationAuthState.value == .unParticipation {
+        if participationAuthState.value == .notParticipating {
             guard let challengeID = challengeID else { return }
             participationCreateUsecase.createParticipation(challengeID: challengeID)
-            self.participationAuthState.value = .unAuth
+            self.participationAuthState.value = .notAuthenticating
         }
     }
 }
@@ -96,7 +96,7 @@ extension DetailViewModel {
         participationFetchUsecase.fetchParticipation(challengeID: challengeID) { [weak self] participation in
             guard let self = self else { return }
             // TODO: Participation 있는 경우에는 인증하기 or 인증완료 구분하기 TODO
-            self.participationAuthState.value = participation == nil ? .unParticipation : .unAuth
+            self.participationAuthState.value = participation == nil ? .notParticipating : .notAuthenticating
         }
     }
 
