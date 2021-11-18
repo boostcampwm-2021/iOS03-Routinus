@@ -12,7 +12,7 @@ final class CalendarView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        label.text = "요약"
+        label.text = "summary".localized
         return label
     }()
 

@@ -47,7 +47,7 @@ extension CreateCategoryView {
 
     private func configureButton() {
         var configuration = UIButton.Configuration.tinted()
-        configuration.title = "운동"
+        configuration.title = "exercise".localized
         button.configuration = configuration
 
         var actions = [UIAction]()

@@ -12,7 +12,7 @@ final class AuthButton: UIButton {
 
     init() {
         super.init(frame: .zero)
-        self.setTitle("인증하기", for: .normal)
+        self.setTitle("certify".localized, for: .normal)
         self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 26)
         self.setTitleColor(.black, for: .normal)
         self.backgroundColor = UIColor(named: "MainColor")
