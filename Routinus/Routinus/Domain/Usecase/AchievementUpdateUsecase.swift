@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AchievementUpdatableUsecase {
-    func updateAchievement()
+    func updateAchievementCount()
 }
 
 struct AchievementUpdateUsecase: AchievementUpdatableUsecase {
@@ -17,8 +17,8 @@ struct AchievementUpdateUsecase: AchievementUpdatableUsecase {
     init(repository: AchievementRepository) {
         self.repository = repository
     }
-    
-    func updateAchievement() {
+
+    func updateAchievementCount() {
         guard let userID = RoutinusRepository.userID() else { return }
         let yearMonth = Date().toYearMonthString()
         let day = Date().toDayString()

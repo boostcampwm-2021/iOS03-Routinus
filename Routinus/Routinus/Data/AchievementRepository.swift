@@ -13,9 +13,8 @@ protocol AchievementRepository {
     func fetchAchievements(by id: String,
                            in yearMonth: String,
                            completion: (([Achievement]) -> Void)?)
-    
-    func updateAchievement(userID: String, yearMonth: String, day: String)
-    
+
+    func updateAchievementCount(userID: String, yearMonth: String, day: String)
 }
 
 extension RoutinusRepository: AchievementRepository {
@@ -26,7 +25,7 @@ extension RoutinusRepository: AchievementRepository {
             completion?(list.map { Achievement(achievementDTO: $0) })
         }
     }
-    
-    func updateAchievement(userID: String, yearMonth: String, day: String) {
+
+    func updateAchievementCount(userID: String, yearMonth: String, day: String) {
     }
 }
