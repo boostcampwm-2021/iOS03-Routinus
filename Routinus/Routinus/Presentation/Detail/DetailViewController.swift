@@ -159,7 +159,7 @@ final class DetailViewController: UIViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
-                self.showAlert()
+                self.presentAlert()
             })
             .store(in: &cancellables)
     }
@@ -168,7 +168,7 @@ final class DetailViewController: UIViewController {
         participantButton.delegate = self
     }
 
-    private func showAlert() {
+    private func presentAlert() {
         let alert = UIAlertController(title: "알림", message: "챌린지에 참여되었습니다.", preferredStyle: .alert)
         let confirm = UIAlertAction(title: "확인", style: .default, handler: nil)
         let close = UIAlertAction(title: "닫기", style: .destructive, handler: nil)
