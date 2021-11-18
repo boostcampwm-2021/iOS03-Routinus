@@ -27,5 +27,9 @@ extension RoutinusRepository: AchievementRepository {
     }
 
     func updateAchievementCount(userID: String, yearMonth: String, day: String) {
+        RoutinusDatabase.updateAchievementCount(userID: userID,
+                                                yearMonth: yearMonth,
+                                                day: day,
+                                                completion: nil)
     }
 }
