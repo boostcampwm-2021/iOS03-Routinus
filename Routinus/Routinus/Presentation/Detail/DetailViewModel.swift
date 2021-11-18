@@ -11,7 +11,7 @@ import Foundation
 enum ParticipationAuthState: String {
     case unParticipation = "참여하기"
     case unAuth = "인증하기"
-    case auth = "인증완료"
+    case completion = "인증완료"
 }
 
 protocol DetailViewModelInput {
