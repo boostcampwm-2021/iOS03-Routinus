@@ -71,7 +71,8 @@ final class PreviewView: UIView {
     func setImage(_ image: UIImage) {
         let backgroundImage = UIImageView(frame: previewView.bounds)
         backgroundImage.image = image
-        backgroundImage.contentMode = .scaleToFill
+        backgroundImage.contentMode = .scaleAspectFill
+        backgroundImage.clipsToBounds = true
         self.previewView.addSubview(backgroundImage)
     }
 }
