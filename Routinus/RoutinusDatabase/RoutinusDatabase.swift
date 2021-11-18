@@ -267,6 +267,7 @@ public enum RoutinusDatabase {
                 createAchievement(of: id,
                                   yearMonth: yearMonthString,
                                   day: dayString,
+                                  totalCount: totalCount,
                                   completion: nil)
             }
         }.resume()
@@ -275,8 +276,23 @@ public enum RoutinusDatabase {
     public static func createAchievement(of id: String,
                                          yearMonth: String,
                                          day: String,
+                                         totalCount: Int,
                                          completion: (() -> Void)?) {
-        // TODO: Achievement document 생성
+        guard let url = URL(string: "\(firestoreURL)/achievement") else {
+            completion?()
+            return
+        }
+        var request = URLRequest(url: url)
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.createAchievementQuery(id: id,
+                                                                yearMonth: yearMonth,
+                                                                day: day,
+                                                                totalCount: "\(totalCount)")
+
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            completion?()
+        }.resume()
     }
 
     public static func achievements(of id: String,

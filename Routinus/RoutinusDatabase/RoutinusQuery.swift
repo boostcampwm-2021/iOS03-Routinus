@@ -385,4 +385,21 @@ internal enum RoutinusQuery {
         }
         """.data(using: .utf8)
     }
+
+    internal static func createAchievementQuery(id: String,
+                                                yearMonth: String,
+                                                day: String,
+                                                totalCount: String) -> Data? {
+        return """
+        {
+            "fields": {
+                "achievement_count": { "integerValue": "0" },
+                "day": { "stringValue": "\(day)" },
+                "total_count": { "integerValue": "\(totalCount)" },
+                "user_id": { "stringValue": "\(id)" },
+                "year_month": { "stringValue": "\(yearMonth)" }
+            }
+        }
+        """.data(using: .utf8)
+    }
 }
