@@ -45,6 +45,7 @@ class DetailViewModel: DetailViewModelIO {
     let imageFetchUsecase: ImageFetchableUsecase
     let participationFetchUsecase: ParticipationFetchableUsecase
     let participationCreateUsecase: ParticipationCreatableUsecase
+    let userFetchUsecase: UserFetchableUsecase
     var cancellables = Set<AnyCancellable>()
     var challengeID: String?
 
@@ -52,12 +53,14 @@ class DetailViewModel: DetailViewModelIO {
          challengeFetchUsecase: ChallengeFetchableUsecase,
          imageFetchUsecase: ImageFetchableUsecase,
          participationFetchUsecase: ParticipationFetchableUsecase,
-         participationCreateUsecase: ParticipationCreatableUsecase) {
+         participationCreateUsecase: ParticipationCreatableUsecase,
+         userFetchUsecase: UserFetchableUsecase) {
         self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
         self.participationFetchUsecase = participationFetchUsecase
         self.participationCreateUsecase = participationCreateUsecase
+        self.userFetchUsecase = userFetchUsecase
         self.fetchChallenge()
         self.fetchParticipation()
     }
@@ -98,8 +101,7 @@ extension DetailViewModel {
     }
 
     private func isChallengeOwner(challenge: Challenge) -> Bool {
-        // TODO: userID 가져오는 로직 별도 분리
-        return challenge.ownerID == RoutinusRepository.userID()
+        return challenge.ownerID == userFetchUsecase.fetchUserID()
     }
 
     func imageData(from directory: String,
