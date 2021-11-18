@@ -28,20 +28,34 @@ final class DetailCoordinator: RoutinusCoordinator {
         let participationFetchUsecase = ParticipationFetchUsecase(repository: repository)
         let participationCreateUsecase = ParticipationCreateUsecase(repository: repository)
         let userFetchUsecase = UserFetchUsecase(repository: repository)
+        let challengeAuthFetchUsecase = ChallengeAuthFetchUsecase(repository: repository)
         let detailViewModel = DetailViewModel(challengeID: challengeID,
                                               challengeFetchUsecase: challengeFetchUsecase,
                                               imageFetchUsecase: imageFetchUsecase,
                                               participationFetchUsecase: participationFetchUsecase,
                                               participationCreateUsecase: participationCreateUsecase,
-                                              userFetchUsecase: userFetchUsecase)
+                                              userFetchUsecase: userFetchUsecase,
+                                              challengeAuthFetchUsecase: challengeAuthFetchUsecase)
         let detailViewController = DetailViewController(with: detailViewModel)
+        detailViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(detailViewController, animated: true)
 
         detailViewModel.editBarButtonTap
-            .sink { [weak self] challengeID  in
+            .sink { [weak self] challengeID in
                 guard let self = self else { return }
                 let createCoordinator = CreateCoordinator(navigationController: self.navigationController, challengeID: challengeID)
                 createCoordinator.start()
+                self.childCoordinator.append(createCoordinator)
+            }
+            .store(in: &cancellables)
+
+        detailViewModel.authButtonTap
+            .sink { [ weak self ] challengeID in
+                guard let self = self else { return }
+                let authCoordinator = AuthCoordinator(navigationController: self.navigationController,
+                                                      challengeID: challengeID)
+                authCoordinator.start()
+                self.childCoordinator.append(authCoordinator)
             }
             .store(in: &cancellables)
     }

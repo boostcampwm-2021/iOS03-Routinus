@@ -346,6 +346,44 @@ internal enum RoutinusQuery {
         """.data(using: .utf8)
     }
 
+    internal static func challengeAuth(todayDate: String, userID: String, challengeID: String) -> Data? {
+        return """
+        {
+            "structuredQuery": {
+                "from": { "collectionId": "challenge_auth" },
+                "where": {
+                    "compositeFilter": {
+                        "filters": [
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "user_id" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(userID)" }
+                                }
+                            },
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "challenge_id" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(challengeID)" }
+                                },
+                            },
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "date" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(todayDate)" }
+                                },
+                            }
+                        ],
+                        "op": "AND"
+                    }
+                }
+            }
+        }
+        """.data(using: .utf8)
+    }
+
     internal static func todayAchievementQuery(of id: String,
                                                yearMonth: String,
                                                day: String) -> Data? {
@@ -385,7 +423,7 @@ internal enum RoutinusQuery {
         }
         """.data(using: .utf8)
     }
-
+  
     internal static func createAchievementQuery(id: String,
                                                 yearMonth: String,
                                                 day: String,

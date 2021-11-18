@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ChallengeAuthDTO {
+public struct ChallengeAuthDTO: Codable {
     public let document: ChallengeAuthFields?
 
     init() {

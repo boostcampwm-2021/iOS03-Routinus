@@ -18,7 +18,6 @@ struct ParticipationFetchUsecase: ParticipationFetchableUsecase {
         self.repository = repository
     }
 
-    // TODO: auth 인증 fetch + escaping: (Participation?, Auth?) -> Void 로 전달
     func fetchParticipation(challengeID: String, completion: @escaping (Participation?) -> Void) {
         guard let userID = RoutinusRepository.userID() else {
             completion(nil)

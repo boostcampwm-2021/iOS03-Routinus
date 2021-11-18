@@ -33,6 +33,8 @@ final class ParticipantButton: UIButton {
     }
 
     func update(to state: ParticipationAuthState) {
+        self.isEnabled = state == .authenticated ? false : true
+        self.alpha = state == .authenticated ? 0.5 : 1
         self.setTitle(state.rawValue, for: .normal)
     }
 }

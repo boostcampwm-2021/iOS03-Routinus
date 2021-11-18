@@ -14,6 +14,10 @@ protocol ChallengeAuthRepository {
     func save(challengeAuth: ChallengeAuth,
               userAuthImageURL: String,
               userAuthThumbnailImageURL: String)
+    func fetchChallengeAuth(todayDate: String,
+                            userID: String,
+                            challengeID: String,
+                            completion: @escaping (ChallengeAuth?) -> Void)
 }
 
 extension RoutinusRepository: ChallengeAuthRepository {
@@ -34,4 +38,21 @@ extension RoutinusRepository: ChallengeAuthRepository {
             RoutinusImageManager.removeTempCachedImages()
         }
     }
+
+    func fetchChallengeAuth(todayDate: String,
+                            userID: String,
+                            challengeID: String,
+                            completion: @escaping (ChallengeAuth?) -> Void) {
+        RoutinusDatabase.challengeAuth(todayDate: todayDate,
+                                       userID: userID,
+                                       challengeID: challengeID) { dto in
+            guard let dto = dto,
+                  dto.document != nil else {
+                completion(nil)
+                return
+            }
+            completion(ChallengeAuth(challengeAuthDTO: dto))
+        }
+    }
+
 }

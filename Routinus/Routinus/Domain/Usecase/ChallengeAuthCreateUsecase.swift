@@ -34,6 +34,4 @@ struct ChallengeAuthCreateUsecase: ChallengeAuthCreatableUsecase {
                         userAuthImageURL: userAuthImageURL,
                         userAuthThumbnailImageURL: userAuthThumbnailImageURL)
     }
-    
-    
 }

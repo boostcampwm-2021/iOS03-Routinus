@@ -518,4 +518,19 @@ public enum RoutinusDatabase {
             completion(dto ?? nil)
         }.resume()
     }
+
+    public static func challengeAuth(todayDate: String, userID: String, challengeID: String, completion: @escaping (ChallengeAuthDTO?) -> Void) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
+        var request = URLRequest(url: url)
+
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.challengeAuth(todayDate: todayDate, userID: userID, challengeID: challengeID)
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let dto = try? JSONDecoder().decode([ChallengeAuthDTO].self, from: data).first 
+            completion(dto)
+        }.resume()
+    }
 }
