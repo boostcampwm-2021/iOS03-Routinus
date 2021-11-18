@@ -9,6 +9,9 @@ import Combine
 import UIKit
 
 final class HomeViewController: UIViewController {
+    typealias DataSource = UITableViewDiffableDataSource<Int, TodayRoutine>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, TodayRoutine>
+
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var contentView: UIView = UIView()
     private lazy var titleLabel: UILabel = {
@@ -19,6 +22,7 @@ final class HomeViewController: UIViewController {
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView(viewModel: viewModel)
+    private lazy var dataSource = configureDataSource()
 
     private var viewModel: HomeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
@@ -119,6 +123,10 @@ extension HomeViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routines in
                 guard let self = self else { return }
+                var snapshot = Snapshot()
+                snapshot.appendSections([0])
+                snapshot.appendItems(routines)
+                self.dataSource.apply(snapshot)
                 self.todayRoutineView.updateTableViewConstraints(cellCount: routines.count)
             })
             .store(in: &cancellables)
@@ -134,7 +142,7 @@ extension HomeViewController {
 
     private func configureDelegates() {
         todayRoutineView.delegate = self
-        todayRoutineView.dataSource = self
+        todayRoutineView.dataSource = dataSource
         todayRoutineView.challengeAddDelegate = self
 
         calendarView.delegate = self
@@ -186,6 +194,21 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                    didSelectRowAt indexPath: IndexPath) {
         guard let challengeID = viewModel?.todayRoutines.value[indexPath.row].challengeID else { return }
         self.viewModel?.didTappedTodayRoutine(index: indexPath.row)
+    }
+}
+
+extension HomeViewController {
+    func configureDataSource() -> DataSource {
+        let dataSource = DataSource(tableView: todayRoutineView.tableView) { tableView, indexPath, _ in
+
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTableViewCell.identifier,
+                                                     for: indexPath) as? RoutineTableViewCell,
+                  let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
+            cell.configureCell(routine: routines[indexPath.row])
+            cell.selectionStyle = .none
+            return cell
+        }
+        return dataSource
     }
 }
 

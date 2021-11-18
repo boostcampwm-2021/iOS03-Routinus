@@ -9,7 +9,7 @@ import Foundation
 
 import RoutinusDatabase
 
-struct TodayRoutine {
+struct TodayRoutine: Hashable {
     let challengeID: String
     let category: Challenge.Category
     let title: String
