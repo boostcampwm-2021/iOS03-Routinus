@@ -25,7 +25,7 @@ final class TodayRoutineView: UIView {
         return button
     }()
 
-    private lazy var tableView: UITableView = {
+    private(set) lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.estimatedRowHeight = 100
         tableView.alwaysBounceVertical = false

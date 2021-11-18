@@ -212,30 +212,30 @@ public enum RoutinusDatabase {
                   let participations = try? JSONDecoder().decode([ParticipationDTO].self,
                                                                  from: data) else { return }
             var todayRoutines = [TodayRoutineDTO]()
-            completion?(todayRoutines) // TODO: fetch 로직 수정해야 함
+            // TODO: fetch 로직 수정해야 함
 
-//            let fetchQueue = DispatchQueue(label: "fetchQueue")
-//            let group = DispatchGroup()
-//
-//            fetchQueue.async(group: group) {
-//                for participation in participations {
-//                    guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
-//                    request.httpBody = RoutinusQuery.routinesQuery(challengeID: challengeID)
-//
-//                    URLSession.shared.dataTask(with: request) { data, _, _ in
-//                        guard let data = data,
-//                              let challenge = try? JSONDecoder().decode([ChallengeDTO].self,
-//                                                                        from: data).first else { return }
-//                        let todayRoutine = TodayRoutineDTO(participation: participation,
-//                                                           challenge: challenge)
-//                        todayRoutines.append(todayRoutine)
-//                    }.resume()
-//                }
-//            }
-//
-//            group.notify(queue: fetchQueue) {
-//                completion?(todayRoutines)
-//            }
+            let fetchQueue = DispatchQueue(label: "fetchQueue")
+            let group = DispatchGroup()
+
+            fetchQueue.async(group: group) {
+                for participation in participations {
+                    guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
+                    request.httpBody = RoutinusQuery.routinesQuery(challengeID: challengeID)
+
+                    URLSession.shared.dataTask(with: request) { data, _, _ in
+                        guard let data = data,
+                              let challenge = try? JSONDecoder().decode([ChallengeDTO].self,
+                                                                        from: data).first else { return }
+                        let todayRoutine = TodayRoutineDTO(participation: participation,
+                                                           challenge: challenge)
+                        todayRoutines.append(todayRoutine)
+                    }.resume()
+                }
+            }
+
+            group.notify(queue: fetchQueue) {
+                completion?(todayRoutines)
+            }
         }.resume()
     }
 
