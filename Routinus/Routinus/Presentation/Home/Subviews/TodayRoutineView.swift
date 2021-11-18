@@ -7,8 +7,6 @@
 
 import UIKit
 
-import SnapKit
-
 final class TodayRoutineView: UIView {
     weak var challengeAdddelegate: TodayRoutineDelegate?
 
@@ -63,12 +61,12 @@ final class TodayRoutineView: UIView {
     }
 
     func updateTableViewConstraints(cellCount: Int) {
-        snp.updateConstraints { make in
-            make.height.equalTo(25 + 60 * cellCount)
-        }
-        tableView.snp.updateConstraints { make in
-            make.height.equalTo(60 * cellCount)
-        }
+        removeLastAnchor()
+        anchor(height: 25 + CGFloat(60 * cellCount))
+
+        tableView.removeLastAnchor()
+        tableView.anchor(height: 60 * CGFloat(cellCount))
+        tableView.layoutIfNeeded()
         tableView.reloadData()
     }
 }
@@ -89,24 +87,20 @@ extension TodayRoutineView {
         let offset = smallWidth ? 15.0 : 20.0
 
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(offset)
-            make.top.equalToSuperview()
-        }
+        titleLabel.anchor(left: titleLabel.superview?.leftAnchor, paddingLeft: offset,
+                          top: titleLabel.superview?.topAnchor)
 
         addSubview(addButton)
-        addButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-offset)
-            make.top.equalToSuperview()
-        }
+        addButton.anchor(right: addButton.superview?.rightAnchor, paddingRight: offset,
+                         top: addButton.superview?.topAnchor)
 
         addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.width.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.height.equalTo(60)
-        }
+        tableView.anchor(centerX: tableView.superview?.centerXAnchor,
+                         top: titleLabel.bottomAnchor, paddingTop: 10,
+                         width: UIScreen.main.bounds.width)
+        let constraint = tableView.heightAnchor.constraint(equalToConstant: 60)
+        constraint.priority = UILayoutPriority(100)
+        constraint.isActive = true
     }
 }
 

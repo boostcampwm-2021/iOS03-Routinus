@@ -7,8 +7,6 @@
 
 import UIKit
 
-import SnapKit
-
 final class CreateCategoryView: UIView {
     weak var delegate: CreateSubviewDelegate?
     
@@ -72,17 +70,14 @@ extension CreateCategoryView {
 
     private func configureLayouts() {
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.width.equalToSuperview()
-            make.height.equalTo(24)
-        }
+        titleLabel.anchor(top: titleLabel.superview?.topAnchor,
+                          width: UIScreen.main.bounds.width - 20)
 
         addSubview(button)
-        button.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview()
-            make.width.equalTo(100)
-            make.height.equalTo(40)
-        }
+        button.anchor(left: button.superview?.leftAnchor,
+                      top: titleLabel.bottomAnchor, paddingTop: 20,
+                      width: 100, height: 40)
+
+        anchor(bottom: button.bottomAnchor)
     }
 }

@@ -7,11 +7,9 @@
 
 import UIKit
 
-import SnapKit
-
 final class CreateTitleView: UIView {
     typealias Tag = CreateViewController.InputTag
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "챌린지 제목을 입력해주세요."
@@ -23,6 +21,7 @@ final class CreateTitleView: UIView {
         let label = UILabel()
         label.text = "타인에게 불쾌감을 주는 단어는 지양해주세요."
         label.font = .systemFont(ofSize: 16)
+        label.numberOfLines = 2
         label.textColor = .systemGray
         return label
     }()
@@ -34,7 +33,7 @@ final class CreateTitleView: UIView {
         textField.tag = Tag.title.rawValue
         return textField
     }()
-    
+
     weak var delegate: UITextFieldDelegate? {
         didSet {
             self.textField.delegate = delegate
@@ -67,21 +66,17 @@ extension CreateTitleView {
 
     private func configureSubviews() {
         addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.top.width.equalToSuperview()
-            make.height.equalTo(24)
-        }
+        titleLabel.anchor(top: titleLabel.superview?.topAnchor,
+                          width: UIScreen.main.bounds.width - 40)
 
         addSubview(descriptionLabel)
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.width.equalToSuperview()
-        }
+        descriptionLabel.anchor(top: titleLabel.bottomAnchor, paddingTop: 10,
+                                width: UIScreen.main.bounds.width - 40)
 
         addSubview(textField)
-        textField.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(20)
-            make.width.equalToSuperview()
-        }
+        textField.anchor(top: descriptionLabel.bottomAnchor, paddingTop: 20,
+                         width: UIScreen.main.bounds.width - 40)
+
+        anchor(bottom: textField.bottomAnchor)
     }
 }

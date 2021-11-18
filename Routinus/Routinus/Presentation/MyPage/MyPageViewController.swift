@@ -27,8 +27,6 @@ final class MyPageViewController: UIViewController {
     func configureViews() {
         self.view.backgroundColor = .white
         self.view.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.edges.equalTo(self.view.safeAreaLayoutGuide).inset(20)
-        }
+        imageView.anchor(edges: view.safeAreaLayoutGuide)
     }
 }

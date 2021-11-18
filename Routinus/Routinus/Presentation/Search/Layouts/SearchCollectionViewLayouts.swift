@@ -9,11 +9,17 @@ import UIKit
 
 final class SearchCollectionViewLayouts {
     private var pupularSearchKeywordLayout: NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 25.0
+
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                              heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .estimated(30))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2),
+                                               heightDimension: .estimated(30))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
@@ -21,17 +27,24 @@ final class SearchCollectionViewLayouts {
                                                     elementKind: UICollectionView.elementKindSectionHeader,
                                                     alignment: .topLeading)]
         section.orthogonalScrollingBehavior = .groupPaging
-        section.contentInsets = .init(top: 5, leading: 25, bottom: 20, trailing: 25)
+        section.contentInsets = .init(top: 5, leading: offset, bottom: 20, trailing: offset)
         section.interGroupSpacing = 20
         return section
     }
 
     private var challengeLayout: NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .estimated(140))
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 25.0
+
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
+                                              heightDimension: .estimated(140))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(140))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                               heightDimension: .estimated(140))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitem: item,
+                                                       count: 2)
         group.interItemSpacing = .fixed(15)
 
         let section = NSCollectionLayoutSection(group: group)
@@ -41,7 +54,7 @@ final class SearchCollectionViewLayouts {
                                                     alignment: .topLeading)]
 
         section.orthogonalScrollingBehavior = .none
-        section.contentInsets = .init(top: 10, leading: 25, bottom: 10, trailing: 25)
+        section.contentInsets = .init(top: 10, leading: offset, bottom: 10, trailing: offset)
         section.interGroupSpacing = 30
         return section
     }
