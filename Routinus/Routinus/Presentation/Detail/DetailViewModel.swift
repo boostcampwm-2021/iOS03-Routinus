@@ -97,7 +97,6 @@ extension DetailViewModel {
     private func fetchParticipation(completion: @escaping (Participation?) -> Void) {
         guard let challengeID = challengeID else { return }
         participationFetchUsecase.fetchParticipation(challengeID: challengeID) { [weak self] participation in
-            guard let self = self else { return }
             completion(participation)
         }
     }
@@ -105,7 +104,6 @@ extension DetailViewModel {
     private func fetchAuth(completion: @escaping (ChallengeAuth?) -> Void) {
         guard let challengeID = challengeID else { return }
         challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { [weak self] challengeAuth in
-            guard let self = self else { return }
             completion(challengeAuth)
         }
     }
