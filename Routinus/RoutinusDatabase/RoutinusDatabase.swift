@@ -233,8 +233,66 @@ public enum RoutinusDatabase {
             }
 
             group.notify(queue: fetchQueue) {
+                todayRoutines.sort { $0.challengeID > $1.challengeID }
                 completion?(todayRoutines)
+                todayAchievement(of: id,
+                                 totalCount: todayRoutines.count,
+                                 completion: nil)
             }
+        }.resume()
+    }
+
+    public static func todayAchievement(of id: String,
+                                        totalCount: Int,
+                                        completion: (() -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
+
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+        guard let year = dateComponents.year,
+              let month = dateComponents.month,
+              let day = dateComponents.day else { return }
+        let yearMonthString = "\(year)\(String(format: "%02d", month))"
+        let dayString = String(format: "%02d", day)
+
+        var request = URLRequest(url: url)
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.todayAchievementQuery(of: id,
+                                                               yearMonth: yearMonthString,
+                                                               day: dayString)
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data,
+                  let dto = try? JSONDecoder().decode([AchievementDTO].self, from: data).first else { return }
+            if dto.document == nil {
+                createAchievement(of: id,
+                                  yearMonth: yearMonthString,
+                                  day: dayString,
+                                  totalCount: totalCount,
+                                  completion: nil)
+            }
+        }.resume()
+    }
+
+    public static func createAchievement(of id: String,
+                                         yearMonth: String,
+                                         day: String,
+                                         totalCount: Int,
+                                         completion: (() -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL)/achievement") else {
+            completion?()
+            return
+        }
+        var request = URLRequest(url: url)
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = RoutinusQuery.createAchievementQuery(id: id,
+                                                                yearMonth: yearMonth,
+                                                                day: day,
+                                                                totalCount: "\(totalCount)")
+
+        URLSession.shared.dataTask(with: request) { _, _, _ in
+            completion?()
         }.resume()
     }
 

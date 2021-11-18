@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 protocol HomeViewModelInput {
+    func fetchMyHomeData()
     func didTappedTodayRoutine(index: Int)
     func didTappedAddChallengeButton()
     func didTappedTodayRoutineAuth(index: Int)
@@ -67,11 +68,16 @@ final class HomeViewModel: HomeViewModelIO {
         self.baseDate.value = Date()
         self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
         self.createUserID()
-        self.fetchMyHomeData()
     }
 }
 
 extension HomeViewModel {
+    func fetchMyHomeData() {
+        fetchUser()
+        fetchTodayRoutine()
+        fetchAchievement()
+    }
+
     func didTappedTodayRoutine(index: Int) {
         let challengeID = self.todayRoutines.value[index].challengeID
         self.todayRoutineTap.send(challengeID)
@@ -90,12 +96,6 @@ extension HomeViewModel {
 extension HomeViewModel {
     private func createUserID() {
         userCreateUsecase.createUserID()
-    }
-
-    private func fetchMyHomeData() {
-        fetchUser()
-        fetchTodayRoutine()
-        fetchAchievement()
     }
 
     private func fetchUser() {
