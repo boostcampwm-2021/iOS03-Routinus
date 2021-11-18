@@ -30,7 +30,7 @@ final class DetailViewController: UIViewController {
 
     private lazy var mainImageView: UIImageView = {
         var imageView = UIImageView()
-        imageView.backgroundColor = .brown
+        imageView.backgroundColor = .systemBackground
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()

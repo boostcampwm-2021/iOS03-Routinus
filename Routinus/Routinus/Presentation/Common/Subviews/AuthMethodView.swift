@@ -17,7 +17,7 @@ final class AuthMethodView: UIView {
 
     private lazy var methodImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .brown
+        imageView.backgroundColor = .systemBackground
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
