@@ -108,7 +108,7 @@ extension HomeViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.todayRoutine
+        self.viewModel?.todayRoutines
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routines in
                 guard let self = self else { return }
@@ -147,7 +147,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel?.todayRoutine.value.count ?? 0
+        return self.viewModel?.todayRoutines.value.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -157,7 +157,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineCell.identifier, for: indexPath)
                 as? RoutineCell,
-              let routines = self.viewModel?.todayRoutine.value else { return UITableViewCell() }
+              let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
 
         cell.configureCell(routine: routines[indexPath.row])
         cell.selectionStyle = .none
@@ -178,7 +178,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let challengeID = viewModel?.todayRoutine.value[indexPath.row].challengeID else { return }
+        guard let challengeID = viewModel?.todayRoutines.value[indexPath.row].challengeID else { return }
         self.viewModel?.didTappedTodayRoutine(index: indexPath.row)
     }
 }
