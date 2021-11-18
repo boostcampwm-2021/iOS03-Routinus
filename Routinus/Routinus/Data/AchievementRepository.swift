@@ -10,13 +10,14 @@ import Foundation
 import RoutinusDatabase
 
 protocol AchievementRepository {
-    func fetchAcheivements(by id: String,
+    func fetchAchievements(by id: String,
                            in yearMonth: String,
                            completion: (([Achievement]) -> Void)?)
+    
 }
 
 extension RoutinusRepository: AchievementRepository {
-    func fetchAcheivements(by id: String,
+    func fetchAchievements(by id: String,
                            in yearMonth: String,
                            completion: (([Achievement]) -> Void)?) {
         RoutinusDatabase.achievements(of: id, in: yearMonth) { list in

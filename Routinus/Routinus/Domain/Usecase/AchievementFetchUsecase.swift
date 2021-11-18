@@ -25,7 +25,7 @@ struct AchievementFetchUsecase: AchievementFetchableUsecase {
         let id = "b555645c4804df095d82cb0b951a03b00d69cdeca5afc0a51201e1bfeae75e9b"
 //        guard let id = RoutinusRepository.userID() else { return }
 
-        repository.fetchAcheivements(by: id, in: yearMonth) { achievements in
+        repository.fetchAchievements(by: id, in: yearMonth) { achievements in
             completion(achievements)
         }
     }
