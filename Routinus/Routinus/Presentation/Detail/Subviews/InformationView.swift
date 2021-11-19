@@ -102,7 +102,7 @@ final class InformationView: UIView {
     private lazy var introductionView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 5
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = .systemGray6
         return view
     }()
 

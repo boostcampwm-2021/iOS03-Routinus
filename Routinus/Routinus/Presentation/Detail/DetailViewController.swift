@@ -14,8 +14,8 @@ final class DetailViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 3
-        stackView.backgroundColor = .systemGray5
+        stackView.spacing = 1
+        stackView.backgroundColor = UIColor(named: "LightGray")
         return stackView
     }()
 
@@ -54,7 +54,7 @@ final class DetailViewController: UIViewController {
         self.configureViewModel()
         self.configureDelegate()
     }
-    
+
     init(with viewModel: DetailViewModelIO) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -69,10 +69,8 @@ final class DetailViewController: UIViewController {
         self.configureNavigationBar()
 
         view.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        scrollView.anchor(horizontal: view,
+                          top: view.safeAreaLayoutGuide.topAnchor)
 
         view.addSubview(participantView)
         participantView.anchor(horizontal: participantView.superview,

@@ -63,7 +63,7 @@ extension CreateImageRegisterView {
         imageView.anchor(centerX: imageView.superview?.centerXAnchor,
                          top: titleLabel.bottomAnchor, paddingTop: 30,
                          width: 150, height: 150)
-        
+
         anchor(bottom: imageView.bottomAnchor)
     }
 

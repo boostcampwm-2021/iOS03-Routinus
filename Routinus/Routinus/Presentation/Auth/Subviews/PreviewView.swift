@@ -12,7 +12,10 @@ final class PreviewView: UIView {
 
     private lazy var previewView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "MainColor")
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 15
+        view.layer.borderColor = UIColor(named: "MainColor")?.cgColor
+        view.layer.borderWidth = 2
         return view
     }()
 
@@ -85,29 +88,20 @@ extension PreviewView {
 
     private func configureSubviews() {
         self.addSubview(previewView)
-        self.previewView.translatesAutoresizingMaskIntoConstraints = false
-        self.previewView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        self.previewView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.previewView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        self.previewView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        previewView.anchor(horizontal: self, paddingHorizontal: 20,
+                           vertical: self)
 
         previewView.addSubview(stackView)
-        self.stackView.translatesAutoresizingMaskIntoConstraints = false
-        self.stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        stackView.anchor(centerX: self.centerXAnchor,
+                         centerY: self.centerYAnchor)
 
-        self.authButton.translatesAutoresizingMaskIntoConstraints = false
-        self.authButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        self.authButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
-
-        self.previewLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.previewLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        authButton.anchor(width: 80, height: 80)
+        previewLabel.anchor(width: 100)
         [authButton, previewLabel].forEach { self.stackView.addArrangedSubview($0) }
 
         previewView.addSubview(timeLabel)
-        self.timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.timeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        self.timeLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        timeLabel.anchor(centerX: self.centerXAnchor,
+                         bottom: self.bottomAnchor, paddingBottom: 10)
     }
 
     private func configureGesture() {

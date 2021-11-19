@@ -67,7 +67,7 @@ extension HomeViewController {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .systemBackground
         self.configureNavigationBar()
 
         self.view.addSubview(scrollView)
@@ -180,7 +180,7 @@ extension HomeViewController: UITableViewDelegate {
             self?.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
         }
 
-        auth.backgroundColor = .systemGreen
+        auth.backgroundColor = UIColor(named: "MainColor")
         auth.title = "certify".localized
         return UISwipeActionsConfiguration(actions: [auth])
     }

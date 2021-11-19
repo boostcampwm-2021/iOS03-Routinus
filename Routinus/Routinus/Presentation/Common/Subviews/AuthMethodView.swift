@@ -26,7 +26,7 @@ final class AuthMethodView: UIView {
     private lazy var methodView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 5
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = .systemGray6
         return view
     }()
 

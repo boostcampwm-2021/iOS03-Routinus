@@ -10,10 +10,10 @@ import UIKit
 final class CalendarHeader: UIView {
     private lazy var todayButton: UIButton = {
         let button = UIButton()
-        button.setTitle("오늘", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Today", for: .normal)
+        button.setTitleColor(.green, for: .normal)
         button.isHidden = true
-
+        button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(didTappedTodayButton), for: .touchUpInside)
         return button
     }()
@@ -141,21 +141,21 @@ extension CalendarHeader {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        previousMonthButton.anchor(left: previousMonthButton.superview?.leftAnchor, paddingLeft: 10,
+                                   top: previousMonthButton.superview?.topAnchor, paddingTop: 15,
+                                   width: 36, height: 36)
 
-        todayButton.anchor(left: todayButton.superview?.leftAnchor, paddingLeft: 15,
-                           top: todayButton.superview?.topAnchor, paddingTop: 15)
-
-        nextMonthButton.anchor(right: nextMonthButton.superview?.rightAnchor, paddingRight: 10,
-                               centerY: todayButton.centerYAnchor,
-                               width: 36, height: 36)
-
-        monthLabel.anchor(right: nextMonthButton.leftAnchor, paddingRight: 10,
-                          centerY: todayButton.centerYAnchor,
+        monthLabel.anchor(left: previousMonthButton.rightAnchor, paddingLeft: 10,
+                          centerY: previousMonthButton.centerYAnchor,
                           width: 100)
 
-        previousMonthButton.anchor(right: monthLabel.leftAnchor, paddingRight: 10,
-                                   centerY: todayButton.centerYAnchor,
-                                   width: 36, height: 36)
+        nextMonthButton.anchor(left: monthLabel.rightAnchor, paddingLeft: 10,
+                               centerY: previousMonthButton.centerYAnchor,
+                               width: 36, height: 36)
+
+        todayButton.anchor(right: todayButton.superview?.rightAnchor, paddingRight: 15,
+                           centerY: previousMonthButton.centerYAnchor,
+                           width: 80)
 
         dayOfWeekStackView.anchor(horizontal: dayOfWeekStackView.superview,
                                   bottom: separatorView.bottomAnchor, paddingBottom: 5)
