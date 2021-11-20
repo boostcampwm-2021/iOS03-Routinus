@@ -511,7 +511,7 @@ public enum RoutinusDatabase {
             completion?()
         }
     }
-    
+
     public static func updateContinuityDay(of id: String,
                                            completion: (() -> Void)?) {
         user(of: id) { dto in
@@ -521,13 +521,12 @@ public enum RoutinusDatabase {
 
             let name = document.fields.name.stringValue
             let userImageCategoryID = document.fields.userImageCategoryID.stringValue
-            
+
             let userDTO = UserDTO(id: id,
                                   name: name,
                                   grade: grade,
                                   continuityDay: continuityDay + 1,
                                   userImageCategoryID: userImageCategoryID)
-                
 
             guard let userField = userDTO.document?.fields else { return }
             let documentID = dto.documentID ?? ""
