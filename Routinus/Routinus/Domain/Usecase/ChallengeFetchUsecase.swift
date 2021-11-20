@@ -71,15 +71,15 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
 
     func fetchCreationChallengesByMe(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
-        repository.fetchChallenges(by: id) { list in
-            completion(list)
+        repository.fetchChallenges(by: id) { challenges in
+            completion(challenges.filter { $0.endDate ?? Date() >= Date() })
         }
     }
 
     func fetchParticipatingChallenges(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(of: id) { challenges in
-            completion(challenges.filter { $0.ownerID != id })
+            completion(challenges.filter { $0.endDate ?? Date() >= Date() }.filter { $0.ownerID != id })
         }
     }
 

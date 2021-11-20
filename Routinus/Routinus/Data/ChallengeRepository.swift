@@ -20,7 +20,7 @@ protocol ChallengeRepository {
     func fetchChallenges(by userID: String,
                          completion: (([Challenge]) -> Void)?)
     func fetchChallenges(of userID: String,
-                              completion: (([Challenge]) -> Void)?)
+                         completion: (([Challenge]) -> Void)?)
     func fetchEdittingChallenge(challengeID: String,
                                 completion: @escaping (Challenge) -> Void)
     func fetchChallenge(challengeID: String,

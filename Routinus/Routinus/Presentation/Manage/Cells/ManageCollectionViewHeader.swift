@@ -41,7 +41,6 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
         return button
     }()
 
-    private lazy var stackView = UIStackView()
     private(set) var section: Section?
     private var isExpanded: Bool = true {
         didSet {
@@ -57,11 +56,13 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
         self.section = section
         label.text = section.title
 
-        addSubview(stackView)
-        stackView.anchor(horizontal: self,
+        addSubview(label)
+        label.anchor(left: self.leftAnchor,
                          centerY: centerYAnchor)
-        stackView.addArrangedSubview(label)
-        stackView.addArrangedSubview(toggleButton)
+
+        addSubview(toggleButton)
+        toggleButton.anchor(right: self.rightAnchor,
+                         centerY: centerYAnchor)
     }
 
     func didTouchedHeader() {
