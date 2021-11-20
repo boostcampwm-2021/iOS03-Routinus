@@ -122,6 +122,7 @@
 		E9A7943D2746125E00731DEB /* ParticipationUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7943C2746125E00731DEB /* ParticipationUpdateUsecase.swift */; };
 		E9A7943F274618AB00731DEB /* AchievementUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7943E274618AB00731DEB /* AchievementUpdateUsecase.swift */; };
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
+		E9B87CC42749069E00D7C0D2 /* NotificationName+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B87CC32749069E00D7C0D2 /* NotificationName+Extensions.swift */; };
 		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
 		E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */; };
 		E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */; };
@@ -287,6 +288,7 @@
 		E9A7943C2746125E00731DEB /* ParticipationUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationUpdateUsecase.swift; sourceTree = "<group>"; };
 		E9A7943E274618AB00731DEB /* AchievementUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementUpdateUsecase.swift; sourceTree = "<group>"; };
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
+		E9B87CC32749069E00D7C0D2 /* NotificationName+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extensions.swift"; sourceTree = "<group>"; };
 		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
 		E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
 		E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeywordButton.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 				0DC38F58273BA89000331C25 /* UIImage+Extensions.swift */,
 				0DFF32BC274548D8004FA9BD /* UIView+Extensions.swift */,
 				0D053E58274654390042DAF2 /* String+Extensions.swift */,
+				E9B87CC32749069E00D7C0D2 /* NotificationName+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1055,6 +1058,7 @@
 				E901EFDA2744CAA800B14847 /* TodayRoutineFetchUsecase.swift in Sources */,
 				44234F18273C0917004D6834 /* CreateImagePickerDelegate.swift in Sources */,
 				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
+				E9B87CC42749069E00D7C0D2 /* NotificationName+Extensions.swift in Sources */,
 				441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */,
 				1483873C2743F2FF00731F98 /* ParticipantButton.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
