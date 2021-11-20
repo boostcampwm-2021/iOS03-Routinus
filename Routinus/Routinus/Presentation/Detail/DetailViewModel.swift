@@ -90,10 +90,15 @@ extension DetailViewModel {
             authButtonTap.send(challengeID)
         }
     }
-    
+
     func didTappedAlertConfirm() {
         alertConfirmTap.send()
     }
+
+    func fetchParticipationAuthState() {
+        self.updateParticipationAuthState()
+    }
+    
 }
 
 extension DetailViewModel {

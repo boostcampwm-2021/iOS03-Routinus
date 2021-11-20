@@ -12,6 +12,7 @@ final class DetailCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
+    let authPublisher = NotificationCenter.default.publisher(for: .confirmAuth, object: nil)
     let challengeID: String?
 
     init(navigationController: UINavigationController, challengeID: String) {
@@ -58,10 +59,16 @@ final class DetailCoordinator: RoutinusCoordinator {
                 self.childCoordinator.append(authCoordinator)
             }
             .store(in: &cancellables)
-        
+
         detailViewModel.alertConfirmTap
             .sink { _ in
                 NotificationCenter.default.post(name: .confirmParticipation, object: nil)
+            }
+            .store(in: &cancellables)
+
+        self.authPublisher
+            .sink { _ in
+                detailViewModel.fetchParticipationAuthState()
             }
             .store(in: &cancellables)
 
