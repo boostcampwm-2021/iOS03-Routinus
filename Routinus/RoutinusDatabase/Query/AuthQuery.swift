@@ -42,7 +42,8 @@ internal enum AuthQuery {
                         ],
                         "op": "AND"
                     }
-                }
+                },
+                "limit": 1
             }
         }
         """.data(using: .utf8)

@@ -20,6 +20,7 @@ internal enum UserQuery {
                         "value": { "stringValue": "\(id)" }
                     },
                 },
+                "limit": 1
             }
         }
         """.data(using: .utf8)

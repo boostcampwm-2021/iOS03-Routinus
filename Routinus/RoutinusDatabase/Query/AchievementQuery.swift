@@ -34,7 +34,8 @@ internal enum AchievementQuery {
                         ],
                         "op": "AND"
                     }
-                }
+                },
+                "limit": 50
             }
         }
         """.data(using: .utf8)
@@ -74,7 +75,8 @@ internal enum AchievementQuery {
                         ],
                         "op": "AND"
                     }
-                }
+                },
+                "limit": 50
             }
         }
         """.data(using: .utf8)

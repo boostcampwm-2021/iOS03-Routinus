@@ -20,6 +20,7 @@ internal enum ParticipationQuery {
                         "value": { "stringValue": "\(userID)" }
                     },
                 },
+                "limit": 50
             }
         }
         """.data(using: .utf8)
@@ -51,7 +52,8 @@ internal enum ParticipationQuery {
                         ],
                         "op": "AND"
                     }
-                }
+                },
+                "limit": 50
             }
         }
         """.data(using: .utf8)

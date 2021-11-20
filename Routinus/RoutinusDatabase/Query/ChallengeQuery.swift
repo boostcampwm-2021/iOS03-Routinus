@@ -25,7 +25,8 @@ internal enum ChallengeQuery {
                         "field": { "fieldPath": "participant_count" },
                         "direction": "DESCENDING"
                     },
-                ]
+                ],
+                "limit": 50
             }
         }
         """.data(using: .utf8)
@@ -42,7 +43,8 @@ internal enum ChallengeQuery {
                         "op": "EQUAL",
                         "value": { "stringValue": "\(ownerID)" }
                     },
-                }
+                },
+                "limit": 50
             }
         }
         """.data(using: .utf8)
@@ -60,6 +62,7 @@ internal enum ChallengeQuery {
                             "value": { "stringValue": "\(challengeID)" }
                         },
                     },
+                    "limit": 50
                 }
             }
             """.data(using: .utf8)
@@ -91,7 +94,8 @@ internal enum ChallengeQuery {
                         ],
                         "op": "AND"
                     }
-                }
+                },
+                "limit": 50
             }
         }
         """.data(using: .utf8)
