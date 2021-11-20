@@ -12,6 +12,7 @@ final class HomeCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
+    let authPublisher = NotificationCenter.default.publisher(for: .confirmAuth, object: nil)
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -53,6 +54,13 @@ final class HomeCoordinator: RoutinusCoordinator {
                                                            challengeID: challengeID)
                 self.childCoordinator.append(authCoordinator)
                 authCoordinator.start()
+            }
+            .store(in: &cancellables)
+
+        self.authPublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                homeViewModel.fetchMyHomeData()
             }
             .store(in: &cancellables)
 
