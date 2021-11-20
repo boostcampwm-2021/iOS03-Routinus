@@ -15,6 +15,7 @@ protocol UserRepository {
               name: String)
     func fetchUser(by id: String,
                    completion: ((User) -> Void)?)
+    func updateContinuityDay(by id: String)
 }
 
 extension RoutinusRepository: UserRepository {
@@ -36,5 +37,10 @@ extension RoutinusRepository: UserRepository {
         RoutinusDatabase.user(of: id) { dto in
             completion?(User(userDTO: dto))
         }
+    }
+
+    func updateContinuityDay(by id: String) {
+        RoutinusDatabase.updateContinuityDay(of: id,
+                                             completion: nil)
     }
 }

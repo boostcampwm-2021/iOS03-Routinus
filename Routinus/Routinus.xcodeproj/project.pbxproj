@@ -127,6 +127,7 @@
 		E9A7943D2746125E00731DEB /* ParticipationUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7943C2746125E00731DEB /* ParticipationUpdateUsecase.swift */; };
 		E9A7943F274618AB00731DEB /* AchievementUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7943E274618AB00731DEB /* AchievementUpdateUsecase.swift */; };
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
+		E9B87CC6274950FC00D7C0D2 /* UserUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */; };
 		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
 		E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */; };
 		E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */; };
@@ -297,6 +298,7 @@
 		E9A7943C2746125E00731DEB /* ParticipationUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationUpdateUsecase.swift; sourceTree = "<group>"; };
 		E9A7943E274618AB00731DEB /* AchievementUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementUpdateUsecase.swift; sourceTree = "<group>"; };
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
+		E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUpdateUsecase.swift; sourceTree = "<group>"; };
 		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
 		E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
 		E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeywordButton.swift; sourceTree = "<group>"; };
@@ -635,6 +637,7 @@
 				145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */,
 				E901EFDD2744CBDE00B14847 /* UserFetchUsecase.swift */,
 				1497CF562739215C00296F9E /* UserCreateUsecase.swift */,
+				E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */,
 				E901EFD92744CAA800B14847 /* TodayRoutineFetchUsecase.swift */,
 				E901EFDF2744CC4F00B14847 /* AchievementFetchUsecase.swift */,
 				E9A7943E274618AB00731DEB /* AchievementUpdateUsecase.swift */,
@@ -1092,6 +1095,7 @@
 				1497CF572739215C00296F9E /* UserCreateUsecase.swift in Sources */,
 				E9753900273220F6004358C5 /* User.swift in Sources */,
 				0DBBAA3C27341C3600B32EB5 /* ChallengeRecommendCollectionViewCell.swift in Sources */,
+				E9B87CC6274950FC00D7C0D2 /* UserUpdateUsecase.swift in Sources */,
 				E9493DC3273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift in Sources */,
 				0DE0339A274355700026F502 /* ManageCollectionViewLayouts.swift in Sources */,
 				E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */,
