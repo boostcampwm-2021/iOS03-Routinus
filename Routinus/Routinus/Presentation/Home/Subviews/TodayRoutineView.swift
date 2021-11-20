@@ -13,7 +13,7 @@ final class TodayRoutineView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "today routine".localized
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         return label
     }()
 
