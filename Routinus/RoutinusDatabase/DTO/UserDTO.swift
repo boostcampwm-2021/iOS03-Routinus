@@ -13,6 +13,23 @@ public struct UserDTO: Codable {
     init() {
         self.document = nil
     }
+
+    public init(id: String,
+                name: String,
+                grade: Int,
+                continuityDay: Int,
+                userImageCategoryID: String) {
+        let field = UserFields(id: StringField(stringValue: id),
+                               name: StringField(stringValue: name),
+                               grade: IntegerField(integerValue: "\(grade)"),
+                               continuityDay: IntegerField(integerValue: "\(continuityDay)"),
+                               userImageCategoryID: StringField(stringValue: userImageCategoryID))
+        self.document = Fields(name: nil, fields: field)
+    }
+
+    var documentID: String? {
+        return self.document?.name?.components(separatedBy: "/").last
+    }
 }
 
 public struct UserFields: Codable {
