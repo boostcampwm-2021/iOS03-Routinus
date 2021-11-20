@@ -517,7 +517,13 @@ public enum RoutinusDatabase {
         user(of: id) { dto in
             guard let document = dto.document,
                   let grade = Int(document.fields.grade.integerValue),
-                  let continuityDay = Int(document.fields.continuityDay.integerValue) else { return }
+                  let continuityDay = Int(document.fields.continuityDay.integerValue),
+                  let lastAuthDay = Int(document.fields.lastAuthDay.stringValue) else { return }
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            guard let date = Int(dateFormatter.string(from: Date())),
+                  lastAuthDay < date else { return }
 
             let name = document.fields.name.stringValue
             let userImageCategoryID = document.fields.userImageCategoryID.stringValue
@@ -526,13 +532,15 @@ public enum RoutinusDatabase {
                                   name: name,
                                   grade: grade,
                                   continuityDay: continuityDay + 1,
-                                  userImageCategoryID: userImageCategoryID)
+                                  userImageCategoryID: userImageCategoryID,
+                                  lastAuthDay: "\(date)")
 
             guard let userField = userDTO.document?.fields else { return }
             let documentID = dto.documentID ?? ""
             var urlComponent = URLComponents(string: "\(firestoreURL)/user/\(documentID)?")
             let queryItems = [
-                URLQueryItem(name: "updateMask.fieldPaths", value: "continuity_day")
+                URLQueryItem(name: "updateMask.fieldPaths", value: "continuity_day"),
+                URLQueryItem(name: "updateMask.fieldPaths", value: "last_auth_day")
             ]
             urlComponent?.queryItems = queryItems
 
