@@ -13,17 +13,17 @@ public struct AchievementDTO: Codable {
     init() {
         self.document = nil
     }
-    
+
     public init(totalCount: Int,
                 day: String,
                 userID: String,
                 achievementCount: Int,
                 yearMonth: String) {
-        let field = AchievementField(totalCount: AchievementField.TotalCount(integerValue: String(totalCount)),
-                                     day: AchievementField.Day(stringValue: day),
-                                     userID: AchievementField.UserID(stringValue: userID),
-                                     achievementCount: AchievementField.AchievementCount(integerValue: String(achievementCount)),
-                                     yearMonth: AchievementField.YearMonth(stringValue: yearMonth))
+        let field = AchievementField(totalCount: IntegerField(integerValue: "\(totalCount)"),
+                                     day: StringField(stringValue: day),
+                                     userID: StringField(stringValue: userID),
+                                     achievementCount: IntegerField(integerValue: "\(achievementCount)"),
+                                     yearMonth: StringField(stringValue: yearMonth))
         self.document = AchievementFields(fields: field)
     }
 
@@ -38,31 +38,11 @@ public struct AchievementFields: Codable {
 }
 
 public struct AchievementField: Codable {
-    public struct TotalCount: Codable {
-        public let integerValue: String
-    }
-
-    public struct Day: Codable {
-        public let stringValue: String
-    }
-
-    public struct UserID: Codable {
-        public let stringValue: String
-    }
-
-    public struct AchievementCount: Codable {
-        public let integerValue: String
-    }
-
-    public struct YearMonth: Codable {
-        public let stringValue: String
-    }
-
-    public let totalCount: TotalCount
-    public let day: Day
-    public let userID: UserID
-    public let achievementCount: AchievementCount
-    public let yearMonth: YearMonth
+    public let totalCount: IntegerField
+    public let day: StringField
+    public let userID: StringField
+    public let achievementCount: IntegerField
+    public let yearMonth: StringField
 
     public enum CodingKeys: String, CodingKey {
         case day

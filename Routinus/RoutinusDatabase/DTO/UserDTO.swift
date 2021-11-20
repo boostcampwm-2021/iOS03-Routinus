@@ -20,31 +20,11 @@ public struct UserFields: Codable {
 }
 
 public struct UserField: Codable {
-    public struct ID: Codable {
-        public let stringValue: String
-    }
-
-    public struct Name: Codable {
-        public let stringValue: String
-    }
-
-    public struct Grade: Codable {
-        public let integerValue: String
-    }
-
-    public struct ContinuityDay: Codable {
-        public let integerValue: String
-    }
-
-    public struct UserImageCategoryID: Codable {
-        public let stringValue: String
-    }
-
-    public let id: ID
-    public let name: Name
-    public let grade: Grade
-    public let continuityDay: ContinuityDay
-    public let userImageCategoryID: UserImageCategoryID
+    public let id: StringField
+    public let name: StringField
+    public let grade: IntegerField
+    public let continuityDay: IntegerField
+    public let userImageCategoryID: StringField
 
     public enum CodingKeys: String, CodingKey {
         case id, name, grade

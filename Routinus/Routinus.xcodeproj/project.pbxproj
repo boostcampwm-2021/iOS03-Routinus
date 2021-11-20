@@ -62,6 +62,7 @@
 		4432E2802748C6B80078A6AB /* ParticipationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E27F2748C6B80078A6AB /* ParticipationQuery.swift */; };
 		4432E2822748C6C40078A6AB /* AuthQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E2812748C6C40078A6AB /* AuthQuery.swift */; };
 		4432E2842748C7410078A6AB /* AchievementQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E2832748C7410078A6AB /* AchievementQuery.swift */; };
+		4432E2862748D4A80078A6AB /* Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E2852748D4A80078A6AB /* Fields.swift */; };
 		446A07162740ECE6009F8D98 /* ParticipationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A07152740ECE6009F8D98 /* ParticipationDTO.swift */; };
 		446A0729274230E4009F8D98 /* RoutinusImageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 446A0728274230E4009F8D98 /* RoutinusImageManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		446A072C274230E4009F8D98 /* RoutinusImageManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446A0726274230E4009F8D98 /* RoutinusImageManager.framework */; };
@@ -229,6 +230,7 @@
 		4432E27F2748C6B80078A6AB /* ParticipationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationQuery.swift; sourceTree = "<group>"; };
 		4432E2812748C6C40078A6AB /* AuthQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthQuery.swift; sourceTree = "<group>"; };
 		4432E2832748C7410078A6AB /* AchievementQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementQuery.swift; sourceTree = "<group>"; };
+		4432E2852748D4A80078A6AB /* Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fields.swift; sourceTree = "<group>"; };
 		446A07152740ECE6009F8D98 /* ParticipationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationDTO.swift; sourceTree = "<group>"; };
 		446A0726274230E4009F8D98 /* RoutinusImageManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutinusImageManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		446A0728274230E4009F8D98 /* RoutinusImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutinusImageManager.h; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 		441CEDF127390260006C261F /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				4432E2852748D4A80078A6AB /* Fields.swift */,
 				441CEDEF27390259006C261F /* UserDTO.swift */,
 				441CEDF227390296006C261F /* TodayRoutineDTO.swift */,
 				441CEDF42739029C006C261F /* AchievementDTO.swift */,
@@ -1055,6 +1058,7 @@
 				446A07162740ECE6009F8D98 /* ParticipationDTO.swift in Sources */,
 				4432E27C2748C58A0078A6AB /* UserQuery.swift in Sources */,
 				4432E27E2748C69D0078A6AB /* ChallengeQuery.swift in Sources */,
+				4432E2862748D4A80078A6AB /* Fields.swift in Sources */,
 				E901EFEE2745400900B14847 /* ChallengeAuthDTO.swift in Sources */,
 				4432E2842748C7410078A6AB /* AchievementQuery.swift in Sources */,
 				441CEDF327390296006C261F /* TodayRoutineDTO.swift in Sources */,

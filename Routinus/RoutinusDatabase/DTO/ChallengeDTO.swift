@@ -24,16 +24,16 @@ public struct ChallengeDTO: Codable {
                 endDate: String,
                 participantCount: Int,
                 ownerID: String) {
-        let field = ChallengeField(authMethod: ChallengeField.AuthMethod(stringValue: authMethod),
-                                   categoryID: ChallengeField.CategoryID(stringValue: categoryID),
-                                   desc: ChallengeField.Desc(stringValue: desc),
-                                   endDate: ChallengeField.EndDate(stringValue: endDate),
-                                   id: ChallengeField.ID(stringValue: id),
-                                   ownerID: ChallengeField.OwnerID(stringValue: ownerID),
-                                   participantCount: ChallengeField.ParticipantCount(integerValue: "\(participantCount)"),
-                                   startDate: ChallengeField.StartDate(stringValue: startDate),
-                                   title: ChallengeField.Title(stringValue: title),
-                                   week: ChallengeField.Week(integerValue: "\(week)"))
+        let field = ChallengeField(authMethod: StringField(stringValue: authMethod),
+                                   categoryID: StringField(stringValue: categoryID),
+                                   desc: StringField(stringValue: desc),
+                                   endDate: StringField(stringValue: endDate),
+                                   id: StringField(stringValue: id),
+                                   ownerID: StringField(stringValue: ownerID),
+                                   participantCount: IntegerField(integerValue: "\(participantCount)"),
+                                   startDate: StringField(stringValue: startDate),
+                                   title: StringField(stringValue: title),
+                                   week: IntegerField(integerValue: "\(week)"))
         self.document = ChallengeFields(fields: field)
     }
 
@@ -48,56 +48,16 @@ public struct ChallengeFields: Codable {
 }
 
 public struct ChallengeField: Codable {
-    public struct AuthMethod: Codable {
-        public var stringValue: String
-    }
-
-    public struct CategoryID: Codable {
-        public var stringValue: String
-    }
-
-    public struct Desc: Codable {
-        public var stringValue: String
-    }
-
-    public struct EndDate: Codable {
-        public var stringValue: String
-    }
-
-    public struct ID: Codable {
-        public var stringValue: String
-    }
-
-    public struct OwnerID: Codable {
-        public var stringValue: String
-    }
-
-    public struct ParticipantCount: Codable {
-        public var integerValue: String
-    }
-
-    public struct StartDate: Codable {
-        public var stringValue: String
-    }
-
-    public struct Title: Codable {
-        public var stringValue: String
-    }
-
-    public struct Week: Codable {
-        public var integerValue: String
-    }
-
-    public var authMethod: AuthMethod
-    public var categoryID: CategoryID
-    public var desc: Desc
-    public var endDate: EndDate
-    public var id: ID
-    public var ownerID: OwnerID
-    public var participantCount: ParticipantCount
-    public var startDate: StartDate
-    public var title: Title
-    public var week: Week
+    public var authMethod: StringField
+    public var categoryID: StringField
+    public var desc: StringField
+    public var endDate: StringField
+    public var id: StringField
+    public var ownerID: StringField
+    public var participantCount: IntegerField
+    public var startDate: StringField
+    public var title: StringField
+    public var week: IntegerField
 
     public enum CodingKeys: String, CodingKey {
         case desc, id, title, week
