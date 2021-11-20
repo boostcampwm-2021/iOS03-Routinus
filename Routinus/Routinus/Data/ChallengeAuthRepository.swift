@@ -32,7 +32,7 @@ extension RoutinusRepository: ChallengeAuthRepository {
                                                 date: date,
                                                 time: time)
 
-        RoutinusDatabase.createChallengeAuth(challengeAuth: challengeAuthDTO,
+        RoutinusDatabase.insertChallengeAuth(challengeAuth: challengeAuthDTO,
                                              userAuthImageURL: userAuthImageURL,
                                              userAuthThumbnailImageURL: userAuthThumbnailImageURL) {
             RoutinusImageManager.removeTempCachedImages()

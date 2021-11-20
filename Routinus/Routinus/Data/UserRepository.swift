@@ -26,7 +26,7 @@ extension RoutinusRepository: UserRepository {
               name: String) {
         UserDefaults.standard.set(id,
                                   forKey: RoutinusRepository.userIDKey)
-        RoutinusDatabase.createUser(id: id,
+        RoutinusDatabase.insertUser(id: id,
                                     name: name,
                                     completion: nil)
     }
