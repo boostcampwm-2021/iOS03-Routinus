@@ -18,8 +18,9 @@ final class ContinuityView: UIView {
 
     private lazy var initContinuityLabel: UILabel = {
         let label = UILabel()
-        label.text = "시작이 반이다"
+        label.text = "루티너스와 함께 시작해봐요!"
         label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        label.textColor = UIColor(named: "Black")
         label.isHidden = true
         return label
     }()
