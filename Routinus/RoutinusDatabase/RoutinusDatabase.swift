@@ -22,7 +22,7 @@ public enum RoutinusDatabase {
         return URL(string: "\(storageURL)/\(id)%2F\(filename).jpeg?alt=media")
     }
 
-    public static func createUser(id: String,
+    public static func insertUser(id: String,
                                   name: String,
                                   completion: (() -> Void)?) {
         guard let url = URL(string: "\(firestoreURL)/user") else {
@@ -39,7 +39,7 @@ public enum RoutinusDatabase {
         }.resume()
     }
 
-    public static func createChallenge(challenge: ChallengeDTO,
+    public static func insertChallenge(challenge: ChallengeDTO,
                                        participation: ParticipationDTO,
                                        imageURL: String,
                                        thumbnailImageURL: String,
@@ -47,7 +47,7 @@ public enum RoutinusDatabase {
                                        authExampleThumbnailImageURL: String,
                                        completion: (() -> Void)?) {
         insertChallenge(dto: challenge, completion: nil)
-        insertChallengeParticipation(dto: participation, completion:nil)
+        insertChallengeParticipation(dto: participation, completion: nil)
 
         let uploadQueue = DispatchQueue(label: "uploadQueue")
         let group = DispatchGroup()
@@ -76,8 +76,8 @@ public enum RoutinusDatabase {
             completion?()
         }
     }
-    
-    public static func createChallengeAuth(challengeAuth: ChallengeAuthDTO,
+
+    public static func insertChallengeAuth(challengeAuth: ChallengeAuthDTO,
                                            userAuthImageURL: String,
                                            userAuthThumbnailImageURL: String,
                                            completion: @escaping () -> Void) {
@@ -116,7 +116,6 @@ public enum RoutinusDatabase {
             completion?()
         }.resume()
     }
-
 
     public static func insertChallengeParticipation(dto: ParticipationDTO,
                                                     completion: (() -> Void)? = nil) {
@@ -265,7 +264,7 @@ public enum RoutinusDatabase {
             guard let data = data,
                   let dto = try? JSONDecoder().decode([AchievementDTO].self, from: data).first else { return }
             if dto.document == nil {
-                createAchievement(of: id,
+                insertAchievement(of: id,
                                   yearMonth: yearMonthString,
                                   day: dayString,
                                   totalCount: totalCount,
@@ -274,7 +273,7 @@ public enum RoutinusDatabase {
         }.resume()
     }
 
-    public static func createAchievement(of id: String,
+    public static func insertAchievement(of id: String,
                                          yearMonth: String,
                                          day: String,
                                          totalCount: Int,
@@ -322,7 +321,6 @@ public enum RoutinusDatabase {
                                    completion: @escaping (AchievementDTO?) -> Void) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = AchievementQuery.select(id: userID,
@@ -449,7 +447,6 @@ public enum RoutinusDatabase {
                                  completion: @escaping (ChallengeDTO) -> Void) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = ChallengeQuery.select(challengeID: challengeID)
@@ -466,7 +463,6 @@ public enum RoutinusDatabase {
                                               completion: @escaping (ParticipationDTO?) -> Void) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
-
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
         request.httpBody = ParticipationQuery.select(userID: userID,
@@ -485,7 +481,8 @@ public enum RoutinusDatabase {
                                       authExampleImageURL: String,
                                       authExampleThumbnailImageURL: String,
                                       completion: (() -> Void)?) {
-        updateChallenge(challengeDTO: challengeDTO, completion: nil)
+        updateChallenge(challengeDTO: challengeDTO,
+                        completion: nil)
 
         let patchQueue = DispatchQueue(label: "patchQueue")
         let group = DispatchGroup()
@@ -553,7 +550,7 @@ public enum RoutinusDatabase {
             guard let dto = dto,
                   let document = dto.document,
                   let authCount = Int(document.fields.authCount.integerValue) else { return }
-            
+
             let joinDate = document.fields.joinDate.stringValue
             let participationDTO = ParticipationDTO(authCount: authCount + 1,
                                                     challengeID: challengeID,
@@ -580,7 +577,10 @@ public enum RoutinusDatabase {
         }
     }
 
-    public static func challengeAuth(todayDate: String, userID: String, challengeID: String, completion: @escaping (ChallengeAuthDTO?) -> Void) {
+    public static func challengeAuth(todayDate: String,
+                                     userID: String,
+                                     challengeID: String,
+                                     completion: @escaping (ChallengeAuthDTO?) -> Void) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
 
@@ -596,7 +596,7 @@ public enum RoutinusDatabase {
             completion(dto)
         }.resume()
     }
-   
+
     public static func updateAchievementCount(userID: String,
                                               yearMonth: String,
                                               day: String,
