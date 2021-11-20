@@ -60,7 +60,7 @@ final class TabBarCoordinator: NSObject, RoutinusCoordinator {
         tabBarController.setViewControllers(tabControllers, animated: true)
         tabBarController.selectedIndex = TabBarPage.home.tabBarIndex()
         tabBarController.tabBar.tintColor = UIColor(named: "MainColor")
-        tabBarController.tabBar.backgroundColor = .white
+        tabBarController.tabBar.backgroundColor = .systemBackground
         tabBarController.tabBar.isTranslucent = false
         navigationController.viewControllers = [tabBarController]
     }

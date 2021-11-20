@@ -12,7 +12,7 @@ final class InformationView: UIView {
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.backgroundColor = .white
+        stackView.backgroundColor = .systemBackground
         stackView.distribution = .fill
         stackView.spacing = 10
         return stackView
@@ -29,7 +29,7 @@ final class InformationView: UIView {
     private lazy var categoryImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.tintColor = .black
+        imageView.tintColor = UIColor(named: "Black")
         return imageView
     }()
 
@@ -50,7 +50,7 @@ final class InformationView: UIView {
         var label = UILabel()
         label.text = "기간"
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "DayColor")
         return label
     }()
 
@@ -64,7 +64,7 @@ final class InformationView: UIView {
     private lazy var weekLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "Black")
         return label
     }()
 
@@ -79,7 +79,7 @@ final class InformationView: UIView {
         var label = UILabel()
         label.text = "종료일"
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "DayColor")
         return label
     }()
 
@@ -87,7 +87,7 @@ final class InformationView: UIView {
         var label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textAlignment = .right
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "DayColor")
         return label
     }()
 
@@ -95,7 +95,7 @@ final class InformationView: UIView {
         var label = UILabel()
         label.text = "소개"
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "DayColor")
         return label
     }()
 
@@ -110,7 +110,7 @@ final class InformationView: UIView {
         var label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "DayColor")
         return label
     }()
 

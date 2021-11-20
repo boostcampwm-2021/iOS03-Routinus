@@ -25,7 +25,7 @@ final class ManageViewController: UIViewController {
         let button = UIBarButtonItem(image: UIImage(systemName: "plus"),
                                      style: .plain, target: self,
                                      action: #selector(didTouchAddButton))
-        button.tintColor = .black
+        button.tintColor = UIColor(named: "Black")
         return button
     }()
 

@@ -75,6 +75,7 @@ extension ContinuityView {
     private func configureLayout() {
         layer.borderWidth = 1
         layer.cornerRadius = 5
+        layer.borderColor = UIColor(named: "Black")?.cgColor
     }
 
     private func configureSubviews() {
