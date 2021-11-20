@@ -11,7 +11,7 @@ final class CalendarHeader: UIView {
     private lazy var todayButton: UIButton = {
         let button = UIButton()
         button.setTitle("Today", for: .normal)
-        button.setTitleColor(UIColor(named: "DayColor"), for: .normal)
+        button.setTitleColor(UIColor(named: "Black"), for: .normal)
         button.backgroundColor = UIColor(named: "MainColor")?.withAlphaComponent(0.5)
         button.isHidden = true
         button.layer.cornerRadius = 10
