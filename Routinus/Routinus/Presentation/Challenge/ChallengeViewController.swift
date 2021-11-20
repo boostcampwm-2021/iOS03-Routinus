@@ -49,13 +49,13 @@ final class ChallengeViewController: UIViewController {
 
         collectionView.showsVerticalScrollIndicator = false
 
-        collectionView.register(ChallengeHeader.self,
+        collectionView.register(ChallengeCollectionViewHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: ChallengeHeader.identifier)
-        collectionView.register(ChallengeRecommendCell.self,
-                                forCellWithReuseIdentifier: ChallengeRecommendCell.identifier)
-        collectionView.register(ChallengeCategoryCell.self,
-                                forCellWithReuseIdentifier: ChallengeCategoryCell.identifier)
+                                withReuseIdentifier: ChallengeCollectionViewHeader.identifier)
+        collectionView.register(ChallengeRecommendCollectionViewCell.self,
+                                forCellWithReuseIdentifier: ChallengeRecommendCollectionViewCell.identifier)
+        collectionView.register(ChallengeCategoryCollectionViewCell.self,
+                                forCellWithReuseIdentifier: ChallengeCategoryCollectionViewCell.identifier)
 
         return collectionView
     }()
@@ -94,14 +94,14 @@ extension ChallengeViewController {
         let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, content in
             switch content {
             case .recommend(let recommendChallenge):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeRecommendCell.identifier,
-                                                              for: indexPath) as? ChallengeRecommendCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeRecommendCollectionViewCell.identifier,
+                                                              for: indexPath) as? ChallengeRecommendCollectionViewCell
                 cell?.configureViews(recommendChallenge: recommendChallenge)
                 return cell
 
             case .category:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCategoryCell.identifier,
-                                                              for: indexPath) as? ChallengeCategoryCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCategoryCollectionViewCell.identifier,
+                                                              for: indexPath) as? ChallengeCategoryCollectionViewCell
                 cell?.delegate = self
                 cell?.configureViews()
                 return cell
@@ -119,8 +119,8 @@ extension ChallengeViewController {
 
             let view = collectionView.dequeueReusableSupplementaryView(
                         ofKind: kind,
-                        withReuseIdentifier: ChallengeHeader.identifier,
-                        for: indexPath) as? ChallengeHeader
+                        withReuseIdentifier: ChallengeCollectionViewHeader.identifier,
+                        for: indexPath) as? ChallengeCollectionViewHeader
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
             view?.title = section.title
@@ -182,7 +182,7 @@ extension ChallengeViewController {
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
-            let layout = CollectionViewLayouts()
+            let layout = ChallengeCollectionViewLayouts()
             return layout.section(at: sectionNumber)
         }
     }

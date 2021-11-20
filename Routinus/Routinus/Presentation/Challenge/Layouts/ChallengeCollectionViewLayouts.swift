@@ -1,5 +1,5 @@
 //
-//  CollectionViewLayouts.swift
+//  ChallengeCollectionViewLayouts.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/04.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CollectionViewLayouts {
+final class ChallengeCollectionViewLayouts {
     private var recommendLayout: NSCollectionLayoutSection {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 25.0
