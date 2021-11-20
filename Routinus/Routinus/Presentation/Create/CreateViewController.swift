@@ -80,7 +80,7 @@ final class CreateViewController: UIViewController {
 
     @objc private func didTappedCreateButton(_ sender: UIButton) {
         viewModel?.didTappedCreateButton()
-        self.navigationController?.popViewController(animated: true) // TODO: Coordinator 구현 후 수정
+        presentAlert()
     }
 }
 
@@ -148,6 +148,20 @@ extension CreateViewController {
         weekView.hideKeyboard()
         introductionView.hideKeyboard()
         authMethodView.hideKeyboard()
+    }
+}
+
+extension CreateViewController {
+    private func presentAlert() {
+        let alert = UIAlertController(title: "알림", message: "챌린지가 생성되었습니다.", preferredStyle: .alert)
+        let confirm = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel?.didTappedAlertConfirm()
+            self.navigationController?.popViewController(animated: true)
+        }
+
+        alert.addAction(confirm)
+        present(alert, animated: true, completion: nil)
     }
 }
 

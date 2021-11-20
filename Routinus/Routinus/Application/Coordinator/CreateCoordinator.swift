@@ -5,11 +5,13 @@
 //  Created by 백지현 on 2021/11/10.
 //
 
+import Combine
 import UIKit
 
 final class CreateCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
+    var cancellables = Set<AnyCancellable>()
     var challengeID: String?
 
     init(navigationController: UINavigationController) {
@@ -36,5 +38,11 @@ final class CreateCoordinator: RoutinusCoordinator {
         let createViewController = CreateViewController(with: createViewModel)
         createViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(createViewController, animated: true)
+
+        createViewModel.challengeCreateTap
+            .sink { _ in
+                NotificationCenter.default.post(name: .challengeCreate, object: nil)
+            }
+            .store(in: &cancellables)
     }
 }
