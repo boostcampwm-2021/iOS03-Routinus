@@ -9,12 +9,12 @@ import UIKit
 
 extension UIImage {
     enum RoutinusImageType {
-        case main
+        case original
         case thumbnail
 
-        var width: CGFloat {
+        var length: CGFloat {
             switch self {
-            case .main:
+            case .original:
                 return CGFloat(200.0)
             case .thumbnail:
                 return CGFloat(80.0)
@@ -23,9 +23,9 @@ extension UIImage {
     }
 
     func resizedImage(_ type: RoutinusImageType) -> UIImage {
-        guard size.width >= type.width else { return self }
+        guard size.width >= type.length else { return self }
 
-        let width = type.width
+        let width = type.length
         let scale = width / size.width
         let height = size.height * scale
         let size = CGSize(width: width, height: height)
