@@ -18,8 +18,9 @@ protocol ManageViewModelInput {
 }
 
 protocol ManageViewModelOutput {
+    var participatingChallenges: CurrentValueSubject<[Challenge], Never> { get }
     var createdChallenges: CurrentValueSubject<[Challenge], Never> { get }
-    var participatedChallenges: CurrentValueSubject<[Challenge], Never> { get }
+    var endedChallenges: CurrentValueSubject<[Challenge], Never> { get }
 
     var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
     var challengeTap: PassthroughSubject<String, Never> { get }
@@ -28,8 +29,9 @@ protocol ManageViewModelOutput {
 protocol ManageViewModelIO: ManageViewModelInput, ManageViewModelOutput { }
 
 class ManageViewModel: ManageViewModelIO {
-    var createdChallenges = CurrentValueSubject<[Challenge], Never>([])
-    var participatedChallenges = CurrentValueSubject<[Challenge], Never>([])
+    private(set) var participatingChallenges = CurrentValueSubject<[Challenge], Never>([])
+    private(set) var createdChallenges = CurrentValueSubject<[Challenge], Never>([])
+    private(set) var endedChallenges = CurrentValueSubject<[Challenge], Never>([])
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var challengeTap = PassthroughSubject<String, Never>()
@@ -56,8 +58,9 @@ extension ManageViewModel {
     }
 
     func didLoadedManageView() {
-        fetchChallenges()
-        fetchParticipatedChallenges()
+        fetchCreatedChallenges()
+        fetchParticipatingChallenges()
+        fetchEndedChallenges()
     }
 
     func imageData(from directory: String,
@@ -71,15 +74,21 @@ extension ManageViewModel {
 }
 
 extension ManageViewModel {
-    private func fetchChallenges() {
+    private func fetchParticipatingChallenges() {
+        challengeFetchUsecase.fetchParticipatingChallenges { [weak self] challenges in
+            self?.participatingChallenges.value = challenges
+        }
+    }
+
+    private func fetchCreatedChallenges() {
         challengeFetchUsecase.fetchCreationChallengesByMe { [weak self] challenges in
             self?.createdChallenges.value = challenges
         }
     }
 
-    private func fetchParticipatedChallenges() {
-        challengeFetchUsecase.fetchParticipatedChallenges { [weak self] challenges in
-            self?.participatedChallenges.value = challenges
+    private func fetchEndedChallenges() {
+        challengeFetchUsecase.fetchEndedChallenges { [weak self] challenges in
+            self?.endedChallenges.value = challenges
         }
     }
 }

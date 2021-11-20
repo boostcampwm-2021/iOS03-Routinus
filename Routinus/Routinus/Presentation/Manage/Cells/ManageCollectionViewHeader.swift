@@ -9,14 +9,16 @@
 
 final class ManageCollectionViewHeader: UICollectionReusableView {
     enum Section {
-        case participated, created
+        case participating, created, ended
 
         var title: String {
             switch self {
-            case .participated:
-                return "내가 참여한 챌린지"
+            case .participating:
+                return "참여 중인 챌린지"
             case .created:
                 return "내가 생성한 챌린지"
+            case .ended:
+                return "종료된 챌린지"
             }
         }
     }

@@ -76,7 +76,7 @@ extension RoutinusRepository: ChallengeRepository {
     func fetchChallenges(of userID: String,
                          completion: (([Challenge]) -> Void)?) {
         RoutinusDatabase.searchChallenges(participantID: userID) { list in
-            completion?(list.map { Challenge(challengeDTO: $0) }.filter { $0.ownerID != userID })
+            completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }
 

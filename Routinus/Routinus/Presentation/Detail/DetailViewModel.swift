@@ -101,7 +101,7 @@ extension DetailViewModel {
 
     private func fetchParticipation(completion: @escaping (Participation?) -> Void) {
         guard let challengeID = challengeID else { return }
-        participationFetchUsecase.fetchParticipation(challengeID: challengeID) { [weak self] participation in
+        participationFetchUsecase.fetchParticipation(challengeID: challengeID) { participation in
             completion(participation)
         }
     }

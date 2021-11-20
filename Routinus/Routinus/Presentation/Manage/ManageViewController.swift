@@ -10,7 +10,7 @@ import UIKit
 
 final class ManageViewController: UIViewController {
     enum Section: CaseIterable {
-        case participated, created
+        case participating, created, ended
     }
 
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Challenge>
@@ -74,6 +74,16 @@ extension ManageViewController {
     }
 
     private func configureViewModel() {
+        self.viewModel?.participatingChallenges
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challengeItem in
+                guard let self = self else { return }
+                var snapshot = self.dataSource.snapshot(for: .participating)
+                snapshot.append(challengeItem)
+                self.dataSource.apply(snapshot, to: .participating)
+            })
+            .store(in: &cancellables)
+
         self.viewModel?.createdChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
@@ -84,13 +94,13 @@ extension ManageViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.participatedChallenges
+        self.viewModel?.endedChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
-                var snapshot = self.dataSource.snapshot(for: .participated)
+                var snapshot = self.dataSource.snapshot(for: .ended)
                 snapshot.append(challengeItem)
-                self.dataSource.apply(snapshot, to: .participated)
+                self.dataSource.apply(snapshot, to: .ended)
             })
             .store(in: &cancellables)
     }
@@ -118,8 +128,10 @@ extension ManageViewController {
             switch section {
             case .created:
                 view?.configureViews(section: .created)
-            case .participated:
-                view?.configureViews(section: .participated)
+            case .participating:
+                view?.configureViews(section: .participating)
+            case .ended:
+                view?.configureViews(section: .ended)
             }
 
             if view?.gestureRecognizers?.count == nil {
