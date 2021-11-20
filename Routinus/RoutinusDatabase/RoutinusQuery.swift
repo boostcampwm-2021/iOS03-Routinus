@@ -8,7 +8,8 @@
 import Foundation
 
 internal enum RoutinusQuery {
-    internal static func createUserQuery(id: String, name: String) -> Data? {
+    internal static func createUserQuery(id: String,
+                                         name: String) -> Data? {
         return """
         {
             "fields": {
@@ -53,7 +54,7 @@ internal enum RoutinusQuery {
         }
         """.data(using: .utf8)
     }
-    
+
     internal static func insertChallengeAuthQuery(document: ChallengeAuthField) -> Data? {
         return """
         {
@@ -118,7 +119,8 @@ internal enum RoutinusQuery {
             """.data(using: .utf8)
     }
 
-    internal static func achievementQuery(of id: String, in yearMonth: String) -> Data? {
+    internal static func achievementQuery(of id: String,
+                                          in yearMonth: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -269,7 +271,8 @@ internal enum RoutinusQuery {
         """.data(using: .utf8)
     }
 
-    internal static func challenge(ownerID: String, challengeID: String) -> Data? {
+    internal static func challenge(ownerID: String,
+                                   challengeID: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -315,7 +318,8 @@ internal enum RoutinusQuery {
         """.data(using: .utf8)
     }
 
-    internal static func challengeParticipation(userID: String, challengeID: String) -> Data? {
+    internal static func challengeParticipation(userID: String,
+                                                challengeID: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -346,7 +350,9 @@ internal enum RoutinusQuery {
         """.data(using: .utf8)
     }
 
-    internal static func challengeAuth(todayDate: String, userID: String, challengeID: String) -> Data? {
+    internal static func challengeAuth(todayDate: String,
+                                       userID: String,
+                                       challengeID: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -423,7 +429,7 @@ internal enum RoutinusQuery {
         }
         """.data(using: .utf8)
     }
-  
+
     internal static func createAchievementQuery(id: String,
                                                 yearMonth: String,
                                                 day: String,
