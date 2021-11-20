@@ -53,10 +53,9 @@ extension AuthViewController {
         self.configureNavigationBar()
 
         self.view.addSubview(scrollView)
-        self.scrollView.translatesAutoresizingMaskIntoConstraints = false
-        self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        self.scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        self.scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        self.scrollView.anchor(left: self.view.safeAreaLayoutGuide.leftAnchor,
+                               right: self.view.safeAreaLayoutGuide.rightAnchor,
+                               top: self.view.safeAreaLayoutGuide.topAnchor)
 
         self.view.addSubview(authView)
         authView.anchor(horizontal: authView.superview,
@@ -70,12 +69,11 @@ extension AuthViewController {
                           bottom: authButton.superview?.bottomAnchor, paddingBottom: 30)
 
         self.scrollView.addSubview(stackView)
-        self.stackView.translatesAutoresizingMaskIntoConstraints = false
-        self.stackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
-        self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -20).isActive = true
-        self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor).isActive = true
-        self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor).isActive = true
-        self.stackView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor).isActive = true
+        self.stackView.anchor(left: self.scrollView.leftAnchor,
+                              right: self.scrollView.rightAnchor,
+                              centerX: self.scrollView.centerXAnchor,
+                              top: self.scrollView.topAnchor,
+                              bottom: self.scrollView.bottomAnchor, paddingBottom: 20)
 
         self.stackView.addArrangedSubview(authMethodView)
 
