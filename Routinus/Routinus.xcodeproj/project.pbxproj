@@ -630,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				44AAA2BF272FDF8F002E16C4 /* LaunchScreen.storyboard */,
+				E93704472743A95100D82B1D /* Common */,
 				E9797C9D2730F89400A14A0F /* Home */,
 				E9797CA52731066100A14A0F /* Challenge */,
 				E9797CB4273107E100A14A0F /* Search */,
@@ -638,7 +639,6 @@
 				E9797CB7273108EA00A14A0F /* Auth */,
 				E9797CA92731072700A14A0F /* Manage */,
 				E9797CA8273106E300A14A0F /* MyPage */,
-				E93704472743A95100D82B1D /* Common */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
