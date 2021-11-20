@@ -32,7 +32,7 @@ final class TabBarCoordinator: NSObject, RoutinusCoordinator {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = UITabBarItem.init(title: nil,
                                                             image: page.tabBarSelectedImage(),
-                                                            selectedImage: page.tabBarUnSelectedImage())
+                                                            selectedImage: page.tabBarSelectedImage())
 
         switch page {
         case .home:
@@ -59,7 +59,7 @@ final class TabBarCoordinator: NSObject, RoutinusCoordinator {
     private func prepareTabBarController(withTabControllers tabControllers: [UIViewController]) {
         tabBarController.setViewControllers(tabControllers, animated: true)
         tabBarController.selectedIndex = TabBarPage.home.tabBarIndex()
-        tabBarController.tabBar.tintColor = .systemGray
+        tabBarController.tabBar.tintColor = UIColor(named: "MainColor")
         tabBarController.tabBar.backgroundColor = .white
         tabBarController.tabBar.isTranslucent = false
         navigationController.viewControllers = [tabBarController]
@@ -88,26 +88,13 @@ enum TabBarPage {
     func tabBarSelectedImage() -> UIImage? {
         switch self {
         case .home:
-            return UIImage(named: "chart.white")
+            return UIImage(systemName: "house")
         case .challenge:
-            return UIImage(systemName: "square.grid.2x2")
+            return UIImage(named: "challenge")
         case .manage:
             return UIImage(systemName: "highlighter")
         case .myPage:
             return UIImage(systemName: "person")
-        }
-    }
-
-    func tabBarUnSelectedImage() -> UIImage? {
-        switch self {
-        case .home:
-            return UIImage(systemName: "chart.bar.xaxis")
-        case .challenge:
-            return UIImage(systemName: "square.grid.2x2.fill")
-        case .manage:
-            return UIImage(named: "highlighter.black")
-        case .myPage:
-            return UIImage(systemName: "person.fill")
         }
     }
 }

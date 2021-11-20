@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "chart.white@x1.png",
+      "filename" : "challenge@x1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "chart.white@x2-1.png",
+      "filename" : "challenge@x2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "chart.white@x3.png",
+      "filename" : "challenge@x3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
