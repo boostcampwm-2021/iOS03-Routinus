@@ -5,12 +5,14 @@
 //  Created by 박상우 on 2021/11/07.
 //
 
+import Combine
 import UIKit
 
 final class AuthCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     let challengeID: String
+    var cancellables = Set<AnyCancellable>()
 
     init(navigationController: UINavigationController, challengeID: String) {
         self.navigationController = navigationController
@@ -35,5 +37,11 @@ final class AuthCoordinator: RoutinusCoordinator {
         let authViewController = AuthViewController(viewModel: authViewModel)
         authViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(authViewController, animated: true)
+        
+        authViewModel.alertConfirmTap
+            .sink { _ in
+                NotificationCenter.default.post(name: .confirmAuth, object: nil)
+            }
+            .store(in: &cancellables)
     }
 }

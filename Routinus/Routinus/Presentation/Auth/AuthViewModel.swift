@@ -10,6 +10,7 @@ import Foundation
 
 protocol AuthViewModelInput {
     func didTappedAuthButton()
+    func didTappedAlertConfirm()
     func update(userAuthImageURL: String?)
     func update(userAuthThumbnailImageURL: String?)
     func imageData(from directory: String,
@@ -23,6 +24,7 @@ protocol AuthViewModelInput {
 protocol AuthViewModelOutput {
     var authButtonState: CurrentValueSubject<Bool, Never> { get }
     var challenge: CurrentValueSubject<Challenge?, Never> { get }
+    var alertConfirmTap: PassthroughSubject<Void, Never> { get }
 }
 
 protocol AuthViewModelIO: AuthViewModelInput, AuthViewModelOutput { }
@@ -30,6 +32,7 @@ protocol AuthViewModelIO: AuthViewModelInput, AuthViewModelOutput { }
 class AuthViewModel: AuthViewModelIO {
     var authButtonState = CurrentValueSubject<Bool, Never>(false)
     var challenge = CurrentValueSubject<Challenge?, Never>(nil)
+    var alertConfirmTap = PassthroughSubject<Void, Never>()
     var challengeFetchUsecase: ChallengeFetchableUsecase
     var imageFetchUsecase: ImageFetchableUsecase
     var imageSaveUsecase: ImageSavableUsecase
@@ -72,6 +75,10 @@ extension AuthViewModel {
                                                             userAuthThumbnailImageURL: userAuthThumbnailImageURL)
         self.participationUpdateUsecase.updateParticipationAuthCount(challengeID: challengeID)
         self.achievementUpdateUsecase.updateAchievementCount()
+    }
+
+    func didTappedAlertConfirm() {
+        self.alertConfirmTap.send()
     }
 
     func update(userAuthImageURL: String?) {
