@@ -99,7 +99,7 @@ extension HomeViewController {
         calendarView.anchor(centerX: calendarView.superview?.centerXAnchor,
                             top: todayRoutineView.bottomAnchor, paddingTop: offset,
                             width: UIScreen.main.bounds.width - offset,
-                            height: 450)
+                            height: 500)
         contentView.anchor(bottom: calendarView.bottomAnchor)
     }
 

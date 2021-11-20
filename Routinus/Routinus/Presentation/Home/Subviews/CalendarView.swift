@@ -11,7 +11,7 @@ import UIKit
 final class CalendarView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.text = "summary".localized
         return label
     }()
@@ -27,6 +27,8 @@ final class CalendarView: UIView {
         layout.collectionView?.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         layout.collectionView?.layer.cornerCurve = .continuous
         layout.collectionView?.layer.cornerRadius = 15
+        collectionView.layer.borderWidth = 1
+        collectionView.layer.borderColor = UIColor.tertiarySystemGroupedBackground.cgColor
         return collectionView
     }()
 
@@ -100,7 +102,7 @@ final class CalendarView: UIView {
 
         calendarView.anchor(horizontal: headerView,
                             top: headerView.bottomAnchor,
-                            height: self.frame.height * 0.8)
+                            height: 55 * 6 + 10)
     }
 
     private func configureViewModel() {
