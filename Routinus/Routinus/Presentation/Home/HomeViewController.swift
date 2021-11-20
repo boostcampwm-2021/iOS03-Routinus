@@ -176,10 +176,10 @@ extension HomeViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let auth = UIContextualAction(style: .normal, title: nil) { [weak self] (_, _, _: @escaping (Bool) -> Void) in
+        let auth = UIContextualAction(style: .normal, title: nil) { [weak self] (_, _, completion: @escaping (Bool) -> Void) in
             self?.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
+            completion(true)
         }
-
         auth.backgroundColor = UIColor(named: "MainColor")
         auth.title = "certify".localized
         return UISwipeActionsConfiguration(actions: [auth])
