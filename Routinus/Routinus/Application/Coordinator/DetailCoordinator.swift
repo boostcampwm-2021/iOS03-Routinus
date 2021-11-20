@@ -38,12 +38,12 @@ final class DetailCoordinator: RoutinusCoordinator {
                                               challengeAuthFetchUsecase: challengeAuthFetchUsecase)
         let detailViewController = DetailViewController(with: detailViewModel)
         detailViewController.hidesBottomBarWhenPushed = true
-        self.navigationController.pushViewController(detailViewController, animated: true)
 
         detailViewModel.editBarButtonTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
-                let createCoordinator = CreateCoordinator(navigationController: self.navigationController, challengeID: challengeID)
+                let createCoordinator = CreateCoordinator(navigationController: self.navigationController,
+                                                          challengeID: challengeID)
                 createCoordinator.start()
                 self.childCoordinator.append(createCoordinator)
             }
@@ -58,5 +58,13 @@ final class DetailCoordinator: RoutinusCoordinator {
                 self.childCoordinator.append(authCoordinator)
             }
             .store(in: &cancellables)
+        
+        detailViewModel.alertConfirmTap
+            .sink { _ in
+                NotificationCenter.default.post(name: .confirmParticipation, object: nil)
+            }
+            .store(in: &cancellables)
+
+        self.navigationController.pushViewController(detailViewController, animated: true)
     }
 }
