@@ -23,12 +23,14 @@ extension UIImage {
     }
 
     func resizedImage(_ type: RoutinusImageType) -> UIImage {
-        guard size.width >= type.length else { return self }
+        let isWidthLongerThanHeight = size.width > size.height
+        guard (isWidthLongerThanHeight ? size.width : size.height) >= type.length else { return self }
 
-        let width = type.length
-        let scale = width / size.width
-        let height = size.height * scale
-        let size = CGSize(width: width, height: height)
+        let longerSide = type.length
+        let scale = longerSide / (isWidthLongerThanHeight ? size.width : size.height)
+        let shorterSide = (isWidthLongerThanHeight ? size.height : size.width) * scale
+        let size = CGSize(width: (isWidthLongerThanHeight ? longerSide : shorterSide),
+                          height: (isWidthLongerThanHeight ? shorterSide : longerSide))
         let render = UIGraphicsImageRenderer(size: size)
 
         return render.image { _ in
