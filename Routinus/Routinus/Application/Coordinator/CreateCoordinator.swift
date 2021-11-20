@@ -39,9 +39,9 @@ final class CreateCoordinator: RoutinusCoordinator {
         createViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(createViewController, animated: true)
 
-        createViewModel.challengeCreateTap
+        createViewModel.alertConfirmTap
             .sink { _ in
-                NotificationCenter.default.post(name: .challengeCreate, object: nil)
+                NotificationCenter.default.post(name: .confirmCreate, object: nil)
             }
             .store(in: &cancellables)
     }

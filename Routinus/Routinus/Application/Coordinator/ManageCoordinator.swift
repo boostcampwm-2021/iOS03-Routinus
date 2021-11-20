@@ -12,7 +12,7 @@ final class ManageCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
-    let createPublisher = NotificationCenter.default.publisher(for: .challengeCreate, object: nil)
+    let createPublisher = NotificationCenter.default.publisher(for: .confirmCreate, object: nil)
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController

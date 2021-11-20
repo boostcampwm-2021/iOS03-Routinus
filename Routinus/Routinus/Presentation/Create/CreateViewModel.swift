@@ -46,7 +46,7 @@ protocol CreateViewModelOutput {
     var createButtonState: CurrentValueSubject<Bool, Never> { get }
     var expectedEndDate: CurrentValueSubject<Date, Never> { get }
     var challenge: CurrentValueSubject<Challenge?, Never> { get }
-    var challengeCreateTap: PassthroughSubject<Void, Never> { get }
+    var alertConfirmTap: PassthroughSubject<Void, Never> { get }
 }
 
 protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
@@ -55,7 +55,7 @@ final class CreateViewModel: CreateViewModelIO {
     var createButtonState = CurrentValueSubject<Bool, Never>(false)
     var expectedEndDate = CurrentValueSubject<Date, Never>(Calendar.current.date(byAdding: DateComponents(day: 7), to: Date()) ?? Date())
     var challenge = CurrentValueSubject<Challenge?, Never>(nil)
-    var challengeCreateTap = PassthroughSubject<Void, Never>()
+    var alertConfirmTap = PassthroughSubject<Void, Never>()
 
     var cancellables = Set<AnyCancellable>()
     var challengeCreateUsecase: ChallengeCreatableUsecase
@@ -179,7 +179,7 @@ final class CreateViewModel: CreateViewModelIO {
     }
 
     func didTappedAlertConfirm() {
-        self.challengeCreateTap.send()
+        self.alertConfirmTap.send()
     }
 
     func fetchChallenge() {
