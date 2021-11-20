@@ -25,15 +25,15 @@ public struct ChallengeDTO: Codable {
                 participantCount: Int,
                 ownerID: String) {
         let field = ChallengeFields(authMethod: StringField(stringValue: authMethod),
-                                   categoryID: StringField(stringValue: categoryID),
-                                   desc: StringField(stringValue: desc),
-                                   endDate: StringField(stringValue: endDate),
-                                   id: StringField(stringValue: id),
-                                   ownerID: StringField(stringValue: ownerID),
-                                   participantCount: IntegerField(integerValue: "\(participantCount)"),
-                                   startDate: StringField(stringValue: startDate),
-                                   title: StringField(stringValue: title),
-                                   week: IntegerField(integerValue: "\(week)"))
+                                    categoryID: StringField(stringValue: categoryID),
+                                    desc: StringField(stringValue: desc),
+                                    endDate: StringField(stringValue: endDate),
+                                    id: StringField(stringValue: id),
+                                    ownerID: StringField(stringValue: ownerID),
+                                    participantCount: IntegerField(integerValue: "\(participantCount)"),
+                                    startDate: StringField(stringValue: startDate),
+                                    title: StringField(stringValue: title),
+                                    week: IntegerField(integerValue: "\(week)"))
         self.document = Fields(name: nil, fields: field)
     }
 

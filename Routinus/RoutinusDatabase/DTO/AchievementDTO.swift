@@ -20,10 +20,10 @@ public struct AchievementDTO: Codable {
                 achievementCount: Int,
                 yearMonth: String) {
         let field = AchievementFields(totalCount: IntegerField(integerValue: "\(totalCount)"),
-                                     day: StringField(stringValue: day),
-                                     userID: StringField(stringValue: userID),
-                                     achievementCount: IntegerField(integerValue: "\(achievementCount)"),
-                                     yearMonth: StringField(stringValue: yearMonth))
+                                      day: StringField(stringValue: day),
+                                      userID: StringField(stringValue: userID),
+                                      achievementCount: IntegerField(integerValue: "\(achievementCount)"),
+                                      yearMonth: StringField(stringValue: yearMonth))
         self.document = Fields(name: nil, fields: field)
     }
 
