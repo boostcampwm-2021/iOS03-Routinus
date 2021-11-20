@@ -8,5 +8,5 @@
 import Foundation
 
 extension Notification.Name {
-    static let completionAuth = Notification.Name("completionAuth")
+    static let confirmAuth = Notification.Name("confirmAuth")
 }
