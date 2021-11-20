@@ -1,5 +1,5 @@
 //
-//  SearchHeader.swift
+//  SearchCollectionViewHeader.swift
 //  Routinus
 //
 //  Created by 박상우 on 2021/11/09.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-final class SearchHeader: UICollectionReusableView {
-    static let identifier = "SearchHeader"
+final class SearchCollectionViewHeader: UICollectionReusableView {
+    static let identifier = "SearchCollectionViewHeader"
 
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(named: "Black")
         label.font = UIFont.boldSystemFont(ofSize: 18)
 
         return label

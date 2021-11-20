@@ -110,7 +110,7 @@ extension RoutinusRepository: ChallengeRepository {
                                                 joinDate: startDate,
                                                 userID: challenge.ownerID)
 
-        RoutinusDatabase.createChallenge(challenge: challengeDTO,
+        RoutinusDatabase.insertChallenge(challenge: challengeDTO,
                                          participation: participationDTO,
                                          imageURL: imageURL,
                                          thumbnailImageURL: thumbnailImageURL,

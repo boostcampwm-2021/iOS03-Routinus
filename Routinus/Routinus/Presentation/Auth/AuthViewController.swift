@@ -18,7 +18,7 @@ final class AuthViewController: UIViewController {
     }()
     private lazy var authView: UIView = {
         var view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         return view
     }()
     private lazy var authMethodView = AuthMethodView()
@@ -49,7 +49,7 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController {
     private func configureViews() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .systemBackground
         self.configureNavigationBar()
 
         self.view.addSubview(scrollView)

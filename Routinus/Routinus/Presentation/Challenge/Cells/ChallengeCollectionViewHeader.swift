@@ -1,5 +1,5 @@
 //
-//  ChallengeHeader.swift
+//  ChallengeCollectionViewHeader.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/04.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-final class ChallengeHeader: UICollectionReusableView {
-    static let identifier = "ChallengeHeader"
+final class ChallengeCollectionViewHeader: UICollectionReusableView {
+    static let identifier = "ChallengeCollectionViewHeader"
 
     let label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(named: "Black")
         label.font = UIFont.boldSystemFont(ofSize: 18)
 
         return label
@@ -38,7 +38,7 @@ final class ChallengeHeader: UICollectionReusableView {
     let seeAllButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("See all", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor(named: "Black"), for: .normal)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return button
     }()

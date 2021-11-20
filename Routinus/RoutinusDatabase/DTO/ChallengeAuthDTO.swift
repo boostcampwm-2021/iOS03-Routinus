@@ -8,49 +8,29 @@
 import Foundation
 
 public struct ChallengeAuthDTO: Codable {
-    public let document: ChallengeAuthFields?
+    public let document: Fields<ChallengeAuthFields>?
 
     init() {
         self.document = nil
     }
-    
+
     public init(challengeID: String,
                 userID: String,
                 date: String,
                 time: String) {
-        let field = ChallengeAuthField(challengeID: ChallengeAuthField.ChallengeID(stringValue: challengeID),
-                                       userID: ChallengeAuthField.UserID(stringValue: userID),
-                                       date: ChallengeAuthField.Date(stringValue: date),
-                                       time: ChallengeAuthField.Time(stringValue: time))
-        self.document = ChallengeAuthFields(fields: field)
+        let field = ChallengeAuthFields(challengeID: StringField(stringValue: challengeID),
+                                        userID: StringField(stringValue: userID),
+                                        date: StringField(stringValue: date),
+                                        time: StringField(stringValue: time))
+        self.document = Fields(name: nil, fields: field)
     }
 }
 
 public struct ChallengeAuthFields: Codable {
-    public let fields: ChallengeAuthField
-}
-
-public struct ChallengeAuthField: Codable {
-    public struct ChallengeID: Codable {
-        public let stringValue: String
-    }
-
-    public struct UserID: Codable {
-        public let stringValue: String
-    }
-
-    public struct Date: Codable {
-        public let stringValue: String
-    }
-
-    public struct Time: Codable {
-        public let stringValue: String
-    }
-
-    public let challengeID: ChallengeID
-    public let userID: UserID
-    public let date: Date
-    public let time: Time
+    public let challengeID: StringField
+    public let userID: StringField
+    public let date: StringField
+    public let time: StringField
 
     public enum CodingKeys: String, CodingKey {
         case date, time

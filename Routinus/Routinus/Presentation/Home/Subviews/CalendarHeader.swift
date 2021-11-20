@@ -11,7 +11,8 @@ final class CalendarHeader: UIView {
     private lazy var todayButton: UIButton = {
         let button = UIButton()
         button.setTitle("Today", for: .normal)
-        button.setTitleColor(.green, for: .normal)
+        button.setTitleColor(UIColor(named: "Black"), for: .normal)
+        button.backgroundColor = UIColor(named: "MainColor")?.withAlphaComponent(0.5)
         button.isHidden = true
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(didTappedTodayButton), for: .touchUpInside)
@@ -20,7 +21,7 @@ final class CalendarHeader: UIView {
 
     private lazy var monthLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.text = "Month"
         label.textAlignment = .center
         return label
@@ -29,7 +30,7 @@ final class CalendarHeader: UIView {
     private lazy var previousMonthButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = UIColor(named: "Black")
 
         button.addTarget(self, action: #selector(didTappedPreviousMonthButton), for: .touchUpInside)
         return button
@@ -38,7 +39,7 @@ final class CalendarHeader: UIView {
     private lazy var nextMonthButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        button.tintColor = .black
+        button.tintColor =  UIColor(named: "Black")
 
         button.addTarget(self, action: #selector(didTappedNextMonthButton), for: .touchUpInside)
         return button
@@ -115,7 +116,7 @@ extension CalendarHeader {
     }
 
     private func configureViews() {
-        self.backgroundColor = .systemGroupedBackground
+        self.backgroundColor = .tertiarySystemGroupedBackground
 
         self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         self.layer.cornerCurve = .continuous

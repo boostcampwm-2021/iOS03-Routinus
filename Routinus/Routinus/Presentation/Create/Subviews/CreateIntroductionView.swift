@@ -28,7 +28,7 @@ final class CreateIntroductionView: UIView {
 
     private lazy var textView: UITextView = {
         let textView = UITextView()
-        textView.layer.borderColor = UIColor.black.cgColor
+        textView.layer.borderColor = UIColor(named: "Black")?.cgColor
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 10
         textView.font = .systemFont(ofSize: 16)

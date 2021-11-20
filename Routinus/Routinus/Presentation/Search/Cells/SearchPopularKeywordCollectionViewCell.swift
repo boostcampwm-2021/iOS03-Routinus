@@ -1,5 +1,5 @@
 //
-//  SearchPopularKeywordCell.swift
+//  SearchPopularKeywordCollectionViewCell.swift
 //  Routinus
 //
 //  Created by 박상우 on 2021/11/09.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class SearchPopularKeywordCell: UICollectionViewCell {
-    static let identifier = "SearchPopularKeywordCell"
+final class SearchPopularKeywordCollectionViewCell: UICollectionViewCell {
+    static let identifier = "SearchPopularKeywordCollectionViewCell"
     weak var delegate: SearchPopularKeywordDelegate?
 
     private lazy var popularKeywordButton: PopularKeywordButton = {

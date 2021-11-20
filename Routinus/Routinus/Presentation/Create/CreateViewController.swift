@@ -86,7 +86,7 @@ final class CreateViewController: UIViewController {
 
 extension CreateViewController {
     private func configureViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
 
         view.addSubview(scrollView)
         scrollView.anchor(edges: view.safeAreaLayoutGuide)

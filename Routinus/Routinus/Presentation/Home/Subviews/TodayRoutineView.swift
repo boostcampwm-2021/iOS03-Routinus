@@ -13,14 +13,14 @@ final class TodayRoutineView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "today routine".localized
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         return label
     }()
 
     private lazy var addButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = UIColor(named: "Black")
         button.addTarget(self, action: #selector(didTappedAddChallengeButton), for: .touchUpInside)
         return button
     }()

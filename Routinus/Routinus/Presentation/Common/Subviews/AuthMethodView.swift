@@ -33,7 +33,7 @@ final class AuthMethodView: UIView {
     private lazy var methodLabel: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "Black")
         label.font = UIFont.boldSystemFont(ofSize: 15)
         return label
     }()
@@ -64,7 +64,7 @@ final class AuthMethodView: UIView {
 
 extension AuthMethodView {
     private func configure() {
-        self.backgroundColor = .white
+        self.backgroundColor = .systemBackground
         configureSubviews()
     }
 

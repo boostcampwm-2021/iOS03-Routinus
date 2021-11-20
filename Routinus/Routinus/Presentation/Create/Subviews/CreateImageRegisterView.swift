@@ -20,7 +20,7 @@ final class CreateImageRegisterView: UIView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "camera")
-        imageView.tintColor = .black
+        imageView.tintColor = UIColor(named: "Black")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10

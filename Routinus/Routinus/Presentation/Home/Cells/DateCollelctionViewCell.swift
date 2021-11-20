@@ -10,17 +10,16 @@ import UIKit
 final class DateCollectionViewCell: UICollectionViewCell {
     static let reuseIdentifier = "DateCollectionViewCell"
 
-    private lazy var selectionBackgroundView: UIView = {
-        let view = UIView()
+    private lazy var achievementCharacterView: UIImageView = {
+        let view = UIImageView()
         view.clipsToBounds = true
-        view.backgroundColor = UIColor(named: "MainColor")
         return view
     }()
 
     private lazy var numberLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .light)
         label.textColor = .label
         return label
     }()
@@ -46,7 +45,20 @@ final class DateCollectionViewCell: UICollectionViewCell {
     private var achievementRate: Double? {
         didSet {
             guard let achievementRate = achievementRate else { return }
-            selectionBackgroundView.alpha = achievementRate
+
+            var image: UIImage?
+            if achievementRate > 0 && achievementRate < 0.2 {
+                image = UIImage(named: "0-20")
+            } else if achievementRate >= 0.2 && achievementRate < 0.4 {
+                image = UIImage(named: "20-40")
+            } else if achievementRate >= 0.4 && achievementRate < 0.7 {
+                image = UIImage(named: "40-70")
+            } else if achievementRate >= 0.7 && achievementRate < 1 {
+                image = UIImage(named: "70-99")
+            } else if achievementRate == 1 {
+                image = UIImage(named: "100")
+            }
+            achievementCharacterView.image = image
         }
     }
 
@@ -66,18 +78,16 @@ final class DateCollectionViewCell: UICollectionViewCell {
         let size = traitCollection.horizontalSizeClass == .compact ?
           min(min(frame.width, frame.height) - 10, 60) : 45
 
-        numberLabel.anchor(centerX: numberLabel.superview?.centerXAnchor,
-                           centerY: numberLabel.superview?.centerYAnchor)
+        numberLabel.anchor(left: numberLabel.superview?.leftAnchor, paddingLeft: 5,
+                           top: numberLabel.superview?.topAnchor, paddingTop: 5)
 
-        selectionBackgroundView.anchor(centerX: selectionBackgroundView.superview?.centerXAnchor,
-                                       centerY: selectionBackgroundView.superview?.centerYAnchor,
-                                       width: size)
-        let constraint = selectionBackgroundView.heightAnchor
-            .constraint(equalToConstant: selectionBackgroundView.frame.width)
+        achievementCharacterView.anchor(centerX: achievementCharacterView.superview?.centerXAnchor,
+                                        centerY: achievementCharacterView.superview?.centerYAnchor,
+                                        width: size - 10)
+        let constraint = achievementCharacterView.heightAnchor
+            .constraint(equalToConstant: achievementCharacterView.frame.width)
         constraint.priority = UILayoutPriority(900)
         constraint.isActive = true
-
-        selectionBackgroundView.layer.cornerRadius = size / 2
     }
 }
 
@@ -98,7 +108,7 @@ extension DateCollectionViewCell {
     }
 
     private func configureViews() {
-        contentView.addSubview(selectionBackgroundView)
+        contentView.addSubview(achievementCharacterView)
         contentView.addSubview(numberLabel)
     }
 }
@@ -130,7 +140,7 @@ private extension DateCollectionViewCell {
         accessibilityHint = nil
 
         numberLabel.textColor = isSmallScreenSize ? UIColor(named: "MainColor") : UIColor(named: "DayColor")
-        selectionBackgroundView.isHidden = isSmallScreenSize
+        achievementCharacterView.isHidden = isSmallScreenSize
     }
 
     func applyDefaultStyle(isWithinDisplayedMonth: Bool, weekday: Int) {
@@ -147,6 +157,6 @@ private extension DateCollectionViewCell {
         }
 
         numberLabel.textColor = isWithinDisplayedMonth ? color : .systemGray3
-        selectionBackgroundView.isHidden = true
+        achievementCharacterView.isHidden = true
     }
 }

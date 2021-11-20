@@ -19,7 +19,7 @@ final class CreateCategoryView: UIView {
 
     private lazy var button: UIButton = {
         let button = UIButton()
-        button.tintColor = .black
+        button.tintColor = UIColor(named: "Black")
         button.titleLabel?.font = .systemFont(ofSize: 16)
         return button
     }()
@@ -53,7 +53,7 @@ extension CreateCategoryView {
         } else {
             button.backgroundColor = .systemGray4
             button.setTitle("exercise".localized, for: .normal)
-            button.setTitleColor(.black, for: .normal)
+            button.setTitleColor(UIColor(named: "Black"), for: .normal)
             button.layer.cornerRadius = 5
         }
 
