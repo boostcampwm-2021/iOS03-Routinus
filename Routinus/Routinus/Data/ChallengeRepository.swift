@@ -19,6 +19,8 @@ protocol ChallengeRepository {
     func fetchLatestChallenges(completion: (([Challenge]) -> Void)?)
     func fetchChallenges(by userID: String,
                          completion: (([Challenge]) -> Void)?)
+    func fetchChallenges(of userID: String,
+                              completion: (([Challenge]) -> Void)?)
     func fetchEdittingChallenge(challengeID: String,
                                 completion: @escaping (Challenge) -> Void)
     func fetchChallenge(challengeID: String,
@@ -68,6 +70,13 @@ extension RoutinusRepository: ChallengeRepository {
                          completion: (([Challenge]) -> Void)?) {
         RoutinusDatabase.searchChallenges(ownerID: userID) { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
+        }
+    }
+
+    func fetchChallenges(of userID: String,
+                         completion: (([Challenge]) -> Void)?) {
+        RoutinusDatabase.searchChallenges(participantID: userID) { list in
+            completion?(list.map { Challenge(challengeDTO: $0) }.filter { $0.ownerID != userID })
         }
     }
 

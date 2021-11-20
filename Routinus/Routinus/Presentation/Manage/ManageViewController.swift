@@ -10,7 +10,7 @@ import UIKit
 
 final class ManageViewController: UIViewController {
     enum Section: CaseIterable {
-        case challenge
+        case participated, created
     }
 
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Challenge>
@@ -34,6 +34,9 @@ final class ManageViewController: UIViewController {
         collectionView.backgroundColor = .systemBackground
         collectionView.showsVerticalScrollIndicator = false
 
+        collectionView.register(ManageCollectionViewHeader.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: ManageCollectionViewHeader.identifier)
         collectionView.register(ChallengeCollectionViewCell.self,
                                 forCellWithReuseIdentifier: ChallengeCollectionViewCell.identifier)
 
@@ -54,7 +57,7 @@ final class ManageViewController: UIViewController {
         self.configureViews()
         self.configureViewModel()
         self.configureCollectionView()
-        self.didLoadedSearchView()
+        self.didLoadedManageView()
     }
 }
 
@@ -71,15 +74,23 @@ extension ManageViewController {
     }
 
     private func configureViewModel() {
-        self.viewModel?.challenges
+        self.viewModel?.createdChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
-                var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
-                let challengeContents = challengeItem
-                challengeSnapshot.deleteAll()
-                challengeSnapshot.append(challengeContents)
-                self.dataSource.apply(challengeSnapshot, to: Section.challenge)
+                var snapshot = self.dataSource.snapshot(for: .created)
+                snapshot.append(challengeItem)
+                self.dataSource.apply(snapshot, to: .created)
+            })
+            .store(in: &cancellables)
+
+        self.viewModel?.participatedChallenges
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challengeItem in
+                guard let self = self else { return }
+                var snapshot = self.dataSource.snapshot(for: .participated)
+                snapshot.append(challengeItem)
+                self.dataSource.apply(snapshot, to: .participated)
             })
             .store(in: &cancellables)
     }
@@ -89,6 +100,37 @@ extension ManageViewController {
         self.collectionView.dataSource = dataSource
         self.snapshot.appendSections(Section.allCases)
         self.dataSource = configureDataSource()
+        self.configureHeader(of: dataSource)
+    }
+
+    private func configureHeader(of dataSource: DataSource) {
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else {
+                return nil
+            }
+
+            let view = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+               withReuseIdentifier: ManageCollectionViewHeader.identifier,
+               for: indexPath) as? ManageCollectionViewHeader
+            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+
+            switch section {
+            case .created:
+                view?.configureViews(section: .created)
+            case .participated:
+                view?.configureViews(section: .participated)
+            }
+
+            if view?.gestureRecognizers?.count == nil {
+                let tapGesture = UITapGestureRecognizer(target: self,
+                                                        action: #selector(self.collectionViewHeaderTouched(_:)))
+                tapGesture.delegate = self
+                view?.addGestureRecognizer(tapGesture)
+            }
+
+            return view
+        }
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
@@ -104,7 +146,7 @@ extension ManageViewController {
         self.viewModel?.didTappedAddButton()
     }
 
-    func didLoadedSearchView() {
+    func didLoadedManageView() {
         self.viewModel?.didLoadedManageView()
     }
 }
@@ -133,5 +175,12 @@ extension ManageViewController {
 extension ManageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.viewModel?.didTappedChallenge(index: indexPath.item)
+    }
+}
+
+extension ManageViewController: UIGestureRecognizerDelegate {
+    @objc func collectionViewHeaderTouched(_ sender: UITapGestureRecognizer) {
+        guard let headerView = sender.view as? ManageCollectionViewHeader else { return }
+        headerView.didTouchedHeader()
     }
 }

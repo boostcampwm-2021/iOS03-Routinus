@@ -24,6 +24,10 @@ final class ManageCollectionViewLayouts {
         group.interItemSpacing = .fixed(20)
 
         let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
+                                                                      heightDimension: .absolute(70)),
+                                                    elementKind: UICollectionView.elementKindSectionHeader,
+                                                    alignment: .topLeading)]
         section.orthogonalScrollingBehavior = .none
         section.contentInsets = .init(top: 10, leading: offset, bottom: 10, trailing: offset)
         section.interGroupSpacing = 30
