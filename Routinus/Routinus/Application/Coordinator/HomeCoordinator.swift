@@ -13,6 +13,7 @@ final class HomeCoordinator: RoutinusCoordinator {
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
     let authPublisher = NotificationCenter.default.publisher(for: .confirmAuth, object: nil)
+    let participationPublisher = NotificationCenter.default.publisher(for: .confirmParticipation, object: nil)
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -58,6 +59,13 @@ final class HomeCoordinator: RoutinusCoordinator {
             .store(in: &cancellables)
 
         self.authPublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                homeViewModel.fetchMyHomeData()
+            }
+            .store(in: &cancellables)
+
+        self.participationPublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 homeViewModel.fetchMyHomeData()
