@@ -22,7 +22,7 @@ final class DetailViewController: UIViewController {
     private lazy var editBarButtonItem: UIBarButtonItem = {
         var barButtonItem = UIBarButtonItem()
         barButtonItem.image = UIImage(systemName: "pencil")
-        barButtonItem.tintColor = .black
+        barButtonItem.tintColor = UIColor(named: "Black")
         barButtonItem.target = self
         barButtonItem.action = #selector(didTappedEditBarButton(_:))
         return barButtonItem
@@ -37,7 +37,7 @@ final class DetailViewController: UIViewController {
 
     private lazy var participantView: UIView = {
         var view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         return view
     }()
 
@@ -65,7 +65,7 @@ final class DetailViewController: UIViewController {
     }
 
     private func configureViews() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .systemBackground
         self.configureNavigationBar()
 
         view.addSubview(scrollView)

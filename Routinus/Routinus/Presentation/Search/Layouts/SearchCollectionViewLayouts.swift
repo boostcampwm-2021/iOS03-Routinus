@@ -10,13 +10,13 @@ import UIKit
 final class SearchCollectionViewLayouts {
     private var pupularSearchKeywordLayout: NSCollectionLayoutSection {
         let smallWidth = UIScreen.main.bounds.width <= 350
-        let offset = smallWidth ? 15.0 : 25.0
+        let offset = smallWidth ? 15.0 : 20.0
 
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                               heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2),
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.17),
                                                heightDimension: .estimated(30))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitems: [item])
@@ -34,7 +34,7 @@ final class SearchCollectionViewLayouts {
 
     private var challengeLayout: NSCollectionLayoutSection {
         let smallWidth = UIScreen.main.bounds.width <= 350
-        let offset = smallWidth ? 15.0 : 25.0
+        let offset = smallWidth ? 15.0 : 20.0
 
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
                                               heightDimension: .estimated(140))

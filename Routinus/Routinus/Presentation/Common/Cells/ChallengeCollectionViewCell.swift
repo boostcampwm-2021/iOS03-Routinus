@@ -20,7 +20,7 @@ final class ChallengeCollectionViewCell: UICollectionViewCell {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(named: "Black")
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.lineBreakMode = .byTruncatingTail
         return label

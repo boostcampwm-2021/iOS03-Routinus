@@ -12,7 +12,7 @@ final class SearchCollectionViewHeader: UICollectionReusableView {
 
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(named: "Black")
         label.font = UIFont.boldSystemFont(ofSize: 18)
 
         return label

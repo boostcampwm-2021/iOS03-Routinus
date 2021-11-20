@@ -12,7 +12,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor =  UIColor(named: "Black")
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.lineBreakMode = .byTruncatingTail
         return label
@@ -20,7 +20,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
     private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "DayColor")
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.numberOfLines = 2
         return label
@@ -28,7 +28,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
     private lazy var encounterView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "MainColor")
+        view.backgroundColor = UIColor(named: "MainColor")?.withAlphaComponent(0.7)
         view.layer.cornerRadius = 15
         return view
     }()
@@ -36,7 +36,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
     private lazy var encounterIcon: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "person")
-        image.tintColor = .black
+        image.tintColor = UIColor(named: "Black")
         return image
     }()
 
@@ -54,6 +54,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 15
+        self.layer.borderColor =  UIColor(named: "Black")?.cgColor
 
         self.addSubview(titleLabel)
         titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: 25,

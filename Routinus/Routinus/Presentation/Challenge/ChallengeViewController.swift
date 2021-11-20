@@ -38,7 +38,7 @@ final class ChallengeViewController: UIViewController {
     private lazy var searchButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = UIColor(named: "Black")
         button.addTarget(self, action: #selector(didTappedSearchButton), for: .touchUpInside)
         return button
     }()
@@ -149,7 +149,7 @@ extension ChallengeViewController {
         self.navigationItem.largeTitleDisplayMode = .always
         self.navigationItem.title = "Challenges"
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .black
+        backBarButtonItem.tintColor = UIColor(named: "Black")
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 

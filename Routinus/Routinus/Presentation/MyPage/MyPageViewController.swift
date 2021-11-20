@@ -10,7 +10,7 @@ import UIKit
 final class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .systemBackground
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
 }

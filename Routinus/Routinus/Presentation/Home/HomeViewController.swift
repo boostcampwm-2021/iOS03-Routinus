@@ -105,7 +105,7 @@ extension HomeViewController {
 
     private func configureNavigationBar() {
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .black
+        backBarButtonItem.tintColor = UIColor(named: "Black")
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 

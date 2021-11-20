@@ -20,7 +20,7 @@ final class TodayRoutineView: UIView {
     private lazy var addButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = UIColor(named: "Black")
         button.addTarget(self, action: #selector(didTappedAddChallengeButton), for: .touchUpInside)
         return button
     }()

@@ -32,7 +32,7 @@ final class CategoryButton: UIView {
 
     func setTitle(_ text: String) {
         title.text = text
-        title.tintColor = .black
+        title.tintColor = UIColor(named: "Black")
     }
 
     func setTintColor(_ color: UIColor?) {

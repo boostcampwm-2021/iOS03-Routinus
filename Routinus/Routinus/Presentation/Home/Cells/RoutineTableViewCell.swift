@@ -28,7 +28,7 @@ final class RoutineTableViewCell: UITableViewCell {
     private lazy var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .black
+        imageView.tintColor = UIColor(named: "Black")
         return imageView
     }()
 
@@ -77,7 +77,7 @@ extension RoutineTableViewCell {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        self.backgroundColor = .white
+        self.backgroundColor = .systemBackground
 
         self.contentView.addSubview(progressView)
         progressView.anchor(horizontal: progressView.superview, paddingHorizontal: offset,

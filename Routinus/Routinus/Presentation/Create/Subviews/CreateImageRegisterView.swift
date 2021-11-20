@@ -21,7 +21,7 @@ final class CreateImageRegisterView: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "camera")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .black
+        imageView.tintColor = UIColor(named: "Black")
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.systemGray.cgColor
         imageView.layer.cornerRadius = 10
