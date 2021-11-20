@@ -32,7 +32,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.createUserQuery(id: id, name: name)
+        request.httpBody = UserQuery.insert(id: id, name: name)
 
         URLSession.shared.dataTask(with: request) { _, _, _ in
             completion?()
@@ -110,7 +110,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.insertChallengeQuery(document: document)
+        request.httpBody = ChallengeQuery.insert(document: document)
 
         URLSession.shared.dataTask(with: request) { _, _, _ in
             completion?()
@@ -125,7 +125,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.insertChallengeParticipationQuery(document: document)
+        request.httpBody = ParticipationQuery.insert(document: document)
 
         URLSession.shared.dataTask(with: request) { _, _, _ in
             completion?()
@@ -140,7 +140,7 @@ public enum RoutinusDatabase {
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.insertChallengeAuthQuery(document: document)
+        request.httpBody = AuthQuery.insert(document: document)
 
         URLSession.shared.dataTask(with: request) { _, _, _ in
             completion?()
@@ -187,7 +187,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.userQuery(of: id)
+        request.httpBody = UserQuery.select(of: id)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -205,7 +205,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.routinesQuery(userID: id)
+        request.httpBody = ParticipationQuery.select(userID: id)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data,
@@ -219,7 +219,7 @@ public enum RoutinusDatabase {
             for participation in participations {
                 group.enter()
                 guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
-                request.httpBody = RoutinusQuery.routinesQuery(challengeID: challengeID)
+                request.httpBody = ChallengeQuery.select(challengeID: challengeID)
 
                 URLSession.shared.dataTask(with: request) { data, _, _ in
                     guard let data = data,
@@ -257,9 +257,9 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.todayAchievementQuery(of: id,
-                                                               yearMonth: yearMonthString,
-                                                               day: dayString)
+        request.httpBody = AchievementQuery.select(of: id,
+                                                   yearMonth: yearMonthString,
+                                                   day: dayString)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data,
@@ -286,10 +286,10 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.createAchievementQuery(id: id,
-                                                                yearMonth: yearMonth,
-                                                                day: day,
-                                                                totalCount: "\(totalCount)")
+        request.httpBody = AchievementQuery.insert(id: id,
+                                                   yearMonth: yearMonth,
+                                                   day: day,
+                                                   totalCount: "\(totalCount)")
 
         URLSession.shared.dataTask(with: request) { _, _, _ in
             completion?()
@@ -306,7 +306,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.achievementQuery(of: id, in: yearMonth)
+        request.httpBody = AchievementQuery.select(of: id, in: yearMonth)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -324,7 +324,9 @@ public enum RoutinusDatabase {
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.todayAchievementQuery(of: userID, yearMonth: yearMonth, day: day)
+        request.httpBody = AchievementQuery.select(of: userID,
+                                                   yearMonth: yearMonth,
+                                                   day: day)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -341,7 +343,8 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.allChallengesQuery()
+        request.httpBody = ChallengeQuery.selectOrderByParticipantCount(ascending: true,
+                                                                        limit: 50)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -358,7 +361,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.newChallengeQuery()
+        request.httpBody = ChallengeQuery.selectOrderByStartDate()
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -375,7 +378,8 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.recommendChallengeQuery()
+        request.httpBody = ChallengeQuery.selectOrderByParticipantCount(ascending: false,
+                                                                        limit: 5)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -393,7 +397,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.searchChallenges(ownerID: ownerID)
+        request.httpBody = ChallengeQuery.select(ownerID: ownerID)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -411,7 +415,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.searchChallenges(categoryID: categoryID)
+        request.httpBody = ChallengeQuery.select(categoryID: categoryID)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -430,7 +434,8 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.challenge(ownerID: ownerID, challengeID: challengeID)
+        request.httpBody = ChallengeQuery.select(ownerID: ownerID,
+                                                 challengeID: challengeID)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -446,7 +451,7 @@ public enum RoutinusDatabase {
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.challenge(challengeID: challengeID)
+        request.httpBody = ChallengeQuery.select(challengeID: challengeID)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -463,7 +468,8 @@ public enum RoutinusDatabase {
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.challengeParticipation(userID: userID, challengeID: challengeID)
+        request.httpBody = ParticipationQuery.select(userID: userID,
+                                                     challengeID: challengeID)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -531,7 +537,7 @@ public enum RoutinusDatabase {
             var request = URLRequest(url: url)
             request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
             request.httpMethod = HTTPMethod.patch.rawValue
-            request.httpBody = RoutinusQuery.updateChallenge(document: challengeField)
+            request.httpBody = ChallengeQuery.update(document: challengeField)
 
             URLSession.shared.dataTask(with: request) { _, _, _ in
                 completion?()
@@ -565,7 +571,7 @@ public enum RoutinusDatabase {
             var request = URLRequest(url: url)
             request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
             request.httpMethod = HTTPMethod.patch.rawValue
-            request.httpBody = RoutinusQuery.updateChallengeParticipation(document: participationField)
+            request.httpBody = ParticipationQuery.update(document: participationField)
 
             URLSession.shared.dataTask(with: request) { _, _, _ in
                 completion?()
@@ -579,7 +585,7 @@ public enum RoutinusDatabase {
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = RoutinusQuery.challengeAuth(todayDate: todayDate, userID: userID, challengeID: challengeID)
+        request.httpBody = AuthQuery.select(todayDate: todayDate, userID: userID, challengeID: challengeID)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -616,7 +622,7 @@ public enum RoutinusDatabase {
             var request = URLRequest(url: url)
             request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
             request.httpMethod = HTTPMethod.patch.rawValue
-            request.httpBody = RoutinusQuery.updateAchievement(document: achievementField)
+            request.httpBody = AchievementQuery.update(document: achievementField)
 
             URLSession.shared.dataTask(with: request) { _, _, _ in
                 completion?()

@@ -57,8 +57,12 @@
 		441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */; };
 		44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */; };
 		44234F18273C0917004D6834 /* CreateImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */; };
+		4432E27C2748C58A0078A6AB /* UserQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E27B2748C58A0078A6AB /* UserQuery.swift */; };
+		4432E27E2748C69D0078A6AB /* ChallengeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E27D2748C69D0078A6AB /* ChallengeQuery.swift */; };
+		4432E2802748C6B80078A6AB /* ParticipationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E27F2748C6B80078A6AB /* ParticipationQuery.swift */; };
+		4432E2822748C6C40078A6AB /* AuthQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E2812748C6C40078A6AB /* AuthQuery.swift */; };
+		4432E2842748C7410078A6AB /* AchievementQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E2832748C7410078A6AB /* AchievementQuery.swift */; };
 		446A07162740ECE6009F8D98 /* ParticipationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A07152740ECE6009F8D98 /* ParticipationDTO.swift */; };
-		446A071B2740F629009F8D98 /* RoutinusQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A071A2740F628009F8D98 /* RoutinusQuery.swift */; };
 		446A0729274230E4009F8D98 /* RoutinusImageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 446A0728274230E4009F8D98 /* RoutinusImageManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		446A072C274230E4009F8D98 /* RoutinusImageManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446A0726274230E4009F8D98 /* RoutinusImageManager.framework */; };
 		446A072D274230E4009F8D98 /* RoutinusImageManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 446A0726274230E4009F8D98 /* RoutinusImageManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -220,8 +224,12 @@
 		441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthImageRegisterView.swift; sourceTree = "<group>"; };
 		44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSubviewDelegate.swift; sourceTree = "<group>"; };
 		44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateImagePickerDelegate.swift; sourceTree = "<group>"; };
+		4432E27B2748C58A0078A6AB /* UserQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserQuery.swift; sourceTree = "<group>"; };
+		4432E27D2748C69D0078A6AB /* ChallengeQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeQuery.swift; sourceTree = "<group>"; };
+		4432E27F2748C6B80078A6AB /* ParticipationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationQuery.swift; sourceTree = "<group>"; };
+		4432E2812748C6C40078A6AB /* AuthQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthQuery.swift; sourceTree = "<group>"; };
+		4432E2832748C7410078A6AB /* AchievementQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementQuery.swift; sourceTree = "<group>"; };
 		446A07152740ECE6009F8D98 /* ParticipationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationDTO.swift; sourceTree = "<group>"; };
-		446A071A2740F628009F8D98 /* RoutinusQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusQuery.swift; sourceTree = "<group>"; };
 		446A0726274230E4009F8D98 /* RoutinusImageManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutinusImageManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		446A0728274230E4009F8D98 /* RoutinusImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutinusImageManager.h; sourceTree = "<group>"; };
 		446A073127423118009F8D98 /* RoutinusImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusImageManager.swift; sourceTree = "<group>"; };
@@ -393,10 +401,10 @@
 		441CEDE12738FF1E006C261F /* RoutinusDatabase */ = {
 			isa = PBXGroup;
 			children = (
-				441CEDF127390260006C261F /* DTO */,
 				441CEDE22738FF1E006C261F /* RoutinusDatabase.h */,
 				441CEDF927390378006C261F /* RoutinusDatabase.swift */,
-				446A071A2740F628009F8D98 /* RoutinusQuery.swift */,
+				441CEDF127390260006C261F /* DTO */,
+				4432E27A2748C55B0078A6AB /* Query */,
 			);
 			path = RoutinusDatabase;
 			sourceTree = "<group>";
@@ -435,6 +443,18 @@
 				44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		4432E27A2748C55B0078A6AB /* Query */ = {
+			isa = PBXGroup;
+			children = (
+				4432E27B2748C58A0078A6AB /* UserQuery.swift */,
+				4432E27D2748C69D0078A6AB /* ChallengeQuery.swift */,
+				4432E27F2748C6B80078A6AB /* ParticipationQuery.swift */,
+				4432E2812748C6C40078A6AB /* AuthQuery.swift */,
+				4432E2832748C7410078A6AB /* AchievementQuery.swift */,
+			);
+			path = Query;
 			sourceTree = "<group>";
 		};
 		446A071C2741F4F6009F8D98 /* Cells */ = {
@@ -1030,12 +1050,16 @@
 			files = (
 				441CEDF027390259006C261F /* UserDTO.swift in Sources */,
 				441CEDF52739029C006C261F /* AchievementDTO.swift in Sources */,
-				446A071B2740F629009F8D98 /* RoutinusQuery.swift in Sources */,
+				4432E2822748C6C40078A6AB /* AuthQuery.swift in Sources */,
 				E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */,
 				446A07162740ECE6009F8D98 /* ParticipationDTO.swift in Sources */,
+				4432E27C2748C58A0078A6AB /* UserQuery.swift in Sources */,
+				4432E27E2748C69D0078A6AB /* ChallengeQuery.swift in Sources */,
 				E901EFEE2745400900B14847 /* ChallengeAuthDTO.swift in Sources */,
+				4432E2842748C7410078A6AB /* AchievementQuery.swift in Sources */,
 				441CEDF327390296006C261F /* TodayRoutineDTO.swift in Sources */,
 				441CEDFD27390378006C261F /* RoutinusDatabase.swift in Sources */,
+				4432E2802748C6B80078A6AB /* ParticipationQuery.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
