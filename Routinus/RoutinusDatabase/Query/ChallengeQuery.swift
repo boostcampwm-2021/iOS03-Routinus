@@ -12,9 +12,7 @@ internal enum ChallengeQuery {
         return """
         {
             "structuredQuery": {
-                "from": {
-                    "collectionId": "challenge",
-                },
+                "from": { "collectionId": "challenge" },
                 "where": {
                     "fieldFilter": {
                         "field": { "fieldPath": "category_id" },
@@ -37,9 +35,7 @@ internal enum ChallengeQuery {
         return """
         {
             "structuredQuery": {
-                "from": {
-                    "collectionId": "challenge",
-                },
+                "from": { "collectionId": "challenge" },
                 "where": {
                     "fieldFilter": {
                         "field": { "fieldPath": "owner_id" },
@@ -106,9 +102,7 @@ internal enum ChallengeQuery {
         return """
         {
             "structuredQuery": {
-                "from": {
-                    "collectionId": "challenge",
-                },
+                "from": { "collectionId": "challenge" },
                 "orderBy": [
                     {
                         "field": { "fieldPath": "participant_count" },
@@ -125,9 +119,7 @@ internal enum ChallengeQuery {
         return """
         {
             "structuredQuery": {
-                "from": {
-                    "collectionId": "challenge",
-                },
+                "from": { "collectionId": "challenge" },
                 "orderBy": [
                     {
                         "field": { "fieldPath": "start_date" },
