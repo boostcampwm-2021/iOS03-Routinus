@@ -1,5 +1,5 @@
 //
-//  ChallengeCategoryCell.swift
+//  ChallengeCategoryCollectionViewCell.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/04.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class ChallengeCategoryCell: UICollectionViewCell {
-    static let identifier = "categoryCell"
+final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
+    static let identifier = "ChallengeCategoryCollectionViewCell"
     weak var delegate: ChallengeCategoryCellDelegate?
 
     private lazy var yStackView: UIStackView = {

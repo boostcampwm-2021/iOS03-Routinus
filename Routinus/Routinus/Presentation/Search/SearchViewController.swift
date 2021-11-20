@@ -42,11 +42,11 @@ final class SearchViewController: UIViewController {
 
         collectionView.showsVerticalScrollIndicator = false
 
-        collectionView.register(SearchHeader.self,
+        collectionView.register(SearchCollectionViewHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: SearchHeader.identifier)
-        collectionView.register(SearchPopularKeywordCell.self,
-                                forCellWithReuseIdentifier: SearchPopularKeywordCell.identifier)
+                                withReuseIdentifier: SearchCollectionViewHeader.identifier)
+        collectionView.register(SearchPopularKeywordCollectionViewCell.self,
+                                forCellWithReuseIdentifier: SearchPopularKeywordCollectionViewCell.identifier)
         collectionView.register(ChallengeCollectionViewCell.self,
                                 forCellWithReuseIdentifier: ChallengeCollectionViewCell.identifier)
 
@@ -79,8 +79,8 @@ extension SearchViewController {
         let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, content in
             switch content {
             case .popularSearchKeyword(let keyword):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchPopularKeywordCell.identifier,
-                                                              for: indexPath) as? SearchPopularKeywordCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchPopularKeywordCollectionViewCell.identifier,
+                                                              for: indexPath) as? SearchPopularKeywordCollectionViewCell
                 cell?.configureViews(keyword: keyword)
                 cell?.delegate = self
                 return cell
@@ -113,8 +113,8 @@ extension SearchViewController {
 
             let view = collectionView.dequeueReusableSupplementaryView(
                         ofKind: kind,
-                        withReuseIdentifier: SearchHeader.identifier,
-                        for: indexPath) as? SearchHeader
+                        withReuseIdentifier: SearchCollectionViewHeader.identifier,
+                        for: indexPath) as? SearchCollectionViewHeader
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
             view?.title = section.title

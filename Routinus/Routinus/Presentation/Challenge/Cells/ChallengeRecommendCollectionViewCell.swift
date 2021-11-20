@@ -1,5 +1,5 @@
 //
-//  ChallengeRecommendCell.swift
+//  ChallengeRecommendCollectionViewCell.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/04.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class ChallengeRecommendCell: UICollectionViewCell {
-    static let identifier = "recommendCell"
+final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
+    static let identifier = "ChallengeRecommendCollectionViewCell"
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
