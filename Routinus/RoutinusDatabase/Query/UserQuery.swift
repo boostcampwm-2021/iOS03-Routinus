@@ -40,4 +40,14 @@ internal enum UserQuery {
         }
         """.data(using: .utf8)
     }
+
+    internal static func update(document: UserFields) -> Data? {
+        return """
+        {
+            "fields": {
+                "continuity_day": { "integerValue": "\(document.continuityDay.integerValue)" }
+            }
+        }
+        """.data(using: .utf8)
+    }
 }
