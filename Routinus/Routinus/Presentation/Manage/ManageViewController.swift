@@ -54,10 +54,6 @@ final class ManageViewController: UIViewController {
         self.configureViews()
         self.configureViewModel()
         self.configureCollectionView()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         self.didLoadedSearchView()
     }
 }

@@ -70,13 +70,8 @@ final class SearchViewController: UIViewController {
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
         self.configureViewModel()
+        self.didLoadedSearchView()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        didLoadedSearchView()
-    }
-
 }
 
 extension SearchViewController {
