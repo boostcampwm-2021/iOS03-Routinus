@@ -8,8 +8,8 @@
 import Foundation
 
 internal enum AchievementQuery {
-    internal static func select(of id: String,
-                                in yearMonth: String) -> Data? {
+    internal static func select(id: String,
+                                yearMonth: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -40,7 +40,7 @@ internal enum AchievementQuery {
         """.data(using: .utf8)
     }
 
-    internal static func select(of id: String,
+    internal static func select(id: String,
                                 yearMonth: String,
                                 day: String) -> Data? {
         return """

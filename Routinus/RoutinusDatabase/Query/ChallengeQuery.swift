@@ -8,6 +8,67 @@
 import Foundation
 
 internal enum ChallengeQuery {
+    internal static func select(categoryID: String) -> Data? {
+        return """
+        {
+            "structuredQuery": {
+                "from": {
+                    "collectionId": "challenge",
+                },
+                "where": {
+                    "fieldFilter": {
+                        "field": { "fieldPath": "category_id" },
+                        "op": "EQUAL",
+                        "value": { "stringValue": "\(categoryID)" }
+                    },
+                },
+                "orderBy": [
+                    {
+                        "field": { "fieldPath": "participant_count" },
+                        "direction": "DESCENDING"
+                    },
+                ]
+            }
+        }
+        """.data(using: .utf8)
+    }
+
+    internal static func select(ownerID: String) -> Data? {
+        return """
+        {
+            "structuredQuery": {
+                "from": {
+                    "collectionId": "challenge",
+                },
+                "where": {
+                    "fieldFilter": {
+                        "field": { "fieldPath": "owner_id" },
+                        "op": "EQUAL",
+                        "value": { "stringValue": "\(ownerID)" }
+                    },
+                }
+            }
+        }
+        """.data(using: .utf8)
+    }
+
+    internal static func select(challengeID: String) -> Data? {
+        return """
+            {
+                "structuredQuery": {
+                    "from": { "collectionId": "challenge" },
+                    "where": {
+                        "fieldFilter": {
+                            "field": { "fieldPath": "id" },
+                            "op": "EQUAL",
+                            "value": { "stringValue": "\(challengeID)" }
+                        },
+                    },
+                }
+            }
+            """.data(using: .utf8)
+    }
+
     internal static func select(ownerID: String,
                                 challengeID: String) -> Data? {
         return """
@@ -38,23 +99,6 @@ internal enum ChallengeQuery {
             }
         }
         """.data(using: .utf8)
-    }
-
-    internal static func select(challengeID: String) -> Data? {
-        return """
-            {
-                "structuredQuery": {
-                    "from": { "collectionId": "challenge" },
-                    "where": {
-                        "fieldFilter": {
-                            "field": { "fieldPath": "id" },
-                            "op": "EQUAL",
-                            "value": { "stringValue": "\(challengeID)" }
-                        },
-                    },
-                }
-            }
-            """.data(using: .utf8)
     }
 
     internal static func selectOrderByParticipantCount(ascending: Bool,
@@ -91,50 +135,6 @@ internal enum ChallengeQuery {
                     },
                 ],
                 "limit": 10
-            }
-        }
-        """.data(using: .utf8)
-    }
-
-    internal static func select(ownerID: String) -> Data? {
-        return """
-        {
-            "structuredQuery": {
-                "from": {
-                    "collectionId": "challenge",
-                },
-                "where": {
-                    "fieldFilter": {
-                        "field": { "fieldPath": "owner_id" },
-                        "op": "EQUAL",
-                        "value": { "stringValue": "\(ownerID)" }
-                    },
-                }
-            }
-        }
-        """.data(using: .utf8)
-    }
-
-    internal static func select(categoryID: String) -> Data? {
-        return """
-        {
-            "structuredQuery": {
-                "from": {
-                    "collectionId": "challenge",
-                },
-                "where": {
-                    "fieldFilter": {
-                        "field": { "fieldPath": "category_id" },
-                        "op": "EQUAL",
-                        "value": { "stringValue": "\(categoryID)" }
-                    },
-                },
-                "orderBy": [
-                    {
-                        "field": { "fieldPath": "participant_count" },
-                        "direction": "DESCENDING"
-                    },
-                ]
             }
         }
         """.data(using: .utf8)

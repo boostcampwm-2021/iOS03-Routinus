@@ -8,7 +8,7 @@
 import Foundation
 
 internal enum UserQuery {
-    internal static func select(of id: String) -> Data? {
+    internal static func select(id: String) -> Data? {
         return """
         {
             "structuredQuery": {

@@ -187,7 +187,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = UserQuery.select(of: id)
+        request.httpBody = UserQuery.select(id: id)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -257,7 +257,7 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = AchievementQuery.select(of: id,
+        request.httpBody = AchievementQuery.select(id: id,
                                                    yearMonth: yearMonthString,
                                                    day: dayString)
 
@@ -306,7 +306,8 @@ public enum RoutinusDatabase {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = AchievementQuery.select(of: id, in: yearMonth)
+        request.httpBody = AchievementQuery.select(id: id,
+                                                   yearMonth: yearMonth)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -324,7 +325,7 @@ public enum RoutinusDatabase {
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = AchievementQuery.select(of: userID,
+        request.httpBody = AchievementQuery.select(id: userID,
                                                    yearMonth: yearMonth,
                                                    day: day)
 
@@ -585,7 +586,9 @@ public enum RoutinusDatabase {
 
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = AuthQuery.select(todayDate: todayDate, userID: userID, challengeID: challengeID)
+        request.httpBody = AuthQuery.select(userID: userID,
+                                            challengeID: challengeID,
+                                            todayDate: todayDate)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
