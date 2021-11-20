@@ -8,7 +8,7 @@
 import Foundation
 
 public struct ChallengeAuthDTO: Codable {
-    public let document: ChallengeAuthFields?
+    public let document: Fields<ChallengeAuthFields>?
 
     init() {
         self.document = nil
@@ -18,19 +18,15 @@ public struct ChallengeAuthDTO: Codable {
                 userID: String,
                 date: String,
                 time: String) {
-        let field = ChallengeAuthField(challengeID: StringField(stringValue: challengeID),
+        let field = ChallengeAuthFields(challengeID: StringField(stringValue: challengeID),
                                        userID: StringField(stringValue: userID),
                                        date: StringField(stringValue: date),
                                        time: StringField(stringValue: time))
-        self.document = ChallengeAuthFields(fields: field)
+        self.document = Fields(name: nil, fields: field)
     }
 }
 
 public struct ChallengeAuthFields: Codable {
-    public let fields: ChallengeAuthField
-}
-
-public struct ChallengeAuthField: Codable {
     public let challengeID: StringField
     public let userID: StringField
     public let date: StringField

@@ -59,7 +59,7 @@ internal enum ParticipationQuery {
         """.data(using: .utf8)
     }
 
-    internal static func insert(document: ParticipationField) -> Data? {
+    internal static func insert(document: ParticipationFields) -> Data? {
         return """
         {
             "fields": {
@@ -72,7 +72,7 @@ internal enum ParticipationQuery {
         """.data(using: .utf8)
     }
 
-    internal static func update(document: ParticipationField) -> Data? {
+    internal static func update(document: ParticipationFields) -> Data? {
         return """
         {
             "fields": {

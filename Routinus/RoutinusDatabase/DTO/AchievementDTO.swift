@@ -8,7 +8,7 @@
 import Foundation
 
 public struct AchievementDTO: Codable {
-    public let document: AchievementFields?
+    public let document: Fields<AchievementFields>?
 
     init() {
         self.document = nil
@@ -19,12 +19,12 @@ public struct AchievementDTO: Codable {
                 userID: String,
                 achievementCount: Int,
                 yearMonth: String) {
-        let field = AchievementField(totalCount: IntegerField(integerValue: "\(totalCount)"),
+        let field = AchievementFields(totalCount: IntegerField(integerValue: "\(totalCount)"),
                                      day: StringField(stringValue: day),
                                      userID: StringField(stringValue: userID),
                                      achievementCount: IntegerField(integerValue: "\(achievementCount)"),
                                      yearMonth: StringField(stringValue: yearMonth))
-        self.document = AchievementFields(fields: field)
+        self.document = Fields(name: nil, fields: field)
     }
 
     var documentID: String? {
@@ -33,11 +33,6 @@ public struct AchievementDTO: Codable {
 }
 
 public struct AchievementFields: Codable {
-    public var name: String?
-    public let fields: AchievementField
-}
-
-public struct AchievementField: Codable {
     public let totalCount: IntegerField
     public let day: StringField
     public let userID: StringField

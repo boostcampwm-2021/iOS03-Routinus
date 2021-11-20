@@ -99,7 +99,7 @@ internal enum AchievementQuery {
         """.data(using: .utf8)
     }
 
-    internal static func update(document: AchievementField) -> Data? {
+    internal static func update(document: AchievementFields) -> Data? {
         return """
         {
             "fields": {

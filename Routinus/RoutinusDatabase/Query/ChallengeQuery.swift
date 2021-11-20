@@ -136,7 +136,7 @@ internal enum ChallengeQuery {
         """.data(using: .utf8)
     }
 
-    internal static func insert(document: ChallengeField) -> Data? {
+    internal static func insert(document: ChallengeFields) -> Data? {
         return """
         {
             "fields": {
@@ -155,7 +155,7 @@ internal enum ChallengeQuery {
         """.data(using: .utf8)
     }
 
-    internal static func update(document: ChallengeField) -> Data? {
+    internal static func update(document: ChallengeFields) -> Data? {
         return """
         {
             "fields": {

@@ -49,7 +49,7 @@ internal enum AuthQuery {
         """.data(using: .utf8)
     }
 
-    internal static func insert(document: ChallengeAuthField) -> Data? {
+    internal static func insert(document: ChallengeAuthFields) -> Data? {
         return """
         {
             "fields": {

@@ -8,7 +8,7 @@
 import Foundation
 
 public struct ParticipationDTO: Codable {
-    public let document: ParticipationFields?
+    public let document: Fields<ParticipationFields>?
 
     init() {
         self.document = nil
@@ -18,11 +18,11 @@ public struct ParticipationDTO: Codable {
                 challengeID: String,
                 joinDate: String,
                 userID: String) {
-        let field = ParticipationField(authCount: IntegerField(integerValue: "\(authCount)"),
+        let field = ParticipationFields(authCount: IntegerField(integerValue: "\(authCount)"),
                                        challengeID: StringField(stringValue: challengeID),
                                        joinDate: StringField(stringValue: joinDate),
                                        userID: StringField(stringValue: userID))
-        self.document = ParticipationFields(fields: field)
+        self.document = Fields(name: nil, fields: field)
     }
 
     var documentID: String? {
@@ -31,11 +31,6 @@ public struct ParticipationDTO: Codable {
 }
 
 public struct ParticipationFields: Codable {
-    public var name: String?
-    public let fields: ParticipationField
-}
-
-public struct ParticipationField: Codable {
     public let authCount: IntegerField
     public let challengeID: StringField
     public let joinDate: StringField

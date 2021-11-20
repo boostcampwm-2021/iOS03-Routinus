@@ -8,7 +8,7 @@
 import Foundation
 
 public struct UserDTO: Codable {
-    public let document: UserFields?
+    public let document: Fields<UserFields>?
 
     init() {
         self.document = nil
@@ -16,10 +16,6 @@ public struct UserDTO: Codable {
 }
 
 public struct UserFields: Codable {
-    public let fields: UserField
-}
-
-public struct UserField: Codable {
     public let id: StringField
     public let name: StringField
     public let grade: IntegerField
