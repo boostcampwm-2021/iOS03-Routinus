@@ -12,8 +12,10 @@ final class HomeCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
-    let authPublisher = NotificationCenter.default.publisher(for: .confirmAuth, object: nil)
-    let participationPublisher = NotificationCenter.default.publisher(for: .confirmParticipation, object: nil)
+    let authPublisher = NotificationCenter.default.publisher(for: AuthCoordinator.confirmAuth,
+                                                                object: nil)
+    let participationPublisher = NotificationCenter.default.publisher(for: DetailCoordinator.confirmParticipation,
+                                                                         object: nil)
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController

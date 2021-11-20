@@ -9,11 +9,13 @@ import Combine
 import UIKit
 
 final class DetailCoordinator: RoutinusCoordinator {
+    static let confirmParticipation = Notification.Name("confirmParticipation")
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
-    let authPublisher = NotificationCenter.default.publisher(for: .confirmAuth, object: nil)
     let challengeID: String?
+    let authPublisher = NotificationCenter.default.publisher(for: AuthCoordinator.confirmAuth,
+                                                                object: nil)
 
     init(navigationController: UINavigationController, challengeID: String) {
         self.navigationController = navigationController
@@ -62,7 +64,8 @@ final class DetailCoordinator: RoutinusCoordinator {
 
         detailViewModel.alertConfirmTap
             .sink { _ in
-                NotificationCenter.default.post(name: .confirmParticipation, object: nil)
+                NotificationCenter.default.post(name: DetailCoordinator.confirmParticipation,
+                                                object: nil)
             }
             .store(in: &cancellables)
 
@@ -72,6 +75,7 @@ final class DetailCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-        self.navigationController.pushViewController(detailViewController, animated: true)
+        self.navigationController.pushViewController(detailViewController,
+                                                     animated: true)
     }
 }

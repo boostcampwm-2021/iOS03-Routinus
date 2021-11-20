@@ -9,11 +9,12 @@ import Combine
 import UIKit
 
 final class AuthCoordinator: RoutinusCoordinator {
+    static let confirmAuth = Notification.Name("confirmAuth")
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
-    let challengeID: String
     var cancellables = Set<AnyCancellable>()
-
+    let challengeID: String
+    
     init(navigationController: UINavigationController, challengeID: String) {
         self.navigationController = navigationController
         self.challengeID = challengeID
@@ -37,10 +38,10 @@ final class AuthCoordinator: RoutinusCoordinator {
         let authViewController = AuthViewController(viewModel: authViewModel)
         authViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(authViewController, animated: true)
-        
+
         authViewModel.alertConfirmTap
             .sink { _ in
-                NotificationCenter.default.post(name: .confirmAuth, object: nil)
+                NotificationCenter.default.post(name: AuthCoordinator.confirmAuth, object: nil)
             }
             .store(in: &cancellables)
     }
