@@ -14,7 +14,7 @@ final class AuthCoordinator: RoutinusCoordinator {
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
     let challengeID: String
-    
+
     init(navigationController: UINavigationController, challengeID: String) {
         self.navigationController = navigationController
         self.challengeID = challengeID
