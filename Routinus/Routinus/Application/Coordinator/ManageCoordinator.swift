@@ -13,7 +13,7 @@ final class ManageCoordinator: RoutinusCoordinator {
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
     let createPublisher = NotificationCenter.default.publisher(for: CreateCoordinator.confirmCreate,
-                                                                  object: nil)
+                                                               object: nil)
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
