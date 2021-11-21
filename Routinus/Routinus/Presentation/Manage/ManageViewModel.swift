@@ -55,11 +55,11 @@ extension ManageViewModel {
     func didTappedChallenge(index: IndexPath) {
         var challengeID: String = ""
         switch index.section {
-        case 0:
-            challengeID = self.participatingChallenges.value[index.item].challengeID
         case 1:
-            challengeID = self.createdChallenges.value[index.item].challengeID
+            challengeID = self.participatingChallenges.value[index.item].challengeID
         case 2:
+            challengeID = self.createdChallenges.value[index.item].challengeID
+        case 3:
             challengeID = self.endedChallenges.value[index.item].challengeID
         default:
             break

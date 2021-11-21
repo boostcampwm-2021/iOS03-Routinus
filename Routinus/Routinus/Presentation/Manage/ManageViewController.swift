@@ -10,7 +10,7 @@ import UIKit
 
 final class ManageViewController: UIViewController {
     enum Section: CaseIterable {
-        case participating, created, ended, add
+        case add, participating, created, ended
     }
 
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Challenge>
@@ -109,9 +109,11 @@ extension ManageViewController {
     private func configureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = dataSource
-        snapshot.appendSections(Section.allCases)
-        // TODO: Diffable Datasource Item을 Challenge말고 따로 구분하기..?
-        snapshot.appendItems([Challenge(challengeID: "",
+        dataSource = configureDataSource()
+        configureHeader(of: dataSource)
+
+        var snapshot = self.dataSource.snapshot(for: .add)
+        snapshot.append([Challenge(challengeID: "",
                                         title: "",
                                         introduction: "",
                                         category: .exercise,
@@ -124,12 +126,8 @@ extension ManageViewController {
                                         endDate: Date(),
                                         ownerID: "",
                                         week: 0,
-                                        participantCount: 0)],
-                             toSection: .add)
-
-        dataSource = configureDataSource()
-        configureHeader(of: dataSource)
-        dataSource.apply(snapshot)
+                                        participantCount: 0)])
+        dataSource.apply(snapshot, to: .add)
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
@@ -153,7 +151,7 @@ extension ManageViewController {
 extension ManageViewController {
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, content in
-            if indexPath.section == 3 {
+            if indexPath.section == 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManageAddCollectionViewCell.identifier,
                                                               for: indexPath) as? ManageAddCollectionViewCell
                 return cell
@@ -213,7 +211,7 @@ extension ManageViewController {
 
 extension ManageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section < 3 {
+        if indexPath.section != 0 {
             viewModel?.didTappedChallenge(index: indexPath)
         }
     }
