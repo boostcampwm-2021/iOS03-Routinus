@@ -71,11 +71,11 @@ extension ManageViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "my challenges".localized
-        navigationItem.rightBarButtonItem = self.addButton
+        navigationItem.rightBarButtonItem = addButton
     }
 
     private func configureViewModel() {
-        self.viewModel?.participatingChallenges
+        viewModel?.participatingChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
@@ -85,7 +85,7 @@ extension ManageViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.createdChallenges
+        viewModel?.createdChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
@@ -95,7 +95,7 @@ extension ManageViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.endedChallenges
+        viewModel?.endedChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
@@ -107,11 +107,11 @@ extension ManageViewController {
     }
 
     private func configureCollectionView() {
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = dataSource
-        self.snapshot.appendSections(Section.allCases)
-        self.dataSource = configureDataSource()
-        self.configureHeader(of: dataSource)
+        collectionView.delegate = self
+        collectionView.dataSource = dataSource
+        snapshot.appendSections(Section.allCases)
+        dataSource = configureDataSource()
+        configureHeader(of: dataSource)
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
@@ -124,17 +124,17 @@ extension ManageViewController {
 
 extension ManageViewController {
     @objc func didTouchAddButton() {
-        self.viewModel?.didTappedAddButton()
+        viewModel?.didTappedAddButton()
     }
 
     func didLoadedManageView() {
-        self.viewModel?.didLoadedManageView()
+        viewModel?.didLoadedManageView()
     }
 }
 
 extension ManageViewController {
     private func configureDataSource() -> DataSource {
-        let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, content in
+        let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, content in
             if indexPath.section == 3 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManageAddCollectionViewCell.identifier,
                                                               for: indexPath) as? ManageAddCollectionViewCell
@@ -195,7 +195,7 @@ extension ManageViewController {
 
 extension ManageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.viewModel?.didTappedChallenge(index: indexPath.item)
+        viewModel?.didTappedChallenge(index: indexPath.item)
     }
 }
 
@@ -206,29 +206,29 @@ extension ManageViewController: UIGestureRecognizerDelegate {
         headerView.didTouchedHeader()
         switch headerView.section {
         case .participating:
-            var snapshot = self.dataSource.snapshot(for: .participating)
+            var snapshot = dataSource.snapshot(for: .participating)
             if headerView.isExpanded == true {
                 snapshot.append(viewModel?.participatingChallenges.value ?? [])
             } else {
                 snapshot.deleteAll()
             }
-            self.dataSource.apply(snapshot, to: .participating)
+            dataSource.apply(snapshot, to: .participating)
         case .created:
-            var snapshot = self.dataSource.snapshot(for: .created)
+            var snapshot = dataSource.snapshot(for: .created)
             if headerView.isExpanded == true {
                 snapshot.append(viewModel?.createdChallenges.value ?? [])
             } else {
                 snapshot.deleteAll()
             }
-            self.dataSource.apply(snapshot, to: .created)
+            dataSource.apply(snapshot, to: .created)
         case .ended:
-            var snapshot = self.dataSource.snapshot(for: .ended)
+            var snapshot = dataSource.snapshot(for: .ended)
             if headerView.isExpanded == true {
                 snapshot.append(viewModel?.endedChallenges.value ?? [])
             } else {
                 snapshot.deleteAll()
             }
-            self.dataSource.apply(snapshot, to: .ended)
+            dataSource.apply(snapshot, to: .ended)
         case .none:
             break
         }

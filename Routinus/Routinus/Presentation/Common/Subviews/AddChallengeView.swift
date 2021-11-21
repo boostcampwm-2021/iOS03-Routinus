@@ -35,12 +35,12 @@ final class AddChallengeView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureView()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configure()
+        configureView()
     }
 
     convenience init() {
@@ -49,7 +49,7 @@ final class AddChallengeView: UIView {
 }
 
 extension AddChallengeView {
-    private func configure() {
+    private func configureView() {
         backgroundColor = UIColor(named: "MainColor")?.withAlphaComponent(0.5)
         layer.cornerRadius = 10
         anchor(height: 160)

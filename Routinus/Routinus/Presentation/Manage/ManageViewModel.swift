@@ -28,7 +28,7 @@ protocol ManageViewModelOutput {
 
 protocol ManageViewModelIO: ManageViewModelInput, ManageViewModelOutput { }
 
-class ManageViewModel: ManageViewModelIO {
+final class ManageViewModel: ManageViewModelIO {
     private(set) var participatingChallenges = CurrentValueSubject<[Challenge], Never>([])
     private(set) var createdChallenges = CurrentValueSubject<[Challenge], Never>([])
     private(set) var endedChallenges = CurrentValueSubject<[Challenge], Never>([])
