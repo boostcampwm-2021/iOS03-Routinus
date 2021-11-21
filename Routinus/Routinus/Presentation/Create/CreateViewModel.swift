@@ -8,6 +8,11 @@
 import Combine
 import Foundation
 
+enum ButtonType: String {
+    case create = "생성하기"
+    case update = "수정하기"
+}
+
 protocol CreateViewModelInput {
     func update(category: Challenge.Category)
     func update(title: String)
@@ -28,15 +33,7 @@ protocol CreateViewModelInput {
                            text: String) -> Bool
     func validateWeek(currentText: String) -> String
     func didLoadedChallenge()
-    func updateChallenge(category: Challenge.Category,
-                         title: String,
-                         imageURL: String,
-                         thumbnailImageURL: String,
-                         week: Int,
-                         introduction: String,
-                         authMethod: String,
-                         authExampleImageURL: String,
-                         authExampleThumbnailImageURL: String)
+    func updateChallenge()
     func saveImage(to directory: String,
                    filename: String,
                    data: Data?) -> String?
@@ -47,7 +44,8 @@ protocol CreateViewModelInput {
 }
 
 protocol CreateViewModelOutput {
-    var createButtonState: CurrentValueSubject<Bool, Never> { get }
+    var buttonType: CurrentValueSubject<ButtonType, Never> { get }
+    var buttonState: CurrentValueSubject<Bool, Never> { get }
     var expectedEndDate: CurrentValueSubject<Date, Never> { get }
     var challenge: CurrentValueSubject<Challenge?, Never> { get }
     var alertConfirmTap: PassthroughSubject<Void, Never> { get }
@@ -56,7 +54,8 @@ protocol CreateViewModelOutput {
 protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
 
 final class CreateViewModel: CreateViewModelIO {
-    var createButtonState = CurrentValueSubject<Bool, Never>(false)
+    var buttonType = CurrentValueSubject<ButtonType, Never>(.create)
+    var buttonState = CurrentValueSubject<Bool, Never>(false)
     var expectedEndDate = CurrentValueSubject<Date, Never>(Calendar.current.date(byAdding: DateComponents(day: 7), to: Date()) ?? Date())
     var challenge = CurrentValueSubject<Challenge?, Never>(nil)
     var alertConfirmTap = PassthroughSubject<Void, Never>()
@@ -151,17 +150,35 @@ extension CreateViewModel {
         self.validate()
     }
 
+    func updateAll(challenge: Challenge) {
+        guard let startDate = challenge.startDate else { return }
+        self.category = challenge.category
+        self.title = challenge.title
+        self.imageURL = challenge.imageURL
+        self.week = challenge.week
+        self.introduction = challenge.introduction
+        self.authMethod = challenge.authMethod
+        self.authExampleImageURL = challenge.authExampleImageURL
+        guard let endDate = challengeUpdateUsecase.endDate(startDate: startDate, week: week) else { return }
+        expectedEndDate.value = endDate
+        self.validate()
+    }
+
     func didTappedCreateButton() {
         guard let category = category else { return }
-        challengeCreateUsecase.createChallenge(category: category,
-                                      title: title,
-                                      imageURL: imageURL,
-                                      thumbnailImageURL: thumbnailImageURL,
-                                      authExampleImageURL: authExampleImageURL,
-                                      authExampleThumbnailImageURL: authExampleThumbnailImageURL,
-                                      authMethod: authMethod,
-                                      week: week,
-                                      introduction: introduction)
+        if buttonType.value == .create {
+            challengeCreateUsecase.createChallenge(category: category,
+                                          title: title,
+                                          imageURL: imageURL,
+                                          thumbnailImageURL: thumbnailImageURL,
+                                          authExampleImageURL: authExampleImageURL,
+                                          authExampleThumbnailImageURL: authExampleThumbnailImageURL,
+                                          authMethod: authMethod,
+                                          week: week,
+                                          introduction: introduction)
+        } else {
+            updateChallenge()
+        }
     }
 
     func didTappedAlertConfirm() {
@@ -187,18 +204,11 @@ extension CreateViewModel {
         fetchChallenge()
     }
 
-    func updateChallenge(category: Challenge.Category,
-                         title: String,
-                         imageURL: String,
-                         thumbnailImageURL: String,
-                         week: Int,
-                         introduction: String,
-                         authMethod: String,
-                         authExampleImageURL: String,
-                         authExampleThumbnailImageURL: String) {
+    func updateChallenge() {
         guard let challenge = challenge.value,
               let startDate = challenge.startDate,
-              let endDate = challengeUpdateUsecase.endDate(startDate: startDate, week: week) else { return }
+              let endDate = challengeUpdateUsecase.endDate(startDate: startDate, week: week),
+              let category = category else { return }
         let updateChallenge = Challenge(challengeID: challenge.challengeID,
                                         title: title,
                                         introduction: introduction,
@@ -232,7 +242,7 @@ extension CreateViewModel {
 
 extension CreateViewModel {
     private func validate() {
-        createButtonState.value = !challengeCreateUsecase.isEmpty(title: title,
+        buttonState.value = !challengeCreateUsecase.isEmpty(title: title,
                                                          imageURL: imageURL,
                                                          introduction: introduction,
                                                          authMethod: authMethod,
@@ -245,6 +255,8 @@ extension CreateViewModel {
             guard let self = self,
                   let challenge = existedChallenge else { return }
             self.challenge.value = challenge
+            self.updateAll(challenge: challenge)
+            self.buttonType.value = .update
         }
     }
 }

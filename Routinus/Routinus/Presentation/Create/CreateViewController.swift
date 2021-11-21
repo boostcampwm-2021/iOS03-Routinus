@@ -44,7 +44,7 @@ final class CreateViewController: UIViewController {
     private lazy var authImageRegisterView = CreateAuthImageRegisterView()
     private lazy var createButton: UIButton = {
         var button = UIButton()
-        button.setTitle("생성하기", for: .normal)
+        button.setTitle(ButtonType.create.rawValue, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
         button.backgroundColor = UIColor(red: 180/255, green: 231/255, blue: 160/255, alpha: 1)
@@ -109,7 +109,16 @@ extension CreateViewController {
 
     private func configureViewModel() {
         self.viewModel?.didLoadedChallenge()
-        self.viewModel?.createButtonState
+
+        self.viewModel?.buttonType
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] buttonType in
+                guard let self = self else { return }
+                self.createButton.setTitle(buttonType.rawValue, for: .normal)
+            })
+            .store(in: &cancellables)
+
+        self.viewModel?.buttonState
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isEnabled in
                 guard let self = self else { return }
@@ -140,6 +149,18 @@ extension CreateViewController {
                     guard let image = UIImage(data: data) else { return }
                     DispatchQueue.main.async {
                         self.imageRegisterView.setImage(image)
+                    }
+                })
+                //self.weekView.update(week: challenge.week)
+                //self.introductionView.update(introduction: challenge.introduction)
+                //self.authMethodView.update(authMethod: challenge.authMethod)
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                          filename: "thumbnail_auth",
+                                          completion: { data in
+                    guard let data = data else { return }
+                    guard let image = UIImage(data: data) else { return }
+                    DispatchQueue.main.async {
+                        self.authImageRegisterView.setImage(image)
                     }
                 })
             })
@@ -352,6 +373,7 @@ extension CreateViewController: UIImagePickerControllerDelegate, UINavigationCon
                 viewModel?.update(authExampleImageURL: mainImageURL)
                 viewModel?.update(authExampleThumbnailImageURL: thumbnailImageURL)
                 authImageRegisterView.setImage(thumbnailImage)
+
             default:
                 break
             }
