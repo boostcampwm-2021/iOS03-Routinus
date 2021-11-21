@@ -133,6 +133,15 @@ extension CreateViewController {
 
                 self.categoryView.update(category: challenge.category)
                 self.titleView.update(title: challenge.title)
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                          filename: "thumbnail_image",
+                                          completion: { data in
+                    guard let data = data else { return }
+                    guard let image = UIImage(data: data) else { return }
+                    DispatchQueue.main.async {
+                        self.imageRegisterView.setImage(image)
+                    }
+                })
             })
             .store(in: &cancellables)
     }

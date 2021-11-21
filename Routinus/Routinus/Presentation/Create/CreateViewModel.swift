@@ -40,6 +40,10 @@ protocol CreateViewModelInput {
     func saveImage(to directory: String,
                    filename: String,
                    data: Data?) -> String?
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)?)
+    
 }
 
 protocol CreateViewModelOutput {
@@ -61,6 +65,7 @@ final class CreateViewModel: CreateViewModelIO {
     var challengeCreateUsecase: ChallengeCreatableUsecase
     var challengeUpdateUsecase: ChallengeUpdatableUsecase
     var challengeFetchUsecase: ChallengeFetchableUsecase
+    var imageFetchUsecase: ImageFetchableUsecase
     var imageSaveUsecase: ImageSavableUsecase
     var challengeID: String?
 
@@ -78,11 +83,13 @@ final class CreateViewModel: CreateViewModelIO {
          challengeCreateUsecase: ChallengeCreatableUsecase,
          challengeUpdateUsecase: ChallengeUpdatableUsecase,
          challengeFetchUsecase: ChallengeFetchableUsecase,
+         imageFetchUsecase: ImageFetchableUsecase,
          imageSaveUsecase: ImageSavableUsecase) {
         self.challengeID = challengeID
         self.challengeCreateUsecase = challengeCreateUsecase
         self.challengeUpdateUsecase = challengeUpdateUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
+        self.imageFetchUsecase = imageFetchUsecase
         self.imageSaveUsecase = imageSaveUsecase
         self.title = ""
         self.category = .exercise
@@ -212,6 +219,14 @@ extension CreateViewModel {
 
     func saveImage(to directory: String, filename: String, data: Data?) -> String? {
         return imageSaveUsecase.saveImage(to: directory, filename: filename, data: data)
+    }
+
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)? = nil) {
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+            completion?(data)
+        }
     }
 }
 
