@@ -19,6 +19,8 @@ protocol ChallengeRepository {
     func fetchLatestChallenges(completion: (([Challenge]) -> Void)?)
     func fetchChallenges(by userID: String,
                          completion: (([Challenge]) -> Void)?)
+    func fetchChallenges(of userID: String,
+                         completion: (([Challenge]) -> Void)?)
     func fetchEdittingChallenge(challengeID: String,
                                 completion: @escaping (Challenge) -> Void)
     func fetchChallenge(challengeID: String,
@@ -37,14 +39,14 @@ protocol ChallengeRepository {
 
 extension RoutinusRepository: ChallengeRepository {
     func fetchRecommendChallenges(completion: (([Challenge]) -> Void)?) {
-        RoutinusDatabase.recommendChallenges() { list in
+        RoutinusDatabase.recommendChallenges { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }
 
     func fetchSearchChallengesBy(keyword: String,
                                  completion: (([Challenge]) -> Void)?) {
-        RoutinusDatabase.latestChallenges() { list in
+        RoutinusDatabase.latestChallenges { list in
             let challenges = list.map { Challenge(challengeDTO: $0) }
                 .filter { $0.title.contains(keyword) }
             completion?(challenges)
@@ -59,7 +61,7 @@ extension RoutinusRepository: ChallengeRepository {
     }
 
     func fetchLatestChallenges(completion: (([Challenge]) -> Void)?) {
-        RoutinusDatabase.newChallenges() { list in
+        RoutinusDatabase.newChallenges { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }
@@ -67,6 +69,13 @@ extension RoutinusRepository: ChallengeRepository {
     func fetchChallenges(by userID: String,
                          completion: (([Challenge]) -> Void)?) {
         RoutinusDatabase.searchChallenges(ownerID: userID) { list in
+            completion?(list.map { Challenge(challengeDTO: $0) })
+        }
+    }
+
+    func fetchChallenges(of userID: String,
+                         completion: (([Challenge]) -> Void)?) {
+        RoutinusDatabase.searchChallenges(participantID: userID) { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }

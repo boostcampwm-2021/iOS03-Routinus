@@ -14,7 +14,9 @@ protocol ChallengeFetchableUsecase {
                                completion: @escaping ([Challenge]) -> Void)
     func fetchSearchChallenges(category: Challenge.Category,
                                completion: @escaping ([Challenge]) -> Void)
-    func fetchCreationChallengesByMe(completion: @escaping ([Challenge]) -> Void)
+    func fetchCreatedChallengesByMe(completion: @escaping ([Challenge]) -> Void)
+    func fetchMyParticipatingChallenges(completion: @escaping ([Challenge]) -> Void)
+    func fetchMyEndedChallenges(completion: @escaping ([Challenge]) -> Void)
     func fetchEdittingChallenge(challengeID: String,
                                 completion: @escaping (Challenge?) -> Void)
     func fetchChallenge(challengeID: String,
@@ -29,13 +31,13 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     }
 
     func fetchRecommendChallenges(completion: @escaping ([Challenge]) -> Void) {
-        repository.fetchRecommendChallenges() { challenges in
+        repository.fetchRecommendChallenges { challenges in
             completion(challenges)
         }
     }
 
     func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void) {
-        repository.fetchLatestChallenges() { list in
+        repository.fetchLatestChallenges { list in
             let challenges = list.sorted { $0.participantCount > $1.participantCount }
             completion(challenges)
         }
@@ -67,10 +69,24 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
         }
     }
 
-    func fetchCreationChallengesByMe(completion: @escaping ([Challenge]) -> Void) {
+    func fetchCreatedChallengesByMe(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
-        repository.fetchChallenges(by: id) { list in
-            completion(list)
+        repository.fetchChallenges(by: id) { challenges in
+            completion(challenges.filter { $0.endDate ?? Date() >= Date() })
+        }
+    }
+
+    func fetchMyParticipatingChallenges(completion: @escaping ([Challenge]) -> Void) {
+        guard let id = RoutinusRepository.userID() else { return }
+        repository.fetchChallenges(of: id) { challenges in
+            completion(challenges.filter { $0.endDate ?? Date() >= Date() }.filter { $0.ownerID != id })
+        }
+    }
+
+    func fetchMyEndedChallenges(completion: @escaping ([Challenge]) -> Void) {
+        guard let id = RoutinusRepository.userID() else { return }
+        repository.fetchChallenges(of: id) { challenges in
+            completion(challenges.filter { $0.endDate ?? Date() < Date()  })
         }
     }
 

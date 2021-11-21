@@ -8,7 +8,7 @@
 
 // titles
 "%@ routine" = "%@";
-"my challenges" = "내가 개설한 챌린지";
+"my challenges" = "나의 챌린지";
 
 // home
 "in a row" = "일 연속 달성!";
@@ -41,6 +41,11 @@
 "participate" = "참여하기";
 "certify" = "인증하기";
 "certified" = "인증 완료";
+
+// manage
+"participatingChallenges" = "참여 중인 챌린지";
+"createdChallenges" = "내가 생성한 챌린지";
+"endedChallenges" = "종료된 챌린지";
 
 // myPage
 "Theme setting" = "테마 설정";

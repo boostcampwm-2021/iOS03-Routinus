@@ -383,7 +383,9 @@ public enum RoutinusDatabase {
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
             let list = try? JSONDecoder().decode([ChallengeDTO].self, from: data)
-            completion?(list ?? [])
+            if list?.first?.document != nil {
+                completion?(list ?? [])
+            }
         }.resume()
     }
 
@@ -401,7 +403,49 @@ public enum RoutinusDatabase {
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
             let list = try? JSONDecoder().decode([ChallengeDTO].self, from: data)
-            completion?(list ?? [])
+            if list?.first?.document != nil {
+                completion?(list ?? [])
+            }
+        }.resume()
+    }
+
+    public static func searchChallenges(participantID: String,
+                                        completion: (([ChallengeDTO]) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?([])
+            return
+        }
+        var request = URLRequest(url: url)
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = ParticipationQuery.select(userID: participantID)
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data,
+                let participations = try? JSONDecoder().decode([ParticipationDTO].self,
+                                                               from: data) else { return }
+
+            var challenges = [ChallengeDTO]()
+            let fetchQueue = DispatchQueue(label: "fetchQueue")
+            let group = DispatchGroup()
+
+            for participation in participations {
+                group.enter()
+                guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
+                request.httpBody = ChallengeQuery.select(challengeID: challengeID)
+
+                URLSession.shared.dataTask(with: request) { data, _, _ in
+                    guard let data = data,
+                        let challenge = try? JSONDecoder().decode([ChallengeDTO].self,
+                                                                  from: data).first else { return }
+                    challenges.append(challenge)
+                    group.leave()
+                }.resume()
+            }
+
+            group.notify(queue: fetchQueue) {
+                completion?(challenges)
+            }
         }.resume()
     }
 

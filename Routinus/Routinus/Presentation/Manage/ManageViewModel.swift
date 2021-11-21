@@ -10,7 +10,7 @@ import Foundation
 
 protocol ManageViewModelInput {
     func didTappedAddButton()
-    func didTappedChallenge(index: Int)
+    func didTappedChallenge(index: IndexPath)
     func didLoadedManageView()
     func imageData(from directory: String,
                    filename: String,
@@ -18,7 +18,9 @@ protocol ManageViewModelInput {
 }
 
 protocol ManageViewModelOutput {
-    var challenges: CurrentValueSubject<[Challenge], Never> { get }
+    var participatingChallenges: CurrentValueSubject<[Challenge], Never> { get }
+    var createdChallenges: CurrentValueSubject<[Challenge], Never> { get }
+    var endedChallenges: CurrentValueSubject<[Challenge], Never> { get }
 
     var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
     var challengeTap: PassthroughSubject<String, Never> { get }
@@ -26,8 +28,10 @@ protocol ManageViewModelOutput {
 
 protocol ManageViewModelIO: ManageViewModelInput, ManageViewModelOutput { }
 
-class ManageViewModel: ManageViewModelIO {
-    var challenges = CurrentValueSubject<[Challenge], Never>([])
+final class ManageViewModel: ManageViewModelIO {
+    private(set) var participatingChallenges = CurrentValueSubject<[Challenge], Never>([])
+    private(set) var createdChallenges = CurrentValueSubject<[Challenge], Never>([])
+    private(set) var endedChallenges = CurrentValueSubject<[Challenge], Never>([])
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var challengeTap = PassthroughSubject<String, Never>()
@@ -48,13 +52,25 @@ extension ManageViewModel {
         challengeAddButtonTap.send()
     }
 
-    func didTappedChallenge(index: Int) {
-        let challengeID = self.challenges.value[index].challengeID
+    func didTappedChallenge(index: IndexPath) {
+        var challengeID: String = ""
+        switch index.section {
+        case 1:
+            challengeID = self.participatingChallenges.value[index.item].challengeID
+        case 2:
+            challengeID = self.createdChallenges.value[index.item].challengeID
+        case 3:
+            challengeID = self.endedChallenges.value[index.item].challengeID
+        default:
+            break
+        }
         challengeTap.send(challengeID)
     }
 
     func didLoadedManageView() {
-        fetchChallenges()
+        fetchCreatedChallenges()
+        fetchParticipatingChallenges()
+        fetchEndedChallenges()
     }
 
     func imageData(from directory: String,
@@ -68,9 +84,21 @@ extension ManageViewModel {
 }
 
 extension ManageViewModel {
-    private func fetchChallenges() {
-        challengeFetchUsecase.fetchCreationChallengesByMe { [weak self] challenge in
-            self?.challenges.value = challenge
+    private func fetchParticipatingChallenges() {
+        challengeFetchUsecase.fetchMyParticipatingChallenges { [weak self] challenges in
+            self?.participatingChallenges.value = challenges
+        }
+    }
+
+    private func fetchCreatedChallenges() {
+        challengeFetchUsecase.fetchCreatedChallengesByMe { [weak self] challenges in
+            self?.createdChallenges.value = challenges
+        }
+    }
+
+    private func fetchEndedChallenges() {
+        challengeFetchUsecase.fetchMyEndedChallenges { [weak self] challenges in
+            self?.endedChallenges.value = challenges
         }
     }
 }

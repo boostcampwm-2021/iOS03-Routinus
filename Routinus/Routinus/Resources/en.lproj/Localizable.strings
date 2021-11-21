@@ -42,6 +42,11 @@
 "certify" = "Certify";
 "certified" = "Certified!";
 
+// manage
+"participatingChallenges" = "Particiating Challenges";
+"createdChallenges" = "Challenges I Created";
+"endedChallenges" = "Ended Challenges";
+
 // myPage
 "Theme setting" = "Theme setting";
 "Alarm setting" = "Alarm setting";
