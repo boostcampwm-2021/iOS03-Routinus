@@ -20,6 +20,7 @@ protocol DetailViewModelInput {
                    completion: ((Data?) -> Void)?)
     func didTappedEditBarButton()
     func didTappedParticipationAuthButton()
+    func didTappedAlertConfirm()
 }
 
 protocol DetailViewModelOutput {
@@ -30,6 +31,7 @@ protocol DetailViewModelOutput {
     var editBarButtonTap: PassthroughSubject<String, Never> { get }
     var participationButtonTap: PassthroughSubject<Void, Never> { get }
     var authButtonTap: PassthroughSubject<String, Never> { get }
+    var alertConfirmTap: PassthroughSubject<Void, Never> { get }
 }
 
 protocol DetailViewModelIO: DetailViewModelInput, DetailViewModelOutput { }
@@ -42,6 +44,7 @@ class DetailViewModel: DetailViewModelIO {
     var editBarButtonTap = PassthroughSubject<String, Never>()
     var participationButtonTap = PassthroughSubject<Void, Never>()
     var authButtonTap = PassthroughSubject<String, Never>()
+    var alertConfirmTap = PassthroughSubject<Void, Never>()
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
     let imageFetchUsecase: ImageFetchableUsecase
@@ -87,6 +90,14 @@ extension DetailViewModel {
             authButtonTap.send(challengeID)
         }
     }
+
+    func didTappedAlertConfirm() {
+        alertConfirmTap.send()
+    }
+
+    func fetchParticipationAuthState() {
+        self.updateParticipationAuthState()
+    }
 }
 
 extension DetailViewModel {
@@ -101,20 +112,20 @@ extension DetailViewModel {
 
     private func fetchParticipation(completion: @escaping (Participation?) -> Void) {
         guard let challengeID = challengeID else { return }
-        participationFetchUsecase.fetchParticipation(challengeID: challengeID) { [weak self] participation in
+        self.participationFetchUsecase.fetchParticipation(challengeID: challengeID) { participation in
             completion(participation)
         }
     }
 
     private func fetchAuth(completion: @escaping (ChallengeAuth?) -> Void) {
         guard let challengeID = challengeID else { return }
-        challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { [weak self] challengeAuth in
+        self.challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
             completion(challengeAuth)
         }
     }
 
     private func updateParticipationAuthState() {
-        fetchParticipation { [weak self] participation in
+        self.fetchParticipation { [weak self] participation in
             guard let self = self else { return }
             if participation == nil {
                 self.participationAuthState.value = .notParticipating

@@ -122,6 +122,20 @@ extension AuthViewController {
     }
 }
 
+extension AuthViewController {
+    private func presentAlert() {
+        let alert = UIAlertController(title: "알림", message: "인증이 완료 되었습니다.", preferredStyle: .alert)
+        let confirm = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel?.didTappedAlertConfirm()
+            self.navigationController?.popViewController(animated: true)
+        }
+
+        alert.addAction(confirm)
+        present(alert, animated: true, completion: nil)
+    }
+}
+
 extension AuthViewController: PreviewViewDelegate {
     func didTappedPreviewView() {
         self.imagePicker.sourceType = .camera
@@ -132,7 +146,7 @@ extension AuthViewController: PreviewViewDelegate {
 extension AuthViewController: AuthButtonDelegate {
     func didTappedAuthButton() {
         self.viewModel?.didTappedAuthButton()
-        self.navigationController?.popViewController(animated: true) 
+        self.presentAlert()
     }
 }
 
