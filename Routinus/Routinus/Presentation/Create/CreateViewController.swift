@@ -108,6 +108,7 @@ extension CreateViewController {
     }
 
     private func configureViewModel() {
+        self.viewModel?.didLoadedChallenge()
         self.viewModel?.createButtonState
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isEnabled in
@@ -129,9 +130,11 @@ extension CreateViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challenge in
                 guard let self = self, let challenge = challenge else { return }
-                // 카테고리 value update
-                //self.categoryView.update(category: challenge.category)
+
+                self.categoryView.update(category: challenge.category)
+                self.titleView.update(title: challenge.title)
             })
+            .store(in: &cancellables)
     }
 
     private func configureDelegates() {

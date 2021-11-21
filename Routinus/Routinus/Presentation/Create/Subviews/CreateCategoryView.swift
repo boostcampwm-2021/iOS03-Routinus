@@ -127,4 +127,8 @@ extension CreateCategoryView {
         alert.view.addConstraint(height)
         return alert
     }
+
+    func update(category: Challenge.Category) {
+        button.setTitle(category.title, for: .normal)
+    }
 }
