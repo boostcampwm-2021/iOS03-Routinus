@@ -132,4 +132,9 @@ extension CreateWeekView {
     func updateEndDate(date: Date) {
         endDateLabel.text = date.toDateWithWeekdayString()
     }
+
+    func update(week: Int) {
+        weekTextField.text = "\(week)"
+    }
+
 }
