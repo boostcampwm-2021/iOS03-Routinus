@@ -142,7 +142,7 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
         if let originalImage = info[InfoKey.originalImage] as? UIImage {
-            let mainImage = originalImage.resizedImage(.main)
+            let mainImage = originalImage.resizedImage(.original)
             let thumbnailImage = originalImage.resizedImage(.thumbnail)
 
             let mainImageURL = viewModel?.saveImage(to: "temp",
