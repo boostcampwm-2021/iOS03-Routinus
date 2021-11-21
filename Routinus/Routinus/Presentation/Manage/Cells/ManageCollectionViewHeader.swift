@@ -14,11 +14,11 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
         var title: String {
             switch self {
             case .participating:
-                return "참여 중인 챌린지"
+                return "participatingChallenges".localized
             case .created:
-                return "내가 생성한 챌린지"
+                return "createdChallenges".localized
             case .ended:
-                return "종료된 챌린지"
+                return "endedChallenges".localized
             }
         }
     }
