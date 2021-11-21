@@ -26,7 +26,8 @@ protocol CreateViewModelInput {
     func validateTextField(currentText: String,
                            range: NSRange,
                            text: String) -> Bool
-    func fetchChallenge()
+    func validateWeek(currentText: String) -> String
+    func didLoadedChallenge()
     func updateChallenge(category: Challenge.Category,
                          title: String,
                          imageURL: String,
@@ -36,7 +37,6 @@ protocol CreateViewModelInput {
                          authMethod: String,
                          authExampleImageURL: String,
                          authExampleThumbnailImageURL: String)
-    func validateWeek(currentText: String) -> String
     func saveImage(to directory: String,
                    filename: String,
                    data: Data?) -> String?
@@ -94,30 +94,9 @@ final class CreateViewModel: CreateViewModelIO {
         self.authExampleImageURL = ""
         self.authExampleThumbnailImageURL = ""
     }
+}
 
-    private func validate() {
-        createButtonState.value = !challengeCreateUsecase.isEmpty(title: title,
-                                                         imageURL: imageURL,
-                                                         introduction: introduction,
-                                                         authMethod: authMethod,
-                                                         authExampleImageURL: authExampleImageURL)
-    }
-
-    func validateTextView(currentText: String, range: NSRange, text: String) -> Bool {
-        let newLength = currentText.count + text.count - range.length
-        return newLength <= 150
-    }
-
-    func validateTextField(currentText: String, range: NSRange, text: String) -> Bool {
-        let newLength = currentText.count + text.count - range.length
-        return newLength <= 50
-    }
-
-    func validateWeek(currentText: String) -> String {
-        guard let week = Int(currentText) else { return "" }
-        return "\(min(max(week, 0), 52))"
-    }
-
+extension CreateViewModel {
     func update(category: Challenge.Category) {
         self.category = category
         self.validate()
@@ -182,13 +161,23 @@ final class CreateViewModel: CreateViewModelIO {
         self.alertConfirmTap.send()
     }
 
-    func fetchChallenge() {
-        guard let challengeID = challengeID else { return }
-        challengeFetchUsecase.fetchEdittingChallenge(challengeID: challengeID) { [weak self] existedChallenge in
-            guard let self = self,
-                  let challenge = existedChallenge else { return }
-            self.challenge.value = challenge
-        }
+    func validateTextView(currentText: String, range: NSRange, text: String) -> Bool {
+        let newLength = currentText.count + text.count - range.length
+        return newLength <= 150
+    }
+
+    func validateTextField(currentText: String, range: NSRange, text: String) -> Bool {
+        let newLength = currentText.count + text.count - range.length
+        return newLength <= 50
+    }
+
+    func validateWeek(currentText: String) -> String {
+        guard let week = Int(currentText) else { return "" }
+        return "\(min(max(week, 0), 52))"
+    }
+
+    func didLoadedChallenge() {
+        fetchChallenge()
     }
 
     func updateChallenge(category: Challenge.Category,
@@ -223,5 +212,24 @@ final class CreateViewModel: CreateViewModelIO {
 
     func saveImage(to directory: String, filename: String, data: Data?) -> String? {
         return imageSaveUsecase.saveImage(to: directory, filename: filename, data: data)
+    }
+}
+
+extension CreateViewModel {
+    private func validate() {
+        createButtonState.value = !challengeCreateUsecase.isEmpty(title: title,
+                                                         imageURL: imageURL,
+                                                         introduction: introduction,
+                                                         authMethod: authMethod,
+                                                         authExampleImageURL: authExampleImageURL)
+    }
+
+    private func fetchChallenge() {
+        guard let challengeID = challengeID else { return }
+        challengeFetchUsecase.fetchEdittingChallenge(challengeID: challengeID) { [weak self] existedChallenge in
+            guard let self = self,
+                  let challenge = existedChallenge else { return }
+            self.challenge.value = challenge
+        }
     }
 }

@@ -124,6 +124,14 @@ extension CreateViewController {
                 self.weekView.updateEndDate(date: endDate)
             })
             .store(in: &cancellables)
+
+        self.viewModel?.challenge
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challenge in
+                guard let self = self, let challenge = challenge else { return }
+                // 카테고리 value update
+                //self.categoryView.update(category: challenge.category)
+            })
     }
 
     private func configureDelegates() {
