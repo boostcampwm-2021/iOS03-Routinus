@@ -14,9 +14,9 @@ protocol ChallengeFetchableUsecase {
                                completion: @escaping ([Challenge]) -> Void)
     func fetchSearchChallenges(category: Challenge.Category,
                                completion: @escaping ([Challenge]) -> Void)
-    func fetchCreationChallengesByMe(completion: @escaping ([Challenge]) -> Void)
-    func fetchParticipatingChallenges(completion: @escaping ([Challenge]) -> Void)
-    func fetchEndedChallenges(completion: @escaping ([Challenge]) -> Void)
+    func fetchCreatedChallengesByMe(completion: @escaping ([Challenge]) -> Void)
+    func fetchMyParticipatingChallenges(completion: @escaping ([Challenge]) -> Void)
+    func fetchMyEndedChallenges(completion: @escaping ([Challenge]) -> Void)
     func fetchEdittingChallenge(challengeID: String,
                                 completion: @escaping (Challenge?) -> Void)
     func fetchChallenge(challengeID: String,
@@ -69,21 +69,21 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
         }
     }
 
-    func fetchCreationChallengesByMe(completion: @escaping ([Challenge]) -> Void) {
+    func fetchCreatedChallengesByMe(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(by: id) { challenges in
             completion(challenges.filter { $0.endDate ?? Date() >= Date() })
         }
     }
 
-    func fetchParticipatingChallenges(completion: @escaping ([Challenge]) -> Void) {
+    func fetchMyParticipatingChallenges(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(of: id) { challenges in
             completion(challenges.filter { $0.endDate ?? Date() >= Date() }.filter { $0.ownerID != id })
         }
     }
 
-    func fetchEndedChallenges(completion: @escaping ([Challenge]) -> Void) {
+    func fetchMyEndedChallenges(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(of: id) { challenges in
             completion(challenges.filter { $0.endDate ?? Date() < Date()  })

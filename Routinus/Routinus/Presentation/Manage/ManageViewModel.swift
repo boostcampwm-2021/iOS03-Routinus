@@ -75,19 +75,19 @@ extension ManageViewModel {
 
 extension ManageViewModel {
     private func fetchParticipatingChallenges() {
-        challengeFetchUsecase.fetchParticipatingChallenges { [weak self] challenges in
+        challengeFetchUsecase.fetchMyParticipatingChallenges { [weak self] challenges in
             self?.participatingChallenges.value = challenges
         }
     }
 
     private func fetchCreatedChallenges() {
-        challengeFetchUsecase.fetchCreationChallengesByMe { [weak self] challenges in
+        challengeFetchUsecase.fetchCreatedChallengesByMe { [weak self] challenges in
             self?.createdChallenges.value = challenges
         }
     }
 
     private func fetchEndedChallenges() {
-        challengeFetchUsecase.fetchEndedChallenges { [weak self] challenges in
+        challengeFetchUsecase.fetchMyEndedChallenges { [weak self] challenges in
             self?.endedChallenges.value = challenges
         }
     }
