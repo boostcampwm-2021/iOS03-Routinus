@@ -110,8 +110,26 @@ extension ManageViewController {
         collectionView.delegate = self
         collectionView.dataSource = dataSource
         snapshot.appendSections(Section.allCases)
+        // TODO: Diffable Datasource Item을 Challenge말고 따로 구분하기..?
+        snapshot.appendItems([Challenge(challengeID: "",
+                                        title: "",
+                                        introduction: "",
+                                        category: .exercise,
+                                        imageURL: "",
+                                        thumbnailImageURL: "",
+                                        authExampleImageURL: "",
+                                        authExampleThumbnailImageURL: "",
+                                        authMethod: "",
+                                        startDate: Date(),
+                                        endDate: Date(),
+                                        ownerID: "",
+                                        week: 0,
+                                        participantCount: 0)],
+                             toSection: .add)
+
         dataSource = configureDataSource()
         configureHeader(of: dataSource)
+        dataSource.apply(snapshot)
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
@@ -195,7 +213,9 @@ extension ManageViewController {
 
 extension ManageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel?.didTappedChallenge(index: indexPath.item)
+        if indexPath.section < 3 {
+            viewModel?.didTappedChallenge(index: indexPath)
+        }
     }
 }
 

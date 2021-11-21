@@ -10,7 +10,7 @@ import Foundation
 
 protocol ManageViewModelInput {
     func didTappedAddButton()
-    func didTappedChallenge(index: Int)
+    func didTappedChallenge(index: IndexPath)
     func didLoadedManageView()
     func imageData(from directory: String,
                    filename: String,
@@ -52,8 +52,18 @@ extension ManageViewModel {
         challengeAddButtonTap.send()
     }
 
-    func didTappedChallenge(index: Int) {
-        let challengeID = self.createdChallenges.value[index].challengeID
+    func didTappedChallenge(index: IndexPath) {
+        var challengeID: String = ""
+        switch index.section {
+        case 0:
+            challengeID = self.participatingChallenges.value[index.item].challengeID
+        case 1:
+            challengeID = self.createdChallenges.value[index.item].challengeID
+        case 2:
+            challengeID = self.endedChallenges.value[index.item].challengeID
+        default:
+            break
+        }
         challengeTap.send(challengeID)
     }
 
