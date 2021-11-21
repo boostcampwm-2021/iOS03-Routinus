@@ -85,7 +85,15 @@ extension RoutinusRepository: ChallengeRepository {
         guard let ownerID = RoutinusRepository.userID() else { return }
         RoutinusDatabase.challenge(ownerID: ownerID,
                                    challengeID: challengeID) { dto in
-            completion(Challenge(challengeDTO: dto))
+            let imageURL = RoutinusImageManager.cachedImageURL(from: challengeID, filename: "image")
+            let thumbnailImageURL = RoutinusImageManager.cachedImageURL(from: challengeID, filename: "thumbnail_image")
+            let authExampleImageURL = RoutinusImageManager.cachedImageURL(from: challengeID, filename: "auth")
+            let authExampleThumbnailImageURL = RoutinusImageManager.cachedImageURL(from: challengeID, filename: "thumbnail_auth")
+            completion(Challenge(challengeDTO: dto,
+                                 imageURL: imageURL,
+                                 thumbnailImageURL: thumbnailImageURL,
+                                 authExampleImageURL: authExampleImageURL,
+                                 authExampleThumbnailImageURL: authExampleThumbnailImageURL))
         }
     }
 
