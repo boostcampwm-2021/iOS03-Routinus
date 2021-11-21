@@ -33,21 +33,20 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
         return label
     }()
 
-    private lazy var toggleButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "chevron.down"),
-                         for: .normal)
-        button.tintColor = UIColor(named: "Black")
-        return button
+    private lazy var toggleImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "chevron.down")
+        imageView.tintColor = UIColor(named: "Black")
+        return imageView
     }()
 
     private(set) var section: Section?
-    private var isExpanded: Bool = true {
+    private(set) var isExpanded: Bool = true {
         didSet {
             if isExpanded == true {
-                toggleButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+                toggleImage.image  = UIImage(systemName: "chevron.down")
             } else {
-                toggleButton.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+                toggleImage.image = UIImage(systemName: "chevron.right")
             }
         }
     }
@@ -60,8 +59,8 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
         label.anchor(left: self.leftAnchor,
                          centerY: centerYAnchor)
 
-        addSubview(toggleButton)
-        toggleButton.anchor(right: self.rightAnchor,
+        addSubview(toggleImage)
+        toggleImage.anchor(right: self.rightAnchor,
                          centerY: centerYAnchor)
     }
 

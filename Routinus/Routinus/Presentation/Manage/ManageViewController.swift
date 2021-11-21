@@ -202,6 +202,35 @@ extension ManageViewController: UICollectionViewDelegate {
 extension ManageViewController: UIGestureRecognizerDelegate {
     @objc func collectionViewHeaderTouched(_ sender: UITapGestureRecognizer) {
         guard let headerView = sender.view as? ManageCollectionViewHeader else { return }
+
         headerView.didTouchedHeader()
+        switch headerView.section {
+        case .participating:
+            var snapshot = self.dataSource.snapshot(for: .participating)
+            if headerView.isExpanded == true {
+                snapshot.append(viewModel?.participatingChallenges.value ?? [])
+            } else {
+                snapshot.deleteAll()
+            }
+            self.dataSource.apply(snapshot, to: .participating)
+        case .created:
+            var snapshot = self.dataSource.snapshot(for: .created)
+            if headerView.isExpanded == true {
+                snapshot.append(viewModel?.createdChallenges.value ?? [])
+            } else {
+                snapshot.deleteAll()
+            }
+            self.dataSource.apply(snapshot, to: .created)
+        case .ended:
+            var snapshot = self.dataSource.snapshot(for: .ended)
+            if headerView.isExpanded == true {
+                snapshot.append(viewModel?.endedChallenges.value ?? [])
+            } else {
+                snapshot.deleteAll()
+            }
+            self.dataSource.apply(snapshot, to: .ended)
+        case .none:
+            break
+        }
     }
 }
