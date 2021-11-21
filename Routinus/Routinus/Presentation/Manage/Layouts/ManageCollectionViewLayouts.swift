@@ -34,7 +34,31 @@ final class ManageCollectionViewLayouts {
         return section
     }
 
+    private var addLayout: NSCollectionLayoutSection {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 25.0
+
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                              heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                               heightDimension: .estimated(160))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitem: item,
+                                                       count: 1)
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .none
+        section.contentInsets = .init(top: 10, leading: offset, bottom: 10, trailing: offset)
+        return section
+    }
+
     func section(at sectionNumber: Int) -> NSCollectionLayoutSection {
-        return self.challengeLayout
+        if sectionNumber < 3 {
+            return challengeLayout
+        } else {
+            return addLayout
+        }
     }
 }

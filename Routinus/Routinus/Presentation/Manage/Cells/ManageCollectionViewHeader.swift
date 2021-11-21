@@ -1,11 +1,11 @@
 //
- //  ManageCollectionViewHeader.swift
- //  Routinus
- //
- //  Created by 김민서 on 2021/11/20.
- //
+//  ManageCollectionViewHeader.swift
+//  Routinus
+//
+//  Created by 김민서 on 2021/11/20.
+//
 
- import UIKit
+import UIKit
 
 final class ManageCollectionViewHeader: UICollectionReusableView {
     enum Section {
