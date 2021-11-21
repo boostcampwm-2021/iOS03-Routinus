@@ -15,7 +15,7 @@ final class DetailCoordinator: RoutinusCoordinator {
     var cancellables = Set<AnyCancellable>()
     let challengeID: String?
     let authPublisher = NotificationCenter.default.publisher(for: AuthCoordinator.confirmAuth,
-                                                                object: nil)
+                                                             object: nil)
 
     init(navigationController: UINavigationController, challengeID: String) {
         self.navigationController = navigationController
