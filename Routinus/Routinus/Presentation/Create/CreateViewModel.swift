@@ -223,7 +223,6 @@ extension CreateViewModel {
                                         ownerID: challenge.ownerID,
                                         week: week,
                                         participantCount: challenge.participantCount)
-        self.challenge.value = updateChallenge
         challengeUpdateUsecase.updateChallenge(challenge: updateChallenge)
     }
 

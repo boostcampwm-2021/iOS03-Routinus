@@ -160,7 +160,7 @@ extension RoutinusRepository: ChallengeRepository {
                                         thumbnailImageURL: thumbnailImageURL,
                                         authExampleImageURL: authExampleImageURL,
                                         authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
-            RoutinusImageManager.removeCachedImages(from: "temp")
+            RoutinusImageManager.removeCachedImages(from: challenge.challengeID)
         }
     }
 }

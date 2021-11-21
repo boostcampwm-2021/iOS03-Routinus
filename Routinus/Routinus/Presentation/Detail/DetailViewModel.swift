@@ -15,6 +15,7 @@ enum ParticipationAuthState: String {
 }
 
 protocol DetailViewModelInput {
+    func fetchChallenge()
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)?)
@@ -75,6 +76,23 @@ class DetailViewModel: DetailViewModelIO {
 }
 
 extension DetailViewModel {
+    func fetchChallenge() {
+        guard let challengeID = challengeID else { return }
+        challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
+            guard let self = self else { return }
+            self.ownerState.value = self.isChallengeOwner(challenge: challenge)
+            self.challenge.send(challenge)
+        }
+    }
+
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)? = nil) {
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+            completion?(data)
+        }
+    }
+
     func didTappedEditBarButton() {
         guard let challengeID = challengeID else { return }
         self.editBarButtonTap.send(challengeID)
@@ -101,15 +119,6 @@ extension DetailViewModel {
 }
 
 extension DetailViewModel {
-    private func fetchChallenge() {
-        guard let challengeID = challengeID else { return }
-        challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
-            guard let self = self else { return }
-            self.ownerState.value = self.isChallengeOwner(challenge: challenge)
-            self.challenge.send(challenge)
-        }
-    }
-
     private func fetchParticipation(completion: @escaping (Participation?) -> Void) {
         guard let challengeID = challengeID else { return }
         self.participationFetchUsecase.fetchParticipation(challengeID: challengeID) { participation in
@@ -140,13 +149,5 @@ extension DetailViewModel {
 
     private func isChallengeOwner(challenge: Challenge) -> Bool {
         return challenge.ownerID == userFetchUsecase.fetchUserID()
-    }
-
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)? = nil) {
-        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
-            completion?(data)
-        }
     }
 }
