@@ -73,14 +73,14 @@ public enum RoutinusImageManager {
                                               attributes: nil) ? url.absoluteString : nil
     }
 
-    public static func removeTempCachedImages() {
+    public static func removeCachedImages(from directory: String) {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
                                                              true).first else { return }
 
         let url = URL(fileURLWithPath: path)
         let filenames = cachedFilenames()
-            .filter{ $0.hasPrefix("temp") && $0.hasSuffix(".jpeg") }
+            .filter{ $0.hasPrefix(directory) && $0.hasSuffix(".jpeg") }
 
         for filename in filenames {
             var url = url
