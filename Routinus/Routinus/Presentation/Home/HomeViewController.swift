@@ -20,6 +20,10 @@ final class HomeViewController: UIViewController {
                                        weight: .bold)
         return label
     }()
+    private lazy var launchView = LaunchView(frame: CGRect(x: 0,
+                                              y: 0,
+                                              width: self.view.frame.width,
+                                              height: self.view.frame.height))
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView(viewModel: viewModel)
@@ -45,16 +49,11 @@ final class HomeViewController: UIViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
-        viewModel?.fetchMyHomeData()
     }
 }
 
 extension HomeViewController {
     private func configureLaunchView() {
-        let launchView = LaunchView(frame: CGRect(x: 0,
-                                                  y: 0,
-                                                  width: self.view.frame.width,
-                                                  height: self.view.frame.height))
         self.tabBarController?.view.addSubview(launchView)
     }
 
@@ -136,11 +135,18 @@ extension HomeViewController {
     }
 
     private func configureDelegates() {
+        launchView.delegate = self
         todayRoutineView.delegate = self
         todayRoutineView.dataSource = dataSource
         todayRoutineView.challengeAddDelegate = self
         calendarView.delegate = self
         calendarView.dataSource = self
+    }
+}
+
+extension HomeViewController: LaunchViewDelegate {
+    func didEndedLaunchView() {
+        self.viewModel?.fetchMyHomeData()
     }
 }
 

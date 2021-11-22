@@ -67,7 +67,7 @@ final class HomeViewModel: HomeViewModelIO {
         setDateFormatter()
         self.baseDate.value = Date()
         self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
-        self.createUserID()
+//        self.createUserID()
     }
 }
 

@@ -8,6 +8,8 @@
 import UIKit
 
 final class LaunchView: UIView {
+    weak var delegate: LaunchViewDelegate?
+
     private lazy var launchImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Logo"))
         imageView.contentMode = .scaleAspectFit
@@ -47,7 +49,12 @@ extension LaunchView {
             self.launchImageView.alpha = 0
         },
                        completion: { _ in
+            self.delegate?.didEndedLaunchView()
             self.removeFromSuperview()
         })
     }
+}
+
+protocol LaunchViewDelegate: AnyObject {
+    func didEndedLaunchView()
 }
