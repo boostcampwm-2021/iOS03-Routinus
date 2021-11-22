@@ -14,6 +14,9 @@ final class ChallengeCoordinator: RoutinusCoordinator {
     var cancellables = Set<AnyCancellable>()
     let createPublisher = NotificationCenter.default.publisher(for: CreateCoordinator.confirmCreate,
                                                                object: nil)
+    let participationPublisher = NotificationCenter.default.publisher(for: DetailCoordinator.confirmParticipation,
+                                                                      object: nil)
+
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -63,6 +66,13 @@ final class ChallengeCoordinator: RoutinusCoordinator {
             .store(in: &cancellables)
         
         self.createPublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                challengeViewModel.fetchChallenge()
+            }
+            .store(in: &cancellables)
+
+        self.participationPublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 challengeViewModel.fetchChallenge()
