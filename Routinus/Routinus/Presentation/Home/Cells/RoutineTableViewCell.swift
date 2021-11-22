@@ -14,14 +14,7 @@ final class RoutineTableViewCell: UITableViewCell {
         let progressView = UIProgressView()
         progressView.layer.borderWidth = 5
         progressView.layer.cornerRadius = 25
-
-        progressView.progress = 0.5
-        progressView.clipsToBounds = true
-        progressView.progressViewStyle = .bar
-
-        guard let progressBar = progressView.layer.sublayers?[1] else { return UIProgressView() }
-        progressBar.cornerRadius = 25
-        progressView.subviews[1].clipsToBounds = true
+        progressView.trackTintColor = .systemBackground
         return progressView
     }()
 
