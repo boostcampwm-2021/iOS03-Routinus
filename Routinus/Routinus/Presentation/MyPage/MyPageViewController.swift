@@ -19,6 +19,7 @@ final class MyPageViewController: UIViewController {
     private lazy var profileView = ProfileView()
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.isScrollEnabled = false
         tableView.register(UITableViewCell.self,
                            forCellReuseIdentifier: "UITableViewCell")
         return tableView
@@ -27,11 +28,18 @@ final class MyPageViewController: UIViewController {
         let items = ["Light", "Dark", "Auto"]
         let segmentedControl = UISegmentedControl(items: items)
         segmentedControl.selectedSegmentIndex = 2
-        segmentedControl.layer.shadowPath = UIBezierPath(rect: segmentedControl.bounds).cgPath
         segmentedControl.addTarget(self,
                                    action: #selector(didChangeSegmentedControlValue(_:)),
                                    for: .valueChanged)
         return segmentedControl
+    }()
+    private lazy var versionLabel: UILabel = {
+        let label = UILabel()
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        label.font = .systemFont(ofSize: 18)
+        label.text = "v\(version ?? "0.0")"
+        label.textColor = .systemGray
+        return label
     }()
 
     private var viewModel: MyPageViewModelIO?
@@ -91,7 +99,12 @@ extension MyPageViewController {
                          trailing: view.trailingAnchor,
                          top: profileView.bottomAnchor,
                          paddingTop: 30,
-                         height: 200)
+                         height: 150)
+
+        self.view.addSubview(versionLabel)
+        versionLabel.anchor(centerX: versionLabel.superview?.centerXAnchor,
+                            top: tableView.bottomAnchor,
+                            paddingTop: 10)
     }
 
     private func configureDelegates() {
@@ -104,6 +117,18 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     enum MyPageSettings: Int, CaseIterable {
         case theme = 0
         case developer = 1
+        case version = 2
+
+        func title() -> String {
+            switch self {
+            case .theme:
+                return "테마 설정"
+            case .developer:
+                return "개발자 정보"
+            case .version:
+                return "앱 버전"
+            }
+        }
     }
 
     func tableView(_ tableView: UITableView,
@@ -115,17 +140,19 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.selectionStyle = .none
+        cell.textLabel?.text = MyPageSettings(rawValue: indexPath.row)?.title()
         cell.imageView?.tintColor = UIColor(named: "MainColor")
 
         switch indexPath.row {
         case 0:
             cell.imageView?.image = UIImage(systemName: "paintbrush.fill")
-            cell.textLabel?.text = "테마 설정"
             cell.accessoryView = self.segmentedControl
         case 1:
             cell.imageView?.image = UIImage(systemName: "person.2.fill")
-            cell.textLabel?.text = "개발자 정보"
             cell.accessoryType = .disclosureIndicator
+        case 2:
+            cell.imageView?.image = UIImage(systemName: "exclamationmark.circle.fill")
+            cell.accessoryView = self.versionLabel
         default:
             break
         }
