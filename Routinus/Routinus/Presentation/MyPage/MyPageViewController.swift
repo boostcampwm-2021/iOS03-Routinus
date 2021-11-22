@@ -25,7 +25,7 @@ final class MyPageViewController: UIViewController {
         return tableView
     }()
     private lazy var segmentedControl: UISegmentedControl = {
-        let items = ["Light", "Dark", "Auto"]
+        let items = ["Auto", "Light", "Dark"]
         let segmentedControl = UISegmentedControl(items: items)
         segmentedControl.selectedSegmentIndex = 2
         segmentedControl.addTarget(self,
@@ -68,10 +68,6 @@ final class MyPageViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-
-    @objc private func didChangeSegmentedControlValue(_ sender: UISegmentedControl) {
-        print(sender.selectedSegmentIndex) // TODO: 구현
     }
 }
 
@@ -121,6 +117,13 @@ extension MyPageViewController {
                 self?.profileView.setName(user.name)
             })
             .store(in: &cancellables)
+    }
+}
+
+extension MyPageViewController {
+    @objc private func didChangeSegmentedControlValue(_ sender: UISegmentedControl) {
+        guard let style = UIUserInterfaceStyle(rawValue: sender.selectedSegmentIndex) else { return }
+        self.view.window?.overrideUserInterfaceStyle = style
     }
 }
 
