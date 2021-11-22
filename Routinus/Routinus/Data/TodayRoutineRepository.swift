@@ -7,7 +7,7 @@
 
 import Foundation
 
-import RoutinusDatabase
+import RoutinusNetwork
 
 protocol TodayRoutineRepository {
     func fetchTodayRoutine(by id: String,
@@ -17,7 +17,7 @@ protocol TodayRoutineRepository {
 extension RoutinusRepository: TodayRoutineRepository {
     func fetchTodayRoutine(by id: String,
                            completion: (([TodayRoutine]) -> Void)?) {
-        RoutinusDatabase.routines(of: id) { list in
+        RoutinusNetwork.routines(of: id) { list in
             completion?(list.map { TodayRoutine(todayRoutineDTO: $0) })
         }
     }

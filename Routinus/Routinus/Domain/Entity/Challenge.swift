@@ -7,7 +7,7 @@
 
 import Foundation
 
-import RoutinusDatabase
+import RoutinusNetwork
 
 struct Challenge: Hashable {
     enum Category: CaseIterable {

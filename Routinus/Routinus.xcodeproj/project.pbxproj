@@ -44,13 +44,6 @@
 		441CEDD127378573006C261F /* ContinuityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD027378573006C261F /* ContinuityView.swift */; };
 		441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD227378EBF006C261F /* TodayRoutineView.swift */; };
 		441CEDD627379939006C261F /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD527379939006C261F /* CalendarView.swift */; };
-		441CEDE32738FF1E006C261F /* RoutinusDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 441CEDE22738FF1E006C261F /* RoutinusDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		441CEDE62738FF1E006C261F /* RoutinusDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */; };
-		441CEDE72738FF1E006C261F /* RoutinusDatabase.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		441CEDF027390259006C261F /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDEF27390259006C261F /* UserDTO.swift */; };
-		441CEDF327390296006C261F /* TodayRoutineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDF227390296006C261F /* TodayRoutineDTO.swift */; };
-		441CEDF52739029C006C261F /* AchievementDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDF42739029C006C261F /* AchievementDTO.swift */; };
-		441CEDFD27390378006C261F /* RoutinusDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDF927390378006C261F /* RoutinusDatabase.swift */; };
 		441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE10273A332D006C261F /* CreateCategoryView.swift */; };
 		441CEE13273A334B006C261F /* CreateTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE12273A334B006C261F /* CreateTitleView.swift */; };
 		441CEE15273A33BE006C261F /* CreateImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */; };
@@ -60,17 +53,26 @@
 		441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */; };
 		44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */; };
 		44234F18273C0917004D6834 /* CreateImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */; };
-		4432E27C2748C58A0078A6AB /* UserQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E27B2748C58A0078A6AB /* UserQuery.swift */; };
-		4432E27E2748C69D0078A6AB /* ChallengeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E27D2748C69D0078A6AB /* ChallengeQuery.swift */; };
-		4432E2802748C6B80078A6AB /* ParticipationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E27F2748C6B80078A6AB /* ParticipationQuery.swift */; };
-		4432E2822748C6C40078A6AB /* AuthQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E2812748C6C40078A6AB /* AuthQuery.swift */; };
-		4432E2842748C7410078A6AB /* AchievementQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E2832748C7410078A6AB /* AchievementQuery.swift */; };
-		4432E2862748D4A80078A6AB /* Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4432E2852748D4A80078A6AB /* Fields.swift */; };
-		446A07162740ECE6009F8D98 /* ParticipationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A07152740ECE6009F8D98 /* ParticipationDTO.swift */; };
-		446A0729274230E4009F8D98 /* RoutinusImageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 446A0728274230E4009F8D98 /* RoutinusImageManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		446A072C274230E4009F8D98 /* RoutinusImageManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446A0726274230E4009F8D98 /* RoutinusImageManager.framework */; };
-		446A072D274230E4009F8D98 /* RoutinusImageManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 446A0726274230E4009F8D98 /* RoutinusImageManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		446A073227423118009F8D98 /* RoutinusImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A073127423118009F8D98 /* RoutinusImageManager.swift */; };
+		4432138C274B31C7003551E8 /* RoutinusStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4432138B274B31C7003551E8 /* RoutinusStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4432138F274B31C7003551E8 /* RoutinusStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44321389274B31C7003551E8 /* RoutinusStorage.framework */; };
+		44321390274B31C7003551E8 /* RoutinusStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44321389274B31C7003551E8 /* RoutinusStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		44321395274B3200003551E8 /* RoutinusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44321394274B3200003551E8 /* RoutinusStorage.swift */; };
+		4432139E274B3336003551E8 /* RoutinusNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 4432139D274B3336003551E8 /* RoutinusNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		443213A1274B3336003551E8 /* RoutinusNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4432139B274B3336003551E8 /* RoutinusNetwork.framework */; };
+		443213A2274B3336003551E8 /* RoutinusNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4432139B274B3336003551E8 /* RoutinusNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		443213A7274B3347003551E8 /* RoutinusNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213A6274B3347003551E8 /* RoutinusNetwork.swift */; };
+		443213AB274B3382003551E8 /* Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213AA274B3382003551E8 /* Fields.swift */; };
+		443213AD274B338F003551E8 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213AC274B338F003551E8 /* UserDTO.swift */; };
+		443213AF274B339F003551E8 /* TodayRoutineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213AE274B339F003551E8 /* TodayRoutineDTO.swift */; };
+		443213B1274B33AA003551E8 /* AchievementDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213B0274B33AA003551E8 /* AchievementDTO.swift */; };
+		443213B3274B33B5003551E8 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213B2274B33B5003551E8 /* ChallengeDTO.swift */; };
+		443213B5274B33BC003551E8 /* ParticipationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213B4274B33BC003551E8 /* ParticipationDTO.swift */; };
+		443213B7274B33C2003551E8 /* ChallengeAuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213B6274B33C2003551E8 /* ChallengeAuthDTO.swift */; };
+		443213B9274B33DE003551E8 /* UserQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213B8274B33DE003551E8 /* UserQuery.swift */; };
+		443213BB274B3406003551E8 /* ChallengeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213BA274B3406003551E8 /* ChallengeQuery.swift */; };
+		443213BD274B340E003551E8 /* ParticipationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213BC274B340E003551E8 /* ParticipationQuery.swift */; };
+		443213BF274B3414003551E8 /* AuthQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213BE274B3414003551E8 /* AuthQuery.swift */; };
+		443213C1274B341A003551E8 /* AchievementQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213C0274B341A003551E8 /* AchievementQuery.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -91,7 +93,6 @@
 		E901EFE827453F1100B14847 /* ChallengeAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */; };
 		E901EFEA27453F2000B14847 /* ChallengeAuthCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */; };
 		E901EFEC27453F6600B14847 /* ChallengeAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFEB27453F6600B14847 /* ChallengeAuth.swift */; };
-		E901EFEE2745400900B14847 /* ChallengeAuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFED2745400900B14847 /* ChallengeAuthDTO.swift */; };
 		E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C1915273CACDD00D11127 /* PopularKeyword.swift */; };
 		E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044127434D4700D82B1D /* AuthMethodView.swift */; };
 		E937044427434D6300D82B1D /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044327434D6300D82B1D /* PreviewView.swift */; };
@@ -132,25 +133,24 @@
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
 		E9B87CC6274950FC00D7C0D2 /* UserUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */; };
 		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
-		E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */; };
 		E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */; };
 		E9E9D1EB273C1A4200F9CCBB /* SearchBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		441CEDE42738FF1E006C261F /* PBXContainerItemProxy */ = {
+		4432138D274B31C7003551E8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 44AAA2A9272FDF8A002E16C4 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 441CEDDF2738FF1E006C261F;
-			remoteInfo = RoutinusDatabase;
+			remoteGlobalIDString = 44321388274B31C7003551E8;
+			remoteInfo = RoutinusStorage;
 		};
-		446A072A274230E4009F8D98 /* PBXContainerItemProxy */ = {
+		4432139F274B3336003551E8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 44AAA2A9272FDF8A002E16C4 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 446A0725274230E4009F8D98;
-			remoteInfo = RoutinusImageManager;
+			remoteGlobalIDString = 4432139A274B3336003551E8;
+			remoteInfo = RoutinusNetwork;
 		};
 		E99D9E54273FC570008A7E07 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -168,8 +168,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				441CEDE72738FF1E006C261F /* RoutinusDatabase.framework in Embed Frameworks */,
-				446A072D274230E4009F8D98 /* RoutinusImageManager.framework in Embed Frameworks */,
+				443213A2274B3336003551E8 /* RoutinusNetwork.framework in Embed Frameworks */,
+				44321390274B31C7003551E8 /* RoutinusStorage.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,12 +217,6 @@
 		441CEDD027378573006C261F /* ContinuityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuityView.swift; sourceTree = "<group>"; };
 		441CEDD227378EBF006C261F /* TodayRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineView.swift; sourceTree = "<group>"; };
 		441CEDD527379939006C261F /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutinusDatabase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		441CEDE22738FF1E006C261F /* RoutinusDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutinusDatabase.h; sourceTree = "<group>"; };
-		441CEDEF27390259006C261F /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
-		441CEDF227390296006C261F /* TodayRoutineDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineDTO.swift; sourceTree = "<group>"; };
-		441CEDF42739029C006C261F /* AchievementDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDTO.swift; sourceTree = "<group>"; };
-		441CEDF927390378006C261F /* RoutinusDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutinusDatabase.swift; sourceTree = "<group>"; };
 		441CEE10273A332D006C261F /* CreateCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCategoryView.swift; sourceTree = "<group>"; };
 		441CEE12273A334B006C261F /* CreateTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTitleView.swift; sourceTree = "<group>"; };
 		441CEE14273A33BE006C261F /* CreateImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateImageRegisterView.swift; sourceTree = "<group>"; };
@@ -232,16 +226,24 @@
 		441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthImageRegisterView.swift; sourceTree = "<group>"; };
 		44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSubviewDelegate.swift; sourceTree = "<group>"; };
 		44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateImagePickerDelegate.swift; sourceTree = "<group>"; };
-		4432E27B2748C58A0078A6AB /* UserQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserQuery.swift; sourceTree = "<group>"; };
-		4432E27D2748C69D0078A6AB /* ChallengeQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeQuery.swift; sourceTree = "<group>"; };
-		4432E27F2748C6B80078A6AB /* ParticipationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationQuery.swift; sourceTree = "<group>"; };
-		4432E2812748C6C40078A6AB /* AuthQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthQuery.swift; sourceTree = "<group>"; };
-		4432E2832748C7410078A6AB /* AchievementQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementQuery.swift; sourceTree = "<group>"; };
-		4432E2852748D4A80078A6AB /* Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fields.swift; sourceTree = "<group>"; };
-		446A07152740ECE6009F8D98 /* ParticipationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationDTO.swift; sourceTree = "<group>"; };
-		446A0726274230E4009F8D98 /* RoutinusImageManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutinusImageManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		446A0728274230E4009F8D98 /* RoutinusImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutinusImageManager.h; sourceTree = "<group>"; };
-		446A073127423118009F8D98 /* RoutinusImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusImageManager.swift; sourceTree = "<group>"; };
+		44321389274B31C7003551E8 /* RoutinusStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutinusStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4432138B274B31C7003551E8 /* RoutinusStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutinusStorage.h; sourceTree = "<group>"; };
+		44321394274B3200003551E8 /* RoutinusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusStorage.swift; sourceTree = "<group>"; };
+		4432139B274B3336003551E8 /* RoutinusNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutinusNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4432139D274B3336003551E8 /* RoutinusNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutinusNetwork.h; sourceTree = "<group>"; };
+		443213A6274B3347003551E8 /* RoutinusNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusNetwork.swift; sourceTree = "<group>"; };
+		443213AA274B3382003551E8 /* Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fields.swift; sourceTree = "<group>"; };
+		443213AC274B338F003551E8 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		443213AE274B339F003551E8 /* TodayRoutineDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineDTO.swift; sourceTree = "<group>"; };
+		443213B0274B33AA003551E8 /* AchievementDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDTO.swift; sourceTree = "<group>"; };
+		443213B2274B33B5003551E8 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
+		443213B4274B33BC003551E8 /* ParticipationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationDTO.swift; sourceTree = "<group>"; };
+		443213B6274B33C2003551E8 /* ChallengeAuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthDTO.swift; sourceTree = "<group>"; };
+		443213B8274B33DE003551E8 /* UserQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserQuery.swift; sourceTree = "<group>"; };
+		443213BA274B3406003551E8 /* ChallengeQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeQuery.swift; sourceTree = "<group>"; };
+		443213BC274B340E003551E8 /* ParticipationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationQuery.swift; sourceTree = "<group>"; };
+		443213BE274B3414003551E8 /* AuthQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthQuery.swift; sourceTree = "<group>"; };
+		443213C0274B341A003551E8 /* AchievementQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementQuery.swift; sourceTree = "<group>"; };
 		44AAA2B1272FDF8B002E16C4 /* Routinus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -264,7 +266,6 @@
 		E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthRepository.swift; sourceTree = "<group>"; };
 		E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthCreateUsecase.swift; sourceTree = "<group>"; };
 		E901EFEB27453F6600B14847 /* ChallengeAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuth.swift; sourceTree = "<group>"; };
-		E901EFED2745400900B14847 /* ChallengeAuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthDTO.swift; sourceTree = "<group>"; };
 		E91C1915273CACDD00D11127 /* PopularKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeyword.swift; sourceTree = "<group>"; };
 		E937044127434D4700D82B1D /* AuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMethodView.swift; sourceTree = "<group>"; };
 		E937044327434D6300D82B1D /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
@@ -306,20 +307,19 @@
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
 		E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUpdateUsecase.swift; sourceTree = "<group>"; };
 		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
-		E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
 		E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeywordButton.swift; sourceTree = "<group>"; };
 		E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		441CEDDD2738FF1E006C261F /* Frameworks */ = {
+		44321386274B31C7003551E8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		446A0723274230E4009F8D98 /* Frameworks */ = {
+		44321398274B3336003551E8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -330,9 +330,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				441CEDE62738FF1E006C261F /* RoutinusDatabase.framework in Frameworks */,
-				446A072C274230E4009F8D98 /* RoutinusImageManager.framework in Frameworks */,
+				443213A1274B3336003551E8 /* RoutinusNetwork.framework in Frameworks */,
 				8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */,
+				4432138F274B31C7003551E8 /* RoutinusStorage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,31 +418,6 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
-		441CEDE12738FF1E006C261F /* RoutinusDatabase */ = {
-			isa = PBXGroup;
-			children = (
-				441CEDE22738FF1E006C261F /* RoutinusDatabase.h */,
-				441CEDF927390378006C261F /* RoutinusDatabase.swift */,
-				441CEDF127390260006C261F /* DTO */,
-				4432E27A2748C55B0078A6AB /* Query */,
-			);
-			path = RoutinusDatabase;
-			sourceTree = "<group>";
-		};
-		441CEDF127390260006C261F /* DTO */ = {
-			isa = PBXGroup;
-			children = (
-				4432E2852748D4A80078A6AB /* Fields.swift */,
-				441CEDEF27390259006C261F /* UserDTO.swift */,
-				441CEDF227390296006C261F /* TodayRoutineDTO.swift */,
-				441CEDF42739029C006C261F /* AchievementDTO.swift */,
-				E9D0CAE7273978C600F66390 /* ChallengeDTO.swift */,
-				446A07152740ECE6009F8D98 /* ParticipationDTO.swift */,
-				E901EFED2745400900B14847 /* ChallengeAuthDTO.swift */,
-			);
-			path = DTO;
-			sourceTree = "<group>";
-		};
 		441CEE08273A31F3006C261F /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -466,14 +441,48 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
-		4432E27A2748C55B0078A6AB /* Query */ = {
+		4432138A274B31C7003551E8 /* RoutinusStorage */ = {
 			isa = PBXGroup;
 			children = (
-				4432E27B2748C58A0078A6AB /* UserQuery.swift */,
-				4432E27D2748C69D0078A6AB /* ChallengeQuery.swift */,
-				4432E27F2748C6B80078A6AB /* ParticipationQuery.swift */,
-				4432E2812748C6C40078A6AB /* AuthQuery.swift */,
-				4432E2832748C7410078A6AB /* AchievementQuery.swift */,
+				4432138B274B31C7003551E8 /* RoutinusStorage.h */,
+				44321394274B3200003551E8 /* RoutinusStorage.swift */,
+			);
+			path = RoutinusStorage;
+			sourceTree = "<group>";
+		};
+		4432139C274B3336003551E8 /* RoutinusNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				4432139D274B3336003551E8 /* RoutinusNetwork.h */,
+				443213A6274B3347003551E8 /* RoutinusNetwork.swift */,
+				443213A8274B336B003551E8 /* DTO */,
+				443213A9274B336E003551E8 /* Query */,
+			);
+			path = RoutinusNetwork;
+			sourceTree = "<group>";
+		};
+		443213A8274B336B003551E8 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				443213AA274B3382003551E8 /* Fields.swift */,
+				443213AC274B338F003551E8 /* UserDTO.swift */,
+				443213AE274B339F003551E8 /* TodayRoutineDTO.swift */,
+				443213B0274B33AA003551E8 /* AchievementDTO.swift */,
+				443213B2274B33B5003551E8 /* ChallengeDTO.swift */,
+				443213B4274B33BC003551E8 /* ParticipationDTO.swift */,
+				443213B6274B33C2003551E8 /* ChallengeAuthDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		443213A9274B336E003551E8 /* Query */ = {
+			isa = PBXGroup;
+			children = (
+				443213B8274B33DE003551E8 /* UserQuery.swift */,
+				443213BA274B3406003551E8 /* ChallengeQuery.swift */,
+				443213BC274B340E003551E8 /* ParticipationQuery.swift */,
+				443213BE274B3414003551E8 /* AuthQuery.swift */,
+				443213C0274B341A003551E8 /* AchievementQuery.swift */,
 			);
 			path = Query;
 			sourceTree = "<group>";
@@ -511,15 +520,6 @@
 			path = Layouts;
 			sourceTree = "<group>";
 		};
-		446A0727274230E4009F8D98 /* RoutinusImageManager */ = {
-			isa = PBXGroup;
-			children = (
-				446A0728274230E4009F8D98 /* RoutinusImageManager.h */,
-				446A073127423118009F8D98 /* RoutinusImageManager.swift */,
-			);
-			path = RoutinusImageManager;
-			sourceTree = "<group>";
-		};
 		446A0734274622F4009F8D98 /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,8 +533,8 @@
 			children = (
 				44AAA2C9272FE13D002E16C4 /* .swiftlint.yml */,
 				44AAA2B3272FDF8B002E16C4 /* Routinus */,
-				441CEDE12738FF1E006C261F /* RoutinusDatabase */,
-				446A0727274230E4009F8D98 /* RoutinusImageManager */,
+				4432139C274B3336003551E8 /* RoutinusNetwork */,
+				4432138A274B31C7003551E8 /* RoutinusStorage */,
 				44AAA2B2272FDF8B002E16C4 /* Products */,
 				C6BC838A122CF798FF91016F /* Pods */,
 				E3D71BDBA3D7EC43BE475984 /* Frameworks */,
@@ -546,9 +546,9 @@
 			isa = PBXGroup;
 			children = (
 				44AAA2B1272FDF8B002E16C4 /* Routinus.app */,
-				441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */,
 				E99D9E50273FC570008A7E07 /* RoutinusTests.xctest */,
-				446A0726274230E4009F8D98 /* RoutinusImageManager.framework */,
+				44321389274B31C7003551E8 /* RoutinusStorage.framework */,
+				4432139B274B3336003551E8 /* RoutinusNetwork.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -846,59 +846,59 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		441CEDDB2738FF1E006C261F /* Headers */ = {
+		44321384274B31C7003551E8 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				441CEDE32738FF1E006C261F /* RoutinusDatabase.h in Headers */,
+				4432138C274B31C7003551E8 /* RoutinusStorage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		446A0721274230E4009F8D98 /* Headers */ = {
+		44321396274B3336003551E8 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				446A0729274230E4009F8D98 /* RoutinusImageManager.h in Headers */,
+				4432139E274B3336003551E8 /* RoutinusNetwork.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		441CEDDF2738FF1E006C261F /* RoutinusDatabase */ = {
+		44321388274B31C7003551E8 /* RoutinusStorage */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 441CEDEA2738FF1E006C261F /* Build configuration list for PBXNativeTarget "RoutinusDatabase" */;
+			buildConfigurationList = 44321393274B31C7003551E8 /* Build configuration list for PBXNativeTarget "RoutinusStorage" */;
 			buildPhases = (
-				441CEDDB2738FF1E006C261F /* Headers */,
-				441CEDDC2738FF1E006C261F /* Sources */,
-				441CEDDD2738FF1E006C261F /* Frameworks */,
-				441CEDDE2738FF1E006C261F /* Resources */,
+				44321384274B31C7003551E8 /* Headers */,
+				44321385274B31C7003551E8 /* Sources */,
+				44321386274B31C7003551E8 /* Frameworks */,
+				44321387274B31C7003551E8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = RoutinusDatabase;
-			productName = RoutinusDatabase;
-			productReference = 441CEDE02738FF1E006C261F /* RoutinusDatabase.framework */;
+			name = RoutinusStorage;
+			productName = RoutinusStorage;
+			productReference = 44321389274B31C7003551E8 /* RoutinusStorage.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		446A0725274230E4009F8D98 /* RoutinusImageManager */ = {
+		4432139A274B3336003551E8 /* RoutinusNetwork */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 446A072E274230E4009F8D98 /* Build configuration list for PBXNativeTarget "RoutinusImageManager" */;
+			buildConfigurationList = 443213A3274B3336003551E8 /* Build configuration list for PBXNativeTarget "RoutinusNetwork" */;
 			buildPhases = (
-				446A0721274230E4009F8D98 /* Headers */,
-				446A0722274230E4009F8D98 /* Sources */,
-				446A0723274230E4009F8D98 /* Frameworks */,
-				446A0724274230E4009F8D98 /* Resources */,
+				44321396274B3336003551E8 /* Headers */,
+				44321397274B3336003551E8 /* Sources */,
+				44321398274B3336003551E8 /* Frameworks */,
+				44321399274B3336003551E8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = RoutinusImageManager;
-			productName = RoutinusImageManager;
-			productReference = 446A0726274230E4009F8D98 /* RoutinusImageManager.framework */;
+			name = RoutinusNetwork;
+			productName = RoutinusNetwork;
+			productReference = 4432139B274B3336003551E8 /* RoutinusNetwork.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		44AAA2B0272FDF8B002E16C4 /* Routinus */ = {
@@ -915,8 +915,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				441CEDE52738FF1E006C261F /* PBXTargetDependency */,
-				446A072B274230E4009F8D98 /* PBXTargetDependency */,
+				4432138E274B31C7003551E8 /* PBXTargetDependency */,
+				443213A0274B3336003551E8 /* PBXTargetDependency */,
 			);
 			name = Routinus;
 			productName = Routinus;
@@ -951,10 +951,11 @@
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
-					441CEDDF2738FF1E006C261F = {
+					44321388274B31C7003551E8 = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 					};
-					446A0725274230E4009F8D98 = {
+					4432139A274B3336003551E8 = {
 						CreatedOnToolsVersion = 13.1;
 						LastSwiftMigration = 1310;
 					};
@@ -982,22 +983,22 @@
 			projectRoot = "";
 			targets = (
 				44AAA2B0272FDF8B002E16C4 /* Routinus */,
-				441CEDDF2738FF1E006C261F /* RoutinusDatabase */,
-				446A0725274230E4009F8D98 /* RoutinusImageManager */,
 				E99D9E4F273FC570008A7E07 /* RoutinusTests */,
+				44321388274B31C7003551E8 /* RoutinusStorage */,
+				4432139A274B3336003551E8 /* RoutinusNetwork */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		441CEDDE2738FF1E006C261F /* Resources */ = {
+		44321387274B31C7003551E8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		446A0724274230E4009F8D98 /* Resources */ = {
+		44321399274B3336003551E8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1067,31 +1068,31 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		441CEDDC2738FF1E006C261F /* Sources */ = {
+		44321385274B31C7003551E8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				441CEDF027390259006C261F /* UserDTO.swift in Sources */,
-				441CEDF52739029C006C261F /* AchievementDTO.swift in Sources */,
-				4432E2822748C6C40078A6AB /* AuthQuery.swift in Sources */,
-				E9D0CAE8273978C600F66390 /* ChallengeDTO.swift in Sources */,
-				446A07162740ECE6009F8D98 /* ParticipationDTO.swift in Sources */,
-				4432E27C2748C58A0078A6AB /* UserQuery.swift in Sources */,
-				4432E27E2748C69D0078A6AB /* ChallengeQuery.swift in Sources */,
-				4432E2862748D4A80078A6AB /* Fields.swift in Sources */,
-				E901EFEE2745400900B14847 /* ChallengeAuthDTO.swift in Sources */,
-				4432E2842748C7410078A6AB /* AchievementQuery.swift in Sources */,
-				441CEDF327390296006C261F /* TodayRoutineDTO.swift in Sources */,
-				441CEDFD27390378006C261F /* RoutinusDatabase.swift in Sources */,
-				4432E2802748C6B80078A6AB /* ParticipationQuery.swift in Sources */,
+				44321395274B3200003551E8 /* RoutinusStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		446A0722274230E4009F8D98 /* Sources */ = {
+		44321397274B3336003551E8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				446A073227423118009F8D98 /* RoutinusImageManager.swift in Sources */,
+				443213B1274B33AA003551E8 /* AchievementDTO.swift in Sources */,
+				443213AD274B338F003551E8 /* UserDTO.swift in Sources */,
+				443213BF274B3414003551E8 /* AuthQuery.swift in Sources */,
+				443213B5274B33BC003551E8 /* ParticipationDTO.swift in Sources */,
+				443213AB274B3382003551E8 /* Fields.swift in Sources */,
+				443213AF274B339F003551E8 /* TodayRoutineDTO.swift in Sources */,
+				443213B9274B33DE003551E8 /* UserQuery.swift in Sources */,
+				443213BB274B3406003551E8 /* ChallengeQuery.swift in Sources */,
+				443213B7274B33C2003551E8 /* ChallengeAuthDTO.swift in Sources */,
+				443213C1274B341A003551E8 /* AchievementQuery.swift in Sources */,
+				443213A7274B3347003551E8 /* RoutinusNetwork.swift in Sources */,
+				443213B3274B33B5003551E8 /* ChallengeDTO.swift in Sources */,
+				443213BD274B340E003551E8 /* ParticipationQuery.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1220,15 +1221,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		441CEDE52738FF1E006C261F /* PBXTargetDependency */ = {
+		4432138E274B31C7003551E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 441CEDDF2738FF1E006C261F /* RoutinusDatabase */;
-			targetProxy = 441CEDE42738FF1E006C261F /* PBXContainerItemProxy */;
+			target = 44321388274B31C7003551E8 /* RoutinusStorage */;
+			targetProxy = 4432138D274B31C7003551E8 /* PBXContainerItemProxy */;
 		};
-		446A072B274230E4009F8D98 /* PBXTargetDependency */ = {
+		443213A0274B3336003551E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 446A0725274230E4009F8D98 /* RoutinusImageManager */;
-			targetProxy = 446A072A274230E4009F8D98 /* PBXContainerItemProxy */;
+			target = 4432139A274B3336003551E8 /* RoutinusNetwork */;
+			targetProxy = 4432139F274B3336003551E8 /* PBXContainerItemProxy */;
 		};
 		E99D9E55273FC570008A7E07 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1258,67 +1259,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		441CEDE82738FF1E006C261F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusDatabase;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		441CEDE92738FF1E006C261F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusDatabase;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		446A072F274230E4009F8D98 /* Debug */ = {
+		44321391274B31C7003551E8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -1332,13 +1273,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusImageManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusStorage;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1350,7 +1292,7 @@
 			};
 			name = Debug;
 		};
-		446A0730274230E4009F8D98 /* Release */ = {
+		44321392274B31C7003551E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -1364,13 +1306,79 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusImageManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusStorage;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		443213A4274B3336003551E8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusNetwork;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		443213A5274B3336003551E8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1606,20 +1614,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		441CEDEA2738FF1E006C261F /* Build configuration list for PBXNativeTarget "RoutinusDatabase" */ = {
+		44321393274B31C7003551E8 /* Build configuration list for PBXNativeTarget "RoutinusStorage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				441CEDE82738FF1E006C261F /* Debug */,
-				441CEDE92738FF1E006C261F /* Release */,
+				44321391274B31C7003551E8 /* Debug */,
+				44321392274B31C7003551E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		446A072E274230E4009F8D98 /* Build configuration list for PBXNativeTarget "RoutinusImageManager" */ = {
+		443213A3274B3336003551E8 /* Build configuration list for PBXNativeTarget "RoutinusNetwork" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				446A072F274230E4009F8D98 /* Debug */,
-				446A0730274230E4009F8D98 /* Release */,
+				443213A4274B3336003551E8 /* Debug */,
+				443213A5274B3336003551E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

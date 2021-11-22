@@ -7,8 +7,8 @@
 
 import Foundation
 
-import RoutinusDatabase
-import RoutinusImageManager
+import RoutinusNetwork
+import RoutinusStorage
 
 protocol ChallengeRepository {
     func fetchRecommendChallenges(completion: (([Challenge]) -> Void)?)
@@ -39,14 +39,14 @@ protocol ChallengeRepository {
 
 extension RoutinusRepository: ChallengeRepository {
     func fetchRecommendChallenges(completion: (([Challenge]) -> Void)?) {
-        RoutinusDatabase.recommendChallenges { list in
+        RoutinusNetwork.recommendChallenges { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }
 
     func fetchSearchChallengesBy(keyword: String,
                                  completion: (([Challenge]) -> Void)?) {
-        RoutinusDatabase.latestChallenges { list in
+        RoutinusNetwork.latestChallenges { list in
             let challenges = list.map { Challenge(challengeDTO: $0) }
                 .filter { $0.title.contains(keyword) }
             completion?(challenges)
@@ -55,27 +55,27 @@ extension RoutinusRepository: ChallengeRepository {
 
     func fetchSearchChallengesBy(categoryID: String,
                                  completion: (([Challenge]) -> Void)?) {
-        RoutinusDatabase.searchChallenges(categoryID: categoryID) { list in
+        RoutinusNetwork.searchChallenges(categoryID: categoryID) { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }
 
     func fetchLatestChallenges(completion: (([Challenge]) -> Void)?) {
-        RoutinusDatabase.newChallenges { list in
+        RoutinusNetwork.newChallenges { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }
 
     func fetchChallenges(by userID: String,
                          completion: (([Challenge]) -> Void)?) {
-        RoutinusDatabase.searchChallenges(ownerID: userID) { list in
+        RoutinusNetwork.searchChallenges(ownerID: userID) { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }
 
     func fetchChallenges(of userID: String,
                          completion: (([Challenge]) -> Void)?) {
-        RoutinusDatabase.searchChallenges(participantID: userID) { list in
+        RoutinusNetwork.searchChallenges(participantID: userID) { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }
@@ -83,12 +83,12 @@ extension RoutinusRepository: ChallengeRepository {
     func fetchEdittingChallenge(challengeID: String,
                                 completion: @escaping (Challenge) -> Void) {
         guard let ownerID = RoutinusRepository.userID() else { return }
-        RoutinusDatabase.challenge(ownerID: ownerID,
+        RoutinusNetwork.challenge(ownerID: ownerID,
                                    challengeID: challengeID) { dto in
-            let imageURL = RoutinusImageManager.cachedImageURL(from: challengeID, filename: "image")
-            let thumbnailImageURL = RoutinusImageManager.cachedImageURL(from: challengeID, filename: "thumbnail_image")
-            let authExampleImageURL = RoutinusImageManager.cachedImageURL(from: challengeID, filename: "auth")
-            let authExampleThumbnailImageURL = RoutinusImageManager.cachedImageURL(from: challengeID, filename: "thumbnail_auth")
+            let imageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "image")
+            let thumbnailImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "thumbnail_image")
+            let authExampleImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "auth")
+            let authExampleThumbnailImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "thumbnail_auth")
             completion(Challenge(challengeDTO: dto,
                                  imageURL: imageURL,
                                  thumbnailImageURL: thumbnailImageURL,
@@ -99,7 +99,7 @@ extension RoutinusRepository: ChallengeRepository {
 
     func fetchChallenge(challengeID: String,
                         completion: @escaping (Challenge) -> Void) {
-        RoutinusDatabase.challenge(challengeID: challengeID) { dto in
+        RoutinusNetwork.challenge(challengeID: challengeID) { dto in
             completion(Challenge(challengeDTO: dto))
         }
     }
@@ -127,13 +127,13 @@ extension RoutinusRepository: ChallengeRepository {
                                                 joinDate: startDate,
                                                 userID: challenge.ownerID)
 
-        RoutinusDatabase.insertChallenge(challenge: challengeDTO,
-                                         participation: participationDTO,
-                                         imageURL: imageURL,
-                                         thumbnailImageURL: thumbnailImageURL,
-                                         authExampleImageURL: authExampleImageURL,
-                                         authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
-            RoutinusImageManager.removeCachedImages(from: "temp")
+        RoutinusNetwork.insertChallenge(challenge: challengeDTO,
+                                        participation: participationDTO,
+                                        imageURL: imageURL,
+                                        thumbnailImageURL: thumbnailImageURL,
+                                        authExampleImageURL: authExampleImageURL,
+                                        authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
+            RoutinusStorage.removeCachedImages(from: "temp")
         }
     }
 
@@ -155,12 +155,12 @@ extension RoutinusRepository: ChallengeRepository {
                                         participantCount: challenge.participantCount,
                                         ownerID: challenge.ownerID)
 
-        RoutinusDatabase.patchChallenge(challengeDTO: challengeDTO,
-                                        imageURL: imageURL,
-                                        thumbnailImageURL: thumbnailImageURL,
-                                        authExampleImageURL: authExampleImageURL,
-                                        authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
-            RoutinusImageManager.removeCachedImages(from: challenge.challengeID)
+        RoutinusNetwork.patchChallenge(challengeDTO: challengeDTO,
+                                       imageURL: imageURL,
+                                       thumbnailImageURL: thumbnailImageURL,
+                                       authExampleImageURL: authExampleImageURL,
+                                       authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
+            RoutinusStorage.removeCachedImages(from: challenge.challengeID)
         }
     }
 }

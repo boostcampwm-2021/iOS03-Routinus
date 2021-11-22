@@ -7,7 +7,7 @@
 
 import Foundation
 
-import RoutinusDatabase
+import RoutinusNetwork
 
 protocol AchievementRepository {
     func fetchAchievements(by id: String,
@@ -21,15 +21,15 @@ extension RoutinusRepository: AchievementRepository {
     func fetchAchievements(by id: String,
                            in yearMonth: String,
                            completion: (([Achievement]) -> Void)?) {
-        RoutinusDatabase.achievements(of: id, in: yearMonth) { list in
+        RoutinusNetwork.achievements(of: id, in: yearMonth) { list in
             completion?(list.map { Achievement(achievementDTO: $0) })
         }
     }
 
     func updateAchievementCount(userID: String, yearMonth: String, day: String) {
-        RoutinusDatabase.updateAchievementCount(userID: userID,
-                                                yearMonth: yearMonth,
-                                                day: day,
-                                                completion: nil)
+        RoutinusNetwork.updateAchievementCount(userID: userID,
+                                               yearMonth: yearMonth,
+                                               day: day,
+                                               completion: nil)
     }
 }

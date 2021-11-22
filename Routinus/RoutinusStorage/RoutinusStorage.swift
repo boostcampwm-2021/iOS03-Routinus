@@ -1,13 +1,13 @@
 //
-//  RoutinusImageManager.swift
-//  RoutinusImageManager
+//  RoutinusStorage.swift
+//  RoutinusStorage
 //
 //  Created by 유석환 on 2021/11/15.
 //
 
 import Foundation
 
-public enum RoutinusImageManager {
+public enum RoutinusStorage {
     public static func isExist(in directory: String, filename: String) -> Bool {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
@@ -92,7 +92,7 @@ public enum RoutinusImageManager {
 }
 
 // TODO: 개발 완료 후 삭제(개발/테스트용으로 작성된 메소드)
-extension RoutinusImageManager {
+extension RoutinusStorage {
     public static func removeAllCachedImages() {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,

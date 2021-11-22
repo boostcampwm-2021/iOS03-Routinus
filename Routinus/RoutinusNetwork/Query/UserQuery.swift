@@ -1,6 +1,6 @@
 //
 //  UserQuery.swift
-//  RoutinusDatabase
+//  RoutinusNetwork
 //
 //  Created by 유석환 on 2021/11/20.
 //
@@ -35,7 +35,7 @@ internal enum UserQuery {
                 "name": { "stringValue": "\(name)" },
                 "grade": { "integerValue": "0" },
                 "continuity_day": { "integerValue": "0" },
-                "user_image_category_id": { "stringValue": "0" }
+                "user_image_category_id": { "stringValue": "0" },
                 "last_auth_day": { "stringValue": "0" }
             }
         }

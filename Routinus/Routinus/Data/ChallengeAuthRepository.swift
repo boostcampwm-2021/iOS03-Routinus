@@ -7,8 +7,8 @@
 
 import Foundation
 
-import RoutinusDatabase
-import RoutinusImageManager
+import RoutinusNetwork
+import RoutinusStorage
 
 protocol ChallengeAuthRepository {
     func save(challengeAuth: ChallengeAuth,
@@ -32,10 +32,10 @@ extension RoutinusRepository: ChallengeAuthRepository {
                                                 date: date,
                                                 time: time)
 
-        RoutinusDatabase.insertChallengeAuth(challengeAuth: challengeAuthDTO,
-                                             userAuthImageURL: userAuthImageURL,
-                                             userAuthThumbnailImageURL: userAuthThumbnailImageURL) {
-            RoutinusImageManager.removeCachedImages(from: "temp")
+        RoutinusNetwork.insertChallengeAuth(challengeAuth: challengeAuthDTO,
+                                            userAuthImageURL: userAuthImageURL,
+                                            userAuthThumbnailImageURL: userAuthThumbnailImageURL) {
+            RoutinusStorage.removeCachedImages(from: "temp")
         }
     }
 
@@ -43,9 +43,9 @@ extension RoutinusRepository: ChallengeAuthRepository {
                             userID: String,
                             challengeID: String,
                             completion: @escaping (ChallengeAuth?) -> Void) {
-        RoutinusDatabase.challengeAuth(todayDate: todayDate,
-                                       userID: userID,
-                                       challengeID: challengeID) { dto in
+        RoutinusNetwork.challengeAuth(todayDate: todayDate,
+                                      userID: userID,
+                                      challengeID: challengeID) { dto in
             guard let dto = dto,
                   dto.document != nil else {
                 completion(nil)

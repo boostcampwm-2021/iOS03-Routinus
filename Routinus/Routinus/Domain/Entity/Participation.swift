@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import RoutinusDatabase
+
+import RoutinusNetwork
 
 struct Participation {
     let authCount: Int

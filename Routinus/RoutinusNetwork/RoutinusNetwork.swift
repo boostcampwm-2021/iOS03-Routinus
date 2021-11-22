@@ -1,13 +1,13 @@
 //
-//  RoutinusDatabase.swift
-//  RoutinusDatabase
+//  RoutinusNetwork.swift
+//  RoutinusNetwork
 //
 //  Created by 유석환 on 2021/11/02.
 //
 
 import Foundation
 
-public enum RoutinusDatabase {
+public enum RoutinusNetwork {
     private enum HTTPMethod: String {
         case get = "GET"
         case post = "POST"
@@ -680,7 +680,7 @@ public enum RoutinusDatabase {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
-            let dto = try? JSONDecoder().decode([ChallengeAuthDTO].self, from: data).first 
+            let dto = try? JSONDecoder().decode([ChallengeAuthDTO].self, from: data).first
             completion(dto)
         }.resume()
     }

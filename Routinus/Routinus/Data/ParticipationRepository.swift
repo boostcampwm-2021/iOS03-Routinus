@@ -7,7 +7,7 @@
 
 import Foundation
 
-import RoutinusDatabase
+import RoutinusNetwork
 
 protocol ParticipationRepository {
     func fetchChallengeParticipation(userID: String,
@@ -24,8 +24,8 @@ extension RoutinusRepository: ParticipationRepository {
     func fetchChallengeParticipation(userID: String,
                                      challengeID: String,
                                      completion: @escaping (Participation?) -> Void) {
-        RoutinusDatabase.challengeParticipation(userID: userID,
-                                                challengeID: challengeID) { dto in
+        RoutinusNetwork.challengeParticipation(userID: userID,
+                                               challengeID: challengeID) { dto in
             guard let dto = dto,
                   dto.document != nil else {
                 completion(nil)
@@ -37,14 +37,18 @@ extension RoutinusRepository: ParticipationRepository {
 
     func save(challengeID: String, joinDate: String) {
         guard let userID = RoutinusRepository.userID() else { return }
-        let dto = ParticipationDTO(authCount: 0, challengeID: challengeID, joinDate: joinDate, userID: userID)
-        RoutinusDatabase.insertChallengeParticipation(dto: dto, completion: nil)
+        let dto = ParticipationDTO(authCount: 0,
+                                   challengeID: challengeID,
+                                   joinDate: joinDate,
+                                   userID: userID)
+        RoutinusNetwork.insertChallengeParticipation(dto: dto,
+                                                     completion: nil)
     }
 
     func updateAuthCount(challengeID: String) {
         guard let userID = RoutinusRepository.userID() else { return }
-        RoutinusDatabase.updateChallengeParticipationAuthCount(challengeID: challengeID,
-                                                      userID: userID,
-                                                      completion: nil)
+        RoutinusNetwork.updateChallengeParticipationAuthCount(challengeID: challengeID,
+                                                              userID: userID,
+                                                              completion: nil)
     }
 }
