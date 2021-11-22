@@ -726,7 +726,7 @@ public enum RoutinusNetwork {
         challenge(challengeID: challengeID) { dto in
             guard let document = dto.document,
                   let week = Int(document.fields.week.integerValue),
-                  let participationCount = Int(document.fields.participantCount.integerValue)  else { return }
+                  let participationCount = Int(document.fields.participantCount.integerValue) else { return }
 
             let title = document.fields.title.stringValue
             let authMethod = document.fields.authMethod.stringValue
