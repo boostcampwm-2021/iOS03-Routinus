@@ -90,13 +90,13 @@ extension MyPageViewController {
                            paddingHorizontal: offset,
                            top: titleLabel.bottomAnchor,
                            paddingTop: 10,
-                           height: 180)
+                           height: 190)
 
         self.view.addSubview(tableView)
         tableView.anchor(leading: view.leadingAnchor,
                          trailing: view.trailingAnchor,
                          top: profileView.bottomAnchor,
-                         paddingTop: 30,
+                         paddingTop: 20,
                          height: 150)
 
         self.view.addSubview(versionLabel)
@@ -106,6 +106,7 @@ extension MyPageViewController {
     }
 
     private func configureDelegates() {
+        self.profileView.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
@@ -143,6 +144,33 @@ extension MyPageViewController {
             window.overrideUserInterfaceStyle = style
         }
         viewModel?.updateThemeStyle(style.rawValue)
+    }
+}
+
+extension MyPageViewController: MyPageUserNameUpdatableDelegate {
+    func didTappedNameStackView() {
+        let alert = UIAlertController(title: "이름 수정",
+                                      message: nil,
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+            guard let name = alert.textFields?.first?.text else { return }
+            self?.updateUsername(name)
+        }
+        let cancelAction = UIAlertAction(title: "취소",
+                                         style: .cancel)
+
+        alert.addTextField { [weak self] textField in
+            textField.text = self?.profileView.name
+        }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
+    }
+
+    func updateUsername(_ name: String) {
+        self.viewModel?.updateUsername(name)
+        self.profileView.setName(name)
     }
 }
 

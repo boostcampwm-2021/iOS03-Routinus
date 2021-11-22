@@ -16,6 +16,7 @@ protocol MyPageViewModelOutput {
     var user: CurrentValueSubject<User, Never> { get }
     var themeStyle: CurrentValueSubject<Int, Never> { get }
 
+    func updateUsername(_ name: String)
     func updateThemeStyle(_ style: Int)
 }
 
@@ -46,6 +47,11 @@ extension MyPageViewModel {
 
     func fetchThemeStyle() {
         self.themeStyle.value = userFetchUsecase.fetchThemeStyle()
+    }
+
+    func updateUsername(_ name: String) {
+        userUpdateUsecase.updateUsername(of: user.value.id,
+                                         name: name)
     }
 
     func updateThemeStyle(_ style: Int) {

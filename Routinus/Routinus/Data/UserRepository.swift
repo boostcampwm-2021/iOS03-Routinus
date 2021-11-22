@@ -17,6 +17,8 @@ protocol UserRepository {
                    completion: ((User) -> Void)?)
     func updateContinuityDay(by id: String)
     func fetchThemeStyle() -> Int
+    func updateUsername(of id: String,
+                        name: String)
     func updateThemeStyle(_ style: Int)
 }
 
@@ -48,6 +50,13 @@ extension RoutinusRepository: UserRepository {
 
     func fetchThemeStyle() -> Int {
         return UserDefaults.standard.integer(forKey: RoutinusRepository.themeStyleKey)
+    }
+
+    func updateUsername(of id: String,
+                        name: String) {
+        RoutinusNetwork.updateUsername(of: id,
+                                       name: name,
+                                       completion: nil)
     }
 
     func updateThemeStyle(_ style: Int) {

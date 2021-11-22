@@ -52,4 +52,14 @@ internal enum UserQuery {
         }
         """.data(using: .utf8)
     }
+
+    internal static func updateUsername(document: UserFields) -> Data? {
+        return """
+        {
+            "fields": {
+                "name": { "stringValue": "\(document.name.stringValue)" },
+            }
+        }
+        """.data(using: .utf8)
+    }
 }

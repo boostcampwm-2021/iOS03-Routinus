@@ -8,6 +8,8 @@
 import UIKit
 
 final class MyPageProfileView: UIView {
+    weak var delegate: MyPageUserNameUpdatableDelegate?
+
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -15,10 +17,14 @@ final class MyPageProfileView: UIView {
         return imageView
     }()
 
+    private lazy var recognizer = UITapGestureRecognizer(target: self,
+                                                         action: #selector(didTapNameStackView))
+
     private lazy var nameStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 10
+        stackView.addGestureRecognizer(recognizer)
         return stackView
     }()
 
@@ -36,6 +42,10 @@ final class MyPageProfileView: UIView {
         return imageView
     }()
 
+    var name: String? {
+        return nameLabel.text
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureViews()
@@ -44,6 +54,10 @@ final class MyPageProfileView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureViews()
+    }
+
+    @objc private func didTapNameStackView() {
+        delegate?.didTappedNameStackView()
     }
 
     func setName(_ name: String) {
