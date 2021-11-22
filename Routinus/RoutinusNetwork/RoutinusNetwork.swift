@@ -747,8 +747,7 @@ public enum RoutinusNetwork {
                                             participantCount: participationCount + 1,
                                             ownerID: ownerID)
 
-            guard let challengeField = challengeDTO.document?.fields else { return }
-            let documentID = dto.documentID ?? ""
+            guard let challengeField = challengeDTO.document?.fields, let documentID = dto.documentID else { return }
             var urlComponent = URLComponents(string: "\(firestoreURL)/challenge/\(documentID)?")
             let queryItems = [
                 URLQueryItem(name: "updateMask.fieldPaths", value: "participant_count")
