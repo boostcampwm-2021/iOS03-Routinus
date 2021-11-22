@@ -169,4 +169,14 @@ internal enum ChallengeQuery {
         }
         """.data(using: .utf8)
     }
+
+    internal static func updateParticipantCount(document: ChallengeFields) -> Data? {
+        return """
+        {
+            "fields": {
+                "participant_count": { "integerValue": "\(document.participantCount.integerValue)" },
+            }
+        }
+        """.data(using: .utf8)
+    }
 }
