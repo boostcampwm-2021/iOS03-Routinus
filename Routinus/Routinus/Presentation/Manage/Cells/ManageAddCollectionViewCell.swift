@@ -36,7 +36,7 @@ final class ManageAddCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension  ManageAddCollectionViewCell {
+extension ManageAddCollectionViewCell {
     private func configureView() {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 28.0 : 32.0
