@@ -28,7 +28,9 @@ struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
         return endDate
     }
 
-    func updateChallenge(challenge: Challenge, isChangedImage: Bool, isChangedAuthImage: Bool) {
+    func updateChallenge(challenge: Challenge,
+                         isChangedImage: Bool,
+                         isChangedAuthImage: Bool) {
         repository.update(challenge: challenge)
         if isChangedImage {
             repository.updateImage(challengeID: challenge.challengeID,

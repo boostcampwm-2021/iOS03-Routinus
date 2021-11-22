@@ -31,8 +31,12 @@ protocol ChallengeRepository {
               authExampleImageURL: String,
               authExampleThumbnailImageURL: String)
     func update(challenge: Challenge)
-    func updateImage(challengeID: String, imageURL: String, thumbnailImageURL: String)
-    func updateImage(challengeID: String, authExampleImageURL: String, authExampleThumbnailImageURL: String)
+    func updateImage(challengeID: String,
+                     imageURL: String,
+                     thumbnailImageURL: String)
+    func updateImage(challengeID: String,
+                     authExampleImageURL: String,
+                     authExampleThumbnailImageURL: String)
 }
 
 extension RoutinusRepository: ChallengeRepository {
@@ -152,7 +156,9 @@ extension RoutinusRepository: ChallengeRepository {
                                         completion: nil)
     }
 
-    func updateImage(challengeID: String, imageURL: String, thumbnailImageURL: String) {
+    func updateImage(challengeID: String,
+                     imageURL: String,
+                     thumbnailImageURL: String) {
         RoutinusNetwork.uploadImage(id: challengeID,
                                     filename: "image",
                                     imageURL: imageURL,
@@ -164,7 +170,9 @@ extension RoutinusRepository: ChallengeRepository {
         RoutinusStorage.removeCachedImages(from: challengeID)
     }
 
-    func updateImage(challengeID: String, authExampleImageURL: String, authExampleThumbnailImageURL: String) {
+    func updateImage(challengeID: String,
+                     authExampleImageURL: String,
+                     authExampleThumbnailImageURL: String) {
         RoutinusNetwork.uploadImage(id: challengeID,
                                     filename: "auth",
                                     imageURL: authExampleImageURL,
