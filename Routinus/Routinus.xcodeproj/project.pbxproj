@@ -73,6 +73,7 @@
 		443213BD274B340E003551E8 /* ParticipationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213BC274B340E003551E8 /* ParticipationQuery.swift */; };
 		443213BF274B3414003551E8 /* AuthQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213BE274B3414003551E8 /* AuthQuery.swift */; };
 		443213C1274B341A003551E8 /* AchievementQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213C0274B341A003551E8 /* AchievementQuery.swift */; };
+		443213C3274B673D003551E8 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213C2274B673D003551E8 /* MyPageViewModel.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
 		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
@@ -244,6 +245,7 @@
 		443213BC274B340E003551E8 /* ParticipationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationQuery.swift; sourceTree = "<group>"; };
 		443213BE274B3414003551E8 /* AuthQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthQuery.swift; sourceTree = "<group>"; };
 		443213C0274B341A003551E8 /* AchievementQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementQuery.swift; sourceTree = "<group>"; };
+		443213C2274B673D003551E8 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		44AAA2B1272FDF8B002E16C4 /* Routinus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Routinus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -750,6 +752,7 @@
 			isa = PBXGroup;
 			children = (
 				E9797CAA2731073F00A14A0F /* MyPageViewController.swift */,
+				443213C2274B673D003551E8 /* MyPageViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1141,6 +1144,7 @@
 				E901EFD82744C9E300B14847 /* UserRepository.swift in Sources */,
 				149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */,
 				E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */,
+				443213C3274B673D003551E8 /* MyPageViewModel.swift in Sources */,
 				44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */,
 				0DC38F51273B684300331C25 /* SearchViewModel.swift in Sources */,
 				441CEDD627379939006C261F /* CalendarView.swift in Sources */,

@@ -16,7 +16,11 @@ final class MyPageCoordinator: RoutinusCoordinator {
     }
 
     func start() {
-        let myPageViewController = MyPageViewController()
+        let repository = RoutinusRepository()
+
+        let myPageViewModel = MyPageViewModel()
+
+        let myPageViewController = MyPageViewController(with: myPageViewModel)
         self.navigationController.pushViewController(myPageViewController, animated: false)
     }
 }
