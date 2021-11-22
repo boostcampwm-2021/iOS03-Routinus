@@ -163,7 +163,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 1:
-            print("개발자 정보 클릭됨!") // TODO: 구현
+            present(DeveloperViewController(), animated: true)
         default:
             break
         }
