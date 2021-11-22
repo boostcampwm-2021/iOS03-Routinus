@@ -556,6 +556,50 @@ public enum RoutinusDatabase {
         }
     }
 
+    public static func updateContinuityDay(of id: String,
+                                           completion: (() -> Void)?) {
+        user(of: id) { dto in
+            guard let document = dto.document,
+                  let grade = Int(document.fields.grade.integerValue),
+                  let continuityDay = Int(document.fields.continuityDay.integerValue),
+                  let lastAuthDay = Int(document.fields.lastAuthDay.stringValue) else { return }
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            guard let date = Int(dateFormatter.string(from: Date())),
+                  lastAuthDay < date else { return }
+
+            let name = document.fields.name.stringValue
+            let userImageCategoryID = document.fields.userImageCategoryID.stringValue
+
+            let userDTO = UserDTO(id: id,
+                                  name: name,
+                                  grade: grade,
+                                  continuityDay: continuityDay + 1,
+                                  userImageCategoryID: userImageCategoryID,
+                                  lastAuthDay: "\(date)")
+
+            guard let userField = userDTO.document?.fields else { return }
+            let documentID = dto.documentID ?? ""
+            var urlComponent = URLComponents(string: "\(firestoreURL)/user/\(documentID)?")
+            let queryItems = [
+                URLQueryItem(name: "updateMask.fieldPaths", value: "continuity_day"),
+                URLQueryItem(name: "updateMask.fieldPaths", value: "last_auth_day")
+            ]
+            urlComponent?.queryItems = queryItems
+
+            guard let url = urlComponent?.url else { return }
+            var request = URLRequest(url: url)
+            request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = HTTPMethod.patch.rawValue
+            request.httpBody = UserQuery.update(document: userField)
+
+            URLSession.shared.dataTask(with: request) { _, _, _ in
+                completion?()
+            }.resume()
+        }
+    }
+
     public static func updateChallenge(challengeDTO: ChallengeDTO,
                                        completion: (() -> Void)?) {
         guard let ownerID = challengeDTO.document?.fields.ownerID.stringValue,

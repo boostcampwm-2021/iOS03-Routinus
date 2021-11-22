@@ -39,6 +39,7 @@ class AuthViewModel: AuthViewModelIO {
     var challengeAuthCreateUsecase: ChallengeAuthCreatableUsecase
     var participationUpdateUsecase: ParticipationUpdatableUsecase
     var achievementUpdateUsecase: AchievementUpdatableUsecase
+    var userUpdateUsecase: UserUpdatableUsecase
 
     private var challengeID: String
     private var userAuthImageURL: String
@@ -50,7 +51,8 @@ class AuthViewModel: AuthViewModelIO {
          imageSaveUsecase: ImageSavableUsecase,
          challengeAuthCreateUsecase: ChallengeAuthCreatableUsecase,
          participationUpdateUsecase: ParticipationUpdatableUsecase,
-         achievementUpdateUsecase: AchievementUpdatableUsecase) {
+         achievementUpdateUsecase: AchievementUpdatableUsecase,
+         userUpdateUsecase: UserUpdatableUsecase) {
         self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
@@ -58,6 +60,7 @@ class AuthViewModel: AuthViewModelIO {
         self.challengeAuthCreateUsecase = challengeAuthCreateUsecase
         self.participationUpdateUsecase = participationUpdateUsecase
         self.achievementUpdateUsecase = achievementUpdateUsecase
+        self.userUpdateUsecase = userUpdateUsecase
         self.userAuthImageURL = ""
         self.userAuthThumbnailImageURL = ""
         self.fetchChallenge(challengeID: challengeID)
@@ -75,6 +78,7 @@ extension AuthViewModel {
                                                             userAuthThumbnailImageURL: userAuthThumbnailImageURL)
         self.participationUpdateUsecase.updateParticipationAuthCount(challengeID: challengeID)
         self.achievementUpdateUsecase.updateAchievementCount()
+        self.userUpdateUsecase.updateContinuityDay()
     }
 
     func didTappedAlertConfirm() {

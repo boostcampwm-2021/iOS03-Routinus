@@ -36,6 +36,18 @@ internal enum UserQuery {
                 "grade": { "integerValue": "0" },
                 "continuity_day": { "integerValue": "0" },
                 "user_image_category_id": { "stringValue": "0" }
+                "last_auth_day": { "stringValue": "0" }
+            }
+        }
+        """.data(using: .utf8)
+    }
+
+    internal static func update(document: UserFields) -> Data? {
+        return """
+        {
+            "fields": {
+                "continuity_day": { "integerValue": "\(document.continuityDay.integerValue)" },
+                "last_auth_day": { "stringValue": "\(document.lastAuthDay.stringValue)" }
             }
         }
         """.data(using: .utf8)
