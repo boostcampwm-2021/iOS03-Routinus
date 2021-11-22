@@ -63,7 +63,7 @@ final class ContinuityView: UIView {
         initContinuityLabel.isHidden = !isZero
         continuityDayLabel.isHidden = isZero
         continuityLabel.isHidden = isZero
-        continuityDayLabel.text = !isZero ? "\(user.continuityDay)" : continuityDayLabel.text
+        continuityDayLabel.text = "\(user.continuityDay)"
     }
 }
 
@@ -81,13 +81,13 @@ extension ContinuityView {
 
     private func configureSubviews() {
         addSubview(seedImageView)
-        seedImageView.anchor(leading: seedImageView.superview?.leadingAnchor, paddingLeading: 20,
-                             centerY: seedImageView.superview?.centerYAnchor,
+        seedImageView.anchor(leading: self.leadingAnchor, paddingLeading: 20,
+                             centerY: self.centerYAnchor,
                              width: 60, height: 60)
 
         addSubview(initContinuityLabel)
-        initContinuityLabel.anchor(leading: seedImageView.trailingAnchor, paddingLeading: 20,
-                                   centerY: initContinuityLabel.superview?.centerYAnchor)
+        initContinuityLabel.anchor(centerX: self.centerXAnchor,
+                                   centerY: self.centerYAnchor)
 
         addSubview(continuityDayLabel)
         continuityDayLabel.anchor(leading: seedImageView.trailingAnchor, paddingLeading: 10,
