@@ -8,10 +8,10 @@
 import Foundation
 
 protocol ChallengeUpdatableUsecase {
+    func endDate(startDate: Date, week: Int) -> Date?
     func updateChallenge(challenge: Challenge,
                          isChangedImage: Bool,
                          isChangedAuthImage: Bool)
-    func endDate(startDate: Date, week: Int) -> Date?
 }
 
 struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
