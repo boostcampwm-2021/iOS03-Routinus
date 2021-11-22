@@ -84,6 +84,10 @@ extension RoutineTableViewCell {
                             centerY: progressView.superview?.centerYAnchor,
                             height: contentView.frame.height + 5)
 
+        self.contentView.addSubview(leftArrow)
+        leftArrow.anchor(trailing: leftArrow.superview?.trailingAnchor, paddingTrailing: 20 + offset,
+                         centerY: leftArrow.superview?.centerYAnchor)
+
         self.contentView.addSubview(categoryImageView)
         categoryImageView.anchor(leading: categoryImageView.superview?.leadingAnchor, paddingLeading: offset + 20,
                                  centerY: categoryImageView.superview?.centerYAnchor,
@@ -91,10 +95,8 @@ extension RoutineTableViewCell {
 
         self.contentView.addSubview(categoryNameLabel)
         categoryNameLabel.anchor(leading: categoryImageView.trailingAnchor, paddingLeading: 10,
+                                 trailing: leftArrow.leadingAnchor,
                                  centerY: categoryNameLabel.superview?.centerYAnchor)
 
-        self.contentView.addSubview(leftArrow)
-        leftArrow.anchor(trailing: leftArrow.superview?.trailingAnchor, paddingTrailing: 20 + offset,
-                         centerY: leftArrow.superview?.centerYAnchor)
     }
 }
