@@ -7,7 +7,13 @@
 
 import UIKit
 
-final class AddChallengeView: UIView {
+protocol AddChallengeDelegate: AnyObject {
+    func didTappedAddButton()
+}
+
+final class ManageAddChallengeView: UIView {
+    weak var delegate: AddChallengeDelegate?
+
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -30,6 +36,7 @@ final class AddChallengeView: UIView {
         button.setTitleColor(.systemBackground, for: .normal)
         button.backgroundColor = UIColor(named: "MainColor")
         button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(didTappedAddButton), for: .touchUpInside)
         return button
     }()
 
@@ -48,7 +55,7 @@ final class AddChallengeView: UIView {
     }
 }
 
-extension AddChallengeView {
+extension ManageAddChallengeView {
     private func configureView() {
         backgroundColor = UIColor(named: "MainColor")?.withAlphaComponent(0.5)
         layer.cornerRadius = 10
@@ -59,5 +66,9 @@ extension AddChallengeView {
         stackView.addArrangedSubview(addButton)
         stackView.anchor(centerX: centerXAnchor,
                          centerY: centerYAnchor)
+    }
+
+    @objc func didTappedAddButton() {
+        delegate?.didTappedAddButton()
     }
 }
