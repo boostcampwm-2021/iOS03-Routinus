@@ -93,12 +93,13 @@ extension AuthViewController {
                 guard let self = self,
                       let challenge = challenge else { return }
                 self.navigationItem.title = challenge.title
-                self.authMethodView.configureMethodLabel(introduction: challenge.introduction)
+                self.authMethodView.update(to: challenge.authMethod)
                 self.viewModel?.imageData(from: challenge.challengeID,
                                           filename: "thumbnail_auth",
                                           completion: { data in
+                    guard let data = data else { return }
                     DispatchQueue.main.async {
-                        self.authMethodView.configureMethodImage(data: data)
+                        self.authMethodView.update(to: data)
                     }
                 })
             })
