@@ -42,6 +42,7 @@ final class RoutineTableViewCell: UITableViewCell {
         let imageConfig = UIImage.SymbolConfiguration(weight: .semibold)
         let image = UIImageView(image: UIImage(systemName: "chevron.left.2", withConfiguration: imageConfig))
         image.tintColor = UIColor(named: "DayColor")
+        image.anchor(width: image.frame.width)
         return image
     }()
 
@@ -80,23 +81,27 @@ extension RoutineTableViewCell {
         self.backgroundColor = .systemBackground
 
         self.contentView.addSubview(progressView)
-        progressView.anchor(horizontal: progressView.superview, paddingHorizontal: offset,
-                            centerY: progressView.superview?.centerYAnchor,
+        progressView.anchor(horizontal: progressView.superview,
+                            paddingHorizontal: offset,
+                            centerY: centerYAnchor,
                             height: contentView.frame.height + 5)
 
         self.contentView.addSubview(leftArrow)
-        leftArrow.anchor(trailing: leftArrow.superview?.trailingAnchor, paddingTrailing: 20 + offset,
-                         centerY: leftArrow.superview?.centerYAnchor)
+        leftArrow.anchor(trailing: trailingAnchor,
+                         paddingTrailing: 20 + offset,
+                         centerY: centerYAnchor)
 
         self.contentView.addSubview(categoryImageView)
-        categoryImageView.anchor(leading: categoryImageView.superview?.leadingAnchor, paddingLeading: offset + 20,
-                                 centerY: categoryImageView.superview?.centerYAnchor,
+        categoryImageView.anchor(leading: leadingAnchor,
+                                 paddingLeading: offset + 20,
+                                 centerY: centerYAnchor,
                                  width: 30, height: 30)
 
         self.contentView.addSubview(categoryNameLabel)
-        categoryNameLabel.anchor(leading: categoryImageView.trailingAnchor, paddingLeading: 10,
+        categoryNameLabel.anchor(leading: categoryImageView.trailingAnchor,
+                                 paddingLeading: 10,
                                  trailing: leftArrow.leadingAnchor,
-                                 centerY: categoryNameLabel.superview?.centerYAnchor)
+                                 centerY: centerYAnchor)
 
     }
 }
