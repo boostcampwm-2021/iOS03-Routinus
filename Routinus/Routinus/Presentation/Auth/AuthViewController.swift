@@ -118,6 +118,7 @@ extension AuthViewController {
         self.imagePicker.delegate = self
         self.previewView.delegate = self
         self.authButton.delegate = self
+        self.authMethodView.delegate = self
     }
 }
 
@@ -146,6 +147,13 @@ extension AuthViewController: AuthButtonDelegate {
     func didTappedAuthButton() {
         self.viewModel?.didTappedAuthButton()
         self.presentAlert()
+    }
+}
+
+extension AuthViewController: AuthMethodViewDelegate {
+    func didTappedMethodImageView() {
+        // TODO: 인증 방법 이미지 크게 표시
+        print("ddd")
     }
 }
 
