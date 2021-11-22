@@ -519,43 +519,6 @@ public enum RoutinusNetwork {
         }.resume()
     }
 
-    public static func patchChallenge(challengeDTO: ChallengeDTO,
-                                      imageURL: String,
-                                      thumbnailImageURL: String,
-                                      authExampleImageURL: String,
-                                      authExampleThumbnailImageURL: String,
-                                      completion: (() -> Void)?) {
-        updateChallenge(challengeDTO: challengeDTO,
-                        completion: nil)
-
-        let patchQueue = DispatchQueue(label: "patchQueue")
-        let group = DispatchGroup()
-
-        patchQueue.async(group: group) {
-            let id = challengeDTO.document?.fields.id.stringValue ?? ""
-            uploadImage(id: id,
-                        filename: "image",
-                        imageURL: imageURL,
-                        completion: nil)
-            uploadImage(id: id,
-                        filename: "thumbnail_image",
-                        imageURL: thumbnailImageURL,
-                        completion: nil)
-            uploadImage(id: id,
-                        filename: "auth",
-                        imageURL: authExampleImageURL,
-                        completion: nil)
-            uploadImage(id: id,
-                        filename: "thumbnail_auth",
-                        imageURL: authExampleImageURL,
-                        completion: nil)
-        }
-
-        group.notify(queue: patchQueue) {
-            completion?()
-        }
-    }
-
     public static func updateContinuityDay(of id: String,
                                            completion: (() -> Void)?) {
         user(of: id) { dto in

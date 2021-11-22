@@ -8,7 +8,9 @@
 import Foundation
 
 protocol ChallengeUpdatableUsecase {
-    func updateChallenge(challenge: Challenge)
+    func updateChallenge(challenge: Challenge,
+                         isChangedImage: Bool,
+                         isChangedAuthImage: Bool)
     func endDate(startDate: Date, week: Int) -> Date?
 }
 
@@ -26,11 +28,18 @@ struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
         return endDate
     }
 
-    func updateChallenge(challenge: Challenge) {
-        repository.update(challenge: challenge,
-                          imageURL: challenge.imageURL,
-                          thumbnailImageURL: challenge.thumbnailImageURL,
-                          authExampleImageURL: challenge.authExampleImageURL,
-                          authExampleThumbnailImageURL: challenge.authExampleThumbnailImageURL)
+    func updateChallenge(challenge: Challenge, isChangedImage: Bool, isChangedAuthImage: Bool) {
+        repository.update(challenge: challenge)
+        if isChangedImage {
+            repository.updateImage(challengeID: challenge.challengeID,
+                                   imageURL: challenge.imageURL,
+                                   thumbnailImageURL: challenge.thumbnailImageURL)
+        }
+        if isChangedAuthImage {
+            repository.updateImage(challengeID: challenge.challengeID,
+                                   authExampleImageURL: challenge.authExampleImageURL,
+                                   authExampleThumbnailImageURL: challenge.authExampleThumbnailImageURL)
+        }
+
     }
 }

@@ -87,6 +87,9 @@ final class CreateViewModel: CreateViewModelIO {
     private var authExampleImageURL: String
     private var authExampleThumbnailImageURL: String
 
+    private var isChangedImage: Bool
+    private var isChangedAuthImage: Bool
+
     init(challengeID: String? = nil,
          challengeCreateUsecase: ChallengeCreatableUsecase,
          challengeUpdateUsecase: ChallengeUpdatableUsecase,
@@ -108,6 +111,8 @@ final class CreateViewModel: CreateViewModelIO {
         self.authMethod = ""
         self.authExampleImageURL = ""
         self.authExampleThumbnailImageURL = ""
+        self.isChangedImage = false
+        self.isChangedAuthImage = false
     }
 }
 
@@ -124,6 +129,7 @@ extension CreateViewModel {
 
     func update(imageURL: String?) {
         self.imageURL = imageURL ?? ""
+        self.isChangedImage = true
         self.validate()
     }
 
@@ -151,6 +157,7 @@ extension CreateViewModel {
 
     func update(authExampleImageURL: String?) {
         self.authExampleImageURL = authExampleImageURL ?? ""
+        self.isChangedAuthImage = true
         self.validate()
     }
 
@@ -161,13 +168,16 @@ extension CreateViewModel {
 
     func updateAll(challenge: Challenge) {
         guard let startDate = challenge.startDate else { return }
+
         self.category = challenge.category
         self.title = challenge.title
         self.imageURL = challenge.imageURL
+        self.thumbnailImageURL = challenge.thumbnailImageURL
         self.week = challenge.week
         self.introduction = challenge.introduction
         self.authMethod = challenge.authMethod
         self.authExampleImageURL = challenge.authExampleImageURL
+        self.authExampleThumbnailImageURL = challenge.authExampleThumbnailImageURL
         guard let endDate = challengeUpdateUsecase.endDate(startDate: startDate, week: week) else { return }
         expectedEndDate.value = endDate
         self.validate()
@@ -218,6 +228,8 @@ extension CreateViewModel {
               let startDate = challenge.startDate,
               let endDate = challengeUpdateUsecase.endDate(startDate: startDate, week: week),
               let category = category else { return }
+
+
         let updateChallenge = Challenge(challengeID: challenge.challengeID,
                                         title: title,
                                         introduction: introduction,
@@ -232,7 +244,10 @@ extension CreateViewModel {
                                         ownerID: challenge.ownerID,
                                         week: week,
                                         participantCount: challenge.participantCount)
-        challengeUpdateUsecase.updateChallenge(challenge: updateChallenge)
+
+        challengeUpdateUsecase.updateChallenge(challenge: updateChallenge,
+                                               isChangedImage: isChangedImage,
+                                               isChangedAuthImage: isChangedAuthImage)
     }
 
     func saveImage(to directory: String, filename: String, data: Data?) -> String? {
@@ -242,7 +257,8 @@ extension CreateViewModel {
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)? = nil) {
-        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+        imageFetchUsecase.fetchImageData(from: directory,
+                                         filename: filename) { data in
             completion?(data)
         }
     }
