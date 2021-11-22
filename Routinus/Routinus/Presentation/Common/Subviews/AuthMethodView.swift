@@ -70,30 +70,22 @@ extension AuthMethodView {
 
     private func configureSubviews() {
         self.addSubview(titleLabel)
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20).isActive = true
-        self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        titleLabel.anchor(leading: leadingAnchor, paddingLeading: 20,
+                          top: topAnchor, paddingTop: 20)
 
         self.addSubview(methodImageView)
-        self.methodImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.methodImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
-        self.methodImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        self.methodImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        self.methodImageView.heightAnchor.constraint(equalTo: self.methodImageView.widthAnchor, multiplier: 1).isActive = true
+        methodImageView.anchor(leading: leadingAnchor, paddingLeading: 20,
+                               top: titleLabel.bottomAnchor, paddingTop: 10,
+                               width: 150, height: 150)
 
         self.addSubview(methodView)
-        self.methodView.translatesAutoresizingMaskIntoConstraints = false
-        self.methodView.topAnchor.constraint(equalTo: self.methodImageView.bottomAnchor, constant: 15).isActive = true
-        self.methodView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        self.methodView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
-        self.methodView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
+        methodView.anchor(horizontal: self, paddingHorizontal: 20,
+                          top: methodImageView.bottomAnchor, paddingTop: 15,
+                          bottom: bottomAnchor, paddingBottom: 20)
 
         methodView.addSubview(methodLabel)
-        self.methodLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.methodLabel.leadingAnchor.constraint(equalTo: self.methodView.leadingAnchor, constant: 10).isActive = true
-        self.methodLabel.trailingAnchor.constraint(equalTo: self.methodView.trailingAnchor, constant: -10).isActive = true
-        self.methodLabel.topAnchor.constraint(equalTo: self.methodView.topAnchor, constant: 10).isActive = true
-        self.methodLabel.bottomAnchor.constraint(equalTo: self.methodView.bottomAnchor, constant: -10).isActive = true
+        methodLabel.anchor(horizontal: methodView, paddingHorizontal: 10,
+                           vertical: methodView, paddingVertical: 10)
     }
 
     func update(to text: String) {

@@ -142,19 +142,19 @@ extension CalendarHeader {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        previousMonthButton.anchor(left: previousMonthButton.superview?.leftAnchor, paddingLeft: 10,
+        previousMonthButton.anchor(leading: previousMonthButton.superview?.leadingAnchor, paddingLeading: 10,
                                    top: previousMonthButton.superview?.topAnchor, paddingTop: 15,
                                    width: 36, height: 36)
 
-        monthLabel.anchor(left: previousMonthButton.rightAnchor, paddingLeft: 10,
+        monthLabel.anchor(leading: previousMonthButton.trailingAnchor, paddingLeading: 10,
                           centerY: previousMonthButton.centerYAnchor,
                           width: 100)
 
-        nextMonthButton.anchor(left: monthLabel.rightAnchor, paddingLeft: 10,
+        nextMonthButton.anchor(leading: monthLabel.trailingAnchor, paddingLeading: 10,
                                centerY: previousMonthButton.centerYAnchor,
                                width: 36, height: 36)
 
-        todayButton.anchor(right: todayButton.superview?.rightAnchor, paddingRight: 15,
+        todayButton.anchor(trailing: todayButton.superview?.trailingAnchor, paddingTrailing: 15,
                            centerY: previousMonthButton.centerYAnchor,
                            width: 80)
 

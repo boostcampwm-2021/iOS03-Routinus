@@ -81,20 +81,20 @@ extension ContinuityView {
 
     private func configureSubviews() {
         addSubview(seedImageView)
-        seedImageView.anchor(left: seedImageView.superview?.leftAnchor, paddingLeft: 20,
+        seedImageView.anchor(leading: seedImageView.superview?.leadingAnchor, paddingLeading: 20,
                              centerY: seedImageView.superview?.centerYAnchor,
                              width: 60, height: 60)
 
         addSubview(initContinuityLabel)
-        initContinuityLabel.anchor(left: seedImageView.rightAnchor, paddingLeft: 20,
+        initContinuityLabel.anchor(leading: seedImageView.trailingAnchor, paddingLeading: 20,
                                    centerY: initContinuityLabel.superview?.centerYAnchor)
 
         addSubview(continuityDayLabel)
-        continuityDayLabel.anchor(left: seedImageView.rightAnchor, paddingLeft: 10,
+        continuityDayLabel.anchor(leading: seedImageView.trailingAnchor, paddingLeading: 10,
                                   centerY: continuityDayLabel.superview?.centerYAnchor)
 
         addSubview(continuityLabel)
-        continuityLabel.anchor(left: continuityDayLabel.rightAnchor, paddingLeft: 5,
+        continuityLabel.anchor(leading: continuityDayLabel.trailingAnchor, paddingLeading: 5,
                                bottom: continuityDayLabel.bottomAnchor, paddingBottom: 8)
     }
 }

@@ -156,7 +156,7 @@ extension ChallengeViewController {
     private func configureSearchButton() {
         self.navigationController?.navigationBar.addSubview(searchButton)
         self.searchButton.frame = CGRect(x: self.view.frame.width, y: 0, width: 40, height: 40)
-        searchButton.anchor(right: searchButton.superview?.rightAnchor, paddingRight: 16,
+        searchButton.anchor(trailing: searchButton.superview?.trailingAnchor, paddingTrailing: 16,
                             bottom: searchButton.superview?.lastBaselineAnchor, paddingBottom: 16)
     }
 

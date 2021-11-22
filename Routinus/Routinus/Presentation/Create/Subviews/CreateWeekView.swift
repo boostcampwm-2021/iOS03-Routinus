@@ -105,12 +105,12 @@ extension CreateWeekView {
                                 width: UIScreen.main.bounds.width - 40)
 
         addSubview(weekTextField)
-        weekTextField.anchor(left: weekTextField.superview?.leftAnchor,
+        weekTextField.anchor(leading: weekTextField.superview?.leadingAnchor,
                              top: descriptionLabel.bottomAnchor, paddingTop: 20,
                              width: 50)
 
         addSubview(weekLabel)
-        weekLabel.anchor(left: weekTextField.rightAnchor, paddingLeft: 10,
+        weekLabel.anchor(leading: weekTextField.trailingAnchor, paddingLeading: 10,
                          centerY: weekTextField.centerYAnchor)
 
         addSubview(endDateView)
@@ -119,11 +119,11 @@ extension CreateWeekView {
                            height: 40)
 
         endDateView.addSubview(endTitleLabel)
-        endTitleLabel.anchor(left: endTitleLabel.superview?.leftAnchor, paddingLeft: 10,
+        endTitleLabel.anchor(leading: endTitleLabel.superview?.leadingAnchor, paddingLeading: 10,
                              centerY: endTitleLabel.superview?.centerYAnchor)
 
         endDateView.addSubview(endDateLabel)
-        endDateLabel.anchor(left: endTitleLabel.rightAnchor, paddingLeft: 10,
+        endDateLabel.anchor(leading: endTitleLabel.trailingAnchor, paddingLeading: 10,
                             centerY: endDateLabel.superview?.centerYAnchor)
 
         anchor(bottom: endDateLabel.bottomAnchor)

@@ -56,11 +56,11 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
         label.text = section.title
 
         addSubview(label)
-        label.anchor(left: self.leftAnchor,
+        label.anchor(leading: self.leadingAnchor,
                          centerY: centerYAnchor)
 
         addSubview(toggleImage)
-        toggleImage.anchor(right: self.rightAnchor,
+        toggleImage.anchor(trailing: self.trailingAnchor,
                          centerY: centerYAnchor)
     }
 

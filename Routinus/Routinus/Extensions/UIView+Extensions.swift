@@ -8,10 +8,10 @@
 import UIKit
 
 public extension UIView {
-    func anchor(left: NSLayoutXAxisAnchor? = nil,
-                paddingLeft: CGFloat = 0,
-                right: NSLayoutXAxisAnchor? = nil,
-                paddingRight: CGFloat = 0,
+    func anchor(leading: NSLayoutXAxisAnchor? = nil,
+                paddingLeading: CGFloat = 0,
+                trailing: NSLayoutXAxisAnchor? = nil,
+                paddingTrailing: CGFloat = 0,
                 centerX: NSLayoutXAxisAnchor? = nil,
                 horizontal: UIView? = nil,
                 paddingHorizontal: CGFloat = 0,
@@ -26,18 +26,18 @@ public extension UIView {
                 height: CGFloat? = nil) {
         translatesAutoresizingMaskIntoConstraints = false
 
-        if let left = left {
-            leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
+        if let leading = leading {
+            leadingAnchor.constraint(equalTo: leading, constant: paddingLeading).isActive = true
         }
-        if let right = right {
-            rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
+        if let trailing = trailing {
+            trailingAnchor.constraint(equalTo: trailing, constant: -paddingTrailing).isActive = true
         }
         if let centerX = centerX {
             centerXAnchor.constraint(equalTo: centerX).isActive = true
         }
         if let horizontal = horizontal {
-            leftAnchor.constraint(equalTo: horizontal.leftAnchor, constant: paddingHorizontal).isActive = true
-            rightAnchor.constraint(equalTo: horizontal.rightAnchor, constant: -paddingHorizontal).isActive = true
+            leadingAnchor.constraint(equalTo: horizontal.leadingAnchor, constant: paddingHorizontal).isActive = true
+            trailingAnchor.constraint(equalTo: horizontal.trailingAnchor, constant: -paddingHorizontal).isActive = true
         }
         if let top = top {
             topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
@@ -63,9 +63,9 @@ public extension UIView {
     func anchor(edges: UILayoutGuide) {
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            leftAnchor.constraint(equalTo: edges.leftAnchor),
+            leadingAnchor.constraint(equalTo: edges.leadingAnchor),
             topAnchor.constraint(equalTo: edges.topAnchor),
-            rightAnchor.constraint(equalTo: edges.rightAnchor),
+            trailingAnchor.constraint(equalTo: edges.trailingAnchor),
             bottomAnchor.constraint(equalTo: edges.bottomAnchor)
         ])
     }
@@ -74,9 +74,9 @@ public extension UIView {
         guard let edges = edges else { return }
         translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            leftAnchor.constraint(equalTo: edges.leftAnchor),
+            leadingAnchor.constraint(equalTo: edges.leadingAnchor),
             topAnchor.constraint(equalTo: edges.topAnchor),
-            rightAnchor.constraint(equalTo: edges.rightAnchor),
+            trailingAnchor.constraint(equalTo: edges.trailingAnchor),
             bottomAnchor.constraint(equalTo: edges.bottomAnchor)
         ])
     }

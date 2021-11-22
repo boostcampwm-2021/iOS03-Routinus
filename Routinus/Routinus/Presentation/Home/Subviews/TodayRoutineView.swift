@@ -87,11 +87,11 @@ extension TodayRoutineView {
         let offset = smallWidth ? 15.0 : 20.0
 
         addSubview(titleLabel)
-        titleLabel.anchor(left: titleLabel.superview?.leftAnchor, paddingLeft: offset,
+        titleLabel.anchor(leading: titleLabel.superview?.leadingAnchor, paddingLeading: offset,
                           top: titleLabel.superview?.topAnchor)
 
         addSubview(addButton)
-        addButton.anchor(right: addButton.superview?.rightAnchor, paddingRight: offset,
+        addButton.anchor(trailing: addButton.superview?.trailingAnchor, paddingTrailing: offset,
                          top: addButton.superview?.topAnchor)
 
         addSubview(tableView)

@@ -67,16 +67,16 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         self.addSubview(encounterView)
 
         self.encounterView.addSubview(encounterIcon)
-        encounterIcon.anchor(left: encounterIcon.superview?.leftAnchor, paddingLeft: 15,
+        encounterIcon.anchor(leading: encounterIcon.superview?.leadingAnchor, paddingLeading: 15,
                              centerY: encounterIcon.superview?.centerYAnchor,
                              width: 16, height: 16)
 
         self.encounterView.addSubview(encounterLabel)
-        encounterLabel.anchor(left: encounterIcon.rightAnchor, paddingLeft: 5,
+        encounterLabel.anchor(leading: encounterIcon.trailingAnchor, paddingLeading: 5,
                               centerY: encounterLabel.superview?.centerYAnchor)
 
-        encounterView.anchor(left: titleLabel.leftAnchor,
-                             right: encounterLabel.rightAnchor, paddingRight: -15,
+        encounterView.anchor(leading: titleLabel.leadingAnchor,
+                             trailing: encounterLabel.trailingAnchor, paddingTrailing: -15,
                              bottom: encounterView.superview?.bottomAnchor, paddingBottom: 20)
         let constraint = encounterView.heightAnchor.constraint(equalToConstant: 30)
         constraint.priority = UILayoutPriority(900)

@@ -53,8 +53,8 @@ extension AuthViewController {
         self.configureNavigationBar()
 
         self.view.addSubview(scrollView)
-        self.scrollView.anchor(left: self.view.safeAreaLayoutGuide.leftAnchor,
-                               right: self.view.safeAreaLayoutGuide.rightAnchor,
+        self.scrollView.anchor(leading: self.view.safeAreaLayoutGuide.leadingAnchor,
+                               trailing: self.view.safeAreaLayoutGuide.trailingAnchor,
                                top: self.view.safeAreaLayoutGuide.topAnchor)
 
         self.view.addSubview(authView)
@@ -69,8 +69,8 @@ extension AuthViewController {
                           bottom: authButton.superview?.bottomAnchor, paddingBottom: 30)
 
         self.scrollView.addSubview(stackView)
-        self.stackView.anchor(left: self.scrollView.leftAnchor,
-                              right: self.scrollView.rightAnchor,
+        self.stackView.anchor(leading: self.scrollView.leadingAnchor,
+                              trailing: self.scrollView.trailingAnchor,
                               centerX: self.scrollView.centerXAnchor,
                               top: self.scrollView.topAnchor,
                               bottom: self.scrollView.bottomAnchor, paddingBottom: 20)

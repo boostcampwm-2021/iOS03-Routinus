@@ -37,7 +37,7 @@ final class SearchCollectionViewHeader: UICollectionReusableView {
     func configureViews() {
         self.addSubview(label)
 
-        label.anchor(left: label.superview?.leftAnchor,
+        label.anchor(leading: label.superview?.leadingAnchor,
                      centerY: label.superview?.centerYAnchor)
     }
 }

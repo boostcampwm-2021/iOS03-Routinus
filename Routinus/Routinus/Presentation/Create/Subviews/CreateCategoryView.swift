@@ -88,7 +88,7 @@ extension CreateCategoryView {
                           width: UIScreen.main.bounds.width - 20)
 
         addSubview(button)
-        button.anchor(left: button.superview?.leftAnchor,
+        button.anchor(leading: button.superview?.leadingAnchor,
                       top: titleLabel.bottomAnchor, paddingTop: 20,
                       width: 100, height: 40)
 
