@@ -107,29 +107,13 @@ private extension DateCollectionViewCell {
         guard let day = day else { return }
 
         applyDefaultStyle(isWithinDisplayedMonth: day.isWithinDisplayedMonth,
-                         weekday: Calendar.current.component(.weekday, from: day.date))
-        day.isSelected ? applySelectedStyle() :  nil
-    }
-
-    var isSmallScreenSize: Bool {
-        let isCompact = traitCollection.horizontalSizeClass == .compact
-        let smallWidth = UIScreen.main.bounds.width <= 350
-        let widthGreaterThanHeight = UIScreen.main.bounds.width > UIScreen.main.bounds.height
-
-        return isCompact && (smallWidth || widthGreaterThanHeight)
-    }
-
-    func applySelectedStyle() {
-        accessibilityTraits.insert(.selected)
-
-        if isSmallScreenSize {
-            numberLabel.textColor = UIColor(named: "MainColor")
+                          weekday: Calendar.current.component(.weekday, from: day.date))
+        if day.isSelected {
+            achievementCharacterView.isHidden = false
         }
-        achievementCharacterView.isHidden = isSmallScreenSize
     }
 
     func applyDefaultStyle(isWithinDisplayedMonth: Bool, weekday: Int) {
-        accessibilityTraits.remove(.selected)
         let color: UIColor?
         switch weekday {
         case 1:
