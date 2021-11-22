@@ -1,5 +1,5 @@
 //
-//  ProfileView.swift
+//  MyPageProfileView.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProfileView: UIView {
+final class MyPageProfileView: UIView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -50,7 +50,7 @@ final class ProfileView: UIView {
     }
 }
 
-extension ProfileView {
+extension MyPageProfileView {
     private func configureViews() {
         self.addSubview(imageView)
         imageView.anchor(centerX: self.centerXAnchor,

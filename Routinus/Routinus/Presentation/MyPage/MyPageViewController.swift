@@ -16,7 +16,7 @@ final class MyPageViewController: UIViewController {
         label.text = "마이페이지"
         return label
     }()
-    private lazy var profileView = ProfileView()
+    private lazy var profileView = MyPageProfileView()
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.isScrollEnabled = false
@@ -177,7 +177,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 1:
-            present(DeveloperViewController(), animated: true)
+            present(MyPageDeveloperViewController(), animated: true)
         default:
             break
         }
