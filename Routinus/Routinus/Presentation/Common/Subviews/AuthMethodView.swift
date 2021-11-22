@@ -51,15 +51,6 @@ final class AuthMethodView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
-
-    func configureMethodLabel(introduction: String) {
-        self.methodLabel.text = introduction
-    }
-
-    func configureMethodImage(data: Data?) {
-        guard let data = data else { return }
-        self.methodImageView.image = UIImage(data: data)
-    }
 }
 
 extension AuthMethodView {
