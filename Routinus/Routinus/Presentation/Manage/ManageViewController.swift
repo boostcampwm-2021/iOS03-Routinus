@@ -16,14 +16,6 @@ final class ManageViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<Section, Challenge>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Challenge>
 
-    private lazy var addButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "plus"),
-                                     style: .plain, target: self,
-                                     action: #selector(didTouchAddButton))
-        button.tintColor = UIColor(named: "Black")
-        return button
-    }()
-
     private var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.backgroundColor = .systemBackground
@@ -71,7 +63,6 @@ extension ManageViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "my challenges".localized
-        navigationItem.rightBarButtonItem = addButton
     }
 
     private func configureViewModel() {
@@ -141,8 +132,8 @@ extension ManageViewController {
     }
 }
 
-extension ManageViewController {
-    @objc func didTouchAddButton() {
+extension ManageViewController: AddChallengeDelegate {
+    func didTappedAddButton() {
         viewModel?.didTappedAddButton()
     }
 
@@ -157,6 +148,7 @@ extension ManageViewController {
             if indexPath.section == 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManageAddCollectionViewCell.identifier,
                                                               for: indexPath) as? ManageAddCollectionViewCell
+                cell?.delegate = self
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCollectionViewCell.identifier,

@@ -355,6 +355,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		0D18D072274B5D1800AD11F8 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				0D18D06E27492F2800AD11F8 /* AddChallengeView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		0DBBAA3827341C3600B32EB5 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,7 +386,6 @@
 			isa = PBXGroup;
 			children = (
 				E937044127434D4700D82B1D /* AuthMethodView.swift */,
-				0D18D06E27492F2800AD11F8 /* AddChallengeView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -759,6 +766,7 @@
 			children = (
 				E9797CAC2731074B00A14A0F /* ManageViewController.swift */,
 				0DE0339B274355760026F502 /* ManageViewModel.swift */,
+				0D18D072274B5D1800AD11F8 /* Subviews */,
 				0D18D06B2749166000AD11F8 /* Cells */,
 				446A0734274622F4009F8D98 /* Layouts */,
 			);
