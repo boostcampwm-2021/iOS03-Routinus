@@ -83,7 +83,6 @@ final class HomeCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-        self.navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.pushViewController(homeViewController, animated: false)
     }
 }
