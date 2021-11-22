@@ -29,10 +29,11 @@ final class MyPageProfileView: UIView {
         return label
     }()
 
-    private lazy var updateButton: UIButton = {
-        let button = UIButton(type: .roundedRect)
-        button.setTitle("수정", for: .normal)
-        return button
+    private lazy var updateIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "pencil")
+        imageView.tintColor = UIColor(named: "Black")
+        return imageView
     }()
 
     override init(frame: CGRect) {
@@ -65,6 +66,6 @@ extension MyPageProfileView {
                              paddingTop: 20)
 
         self.nameStackView.addArrangedSubview(nameLabel)
-        self.nameStackView.addArrangedSubview(updateButton)
+        self.nameStackView.addArrangedSubview(updateIconImageView)
     }
 }
