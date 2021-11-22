@@ -14,13 +14,26 @@ final class LaunchView: UIView {
         return imageView
     }()
 
-    override func draw(_ rect: CGRect) {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         self.configureViews()
         self.animation()
     }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.configureViews()
+        self.animation()
+    }
+
+    convenience init() {
+        self.init(frame: CGRect.zero)
+    }
+}
+
+extension LaunchView {
     private func configureViews() {
-        self.backgroundColor = .white
+        self.backgroundColor = .systemBackground
         self.addSubview(launchImageView)
         self.launchImageView.anchor(leading: self.leadingAnchor, paddingLeading: 30,
                                    trailing: self.trailingAnchor, paddingTrailing: 30,
@@ -29,7 +42,7 @@ final class LaunchView: UIView {
     }
 
     private func animation() {
-        UIView.animate(withDuration: 2,
+        UIView.animate(withDuration: 1,
                        animations: {
             self.launchImageView.alpha = 0
         },

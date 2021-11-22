@@ -41,6 +41,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureLaunchView()
         configureViews()
         configureViewModel()
         configureDelegates()
@@ -49,6 +50,14 @@ final class HomeViewController: UIViewController {
 }
 
 extension HomeViewController {
+    private func configureLaunchView() {
+        let launchView = LaunchView(frame: CGRect(x: 0,
+                                                  y: 0,
+                                                  width: self.view.frame.width,
+                                                  height: self.view.frame.height))
+        self.tabBarController?.view.addSubview(launchView)
+    }
+
     private func configureViews() {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
