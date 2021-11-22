@@ -18,7 +18,7 @@ final class ManageAddCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
-    private lazy var addChallengeView = AddChallengeView()
+    private lazy var addChallengeView = ManageAddChallengeView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -11,7 +11,7 @@ protocol AddChallengeDelegate: AnyObject {
     func didTappedAddButton()
 }
 
-final class AddChallengeView: UIView {
+final class ManageAddChallengeView: UIView {
     weak var delegate: AddChallengeDelegate?
 
     private lazy var stackView: UIStackView = {
@@ -55,7 +55,7 @@ final class AddChallengeView: UIView {
     }
 }
 
-extension AddChallengeView {
+extension ManageAddChallengeView {
     private func configureView() {
         backgroundColor = UIColor(named: "MainColor")?.withAlphaComponent(0.5)
         layer.cornerRadius = 10
