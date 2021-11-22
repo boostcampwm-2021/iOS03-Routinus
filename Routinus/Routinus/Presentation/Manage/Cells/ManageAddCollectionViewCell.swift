@@ -35,7 +35,7 @@ extension  ManageAddCollectionViewCell {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 28.0 : 32.0
 
-        anchor(height: 250)
+        anchor(height: 250 + offset)
 
         addSubview(titleLabel)
         titleLabel.anchor(horizontal: self,
@@ -44,8 +44,7 @@ extension  ManageAddCollectionViewCell {
 
         addSubview(addChallengeView)
         addChallengeView.anchor(horizontal: self,
-                                top: titleLabel.bottomAnchor, paddingTop: 10,
-                                bottom: self.bottomAnchor)
+                                top: titleLabel.bottomAnchor, paddingTop: 10)
     }
 
     func addDelegate(_ delegate: AddChallengeDelegate) {

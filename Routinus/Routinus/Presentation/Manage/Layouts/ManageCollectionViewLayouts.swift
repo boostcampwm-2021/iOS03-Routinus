@@ -17,7 +17,7 @@ final class ManageCollectionViewLayouts {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .estimated(250))
+                                               heightDimension: .estimated(250 + (smallWidth ? 28 : 32)))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitem: item,
                                                        count: 1)

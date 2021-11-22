@@ -12,9 +12,13 @@ final class ManageViewController: UIViewController {
     enum Section: CaseIterable {
         case add, participating, created, ended
     }
+    enum Item: Hashable {
+        case title
+        case challenge(Challenge)
+    }
 
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Challenge>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Challenge>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
 
     private var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
@@ -49,6 +53,7 @@ final class ManageViewController: UIViewController {
         configureViews()
         configureCollectionView()
         configureViewModel()
+        configureTitle()
         didLoadedManageView()
     }
 
@@ -74,9 +79,10 @@ extension ManageViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
+                let contents = challengeItem.map { Item.challenge($0) }
                 var snapshot = self.dataSource.snapshot(for: .participating)
                 snapshot.deleteAll()
-                snapshot.append(challengeItem)
+                snapshot.append(contents)
                 self.dataSource.apply(snapshot, to: .participating)
             })
             .store(in: &cancellables)
@@ -85,9 +91,10 @@ extension ManageViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
+                let contents = challengeItem.map { Item.challenge($0) }
                 var snapshot = self.dataSource.snapshot(for: .created)
                 snapshot.deleteAll()
-                snapshot.append(challengeItem)
+                snapshot.append(contents)
                 self.dataSource.apply(snapshot, to: .created)
             })
             .store(in: &cancellables)
@@ -96,9 +103,10 @@ extension ManageViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
+                let contents = challengeItem.map { Item.challenge($0) }
                 var snapshot = self.dataSource.snapshot(for: .ended)
                 snapshot.deleteAll()
-                snapshot.append(challengeItem)
+                snapshot.append(contents)
                 self.dataSource.apply(snapshot, to: .ended)
             })
             .store(in: &cancellables)
@@ -107,25 +115,8 @@ extension ManageViewController {
     private func configureCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = dataSource
-        dataSource = configureDataSource()
-        configureHeader(of: dataSource)
 
-        var snapshot = self.dataSource.snapshot(for: .add)
-        snapshot.append([Challenge(challengeID: "",
-                                        title: "",
-                                        introduction: "",
-                                        category: .exercise,
-                                        imageURL: "",
-                                        thumbnailImageURL: "",
-                                        authExampleImageURL: "",
-                                        authExampleThumbnailImageURL: "",
-                                        authMethod: "",
-                                        startDate: Date(),
-                                        endDate: Date(),
-                                        ownerID: "",
-                                        week: 0,
-                                        participantCount: 0)])
-        dataSource.apply(snapshot, to: .add)
+        configureHeader(of: dataSource)
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
@@ -149,16 +140,18 @@ extension ManageViewController: AddChallengeDelegate {
 extension ManageViewController {
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, content in
-            if indexPath.section == 0 {
+            switch content {
+            case .title:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManageAddCollectionViewCell.identifier,
                                                               for: indexPath) as? ManageAddCollectionViewCell
                 cell?.addDelegate(self)
                 return cell
-            } else {
+
+            case .challenge(let challenge):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCollectionViewCell.identifier,
                                                               for: indexPath) as? ChallengeCollectionViewCell
-                cell?.setTitle(content.title)
-                self.viewModel?.imageData(from: content.challengeID,
+                cell?.setTitle(challenge.title)
+                self.viewModel?.imageData(from: challenge.challengeID,
                                           filename: "thumbnail_image") { data in
                     guard let data = data,
                           let image = UIImage(data: data) else { return }
@@ -170,6 +163,10 @@ extension ManageViewController {
                 return cell
             }
         }
+
+        var snapshot = Snapshot()
+        snapshot.appendSections(Section.allCases)
+        dataSource.apply(snapshot, animatingDifferences: true)
         return dataSource
     }
 
@@ -206,6 +203,12 @@ extension ManageViewController {
             return view
         }
     }
+
+    private func configureTitle() {
+        var snapshot = self.dataSource.snapshot(for: .add)
+        snapshot.append([Item.title])
+        dataSource.apply(snapshot, to: .add)
+    }
 }
 
 extension ManageViewController: UICollectionViewDelegate {
@@ -225,7 +228,9 @@ extension ManageViewController: UIGestureRecognizerDelegate {
         case .participating:
             var snapshot = dataSource.snapshot(for: .participating)
             if headerView.isExpanded == true {
-                snapshot.append(viewModel?.participatingChallenges.value ?? [])
+                guard let challenges = viewModel?.participatingChallenges.value else { return }
+                let contents = challenges.map { Item.challenge($0) }
+                snapshot.append(contents)
             } else {
                 snapshot.deleteAll()
             }
@@ -233,7 +238,9 @@ extension ManageViewController: UIGestureRecognizerDelegate {
         case .created:
             var snapshot = dataSource.snapshot(for: .created)
             if headerView.isExpanded == true {
-                snapshot.append(viewModel?.createdChallenges.value ?? [])
+                guard let challenges = viewModel?.createdChallenges.value else { return }
+                let contents = challenges.map { Item.challenge($0) }
+                snapshot.append(contents)
             } else {
                 snapshot.deleteAll()
             }
@@ -241,7 +248,9 @@ extension ManageViewController: UIGestureRecognizerDelegate {
         case .ended:
             var snapshot = dataSource.snapshot(for: .ended)
             if headerView.isExpanded == true {
-                snapshot.append(viewModel?.endedChallenges.value ?? [])
+                guard let challenges = viewModel?.endedChallenges.value else { return }
+                let contents = challenges.map { Item.challenge($0) }
+                snapshot.append(contents)
             } else {
                 snapshot.deleteAll()
             }
