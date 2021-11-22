@@ -80,6 +80,7 @@ extension ManageViewController {
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
                 var snapshot = self.dataSource.snapshot(for: .participating)
+                snapshot.deleteAll()
                 snapshot.append(challengeItem)
                 self.dataSource.apply(snapshot, to: .participating)
             })
@@ -90,6 +91,7 @@ extension ManageViewController {
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
                 var snapshot = self.dataSource.snapshot(for: .created)
+                snapshot.deleteAll()
                 snapshot.append(challengeItem)
                 self.dataSource.apply(snapshot, to: .created)
             })
@@ -100,6 +102,7 @@ extension ManageViewController {
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
                 var snapshot = self.dataSource.snapshot(for: .ended)
+                snapshot.deleteAll()
                 snapshot.append(challengeItem)
                 self.dataSource.apply(snapshot, to: .ended)
             })

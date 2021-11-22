@@ -84,7 +84,6 @@ final class DetailCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-
         self.navigationController.pushViewController(detailViewController,
                                                      animated: true)
     }

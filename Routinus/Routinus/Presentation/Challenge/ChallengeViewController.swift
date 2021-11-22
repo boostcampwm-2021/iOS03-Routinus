@@ -167,6 +167,7 @@ extension ChallengeViewController {
                 guard let self = self else { return }
                 var snapshot = self.dataSource.snapshot(for: Section.recommend)
                 let contents = recommendChallenge.map { ChallengeContents.recommend($0) }
+                snapshot.deleteAll()
                 snapshot.append(contents)
                 self.dataSource.apply(snapshot, to: Section.recommend)
                 self.applyCategory()
