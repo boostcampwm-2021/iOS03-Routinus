@@ -122,8 +122,14 @@ extension MyPageViewController {
 
 extension MyPageViewController {
     @objc private func didChangeSegmentedControlValue(_ sender: UISegmentedControl) {
-        guard let style = UIUserInterfaceStyle(rawValue: sender.selectedSegmentIndex) else { return }
-        self.view.window?.overrideUserInterfaceStyle = style
+        guard let style = UIUserInterfaceStyle(rawValue: sender.selectedSegmentIndex),
+              let window = self.view.window else { return }
+
+        UIView.transition(with: window,
+                          duration: 0.4,
+                          options: .transitionCrossDissolve) {
+            window.overrideUserInterfaceStyle = style
+        }
     }
 }
 
