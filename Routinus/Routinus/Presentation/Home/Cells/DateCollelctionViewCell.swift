@@ -96,17 +96,6 @@ extension DateCollectionViewCell {
         self.day = day
     }
 
-    func applyDayColor(_ day: Int) {
-        switch day {
-        case 0:
-            self.numberLabel.textColor = UIColor(named: "SundayColor")
-        case 6:
-            self.numberLabel.textColor = UIColor(named: "SaturdayColor")
-        default:
-            self.numberLabel.textColor = UIColor(named: "DayColor")
-        }
-    }
-
     private func configureViews() {
         contentView.addSubview(achievementCharacterView)
         contentView.addSubview(numberLabel)
@@ -117,14 +106,9 @@ private extension DateCollectionViewCell {
     func updateSelectionStatus() {
         guard let day = day else { return }
 
-        if day.isSelected {
-            applySelectedStyle()
-        } else {
-            applyDefaultStyle(
-                isWithinDisplayedMonth: day.isWithinDisplayedMonth,
-                weekday: Calendar.current.component(.weekday, from: day.date)
-            )
-        }
+        applyDefaultStyle(isWithinDisplayedMonth: day.isWithinDisplayedMonth,
+                         weekday: Calendar.current.component(.weekday, from: day.date))
+        day.isSelected ? applySelectedStyle() :  nil
     }
 
     var isSmallScreenSize: Bool {
@@ -137,15 +121,15 @@ private extension DateCollectionViewCell {
 
     func applySelectedStyle() {
         accessibilityTraits.insert(.selected)
-        accessibilityHint = nil
 
-        numberLabel.textColor = isSmallScreenSize ? UIColor(named: "MainColor") : UIColor(named: "DayColor")
+        if isSmallScreenSize {
+            numberLabel.textColor = UIColor(named: "MainColor")
+        }
         achievementCharacterView.isHidden = isSmallScreenSize
     }
 
     func applyDefaultStyle(isWithinDisplayedMonth: Bool, weekday: Int) {
         accessibilityTraits.remove(.selected)
-        accessibilityHint = "Tap to select"
         let color: UIColor?
         switch weekday {
         case 1:
