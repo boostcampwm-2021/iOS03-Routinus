@@ -67,7 +67,6 @@ final class TodayRoutineView: UIView {
         tableView.removeLastAnchor()
         tableView.anchor(height: 60 * CGFloat(cellCount))
         tableView.layoutIfNeeded()
-        tableView.reloadData()
     }
 }
 
