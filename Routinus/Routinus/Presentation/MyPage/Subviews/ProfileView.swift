@@ -44,6 +44,10 @@ final class ProfileView: UIView {
         super.init(coder: coder)
         configureViews()
     }
+
+    func setName(_ name: String) {
+        self.nameLabel.text = name
+    }
 }
 
 extension ProfileView {

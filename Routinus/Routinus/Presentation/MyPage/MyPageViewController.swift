@@ -43,6 +43,7 @@ final class MyPageViewController: UIViewController {
     }()
 
     private var viewModel: MyPageViewModelIO?
+    private var cancellables = Set<AnyCancellable>()
 
     init(with viewModel: MyPageViewModelIO) {
         self.viewModel = viewModel
@@ -58,6 +59,7 @@ final class MyPageViewController: UIViewController {
 
         configureViews()
         configureDelegates()
+        configureViewModel()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +112,15 @@ extension MyPageViewController {
     private func configureDelegates() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
+    }
+
+    private func configureViewModel() {
+        self.viewModel?.user
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] user in
+                self?.profileView.setName(user.name)
+            })
+            .store(in: &cancellables)
     }
 }
 
