@@ -67,7 +67,7 @@ extension AddChallengeView {
         stackView.anchor(centerX: centerXAnchor,
                          centerY: centerYAnchor)
     }
-    
+
     @objc func didTappedAddButton() {
         delegate?.didTappedAddButton()
     }

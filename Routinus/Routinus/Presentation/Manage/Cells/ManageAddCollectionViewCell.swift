@@ -11,31 +11,15 @@ final class ManageAddCollectionViewCell: UICollectionViewCell {
     static let identifier = "ManageAddCollectionViewCell"
     weak var delegate: AddChallengeDelegate?
 
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 20
-        return stackView
-    }()
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "원하는 챌린지를\n직접 만들어보세요!"
-        label.numberOfLines = 2
-        label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 18)
+        label.text = "my challenges".localized
+        label.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width <= 350 ? 30 : 34,
+                                       weight: .bold)
         return label
     }()
 
-    private lazy var addButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("챌린지 개설하기", for: .normal)
-        button.setTitleColor(.systemBackground, for: .normal)
-        button.backgroundColor = UIColor(named: "MainColor")
-        button.layer.cornerRadius = 5
-        button.addTarget(self, action: #selector(didTappedAddButton), for: .touchUpInside)
-        return button
-    }()
+    private lazy var addChallengeView = AddChallengeView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,15 +33,20 @@ final class ManageAddCollectionViewCell: UICollectionViewCell {
 
 extension  ManageAddCollectionViewCell {
     private func configureView() {
-        backgroundColor = UIColor(named: "MainColor")?.withAlphaComponent(0.5)
-        layer.cornerRadius = 10
-        anchor(height: 160)
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 28.0 : 32.0
 
-        addSubview(stackView)
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(addButton)
-        stackView.anchor(centerX: centerXAnchor,
-                         centerY: centerYAnchor)
+        anchor(height: 250)
+
+        addSubview(titleLabel)
+        titleLabel.anchor(horizontal: self,
+                          top: topAnchor, paddingTop: offset,
+                          height: 80)
+
+        addSubview(addChallengeView)
+        addChallengeView.anchor(horizontal: self,
+                                top: titleLabel.bottomAnchor, paddingTop: 10,
+                                bottom: self.bottomAnchor)
     }
 
     @objc func didTappedAddButton() {

@@ -52,17 +52,22 @@ final class ManageViewController: UIViewController {
         configureViewModel()
         didLoadedManageView()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
 }
 
 extension ManageViewController {
     private func configureViews() {
         view.backgroundColor = .systemBackground
+
         view.addSubview(collectionView)
-        collectionView.anchor(horizontal: collectionView.superview,
-                              vertical: collectionView.superview)
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
-        navigationItem.title = "my challenges".localized
+        collectionView.anchor(edges: view.safeAreaLayoutGuide)
     }
 
     private func configureViewModel() {
