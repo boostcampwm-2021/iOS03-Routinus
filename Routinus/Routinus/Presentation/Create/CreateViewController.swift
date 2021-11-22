@@ -192,7 +192,7 @@ extension CreateViewController {
 
 extension CreateViewController {
     private func presentAlert() {
-        let message = self.viewModel?.buttonType.value == .create ? "챌린지가 생성되었습니다." : "챌린지가 수정되었습니다"
+        let message = self.viewModel?.buttonType.value.confirmMessage
         let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
         let confirm = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
             guard let self = self else { return }
