@@ -20,6 +20,7 @@ protocol SearchViewModelInput {
 protocol SearchViewModelOutput {
     var challenges: CurrentValueSubject<[Challenge], Never> { get }
     var popularKeywords: CurrentValueSubject<[String], Never> { get }
+    var searchKeyword: PassthroughSubject<String, Never> { get }
 
     var challengeTap: PassthroughSubject<String, Never> { get }
 }
@@ -27,16 +28,15 @@ protocol SearchViewModelOutput {
 protocol SearchViewModelIO: SearchViewModelInput, SearchViewModelOutput { }
 
 final class SearchViewModel: SearchViewModelIO {
-    var challenges = CurrentValueSubject<[Challenge], Never>([])
-    var popularKeywords = CurrentValueSubject<[String], Never>([])
+    private(set) var challenges = CurrentValueSubject<[Challenge], Never>([])
+    private(set) var popularKeywords = CurrentValueSubject<[String], Never>([])
+    private(set) var challengeTap = PassthroughSubject<String, Never>()
+    private(set) var searchKeyword = PassthroughSubject<String, Never>()
 
-    var challengeTap = PassthroughSubject<String, Never>()
-
-    let imageFetchUsecase: ImageFetchableUsecase
-    let challengeFetchUsecase: ChallengeFetchableUsecase
-    var cancellables = Set<AnyCancellable>()
-    var searchKeyword: String?
-    var searchCategory: Challenge.Category?
+    private let imageFetchUsecase: ImageFetchableUsecase
+    private let challengeFetchUsecase: ChallengeFetchableUsecase
+    private var cancellables = Set<AnyCancellable>()
+    private var searchCategory: Challenge.Category?
 
     init(category: Challenge.Category? = nil,
          imageFetchUsecase: ImageFetchableUsecase,
@@ -45,20 +45,33 @@ final class SearchViewModel: SearchViewModelIO {
         self.imageFetchUsecase = imageFetchUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
         self.fetchPopularKeywords()
+        self.bindKeyword()
     }
 }
 
 extension SearchViewModel {
+     private func bindKeyword() {
+         searchKeyword
+             .debounce(for: 0.4, scheduler: RunLoop.main)
+             .compactMap { $0 }
+             .sink { keyword in
+                 if keyword == "" {
+                     self.challengeFetchUsecase.fetchLatestChallenges { [weak self] challenges in
+                         self?.challenges.value = challenges
+                     }
+                 } else {
+                     self.challengeFetchUsecase.fetchSearchChallenges(keyword: keyword) { [weak self] challenges in
+                         self?.challenges.value = challenges
+                     }
+                 }
+             }
+             .store(in: &cancellables)
+     }
+}
+
+extension SearchViewModel {
     func didChangedSearchText(_ keyword: String) {
-        if keyword == "" {
-            challengeFetchUsecase.fetchLatestChallenges { [weak self] challenges in
-                self?.challenges.value = challenges
-            }
-        } else {
-            challengeFetchUsecase.fetchSearchChallenges(keyword: keyword) { [weak self] challenges in
-                self?.challenges.value = challenges
-            }
-        }
+        searchKeyword.send(keyword)
     }
 
     func didTappedChallenge(index: Int) {
