@@ -93,7 +93,6 @@
 		E901EFE827453F1100B14847 /* ChallengeAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */; };
 		E901EFEA27453F2000B14847 /* ChallengeAuthCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */; };
 		E901EFEC27453F6600B14847 /* ChallengeAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFEB27453F6600B14847 /* ChallengeAuth.swift */; };
-		E903FAAF274B99C900D11C99 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E903FAAE274B99C900D11C99 /* LaunchView.swift */; };
 		E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C1915273CACDD00D11127 /* PopularKeyword.swift */; };
 		E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044127434D4700D82B1D /* AuthMethodView.swift */; };
 		E937044427434D6300D82B1D /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044327434D6300D82B1D /* PreviewView.swift */; };
@@ -267,7 +266,6 @@
 		E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthRepository.swift; sourceTree = "<group>"; };
 		E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthCreateUsecase.swift; sourceTree = "<group>"; };
 		E901EFEB27453F6600B14847 /* ChallengeAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuth.swift; sourceTree = "<group>"; };
-		E903FAAE274B99C900D11C99 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LaunchView.swift; path = ../../../../../../../../../../Documents/LaunchView.swift; sourceTree = "<group>"; };
 		E91C1915273CACDD00D11127 /* PopularKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeyword.swift; sourceTree = "<group>"; };
 		E937044127434D4700D82B1D /* AuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMethodView.swift; sourceTree = "<group>"; };
 		E937044327434D6300D82B1D /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
@@ -615,7 +613,6 @@
 		E903FAAD274B99B500D11C99 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				E903FAAE274B99C900D11C99 /* LaunchView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1168,7 +1165,6 @@
 				E901EFD82744C9E300B14847 /* UserRepository.swift in Sources */,
 				149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */,
 				E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */,
-				E903FAAF274B99C900D11C99 /* LaunchView.swift in Sources */,
 				44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */,
 				0DC38F51273B684300331C25 /* SearchViewModel.swift in Sources */,
 				441CEDD627379939006C261F /* CalendarView.swift in Sources */,
