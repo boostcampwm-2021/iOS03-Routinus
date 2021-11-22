@@ -15,7 +15,7 @@ final class RoutineTableViewCell: UITableViewCell {
         progressView.layer.borderWidth = 5
         progressView.layer.cornerRadius = 25
 
-        progressView.progress = 0.5
+        progressView.progress = 0.0
         progressView.clipsToBounds = true
         progressView.progressViewStyle = .bar
 
@@ -66,7 +66,8 @@ final class RoutineTableViewCell: UITableViewCell {
             categoryImageView.image = UIImage(systemName: routine.category.symbol)
         }
         categoryNameLabel.text = routine.title
-        progressView.progress = Float(routine.authCount) / Float(routine.totalCount)
+        progressView.setProgress(Float(routine.authCount) / Float(routine.totalCount),
+                                 animated: true)
         progressView.tintColor = UIColor(named: routine.category.color)
         progressView.layer.borderColor = UIColor(named: routine.category.color)?.cgColor
     }
