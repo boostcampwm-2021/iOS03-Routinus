@@ -12,6 +12,7 @@ final class ManageViewController: UIViewController {
     enum Section: CaseIterable {
         case add, participating, created, ended
     }
+
     enum Item: Hashable {
         case title
         case challenge(Challenge)
@@ -144,7 +145,7 @@ extension ManageViewController {
             case .title:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManageAddCollectionViewCell.identifier,
                                                               for: indexPath) as? ManageAddCollectionViewCell
-                cell?.addDelegate(self)
+                cell?.delegate = self
                 return cell
 
             case .challenge(let challenge):

@@ -20,6 +20,12 @@ final class ManageAddCollectionViewCell: UICollectionViewCell {
 
     private lazy var addChallengeView = ManageAddChallengeView()
 
+    weak var delegate: AddChallengeDelegate? {
+        didSet {
+            addChallengeView.delegate = delegate
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureView()
@@ -45,9 +51,5 @@ extension  ManageAddCollectionViewCell {
         addSubview(addChallengeView)
         addChallengeView.anchor(horizontal: self,
                                 top: titleLabel.bottomAnchor, paddingTop: 10)
-    }
-
-    func addDelegate(_ delegate: AddChallengeDelegate) {
-        addChallengeView.delegate = delegate
     }
 }
