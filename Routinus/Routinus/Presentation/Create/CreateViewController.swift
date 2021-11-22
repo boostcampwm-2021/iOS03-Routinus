@@ -145,8 +145,7 @@ extension CreateViewController {
                 self.viewModel?.imageData(from: challenge.challengeID,
                                           filename: "thumbnail_image",
                                           completion: { data in
-                    guard let data = data else { return }
-                    guard let image = UIImage(data: data) else { return }
+                    guard let data = data, let image = UIImage(data: data) else { return }
                     DispatchQueue.main.async {
                         self.imageRegisterView.setImage(image)
                     }
@@ -157,8 +156,7 @@ extension CreateViewController {
                 self.viewModel?.imageData(from: challenge.challengeID,
                                           filename: "thumbnail_auth",
                                           completion: { data in
-                    guard let data = data else { return }
-                    guard let image = UIImage(data: data) else { return }
+                    guard let data = data, let image = UIImage(data: data) else { return }
                     DispatchQueue.main.async {
                         self.authImageRegisterView.setImage(image)
                     }
