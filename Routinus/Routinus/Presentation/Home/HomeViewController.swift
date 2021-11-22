@@ -46,20 +46,6 @@ final class HomeViewController: UIViewController {
         configureDelegates()
         viewModel?.fetchMyHomeData()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-
-    override func viewWillTransition(to size: CGSize,
-                                     with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        calendarView.reloadData()
-    }
 }
 
 extension HomeViewController {
