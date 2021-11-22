@@ -16,6 +16,8 @@ final class DetailCoordinator: RoutinusCoordinator {
     let challengeID: String?
     let authPublisher = NotificationCenter.default.publisher(for: AuthCoordinator.confirmAuth,
                                                              object: nil)
+    let updatePublisher = NotificationCenter.default.publisher(for: CreateCoordinator.confirmCreate,
+                                                               object: nil)
 
     init(navigationController: UINavigationController, challengeID: String) {
         self.navigationController = navigationController
@@ -74,6 +76,14 @@ final class DetailCoordinator: RoutinusCoordinator {
                 detailViewModel.fetchParticipationAuthState()
             }
             .store(in: &cancellables)
+
+        self.updatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                detailViewModel.fetchChallenge()
+            }
+            .store(in: &cancellables)
+
 
         self.navigationController.pushViewController(detailViewController,
                                                      animated: true)

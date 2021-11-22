@@ -57,6 +57,10 @@ final class CreateTitleView: UIView {
     func hideKeyboard() {
         textField.endEditing(true)
     }
+
+    func update(title: String) {
+        textField.text = title
+    }
 }
 
 extension CreateTitleView {

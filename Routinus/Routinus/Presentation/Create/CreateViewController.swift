@@ -44,7 +44,7 @@ final class CreateViewController: UIViewController {
     private lazy var authImageRegisterView = CreateAuthImageRegisterView()
     private lazy var createButton: UIButton = {
         var button = UIButton()
-        button.setTitle("생성하기", for: .normal)
+        button.setTitle(ButtonType.create.rawValue, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
         button.backgroundColor = UIColor(red: 180/255, green: 231/255, blue: 160/255, alpha: 1)
@@ -108,7 +108,17 @@ extension CreateViewController {
     }
 
     private func configureViewModel() {
-        self.viewModel?.createButtonState
+        self.viewModel?.didLoadedChallenge()
+
+        self.viewModel?.buttonType
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] buttonType in
+                guard let self = self else { return }
+                self.createButton.setTitle(buttonType.rawValue, for: .normal)
+            })
+            .store(in: &cancellables)
+
+        self.viewModel?.buttonState
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isEnabled in
                 guard let self = self else { return }
@@ -122,6 +132,35 @@ extension CreateViewController {
             .sink(receiveValue: { [weak self] endDate in
                 guard let self = self else { return }
                 self.weekView.updateEndDate(date: endDate)
+            })
+            .store(in: &cancellables)
+
+        self.viewModel?.challenge
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] challenge in
+                guard let self = self, let challenge = challenge else { return }
+
+                self.categoryView.update(category: challenge.category)
+                self.titleView.update(title: challenge.title)
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                          filename: "thumbnail_image",
+                                          completion: { data in
+                    guard let data = data, let image = UIImage(data: data) else { return }
+                    DispatchQueue.main.async {
+                        self.imageRegisterView.setImage(image)
+                    }
+                })
+                self.weekView.update(week: challenge.week) 
+                self.introductionView.update(introduction: challenge.introduction)
+                self.authMethodView.update(authMethod: challenge.authMethod)
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                          filename: "thumbnail_auth",
+                                          completion: { data in
+                    guard let data = data, let image = UIImage(data: data) else { return }
+                    DispatchQueue.main.async {
+                        self.authImageRegisterView.setImage(image)
+                    }
+                })
             })
             .store(in: &cancellables)
     }
@@ -153,7 +192,8 @@ extension CreateViewController {
 
 extension CreateViewController {
     private func presentAlert() {
-        let alert = UIAlertController(title: "알림", message: "챌린지가 생성되었습니다.", preferredStyle: .alert)
+        let message = self.viewModel?.buttonType.value.confirmMessage
+        let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
         let confirm = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.viewModel?.didTappedAlertConfirm()
@@ -332,6 +372,7 @@ extension CreateViewController: UIImagePickerControllerDelegate, UINavigationCon
                 viewModel?.update(authExampleImageURL: mainImageURL)
                 viewModel?.update(authExampleThumbnailImageURL: thumbnailImageURL)
                 authImageRegisterView.setImage(thumbnailImage)
+
             default:
                 break
             }

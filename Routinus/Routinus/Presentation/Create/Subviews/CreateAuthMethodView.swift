@@ -59,6 +59,10 @@ final class CreateAuthMethodView: UIView {
     func hideKeyboard() {
         textView.endEditing(true)
     }
+
+    func update(authMethod: String) {
+        textView.text = authMethod
+    }
 }
 
 extension CreateAuthMethodView {

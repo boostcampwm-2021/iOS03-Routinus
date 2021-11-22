@@ -182,4 +182,27 @@ struct Challenge: Hashable {
         self.week = Int(document?.week.integerValue ?? "") ?? 0
         self.participantCount = Int(document?.participantCount.integerValue ?? "") ?? 0
     }
+
+    init(challengeDTO: ChallengeDTO,
+         imageURL: String,
+         thumbnailImageURL: String,
+         authExampleImageURL: String,
+         authExampleThumbnailImageURL: String) {
+        let document = challengeDTO.document?.fields
+
+        self.challengeID = document?.id.stringValue ?? ""
+        self.title = document?.title.stringValue ?? ""
+        self.introduction = document?.desc.stringValue ?? ""
+        self.category = Category.category(by: document?.categoryID.stringValue ?? "")
+        self.imageURL = imageURL
+        self.thumbnailImageURL = thumbnailImageURL
+        self.authExampleImageURL = authExampleImageURL
+        self.authExampleThumbnailImageURL = authExampleThumbnailImageURL
+        self.authMethod = document?.authMethod.stringValue ?? ""
+        self.startDate = Date(dateString: document?.startDate.stringValue ?? "")
+        self.endDate = Date(dateString: document?.endDate.stringValue ?? "")
+        self.ownerID = document?.ownerID.stringValue ?? ""
+        self.week = Int(document?.week.integerValue ?? "") ?? 0
+        self.participantCount = Int(document?.participantCount.integerValue ?? "") ?? 0
+    }
 }

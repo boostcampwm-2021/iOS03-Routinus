@@ -27,7 +27,6 @@ struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
     }
 
     func updateChallenge(challenge: Challenge) {
-        // TODO: Task있었는데 completion 필요 없는 것 같아서 지웠습니다 확인 바람!
         repository.update(challenge: challenge,
                           imageURL: challenge.imageURL,
                           thumbnailImageURL: challenge.thumbnailImageURL,

@@ -59,6 +59,10 @@ final class CreateIntroductionView: UIView {
     func hideKeyboard() {
         textView.endEditing(true)
     }
+
+    func update(introduction: String) {
+        textView.text = introduction
+    }
 }
 
 extension CreateIntroductionView {
