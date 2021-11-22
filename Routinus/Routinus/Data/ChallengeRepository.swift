@@ -35,6 +35,7 @@ protocol ChallengeRepository {
                 thumbnailImageURL: String,
                 authExampleImageURL: String,
                 authExampleThumbnailImageURL: String)
+    func updateParticipantCount(challengeID: String)
 }
 
 extension RoutinusRepository: ChallengeRepository {
@@ -162,5 +163,9 @@ extension RoutinusRepository: ChallengeRepository {
                                        authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
             RoutinusStorage.removeCachedImages(from: challenge.challengeID)
         }
+    }
+
+    func updateParticipantCount(challengeID: String) {
+        RoutinusNetwork.updateParticipantCount(challengeID: challengeID, completion: nil)
     }
 }
