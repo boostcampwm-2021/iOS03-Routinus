@@ -130,7 +130,6 @@ extension HomeViewController {
         todayRoutineView.delegate = self
         todayRoutineView.dataSource = dataSource
         todayRoutineView.challengeAddDelegate = self
-
         calendarView.delegate = self
         calendarView.dataSource = self
     }
