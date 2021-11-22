@@ -177,14 +177,14 @@ extension CreateViewModel {
         guard let category = category else { return }
         if buttonType.value == .create {
             challengeCreateUsecase.createChallenge(category: category,
-                                          title: title,
-                                          imageURL: imageURL,
-                                          thumbnailImageURL: thumbnailImageURL,
-                                          authExampleImageURL: authExampleImageURL,
-                                          authExampleThumbnailImageURL: authExampleThumbnailImageURL,
-                                          authMethod: authMethod,
-                                          week: week,
-                                          introduction: introduction)
+                                                   title: title,
+                                                   imageURL: imageURL,
+                                                   thumbnailImageURL: thumbnailImageURL,
+                                                   authExampleImageURL: authExampleImageURL,
+                                                   authExampleThumbnailImageURL: authExampleThumbnailImageURL,
+                                                   authMethod: authMethod,
+                                                   week: week,
+                                                   introduction: introduction)
         } else {
             updateChallenge()
         }
@@ -251,10 +251,10 @@ extension CreateViewModel {
 extension CreateViewModel {
     private func validate() {
         buttonState.value = !challengeCreateUsecase.isEmpty(title: title,
-                                                         imageURL: imageURL,
-                                                         introduction: introduction,
-                                                         authMethod: authMethod,
-                                                         authExampleImageURL: authExampleImageURL)
+                                                            imageURL: imageURL,
+                                                            introduction: introduction,
+                                                            authMethod: authMethod,
+                                                            authExampleImageURL: authExampleImageURL)
     }
 
     private func fetchChallenge() {
@@ -263,8 +263,8 @@ extension CreateViewModel {
             guard let self = self,
                   let challenge = existedChallenge else { return }
             self.challenge.value = challenge
-            self.updateAll(challenge: challenge)
             self.buttonType.value = .update
+            self.updateAll(challenge: challenge)
         }
     }
 }
