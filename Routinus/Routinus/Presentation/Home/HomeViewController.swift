@@ -126,9 +126,10 @@ extension HomeViewController {
             .sink(receiveValue: { [weak self] routines in
                 guard let self = self else { return }
                 var snapshot = Snapshot()
+                snapshot.deleteAllItems()
                 snapshot.appendSections([0])
                 snapshot.appendItems(routines)
-                self.dataSource.apply(snapshot)
+                self.dataSource.apply(snapshot, animatingDifferences: false)
                 self.todayRoutineView.updateTableViewConstraints(cellCount: routines.count)
             })
             .store(in: &cancellables)
