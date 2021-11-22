@@ -9,7 +9,6 @@ import UIKit
 
 final class ManageAddCollectionViewCell: UICollectionViewCell {
     static let identifier = "ManageAddCollectionViewCell"
-    weak var delegate: AddChallengeDelegate?
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -49,7 +48,7 @@ extension  ManageAddCollectionViewCell {
                                 bottom: self.bottomAnchor)
     }
 
-    @objc func didTappedAddButton() {
-        delegate?.didTappedAddButton()
+    func addDelegate(_ delegate: AddChallengeDelegate) {
+        addChallengeView.delegate = delegate
     }
 }

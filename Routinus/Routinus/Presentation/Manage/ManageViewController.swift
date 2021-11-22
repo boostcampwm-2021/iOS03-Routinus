@@ -32,7 +32,6 @@ final class ManageViewController: UIViewController {
         return collectionView
     }()
     private lazy var dataSource = configureDataSource()
-    private lazy var snapshot = Snapshot()
     private var viewModel: ManageViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
@@ -153,7 +152,7 @@ extension ManageViewController {
             if indexPath.section == 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManageAddCollectionViewCell.identifier,
                                                               for: indexPath) as? ManageAddCollectionViewCell
-                cell?.delegate = self
+                cell?.addDelegate(self)
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCollectionViewCell.identifier,
