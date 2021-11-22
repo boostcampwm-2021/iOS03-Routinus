@@ -16,6 +16,7 @@ final class PreviewView: UIView {
         view.layer.cornerRadius = 15
         view.layer.borderColor = UIColor(named: "MainColor")?.cgColor
         view.layer.borderWidth = 2
+        view.clipsToBounds = true
         return view
     }()
 
