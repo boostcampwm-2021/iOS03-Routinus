@@ -14,18 +14,26 @@ protocol MyPageViewModelInput {
 
 protocol MyPageViewModelOutput {
     var user: CurrentValueSubject<User, Never> { get }
+    var themeStyle: CurrentValueSubject<Int, Never> { get }
+
+    func updateThemeStyle(_ style: Int)
 }
 
 protocol MyPageViewModelIO: MyPageViewModelInput, MyPageViewModelOutput { }
 
 final class MyPageViewModel: MyPageViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
+    var themeStyle = CurrentValueSubject<Int, Never>(0)
 
     var userFetchUsecase: UserFetchableUsecase
+    var userUpdateUsecase: UserUpdatableUsecase
 
-    init(userFetchUsecase: UserFetchableUsecase) {
+    init(userFetchUsecase: UserFetchableUsecase,
+         userUpdateUsecase: UserUpdatableUsecase) {
         self.userFetchUsecase = userFetchUsecase
+        self.userUpdateUsecase = userUpdateUsecase
         fetchUserData()
+        fetchThemeStyle()
     }
 }
 
@@ -34,5 +42,13 @@ extension MyPageViewModel {
         userFetchUsecase.fetchUser { [weak self] user in
             self?.user.value = user
         }
+    }
+
+    func fetchThemeStyle() {
+        self.themeStyle.value = userFetchUsecase.fetchThemeStyle()
+    }
+
+    func updateThemeStyle(_ style: Int) {
+        userUpdateUsecase.updateThemeStyle(style)
     }
 }

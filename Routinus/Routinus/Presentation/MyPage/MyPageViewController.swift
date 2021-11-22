@@ -27,7 +27,7 @@ final class MyPageViewController: UIViewController {
     private lazy var segmentedControl: UISegmentedControl = {
         let items = ["Auto", "Light", "Dark"]
         let segmentedControl = UISegmentedControl(items: items)
-        segmentedControl.selectedSegmentIndex = 2
+        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self,
                                    action: #selector(didChangeSegmentedControlValue(_:)),
                                    for: .valueChanged)
@@ -117,12 +117,24 @@ extension MyPageViewController {
                 self?.profileView.setName(user.name)
             })
             .store(in: &cancellables)
+
+        self.viewModel?.themeStyle
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] style in
+                self?.segmentedControl.selectedSegmentIndex = style
+                self?.setThemeStyle(style)
+            })
+            .store(in: &cancellables)
     }
 }
 
 extension MyPageViewController {
     @objc private func didChangeSegmentedControlValue(_ sender: UISegmentedControl) {
-        guard let style = UIUserInterfaceStyle(rawValue: sender.selectedSegmentIndex),
+        setThemeStyle(sender.selectedSegmentIndex)
+    }
+
+    private func setThemeStyle(_ style: Int) {
+        guard let style = UIUserInterfaceStyle(rawValue: style),
               let window = self.view.window else { return }
 
         UIView.transition(with: window,
@@ -130,6 +142,7 @@ extension MyPageViewController {
                           options: .transitionCrossDissolve) {
             window.overrideUserInterfaceStyle = style
         }
+        viewModel?.updateThemeStyle(style.rawValue)
     }
 }
 

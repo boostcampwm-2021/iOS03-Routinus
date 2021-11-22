@@ -9,6 +9,7 @@ import Foundation
 
 final class RoutinusRepository {
     static let userIDKey = "id"
+    static let themeStyleKey = "themeStyle"
 
     static func userID() -> String? {
         return UserDefaults.standard.string(forKey: RoutinusRepository.userIDKey)

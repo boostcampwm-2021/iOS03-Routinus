@@ -9,6 +9,7 @@ import Foundation
 
 protocol UserUpdatableUsecase {
     func updateContinuityDay()
+    func updateThemeStyle(_ style: Int)
 }
 
 struct UserUpdateUsecase: UserUpdatableUsecase {
@@ -21,5 +22,9 @@ struct UserUpdateUsecase: UserUpdatableUsecase {
     func updateContinuityDay() {
         guard let userID = RoutinusRepository.userID() else { return }
         self.repository.updateContinuityDay(by: userID)
+    }
+
+    func updateThemeStyle(_ style: Int) {
+        self.repository.updateThemeStyle(style)
     }
 }
