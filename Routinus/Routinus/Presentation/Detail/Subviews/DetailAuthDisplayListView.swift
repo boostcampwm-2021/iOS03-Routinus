@@ -20,7 +20,8 @@ final class DetailAuthDisplayListView: UIView {
     private lazy var allAuthDisplayView: DetailAuthDisplayView = {
         var detailAuthDisplayView = DetailAuthDisplayView()
 
-        let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedAllAuthDisplayView))
+        let gesture = UITapGestureRecognizer(target: self,
+                                             action: #selector(didTappedAllAuthDisplayView))
         gesture.numberOfTapsRequired = 1
         detailAuthDisplayView.isUserInteractionEnabled = true
         detailAuthDisplayView.addGestureRecognizer(gesture)
@@ -31,7 +32,8 @@ final class DetailAuthDisplayListView: UIView {
     private lazy var meAuthDisplayView: DetailAuthDisplayView = {
         var meAuthDisplayView = DetailAuthDisplayView()
 
-        let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedMeAuthDisplayView))
+        let gesture = UITapGestureRecognizer(target: self,
+                                             action: #selector(didTappedMeAuthDisplayView))
         gesture.numberOfTapsRequired = 1
         meAuthDisplayView.isUserInteractionEnabled = true
         meAuthDisplayView.addGestureRecognizer(gesture)
