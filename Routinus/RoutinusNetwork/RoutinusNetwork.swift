@@ -94,12 +94,14 @@ public enum RoutinusNetwork {
 
         uploadQueue.async(group: group) {
             let id = challengeAuth.document?.fields.challengeID.stringValue ?? ""
+            let userID = challengeAuth.document?.fields.userID.stringValue ?? ""
+            let date = challengeAuth.document?.fields.date.stringValue ?? ""
             uploadImage(id: id,
-                        filename: "userAuth",
+                        filename: "\(userID)_\(date)_auth",
                         imageURL: userAuthImageURL,
                         completion: nil)
             uploadImage(id: id,
-                        filename: "thumbnail_userAuth",
+                        filename: "\(userID)_\(date)_thumbnail_auth",
                         imageURL: userAuthThumbnailImageURL,
                         completion: nil)
         }
