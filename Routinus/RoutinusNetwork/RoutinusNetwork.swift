@@ -758,7 +758,7 @@ public enum RoutinusNetwork {
     }
 
     public static func updateParticipantCount(challengeID: String,
-                                                completion: (() -> Void)?) {
+                                              completion: (() -> Void)?) {
         challenge(challengeID: challengeID) { dto in
             guard let document = dto.document,
                   let week = Int(document.fields.week.integerValue),
