@@ -28,7 +28,7 @@ final class CalendarView: UIView {
         layout.collectionView?.layer.cornerCurve = .continuous
         layout.collectionView?.layer.cornerRadius = 15
         collectionView.layer.borderWidth = 1
-        collectionView.layer.borderColor = UIColor.tertiarySystemGroupedBackground.cgColor
+        collectionView.layer.borderColor = UIColor(named: "LightGray")?.cgColor
         return collectionView
     }()
 
@@ -103,6 +103,14 @@ final class CalendarView: UIView {
         calendarView.anchor(horizontal: headerView,
                             top: headerView.bottomAnchor,
                             height: 55 * 6 + 10)
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            calendarView.layer.borderColor = UIColor(named: "LightGray")?.cgColor
+        }
     }
 
     private func configureViewModel() {
