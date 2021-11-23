@@ -27,11 +27,13 @@ final class HomeCoordinator: RoutinusCoordinator {
         let repository = RoutinusRepository()
         let userCreateUsecase = UserCreateUsecase(repository: repository)
         let userFetchUsecase = UserFetchUsecase(repository: repository)
+        let userUpdateUsecase = UserUpdateUsecase(repository: repository)
         let todayRoutineFetchUsecase = TodayRoutineFetchUsecase(repository: repository)
         let achievementFetchUsecase = AchievementFetchUsecase(repository: repository)
         let challengeAuthFetchUsecase = ChallengeAuthFetchUsecase(repository: repository)
         let homeViewModel = HomeViewModel(userCreateUsecase: userCreateUsecase,
                                           userFetchUsecase: userFetchUsecase,
+                                          userUpdateUsecase: userUpdateUsecase,
                                           todayRoutineFetchUsecase: todayRoutineFetchUsecase,
                                           achievementFetchUsecase: achievementFetchUsecase,
                                           challengeAuthFetchUsecase: challengeAuthFetchUsecase)
