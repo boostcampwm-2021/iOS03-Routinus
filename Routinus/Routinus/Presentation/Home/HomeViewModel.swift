@@ -46,6 +46,7 @@ final class HomeViewModel: HomeViewModelIO {
 
     var userCreateUsecase: UserCreatableUsecase
     var userFetchUsecase: UserFetchableUsecase
+    var userUpdateUsecase: UserUpdatableUsecase
     var todayRoutineFetchUsecase: TodayRoutineFetchableUsecase
     var achievementFetchUsecase: AchievementFetchableUsecase
     var challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
@@ -60,11 +61,13 @@ final class HomeViewModel: HomeViewModelIO {
 
     init(userCreateUsecase: UserCreatableUsecase,
          userFetchUsecase: UserFetchableUsecase,
+         userUpdateUsecase: UserUpdatableUsecase,
          todayRoutineFetchUsecase: TodayRoutineFetchableUsecase,
          achievementFetchUsecase: AchievementFetchableUsecase,
          challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase) {
         self.userCreateUsecase = userCreateUsecase
         self.userFetchUsecase = userFetchUsecase
+        self.userUpdateUsecase = userUpdateUsecase
         self.todayRoutineFetchUsecase = todayRoutineFetchUsecase
         self.achievementFetchUsecase = achievementFetchUsecase
         self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
@@ -81,6 +84,7 @@ extension HomeViewModel {
         fetchUser()
         fetchTodayRoutine()
         fetchAchievement()
+        updateContinuityDay()
     }
 
     func didTappedTodayRoutine(index: Int) {
@@ -129,6 +133,12 @@ extension HomeViewModel {
     private func fetchAuth(challengeID: String, completion: @escaping (ChallengeAuth?) -> Void) {
         self.challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
             completion(challengeAuth)
+        }
+    }
+
+    private func updateContinuityDay() {
+        self.userUpdateUsecase.updateContinuityDay { [weak self] user in
+            self?.user.value = user
         }
     }
 
