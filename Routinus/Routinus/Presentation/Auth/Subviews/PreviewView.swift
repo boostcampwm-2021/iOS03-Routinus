@@ -51,13 +51,6 @@ final class PreviewView: UIView {
         return label
     }()
 
-    private lazy var timeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "time"
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        return label
-    }()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -99,10 +92,6 @@ extension PreviewView {
         authButton.anchor(width: 80, height: 80)
         previewLabel.anchor(width: 100)
         [authButton, previewLabel].forEach { self.stackView.addArrangedSubview($0) }
-
-        previewView.addSubview(timeLabel)
-        timeLabel.anchor(centerX: self.centerXAnchor,
-                         bottom: self.bottomAnchor, paddingBottom: 10)
     }
 
     private func configureGesture() {

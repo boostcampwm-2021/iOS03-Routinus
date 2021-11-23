@@ -660,9 +660,9 @@
 		E93704472743A95100D82B1D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0DEDAA16274C8F6B0030B7D9 /* ImagePinchViewController.swift */,
 				148A09EB2744BC6300809CB8 /* Subviews */,
 				148A09ED2744C26100809CB8 /* Cells */,
-				0DEDAA16274C8F6B0030B7D9 /* ImagePinchViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";

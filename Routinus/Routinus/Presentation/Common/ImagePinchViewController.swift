@@ -10,7 +10,7 @@ import UIKit
 final class ImagePinchViewController: UIViewController {
     private lazy var dimmedBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .black.withAlphaComponent(0.6)
+        view.backgroundColor = .black.withAlphaComponent(0.8)
         return view
     }()
 

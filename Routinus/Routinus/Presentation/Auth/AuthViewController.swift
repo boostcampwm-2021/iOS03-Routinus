@@ -166,8 +166,9 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
         if let originalImage = info[InfoKey.originalImage] as? UIImage {
-            let mainImage = originalImage.resizedImage(.original)
-            let thumbnailImage = originalImage.resizedImage(.thumbnail)
+            let timeAddedImage = textToImage(image: originalImage)
+            let mainImage = timeAddedImage.resizedImage(.original)
+            let thumbnailImage = timeAddedImage.resizedImage(.thumbnail)
 
             let mainImageURL = viewModel?.saveImage(to: "temp",
                                                     filename: "userAuth",
@@ -180,5 +181,28 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
             previewView.setImage(mainImage)
         }
         dismiss(animated: true, completion: nil)
+    }
+
+    func textToImage(image: UIImage) -> UIImage {
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
+
+        let label = UILabel(frame: CGRect(origin: .zero, size: image.size))
+        label.backgroundColor = UIColor.clear
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        label.textColor = .white.withAlphaComponent(0.5)
+        label.font = UIFont.boldSystemFont(ofSize: 200)
+        label.text = "\(Date().toDateWithWeekdayString()) \(Date().toTimeColonString())"
+
+        let imageView = UIImageView(image: image)
+        UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0)
+        guard let context = UIGraphicsGetCurrentContext() else { return UIImage() }
+        imageView.layer.render(in: context)
+        label.layer.render(in: context)
+        guard let imageWithText = UIGraphicsGetImageFromCurrentImageContext() else { return UIImage() }
+        UIGraphicsEndImageContext()
+
+        return imageWithText
     }
 }
