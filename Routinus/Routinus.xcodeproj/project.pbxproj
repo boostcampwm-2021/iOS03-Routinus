@@ -24,6 +24,7 @@
 		0DE03398274329BA0026F502 /* Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE03397274329B90026F502 /* Calendar.swift */; };
 		0DE0339A274355700026F502 /* ManageCollectionViewLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE033992743556F0026F502 /* ManageCollectionViewLayouts.swift */; };
 		0DE0339C274355770026F502 /* ManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0339B274355760026F502 /* ManageViewModel.swift */; };
+		0DEDAA17274C8F6B0030B7D9 /* ImagePinchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DEDAA16274C8F6B0030B7D9 /* ImagePinchViewController.swift */; };
 		0DFF32BD274548D8004FA9BD /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFF32BC274548D8004FA9BD /* UIView+Extensions.swift */; };
 		14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14572CEC273BF644007E6ECE /* CreateCoordinator.swift */; };
 		145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */; };
@@ -201,6 +202,7 @@
 		0DE03397274329B90026F502 /* Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar.swift; sourceTree = "<group>"; };
 		0DE033992743556F0026F502 /* ManageCollectionViewLayouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageCollectionViewLayouts.swift; sourceTree = "<group>"; };
 		0DE0339B274355760026F502 /* ManageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageViewModel.swift; sourceTree = "<group>"; };
+		0DEDAA16274C8F6B0030B7D9 /* ImagePinchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePinchViewController.swift; sourceTree = "<group>"; };
 		0DFF32BC274548D8004FA9BD /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		14572CEC273BF644007E6ECE /* CreateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCoordinator.swift; sourceTree = "<group>"; };
 		145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpdateUsecase.swift; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 			children = (
 				148A09EB2744BC6300809CB8 /* Subviews */,
 				148A09ED2744C26100809CB8 /* Cells */,
+				0DEDAA16274C8F6B0030B7D9 /* ImagePinchViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1187,6 +1190,7 @@
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
+				0DEDAA17274C8F6B0030B7D9 /* ImagePinchViewController.swift in Sources */,
 				0D053E59274654390042DAF2 /* String+Extensions.swift in Sources */,
 				0DC38F59273BA89000331C25 /* UIImage+Extensions.swift in Sources */,
 				14B181122745511A0061F2AE /* Participation.swift in Sources */,
