@@ -22,6 +22,8 @@ protocol DetailViewModelInput {
     func didTappedEditBarButton()
     func didTappedParticipationAuthButton()
     func didTappedAlertConfirm()
+    func didTappedAllAuthDisplayView()
+    func didTappedMeAuthDisplayView() 
     func updateParticipantCount()
 }
 
@@ -34,6 +36,8 @@ protocol DetailViewModelOutput {
     var participationButtonTap: PassthroughSubject<Void, Never> { get }
     var authButtonTap: PassthroughSubject<String, Never> { get }
     var alertConfirmTap: PassthroughSubject<Void, Never> { get }
+    var allAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
+    var meAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
 }
 
 protocol DetailViewModelIO: DetailViewModelInput, DetailViewModelOutput { }
@@ -47,6 +51,8 @@ class DetailViewModel: DetailViewModelIO {
     var participationButtonTap = PassthroughSubject<Void, Never>()
     var authButtonTap = PassthroughSubject<String, Never>()
     var alertConfirmTap = PassthroughSubject<Void, Never>()
+    var allAuthDisplayViewTap = PassthroughSubject<String, Never>()
+    var meAuthDisplayViewTap = PassthroughSubject<String, Never>()
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
     let challengeUpdateUsecase: ChallengeUpdatableUsecase
@@ -118,6 +124,16 @@ extension DetailViewModel {
 
     func didTappedAlertConfirm() {
         alertConfirmTap.send()
+    }
+
+    func didTappedAllAuthDisplayView() {
+        guard let challengeID = challengeID else { return }
+        allAuthDisplayViewTap.send(challengeID)
+    }
+
+    func didTappedMeAuthDisplayView() {
+        guard let challengeID = challengeID else { return }
+        meAuthDisplayViewTap.send(challengeID)
     }
 
     func fetchParticipationAuthState() {

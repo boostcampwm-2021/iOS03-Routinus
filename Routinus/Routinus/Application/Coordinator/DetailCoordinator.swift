@@ -75,6 +75,26 @@ final class DetailCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
+        detailViewModel.allAuthDisplayViewTap
+            .sink { [weak self] challengeID in
+                guard let self = self else { return }
+                let authListCoordinator = AuthListCoordinator(navigationController: self.navigationController,
+                                                              challengeID: challengeID)
+                authListCoordinator.start()
+                self.childCoordinator.append(authListCoordinator)
+            }
+            .store(in: &cancellables)
+
+        detailViewModel.meAuthDisplayViewTap
+            .sink { [weak self] challengeID in
+                guard let self = self else { return }
+                let authListCoordinator = AuthListCoordinator(navigationController: self.navigationController,
+                                                              challengeID: challengeID)
+                authListCoordinator.start()
+                self.childCoordinator.append(authListCoordinator)
+            }
+            .store(in: &cancellables)
+
         self.authPublisher
             .sink { _ in
                 detailViewModel.fetchParticipationAuthState()

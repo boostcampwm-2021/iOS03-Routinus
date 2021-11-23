@@ -192,10 +192,10 @@ extension DetailViewController: ParticipantButtonDelegate {
 
 extension DetailViewController: AuthDisplayViewDelegate {
     func didTappedAllAuthDisplayView() {
-        print("All Auth")
+        self.viewModel?.didTappedAllAuthDisplayView()
     }
 
     func didTappedMeAuthDisplayView() {
-        print("Me Auth")
+        self.viewModel?.didTappedMeAuthDisplayView()
     }
 }
