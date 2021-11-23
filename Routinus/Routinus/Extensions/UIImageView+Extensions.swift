@@ -9,10 +9,12 @@ import UIKit
 
 extension UIImageView {
     func coverBlurEffect() {
+        guard subviews.isEmpty else { return }
+
         let blurEffect = UIBlurEffect(style: .regular)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
-        blurEffectView.alpha = 0.9
+        blurEffectView.alpha = 0.75
         self.addSubview(blurEffectView)
     }
 }
