@@ -10,6 +10,7 @@ import Foundation
 
 protocol MyPageViewModelInput {
     func fetchUserData()
+    func fetchThemeStyle()
 }
 
 protocol MyPageViewModelOutput {

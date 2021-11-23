@@ -168,7 +168,7 @@ extension MyPageViewController: MyPageUserNameUpdatableDelegate {
         present(alert, animated: true)
     }
 
-    func updateUsername(_ name: String) {
+    private func updateUsername(_ name: String) {
         self.viewModel?.updateUsername(name)
         self.profileView.setName(name)
     }
