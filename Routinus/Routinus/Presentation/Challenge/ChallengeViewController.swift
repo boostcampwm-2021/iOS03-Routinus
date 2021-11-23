@@ -96,16 +96,7 @@ extension ChallengeViewController {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeRecommendCollectionViewCell.identifier,
                                                               for: indexPath) as? ChallengeRecommendCollectionViewCell
                 cell?.configureViews(recommendChallenge: recommendChallenge)
-                self.viewModel?.imageData(from: recommendChallenge.challengeID,
-                                          filename: "image") { data in
-                    guard let data = data,
-                          let image = UIImage(data: data) else { return }
-                    DispatchQueue.main.async {
-//                        cell?.setImage(image)
-                    }
-                }
                 return cell
-
             case .category:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCategoryCollectionViewCell.identifier,
                                                               for: indexPath) as? ChallengeCategoryCollectionViewCell

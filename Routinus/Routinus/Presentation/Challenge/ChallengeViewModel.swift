@@ -13,9 +13,6 @@ protocol ChallengeViewModelInput {
     func didTappedSeeAllButton()
     func didTappedRecommendChallenge(index: Int)
     func didTappedCategoryButton(category: Challenge.Category)
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)?)
 }
 
 protocol ChallengeViewModelOutput {
@@ -38,13 +35,10 @@ final class ChallengeViewModel: ChallengeViewModelIO {
     var categoryButtonTap = PassthroughSubject<Challenge.Category, Never>()
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
-    let imageFetchUsecase: ImageFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
-    init(challengeFetchUsecase: ChallengeFetchableUsecase,
-         imageFetchUsecase: ImageFetchableUsecase) {
+    init(challengeFetchUsecase: ChallengeFetchableUsecase) {
         self.challengeFetchUsecase = challengeFetchUsecase
-        self.imageFetchUsecase = imageFetchUsecase
         self.fetchChallenge()
     }
 }
@@ -65,15 +59,6 @@ extension ChallengeViewModel {
 
     func didTappedCategoryButton(category: Challenge.Category) {
         categoryButtonTap.send(category)
-    }
-
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)?) {
-        imageFetchUsecase.fetchImageData(from: directory,
-                                         filename: filename) { data in
-            completion?(data)
-        }
     }
 }
 

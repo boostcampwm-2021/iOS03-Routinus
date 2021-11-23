@@ -101,8 +101,4 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         constraint.priority = UILayoutPriority(900)
         constraint.isActive = true
     }
-
-    func setImage(_ image: UIImage) {
-        self.imageView.image = image
-    }
 }
