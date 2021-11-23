@@ -44,6 +44,7 @@ final class DetailViewController: UIViewController {
     private lazy var informationView = InformationView()
     private lazy var authMethodView = AuthMethodView()
     private lazy var participantButton = ParticipantButton()
+    private lazy var detailAuthDisplayListView = DetailAuthDisplayListView()
 
     private var viewModel: DetailViewModelIO?
     private var cancellables = Set<AnyCancellable>()
@@ -84,12 +85,11 @@ final class DetailViewController: UIViewController {
                                  bottom: participantButton.superview?.bottomAnchor, paddingBottom: 30)
 
         scrollView.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        stackView.anchor(leading: scrollView.leadingAnchor,
+                         trailing: scrollView.trailingAnchor,
+                         centerX: scrollView.centerXAnchor,
+                         top: scrollView.topAnchor,
+                         bottom: scrollView.bottomAnchor)
 
         stackView.addArrangedSubview(mainImageView)
         self.mainImageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
@@ -98,6 +98,8 @@ final class DetailViewController: UIViewController {
 
         stackView.addArrangedSubview(informationView)
         stackView.addArrangedSubview(authMethodView)
+        stackView.addArrangedSubview(detailAuthDisplayListView)
+
     }
 
     private func configureNavigationBar() {
