@@ -29,11 +29,10 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
         let label = UILabel()
         label.textColor = UIColor(named: "Black")
         label.font = UIFont.boldSystemFont(ofSize: 18)
-
         return label
     }()
 
-    private lazy var toggleImage: UIImageView = {
+    private lazy var toggleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.down")
         imageView.tintColor = UIColor(named: "Black")
@@ -43,10 +42,11 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
     private(set) var section: Section?
     private(set) var isExpanded: Bool = true {
         didSet {
-            if isExpanded == true {
-                toggleImage.image  = UIImage(systemName: "chevron.down")
-            } else {
-                toggleImage.image = UIImage(systemName: "chevron.right")
+            let angle = isExpanded ? 0 : -Double.pi / 2
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3) {
+                    self.toggleImageView.transform = CGAffineTransform(rotationAngle: angle)
+                }
             }
         }
     }
@@ -57,11 +57,11 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
 
         addSubview(label)
         label.anchor(leading: self.leadingAnchor,
-                         centerY: centerYAnchor)
+                     centerY: centerYAnchor)
 
-        addSubview(toggleImage)
-        toggleImage.anchor(trailing: self.trailingAnchor,
-                         centerY: centerYAnchor)
+        addSubview(toggleImageView)
+        toggleImageView.anchor(trailing: self.trailingAnchor,
+                               centerY: centerYAnchor)
     }
 
     func didTouchedHeader() {
