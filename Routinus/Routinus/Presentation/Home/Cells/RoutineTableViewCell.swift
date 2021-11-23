@@ -14,14 +14,8 @@ final class RoutineTableViewCell: UITableViewCell {
         let progressView = UIProgressView()
         progressView.layer.borderWidth = 5
         progressView.layer.cornerRadius = 25
-
         progressView.progress = 0.0
-        progressView.clipsToBounds = true
-        progressView.progressViewStyle = .bar
-
-        guard let progressBar = progressView.layer.sublayers?[1] else { return UIProgressView() }
-        progressBar.cornerRadius = 25
-        progressView.subviews[1].clipsToBounds = true
+        progressView.trackTintColor = .systemBackground
         return progressView
     }()
 
@@ -42,6 +36,7 @@ final class RoutineTableViewCell: UITableViewCell {
         let imageConfig = UIImage.SymbolConfiguration(weight: .semibold)
         let image = UIImageView(image: UIImage(systemName: "chevron.left.2", withConfiguration: imageConfig))
         image.tintColor = UIColor(named: "DayColor")
+        image.anchor(width: image.frame.width)
         return image
     }()
 
@@ -80,21 +75,27 @@ extension RoutineTableViewCell {
         self.backgroundColor = .systemBackground
 
         self.contentView.addSubview(progressView)
-        progressView.anchor(horizontal: progressView.superview, paddingHorizontal: offset,
-                            centerY: progressView.superview?.centerYAnchor,
+        progressView.anchor(horizontal: progressView.superview,
+                            paddingHorizontal: offset,
+                            centerY: centerYAnchor,
                             height: contentView.frame.height + 5)
 
+        self.contentView.addSubview(leftArrow)
+        leftArrow.anchor(trailing: trailingAnchor,
+                         paddingTrailing: 20 + offset,
+                         centerY: centerYAnchor)
+
         self.contentView.addSubview(categoryImageView)
-        categoryImageView.anchor(leading: categoryImageView.superview?.leadingAnchor, paddingLeading: offset + 20,
-                                 centerY: categoryImageView.superview?.centerYAnchor,
+        categoryImageView.anchor(leading: leadingAnchor,
+                                 paddingLeading: offset + 20,
+                                 centerY: centerYAnchor,
                                  width: 30, height: 30)
 
         self.contentView.addSubview(categoryNameLabel)
-        categoryNameLabel.anchor(leading: categoryImageView.trailingAnchor, paddingLeading: 10,
-                                 centerY: categoryNameLabel.superview?.centerYAnchor)
+        categoryNameLabel.anchor(leading: categoryImageView.trailingAnchor,
+                                 paddingLeading: 10,
+                                 trailing: leftArrow.leadingAnchor,
+                                 centerY: centerYAnchor)
 
-        self.contentView.addSubview(leftArrow)
-        leftArrow.anchor(trailing: leftArrow.superview?.trailingAnchor, paddingTrailing: 20 + offset,
-                         centerY: leftArrow.superview?.centerYAnchor)
     }
 }

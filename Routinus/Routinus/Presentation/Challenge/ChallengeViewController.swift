@@ -31,7 +31,6 @@ final class ChallengeViewController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ChallengeContents>
 
     private lazy var dataSource = configureDataSource()
-    private lazy var snapshot = Snapshot()
     private var viewModel: ChallengeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
@@ -73,9 +72,9 @@ final class ChallengeViewController: UIViewController {
         super.viewDidLoad()
         self.collectionView.delegate = self
         self.collectionView.dataSource = dataSource
-        self.snapshot.appendSections(Section.allCases)
         self.configureViews()
         self.configureViewModel()
+        self.configureCategory()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -107,7 +106,11 @@ extension ChallengeViewController {
                 return cell
             }
         }
+
         configureHeader(of: dataSource)
+        var snapshot = Snapshot()
+        snapshot.appendSections(Section.allCases)
+        dataSource.apply(snapshot, animatingDifferences: true)
         return dataSource
     }
 
@@ -170,12 +173,11 @@ extension ChallengeViewController {
                 snapshot.deleteAll()
                 snapshot.append(contents)
                 self.dataSource.apply(snapshot, to: Section.recommend)
-                self.applyCategory()
             })
             .store(in: &cancellables)
     }
 
-    private func applyCategory() {
+    private func configureCategory() {
         var snapshot = self.dataSource.snapshot(for: Section.category)
         snapshot.append([ChallengeContents.category])
         self.dataSource.apply(snapshot, to: Section.category)

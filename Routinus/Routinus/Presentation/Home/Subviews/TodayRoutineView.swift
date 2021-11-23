@@ -34,6 +34,13 @@ final class TodayRoutineView: UIView {
         return tableView
     }()
 
+    private lazy var addRoutineLabel: UILabel = {
+        let label = UILabel()
+        label.text = "add routine".localized
+        label.numberOfLines = 2
+        return label
+    }()
+
     weak var delegate: UITableViewDelegate? {
         didSet {
             tableView.delegate = delegate
@@ -62,11 +69,14 @@ final class TodayRoutineView: UIView {
 
     func updateTableViewConstraints(cellCount: Int) {
         removeLastAnchor()
-        anchor(height: 25 + CGFloat(60 * cellCount))
-
         tableView.removeLastAnchor()
         tableView.anchor(height: 60 * CGFloat(cellCount))
         tableView.layoutIfNeeded()
+        tableView.reloadData()
+
+        let offset = cellCount == 0 ? addRoutineLabel.frame.height + 10 : CGFloat(60 * cellCount)
+        anchor(height: 25 + offset)
+        addRoutineLabel.isHidden = cellCount != 0
     }
 }
 
@@ -86,20 +96,24 @@ extension TodayRoutineView {
         let offset = smallWidth ? 15.0 : 20.0
 
         addSubview(titleLabel)
-        titleLabel.anchor(leading: titleLabel.superview?.leadingAnchor, paddingLeading: offset,
-                          top: titleLabel.superview?.topAnchor)
+        titleLabel.anchor(leading: leadingAnchor, paddingLeading: offset,
+                          top: topAnchor)
 
         addSubview(addButton)
-        addButton.anchor(trailing: addButton.superview?.trailingAnchor, paddingTrailing: offset,
-                         top: addButton.superview?.topAnchor)
+        addButton.anchor(trailing: trailingAnchor, paddingTrailing: offset,
+                         top: topAnchor)
 
         addSubview(tableView)
-        tableView.anchor(centerX: tableView.superview?.centerXAnchor,
+        tableView.anchor(centerX: centerXAnchor,
                          top: titleLabel.bottomAnchor, paddingTop: 10,
                          width: UIScreen.main.bounds.width)
         let constraint = tableView.heightAnchor.constraint(equalToConstant: 60)
         constraint.priority = UILayoutPriority(100)
         constraint.isActive = true
+
+        addSubview(addRoutineLabel)
+        addRoutineLabel.anchor(leading: leadingAnchor, paddingLeading: offset,
+                          top: titleLabel.bottomAnchor, paddingTop: 10)
     }
 }
 
