@@ -49,6 +49,9 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController {
     private func configureViews() {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 20.0
+
         self.view.backgroundColor = .systemBackground
         self.configureNavigationBar()
 
@@ -64,7 +67,7 @@ extension AuthViewController {
                         height: 90)
 
         self.authView.addSubview(authButton)
-        authButton.anchor(horizontal: authButton.superview, paddingHorizontal: 20,
+        authButton.anchor(horizontal: authButton.superview, paddingHorizontal: offset,
                           top: authButton.superview?.topAnchor, paddingTop: 10,
                           bottom: authButton.superview?.bottomAnchor, paddingBottom: 30)
 
@@ -78,8 +81,7 @@ extension AuthViewController {
         self.stackView.addArrangedSubview(authMethodView)
 
         self.stackView.addArrangedSubview(previewView)
-        self.previewView.translatesAutoresizingMaskIntoConstraints = false
-        self.previewView.heightAnchor.constraint(equalTo: self.previewView.widthAnchor, multiplier: 1).isActive = true
+        self.previewView.anchor(height: view.frame.width - offset*2)
     }
 
     private func configureNavigationBar() {
