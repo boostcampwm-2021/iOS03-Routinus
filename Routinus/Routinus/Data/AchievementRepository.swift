@@ -32,14 +32,18 @@ extension RoutinusRepository: AchievementRepository {
         }
     }
 
-    func updateAchievementCount(userID: String, yearMonth: String, day: String) {
+    func updateAchievementCount(userID: String,
+                                yearMonth: String,
+                                day: String) {
         RoutinusNetwork.updateAchievementCount(userID: userID,
                                                yearMonth: yearMonth,
                                                day: day,
                                                completion: nil)
     }
 
-    func updateTotalCount(userID: String, yearMonth: String, day: String) {
+    func updateTotalCount(userID: String,
+                          yearMonth: String,
+                          day: String) {
         RoutinusNetwork.updateTotalCount(userID: userID,
                                          yearMonth: yearMonth,
                                          day: day,
