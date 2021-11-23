@@ -79,22 +79,17 @@ final class DetailViewController: UIViewController {
                                height: 90)
 
         participantView.addSubview(participantButton)
-        participantButton.anchor(horizontal: participantButton.superview, paddingHorizontal: 20,
-                                 top: participantButton.superview?.topAnchor, paddingTop: 10,
-                                 bottom: participantButton.superview?.bottomAnchor, paddingBottom: 30)
+        participantButton.anchor(horizontal: participantView, paddingHorizontal: 20,
+                                 top: participantView.topAnchor, paddingTop: 10,
+                                 bottom: participantView.bottomAnchor, paddingBottom: 30)
 
         scrollView.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        stackView.anchor(edges: scrollView)
+        stackView.anchor(centerX: scrollView.centerXAnchor)
 
         stackView.addArrangedSubview(mainImageView)
-        self.mainImageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
-        self.mainImageView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
-        self.mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor, multiplier: 1).isActive = true
+        mainImageView.anchor(horizontal: stackView,
+                             height: UIScreen.main.bounds.width)
 
         stackView.addArrangedSubview(informationView)
         stackView.addArrangedSubview(authMethodView)
