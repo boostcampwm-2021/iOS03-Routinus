@@ -21,9 +21,9 @@ final class HomeViewController: UIViewController {
         return label
     }()
     private lazy var launchView = LaunchView(frame: CGRect(x: 0,
-                                              y: 0,
-                                              width: self.view.frame.width,
-                                              height: self.view.frame.height))
+                                                           y: 0,
+                                                           width: self.view.frame.width,
+                                                           height: self.view.frame.height))
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView(viewModel: viewModel)
@@ -52,11 +52,11 @@ final class HomeViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 
