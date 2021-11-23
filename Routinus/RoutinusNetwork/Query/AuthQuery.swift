@@ -49,6 +49,23 @@ internal enum AuthQuery {
         """.data(using: .utf8)
     }
 
+    internal static func select(challengeID: String) -> Data? {
+        return """
+        {
+            "structuredQuery": {
+                "from": { "collectionId": "challenge_auth" },
+                "where": {
+                    "fieldFilter": {
+                        "field": { "fieldPath": "challenge_id" },
+                        "op": "EQUAL",
+                        "value": { "stringValue": "\(challengeID)" }
+                    },
+                }
+            }
+        }
+        """.data(using: .utf8)
+    }
+
     internal static func insert(document: ChallengeAuthFields) -> Data? {
         return """
         {

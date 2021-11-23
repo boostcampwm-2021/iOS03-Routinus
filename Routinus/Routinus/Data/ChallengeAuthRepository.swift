@@ -18,6 +18,8 @@ protocol ChallengeAuthRepository {
                             userID: String,
                             challengeID: String,
                             completion: @escaping (ChallengeAuth?) -> Void)
+    func fetchChallengeAuths(challengeID: String,
+                             completion: (([ChallengeAuth]) -> Void)?)
 }
 
 extension RoutinusRepository: ChallengeAuthRepository {
@@ -55,4 +57,12 @@ extension RoutinusRepository: ChallengeAuthRepository {
         }
     }
 
+    func fetchChallengeAuths(challengeID: String,
+                             completion: (([ChallengeAuth]) -> Void)?) {
+        RoutinusNetwork.challengeAuths(challengeID: challengeID) { dto in
+            RoutinusNetwork.challengeAuths(challengeID: challengeID) { list in
+                completion?(list.map { ChallengeAuth(challengeAuthDTO: $0) })
+            }
+        }
+    }
 }
