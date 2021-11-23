@@ -224,7 +224,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 1:
-            present(MyPageDeveloperViewController(), animated: true)
+            self.viewModel?.didTappedDeveloperCell()
         default:
             break
         }
