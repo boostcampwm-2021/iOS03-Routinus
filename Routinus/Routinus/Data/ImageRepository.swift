@@ -67,11 +67,11 @@ extension RoutinusRepository: ImageRepository {
                      authExampleImageURL: String,
                      authExampleThumbnailImageURL: String) {
         RoutinusNetwork.uploadImage(id: challengeID,
-                                    filename: "auth",
+                                    filename: "auth_method",
                                     imageURL: authExampleImageURL,
                                     completion: nil)
         RoutinusNetwork.uploadImage(id: challengeID,
-                                    filename: "thumbnail_auth",
+                                    filename: "thumbnail_auth_method",
                                     imageURL: authExampleThumbnailImageURL,
                                     completion: nil)
         RoutinusStorage.removeCachedImages(from: challengeID)

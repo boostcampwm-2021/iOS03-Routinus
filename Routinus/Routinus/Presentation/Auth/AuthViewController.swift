@@ -155,7 +155,7 @@ extension AuthViewController: AuthMethodViewDelegate {
     func didTappedMethodImageView() {
         guard let challengeID = viewModel?.challenge.value?.challengeID else { return }
         self.viewModel?.imageData(from: challengeID,
-                                  filename: "auth") { data in
+                                  filename: "auth_method") { data in
             guard let data = data else { return }
             self.viewModel?.didTappedMethodImage(image: data)
         }
@@ -175,10 +175,10 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
             let thumbnailImage = timeAddedImage.resizedImage(.thumbnail)
 
             let mainImageURL = viewModel?.saveImage(to: "temp",
-                                                    filename: "userAuth",
+                                                    filename: "auth",
                                                     data: mainImage.jpegData(compressionQuality: 0.9))
             let thumbnailImageURL = viewModel?.saveImage(to: "temp",
-                                                         filename: "thumbnail_userAuth",
+                                                         filename: "thumbnail_auth",
                                                          data: thumbnailImage.jpegData(compressionQuality: 0.9))
             self.viewModel?.update(userAuthImageURL: mainImageURL)
             self.viewModel?.update(userAuthThumbnailImageURL: thumbnailImageURL)

@@ -154,7 +154,7 @@ extension CreateViewController {
                 self.introductionView.update(introduction: challenge.introduction)
                 self.authMethodView.update(authMethod: challenge.authMethod)
                 self.viewModel?.imageData(from: challenge.challengeID,
-                                          filename: "thumbnail_auth",
+                                          filename: "thumbnail_auth_method",
                                           completion: { data in
                     guard let data = data, let image = UIImage(data: data) else { return }
                     DispatchQueue.main.async {
