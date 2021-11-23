@@ -37,7 +37,7 @@ final class DetailViewController: UIViewController {
 
     private lazy var participantView: UIView = {
         var view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground.withAlphaComponent(0.7)
         return view
     }()
 
@@ -65,27 +65,34 @@ final class DetailViewController: UIViewController {
     }
 
     private func configureViews() {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 20.0
+
         self.view.backgroundColor = .systemBackground
         self.configureNavigationBar()
 
         view.addSubview(scrollView)
-        scrollView.anchor(horizontal: view,
-                          top: view.safeAreaLayoutGuide.topAnchor)
+        self.scrollView.anchor(edges: view)
 
         view.addSubview(participantView)
         participantView.anchor(horizontal: participantView.superview,
-                               top: scrollView.bottomAnchor,
                                bottom: view.bottomAnchor,
-                               height: 90)
+                               height: smallWidth ? 60 : 90)
 
         participantView.addSubview(participantButton)
-        participantButton.anchor(horizontal: participantView, paddingHorizontal: 20,
-                                 top: participantView.topAnchor, paddingTop: 10,
-                                 bottom: participantView.bottomAnchor, paddingBottom: 30)
+        participantButton.anchor(horizontal: participantView,
+                                 paddingHorizontal: offset,
+                                 top: participantView.topAnchor,
+                                 paddingTop: 10,
+                                 bottom: participantView.bottomAnchor,
+                                 paddingBottom: smallWidth ? 10 : 30)
 
         scrollView.addSubview(stackView)
-        stackView.anchor(edges: scrollView)
-        stackView.anchor(centerX: scrollView.centerXAnchor)
+        stackView.anchor(centerX: scrollView.centerXAnchor,
+                         horizontal: scrollView,
+                         top: scrollView.topAnchor,
+                         bottom: scrollView.bottomAnchor,
+                         paddingBottom: smallWidth ? 30 : 60)
 
         stackView.addArrangedSubview(mainImageView)
         mainImageView.anchor(horizontal: stackView,
