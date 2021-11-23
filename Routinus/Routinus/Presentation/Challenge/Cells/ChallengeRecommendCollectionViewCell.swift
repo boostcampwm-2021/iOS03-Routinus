@@ -10,6 +10,13 @@ import UIKit
 final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
     static let identifier = "ChallengeRecommendCollectionViewCell"
 
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.alpha = 0.3
+        return imageView
+    }()
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor =  UIColor(named: "Black")
@@ -47,6 +54,12 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
     }()
 
     func configureViews(recommendChallenge: Challenge) {
+        let category = recommendChallenge.category
+        let image = UIImage(named: category.symbol) != nil
+                    ? UIImage(named: category.symbol)
+                    : UIImage(systemName: category.symbol)
+        self.imageView.image = image
+        self.imageView.tintColor = UIColor(named: category.color)
 
         self.titleLabel.text = recommendChallenge.title
         self.subtitleLabel.text = recommendChallenge.introduction
@@ -54,7 +67,12 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 15
-        self.layer.borderColor =  UIColor(named: "Black")?.cgColor
+        self.layer.borderColor = UIColor(named: "Black")?.cgColor
+
+        self.addSubview(imageView)
+        imageView.anchor(trailing: imageView.superview?.trailingAnchor, paddingTrailing: 10,
+                         vertical: imageView.superview,
+                         width: self.frame.size.width / 2.2)
 
         self.addSubview(titleLabel)
         titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: 25,
@@ -78,6 +96,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         encounterView.anchor(leading: titleLabel.leadingAnchor,
                              trailing: encounterLabel.trailingAnchor, paddingTrailing: -15,
                              bottom: encounterView.superview?.bottomAnchor, paddingBottom: 20)
+
         let constraint = encounterView.heightAnchor.constraint(equalToConstant: 30)
         constraint.priority = UILayoutPriority(900)
         constraint.isActive = true

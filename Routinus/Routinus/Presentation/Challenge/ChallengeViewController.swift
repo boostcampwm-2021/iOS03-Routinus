@@ -97,7 +97,6 @@ extension ChallengeViewController {
                                                               for: indexPath) as? ChallengeRecommendCollectionViewCell
                 cell?.configureViews(recommendChallenge: recommendChallenge)
                 return cell
-
             case .category:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCategoryCollectionViewCell.identifier,
                                                               for: indexPath) as? ChallengeCategoryCollectionViewCell
@@ -164,12 +163,12 @@ extension ChallengeViewController {
     }
 
     private func configureViewModel() {
-        self.viewModel?.recommendChallenge
+        self.viewModel?.recommendChallenges
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] recommendChallenge in
+            .sink(receiveValue: { [weak self] recommendChallenges in
                 guard let self = self else { return }
                 var snapshot = self.dataSource.snapshot(for: Section.recommend)
-                let contents = recommendChallenge.map { ChallengeContents.recommend($0) }
+                let contents = recommendChallenges.map { ChallengeContents.recommend($0) }
                 snapshot.deleteAll()
                 snapshot.append(contents)
                 self.dataSource.apply(snapshot, to: Section.recommend)
