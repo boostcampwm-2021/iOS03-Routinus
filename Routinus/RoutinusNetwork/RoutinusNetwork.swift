@@ -69,11 +69,11 @@ public enum RoutinusNetwork {
                         imageURL: thumbnailImageURL,
                         completion: nil)
             uploadImage(id: id,
-                        filename: "auth",
+                        filename: "auth_method",
                         imageURL: authExampleImageURL,
                         completion: nil)
             uploadImage(id: id,
-                        filename: "thumbnail_auth",
+                        filename: "thumbnail_auth_method",
                         imageURL: authExampleThumbnailImageURL,
                         completion: nil)
         }
