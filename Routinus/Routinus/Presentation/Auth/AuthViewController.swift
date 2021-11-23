@@ -74,7 +74,8 @@ extension AuthViewController {
                               trailing: self.scrollView.trailingAnchor,
                               centerX: self.scrollView.centerXAnchor,
                               top: self.scrollView.topAnchor,
-                              bottom: self.scrollView.bottomAnchor, paddingBottom: 60)
+                              bottom: self.scrollView.bottomAnchor,
+                              paddingBottom: smallWidth ? 70 : 100)
 
         self.stackView.addArrangedSubview(authMethodView)
 
