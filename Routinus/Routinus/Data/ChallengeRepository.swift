@@ -84,8 +84,8 @@ extension RoutinusRepository: ChallengeRepository {
                                    challengeID: challengeID) { dto in
             let imageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "image")
             let thumbnailImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "thumbnail_image")
-            let authExampleImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "auth")
-            let authExampleThumbnailImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "thumbnail_auth")
+            let authExampleImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "auth_method")
+            let authExampleThumbnailImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "thumbnail_auth_method")
             completion(Challenge(challengeDTO: dto,
                                  imageURL: imageURL,
                                  thumbnailImageURL: thumbnailImageURL,

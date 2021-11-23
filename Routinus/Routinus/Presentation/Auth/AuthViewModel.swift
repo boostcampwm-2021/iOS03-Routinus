@@ -27,6 +27,7 @@ protocol AuthViewModelOutput {
     var challenge: CurrentValueSubject<Challenge?, Never> { get }
     var alertConfirmTap: PassthroughSubject<Void, Never> { get }
     var methodImageTap: PassthroughSubject<Data, Never> { get }
+    var userName: String { get }
 }
 
 protocol AuthViewModelIO: AuthViewModelInput, AuthViewModelOutput { }
@@ -36,6 +37,7 @@ class AuthViewModel: AuthViewModelIO {
     var challenge = CurrentValueSubject<Challenge?, Never>(nil)
     var alertConfirmTap = PassthroughSubject<Void, Never>()
     var methodImageTap = PassthroughSubject<Data, Never>()
+    var userName: String = ""
     var challengeFetchUsecase: ChallengeFetchableUsecase
     var imageFetchUsecase: ImageFetchableUsecase
     var imageSaveUsecase: ImageSavableUsecase
@@ -43,6 +45,7 @@ class AuthViewModel: AuthViewModelIO {
     var participationUpdateUsecase: ParticipationUpdatableUsecase
     var achievementUpdateUsecase: AchievementUpdatableUsecase
     var userUpdateUsecase: UserUpdatableUsecase
+    var userFetchUsecase: UserFetchableUsecase
 
     private var challengeID: String
     private var userAuthImageURL: String
@@ -55,7 +58,8 @@ class AuthViewModel: AuthViewModelIO {
          challengeAuthCreateUsecase: ChallengeAuthCreatableUsecase,
          participationUpdateUsecase: ParticipationUpdatableUsecase,
          achievementUpdateUsecase: AchievementUpdatableUsecase,
-         userUpdateUsecase: UserUpdatableUsecase) {
+         userUpdateUsecase: UserUpdatableUsecase,
+         userFetchUsecase: UserFetchableUsecase) {
         self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
@@ -64,9 +68,11 @@ class AuthViewModel: AuthViewModelIO {
         self.participationUpdateUsecase = participationUpdateUsecase
         self.achievementUpdateUsecase = achievementUpdateUsecase
         self.userUpdateUsecase = userUpdateUsecase
+        self.userFetchUsecase = userFetchUsecase
         self.userAuthImageURL = ""
         self.userAuthThumbnailImageURL = ""
         self.fetchChallenge(challengeID: challengeID)
+        self.fetchUsername()
     }
 
     private func validate() {
@@ -112,6 +118,13 @@ extension AuthViewModel {
 
     func saveImage(to directory: String, filename: String, data: Data?) -> String? {
         return imageSaveUsecase.saveImage(to: directory, filename: filename, data: data)
+    }
+    
+    func fetchUsername() {
+        guard let userID = userFetchUsecase.fetchUserID() else { return }
+        userFetchUsecase.fetchUser(id: userID) { [weak self] user in
+            self?.userName = user.name
+        }
     }
 }
 

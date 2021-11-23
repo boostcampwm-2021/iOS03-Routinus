@@ -74,7 +74,8 @@ extension AuthViewController {
                               trailing: self.scrollView.trailingAnchor,
                               centerX: self.scrollView.centerXAnchor,
                               top: self.scrollView.topAnchor,
-                              bottom: self.scrollView.bottomAnchor, paddingBottom: 60)
+                              bottom: self.scrollView.bottomAnchor,
+                              paddingBottom: smallWidth ? 70 : 100)
 
         self.stackView.addArrangedSubview(authMethodView)
 
@@ -95,7 +96,7 @@ extension AuthViewController {
                 self.navigationItem.title = challenge.title
                 self.authMethodView.update(to: challenge.authMethod)
                 self.viewModel?.imageData(from: challenge.challengeID,
-                                          filename: "thumbnail_auth",
+                                          filename: "thumbnail_auth_method",
                                           completion: { data in
                     guard let data = data else { return }
                     DispatchQueue.main.async {
@@ -154,7 +155,7 @@ extension AuthViewController: AuthMethodViewDelegate {
     func didTappedMethodImageView() {
         guard let challengeID = viewModel?.challenge.value?.challengeID else { return }
         self.viewModel?.imageData(from: challengeID,
-                                  filename: "auth") { data in
+                                  filename: "auth_method") { data in
             guard let data = data else { return }
             self.viewModel?.didTappedMethodImage(image: data)
         }
@@ -166,18 +167,19 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
 
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
+        guard let viewModel = viewModel else { return }
         if let originalImage = info[InfoKey.originalImage] as? UIImage {
-            let timeAddedImage = originalImage.insertText(name: "",
+            let timeAddedImage = originalImage.insertText(name: viewModel.userName,
                                                           date: Date().toDateWithWeekdayString(),
                                                           time: Date().toTimeColonString())
             let mainImage = timeAddedImage.resizedImage(.original)
             let thumbnailImage = timeAddedImage.resizedImage(.thumbnail)
 
-            let mainImageURL = viewModel?.saveImage(to: "temp",
-                                                    filename: "userAuth",
+            let mainImageURL = viewModel.saveImage(to: "temp",
+                                                    filename: "auth",
                                                     data: mainImage.jpegData(compressionQuality: 0.9))
-            let thumbnailImageURL = viewModel?.saveImage(to: "temp",
-                                                         filename: "thumbnail_userAuth",
+            let thumbnailImageURL = viewModel.saveImage(to: "temp",
+                                                         filename: "thumbnail_auth",
                                                          data: thumbnailImage.jpegData(compressionQuality: 0.9))
             self.viewModel?.update(userAuthImageURL: mainImageURL)
             self.viewModel?.update(userAuthThumbnailImageURL: thumbnailImageURL)
