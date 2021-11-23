@@ -34,7 +34,7 @@ final class AuthButton: UIButton {
 
     func configureEnabled(isEnabled: Bool) {
         self.isEnabled = isEnabled
-        self.alpha = isEnabled ? 1 : 0.5
+        self.backgroundColor = isEnabled ?  UIColor(named: "MainColor") :  UIColor(named: "MainColor0.5")
     }
 }
 

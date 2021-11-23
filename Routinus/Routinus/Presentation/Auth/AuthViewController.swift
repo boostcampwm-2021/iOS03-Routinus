@@ -18,7 +18,7 @@ final class AuthViewController: UIViewController {
     }()
     private lazy var authView: UIView = {
         var view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground.withAlphaComponent(0.7)
         return view
     }()
     private lazy var authMethodView = AuthMethodView()
@@ -53,30 +53,28 @@ extension AuthViewController {
         let offset = smallWidth ? 15.0 : 20.0
 
         self.view.backgroundColor = .systemBackground
+        self.scrollView.showsVerticalScrollIndicator = false
         self.configureNavigationBar()
 
         self.view.addSubview(scrollView)
-        self.scrollView.anchor(leading: self.view.safeAreaLayoutGuide.leadingAnchor,
-                               trailing: self.view.safeAreaLayoutGuide.trailingAnchor,
-                               top: self.view.safeAreaLayoutGuide.topAnchor)
+        self.scrollView.anchor(edges: view)
 
         self.view.addSubview(authView)
         authView.anchor(horizontal: authView.superview,
-                        top: scrollView.bottomAnchor,
                         bottom: view.bottomAnchor,
-                        height: 90)
+                        height: smallWidth ? 60 : 90)
 
         self.authView.addSubview(authButton)
         authButton.anchor(horizontal: authButton.superview, paddingHorizontal: offset,
                           top: authButton.superview?.topAnchor, paddingTop: 10,
-                          bottom: authButton.superview?.bottomAnchor, paddingBottom: 30)
+                          bottom: authButton.superview?.bottomAnchor, paddingBottom: smallWidth ? 10 : 30)
 
         self.scrollView.addSubview(stackView)
         self.stackView.anchor(leading: self.scrollView.leadingAnchor,
                               trailing: self.scrollView.trailingAnchor,
                               centerX: self.scrollView.centerXAnchor,
                               top: self.scrollView.topAnchor,
-                              bottom: self.scrollView.bottomAnchor, paddingBottom: 20)
+                              bottom: self.scrollView.bottomAnchor, paddingBottom: 60)
 
         self.stackView.addArrangedSubview(authMethodView)
 
