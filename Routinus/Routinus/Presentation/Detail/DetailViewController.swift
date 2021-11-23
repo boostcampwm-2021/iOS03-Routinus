@@ -102,6 +102,9 @@ final class DetailViewController: UIViewController {
 
     private func configureNavigationBar() {
         self.navigationItem.largeTitleDisplayMode = .never
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = UIColor(named: "Black")
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     private func configureViewModel() {

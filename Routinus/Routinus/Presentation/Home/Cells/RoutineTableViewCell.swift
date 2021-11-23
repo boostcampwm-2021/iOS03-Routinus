@@ -14,6 +14,7 @@ final class RoutineTableViewCell: UITableViewCell {
         let progressView = UIProgressView()
         progressView.layer.borderWidth = 5
         progressView.layer.cornerRadius = 25
+        progressView.progress = 0.0
         progressView.trackTintColor = .systemBackground
         return progressView
     }()

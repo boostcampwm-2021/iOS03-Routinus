@@ -20,6 +20,10 @@ final class HomeViewController: UIViewController {
                                        weight: .bold)
         return label
     }()
+    private lazy var launchView = LaunchView(frame: CGRect(x: 0,
+                                                           y: 0,
+                                                           width: self.view.frame.width,
+                                                           height: self.view.frame.height))
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView(viewModel: viewModel)
@@ -41,10 +45,10 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureLaunchView()
         configureViews()
         configureViewModel()
         configureDelegates()
-        viewModel?.fetchMyHomeData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,15 +58,13 @@ final class HomeViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-
-    override func viewWillTransition(to size: CGSize,
-                                     with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        calendarView.reloadData()
-    }
 }
 
 extension HomeViewController {
+    private func configureLaunchView() {
+        self.tabBarController?.view.addSubview(launchView)
+    }
+
     private func configureViews() {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
@@ -124,9 +126,10 @@ extension HomeViewController {
             .sink(receiveValue: { [weak self] routines in
                 guard let self = self else { return }
                 var snapshot = Snapshot()
+                snapshot.deleteAllItems()
                 snapshot.appendSections([0])
                 snapshot.appendItems(routines)
-                self.dataSource.apply(snapshot)
+                self.dataSource.apply(snapshot, animatingDifferences: false)
                 self.todayRoutineView.updateTableViewConstraints(cellCount: routines.count)
             })
             .store(in: &cancellables)
@@ -141,12 +144,18 @@ extension HomeViewController {
     }
 
     private func configureDelegates() {
+        launchView.delegate = self
         todayRoutineView.delegate = self
         todayRoutineView.dataSource = dataSource
         todayRoutineView.challengeAddDelegate = self
-
         calendarView.delegate = self
         calendarView.dataSource = self
+    }
+}
+
+extension HomeViewController: LaunchViewDelegate {
+    func didStartedLaunchView() {
+        self.viewModel?.fetchMyHomeData()
     }
 }
 

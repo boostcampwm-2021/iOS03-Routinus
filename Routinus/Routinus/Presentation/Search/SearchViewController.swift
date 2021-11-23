@@ -162,6 +162,9 @@ extension SearchViewController {
         self.navigationItem.titleView = searchBarView
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.largeTitleDisplayMode = .never
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = UIColor(named: "Black")
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {

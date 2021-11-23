@@ -69,10 +69,17 @@ final class ManageViewController: UIViewController {
 
 extension ManageViewController {
     private func configureViews() {
+        self.configureNavigationBar()
         view.backgroundColor = .systemBackground
 
         view.addSubview(collectionView)
         collectionView.anchor(edges: view.safeAreaLayoutGuide)
+    }
+
+    private func configureNavigationBar() {
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = UIColor(named: "Black")
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     private func configureViewModel() {
