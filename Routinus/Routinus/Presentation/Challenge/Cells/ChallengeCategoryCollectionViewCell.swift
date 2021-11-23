@@ -32,7 +32,7 @@ final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
         return stack
     }()
 
-    @objc func didTappedCategoryButton(_ gesture: CategoryButtonTapGesture) {
+    @objc func didTappedCategoryButton(_ gesture: ChallengeCategoryButtonTapGesture) {
         guard let category = gesture.category else { return }
         delegate?.didTappedCategoryButton(category: category)
     }
@@ -46,14 +46,15 @@ final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
         self.yStackView.addArrangedSubview(xStackView2)
 
         for (index, category) in Challenge.Category.allCases.enumerated() {
-            let button = CategoryButton()
+            let button = ChallengeCategoryButton()
             button.setImage(UIImage(named: category.symbol) != nil
                             ? UIImage(named: category.symbol)
                             : UIImage(systemName: category.symbol))
             button.setTitle(category.title)
             button.setTintColor(UIColor(named: category.color))
 
-            let gesture = CategoryButtonTapGesture(target: self, action: #selector(didTappedCategoryButton))
+            let gesture = ChallengeCategoryButtonTapGesture(target: self,
+                                                            action: #selector(didTappedCategoryButton))
             gesture.numberOfTapsRequired = 1
             gesture.configureCategory(category: category)
             self.isUserInteractionEnabled = true

@@ -108,7 +108,7 @@
 		E9493DC6273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC5273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift */; };
 		E9493DC8273A70280095CF6D /* SearchPopularKeywordCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC7273A70280095CF6D /* SearchPopularKeywordCollectionViewCell.swift */; };
 		E9493DCC273A75220095CF6D /* SearchCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DCB273A75220095CF6D /* SearchCollectionViewHeader.swift */; };
-		E94B497227390FD300708D7B /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B497127390FD300708D7B /* CategoryButton.swift */; };
+		E94B497227390FD300708D7B /* ChallengeCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B497127390FD300708D7B /* ChallengeCategoryButton.swift */; };
 		E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B4973273910F400708D7B /* ChallengeViewModel.swift */; };
 		E94B49762739118B00708D7B /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B49752739118B00708D7B /* Challenge.swift */; };
 		E96979EA274BD8C1003AF60D /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96979E9274BD8C1003AF60D /* LaunchView.swift */; };
@@ -287,7 +287,7 @@
 		E9493DC5273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCollectionViewCell.swift; sourceTree = "<group>"; };
 		E9493DC7273A70280095CF6D /* SearchPopularKeywordCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPopularKeywordCollectionViewCell.swift; sourceTree = "<group>"; };
 		E9493DCB273A75220095CF6D /* SearchCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewHeader.swift; sourceTree = "<group>"; };
-		E94B497127390FD300708D7B /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
+		E94B497127390FD300708D7B /* ChallengeCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCategoryButton.swift; sourceTree = "<group>"; };
 		E94B4973273910F400708D7B /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
 		E94B49752739118B00708D7B /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		E96979E9274BD8C1003AF60D /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
@@ -534,7 +534,7 @@
 		446A071D2741F58C009F8D98 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				E94B497127390FD300708D7B /* CategoryButton.swift */,
+				E94B497127390FD300708D7B /* ChallengeCategoryButton.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1175,7 +1175,7 @@
 				E9493DC3273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift in Sources */,
 				0DE0339A274355700026F502 /* ManageCollectionViewLayouts.swift in Sources */,
 				E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */,
-				E94B497227390FD300708D7B /* CategoryButton.swift in Sources */,
+				E94B497227390FD300708D7B /* ChallengeCategoryButton.swift in Sources */,
 				E9A7943F274618AB00731DEB /* AchievementUpdateUsecase.swift in Sources */,
 				E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */,
 				14B18118274561E20061F2AE /* ParticipationCreateUsecase.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  CategoryButton.swift
+//  ChallengeCategoryButton.swift
 //  Routinus
 //
 //  Created by 박상우 on 2021/11/08.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CategoryButton: UIView {
+final class ChallengeCategoryButton: UIView {
     private var imageView = UIImageView()
     private var title = UILabel()
 
@@ -53,7 +53,7 @@ final class CategoryButton: UIView {
     }
 }
 
-final class CategoryButtonTapGesture: UITapGestureRecognizer {
+final class ChallengeCategoryButtonTapGesture: UITapGestureRecognizer {
     private (set) var category: Challenge.Category?
 
     func configureCategory(category: Challenge.Category) {
