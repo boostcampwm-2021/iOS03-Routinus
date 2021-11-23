@@ -169,13 +169,13 @@ extension HomeViewModel {
     private func generateDay(offsetBy dayOffset: Int, for baseDate: Date, isWithinDisplayedMonth: Bool) -> Day {
         let date = calendar.date(byAdding: .day, value: dayOffset, to: baseDate) ?? baseDate
         let achievement = achievements.filter { "\($0.yearMonth)\($0.day)" == date.toDateString() }
-        let achieveRate = Double(achievement.first?.achievementCount ?? 0) / Double(achievement.first?.totalCount ?? 0)
+        let achievementRate = Double(achievement.first?.achievementCount ?? 0) / Double(achievement.first?.totalCount ?? 0)
         return Day(
             date: date,
             number: "\(date.day)",
             isSelected: selectedDates.contains(date),
             achievementRate: (achievement.count > 0
-                              ? achieveRate
+                              ? achievementRate
                               : 0),
             isWithinDisplayedMonth: isWithinDisplayedMonth
         )
