@@ -37,6 +37,7 @@ extension LaunchView {
     private func configureViews() {
         self.backgroundColor = .systemBackground
         self.addSubview(launchImageView)
+
         self.launchImageView.anchor(leading: self.leadingAnchor, paddingLeading: 30,
                                    trailing: self.trailingAnchor, paddingTrailing: 30,
                                    centerX: self.centerXAnchor,
