@@ -33,7 +33,7 @@ final class CalendarView: UIView {
     }()
 
     private lazy var headerView = CalendarHeader(
-        didTappedLastMonthCompletionHandler: { [weak self] in
+        didTappedPreviousMonthCompletionHandler: { [weak self] in
             guard let self = self else { return }
             self.viewModel?.changeDate(month: -1)
             self.calendarView.reloadData()

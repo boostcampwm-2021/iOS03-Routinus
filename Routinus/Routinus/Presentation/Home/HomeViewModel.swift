@@ -122,8 +122,8 @@ extension HomeViewModel {
         }
     }
 
-    private func fetchAchievement() {
-        achievementFetchUsecase.fetchAchievements(yearMonth: Date.currentYearMonth()) { achievement in
+    private func fetchAchievement(date: Date = Date()) {
+        achievementFetchUsecase.fetchAchievements(yearMonth: date.toYearMonthString()) { achievement in
             self.selectedDates = achievement.map { Date(dateString: "\($0.yearMonth)\($0.day)") }
             self.achievements = achievement
             self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
@@ -235,8 +235,9 @@ extension HomeViewModel {
     }
 
     func changeDate(month: Int) {
-        let changedDate = self.calendar.date(byAdding: .month, value: month, to: self.baseDate.value) ?? Date()
-        self.baseDate.value = month == 0 ? Date() : changedDate
-        self.days.value = generateDaysInMonth(for: baseDate.value)
+        let changedDate = calendar.date(byAdding: .month, value: month, to: baseDate.value) ?? Date()
+        baseDate.value = month == 0 ? Date() : changedDate
+        days.value = generateDaysInMonth(for: baseDate.value)
+        fetchAchievement(date: baseDate.value)
     }
 }
