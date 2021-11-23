@@ -55,6 +55,7 @@ class DetailViewModel: DetailViewModelIO {
     let participationCreateUsecase: ParticipationCreatableUsecase
     let userFetchUsecase: UserFetchableUsecase
     let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
+    let achievementUpdateUsecase: AchievementUpdatableUsecase
     var cancellables = Set<AnyCancellable>()
     var challengeID: String?
 
@@ -65,7 +66,8 @@ class DetailViewModel: DetailViewModelIO {
          participationFetchUsecase: ParticipationFetchableUsecase,
          participationCreateUsecase: ParticipationCreatableUsecase,
          userFetchUsecase: UserFetchableUsecase,
-         challengeAuthFetchUsecase: ChallengeAuthFetchUsecase) {
+         challengeAuthFetchUsecase: ChallengeAuthFetchUsecase,
+         achievementUpdateUsecase: AchievementUpdateUsecase) {
         self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
         self.challengeUpdateUsecase = challengeUpdateUsecase
@@ -74,6 +76,7 @@ class DetailViewModel: DetailViewModelIO {
         self.participationCreateUsecase = participationCreateUsecase
         self.userFetchUsecase = userFetchUsecase
         self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
+        self.achievementUpdateUsecase = achievementUpdateUsecase
         self.fetchChallenge()
         self.updateParticipationAuthState()
     }
@@ -124,6 +127,7 @@ extension DetailViewModel {
     func updateParticipantCount() {
         guard let challengeID = challengeID else { return }
         challengeUpdateUsecase.updateParticipantCount(challengeID: challengeID)
+        achievementUpdateUsecase.updateTotalCount()
     }
 }
 

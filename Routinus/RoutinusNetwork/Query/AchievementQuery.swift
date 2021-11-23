@@ -108,4 +108,14 @@ internal enum AchievementQuery {
         }
         """.data(using: .utf8)
     }
+
+    internal static func updateTotalCount(document: AchievementFields) -> Data? {
+        return """
+        {
+            "fields": {
+                "total_count": { "integerValue": "\(document.totalCount.integerValue)" }
+            }
+        }
+        """.data(using: .utf8)
+    }
 }

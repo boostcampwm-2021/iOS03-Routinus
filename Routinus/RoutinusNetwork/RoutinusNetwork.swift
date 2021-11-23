@@ -721,6 +721,42 @@ public enum RoutinusNetwork {
         }
     }
 
+    public static func updateTotalCount(userID: String,
+                                        yearMonth: String,
+                                        day: String,
+                                        completion: (() -> Void)?) {
+        achievement(userID: userID, yearMonth: yearMonth, day: day) { dto in
+            guard let dto = dto,
+                  let document = dto.document,
+                  let achievementCount = Int(document.fields.achievementCount.integerValue),
+                  let totalCount = Int(document.fields.totalCount.integerValue) else { return }
+
+            let achievementDTO = AchievementDTO(totalCount: totalCount + 1,
+                                                day: day,
+                                                userID: userID,
+                                                achievementCount: achievementCount,
+                                                yearMonth: yearMonth)
+
+            guard let achievementField = achievementDTO.document?.fields else { return }
+            let documentID = dto.documentID ?? ""
+            var urlComponent = URLComponents(string: "\(firestoreURL)/achievement/\(documentID)?")
+            let queryItems = [
+                URLQueryItem(name: "updateMask.fieldPaths", value: "total_count")
+            ]
+            urlComponent?.queryItems = queryItems
+
+            guard let url = urlComponent?.url else { return }
+            var request = URLRequest(url: url)
+            request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = HTTPMethod.patch.rawValue
+            request.httpBody = AchievementQuery.updateTotalCount(document: achievementField)
+
+            URLSession.shared.dataTask(with: request) { _, _, _ in
+                completion?()
+            }.resume()
+        }
+    }
+
     public static func updateParticipantCount(challengeID: String,
                                                 completion: (() -> Void)?) {
         challenge(challengeID: challengeID) { dto in
