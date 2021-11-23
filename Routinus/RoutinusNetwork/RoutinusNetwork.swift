@@ -563,6 +563,43 @@ public enum RoutinusNetwork {
         }
     }
 
+    public static func updateUsername(of id: String,
+                                      name: String,
+                                      completion: (() -> Void)?) {
+        user(of: id) { dto in
+            guard let document = dto.document,
+                  let grade = Int(document.fields.grade.integerValue),
+                  let continuityDay = Int(document.fields.continuityDay.integerValue) else { return }
+            let userImageCategoryID = document.fields.userImageCategoryID.stringValue
+            let lastAuthDay = document.fields.lastAuthDay.stringValue
+
+            let userDTO = UserDTO(id: id,
+                                  name: name,
+                                  grade: grade,
+                                  continuityDay: continuityDay,
+                                  userImageCategoryID: userImageCategoryID,
+                                  lastAuthDay: lastAuthDay)
+            guard let userField = userDTO.document?.fields,
+            let documentID = dto.documentID else { return }
+
+            var urlComponent = URLComponents(string: "\(firestoreURL)/user/\(documentID)?")
+            let queryItems = [
+                URLQueryItem(name: "updateMask.fieldPaths", value: "name"),
+            ]
+            urlComponent?.queryItems = queryItems
+
+            guard let url = urlComponent?.url else { return }
+            var request = URLRequest(url: url)
+            request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = HTTPMethod.patch.rawValue
+            request.httpBody = UserQuery.updateUsername(document: userField)
+
+            URLSession.shared.dataTask(with: request) { _, _, _ in
+                completion?()
+            }.resume()
+        }
+    }
+
     public static func updateChallenge(challengeDTO: ChallengeDTO,
                                        completion: (() -> Void)?) {
         guard let ownerID = challengeDTO.document?.fields.ownerID.stringValue,
