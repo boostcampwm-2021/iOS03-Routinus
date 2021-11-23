@@ -16,15 +16,18 @@ class ImagePinchViewController: UIViewController {
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "seed")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+
+    var image: Data?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
         configurePinch()
+
+        fetchImage()
     }
 
     func configureViews() {
@@ -66,19 +69,20 @@ class ImagePinchViewController: UIViewController {
     @objc func doPan(_ pan: UIPanGestureRecognizer) {
         let translation = pan.translation(in: imageView)
         let currentScale = imageView.frame.width / imageView.bounds.size.width
-        if currentScale > 1 {
-            if let imageView = pan.view {
-                imageView.center = CGPoint(x: imageView.center.x + translation.x,
-                                           y: imageView.center.y + translation.y)
-            }
-            pan.setTranslation(.zero, in: imageView)
-        } else {
-            if let imageView = pan.view {
-                imageView.center = CGPoint(x: UIScreen.main.bounds.width / 2,
-                                           y: UIScreen.main.bounds.height / 2)
-            }
-            pan.setTranslation(.zero, in: imageView)
+        if let imageView = pan.view {
+            imageView.center = CGPoint(x: imageView.center.x + translation.x,
+                                       y: imageView.center.y + translation.y)
         }
+        pan.setTranslation(.zero, in: imageView)
+
+        if currentScale <= 1 && pan.state == .ended {
+            self.dismiss(animated: true)
+        }
+    }
+
+    func fetchImage() {
+        guard let image = self.image else { return }
+        self.imageView.image = UIImage(data: image)
     }
 }
 
