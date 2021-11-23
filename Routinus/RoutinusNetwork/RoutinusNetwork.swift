@@ -525,8 +525,8 @@ public enum RoutinusNetwork {
         }.resume()
     }
 
-    public static func updateContinuityDay(of id: String,
-                                           completion: (() -> Void)?) {
+    public static func updateContinuityDayByAuth(of id: String,
+                                                 completion: (() -> Void)?) {
         user(of: id) { dto in
             guard let document = dto.document,
                   let grade = Int(document.fields.grade.integerValue),
