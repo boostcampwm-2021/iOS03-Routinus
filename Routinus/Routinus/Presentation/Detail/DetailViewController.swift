@@ -125,7 +125,7 @@ final class DetailViewController: UIViewController {
                 self.informationView.update(to: challenge)
                 self.authMethodView.update(to: challenge.authMethod)
                 self.viewModel?.imageData(from: challenge.challengeID,
-                                          filename: "thumbnail_auth",
+                                          filename: "thumbnail_auth_method",
                                           completion: { data in
                     guard let data = data else { return }
                     DispatchQueue.main.async {
