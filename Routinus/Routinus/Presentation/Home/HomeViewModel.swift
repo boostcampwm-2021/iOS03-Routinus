@@ -20,7 +20,7 @@ protocol HomeViewModelInput {
 protocol HomeViewModelOutput {
     var user: CurrentValueSubject<User, Never> { get }
     var todayRoutines: CurrentValueSubject<[TodayRoutine], Never> { get }
-    var selectedAuthState: ParticipationAuthState { get }
+    var participationAuthStates: [ParticipationAuthState] { get }
     var achievements: [Achievement] { get }
     var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
     var todayRoutineTap: PassthroughSubject<String, Never> { get }
@@ -37,7 +37,7 @@ protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 final class HomeViewModel: HomeViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
     var todayRoutines = CurrentValueSubject<[TodayRoutine], Never>([])
-    var selectedAuthState: ParticipationAuthState = .notAuthenticating
+    var participationAuthStates = [ParticipationAuthState]()
     var achievements = [Achievement]()
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
@@ -112,8 +112,9 @@ extension HomeViewModel {
     }
 
     private func fetchTodayRoutine() {
-        todayRoutineFetchUsecase.fetchTodayRoutines { [weak self] todayRoutine in
-            self?.todayRoutines.value = todayRoutine
+        todayRoutineFetchUsecase.fetchTodayRoutines { [weak self] todayRoutines in
+            self?.todayRoutines.value = todayRoutines
+            self?.configureParticipationAuthStates(todayRoutines: todayRoutines)
         }
     }
 
@@ -128,6 +129,19 @@ extension HomeViewModel {
     private func fetchAuth(challengeID: String, completion: @escaping (ChallengeAuth?) -> Void) {
         self.challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
             completion(challengeAuth)
+        }
+    }
+
+    private func configureParticipationAuthStates(todayRoutines: [TodayRoutine]) {
+        self.participationAuthStates = Array(repeating: .notAuthenticating,
+                                              count: todayRoutines.count)
+
+        todayRoutines.enumerated().forEach { [weak self] (idx, routine) in
+            self?.fetchAuth(challengeID: routine.challengeID,
+                            completion: { challengAuth in
+                let authState: ParticipationAuthState = challengAuth != nil ? .authenticated : .notAuthenticating
+                self?.participationAuthStates[idx] = authState
+            })
         }
     }
 }
