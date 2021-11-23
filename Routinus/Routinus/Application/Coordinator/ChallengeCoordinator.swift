@@ -24,8 +24,10 @@ final class ChallengeCoordinator: RoutinusCoordinator {
 
     func start() {
         let repository = RoutinusRepository()
-        let challengeUsecase = ChallengeFetchUsecase(repository: repository)
-        let challengeViewModel = ChallengeViewModel(usecase: challengeUsecase)
+        let challengeFetchUsecase = ChallengeFetchUsecase(repository: repository)
+        let imageFetchUsecase = ImageFetchUsecase(repository: repository)
+        let challengeViewModel = ChallengeViewModel(challengeFetchUsecase: challengeFetchUsecase,
+                                                    imageFetchUsecase: imageFetchUsecase)
         let challengeViewController = ChallengeViewController(with: challengeViewModel)
         challengeViewModel.searchButtonTap
             .sink { [weak self] _ in
