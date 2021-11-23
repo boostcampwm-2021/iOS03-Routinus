@@ -10,6 +10,14 @@ import UIKit
 final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
     static let identifier = "ChallengeRecommendCollectionViewCell"
 
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 15
+        return imageView
+    }()
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor =  UIColor(named: "Black")
@@ -47,6 +55,8 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
     }()
 
     func configureViews(recommendChallenge: Challenge) {
+        backgroundView = imageView
+        imageView.coverBlurEffect()
 
         self.titleLabel.text = recommendChallenge.title
         self.subtitleLabel.text = recommendChallenge.introduction
@@ -54,7 +64,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 15
-        self.layer.borderColor =  UIColor(named: "Black")?.cgColor
+        self.layer.borderColor = UIColor(named: "Black")?.cgColor
 
         self.addSubview(titleLabel)
         titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: 25,
@@ -78,6 +88,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         encounterView.anchor(leading: titleLabel.leadingAnchor,
                              trailing: encounterLabel.trailingAnchor, paddingTrailing: -15,
                              bottom: encounterView.superview?.bottomAnchor, paddingBottom: 20)
+
         let constraint = encounterView.heightAnchor.constraint(equalToConstant: 30)
         constraint.priority = UILayoutPriority(900)
         constraint.isActive = true
