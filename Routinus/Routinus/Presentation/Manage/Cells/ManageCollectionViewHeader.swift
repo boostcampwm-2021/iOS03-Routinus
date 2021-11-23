@@ -43,10 +43,11 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
     private(set) var section: Section?
     private(set) var isExpanded: Bool = true {
         didSet {
-            if isExpanded == true {
-                toggleImage.image  = UIImage(systemName: "chevron.down")
-            } else {
-                toggleImage.image = UIImage(systemName: "chevron.right")
+            let angle = isExpanded ? 0 : -Double.pi / 2
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3) {
+                    self.toggleImage.transform = CGAffineTransform(rotationAngle: angle)
+                }
             }
         }
     }
