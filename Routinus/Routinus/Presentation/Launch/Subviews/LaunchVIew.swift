@@ -45,17 +45,21 @@ extension LaunchView {
     }
 
     private func animation() {
-        UIView.animate(withDuration: 1,
-                       animations: {
-            self.launchImageView.alpha = 0
-        },
+        UIView.animate(withDuration: 0.5,
+                       animations: { },
                        completion: { _ in
-            self.delegate?.didEndedLaunchView()
-            self.removeFromSuperview()
+            self.delegate?.didStartedLaunchView()
+            UIView.animate(withDuration: 0.5,
+                           animations: {
+                self.launchImageView.alpha = 0
+            },
+                           completion: { _ in
+                self.removeFromSuperview()
+            })
         })
     }
 }
 
 protocol LaunchViewDelegate: AnyObject {
-    func didEndedLaunchView()
+    func didStartedLaunchView()
 }

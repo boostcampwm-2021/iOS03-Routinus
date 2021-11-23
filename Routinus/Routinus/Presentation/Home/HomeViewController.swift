@@ -154,7 +154,7 @@ extension HomeViewController {
 }
 
 extension HomeViewController: LaunchViewDelegate {
-    func didEndedLaunchView() {
+    func didStartedLaunchView() {
         self.viewModel?.fetchMyHomeData()
     }
 }
