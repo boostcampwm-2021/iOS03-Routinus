@@ -144,18 +144,11 @@ extension HomeViewController {
     }
 
     private func configureDelegates() {
-        launchView.delegate = self
         todayRoutineView.delegate = self
         todayRoutineView.dataSource = dataSource
         todayRoutineView.challengeAddDelegate = self
         calendarView.delegate = self
         calendarView.dataSource = self
-    }
-}
-
-extension HomeViewController: LaunchViewDelegate {
-    func didStartedLaunchView() {
-        self.viewModel?.fetchMyHomeData()
     }
 }
 
@@ -185,12 +178,24 @@ extension HomeViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let auth = UIContextualAction(style: .normal, title: nil) { [weak self] (_, _, completion: @escaping (Bool) -> Void) in
-            self?.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
-            completion(true)
-        }
-        auth.backgroundColor = UIColor(named: "MainColor")
-        auth.title = "certify".localized
+        guard let viewModel = viewModel else { return nil }
+        var auth = UIContextualAction()
+//        if viewModel.participationAuthStates[indexPath.item] == .authenticated {
+//            auth = UIContextualAction(style: .normal,
+//                                      title: "certified".localized,
+//                                      handler: { _, _, _ in })
+//            auth.backgroundColor = UIColor(named: "LightGray")
+//            auth.title = "certified".localized
+//        } else {
+//            auth = UIContextualAction(style: .normal,
+//                                      title: nil) { [weak self] (_, _, completion: @escaping (Bool) -> Void) in
+//                self?.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
+//                completion(true)
+//            }
+//            auth.backgroundColor = UIColor(named: "MainColor")
+//            auth.title = "certify".localized
+//        }
+
         return UISwipeActionsConfiguration(actions: [auth])
     }
 
