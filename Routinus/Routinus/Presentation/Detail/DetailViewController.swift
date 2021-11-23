@@ -166,6 +166,7 @@ final class DetailViewController: UIViewController {
 
     private func configureDelegate() {
         participantButton.delegate = self
+        detailAuthDisplayListView.delegate = self
     }
 
     private func presentAlert() {
@@ -186,5 +187,15 @@ final class DetailViewController: UIViewController {
 extension DetailViewController: ParticipantButtonDelegate {
     func didTappedParticipantButton() {
         viewModel?.didTappedParticipationAuthButton()
+    }
+}
+
+extension DetailViewController: AuthDisplayViewDelegate {
+    func didTappedAllAuthDisplayView() {
+        print("All Auth")
+    }
+
+    func didTappedMeAuthDisplayView() {
+        print("Me Auth")
     }
 }

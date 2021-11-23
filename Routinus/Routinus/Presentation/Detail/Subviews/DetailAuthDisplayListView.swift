@@ -8,6 +8,7 @@
 import UIKit
 
 final class DetailAuthDisplayListView: UIView {
+    weak var delegate: AuthDisplayViewDelegate?
 
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
@@ -16,8 +17,27 @@ final class DetailAuthDisplayListView: UIView {
         return label
     }()
 
-    private lazy var allAuthDisplayView = DetailAuthDisplayView()
-    private lazy var meAuthDisplayView = DetailAuthDisplayView()
+    private lazy var allAuthDisplayView: DetailAuthDisplayView = {
+        var detailAuthDisplayView = DetailAuthDisplayView()
+
+        let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedAllAuthDisplayView))
+        gesture.numberOfTapsRequired = 1
+        detailAuthDisplayView.isUserInteractionEnabled = true
+        detailAuthDisplayView.addGestureRecognizer(gesture)
+
+        return detailAuthDisplayView
+    }()
+
+    private lazy var meAuthDisplayView: DetailAuthDisplayView = {
+        var meAuthDisplayView = DetailAuthDisplayView()
+
+        let gesture:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedMeAuthDisplayView))
+        gesture.numberOfTapsRequired = 1
+        meAuthDisplayView.isUserInteractionEnabled = true
+        meAuthDisplayView.addGestureRecognizer(gesture)
+
+        return meAuthDisplayView
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +51,14 @@ final class DetailAuthDisplayListView: UIView {
 
     convenience init() {
         self.init(frame: CGRect.zero)
+    }
+
+    @objc func didTappedAllAuthDisplayView() {
+        delegate?.didTappedAllAuthDisplayView()
+    }
+
+    @objc func didTappedMeAuthDisplayView() {
+        delegate?.didTappedMeAuthDisplayView()
     }
 }
 
@@ -55,4 +83,9 @@ extension DetailAuthDisplayListView {
                                   top: allAuthDisplayView.bottomAnchor, paddingTop: 20,
                                   bottom: self.bottomAnchor, paddingBottom: 20)
     }
+}
+
+protocol AuthDisplayViewDelegate: AnyObject {
+    func didTappedAllAuthDisplayView()
+    func didTappedMeAuthDisplayView()
 }
