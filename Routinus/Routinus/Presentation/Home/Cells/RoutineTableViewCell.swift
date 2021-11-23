@@ -62,9 +62,15 @@ final class RoutineTableViewCell: UITableViewCell {
             categoryImageView.image = UIImage(systemName: routine.category.symbol)
         }
         categoryNameLabel.text = routine.title
-        progressView.progress = Float(routine.authCount) / Float(routine.totalCount)
         progressView.tintColor = UIColor(named: routine.category.color)
         progressView.layer.borderColor = UIColor(named: routine.category.color)?.cgColor
+
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 1.5, delay: 3) {
+                let progress = Float(routine.authCount) / Float(routine.totalCount)
+                self.progressView.setProgress(progress, animated: true)
+            }
+        }
     }
 }
 
