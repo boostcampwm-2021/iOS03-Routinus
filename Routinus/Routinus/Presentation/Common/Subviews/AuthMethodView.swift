@@ -8,6 +8,8 @@
 import UIKit
 
 final class AuthMethodView: UIView {
+    weak var delegate: AuthMethodViewDelegate?
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "인증 방법"
@@ -20,6 +22,7 @@ final class AuthMethodView: UIView {
         imageView.backgroundColor = .systemBackground
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
 
@@ -51,21 +54,13 @@ final class AuthMethodView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
-
-    func configureMethodLabel(introduction: String) {
-        self.methodLabel.text = introduction
-    }
-
-    func configureMethodImage(data: Data?) {
-        guard let data = data else { return }
-        self.methodImageView.image = UIImage(data: data)
-    }
 }
 
 extension AuthMethodView {
     private func configure() {
         self.backgroundColor = .systemBackground
         configureSubviews()
+        configureMethodViewTapGesture()
     }
 
     private func configureSubviews() {
@@ -88,6 +83,18 @@ extension AuthMethodView {
                            vertical: methodView, paddingVertical: 10)
     }
 
+    private func configureMethodViewTapGesture() {
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedMethodImageView))
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+        singleTapGestureRecognizer.isEnabled = true
+        singleTapGestureRecognizer.cancelsTouchesInView = false
+        self.methodImageView.addGestureRecognizer(singleTapGestureRecognizer)
+    }
+
+    @objc func tappedMethodImageView() {
+        self.delegate?.didTappedMethodImageView()
+    }
+
     func update(to text: String) {
         methodLabel.text = text
     }
@@ -95,4 +102,8 @@ extension AuthMethodView {
     func update(to data: Data) {
         self.methodImageView.image = UIImage(data: data)
     }
+}
+
+protocol AuthMethodViewDelegate: AnyObject {
+    func didTappedMethodImageView()
 }

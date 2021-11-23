@@ -18,7 +18,7 @@ final class AuthViewController: UIViewController {
     }()
     private lazy var authView: UIView = {
         var view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground.withAlphaComponent(0.7)
         return view
     }()
     private lazy var authMethodView = AuthMethodView()
@@ -49,37 +49,37 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController {
     private func configureViews() {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 20.0
+
         self.view.backgroundColor = .systemBackground
+        self.scrollView.showsVerticalScrollIndicator = false
         self.configureNavigationBar()
 
         self.view.addSubview(scrollView)
-        self.scrollView.anchor(leading: self.view.safeAreaLayoutGuide.leadingAnchor,
-                               trailing: self.view.safeAreaLayoutGuide.trailingAnchor,
-                               top: self.view.safeAreaLayoutGuide.topAnchor)
+        self.scrollView.anchor(edges: view)
 
         self.view.addSubview(authView)
         authView.anchor(horizontal: authView.superview,
-                        top: scrollView.bottomAnchor,
                         bottom: view.bottomAnchor,
-                        height: 90)
+                        height: smallWidth ? 60 : 90)
 
         self.authView.addSubview(authButton)
-        authButton.anchor(horizontal: authButton.superview, paddingHorizontal: 20,
+        authButton.anchor(horizontal: authButton.superview, paddingHorizontal: offset,
                           top: authButton.superview?.topAnchor, paddingTop: 10,
-                          bottom: authButton.superview?.bottomAnchor, paddingBottom: 30)
+                          bottom: authButton.superview?.bottomAnchor, paddingBottom: smallWidth ? 10 : 30)
 
         self.scrollView.addSubview(stackView)
         self.stackView.anchor(leading: self.scrollView.leadingAnchor,
                               trailing: self.scrollView.trailingAnchor,
                               centerX: self.scrollView.centerXAnchor,
                               top: self.scrollView.topAnchor,
-                              bottom: self.scrollView.bottomAnchor, paddingBottom: 20)
+                              bottom: self.scrollView.bottomAnchor, paddingBottom: 60)
 
         self.stackView.addArrangedSubview(authMethodView)
 
         self.stackView.addArrangedSubview(previewView)
-        self.previewView.translatesAutoresizingMaskIntoConstraints = false
-        self.previewView.heightAnchor.constraint(equalTo: self.previewView.widthAnchor, multiplier: 1).isActive = true
+        self.previewView.anchor(height: view.frame.width - offset*2)
     }
 
     private func configureNavigationBar() {
@@ -93,12 +93,13 @@ extension AuthViewController {
                 guard let self = self,
                       let challenge = challenge else { return }
                 self.navigationItem.title = challenge.title
-                self.authMethodView.configureMethodLabel(introduction: challenge.introduction)
+                self.authMethodView.update(to: challenge.authMethod)
                 self.viewModel?.imageData(from: challenge.challengeID,
                                           filename: "thumbnail_auth",
                                           completion: { data in
+                    guard let data = data else { return }
                     DispatchQueue.main.async {
-                        self.authMethodView.configureMethodImage(data: data)
+                        self.authMethodView.update(to: data)
                     }
                 })
             })
@@ -117,6 +118,7 @@ extension AuthViewController {
         self.imagePicker.delegate = self
         self.previewView.delegate = self
         self.authButton.delegate = self
+        self.authMethodView.delegate = self
     }
 }
 
@@ -148,14 +150,28 @@ extension AuthViewController: AuthButtonDelegate {
     }
 }
 
+extension AuthViewController: AuthMethodViewDelegate {
+    func didTappedMethodImageView() {
+        guard let challengeID = viewModel?.challenge.value?.challengeID else { return }
+        self.viewModel?.imageData(from: challengeID,
+                                  filename: "auth") { data in
+            guard let data = data else { return }
+            self.viewModel?.didTappedMethodImage(image: data)
+        }
+    }
+}
+
 extension AuthViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     typealias InfoKey = UIImagePickerController.InfoKey
 
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
         if let originalImage = info[InfoKey.originalImage] as? UIImage {
-            let mainImage = originalImage.resizedImage(.original)
-            let thumbnailImage = originalImage.resizedImage(.thumbnail)
+            let timeAddedImage = originalImage.insertText(name: "",
+                                                          date: Date().toDateWithWeekdayString(),
+                                                          time: Date().toTimeColonString())
+            let mainImage = timeAddedImage.resizedImage(.original)
+            let thumbnailImage = timeAddedImage.resizedImage(.thumbnail)
 
             let mainImageURL = viewModel?.saveImage(to: "temp",
                                                     filename: "userAuth",

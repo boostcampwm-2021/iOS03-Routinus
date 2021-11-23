@@ -86,6 +86,12 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 
+    func toTimeColonString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from: self)
+    }
+
     func toDateWithWeekdayString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd(E)"
