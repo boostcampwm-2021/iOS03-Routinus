@@ -12,7 +12,8 @@ import RoutinusNetwork
 protocol UserRepository {
     func isEmptyUserID() -> Bool
     func save(id: String,
-              name: String)
+              name: String,
+              completion: ((UserDTO) -> Void)?)
     func fetchUser(by id: String,
                    completion: ((User) -> Void)?)
     func updateContinuityDay(by id: String)
@@ -28,12 +29,15 @@ extension RoutinusRepository: UserRepository {
     }
 
     func save(id: String,
-              name: String) {
+              name: String,
+              completion: ((UserDTO) -> Void)?) {
         UserDefaults.standard.set(id,
                                   forKey: RoutinusRepository.userIDKey)
         RoutinusNetwork.insertUser(id: id,
-                                   name: name,
-                                   completion: nil)
+                                   name: name) { dto in
+            guard let dto = dto else { return }
+            completion?(dto)
+        }
     }
 
     func fetchUser(by id: String,
