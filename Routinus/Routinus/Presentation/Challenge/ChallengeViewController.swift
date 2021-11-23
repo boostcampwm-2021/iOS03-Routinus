@@ -101,7 +101,7 @@ extension ChallengeViewController {
                     guard let data = data,
                           let image = UIImage(data: data) else { return }
                     DispatchQueue.main.async {
-                        cell?.setImage(image)
+//                        cell?.setImage(image)
                     }
                 }
                 return cell

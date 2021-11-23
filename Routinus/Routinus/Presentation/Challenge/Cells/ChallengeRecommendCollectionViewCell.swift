@@ -12,9 +12,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 15
+        imageView.contentMode = .scaleAspectFit
         imageView.alpha = 0.3
         return imageView
     }()
@@ -56,7 +54,12 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
     }()
 
     func configureViews(recommendChallenge: Challenge) {
-        backgroundView = imageView
+        let category = recommendChallenge.category
+        let image = UIImage(named: category.symbol) != nil
+                    ? UIImage(named: category.symbol)
+                    : UIImage(systemName: category.symbol)
+        self.imageView.image = image
+        self.imageView.tintColor = UIColor(named: category.color)
 
         self.titleLabel.text = recommendChallenge.title
         self.subtitleLabel.text = recommendChallenge.introduction
@@ -65,6 +68,11 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 15
         self.layer.borderColor = UIColor(named: "Black")?.cgColor
+
+        self.addSubview(imageView)
+        imageView.anchor(trailing: imageView.superview?.trailingAnchor, paddingTrailing: 10,
+                         vertical: imageView.superview,
+                         width: self.frame.size.width / 2.2)
 
         self.addSubview(titleLabel)
         titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: 25,
