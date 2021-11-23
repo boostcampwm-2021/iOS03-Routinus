@@ -75,6 +75,7 @@ final class CreateViewModel: CreateViewModelIO {
     var challengeFetchUsecase: ChallengeFetchableUsecase
     var imageFetchUsecase: ImageFetchableUsecase
     var imageSaveUsecase: ImageSavableUsecase
+    var imageUpdateUsecase: ImageUpdatableUsecase
     var challengeID: String?
 
     private var title: String
@@ -95,13 +96,15 @@ final class CreateViewModel: CreateViewModelIO {
          challengeUpdateUsecase: ChallengeUpdatableUsecase,
          challengeFetchUsecase: ChallengeFetchableUsecase,
          imageFetchUsecase: ImageFetchableUsecase,
-         imageSaveUsecase: ImageSavableUsecase) {
+         imageSaveUsecase: ImageSavableUsecase,
+         imageUpdateUsecase: ImageUpdatableUsecase) {
         self.challengeID = challengeID
         self.challengeCreateUsecase = challengeCreateUsecase
         self.challengeUpdateUsecase = challengeUpdateUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
         self.imageSaveUsecase = imageSaveUsecase
+        self.imageUpdateUsecase = imageUpdateUsecase
         self.title = ""
         self.category = .exercise
         self.imageURL = ""
@@ -229,7 +232,6 @@ extension CreateViewModel {
               let endDate = challengeUpdateUsecase.endDate(startDate: startDate, week: week),
               let category = category else { return }
 
-
         let updateChallenge = Challenge(challengeID: challenge.challengeID,
                                         title: title,
                                         introduction: introduction,
@@ -245,9 +247,10 @@ extension CreateViewModel {
                                         week: week,
                                         participantCount: challenge.participantCount)
 
-        challengeUpdateUsecase.updateChallenge(challenge: updateChallenge,
-                                               isChangedImage: isChangedImage,
-                                               isChangedAuthImage: isChangedAuthImage)
+        challengeUpdateUsecase.update(challenge: updateChallenge)
+        imageUpdateUsecase.updateImage(challenge: updateChallenge,
+                                       isChangedImage: isChangedImage,
+                                       isChangedAuthImage: isChangedAuthImage)
     }
 
     func saveImage(to directory: String, filename: String, data: Data?) -> String? {

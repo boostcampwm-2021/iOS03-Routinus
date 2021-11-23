@@ -17,6 +17,12 @@ protocol ImageRepository {
     func saveImage(to directory: String,
                    filename: String,
                    data: Data?) -> String?
+    func updateImage(challengeID: String,
+                     imageURL: String,
+                     thumbnailImageURL: String)
+    func updateImage(challengeID: String,
+                     authExampleImageURL: String,
+                     authExampleThumbnailImageURL: String)
 }
 
 extension RoutinusRepository: ImageRepository {
@@ -41,5 +47,33 @@ extension RoutinusRepository: ImageRepository {
         return RoutinusStorage.saveImage(to: directory,
                                          filename: filename,
                                          imageData: data)
+    }
+
+    func updateImage(challengeID: String,
+                     imageURL: String,
+                     thumbnailImageURL: String) {
+        RoutinusNetwork.uploadImage(id: challengeID,
+                                    filename: "image",
+                                    imageURL: imageURL,
+                                    completion: nil)
+        RoutinusNetwork.uploadImage(id: challengeID,
+                                    filename: "thumbnail_image",
+                                    imageURL: thumbnailImageURL,
+                                    completion: nil)
+        RoutinusStorage.removeCachedImages(from: challengeID)
+    }
+
+    func updateImage(challengeID: String,
+                     authExampleImageURL: String,
+                     authExampleThumbnailImageURL: String) {
+        RoutinusNetwork.uploadImage(id: challengeID,
+                                    filename: "auth",
+                                    imageURL: authExampleImageURL,
+                                    completion: nil)
+        RoutinusNetwork.uploadImage(id: challengeID,
+                                    filename: "thumbnail_auth",
+                                    imageURL: authExampleThumbnailImageURL,
+                                    completion: nil)
+        RoutinusStorage.removeCachedImages(from: challengeID)
     }
 }
