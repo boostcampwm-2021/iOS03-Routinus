@@ -52,7 +52,7 @@ final class AuthCoordinator: RoutinusCoordinator {
                 guard let self = self else { return }
 
                 let imageViewController = ImagePinchViewController()
-                imageViewController.image = imageData
+                imageViewController.setImage(data: imageData)
                 imageViewController.modalPresentationStyle = .overCurrentContext
                 imageViewController.modalTransitionStyle = .crossDissolve
                 self.navigationController.present(imageViewController, animated: true)

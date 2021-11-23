@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ImagePinchViewController: UIViewController {
+final class ImagePinchViewController: UIViewController {
     private lazy var dimmedBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .black.withAlphaComponent(0.5)
+        view.backgroundColor = .black.withAlphaComponent(0.6)
         return view
     }()
 
@@ -20,7 +20,7 @@ class ImagePinchViewController: UIViewController {
         return imageView
     }()
 
-    var image: Data?
+    private var imageData: Data?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class ImagePinchViewController: UIViewController {
         fetchImage()
     }
 
-    func configureViews() {
+    private func configureViews() {
         view.addSubview(dimmedBackgroundView)
         dimmedBackgroundView.anchor(centerX: view.centerXAnchor,
                                     centerY: view.centerYAnchor,
@@ -41,13 +41,30 @@ class ImagePinchViewController: UIViewController {
                          centerY: view.centerYAnchor)
     }
 
-    func configurePinch() {
+    private func configurePinch() {
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(doPinch(_:)))
+        pinch.delegate = self
         view.addGestureRecognizer(pinch)
 
         let pan = UIPanGestureRecognizer(target: self, action: #selector(doPan(_:)))
         pan.delegate = self
         view.addGestureRecognizer(pan)
+    }
+
+    func setImage(data: Data) {
+        imageData = data
+    }
+
+    func fetchImage() {
+        guard let image = self.imageData else { return }
+        self.imageView.image = UIImage(data: image)
+    }
+}
+
+extension ImagePinchViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 
     @objc private func doPinch(_ pinch: UIPinchGestureRecognizer) {
@@ -56,8 +73,8 @@ class ImagePinchViewController: UIViewController {
             var newScale = currentScale * pinch.scale
 
             newScale = newScale < 0.5
-                        ? 0.5
-                        : newScale > 4
+                       ? 0.5
+                       : newScale > 4
                             ? 4
                             : newScale
             let transform = CGAffineTransform(scaleX: newScale, y: newScale)
@@ -78,16 +95,5 @@ class ImagePinchViewController: UIViewController {
         if currentScale <= 1 && pan.state == .ended {
             self.dismiss(animated: true)
         }
-    }
-
-    func fetchImage() {
-        guard let image = self.image else { return }
-        self.imageView.image = UIImage(data: image)
-    }
-}
-
-extension ImagePinchViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }

@@ -152,13 +152,10 @@ extension AuthViewController: AuthButtonDelegate {
 
 extension AuthViewController: AuthMethodViewDelegate {
     func didTappedMethodImageView() {
-        // TODO: 인증 방법 이미지 크게 표시
         self.viewModel?.imageData(from: viewModel?.challenge.value?.challengeID ?? "",
                                   filename: "auth") { data in
             guard let data = data else { return }
-            DispatchQueue.main.async {
-                self.viewModel?.didTappedMethodImage(image: data)
-            }
+            self.viewModel?.didTappedMethodImage(image: data)
         }
     }
 }
