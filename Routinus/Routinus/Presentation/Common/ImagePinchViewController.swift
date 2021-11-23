@@ -28,11 +28,11 @@ class ImagePinchViewController: UIViewController {
     }
 
     func configureViews() {
-        modalPresentationStyle = .overCurrentContext
-        modalTransitionStyle = .crossDissolve
-
         view.addSubview(dimmedBackgroundView)
-        dimmedBackgroundView.anchor(edges: view)
+        dimmedBackgroundView.anchor(centerX: view.centerXAnchor,
+                                    centerY: view.centerYAnchor,
+                                    width: view.frame.width * 2,
+                                    height: view.frame.height * 2)
         view.addSubview(imageView)
         imageView.anchor(horizontal: view,
                          centerY: view.centerYAnchor)
@@ -41,6 +41,10 @@ class ImagePinchViewController: UIViewController {
     func configurePinch() {
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(doPinch(_:)))
         view.addGestureRecognizer(pinch)
+
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(doPan(_:)))
+        pan.delegate = self
+        view.addGestureRecognizer(pan)
     }
 
     @objc private func doPinch(_ pinch: UIPinchGestureRecognizer) {
@@ -57,5 +61,29 @@ class ImagePinchViewController: UIViewController {
             imageView.transform = transform
             pinch.scale = 1
         }
+    }
+
+    @objc func doPan(_ pan: UIPanGestureRecognizer) {
+        let translation = pan.translation(in: imageView)
+        let currentScale = imageView.frame.width / imageView.bounds.size.width
+        if currentScale > 1 {
+            if let imageView = pan.view {
+                imageView.center = CGPoint(x: imageView.center.x + translation.x,
+                                           y: imageView.center.y + translation.y)
+            }
+            pan.setTranslation(.zero, in: imageView)
+        } else {
+            if let imageView = pan.view {
+                imageView.center = CGPoint(x: UIScreen.main.bounds.width / 2,
+                                           y: UIScreen.main.bounds.height / 2)
+            }
+            pan.setTranslation(.zero, in: imageView)
+        }
+    }
+}
+
+extension ImagePinchViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

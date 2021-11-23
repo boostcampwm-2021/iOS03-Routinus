@@ -154,6 +154,8 @@ extension AuthViewController: AuthMethodViewDelegate {
     func didTappedMethodImageView() {
         // TODO: 인증 방법 이미지 크게 표시
         let imageView = ImagePinchViewController()
+        imageView.modalPresentationStyle = .overCurrentContext
+        imageView.modalTransitionStyle = .crossDissolve
         present(imageView, animated: true)
     }
 }
