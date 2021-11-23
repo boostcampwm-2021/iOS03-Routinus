@@ -74,13 +74,9 @@ final class TodayRoutineView: UIView {
         tableView.layoutIfNeeded()
         tableView.reloadData()
 
-        if cellCount == 0 {
-            anchor(height: 25 + addRoutine.frame.height + 10)
-            addRoutine.isHidden = false
-        } else {
-            anchor(height: 25 + CGFloat(60 * cellCount))
-            addRoutine.isHidden = true
-        }
+        let offset = cellCount == 0 ? addRoutineLabel.frame.height + 10 : CGFloat(60 * cellCount)
+        anchor(height: 25 + offset)
+        addRoutineLabel.isHidden = cellCount != 0
     }
 }
 
