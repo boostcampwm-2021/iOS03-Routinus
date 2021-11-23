@@ -92,11 +92,11 @@ extension ImagePinchViewController: UIGestureRecognizerDelegate {
             let currentScale = imageView.frame.width / imageView.bounds.size.width
             var newScale = currentScale * pinch.scale
 
-            newScale = newScale < 0.5
-                       ? 0.5
-                       : newScale > 4
-                            ? 4
-                            : newScale
+            if newScale < 0.5 {
+                newScale = 0.5
+            } else if newScale > 4 {
+                newScale = 4
+            }
             let transform = CGAffineTransform(scaleX: newScale, y: newScale)
             imageView.transform = transform
             pinch.scale = 1

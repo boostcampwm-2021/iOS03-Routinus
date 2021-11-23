@@ -37,4 +37,27 @@ extension UIImage {
             draw(in: CGRect(origin: .zero, size: size))
         }
     }
+
+    func insertText(name: String, date: String, time: String) -> UIImage {
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(self.size, false, scale)
+
+        let label = UILabel(frame: CGRect(origin: .zero, size: self.size))
+        label.backgroundColor = UIColor.clear
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        label.textColor = .white.withAlphaComponent(0.5)
+        label.font = UIFont.boldSystemFont(ofSize: 200)
+        label.text = "\(name)\n\(date) \(time)"
+
+        let imageView = UIImageView(image: self)
+        UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0)
+        guard let context = UIGraphicsGetCurrentContext() else { return UIImage() }
+        imageView.layer.render(in: context)
+        label.layer.render(in: context)
+        guard let imageWithText = UIGraphicsGetImageFromCurrentImageContext() else { return UIImage() }
+        UIGraphicsEndImageContext()
+
+        return imageWithText
+    }
 }
