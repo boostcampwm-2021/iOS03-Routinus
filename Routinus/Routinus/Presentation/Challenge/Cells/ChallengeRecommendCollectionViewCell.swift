@@ -15,6 +15,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 15
+        imageView.alpha = 0.3
         return imageView
     }()
 
@@ -56,7 +57,6 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
     func configureViews(recommendChallenge: Challenge) {
         backgroundView = imageView
-        imageView.coverBlurEffect()
 
         self.titleLabel.text = recommendChallenge.title
         self.subtitleLabel.text = recommendChallenge.introduction
