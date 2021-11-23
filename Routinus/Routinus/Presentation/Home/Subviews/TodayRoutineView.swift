@@ -34,7 +34,7 @@ final class TodayRoutineView: UIView {
         return tableView
     }()
 
-    private lazy var addRoutine: UILabel = {
+    private lazy var addRoutineLabel: UILabel = {
         let label = UILabel()
         label.text = "add routine".localized
         label.numberOfLines = 2
@@ -115,8 +115,8 @@ extension TodayRoutineView {
         constraint.priority = UILayoutPriority(100)
         constraint.isActive = true
 
-        addSubview(addRoutine)
-        addRoutine.anchor(leading: leadingAnchor, paddingLeading: offset,
+        addSubview(addRoutineLabel)
+        addRoutineLabel.anchor(leading: leadingAnchor, paddingLeading: offset,
                           top: titleLabel.bottomAnchor, paddingTop: 10)
     }
 }
