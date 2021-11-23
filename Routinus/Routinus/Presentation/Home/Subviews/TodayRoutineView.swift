@@ -38,6 +38,7 @@ final class TodayRoutineView: UIView {
         let label = UILabel()
         label.text = "add routine".localized
         label.numberOfLines = 2
+        label.textAlignment = .center
         return label
     }()
 
@@ -112,8 +113,8 @@ extension TodayRoutineView {
         constraint.isActive = true
 
         addSubview(addRoutineLabel)
-        addRoutineLabel.anchor(leading: leadingAnchor, paddingLeading: offset,
-                          top: titleLabel.bottomAnchor, paddingTop: 10)
+        addRoutineLabel.anchor(centerX: centerXAnchor,
+                               top: titleLabel.bottomAnchor, paddingTop: 15)
     }
 }
 
