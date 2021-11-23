@@ -48,6 +48,7 @@ final class AuthCoordinator: RoutinusCoordinator {
             .store(in: &cancellables)
 
         authViewModel.methodImageTap
+            .receive(on: RunLoop.main)
             .sink { [weak self] imageData in
                 guard let self = self else { return }
 
