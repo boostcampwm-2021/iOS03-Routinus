@@ -13,6 +13,7 @@
 // home
 "in a row" = "days achieved!";
 "today routine" = "Today's Routine";
+"add routine" = "There seems no routine to do today.\nLet's see what challenges there are.🤗";
 "summary" = "Summary";
 "mon" = "M";
 "tue" = "T";
