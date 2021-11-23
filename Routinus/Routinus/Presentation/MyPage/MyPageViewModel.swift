@@ -11,6 +11,7 @@ import Foundation
 protocol MyPageViewModelInput {
     func fetchUserData()
     func fetchThemeStyle()
+    func didTappedDeveloperCell()
 }
 
 protocol MyPageViewModelOutput {
@@ -19,6 +20,8 @@ protocol MyPageViewModelOutput {
 
     func updateUsername(_ name: String)
     func updateThemeStyle(_ style: Int)
+
+    var developerCellTap: PassthroughSubject<Void, Never> { get }
 }
 
 protocol MyPageViewModelIO: MyPageViewModelInput, MyPageViewModelOutput { }
@@ -26,6 +29,8 @@ protocol MyPageViewModelIO: MyPageViewModelInput, MyPageViewModelOutput { }
 final class MyPageViewModel: MyPageViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
     var themeStyle = CurrentValueSubject<Int, Never>(0)
+
+    var developerCellTap = PassthroughSubject<Void, Never>()
 
     var userFetchUsecase: UserFetchableUsecase
     var userUpdateUsecase: UserUpdatableUsecase
@@ -48,6 +53,10 @@ extension MyPageViewModel {
 
     func fetchThemeStyle() {
         self.themeStyle.value = userFetchUsecase.fetchThemeStyle()
+    }
+
+    func didTappedDeveloperCell() {
+        developerCellTap.send()
     }
 
     func updateUsername(_ name: String) {
