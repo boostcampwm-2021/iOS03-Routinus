@@ -78,7 +78,7 @@ extension AuthViewModel {
                                                             userAuthThumbnailImageURL: userAuthThumbnailImageURL)
         self.participationUpdateUsecase.updateParticipationAuthCount(challengeID: challengeID)
         self.achievementUpdateUsecase.updateAchievementCount()
-        self.userUpdateUsecase.updateContinuityDay()
+        self.userUpdateUsecase.updateContinuityDayByAuth()
     }
 
     func didTappedAlertConfirm() {

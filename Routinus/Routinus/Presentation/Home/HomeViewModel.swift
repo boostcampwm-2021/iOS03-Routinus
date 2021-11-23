@@ -20,6 +20,7 @@ protocol HomeViewModelInput {
 protocol HomeViewModelOutput {
     var user: CurrentValueSubject<User, Never> { get }
     var todayRoutines: CurrentValueSubject<[TodayRoutine], Never> { get }
+    var participationAuthStates: [ParticipationAuthState] { get }
     var achievements: [Achievement] { get }
     var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
     var todayRoutineTap: PassthroughSubject<String, Never> { get }
@@ -36,6 +37,7 @@ protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 final class HomeViewModel: HomeViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
     var todayRoutines = CurrentValueSubject<[TodayRoutine], Never>([])
+    var participationAuthStates = [ParticipationAuthState]()
     var achievements = [Achievement]()
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
@@ -44,8 +46,10 @@ final class HomeViewModel: HomeViewModelIO {
 
     var userCreateUsecase: UserCreatableUsecase
     var userFetchUsecase: UserFetchableUsecase
+    var userUpdateUsecase: UserUpdatableUsecase
     var todayRoutineFetchUsecase: TodayRoutineFetchableUsecase
     var achievementFetchUsecase: AchievementFetchableUsecase
+    var challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
     var days = CurrentValueSubject<[Day], Never>([])
@@ -57,16 +61,21 @@ final class HomeViewModel: HomeViewModelIO {
 
     init(userCreateUsecase: UserCreatableUsecase,
          userFetchUsecase: UserFetchableUsecase,
+         userUpdateUsecase: UserUpdatableUsecase,
          todayRoutineFetchUsecase: TodayRoutineFetchableUsecase,
-         achievementFetchUsecase: AchievementFetchableUsecase) {
+         achievementFetchUsecase: AchievementFetchableUsecase,
+         challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase) {
         self.userCreateUsecase = userCreateUsecase
         self.userFetchUsecase = userFetchUsecase
+        self.userUpdateUsecase = userUpdateUsecase
         self.todayRoutineFetchUsecase = todayRoutineFetchUsecase
         self.achievementFetchUsecase = achievementFetchUsecase
+        self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
 
         setDateFormatter()
         self.baseDate.value = Date()
         self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
+        self.fetchMyHomeData()
     }
 }
 
@@ -75,6 +84,7 @@ extension HomeViewModel {
         fetchUser()
         fetchTodayRoutine()
         fetchAchievement()
+        updateContinuityDay()
     }
 
     func didTappedTodayRoutine(index: Int) {
@@ -93,19 +103,22 @@ extension HomeViewModel {
 }
 
 extension HomeViewModel {
-    private func createUserID() {
-        userCreateUsecase.createUserID()
-    }
-
     private func fetchUser() {
-        userFetchUsecase.fetchUser { [weak self] user in
-            self?.user.value = user
+        if let userID = userFetchUsecase.fetchUserID() {
+            userFetchUsecase.fetchUser(id: userID) { [weak self] user in
+                self?.user.value = user
+            }
+        } else {
+            userCreateUsecase.createUser { [weak self] user in
+                self?.user.value = user
+            }
         }
     }
 
     private func fetchTodayRoutine() {
-        todayRoutineFetchUsecase.fetchTodayRoutines { [weak self] todayRoutine in
-            self?.todayRoutines.value = todayRoutine
+        todayRoutineFetchUsecase.fetchTodayRoutines { [weak self] todayRoutines in
+            self?.todayRoutines.value = todayRoutines
+            self?.configureParticipationAuthStates(todayRoutines: todayRoutines)
         }
     }
 
@@ -114,6 +127,31 @@ extension HomeViewModel {
             self.selectedDates = achievement.map { Date(dateString: "\($0.yearMonth)\($0.day)") }
             self.achievements = achievement
             self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
+        }
+    }
+
+    private func fetchAuth(challengeID: String, completion: @escaping (ChallengeAuth?) -> Void) {
+        self.challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
+            completion(challengeAuth)
+        }
+    }
+
+    private func updateContinuityDay() {
+        self.userUpdateUsecase.updateContinuityDay { [weak self] user in
+            self?.user.value = user
+        }
+    }
+
+    private func configureParticipationAuthStates(todayRoutines: [TodayRoutine]) {
+        self.participationAuthStates = Array(repeating: .notAuthenticating,
+                                              count: todayRoutines.count)
+
+        todayRoutines.enumerated().forEach { [weak self] (idx, routine) in
+            self?.fetchAuth(challengeID: routine.challengeID,
+                            completion: { challengAuth in
+                let authState: ParticipationAuthState = challengAuth != nil ? .authenticated : .notAuthenticating
+                self?.participationAuthStates[idx] = authState
+            })
         }
     }
 }

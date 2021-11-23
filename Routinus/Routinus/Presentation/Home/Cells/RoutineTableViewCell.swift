@@ -15,6 +15,7 @@ final class RoutineTableViewCell: UITableViewCell {
         progressView.layer.borderWidth = 5
         progressView.layer.cornerRadius = 25
         progressView.progress = 0.0
+        progressView.clipsToBounds = true
         progressView.trackTintColor = .systemBackground
         return progressView
     }()

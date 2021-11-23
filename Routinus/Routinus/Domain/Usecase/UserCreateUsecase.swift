@@ -9,7 +9,7 @@ import CryptoKit
 import Foundation
 
 protocol UserCreatableUsecase {
-    func createUserID()
+    func createUser(completion: ((User) -> Void)?)
 }
 
 struct UserCreateUsecase: UserCreatableUsecase {
@@ -26,10 +26,13 @@ struct UserCreateUsecase: UserCreatableUsecase {
         return sha256.compactMap {String(format: "%02x", $0)}.joined()
     }
 
-    func createUserID() {
+    func createUser(completion: ((User) -> Void)?) {
         guard repository.isEmptyUserID() else { return }
         let id = createID()
         let name = UserNameFactory.createRandomName()
-        repository.save(id: id, name: name)
+        repository.save(id: id, name: name) { userDTO in
+            let user = User(userDTO: userDTO)
+            completion?(user)
+        }
     }
 }

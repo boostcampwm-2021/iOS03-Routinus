@@ -46,7 +46,8 @@ final class MyPageViewModel: MyPageViewModelIO {
 
 extension MyPageViewModel {
     func fetchUserData() {
-        userFetchUsecase.fetchUser { [weak self] user in
+        guard let id = userFetchUsecase.fetchUserID() else { return }
+        userFetchUsecase.fetchUser(id: id) { [weak self] user in
             self?.user.value = user
         }
     }

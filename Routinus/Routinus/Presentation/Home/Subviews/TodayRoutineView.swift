@@ -73,7 +73,6 @@ final class TodayRoutineView: UIView {
         tableView.removeLastAnchor()
         tableView.anchor(height: 60 * CGFloat(cellCount))
         tableView.layoutIfNeeded()
-        tableView.reloadData()
 
         let offset = cellCount == 0 ? addRoutineLabel.frame.height + 10 : CGFloat(60 * cellCount)
         anchor(height: 25 + offset)

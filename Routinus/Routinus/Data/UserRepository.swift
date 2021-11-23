@@ -12,10 +12,13 @@ import RoutinusNetwork
 protocol UserRepository {
     func isEmptyUserID() -> Bool
     func save(id: String,
-              name: String)
+              name: String,
+              completion: ((UserDTO) -> Void)?)
     func fetchUser(by id: String,
                    completion: ((User) -> Void)?)
-    func updateContinuityDay(by id: String)
+    func updateContinuityDay(by id: String,
+                             completion: ((UserDTO) -> Void)?)
+    func updateContinuityDayByAuth(by id: String)
     func fetchThemeStyle() -> Int
     func updateUsername(of id: String,
                         name: String)
@@ -28,12 +31,15 @@ extension RoutinusRepository: UserRepository {
     }
 
     func save(id: String,
-              name: String) {
+              name: String,
+              completion: ((UserDTO) -> Void)?) {
         UserDefaults.standard.set(id,
                                   forKey: RoutinusRepository.userIDKey)
         RoutinusNetwork.insertUser(id: id,
-                                   name: name,
-                                   completion: nil)
+                                   name: name) { dto in
+            guard let dto = dto else { return }
+            completion?(dto)
+        }
     }
 
     func fetchUser(by id: String,
@@ -43,9 +49,16 @@ extension RoutinusRepository: UserRepository {
         }
     }
 
-    func updateContinuityDay(by id: String) {
-        RoutinusNetwork.updateContinuityDay(of: id,
-                                            completion: nil)
+    func updateContinuityDay(by id: String,
+                             completion: ((UserDTO) -> Void)?) {
+        RoutinusNetwork.updateContinuityDay(of: id) { dto in
+            completion?(dto)
+        }
+    }
+
+    func updateContinuityDayByAuth(by id: String) {
+        RoutinusNetwork.updateContinuityDayByAuth(of: id,
+                                                  completion: nil)
     }
 
     func fetchThemeStyle() -> Int {
