@@ -20,6 +20,14 @@ final class ImagePinchViewController: UIViewController {
         return imageView
     }()
 
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "xmark"), for: .normal)
+        button.tintColor = .red
+        button.addTarget(self, action: #selector(didTappedCloseButton), for: .touchUpInside)
+        return button
+    }()
+
     private var imageData: Data?
 
     override func viewDidLoad() {
@@ -39,6 +47,12 @@ final class ImagePinchViewController: UIViewController {
         view.addSubview(imageView)
         imageView.anchor(horizontal: view,
                          centerY: view.centerYAnchor)
+
+        view.addSubview(closeButton)
+        closeButton.anchor(trailing: view.trailingAnchor,
+                           paddingTrailing: 10,
+                           top: view.topAnchor,
+                           paddingTop: 10)
     }
 
     private func configurePinch() {
@@ -55,11 +69,15 @@ final class ImagePinchViewController: UIViewController {
         imageData = data
     }
 
-    func fetchImage() {
+    private func fetchImage() {
         guard let image = self.imageData else { return }
         DispatchQueue.main.async {
             self.imageView.image = UIImage(data: image)
         }
+    }
+
+    @objc private func didTappedCloseButton() {
+        self.dismiss(animated: true)
     }
 }
 
