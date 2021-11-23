@@ -720,4 +720,49 @@ public enum RoutinusNetwork {
             }.resume()
         }
     }
+
+    public static func updateParticipantCount(challengeID: String,
+                                                completion: (() -> Void)?) {
+        challenge(challengeID: challengeID) { dto in
+            guard let document = dto.document,
+                  let week = Int(document.fields.week.integerValue),
+                  let participationCount = Int(document.fields.participantCount.integerValue) else { return }
+
+            let title = document.fields.title.stringValue
+            let authMethod = document.fields.authMethod.stringValue
+            let categoryID = document.fields.categoryID.stringValue
+            let desc = document.fields.desc.stringValue
+            let startDate = document.fields.startDate.stringValue
+            let endDate = document.fields.endDate.stringValue
+            let ownerID = document.fields.ownerID.stringValue
+
+            let challengeDTO = ChallengeDTO(id: challengeID,
+                                            title: title,
+                                            authMethod: authMethod,
+                                            categoryID: categoryID,
+                                            week: week,
+                                            desc: desc,
+                                            startDate: startDate,
+                                            endDate: endDate,
+                                            participantCount: participationCount + 1,
+                                            ownerID: ownerID)
+
+            guard let challengeField = challengeDTO.document?.fields, let documentID = dto.documentID else { return }
+            var urlComponent = URLComponents(string: "\(firestoreURL)/challenge/\(documentID)?")
+            let queryItems = [
+                URLQueryItem(name: "updateMask.fieldPaths", value: "participant_count")
+            ]
+            urlComponent?.queryItems = queryItems
+
+            guard let url = urlComponent?.url else { return }
+            var request = URLRequest(url: url)
+            request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = HTTPMethod.patch.rawValue
+            request.httpBody = ChallengeQuery.updateParticipantCount(document: challengeField)
+
+            URLSession.shared.dataTask(with: request) { _, _, _ in
+                completion?()
+            }.resume()
+        }
+    }
 }

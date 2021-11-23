@@ -29,6 +29,7 @@ final class DetailCoordinator: RoutinusCoordinator {
 
         let repository = RoutinusRepository()
         let challengeFetchUsecase = ChallengeFetchUsecase(repository: repository)
+        let challengeUpdateUsecase = ChallengeUpdateUsecase(repository: repository)
         let imageFetchUsecase = ImageFetchUsecase(repository: repository)
         let participationFetchUsecase = ParticipationFetchUsecase(repository: repository)
         let participationCreateUsecase = ParticipationCreateUsecase(repository: repository)
@@ -36,6 +37,7 @@ final class DetailCoordinator: RoutinusCoordinator {
         let challengeAuthFetchUsecase = ChallengeAuthFetchUsecase(repository: repository)
         let detailViewModel = DetailViewModel(challengeID: challengeID,
                                               challengeFetchUsecase: challengeFetchUsecase,
+                                              challengeUpdateUsecase: challengeUpdateUsecase,
                                               imageFetchUsecase: imageFetchUsecase,
                                               participationFetchUsecase: participationFetchUsecase,
                                               participationCreateUsecase: participationCreateUsecase,
