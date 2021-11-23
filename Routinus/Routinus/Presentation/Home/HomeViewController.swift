@@ -183,7 +183,9 @@ extension HomeViewController: UITableViewDelegate {
         if viewModel.participationAuthStates[indexPath.item] == .authenticated {
             auth = UIContextualAction(style: .normal,
                                       title: nil,
-                                      handler: { _, _, _ in })
+                                      handler: { (_, _, completion: @escaping (Bool) -> Void) in
+                completion(true)
+            })
             auth.backgroundColor = UIColor(named: "LightGray")
             auth.title = "certified".localized
         } else {
