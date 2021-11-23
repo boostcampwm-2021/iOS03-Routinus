@@ -30,11 +30,7 @@ protocol ChallengeRepository {
               thumbnailImageURL: String,
               authExampleImageURL: String,
               authExampleThumbnailImageURL: String)
-    func update(challenge: Challenge,
-                imageURL: String,
-                thumbnailImageURL: String,
-                authExampleImageURL: String,
-                authExampleThumbnailImageURL: String)
+    func update(challenge: Challenge)
     func updateParticipantCount(challengeID: String)
 }
 
@@ -138,11 +134,7 @@ extension RoutinusRepository: ChallengeRepository {
         }
     }
 
-    func update(challenge: Challenge,
-                imageURL: String,
-                thumbnailImageURL: String,
-                authExampleImageURL: String,
-                authExampleThumbnailImageURL: String) {
+    func update(challenge: Challenge) {
         guard let startDate = challenge.startDate?.toDateString(),
               let endDate = challenge.endDate?.toDateString() else { return }
         let challengeDTO = ChallengeDTO(id: challenge.challengeID,
@@ -155,14 +147,8 @@ extension RoutinusRepository: ChallengeRepository {
                                         endDate: endDate,
                                         participantCount: challenge.participantCount,
                                         ownerID: challenge.ownerID)
-
-        RoutinusNetwork.patchChallenge(challengeDTO: challengeDTO,
-                                       imageURL: imageURL,
-                                       thumbnailImageURL: thumbnailImageURL,
-                                       authExampleImageURL: authExampleImageURL,
-                                       authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
-            RoutinusStorage.removeCachedImages(from: challenge.challengeID)
-        }
+        RoutinusNetwork.updateChallenge(challengeDTO: challengeDTO,
+                                        completion: nil)
     }
 
     func updateParticipantCount(challengeID: String) {

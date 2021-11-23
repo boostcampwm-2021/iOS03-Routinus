@@ -75,6 +75,7 @@ final class CreateViewModel: CreateViewModelIO {
     var challengeFetchUsecase: ChallengeFetchableUsecase
     var imageFetchUsecase: ImageFetchableUsecase
     var imageSaveUsecase: ImageSavableUsecase
+    var imageUpdateUsecase: ImageUpdatableUsecase
     var challengeID: String?
 
     private var title: String
@@ -87,18 +88,23 @@ final class CreateViewModel: CreateViewModelIO {
     private var authExampleImageURL: String
     private var authExampleThumbnailImageURL: String
 
+    private var isChangedImage: Bool
+    private var isChangedAuthImage: Bool
+
     init(challengeID: String? = nil,
          challengeCreateUsecase: ChallengeCreatableUsecase,
          challengeUpdateUsecase: ChallengeUpdatableUsecase,
          challengeFetchUsecase: ChallengeFetchableUsecase,
          imageFetchUsecase: ImageFetchableUsecase,
-         imageSaveUsecase: ImageSavableUsecase) {
+         imageSaveUsecase: ImageSavableUsecase,
+         imageUpdateUsecase: ImageUpdatableUsecase) {
         self.challengeID = challengeID
         self.challengeCreateUsecase = challengeCreateUsecase
         self.challengeUpdateUsecase = challengeUpdateUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
         self.imageSaveUsecase = imageSaveUsecase
+        self.imageUpdateUsecase = imageUpdateUsecase
         self.title = ""
         self.category = .exercise
         self.imageURL = ""
@@ -108,6 +114,8 @@ final class CreateViewModel: CreateViewModelIO {
         self.authMethod = ""
         self.authExampleImageURL = ""
         self.authExampleThumbnailImageURL = ""
+        self.isChangedImage = false
+        self.isChangedAuthImage = false
     }
 }
 
@@ -124,6 +132,7 @@ extension CreateViewModel {
 
     func update(imageURL: String?) {
         self.imageURL = imageURL ?? ""
+        self.isChangedImage = true
         self.validate()
     }
 
@@ -151,6 +160,7 @@ extension CreateViewModel {
 
     func update(authExampleImageURL: String?) {
         self.authExampleImageURL = authExampleImageURL ?? ""
+        self.isChangedAuthImage = true
         self.validate()
     }
 
@@ -161,13 +171,16 @@ extension CreateViewModel {
 
     func updateAll(challenge: Challenge) {
         guard let startDate = challenge.startDate else { return }
+
         self.category = challenge.category
         self.title = challenge.title
         self.imageURL = challenge.imageURL
+        self.thumbnailImageURL = challenge.thumbnailImageURL
         self.week = challenge.week
         self.introduction = challenge.introduction
         self.authMethod = challenge.authMethod
         self.authExampleImageURL = challenge.authExampleImageURL
+        self.authExampleThumbnailImageURL = challenge.authExampleThumbnailImageURL
         guard let endDate = challengeUpdateUsecase.endDate(startDate: startDate, week: week) else { return }
         expectedEndDate.value = endDate
         self.validate()
@@ -218,6 +231,7 @@ extension CreateViewModel {
               let startDate = challenge.startDate,
               let endDate = challengeUpdateUsecase.endDate(startDate: startDate, week: week),
               let category = category else { return }
+
         let updateChallenge = Challenge(challengeID: challenge.challengeID,
                                         title: title,
                                         introduction: introduction,
@@ -232,7 +246,11 @@ extension CreateViewModel {
                                         ownerID: challenge.ownerID,
                                         week: week,
                                         participantCount: challenge.participantCount)
-        challengeUpdateUsecase.updateChallenge(challenge: updateChallenge)
+
+        challengeUpdateUsecase.update(challenge: updateChallenge)
+        imageUpdateUsecase.updateImage(challenge: updateChallenge,
+                                       isChangedImage: isChangedImage,
+                                       isChangedAuthImage: isChangedAuthImage)
     }
 
     func saveImage(to directory: String, filename: String, data: Data?) -> String? {
@@ -242,7 +260,8 @@ extension CreateViewModel {
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)? = nil) {
-        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+        imageFetchUsecase.fetchImageData(from: directory,
+                                         filename: filename) { data in
             completion?(data)
         }
     }
