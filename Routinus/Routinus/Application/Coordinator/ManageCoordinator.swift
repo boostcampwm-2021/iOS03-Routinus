@@ -14,6 +14,8 @@ final class ManageCoordinator: RoutinusCoordinator {
     var cancellables = Set<AnyCancellable>()
     let createPublisher = NotificationCenter.default.publisher(for: CreateCoordinator.confirmCreate,
                                                                object: nil)
+    let participationPublisher = NotificationCenter.default.publisher(for: DetailCoordinator.confirmParticipation,
+                                                                      object: nil)
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -49,6 +51,12 @@ final class ManageCoordinator: RoutinusCoordinator {
             .store(in: &cancellables)
 
         self.createPublisher
+            .sink { _ in
+                manageViewModel.didLoadedManageView()
+            }
+            .store(in: &cancellables)
+
+        self.participationPublisher
             .sink { _ in
                 manageViewModel.didLoadedManageView()
             }
