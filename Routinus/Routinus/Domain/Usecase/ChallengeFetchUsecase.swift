@@ -66,8 +66,10 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     func fetchSearchChallenges(category: Challenge.Category,
                                completion: @escaping ([Challenge]) -> Void) {
         let categoryID = category.id
-        repository.fetchSearchChallengesBy(categoryID: categoryID) { list in
-            let challenges = list.filter { $0.category == category }
+        repository.fetchSearchChallengesBy(categoryID: categoryID) { challenges in
+            let challenges = challenges
+                .filter { $0.endDate ?? Date() >= Date() }
+                .filter { $0.category == category }
             completion(challenges)
         }
     }
