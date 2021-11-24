@@ -223,23 +223,22 @@ public enum RoutinusNetwork {
             let fetchQueue = DispatchQueue(label: "fetchQueue")
             let group = DispatchGroup()
 
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            let date = dateFormatter.string(from: Date())
+
             for participation in participations {
                 group.enter()
                 guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
-                request.httpBody = ChallengeQuery.select(challengeID: challengeID)
+                request.httpBody = ChallengeQuery.select(challengeID: challengeID,
+                                                         date: date)
 
                 URLSession.shared.dataTask(with: request) { data, _, _ in
                     guard let data = data,
                           let challenge = try? JSONDecoder().decode([ChallengeDTO].self,
-                                                                    from: data).first,
-                          let document = challenge.document,
-                          let endDate = Int(document.fields.endDate.stringValue) else { return }
+                                                                    from: data).first else { return }
 
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyyMMdd"
-                    guard let date = Int(dateFormatter.string(from: Date())) else { return }
-
-                    if date <= endDate {
+                    if challenge.document != nil {
                         let todayRoutine = TodayRoutineDTO(participation: participation,
                                                            challenge: challenge)
                         todayRoutines.append(todayRoutine)
