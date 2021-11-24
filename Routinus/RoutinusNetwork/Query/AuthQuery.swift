@@ -61,7 +61,6 @@ internal enum AuthQuery {
                         "value": { "stringValue": "\(challengeID)" }
                     },
                 },
-
                 "limit": 50
             }
         }
