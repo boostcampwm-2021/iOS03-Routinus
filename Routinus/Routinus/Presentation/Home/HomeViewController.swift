@@ -51,14 +51,6 @@ final class HomeViewController: UIViewController {
         configureDelegates()
         configureRefreshControl()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
 }
 
 extension HomeViewController {
