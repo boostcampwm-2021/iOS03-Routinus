@@ -32,7 +32,7 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
 
     func fetchRecommendChallenges(completion: @escaping ([Challenge]) -> Void) {
         repository.fetchRecommendChallenges { challenges in
-            completion(challenges)
+            completion(challenges.filter { $0.endDate ?? Date() >= Date() })
         }
     }
 
