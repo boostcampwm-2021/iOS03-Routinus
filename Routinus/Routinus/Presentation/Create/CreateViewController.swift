@@ -194,6 +194,7 @@ extension CreateViewController {
     @objc private func didShowKeyboard(_ notification: Notification) {
         guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let height = keyboardFrame.cgRectValue.height
+        
         constraint?.isActive = false
         constraint = stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor,
                                                        constant: -height)
@@ -201,10 +202,25 @@ extension CreateViewController {
     }
 
     @objc private func willHideKeyboard(_ notification: Notification) {
-        self.constraint?.isActive = false
-        self.constraint = self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor,
-                                                                 constant: 0)
-        self.constraint?.isActive = true
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let height = keyboardFrame.cgRectValue.height
+        let stackViewHeight = stackView.frame.size.height
+        let scrollViewHeight = scrollView.frame.size.height
+        let animationCallOffset = stackViewHeight - scrollViewHeight
+
+        if scrollView.contentOffset.y > animationCallOffset {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.5) {
+                    self.scrollView.setContentOffset(CGPoint(x: 0, y: animationCallOffset + 20),
+                                                     animated: false)
+                } completion: { _ in
+                    self.constraint?.isActive = false
+                    self.constraint = self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor,
+                                                                             constant: 0)
+                    self.constraint?.isActive = true
+                }
+            }
+        }
     }
 }
 
