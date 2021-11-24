@@ -151,12 +151,12 @@ extension AuthViewController: AuthButtonDelegate {
 }
 
 extension AuthViewController: AuthMethodViewDelegate {
-    func didTappedMethodImageView() {
+    func didTappedAuthMethodImageView() {
         guard let challengeID = viewModel?.challenge.value?.challengeID else { return }
         self.viewModel?.imageData(from: challengeID,
                                   filename: "auth_method") { data in
             guard let data = data else { return }
-            self.viewModel?.didTappedMethodImage(image: data)
+            self.viewModel?.didTappedAuthMethodImage(image: data)
         }
     }
 }
