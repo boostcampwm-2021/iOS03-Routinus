@@ -11,21 +11,6 @@ import UIKit
 final class CreateViewController: UIViewController {
     enum InputTag: Int {
         case category = 0, title, image, week, introduction, authMethod, authImage
-
-        var offset: Int {
-            switch self {
-            case .title:
-                return 130
-            case .week:
-                return 530
-            case .introduction:
-                return 750
-            case .authMethod:
-                return 1015
-            default:
-                return 0
-            }
-        }
     }
 
     private lazy var scrollView: UIScrollView = UIScrollView()
@@ -59,6 +44,7 @@ final class CreateViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private var imagePicker = UIImagePickerController()
     private var selectedImagePickerTag: InputTag?
+    private var constraint: NSLayoutConstraint?
 
     init(with viewModel: CreateViewModelIO) {
         self.viewModel = viewModel
@@ -76,6 +62,7 @@ final class CreateViewController: UIViewController {
         configureViewModel()
         configureDelegates()
         configureGesture()
+        configureNotifications()
     }
 
     @objc private func didTappedCreateButton(_ sender: UIButton) {
@@ -92,9 +79,13 @@ extension CreateViewController {
         scrollView.anchor(edges: view.safeAreaLayoutGuide)
 
         scrollView.addSubview(stackView)
+
         stackView.anchor(centerX: stackView.superview?.centerXAnchor,
                          horizontal: stackView.superview, paddingHorizontal: 20,
-                         vertical: stackView.superview, paddingVertical: 20)
+                         top: stackView.superview?.topAnchor, paddingTop: 20)
+        constraint = stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor,
+                                                       constant: 0)
+        constraint?.isActive = true
 
         stackView.addArrangedSubview(categoryView)
         stackView.addArrangedSubview(titleView)
@@ -188,6 +179,49 @@ extension CreateViewController {
         introductionView.hideKeyboard()
         authMethodView.hideKeyboard()
     }
+
+    private func configureNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didShowKeyboard),
+                                               name: UIResponder.keyboardDidShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(willHideKeyboard),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+
+    @objc private func didShowKeyboard(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let height = keyboardFrame.cgRectValue.height
+        
+        constraint?.isActive = false
+        constraint = stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor,
+                                                       constant: -height)
+        constraint?.isActive = true
+    }
+
+    @objc private func willHideKeyboard(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let height = keyboardFrame.cgRectValue.height
+        let stackViewHeight = stackView.frame.size.height
+        let scrollViewHeight = scrollView.frame.size.height
+        let animationCallOffset = stackViewHeight - scrollViewHeight
+
+        if scrollView.contentOffset.y > animationCallOffset {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.5) {
+                    self.scrollView.setContentOffset(CGPoint(x: 0, y: animationCallOffset + 20),
+                                                     animated: false)
+                } completion: { _ in
+                    self.constraint?.isActive = false
+                    self.constraint = self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor,
+                                                                             constant: 0)
+                    self.constraint?.isActive = true
+                }
+            }
+        }
+    }
 }
 
 extension CreateViewController {
@@ -226,13 +260,21 @@ extension CreateViewController: CreateSubviewDelegate {
 
 extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        guard let tag = InputTag(rawValue: textField.tag) else { return }
-        scrollView.setContentOffset(CGPoint(x: 0, y: tag.offset), animated: true)
+        guard let offset = textField.superview?.frame.origin.y else { return }
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5) {
+                self.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
+            }
+        }
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        guard let tag = InputTag(rawValue: textView.tag) else { return }
-        scrollView.setContentOffset(CGPoint(x: 0, y: tag.offset), animated: true)
+        guard let offset = textView.superview?.frame.origin.y else { return }
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5) {
+                self.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
+            }
+        }
     }
 
     func textFieldDidChangeSelection(_ textField: UITextField) {
