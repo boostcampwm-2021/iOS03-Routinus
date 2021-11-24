@@ -61,6 +61,12 @@ internal enum AuthQuery {
                         "value": { "stringValue": "\(challengeID)" }
                     },
                 },
+                "orderBy": [
+                    {
+                        "field": { "fieldPath": "date" },
+                        "direction": "DESCENDING"
+                    },
+                ],
                 "limit": 50
             }
         }
@@ -73,6 +79,12 @@ internal enum AuthQuery {
         {
             "structuredQuery": {
                 "from": { "collectionId": "challenge_auth" },
+                "orderBy": [
+                    {
+                        "field": { "fieldPath": "date" },
+                        "direction": "DESCENDING"
+                    },
+                ],
                 "where": {
                     "compositeFilter": {
                         "filters": [
@@ -94,6 +106,11 @@ internal enum AuthQuery {
                         "op": "AND"
                     }
                 },
+                "orderBy": [
+                    {
+                        "field": { "fieldPath": "date" }
+                    },
+                ],
                 "limit": 50
             }
         }
