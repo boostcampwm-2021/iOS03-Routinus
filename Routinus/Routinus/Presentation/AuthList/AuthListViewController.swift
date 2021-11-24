@@ -17,6 +17,7 @@ class AuthListViewController: UIViewController {
         return collectionView
     }()
 
+
     private var viewModel: AuthListViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
@@ -66,9 +67,14 @@ extension AuthListViewController {
 
         self.viewModel?.auths
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] _ in
+            .sink(receiveValue: { [weak self] auths in
                 guard let self = self else { return }
-                self.collectionView.reloadData()
+                if auths.isEmpty {
+                    self.collectionView.setEmptyView()
+                } else {
+                    self.collectionView.restore()
+                    self.collectionView.reloadData()
+                }
             })
             .store(in: &cancellables)
     }
