@@ -32,12 +32,13 @@ final class DetailViewController: UIViewController {
         var imageView = UIImageView()
         imageView.backgroundColor = .systemBackground
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
 
     private lazy var participantView: UIView = {
         var view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground.withAlphaComponent(0.7)
         return view
     }()
 
@@ -65,36 +66,38 @@ final class DetailViewController: UIViewController {
     }
 
     private func configureViews() {
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 15.0 : 20.0
+
         self.view.backgroundColor = .systemBackground
         self.configureNavigationBar()
 
         view.addSubview(scrollView)
-        scrollView.anchor(horizontal: view,
-                          top: view.safeAreaLayoutGuide.topAnchor)
+        self.scrollView.anchor(edges: view)
 
         view.addSubview(participantView)
         participantView.anchor(horizontal: participantView.superview,
-                               top: scrollView.bottomAnchor,
                                bottom: view.bottomAnchor,
-                               height: 90)
+                               height: smallWidth ? 60 : 90)
 
         participantView.addSubview(participantButton)
-        participantButton.anchor(horizontal: participantButton.superview, paddingHorizontal: 20,
-                                 top: participantButton.superview?.topAnchor, paddingTop: 10,
-                                 bottom: participantButton.superview?.bottomAnchor, paddingBottom: 30)
+        participantButton.anchor(horizontal: participantView,
+                                 paddingHorizontal: offset,
+                                 top: participantView.topAnchor,
+                                 paddingTop: 10,
+                                 bottom: participantView.bottomAnchor,
+                                 paddingBottom: smallWidth ? 10 : 30)
 
         scrollView.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        stackView.anchor(centerX: scrollView.centerXAnchor,
+                         horizontal: scrollView,
+                         top: scrollView.topAnchor,
+                         bottom: scrollView.bottomAnchor,
+                         paddingBottom: smallWidth ? 60 : 90)
 
         stackView.addArrangedSubview(mainImageView)
-        self.mainImageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor).isActive = true
-        self.mainImageView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
-        self.mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor, multiplier: 1).isActive = true
+        mainImageView.anchor(horizontal: stackView,
+                             height: UIScreen.main.bounds.width)
 
         stackView.addArrangedSubview(informationView)
         stackView.addArrangedSubview(authMethodView)
@@ -164,6 +167,7 @@ final class DetailViewController: UIViewController {
 
     private func configureDelegate() {
         participantButton.delegate = self
+        authMethodView.delegate = self
     }
 
     private func presentAlert() {
@@ -184,5 +188,16 @@ final class DetailViewController: UIViewController {
 extension DetailViewController: ParticipantButtonDelegate {
     func didTappedParticipantButton() {
         viewModel?.didTappedParticipationAuthButton()
+    }
+}
+
+extension DetailViewController: AuthMethodViewDelegate {
+    func didTappedAuthMethodImageView() {
+        guard let challengeID = viewModel?.challengeID else { return }
+        self.viewModel?.imageData(from: challengeID,
+                                  filename: "auth_method") { data in
+            guard let data = data else { return }
+            self.viewModel?.didTappedAuthMethodImage(imageData: data)
+        }
     }
 }

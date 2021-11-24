@@ -92,7 +92,7 @@ extension AuthMethodView {
     }
 
     @objc func tappedMethodImageView() {
-        self.delegate?.didTappedMethodImageView()
+        self.delegate?.didTappedAuthMethodImageView()
     }
 
     func update(to text: String) {
@@ -105,5 +105,5 @@ extension AuthMethodView {
 }
 
 protocol AuthMethodViewDelegate: AnyObject {
-    func didTappedMethodImageView()
+    func didTappedAuthMethodImageView()
 }

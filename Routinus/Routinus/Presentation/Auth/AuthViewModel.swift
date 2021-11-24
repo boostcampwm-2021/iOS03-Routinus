@@ -11,7 +11,7 @@ import Foundation
 protocol AuthViewModelInput {
     func didTappedAuthButton()
     func didTappedAlertConfirm()
-    func didTappedMethodImage(image: Data)
+    func didTappedAuthMethodImage(image: Data)
     func update(userAuthImageURL: String?)
     func update(userAuthThumbnailImageURL: String?)
     func imageData(from directory: String,
@@ -94,7 +94,7 @@ extension AuthViewModel {
         self.alertConfirmTap.send()
     }
 
-    func didTappedMethodImage(image: Data) {
+    func didTappedAuthMethodImage(image: Data) {
         self.methodImageTap.send(image)
     }
 

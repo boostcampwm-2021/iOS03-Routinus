@@ -101,4 +101,12 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         constraint.priority = UILayoutPriority(900)
         constraint.isActive = true
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            self.layer.borderColor = UIColor(named: "Black")?.cgColor
+        }
+    }
 }
