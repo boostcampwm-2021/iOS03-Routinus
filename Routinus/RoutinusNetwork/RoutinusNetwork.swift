@@ -231,10 +231,19 @@ public enum RoutinusNetwork {
                 URLSession.shared.dataTask(with: request) { data, _, _ in
                     guard let data = data,
                           let challenge = try? JSONDecoder().decode([ChallengeDTO].self,
-                                                                    from: data).first else { return }
-                    let todayRoutine = TodayRoutineDTO(participation: participation,
-                                                       challenge: challenge)
-                    todayRoutines.append(todayRoutine)
+                                                                    from: data).first,
+                          let document = challenge.document,
+                          let endDate = Int(document.fields.endDate.stringValue) else { return }
+
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyyMMdd"
+                    guard let date = Int(dateFormatter.string(from: Date())) else { return }
+
+                    if date <= endDate {
+                        let todayRoutine = TodayRoutineDTO(participation: participation,
+                                                           challenge: challenge)
+                        todayRoutines.append(todayRoutine)
+                    }
                     group.leave()
                 }.resume()
             }
