@@ -49,6 +49,7 @@ final class HomeViewController: UIViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
+        configureRefreshControl()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +150,17 @@ extension HomeViewController {
         todayRoutineView.challengeAddDelegate = self
         calendarView.delegate = self
         calendarView.dataSource = self
+    }
+
+    private func configureRefreshControl() {
+        self.scrollView.refreshControl = UIRefreshControl()
+        self.scrollView.refreshControl?.addTarget(self,
+                                                  action: #selector(test),
+                                                  for: .valueChanged)
+    }
+
+    @objc private func test() {
+        self.scrollView.refreshControl?.endRefreshing()
     }
 }
 
