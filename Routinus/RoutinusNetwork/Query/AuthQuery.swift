@@ -79,12 +79,6 @@ internal enum AuthQuery {
         {
             "structuredQuery": {
                 "from": { "collectionId": "challenge_auth" },
-                "orderBy": [
-                    {
-                        "field": { "fieldPath": "date" },
-                        "direction": "DESCENDING"
-                    },
-                ],
                 "where": {
                     "compositeFilter": {
                         "filters": [
@@ -108,7 +102,8 @@ internal enum AuthQuery {
                 },
                 "orderBy": [
                     {
-                        "field": { "fieldPath": "date" }
+                        "field": { "fieldPath": "date" },
+                        "direction": "DESCENDING"
                     },
                 ],
                 "limit": 50
