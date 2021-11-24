@@ -155,11 +155,12 @@ extension HomeViewController {
     private func configureRefreshControl() {
         self.scrollView.refreshControl = UIRefreshControl()
         self.scrollView.refreshControl?.addTarget(self,
-                                                  action: #selector(test),
+                                                  action: #selector(refresh),
                                                   for: .valueChanged)
     }
 
-    @objc private func test() {
+    @objc private func refresh() {
+        self.viewModel?.fetchMyHomeData()
         self.scrollView.refreshControl?.endRefreshing()
     }
 }
