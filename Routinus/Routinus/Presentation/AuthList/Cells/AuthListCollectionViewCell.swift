@@ -12,8 +12,8 @@ final class AuthListCollectionViewCell: UICollectionViewCell {
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 5
-        imageView.backgroundColor = .blue
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
         return imageView
     }()
 

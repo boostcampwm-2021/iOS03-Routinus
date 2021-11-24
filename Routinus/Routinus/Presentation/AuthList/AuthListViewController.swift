@@ -44,11 +44,10 @@ extension AuthListViewController {
 
         self.view.addSubview(collectionView)
 
-        // TODO: autolayout 수정
-        collectionView.anchor(leading: view.leadingAnchor,
-                              trailing: view.trailingAnchor,
-                              top: view.topAnchor,
-                              bottom: view.bottomAnchor)
+        collectionView.anchor(leading: view.leadingAnchor, paddingLeading: 10,
+                              trailing: view.trailingAnchor, paddingTrailing: 10,
+                              top: view.topAnchor, paddingTop: 10,
+                              bottom: view.bottomAnchor, paddingBottom: 10)
     }
 
     private func configureDelegates() {
@@ -88,7 +87,9 @@ extension AuthListViewController: UICollectionViewDataSource, UICollectionViewDe
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width / 2 
-        return CGSize(width: width, height: width)
+        let numberOfCells: CGFloat = 2
+        let minimumInteritemSpacing: CGFloat = 10
+        let width = collectionView.frame.size.width - (minimumInteritemSpacing * (numberOfCells-1))
+        return CGSize(width: width/numberOfCells, height: width/numberOfCells)
     }
 }
