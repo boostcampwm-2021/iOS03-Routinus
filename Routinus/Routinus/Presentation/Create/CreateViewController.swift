@@ -11,21 +11,6 @@ import UIKit
 final class CreateViewController: UIViewController {
     enum InputTag: Int {
         case category = 0, title, image, week, introduction, authMethod, authImage
-
-        var offset: Int {
-            switch self {
-            case .title:
-                return 130
-            case .week:
-                return 530
-            case .introduction:
-                return 750
-            case .authMethod:
-                return 1015
-            default:
-                return 0
-            }
-        }
     }
 
     private lazy var scrollView: UIScrollView = UIScrollView()
