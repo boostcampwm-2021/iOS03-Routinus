@@ -22,8 +22,13 @@ final class ChallengeCollectionViewLayouts {
                                                        subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
+                                                                      heightDimension: .estimated(80)),
+                                                    elementKind: UICollectionView.elementKindSectionHeader,
+                                                    alignment: .topLeading)]
+
         section.orthogonalScrollingBehavior = .groupPaging
-        section.contentInsets = .init(top: 30, leading: offset, bottom: 20, trailing: offset)
+        section.contentInsets = .init(top: 10, leading: offset, bottom: 20, trailing: offset)
         section.interGroupSpacing = 20
         return section
     }
