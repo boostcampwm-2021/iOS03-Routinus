@@ -45,6 +45,8 @@
 		14B181122745511A0061F2AE /* Participation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B181112745511A0061F2AE /* Participation.swift */; };
 		14B18116274555CE0061F2AE /* ParticipationFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */; };
 		14B18118274561E20061F2AE /* ParticipationCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B18117274561E20061F2AE /* ParticipationCreateUsecase.swift */; };
+		14BFC0DA274DB7E100A982CB /* AuthListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0D9274DB7E100A982CB /* AuthListViewModel.swift */; };
+		14BFC0DC274DBBF100A982CB /* AuthListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0DB274DBBF100A982CB /* AuthListViewController.swift */; };
 		14FCD60B27311CF600626E74 /* RoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FCD60A27311CF600626E74 /* RoutineTableViewCell.swift */; };
 		441CEDD127378573006C261F /* ContinuityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD027378573006C261F /* ContinuityView.swift */; };
 		441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD227378EBF006C261F /* TodayRoutineView.swift */; };
@@ -226,6 +228,8 @@
 		14B181112745511A0061F2AE /* Participation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participation.swift; sourceTree = "<group>"; };
 		14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationFetchUsecase.swift; sourceTree = "<group>"; };
 		14B18117274561E20061F2AE /* ParticipationCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationCreateUsecase.swift; sourceTree = "<group>"; };
+		14BFC0D9274DB7E100A982CB /* AuthListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListViewModel.swift; sourceTree = "<group>"; };
+		14BFC0DB274DBBF100A982CB /* AuthListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListViewController.swift; sourceTree = "<group>"; };
 		14FCD60A27311CF600626E74 /* RoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewCell.swift; sourceTree = "<group>"; };
 		21D4AB5FB6AB0717E5C7402C /* Pods-Routinus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.release.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.release.xcconfig"; sourceTree = "<group>"; };
 		2813D98BB29BFEBCA9A154AE /* Pods-Routinus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.debug.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.debug.xcconfig"; sourceTree = "<group>"; };
@@ -434,6 +438,15 @@
 				14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		14BFC0D6274DB7BB00A982CB /* AuthList */ = {
+			isa = PBXGroup;
+			children = (
+				14BFC0DB274DBBF100A982CB /* AuthListViewController.swift */,
+				14BFC0D9274DB7E100A982CB /* AuthListViewModel.swift */,
+			);
+			path = AuthList;
 			sourceTree = "<group>";
 		};
 		441CEDD4273796C4006C261F /* Subviews */ = {
@@ -743,6 +756,7 @@
 				E9797CAF2731078400A14A0F /* Detail */,
 				E9797CAE2731077A00A14A0F /* Create */,
 				E9797CB7273108EA00A14A0F /* Auth */,
+				14BFC0D6274DB7BB00A982CB /* AuthList */,
 				E9797CA92731072700A14A0F /* Manage */,
 				E9797CA8273106E300A14A0F /* MyPage */,
 			);
@@ -1176,6 +1190,8 @@
 				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
 				441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */,
 				1483873C2743F2FF00731F98 /* ParticipantButton.swift in Sources */,
+				14BFC0DA274DB7E100A982CB /* AuthListViewModel.swift in Sources */,
+				14BFC0DC274DBBF100A982CB /* AuthListViewController.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DBBAA3727341C1600B32EB5 /* ChallengeCollectionViewLayouts.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* CalendarHeader.swift in Sources */,

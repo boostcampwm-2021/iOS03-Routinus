@@ -18,6 +18,11 @@ final class AuthListCoordinator: RoutinusCoordinator {
     }
 
     func start() {
-        // TODO: Coordinator 작업
+        let repository = RoutinusRepository()
+        let challengeAuthFetchUpsecase = ChallengeAuthFetchUsecase(repository: repository)
+        let authListViewModel = AuthListViewModel(challengeID: challengeID,
+                                                  challengeAuthFetchUsecase: challengeAuthFetchUpsecase)
+        let authListViewController = AuthListViewController(viewModel: authListViewModel)
+        self.navigationController.pushViewController(authListViewController, animated: true)
     }
 }
