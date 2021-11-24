@@ -93,7 +93,7 @@ final class DetailViewController: UIViewController {
                          horizontal: scrollView,
                          top: scrollView.topAnchor,
                          bottom: scrollView.bottomAnchor,
-                         paddingBottom: smallWidth ? 30 : 60)
+                         paddingBottom: smallWidth ? 60 : 90)
 
         stackView.addArrangedSubview(mainImageView)
         mainImageView.anchor(horizontal: stackView,
