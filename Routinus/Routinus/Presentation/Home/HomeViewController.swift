@@ -75,7 +75,7 @@ extension HomeViewController {
 
         self.contentView.addSubview(titleLabel)
         titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: offset,
-                          top: titleLabel.superview?.topAnchor, paddingTop: smallWidth ? 28 : 32,
+                          top: titleLabel.superview?.topAnchor,
                           height: 80)
 
         self.contentView.addSubview(continuityView)
