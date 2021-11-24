@@ -68,6 +68,38 @@ internal enum ChallengeQuery {
             """.data(using: .utf8)
     }
 
+    internal static func select(challengeID: String, date: String) -> Data? {
+        return """
+            {
+                "structuredQuery": {
+                    "from": { "collectionId": "challenge" },
+                    "where": {
+                        "compositeFilter": {
+                            "filters": [
+                                {
+                                    "fieldFilter": {
+                                        "field": { "fieldPath": "id" },
+                                        "op": "EQUAL",
+                                        "value": { "stringValue": "\(challengeID)" }
+                                    }
+                                },
+                                {
+                                    "fieldFilter": {
+                                        "field": { "fieldPath": "end_date" },
+                                        "op": "GREATER_THAN_OR_EQUAL",
+                                        "value": { "stringValue": "\(date)" }
+                                    },
+                                }
+                            ],
+                            "op": "AND"
+                        }
+                    },
+                    "limit": 50
+                }
+            }
+            """.data(using: .utf8)
+    }
+
     internal static func select(ownerID: String,
                                 challengeID: String) -> Data? {
         return """

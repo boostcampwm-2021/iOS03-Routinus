@@ -94,6 +94,17 @@ final class DetailCoordinator: RoutinusCoordinator {
                                                               authDisplayState: .me)
                 authListCoordinator.start()
                 self.childCoordinator.append(authListCoordinator)
+
+        detailViewModel.authMethodImageTap
+            .receive(on: RunLoop.main)
+            .sink { [weak self] imageData in
+                guard let self = self else { return }
+
+                let imageViewController = ImagePinchViewController()
+                imageViewController.setImage(data: imageData)
+                imageViewController.modalPresentationStyle = .overCurrentContext
+                imageViewController.modalTransitionStyle = .crossDissolve
+                self.navigationController.present(imageViewController, animated: true)
             }
             .store(in: &cancellables)
 

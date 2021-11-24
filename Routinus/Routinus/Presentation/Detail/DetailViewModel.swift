@@ -24,6 +24,7 @@ protocol DetailViewModelInput {
     func didTappedAlertConfirm()
     func didTappedAllAuthDisplayView()
     func didTappedMeAuthDisplayView() 
+    func didTappedAuthMethodImage(imageData: Data)
     func updateParticipantCount()
 }
 
@@ -38,6 +39,8 @@ protocol DetailViewModelOutput {
     var alertConfirmTap: PassthroughSubject<Void, Never> { get }
     var allAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
     var meAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
+    var authMethodImageTap: PassthroughSubject<Data, Never> { get }
+    var challengeID: String? { get }
 }
 
 protocol DetailViewModelIO: DetailViewModelInput, DetailViewModelOutput { }
@@ -53,6 +56,7 @@ class DetailViewModel: DetailViewModelIO {
     var alertConfirmTap = PassthroughSubject<Void, Never>()
     var allAuthDisplayViewTap = PassthroughSubject<String, Never>()
     var meAuthDisplayViewTap = PassthroughSubject<String, Never>()
+    var authMethodImageTap = PassthroughSubject<Data, Never>()
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
     let challengeUpdateUsecase: ChallengeUpdatableUsecase
@@ -63,7 +67,7 @@ class DetailViewModel: DetailViewModelIO {
     let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
     let achievementUpdateUsecase: AchievementUpdatableUsecase
     var cancellables = Set<AnyCancellable>()
-    var challengeID: String?
+    private(set) var challengeID: String?
 
     init(challengeID: String,
          challengeFetchUsecase: ChallengeFetchableUsecase,
@@ -134,6 +138,9 @@ extension DetailViewModel {
     func didTappedMeAuthDisplayView() {
         guard let challengeID = challengeID else { return }
         meAuthDisplayViewTap.send(challengeID)
+
+    func didTappedAuthMethodImage(imageData: Data) {
+        self.authMethodImageTap.send(imageData)
     }
 
     func fetchParticipationAuthState() {

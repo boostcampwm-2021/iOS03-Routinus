@@ -97,8 +97,8 @@ extension DateCollectionViewCell {
     }
 
     private func configureViews() {
-        contentView.addSubview(achievementCharacterView)
         contentView.addSubview(numberLabel)
+        contentView.addSubview(achievementCharacterView)
     }
 }
 

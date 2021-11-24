@@ -97,4 +97,12 @@ extension ContinuityView {
         continuityLabel.anchor(leading: continuityDayLabel.trailingAnchor, paddingLeading: 5,
                                bottom: continuityDayLabel.bottomAnchor, paddingBottom: 8)
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            layer.borderColor = UIColor(named: "Black")?.cgColor
+        }
+    }
 }

@@ -70,9 +70,8 @@ extension AuthViewController {
                           bottom: authButton.superview?.bottomAnchor, paddingBottom: smallWidth ? 10 : 30)
 
         self.scrollView.addSubview(stackView)
-        self.stackView.anchor(leading: self.scrollView.leadingAnchor,
-                              trailing: self.scrollView.trailingAnchor,
-                              centerX: self.scrollView.centerXAnchor,
+        self.stackView.anchor(centerX: self.scrollView.centerXAnchor,
+                              horizontal: self.scrollView,
                               top: self.scrollView.topAnchor,
                               bottom: self.scrollView.bottomAnchor,
                               paddingBottom: smallWidth ? 70 : 100)
@@ -152,12 +151,12 @@ extension AuthViewController: AuthButtonDelegate {
 }
 
 extension AuthViewController: AuthMethodViewDelegate {
-    func didTappedMethodImageView() {
+    func didTappedAuthMethodImageView() {
         guard let challengeID = viewModel?.challenge.value?.challengeID else { return }
         self.viewModel?.imageData(from: challengeID,
                                   filename: "auth_method") { data in
             guard let data = data else { return }
-            self.viewModel?.didTappedMethodImage(image: data)
+            self.viewModel?.didTappedAuthMethodImage(image: data)
         }
     }
 }
