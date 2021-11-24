@@ -139,6 +139,8 @@
 		E9A7943F274618AB00731DEB /* AchievementUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7943E274618AB00731DEB /* AchievementUpdateUsecase.swift */; };
 		E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B1298127336EE50072D254 /* TodayRoutine.swift */; };
 		E9B58194274DF75A00C39BD7 /* ChallengeCategoryHeaderDeleagte.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B58193274DF75900C39BD7 /* ChallengeCategoryHeaderDeleagte.swift */; };
+		E9B58196274DFAFA00C39BD7 /* ChallengeRecommendCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B58195274DFAFA00C39BD7 /* ChallengeRecommendCollectionViewHeader.swift */; };
+		E9B58198274E0FDF00C39BD7 /* ChallengeRecommendHeaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B58197274E0FDF00C39BD7 /* ChallengeRecommendHeaderDelegate.swift */; };
 		E9B87CC6274950FC00D7C0D2 /* UserUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */; };
 		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
 		E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */; };
@@ -321,6 +323,8 @@
 		E9A7943E274618AB00731DEB /* AchievementUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementUpdateUsecase.swift; sourceTree = "<group>"; };
 		E9B1298127336EE50072D254 /* TodayRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutine.swift; sourceTree = "<group>"; };
 		E9B58193274DF75900C39BD7 /* ChallengeCategoryHeaderDeleagte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCategoryHeaderDeleagte.swift; sourceTree = "<group>"; };
+		E9B58195274DFAFA00C39BD7 /* ChallengeRecommendCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRecommendCollectionViewHeader.swift; sourceTree = "<group>"; };
+		E9B58197274E0FDF00C39BD7 /* ChallengeRecommendHeaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRecommendHeaderDelegate.swift; sourceTree = "<group>"; };
 		E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUpdateUsecase.swift; sourceTree = "<group>"; };
 		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
 		E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeywordButton.swift; sourceTree = "<group>"; };
@@ -382,6 +386,7 @@
 		0DBBAA3827341C3600B32EB5 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				E9B58195274DFAFA00C39BD7 /* ChallengeRecommendCollectionViewHeader.swift */,
 				0DBBAA3B27341C3600B32EB5 /* ChallengeCategoryCollectionViewHeader.swift */,
 				0DBBAA3927341C3600B32EB5 /* ChallengeRecommendCollectionViewCell.swift */,
 				0DBBAA3A27341C3600B32EB5 /* ChallengeCategoryCollectionViewCell.swift */,
@@ -901,6 +906,7 @@
 		E9B58192274DF70E00C39BD7 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
+				E9B58197274E0FDF00C39BD7 /* ChallengeRecommendHeaderDelegate.swift */,
 				E9B58193274DF75900C39BD7 /* ChallengeCategoryHeaderDeleagte.swift */,
 			);
 			path = Delegates;
@@ -1188,7 +1194,9 @@
 				E9B87CC6274950FC00D7C0D2 /* UserUpdateUsecase.swift in Sources */,
 				E9493DC3273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift in Sources */,
 				0DE0339A274355700026F502 /* ManageCollectionViewLayouts.swift in Sources */,
+				E9B58196274DFAFA00C39BD7 /* ChallengeRecommendCollectionViewHeader.swift in Sources */,
 				E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */,
+				E9B58198274E0FDF00C39BD7 /* ChallengeRecommendHeaderDelegate.swift in Sources */,
 				E94B497227390FD300708D7B /* ChallengeCategoryIconView.swift in Sources */,
 				E9A7943F274618AB00731DEB /* AchievementUpdateUsecase.swift in Sources */,
 				E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */,
