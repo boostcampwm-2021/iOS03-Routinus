@@ -60,7 +60,9 @@ internal enum AuthQuery {
                         "op": "EQUAL",
                         "value": { "stringValue": "\(challengeID)" }
                     },
-                }
+                },
+
+                "limit": 50
             }
         }
         """.data(using: .utf8)
@@ -92,7 +94,8 @@ internal enum AuthQuery {
                         ],
                         "op": "AND"
                     }
-                }
+                },
+                "limit": 50
             }
         }
         """.data(using: .utf8)
