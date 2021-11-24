@@ -15,6 +15,8 @@ protocol HomeViewModelInput {
     func didTappedTodayRoutineAuth(index: Int)
     func generateDaysInMonth(for baseDate: Date) -> [Day]
     func changeDate(month: Int)
+    func addRefreshIndicator()
+    func removeRefreshIndicator()
 }
 
 protocol HomeViewModelOutput {
@@ -26,6 +28,7 @@ protocol HomeViewModelOutput {
     var todayRoutineTap: PassthroughSubject<String, Never> { get }
     var todayRoutineAuthTap: PassthroughSubject<String, Never> { get }
     var baseDate: CurrentValueSubject<Date, Never> { get }
+    var hasRefreshIndicator: CurrentValueSubject<Bool, Never> { get }
     var days: CurrentValueSubject<[Day], Never> { get }
     var calendar: Calendar { get }
     var selectedDates: [Date] { get }
@@ -52,6 +55,7 @@ final class HomeViewModel: HomeViewModelIO {
     var challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
+    var hasRefreshIndicator = CurrentValueSubject<Bool, Never>(false)
     var days = CurrentValueSubject<[Day], Never>([])
     var baseDate = CurrentValueSubject<Date, Never>(Date())
     var calendar = Calendar(identifier: .gregorian)
@@ -99,6 +103,14 @@ extension HomeViewModel {
     func didTappedTodayRoutineAuth(index: Int) {
         let challengeID = self.todayRoutines.value[index].challengeID
         self.todayRoutineAuthTap.send(challengeID)
+    }
+
+    func addRefreshIndicator() {
+        self.hasRefreshIndicator.value = true
+    }
+
+    func removeRefreshIndicator() {
+        self.hasRefreshIndicator.value = false
     }
 }
 

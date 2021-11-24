@@ -18,6 +18,8 @@ final class HomeCoordinator: RoutinusCoordinator {
                                                                       object: nil)
     let createPublisher = NotificationCenter.default.publisher(for: CreateCoordinator.confirmCreate,
                                                                object: nil)
+    let usernamePublisher = NotificationCenter.default.publisher(for: UserUpdateUsecase.didUpdateUsername,
+                                                                 object: nil)
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -84,6 +86,13 @@ final class HomeCoordinator: RoutinusCoordinator {
             .receive(on: RunLoop.main)
             .sink { _ in
                 homeViewModel.fetchMyHomeData()
+            }
+            .store(in: &cancellables)
+
+        self.usernamePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                homeViewModel.addRefreshIndicator()
             }
             .store(in: &cancellables)
 

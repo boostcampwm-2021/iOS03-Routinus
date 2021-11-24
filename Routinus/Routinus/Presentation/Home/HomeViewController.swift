@@ -116,6 +116,15 @@ extension HomeViewController {
     }
 
     private func configureViewModel() {
+        self.viewModel?.hasRefreshIndicator
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] hasIndicator in
+                guard let self = self else { return }
+                let systemName = hasIndicator ? "square.and.arrow.down" : "arrow.clockwise"
+                self.navigationItem.rightBarButtonItem?.image = UIImage(systemName: systemName)
+            })
+            .store(in: &cancellables)
+
         self.viewModel?.user
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] user in
@@ -164,6 +173,7 @@ extension HomeViewController {
 
     @objc private func refresh() {
         self.viewModel?.fetchMyHomeData()
+        self.viewModel?.removeRefreshIndicator()
         self.scrollView.refreshControl?.endRefreshing()
     }
 }
