@@ -44,6 +44,7 @@ final class CreateViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private var imagePicker = UIImagePickerController()
     private var selectedImagePickerTag: InputTag?
+    private var constraint: NSLayoutConstraint?
 
     init(with viewModel: CreateViewModelIO) {
         self.viewModel = viewModel
@@ -78,9 +79,13 @@ extension CreateViewController {
         scrollView.anchor(edges: view.safeAreaLayoutGuide)
 
         scrollView.addSubview(stackView)
+
         stackView.anchor(centerX: stackView.superview?.centerXAnchor,
                          horizontal: stackView.superview, paddingHorizontal: 20,
-                         vertical: stackView.superview, paddingVertical: 20)
+                         top: stackView.superview?.topAnchor, paddingTop: 20)
+        constraint = stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor,
+                                                       constant: 0)
+        constraint?.isActive = true
 
         stackView.addArrangedSubview(categoryView)
         stackView.addArrangedSubview(titleView)
@@ -187,11 +192,19 @@ extension CreateViewController {
     }
 
     @objc private func didShowKeyboard(_ notification: Notification) {
-        print(#function)
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        let height = keyboardFrame.cgRectValue.height
+        constraint?.isActive = false
+        constraint = stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor,
+                                                       constant: -height)
+        constraint?.isActive = true
     }
 
     @objc private func willHideKeyboard(_ notification: Notification) {
-        print(#function)
+        self.constraint?.isActive = false
+        self.constraint = self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor,
+                                                                 constant: 0)
+        self.constraint?.isActive = true
     }
 }
 
