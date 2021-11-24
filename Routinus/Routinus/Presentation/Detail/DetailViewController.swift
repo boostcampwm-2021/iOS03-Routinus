@@ -167,6 +167,7 @@ final class DetailViewController: UIViewController {
 
     private func configureDelegate() {
         participantButton.delegate = self
+        authMethodView.delegate = self
     }
 
     private func presentAlert() {
@@ -187,5 +188,16 @@ final class DetailViewController: UIViewController {
 extension DetailViewController: ParticipantButtonDelegate {
     func didTappedParticipantButton() {
         viewModel?.didTappedParticipationAuthButton()
+    }
+}
+
+extension DetailViewController: AuthMethodViewDelegate {
+    func didTappedAuthMethodImageView() {
+        guard let challengeID = viewModel?.challengeID else { return }
+        self.viewModel?.imageData(from: challengeID,
+                                  filename: "auth_method") { data in
+            guard let data = data else { return }
+            self.viewModel?.didTappedAuthMethodImage(imageData: data)
+        }
     }
 }
