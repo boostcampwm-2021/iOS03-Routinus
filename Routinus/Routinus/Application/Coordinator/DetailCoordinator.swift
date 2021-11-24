@@ -79,7 +79,8 @@ final class DetailCoordinator: RoutinusCoordinator {
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
                 let authListCoordinator = AuthListCoordinator(navigationController: self.navigationController,
-                                                              challengeID: challengeID)
+                                                              challengeID: challengeID,
+                                                              authDisplayState: .all)
                 authListCoordinator.start()
                 self.childCoordinator.append(authListCoordinator)
             }
@@ -89,7 +90,8 @@ final class DetailCoordinator: RoutinusCoordinator {
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
                 let authListCoordinator = AuthListCoordinator(navigationController: self.navigationController,
-                                                              challengeID: challengeID)
+                                                              challengeID: challengeID,
+                                                              authDisplayState: .me)
                 authListCoordinator.start()
                 self.childCoordinator.append(authListCoordinator)
             }

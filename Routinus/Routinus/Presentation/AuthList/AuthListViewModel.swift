@@ -9,7 +9,9 @@ import Combine
 import Foundation
 
 protocol AuthListViewModelInput {
-
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)?)
 }
 
 protocol AuthListViewModelOutput {
@@ -20,22 +22,51 @@ protocol AuthListViewModelIO: AuthListViewModelInput, AuthListViewModelOutput { 
 
 final class AuthListViewModel: AuthListViewModelIO {
     var auths = CurrentValueSubject<[ChallengeAuth], Never>([])
-    let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
 
-    private var challengeID: String?
+    let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
+    let imageFetchUsecase: ImageFetchableUsecase
+
+    private(set) var challengeID: String?
 
     init(challengeID: String,
-         challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase) {
+         authDisplayState: AuthDisplayState,
+         challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase,
+         imageFetchUsecase: ImageFetchableUsecase) {
         self.challengeID = challengeID
         self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
-        self.fetchChallengeAuths()
+        self.imageFetchUsecase = imageFetchUsecase
+
+        self.fetchChallengeAuthData(authDisplayState: authDisplayState)
+    }
+
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)? = nil) {
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+            completion?(data)
+        }
     }
 }
 
 extension AuthListViewModel {
+    private func fetchChallengeAuthData(authDisplayState: AuthDisplayState) {
+        if authDisplayState == .all {
+            self.fetchChallengeAuths()
+        } else {
+            self.fetchMyChallengeAuths()
+        }
+    }
+
     private func fetchChallengeAuths() {
         guard let challengeID = challengeID else { return }
         challengeAuthFetchUsecase.fetchChallengeAuths(challengeID: challengeID) { challengeAuths in
+            self.auths.value = challengeAuths
+        }
+    }
+
+    private func fetchMyChallengeAuths() {
+        guard let challengeID = challengeID else { return }
+        challengeAuthFetchUsecase.fetchMyChallengeAuths(challengeID: challengeID) { challengeAuths in
             self.auths.value = challengeAuths
         }
     }

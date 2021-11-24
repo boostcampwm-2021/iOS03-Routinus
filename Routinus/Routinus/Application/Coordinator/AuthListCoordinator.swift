@@ -11,17 +11,22 @@ final class AuthListCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     let challengeID: String
+    let authDisplayState: AuthDisplayState
 
-    init(navigationController: UINavigationController, challengeID: String) {
+    init(navigationController: UINavigationController, challengeID: String, authDisplayState: AuthDisplayState) {
         self.navigationController = navigationController
         self.challengeID = challengeID
+        self.authDisplayState = authDisplayState
     }
 
     func start() {
         let repository = RoutinusRepository()
-        let challengeAuthFetchUpsecase = ChallengeAuthFetchUsecase(repository: repository)
+        let challengeAuthFetchUsecase = ChallengeAuthFetchUsecase(repository: repository)
+        let imageFetchUsecase = ImageFetchUsecase(repository: repository)
         let authListViewModel = AuthListViewModel(challengeID: challengeID,
-                                                  challengeAuthFetchUsecase: challengeAuthFetchUpsecase)
+                                                  authDisplayState: authDisplayState,
+                                                  challengeAuthFetchUsecase: challengeAuthFetchUsecase,
+                                                  imageFetchUsecase: imageFetchUsecase)
         let authListViewController = AuthListViewController(viewModel: authListViewModel)
         self.navigationController.pushViewController(authListViewController, animated: true)
     }

@@ -12,6 +12,8 @@ protocol ChallengeAuthFetchableUsecase {
                             completion: @escaping (ChallengeAuth?) -> Void)
     func fetchChallengeAuths(challengeID: String,
                              completion: @escaping ([ChallengeAuth]) -> Void)
+    func fetchMyChallengeAuths(challengeID: String,
+                               completion: @escaping ([ChallengeAuth]) -> Void)
 }
 
 struct ChallengeAuthFetchUsecase: ChallengeAuthFetchableUsecase {
@@ -34,6 +36,15 @@ struct ChallengeAuthFetchUsecase: ChallengeAuthFetchableUsecase {
     func fetchChallengeAuths(challengeID: String,
                              completion: @escaping ([ChallengeAuth]) -> Void) {
         repository.fetchChallengeAuths(challengeID: challengeID) { challengeAuths in
+            completion(challengeAuths)
+        }
+    }
+
+    func fetchMyChallengeAuths(challengeID: String,
+                               completion: @escaping ([ChallengeAuth]) -> Void) {
+        guard let userID = RoutinusRepository.userID() else { return }
+        repository.fetchMyChallengeAuths(userID: userID,
+                                         challengeID: challengeID) { challengeAuths in
             completion(challengeAuths)
         }
     }

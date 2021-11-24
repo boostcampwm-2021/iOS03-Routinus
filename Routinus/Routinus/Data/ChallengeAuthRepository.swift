@@ -20,6 +20,9 @@ protocol ChallengeAuthRepository {
                             completion: @escaping (ChallengeAuth?) -> Void)
     func fetchChallengeAuths(challengeID: String,
                              completion: (([ChallengeAuth]) -> Void)?)
+    func fetchMyChallengeAuths(userID: String,
+                               challengeID: String,
+                               completion: (([ChallengeAuth]) -> Void)?)
 }
 
 extension RoutinusRepository: ChallengeAuthRepository {
@@ -59,10 +62,25 @@ extension RoutinusRepository: ChallengeAuthRepository {
 
     func fetchChallengeAuths(challengeID: String,
                              completion: (([ChallengeAuth]) -> Void)?) {
-        RoutinusNetwork.challengeAuths(challengeID: challengeID) { dto in
-            RoutinusNetwork.challengeAuths(challengeID: challengeID) { list in
-                completion?(list.map { ChallengeAuth(challengeAuthDTO: $0) })
+        RoutinusNetwork.challengeAuths(challengeID: challengeID) { list in
+            guard list.first?.document != nil else {
+                completion?([])
+                return
             }
+            completion?(list.map { ChallengeAuth(challengeAuthDTO: $0) })
+        }
+    }
+
+    func fetchMyChallengeAuths(userID: String,
+                               challengeID: String,
+                               completion: (([ChallengeAuth]) -> Void)?) {
+        RoutinusNetwork.challengeAuths(userID: userID,
+                                       challengeID: challengeID) { list in
+            guard list.first?.document != nil else {
+                completion?([])
+                return
+            }
+            completion?(list.map { ChallengeAuth(challengeAuthDTO: $0) })
         }
     }
 }
