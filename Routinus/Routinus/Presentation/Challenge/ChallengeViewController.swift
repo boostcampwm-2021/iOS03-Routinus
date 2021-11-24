@@ -48,9 +48,9 @@ final class ChallengeViewController: UIViewController {
 
         collectionView.showsVerticalScrollIndicator = false
 
-        collectionView.register(ChallengeCollectionViewHeader.self,
+        collectionView.register(ChallengeCategoryCollectionViewHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: ChallengeCollectionViewHeader.identifier)
+                                withReuseIdentifier: ChallengeCategoryCollectionViewHeader.identifier)
         collectionView.register(ChallengeRecommendCollectionViewCell.self,
                                 forCellWithReuseIdentifier: ChallengeRecommendCollectionViewCell.identifier)
         collectionView.register(ChallengeCategoryCollectionViewCell.self,
@@ -121,12 +121,12 @@ extension ChallengeViewController {
 
             let view = collectionView.dequeueReusableSupplementaryView(
                         ofKind: kind,
-                        withReuseIdentifier: ChallengeCollectionViewHeader.identifier,
-                        for: indexPath) as? ChallengeCollectionViewHeader
+                        withReuseIdentifier: ChallengeCategoryCollectionViewHeader.identifier,
+                        for: indexPath) as? ChallengeCategoryCollectionViewHeader
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
+            view?.delegate = self
             view?.title = section.title
-            view?.seeAllButton.addTarget(self, action: #selector(self.didTappedSearchButton), for: .touchUpInside)
 
             switch section {
             case .category:
@@ -195,6 +195,12 @@ extension ChallengeViewController: UICollectionViewDelegate {
         if indexPath.section == 0 {
             self.viewModel?.didTappedRecommendChallenge(index: indexPath.item)
         }
+    }
+}
+
+extension ChallengeViewController: ChallengeCategoryHeaderDeleagte {
+    func didTappedSeeAllButton() {
+        self.viewModel?.didTappedSeeAllButton()
     }
 }
 

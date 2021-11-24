@@ -7,10 +7,11 @@
 
 import UIKit
 
-final class ChallengeCollectionViewHeader: UICollectionReusableView {
-    static let identifier = "ChallengeCollectionViewHeader"
+final class ChallengeCategoryCollectionViewHeader: UICollectionReusableView {
+    static let identifier = "ChallengeCategoryCollectionViewHeader"
+    weak var delegate: ChallengeCategoryHeaderDeleagte?
 
-    let label: UILabel = {
+    private lazy var label: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "Black")
         label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -35,13 +36,18 @@ final class ChallengeCollectionViewHeader: UICollectionReusableView {
         stackView.frame = bounds
     }
 
-    let seeAllButton: UIButton = {
+    private lazy var seeAllButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("See all", for: .normal)
         button.setTitleColor(UIColor(named: "Black"), for: .normal)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        button.addTarget(self, action: #selector(didTappedSeeAllButton), for: .touchUpInside)
         return button
     }()
+
+    @objc func didTappedSeeAllButton() {
+        self.delegate?.didTappedSeeAllButton()
+    }
 
     var title: String = "" {
         didSet {
