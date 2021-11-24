@@ -47,12 +47,13 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
 
     func fetchSearchChallenges(keyword: String,
                                completion: @escaping ([Challenge]) -> Void) {
-        repository.fetchSearchChallengesBy(keyword: keyword) { list in
+        repository.fetchSearchChallengesBy(keyword: keyword) { challenges in
+            let challenges = challenges.filter { $0.endDate ?? Date() >= Date() }
             let keywords = keyword.components(separatedBy: " ")
             var results: Set<Challenge> = []
 
             keywords.forEach { keyword in
-                list.filter { challenge in
+                challenges.filter { challenge in
                     challenge.title.contains(keyword)
                 }.forEach {
                     results.insert($0)
