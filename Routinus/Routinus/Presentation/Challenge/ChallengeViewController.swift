@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 final class ChallengeViewController: UIViewController {
-    enum Section: String, CaseIterable {
+    enum Section: CaseIterable {
         case recommend, category
 
         var title: String {
