@@ -11,11 +11,6 @@ import UIKit
 class AuthListViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 10
-
-        layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(AuthListCollectionViewCell.self,
                                 forCellWithReuseIdentifier: AuthListCollectionViewCell.identifier)
@@ -77,14 +72,12 @@ extension AuthListViewController: UICollectionViewDataSource, UICollectionViewDe
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let viewModel = viewModel else { return UICollectionViewCell() }
-
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AuthListCollectionViewCell.identifier,
                                                             for: indexPath) as? AuthListCollectionViewCell else { return UICollectionViewCell() }
-        let auth = viewModel.auths.value[indexPath.item]
-        guard let date = auth.date?.toDateString() else { return UICollectionViewCell() }
+
+        guard let auth = viewModel?.auths.value[indexPath.item], let date = auth.date?.toDateString() else { return UICollectionViewCell() }
         let filename = "\(auth.userID)_\(date)_thumbnail_auth"
-        viewModel.imageData(from: auth.challengeID,
+        viewModel?.imageData(from: auth.challengeID,
                             filename: filename) { data in
             guard let data = data, let image = UIImage(data: data) else { return }
             DispatchQueue.main.async {
@@ -95,7 +88,7 @@ extension AuthListViewController: UICollectionViewDataSource, UICollectionViewDe
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width / 2 - 1 
+        let width = collectionView.frame.width / 2 
         return CGSize(width: width, height: width)
     }
 }
