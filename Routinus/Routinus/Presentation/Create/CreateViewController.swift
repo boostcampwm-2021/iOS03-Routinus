@@ -61,6 +61,7 @@ final class CreateViewController: UIViewController {
         configureViewModel()
         configureDelegates()
         configureGesture()
+        configureNotifications()
     }
 
     @objc private func didTappedCreateButton(_ sender: UIButton) {
@@ -172,6 +173,25 @@ extension CreateViewController {
         weekView.hideKeyboard()
         introductionView.hideKeyboard()
         authMethodView.hideKeyboard()
+    }
+
+    private func configureNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didShowKeyboard),
+                                               name: UIResponder.keyboardDidShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(willHideKeyboard),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+
+    @objc private func didShowKeyboard(_ notification: Notification) {
+        print(#function)
+    }
+
+    @objc private func willHideKeyboard(_ notification: Notification) {
+        print(#function)
     }
 }
 
