@@ -226,13 +226,13 @@ extension CreateViewController: CreateSubviewDelegate {
 
 extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        guard let tag = InputTag(rawValue: textField.tag) else { return }
-        scrollView.setContentOffset(CGPoint(x: 0, y: tag.offset), animated: true)
+        guard let offset = textField.superview?.frame.origin.y else { return }
+        scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        guard let tag = InputTag(rawValue: textView.tag) else { return }
-        scrollView.setContentOffset(CGPoint(x: 0, y: tag.offset), animated: true)
+        guard let offset = textView.superview?.frame.origin.y else { return }
+        scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
     }
 
     func textFieldDidChangeSelection(_ textField: UITextField) {
