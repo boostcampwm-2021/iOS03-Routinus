@@ -32,6 +32,7 @@ final class DetailViewController: UIViewController {
         var imageView = UIImageView()
         imageView.backgroundColor = .systemBackground
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
 
