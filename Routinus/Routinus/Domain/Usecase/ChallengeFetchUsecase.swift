@@ -37,8 +37,10 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     }
 
     func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void) {
-        repository.fetchLatestChallenges { list in
-            let challenges = list.sorted { $0.participantCount > $1.participantCount }
+        repository.fetchLatestChallenges { challenges in
+            let challenges = challenges
+                .filter { $0.endDate ?? Date() >= Date() }
+                .sorted { $0.participantCount > $1.participantCount }
             completion(challenges)
         }
     }
