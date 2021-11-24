@@ -56,9 +56,18 @@ extension AuthListViewController {
     }
 
     private func configureViewModels() {
+        self.viewModel?.authDisplayState
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] state in
+                guard let self = self else { return }
+                self.navigationItem.title = state.title
+            })
+            .store(in: &cancellables)
+
         self.viewModel?.auths
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { _ in
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self else { return }
                 self.collectionView.reloadData()
             })
             .store(in: &cancellables)

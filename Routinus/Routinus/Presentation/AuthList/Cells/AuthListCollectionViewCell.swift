@@ -41,6 +41,3 @@ extension AuthListCollectionViewCell {
                          bottom: self.bottomAnchor)
     }
 }
-
-
-

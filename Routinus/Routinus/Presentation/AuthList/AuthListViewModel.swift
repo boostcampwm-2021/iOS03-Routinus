@@ -16,17 +16,19 @@ protocol AuthListViewModelInput {
 
 protocol AuthListViewModelOutput {
     var auths: CurrentValueSubject<[ChallengeAuth], Never> { get }
+    var authDisplayState: CurrentValueSubject<AuthDisplayState, Never> { get }
 }
 
 protocol AuthListViewModelIO: AuthListViewModelInput, AuthListViewModelOutput { }
 
 final class AuthListViewModel: AuthListViewModelIO {
     var auths = CurrentValueSubject<[ChallengeAuth], Never>([])
+    var authDisplayState = CurrentValueSubject<AuthDisplayState, Never>(.all)
 
     let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
     let imageFetchUsecase: ImageFetchableUsecase
 
-    private(set) var challengeID: String?
+    private var challengeID: String?
 
     init(challengeID: String,
          authDisplayState: AuthDisplayState,
@@ -51,8 +53,10 @@ final class AuthListViewModel: AuthListViewModelIO {
 extension AuthListViewModel {
     private func fetchChallengeAuthData(authDisplayState: AuthDisplayState) {
         if authDisplayState == .all {
+            self.authDisplayState.value = .all
             self.fetchChallengeAuths()
         } else {
+            self.authDisplayState.value = .me
             self.fetchMyChallengeAuths()
         }
     }
