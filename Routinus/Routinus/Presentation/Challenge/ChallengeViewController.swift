@@ -199,7 +199,7 @@ extension ChallengeViewController: ChallengeRecommendHeaderDelegate {
     }
 }
 
-extension ChallengeViewController: ChallengeCategoryHeaderDeleagte {
+extension ChallengeViewController: ChallengeCategoryHeaderDelegate {
     func didTappedSeeAllButton() {
         self.viewModel?.didTappedSeeAllButton()
     }

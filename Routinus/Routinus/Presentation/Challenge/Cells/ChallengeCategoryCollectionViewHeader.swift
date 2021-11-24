@@ -9,7 +9,7 @@ import UIKit
 
 final class ChallengeCategoryCollectionViewHeader: UICollectionReusableView {
     static let identifier = "ChallengeCategoryCollectionViewHeader"
-    weak var delegate: ChallengeCategoryHeaderDeleagte?
+    weak var delegate: ChallengeCategoryHeaderDelegate?
 
     private lazy var label: UILabel = {
         let label = UILabel()
