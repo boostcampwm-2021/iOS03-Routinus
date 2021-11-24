@@ -120,8 +120,8 @@ extension HomeViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] hasIndicator in
                 guard let self = self else { return }
-                let systemName = hasIndicator ? "square.and.arrow.down" : "arrow.clockwise"
-                self.navigationItem.rightBarButtonItem?.image = UIImage(systemName: systemName)
+                let named = hasIndicator ? "Red" : "Black"
+                self.navigationItem.rightBarButtonItem?.tintColor = UIColor(named: named)
             })
             .store(in: &cancellables)
 
