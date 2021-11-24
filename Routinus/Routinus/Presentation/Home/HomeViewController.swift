@@ -107,9 +107,20 @@ extension HomeViewController {
     }
 
     private func configureNavigationBar() {
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        let backBarButtonItem = UIBarButtonItem(title: "",
+                                                style: .plain,
+                                                target: self,
+                                                action: nil)
         backBarButtonItem.tintColor = UIColor(named: "Black")
         self.navigationItem.backBarButtonItem = backBarButtonItem
+
+        let refreshBarButtonItem = UIBarButtonItem(title: "",
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(refresh))
+        refreshBarButtonItem.image = UIImage(systemName: "arrow.clockwise")
+        refreshBarButtonItem.tintColor = UIColor(named: "Black")
+        self.navigationItem.rightBarButtonItem = refreshBarButtonItem
     }
 
     private func configureViewModel() {
