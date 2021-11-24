@@ -9,13 +9,13 @@ import Combine
 import UIKit
 
 final class ChallengeViewController: UIViewController {
-    enum Section: CaseIterable {
+    enum Section: String, CaseIterable {
         case recommend, category
 
         var title: String {
             switch self {
             case .recommend:
-                return ""
+                return "challenge".localized
             case .category:
                 return "challenge category".localized
             }
@@ -34,20 +34,15 @@ final class ChallengeViewController: UIViewController {
     private var viewModel: ChallengeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
-    private lazy var searchButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        button.tintColor = UIColor(named: "Black")
-        button.addTarget(self, action: #selector(didTappedSearchButton), for: .touchUpInside)
-        return button
-    }()
-
     private var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.backgroundColor = .systemBackground
 
         collectionView.showsVerticalScrollIndicator = false
 
+        collectionView.register(ChallengeRecommendCollectionViewHeader.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: ChallengeRecommendCollectionViewHeader.identifier)
         collectionView.register(ChallengeCategoryCollectionViewHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: ChallengeCategoryCollectionViewHeader.identifier)
@@ -79,12 +74,12 @@ final class ChallengeViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.searchButton.isHidden = false
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.searchButton.isHidden = true
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 
@@ -118,48 +113,48 @@ extension ChallengeViewController {
             guard kind == UICollectionView.elementKindSectionHeader else {
                 return nil
             }
-
-            let view = collectionView.dequeueReusableSupplementaryView(
-                        ofKind: kind,
-                        withReuseIdentifier: ChallengeCategoryCollectionViewHeader.identifier,
-                        for: indexPath) as? ChallengeCategoryCollectionViewHeader
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-
-            view?.delegate = self
-            view?.title = section.title
+            let section = Section.allCases[indexPath.section]
 
             switch section {
+            case .recommend:
+                let recommendHeader = collectionView.dequeueReusableSupplementaryView(
+                            ofKind: kind,
+                            withReuseIdentifier: ChallengeRecommendCollectionViewHeader.identifier,
+                            for: indexPath) as? ChallengeRecommendCollectionViewHeader
+
+                recommendHeader?.delegate = self
+                recommendHeader?.title = section.title
+                recommendHeader?.addSearchButton()
+                return recommendHeader
             case .category:
-                view?.addSeeAllButton()
-            default:
-                view?.removeStackSubviews()
+                let categoryHeader = collectionView.dequeueReusableSupplementaryView(
+                            ofKind: kind,
+                            withReuseIdentifier: ChallengeCategoryCollectionViewHeader.identifier,
+                            for: indexPath) as? ChallengeCategoryCollectionViewHeader
+
+                categoryHeader?.delegate = self
+                categoryHeader?.title = section.title
+                categoryHeader?.addSeeAllButton()
+                return categoryHeader
             }
-            return view
         }
     }
 
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
         self.configureNavigationBar()
-        self.configureSearchButton()
+
         self.view.addSubview(collectionView)
-        collectionView.anchor(edges: collectionView.superview)
+        let smallWidth = UIScreen.main.bounds.width <= 350
+        let offset = smallWidth ? 28.0 : 32.0
+        collectionView.anchor(edges: self.view.safeAreaLayoutGuide)
+        collectionView.contentInset = .init(top: offset, left: 0, bottom: 0, right: 0)
     }
 
     private func configureNavigationBar() {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationItem.title = "Challenges"
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = UIColor(named: "Black")
         self.navigationItem.backBarButtonItem = backBarButtonItem
-    }
-
-    private func configureSearchButton() {
-        self.navigationController?.navigationBar.addSubview(searchButton)
-        self.searchButton.frame = CGRect(x: self.view.frame.width, y: 0, width: 40, height: 40)
-        searchButton.anchor(trailing: searchButton.superview?.trailingAnchor, paddingTrailing: 16,
-                            bottom: searchButton.superview?.lastBaselineAnchor, paddingBottom: 16)
     }
 
     private func configureViewModel() {
@@ -195,6 +190,12 @@ extension ChallengeViewController: UICollectionViewDelegate {
         if indexPath.section == 0 {
             self.viewModel?.didTappedRecommendChallenge(index: indexPath.item)
         }
+    }
+}
+
+extension ChallengeViewController: ChallengeRecommendHeaderDelegate {
+    func didTappedSearchButton() {
+        self.viewModel?.didTappedSearchButton()
     }
 }
 
