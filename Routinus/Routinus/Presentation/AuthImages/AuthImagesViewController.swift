@@ -35,6 +35,7 @@ class AuthImagesViewController: UIViewController {
         configureViews()
         configureDelegates()
         configureViewModel()
+        configureRefreshControl()
     }
 }
 
@@ -74,6 +75,27 @@ extension AuthImagesViewController {
                 }
             })
             .store(in: &cancellables)
+    }
+
+    private func configureRefreshControl() {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self,
+                           action: #selector(refreshData),
+                           for: .valueChanged)
+        refresh.attributedTitle = NSAttributedString(string: "Loading Data...",
+                                                     attributes: [NSAttributedString.Key.foregroundColor:
+                                                                    UIColor.systemGray,
+                                                                  NSAttributedString.Key.font:
+                                                                    UIFont.boldSystemFont(ofSize: 20)])
+        self.collectionView.refreshControl = refresh
+    }
+
+    @objc private func refreshData() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            guard let authDisplayState = self.viewModel?.authDisplayState.value else { return }
+            self.viewModel?.fetchChallengeAuthData(authDisplayState: authDisplayState)
+            self.collectionView.refreshControl?.endRefreshing()
+        }
     }
 }
 
