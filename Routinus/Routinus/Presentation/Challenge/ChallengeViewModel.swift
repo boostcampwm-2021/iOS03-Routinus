@@ -39,6 +39,8 @@ final class ChallengeViewModel: ChallengeViewModelIO {
 
     let challengeCreatePublisher = NotificationCenter.default.publisher(for: ChallengeCreateUsecase.didCreateChallenge,
                                                                         object: nil)
+    let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
+                                                                        object: nil)
 
     init(challengeFetchUsecase: ChallengeFetchableUsecase) {
         self.challengeFetchUsecase = challengeFetchUsecase
@@ -50,6 +52,13 @@ final class ChallengeViewModel: ChallengeViewModelIO {
 extension ChallengeViewModel {
     func configurePublishers() {
         self.challengeCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchChallenge()
+            }
+            .store(in: &cancellables)
+
+        self.challengeUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchChallenge()

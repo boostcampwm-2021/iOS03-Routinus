@@ -66,6 +66,9 @@ class DetailViewModel: DetailViewModelIO {
     var cancellables = Set<AnyCancellable>()
     private(set) var challengeID: String?
 
+    let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
+                                                                        object: nil)
+
     init(challengeID: String,
          challengeFetchUsecase: ChallengeFetchableUsecase,
          challengeUpdateUsecase: ChallengeUpdatableUsecase,
@@ -86,10 +89,20 @@ class DetailViewModel: DetailViewModelIO {
         self.achievementUpdateUsecase = achievementUpdateUsecase
         self.fetchChallenge()
         self.updateParticipationAuthState()
+        self.configurePublishers()
     }
 }
 
 extension DetailViewModel {
+    func configurePublishers() {
+        self.challengeUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchChallenge()
+            }
+            .store(in: &cancellables)
+    }
+
     func fetchChallenge() {
         guard let challengeID = challengeID else { return }
         challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in

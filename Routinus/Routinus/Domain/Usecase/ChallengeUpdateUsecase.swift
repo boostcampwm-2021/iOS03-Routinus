@@ -14,6 +14,8 @@ protocol ChallengeUpdatableUsecase {
 }
 
 struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
+    static let didUpdateChallenge = Notification.Name("didUpdateChallenge")
+
     var repository: ChallengeRepository
 
     init(repository: ChallengeRepository) {
@@ -22,16 +24,22 @@ struct ChallengeUpdateUsecase: ChallengeUpdatableUsecase {
 
     func endDate(startDate: Date, week: Int) -> Date? {
         let calendar = Calendar.current
-        let day = DateComponents(day: week*7)
+        let day = DateComponents(day: week * 7)
         guard let endDate = calendar.date(byAdding: day, to: startDate) else { return nil }
         return endDate
     }
 
     func update(challenge: Challenge) {
-        repository.update(challenge: challenge)
+        repository.update(challenge: challenge) {
+            NotificationCenter.default.post(name: ChallengeUpdateUsecase.didUpdateChallenge,
+                                            object: nil)
+        }
     }
 
     func updateParticipantCount(challengeID: String) {
-        repository.updateParticipantCount(challengeID: challengeID)
+        repository.updateParticipantCount(challengeID: challengeID) {
+            NotificationCenter.default.post(name: ChallengeUpdateUsecase.didUpdateChallenge,
+                                            object: nil)
+        }
     }
 }

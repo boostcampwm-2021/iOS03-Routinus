@@ -31,8 +31,10 @@ protocol ChallengeRepository {
                 authExampleImageURL: String,
                 authExampleThumbnailImageURL: String,
                 completion: (() -> Void)?)
-    func update(challenge: Challenge)
-    func updateParticipantCount(challengeID: String)
+    func update(challenge: Challenge,
+                completion: (() -> Void)?)
+    func updateParticipantCount(challengeID: String,
+                                completion: (() -> Void)?)
 }
 
 extension RoutinusRepository: ChallengeRepository {
@@ -137,7 +139,8 @@ extension RoutinusRepository: ChallengeRepository {
         }
     }
 
-    func update(challenge: Challenge) {
+    func update(challenge: Challenge,
+                completion: (() -> Void)?) {
         guard let startDate = challenge.startDate?.toDateString(),
               let endDate = challenge.endDate?.toDateString() else { return }
         let challengeDTO = ChallengeDTO(id: challenge.challengeID,
@@ -150,11 +153,15 @@ extension RoutinusRepository: ChallengeRepository {
                                         endDate: endDate,
                                         participantCount: challenge.participantCount,
                                         ownerID: challenge.ownerID)
-        RoutinusNetwork.updateChallenge(challengeDTO: challengeDTO,
-                                        completion: nil)
+        RoutinusNetwork.updateChallenge(challengeDTO: challengeDTO) {
+            completion?()
+        }
     }
 
-    func updateParticipantCount(challengeID: String) {
-        RoutinusNetwork.updateParticipantCount(challengeID: challengeID, completion: nil)
+    func updateParticipantCount(challengeID: String,
+                                completion: (() -> Void)?) {
+        RoutinusNetwork.updateParticipantCount(challengeID: challengeID) {
+            completion?()
+        }
     }
 }
