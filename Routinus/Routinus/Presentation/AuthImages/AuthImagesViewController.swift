@@ -1,5 +1,5 @@
 //
-//  AuthListViewController.swift
+//  AuthImagesViewController.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/24.
@@ -8,19 +8,19 @@
 import Combine
 import UIKit
 
-class AuthListViewController: UIViewController {
+class AuthImagesViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(AuthListCollectionViewCell.self,
-                                forCellWithReuseIdentifier: AuthListCollectionViewCell.identifier)
+        collectionView.register(AuthImagesCollectionViewCell.self,
+                                forCellWithReuseIdentifier: AuthImagesCollectionViewCell.identifier)
         return collectionView
     }()
 
-    private var viewModel: AuthListViewModelIO?
+    private var viewModel: AuthImagesViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
-    init(viewModel: AuthListViewModelIO) {
+    init(viewModel: AuthImagesViewModelIO) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -38,7 +38,7 @@ class AuthListViewController: UIViewController {
     }
 }
 
-extension AuthListViewController {
+extension AuthImagesViewController {
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(collectionView)
@@ -77,14 +77,14 @@ extension AuthListViewController {
     }
 }
 
-extension AuthListViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension AuthImagesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.auths.value.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AuthListCollectionViewCell.identifier,
-                                                            for: indexPath) as? AuthListCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AuthImagesCollectionViewCell.identifier,
+                                                            for: indexPath) as? AuthImagesCollectionViewCell else { return UICollectionViewCell() }
 
         guard let auth = viewModel?.auths.value[indexPath.item],
               let date = auth.date?.toDateString() else { return UICollectionViewCell() }

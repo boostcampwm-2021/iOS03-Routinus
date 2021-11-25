@@ -1,5 +1,5 @@
 //
-//  AuthListCollectionViewCell.swift
+//  AuthImagesCollectionViewCell.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/24.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class AuthListCollectionViewCell: UICollectionViewCell {
-    static let identifier = "AuthListCollectionViewCell"
+final class AuthImagesCollectionViewCell: UICollectionViewCell {
+    static let identifier = "AuthImagesCollectionViewCell"
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -32,7 +32,7 @@ final class AuthListCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension AuthListCollectionViewCell {
+extension AuthImagesCollectionViewCell {
     private func configureCell() {
         self.addSubview(imageView)
         imageView.anchor(leading: self.leadingAnchor,

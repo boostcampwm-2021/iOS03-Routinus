@@ -45,9 +45,9 @@
 		14B181122745511A0061F2AE /* Participation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B181112745511A0061F2AE /* Participation.swift */; };
 		14B18116274555CE0061F2AE /* ParticipationFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */; };
 		14B18118274561E20061F2AE /* ParticipationCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B18117274561E20061F2AE /* ParticipationCreateUsecase.swift */; };
-		14BFC0DA274DB7E100A982CB /* AuthListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0D9274DB7E100A982CB /* AuthListViewModel.swift */; };
-		14BFC0DC274DBBF100A982CB /* AuthListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0DB274DBBF100A982CB /* AuthListViewController.swift */; };
-		14BFC0DF274DC09C00A982CB /* AuthListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0DE274DC09C00A982CB /* AuthListCollectionViewCell.swift */; };
+		14BFC0DA274DB7E100A982CB /* AuthImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0D9274DB7E100A982CB /* AuthImagesViewModel.swift */; };
+		14BFC0DC274DBBF100A982CB /* AuthImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0DB274DBBF100A982CB /* AuthImagesViewController.swift */; };
+		14BFC0DF274DC09C00A982CB /* AuthImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0DE274DC09C00A982CB /* AuthImagesCollectionViewCell.swift */; };
 		14BFC0E1274E106D00A982CB /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0E0274E106D00A982CB /* UICollectionView+Extensions.swift */; };
 		14FCD60B27311CF600626E74 /* RoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FCD60A27311CF600626E74 /* RoutineTableViewCell.swift */; };
 		441CEDD127378573006C261F /* ContinuityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD027378573006C261F /* ContinuityView.swift */; };
@@ -233,9 +233,9 @@
 		14B181112745511A0061F2AE /* Participation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participation.swift; sourceTree = "<group>"; };
 		14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationFetchUsecase.swift; sourceTree = "<group>"; };
 		14B18117274561E20061F2AE /* ParticipationCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationCreateUsecase.swift; sourceTree = "<group>"; };
-		14BFC0D9274DB7E100A982CB /* AuthListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListViewModel.swift; sourceTree = "<group>"; };
-		14BFC0DB274DBBF100A982CB /* AuthListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListViewController.swift; sourceTree = "<group>"; };
-		14BFC0DE274DC09C00A982CB /* AuthListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListCollectionViewCell.swift; sourceTree = "<group>"; };
+		14BFC0D9274DB7E100A982CB /* AuthImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthImagesViewModel.swift; sourceTree = "<group>"; };
+		14BFC0DB274DBBF100A982CB /* AuthImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthImagesViewController.swift; sourceTree = "<group>"; };
+		14BFC0DE274DC09C00A982CB /* AuthImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthImagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		14BFC0E0274E106D00A982CB /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		14FCD60A27311CF600626E74 /* RoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewCell.swift; sourceTree = "<group>"; };
 		21D4AB5FB6AB0717E5C7402C /* Pods-Routinus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.release.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.release.xcconfig"; sourceTree = "<group>"; };
@@ -451,20 +451,20 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		14BFC0D6274DB7BB00A982CB /* AuthList */ = {
+		14BFC0D6274DB7BB00A982CB /* AuthImages */ = {
 			isa = PBXGroup;
 			children = (
-				14BFC0DB274DBBF100A982CB /* AuthListViewController.swift */,
-				14BFC0D9274DB7E100A982CB /* AuthListViewModel.swift */,
+				14BFC0DB274DBBF100A982CB /* AuthImagesViewController.swift */,
+				14BFC0D9274DB7E100A982CB /* AuthImagesViewModel.swift */,
 				14BFC0DD274DC07300A982CB /* Cells */,
 			);
-			path = AuthList;
+			path = AuthImages;
 			sourceTree = "<group>";
 		};
 		14BFC0DD274DC07300A982CB /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				14BFC0DE274DC09C00A982CB /* AuthListCollectionViewCell.swift */,
+				14BFC0DE274DC09C00A982CB /* AuthImagesCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -777,7 +777,7 @@
 				E9797CAF2731078400A14A0F /* Detail */,
 				E9797CAE2731077A00A14A0F /* Create */,
 				E9797CB7273108EA00A14A0F /* Auth */,
-				14BFC0D6274DB7BB00A982CB /* AuthList */,
+				14BFC0D6274DB7BB00A982CB /* AuthImages */,
 				E9797CA92731072700A14A0F /* Manage */,
 				E9797CA8273106E300A14A0F /* MyPage */,
 			);
@@ -1221,8 +1221,8 @@
 				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
 				441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */,
 				1483873C2743F2FF00731F98 /* ParticipantButton.swift in Sources */,
-				14BFC0DA274DB7E100A982CB /* AuthListViewModel.swift in Sources */,
-				14BFC0DC274DBBF100A982CB /* AuthListViewController.swift in Sources */,
+				14BFC0DA274DB7E100A982CB /* AuthImagesViewModel.swift in Sources */,
+				14BFC0DC274DBBF100A982CB /* AuthImagesViewController.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DBBAA3727341C1600B32EB5 /* ChallengeCollectionViewLayouts.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* CalendarHeader.swift in Sources */,
@@ -1247,7 +1247,7 @@
 				441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */,
 				E901EFDE2744CBDE00B14847 /* UserFetchUsecase.swift in Sources */,
 				E901EFE827453F1100B14847 /* ChallengeAuthRepository.swift in Sources */,
-				14BFC0DF274DC09C00A982CB /* AuthListCollectionViewCell.swift in Sources */,
+				14BFC0DF274DC09C00A982CB /* AuthImagesCollectionViewCell.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,

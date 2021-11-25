@@ -23,11 +23,11 @@ final class AuthListCoordinator: RoutinusCoordinator {
         let repository = RoutinusRepository()
         let challengeAuthFetchUsecase = ChallengeAuthFetchUsecase(repository: repository)
         let imageFetchUsecase = ImageFetchUsecase(repository: repository)
-        let authListViewModel = AuthListViewModel(challengeID: challengeID,
-                                                  authDisplayState: authDisplayState,
-                                                  challengeAuthFetchUsecase: challengeAuthFetchUsecase,
-                                                  imageFetchUsecase: imageFetchUsecase)
-        let authListViewController = AuthListViewController(viewModel: authListViewModel)
-        self.navigationController.pushViewController(authListViewController, animated: true)
+        let authImagesViewModel = AuthImagesViewModel(challengeID: challengeID,
+                                                      authDisplayState: authDisplayState,
+                                                      challengeAuthFetchUsecase: challengeAuthFetchUsecase,
+                                                      imageFetchUsecase: imageFetchUsecase)
+        let authImagesViewController = AuthImagesViewController(viewModel: authImagesViewModel)
+        self.navigationController.pushViewController(authImagesViewController, animated: true)
     }
 }

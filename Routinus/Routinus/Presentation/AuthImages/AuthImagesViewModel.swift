@@ -1,5 +1,5 @@
 //
-//  AuthListViewModel.swift
+//  AuthImagesViewModel.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/24.
@@ -8,20 +8,20 @@
 import Combine
 import Foundation
 
-protocol AuthListViewModelInput {
+protocol AuthImagesViewModelInput {
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)?)
 }
 
-protocol AuthListViewModelOutput {
+protocol AuthImagesViewModelOutput {
     var auths: CurrentValueSubject<[ChallengeAuth], Never> { get }
     var authDisplayState: CurrentValueSubject<AuthDisplayState, Never> { get }
 }
 
-protocol AuthListViewModelIO: AuthListViewModelInput, AuthListViewModelOutput { }
+protocol AuthImagesViewModelIO: AuthImagesViewModelInput, AuthImagesViewModelOutput { }
 
-final class AuthListViewModel: AuthListViewModelIO {
+final class AuthImagesViewModel: AuthImagesViewModelIO {
     var auths = CurrentValueSubject<[ChallengeAuth], Never>([])
     var authDisplayState = CurrentValueSubject<AuthDisplayState, Never>(.all)
 
@@ -50,7 +50,7 @@ final class AuthListViewModel: AuthListViewModelIO {
     }
 }
 
-extension AuthListViewModel {
+extension AuthImagesViewModel {
     private func fetchChallengeAuthData(authDisplayState: AuthDisplayState) {
         switch authDisplayState {
         case .all:
