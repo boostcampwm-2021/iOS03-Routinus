@@ -17,10 +17,12 @@ final class TodayRoutineView: UIView {
         return label
     }()
 
-    private lazy var addButton: UIButton = {
+    private lazy var challengeSearchButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = UIColor(named: "Black")
+        button.setTitle("챌린지 둘러보기", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.backgroundColor = UIColor(named: "MainColor")
+        button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(didTappedAddChallengeButton), for: .touchUpInside)
         return button
     }()
@@ -74,9 +76,10 @@ final class TodayRoutineView: UIView {
         tableView.anchor(height: 60 * CGFloat(cellCount))
         tableView.layoutIfNeeded()
 
-        let offset = cellCount == 0 ? addRoutineLabel.frame.height + 10 : CGFloat(60 * cellCount)
+        let offset = cellCount == 0 ? addRoutineLabel.frame.height + challengeSearchButton.frame.height + 30 : CGFloat(60 * cellCount)
         anchor(height: 25 + offset)
         addRoutineLabel.isHidden = cellCount != 0
+        challengeSearchButton.isHidden = cellCount != 0
     }
 }
 
@@ -99,10 +102,6 @@ extension TodayRoutineView {
         titleLabel.anchor(leading: leadingAnchor, paddingLeading: offset,
                           top: topAnchor)
 
-        addSubview(addButton)
-        addButton.anchor(trailing: trailingAnchor, paddingTrailing: offset,
-                         top: topAnchor)
-
         addSubview(tableView)
         tableView.anchor(centerX: centerXAnchor,
                          top: titleLabel.bottomAnchor, paddingTop: 10,
@@ -112,8 +111,12 @@ extension TodayRoutineView {
         constraint.isActive = true
 
         addSubview(addRoutineLabel)
-        addRoutineLabel.anchor(centerX: centerXAnchor,
+        addRoutineLabel.anchor(leading: self.leadingAnchor, paddingLeading: 20,
                                top: titleLabel.bottomAnchor, paddingTop: 15)
+
+        addSubview(challengeSearchButton)
+        challengeSearchButton.anchor(trailing: self.trailingAnchor, paddingTrailing: 20,
+                                     top: addRoutineLabel.bottomAnchor, paddingTop: 10)
     }
 }
 
