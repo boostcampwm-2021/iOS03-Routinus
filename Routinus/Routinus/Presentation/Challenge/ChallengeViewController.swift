@@ -70,6 +70,7 @@ final class ChallengeViewController: UIViewController {
         self.configureViews()
         self.configureViewModel()
         self.configureCategory()
+        self.configureRefreshControl()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -181,6 +182,26 @@ extension ChallengeViewController {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             let layout = ChallengeCollectionViewLayouts()
             return layout.section(at: sectionNumber)
+        }
+    }
+
+    private func configureRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                           action: #selector(refresh),
+                           for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "swipe".localized,
+                                                     attributes: [NSAttributedString.Key.foregroundColor:
+                                                                    UIColor.systemGray,
+                                                                  NSAttributedString.Key.font:
+                                                                    UIFont.boldSystemFont(ofSize: 20)])
+        self.collectionView.refreshControl = refreshControl
+    }
+
+    @objc private func refresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.viewModel?.fetchChallenge()
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
 }
