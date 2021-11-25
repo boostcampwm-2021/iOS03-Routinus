@@ -20,7 +20,7 @@ extension UICollectionView {
         let titleLabel: UILabel = {
             let label = UILabel()
             label.text = "인증 목록이 비었습니다. 😞"
-            label.textColor = .black
+            label.textColor = UIColor(named: "Black")
             label.font = UIFont.boldSystemFont(ofSize: 18)
             return label
         }()
