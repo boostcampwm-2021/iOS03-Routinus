@@ -7,11 +7,37 @@
 
 import UIKit
 
+enum ContinuityState: String {
+    case bronze = "seed1"
+    case silver = "seed2"
+    case gold = "seed3"
+    case platinum = "seed4"
+    case diamond = "seed5"
+
+    static func image(for value: Int) -> String {
+        let state: ContinuityState
+        switch value {
+        case 0..<1:
+            state = .bronze
+        case 1..<2:
+            state = .silver
+        case 2..<3:
+            state = .gold
+        case 3..<4:
+            state = .platinum
+        case 4...:
+            state = .diamond
+        default:
+            state = .bronze
+        }
+        return state.rawValue
+    }
+}
+
 final class ContinuityView: UIView {
     private lazy var seedImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "seed")
         return imageView
     }()
 
@@ -46,6 +72,7 @@ final class ContinuityView: UIView {
     func configureContents(with user: User) {
         guard !user.name.isEmpty else { return }
         continuityDayLabel.text = "\(user.continuityDay)"
+        seedImageView.image = UIImage(named: ContinuityState.image(for: user.continuityDay))
     }
 }
 
