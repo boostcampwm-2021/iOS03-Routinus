@@ -29,8 +29,8 @@ class CalendarExplanationViewController: UIViewController {
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 2
-        label.text = "오늘 루틴을 달성한 정도에 따라\n다른 스티커가 붙어요 :)"
+        label.numberOfLines = 3
+        label.text = "calendar explanation".localized
         label.textAlignment = .center
         return label
     }()
@@ -38,7 +38,7 @@ class CalendarExplanationViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 20
+        stackView.spacing = 15
         return stackView
     }()
 
@@ -52,7 +52,7 @@ class CalendarExplanationViewController: UIViewController {
         view.addSubview(popUpView)
         popUpView.anchor(centerX: view.centerXAnchor,
                          horizontal: view,
-                         paddingHorizontal: 20,
+                         paddingHorizontal: 30,
                          centerY: view.centerYAnchor)
 
         popUpView.addSubview(dismissButton)

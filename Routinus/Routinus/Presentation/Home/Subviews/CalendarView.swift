@@ -148,7 +148,7 @@ final class CalendarView: UIView {
     func reloadData() {
         self.calendarView.reloadData()
     }
-    
+
     @objc private func didTappedQuestionButton() {
         questionDeleatge?.didTappedQuestionButton()
     }
