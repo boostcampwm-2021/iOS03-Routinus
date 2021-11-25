@@ -147,19 +147,21 @@ extension MyPageViewController {
     }
 }
 
-extension MyPageViewController: MyPageUserNameUpdatableDelegate {
+extension MyPageViewController: MyPageUserNameUpdatableDelegate, UITextFieldDelegate {
     func didTappedNameStackView() {
         let alert = UIAlertController(title: "이름 수정",
-                                      message: nil,
+                                      message: "최대 8글자로 입력해주세요",
                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
-            guard let name = alert.textFields?.first?.text else { return }
+            guard let name = alert.textFields?.first?.text,
+                  !name.isEmpty else { return }
             self?.updateUsername(name)
         }
         let cancelAction = UIAlertAction(title: "취소",
                                          style: .cancel)
 
         alert.addTextField { [weak self] textField in
+            textField.delegate = self
             textField.text = self?.profileView.name
         }
         alert.addAction(okAction)
@@ -171,6 +173,13 @@ extension MyPageViewController: MyPageUserNameUpdatableDelegate {
     private func updateUsername(_ name: String) {
         self.viewModel?.updateUsername(name)
         self.profileView.setName(name)
+    }
+
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else { return }
+        if text.count > 8 {
+            textField.deleteBackward()
+        }
     }
 }
 
