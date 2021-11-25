@@ -14,6 +14,8 @@ protocol ChallengeAuthCreatableUsecase {
 }
 
 struct ChallengeAuthCreateUsecase: ChallengeAuthCreatableUsecase {
+    static let didCreateAuth = Notification.Name("didCreateAuth")
+
     var repository: ChallengeAuthRepository
 
     init(repository: ChallengeAuthRepository) {
@@ -30,8 +32,11 @@ struct ChallengeAuthCreateUsecase: ChallengeAuthCreatableUsecase {
                                           date: Date(),
                                           time: Date())
 
-        repository.save(challengeAuth: challengeAuth,
-                        userAuthImageURL: userAuthImageURL,
-                        userAuthThumbnailImageURL: userAuthThumbnailImageURL)
+        repository.insert(challengeAuth: challengeAuth,
+                          userAuthImageURL: userAuthImageURL,
+                          userAuthThumbnailImageURL: userAuthThumbnailImageURL) {
+            NotificationCenter.default.post(name: ChallengeAuthCreateUsecase.didCreateAuth,
+                                            object: nil)
+        }
     }
 }

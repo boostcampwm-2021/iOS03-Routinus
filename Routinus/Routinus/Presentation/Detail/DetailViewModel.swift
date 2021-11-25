@@ -21,9 +21,8 @@ protocol DetailViewModelInput {
                    completion: ((Data?) -> Void)?)
     func didTappedEditBarButton()
     func didTappedParticipationAuthButton()
-    func didTappedAlertConfirm()
     func didTappedAllAuthDisplayView()
-    func didTappedMyAuthDisplayView() 
+    func didTappedMyAuthDisplayView()
     func didTappedAuthMethodImage(imageData: Data)
     func loadedAuthMethodImage(imageData: Data)
     func updateParticipantCount()
@@ -37,7 +36,6 @@ protocol DetailViewModelOutput {
     var editBarButtonTap: PassthroughSubject<String, Never> { get }
     var participationButtonTap: PassthroughSubject<Void, Never> { get }
     var authButtonTap: PassthroughSubject<String, Never> { get }
-    var alertConfirmTap: PassthroughSubject<Void, Never> { get }
     var allAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
     var myAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
     var authMethodImageTap: PassthroughSubject<Data, Never> { get }
@@ -55,7 +53,6 @@ class DetailViewModel: DetailViewModelIO {
     var editBarButtonTap = PassthroughSubject<String, Never>()
     var participationButtonTap = PassthroughSubject<Void, Never>()
     var authButtonTap = PassthroughSubject<String, Never>()
-    var alertConfirmTap = PassthroughSubject<Void, Never>()
     var allAuthDisplayViewTap = PassthroughSubject<String, Never>()
     var myAuthDisplayViewTap = PassthroughSubject<String, Never>()
     var authMethodImageTap = PassthroughSubject<Data, Never>()
@@ -71,6 +68,15 @@ class DetailViewModel: DetailViewModelIO {
     let achievementUpdateUsecase: AchievementUpdatableUsecase
     var cancellables = Set<AnyCancellable>()
     private(set) var challengeID: String?
+
+    let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
+                                                                        object: nil)
+    let authCreatePublisher = NotificationCenter.default.publisher(for: ChallengeAuthCreateUsecase.didCreateAuth,
+                                                                   object: nil)
+    let participationCreatePublisher = NotificationCenter.default.publisher(for: ParticipationCreateUsecase.didCreateParticipation,
+                                                                            object: nil)
+    let participationUpdatePublisher = NotificationCenter.default.publisher(for: ParticipationUpdateUsecase.didUpdateParticipation,
+                                                                            object: nil)
 
     init(challengeID: String,
          challengeFetchUsecase: ChallengeFetchableUsecase,
@@ -92,10 +98,41 @@ class DetailViewModel: DetailViewModelIO {
         self.achievementUpdateUsecase = achievementUpdateUsecase
         self.fetchChallenge()
         self.updateParticipationAuthState()
+        self.configurePublishers()
     }
 }
 
 extension DetailViewModel {
+    func configurePublishers() {
+        self.challengeUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchChallenge()
+            }
+            .store(in: &cancellables)
+
+        self.authCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchParticipationAuthState()
+            }
+            .store(in: &cancellables)
+
+        self.participationCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchParticipationAuthState()
+            }
+            .store(in: &cancellables)
+
+        self.participationUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchParticipationAuthState()
+            }
+            .store(in: &cancellables)
+    }
+
     func fetchChallenge() {
         guard let challengeID = challengeID else { return }
         challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
@@ -127,10 +164,6 @@ extension DetailViewModel {
         } else if participationAuthState.value == .notAuthenticating {
             authButtonTap.send(challengeID)
         }
-    }
-
-    func didTappedAlertConfirm() {
-        alertConfirmTap.send()
     }
 
     func didTappedAllAuthDisplayView() {

@@ -12,6 +12,8 @@ protocol ParticipationUpdatableUsecase {
 }
 
 struct ParticipationUpdateUsecase: ParticipationUpdatableUsecase {
+    static let didUpdateParticipation = Notification.Name("didUpdateParticipation")
+
     var repository: ParticipationRepository
 
     init(repository: ParticipationRepository) {
@@ -19,6 +21,9 @@ struct ParticipationUpdateUsecase: ParticipationUpdatableUsecase {
     }
 
     func updateParticipationAuthCount(challengeID: String) {
-        repository.updateAuthCount(challengeID: challengeID)
+        repository.updateAuthCount(challengeID: challengeID) {
+            NotificationCenter.default.post(name: ParticipationUpdateUsecase.didUpdateParticipation,
+                                            object: nil)
+        }
     }
 }

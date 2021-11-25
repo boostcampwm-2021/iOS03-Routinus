@@ -67,7 +67,7 @@ final class CreateViewController: UIViewController {
 
     @objc private func didTappedCreateButton(_ sender: UIButton) {
         viewModel?.didTappedCreateButton()
-        presentAlert()
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -221,21 +221,6 @@ extension CreateViewController {
                 }
             }
         }
-    }
-}
-
-extension CreateViewController {
-    private func presentAlert() {
-        let message = self.viewModel?.buttonType.value.confirmMessage
-        let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
-        let confirm = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
-            guard let self = self else { return }
-            self.viewModel?.didTappedAlertConfirm()
-            self.navigationController?.popViewController(animated: true)
-        }
-
-        alert.addAction(confirm)
-        present(alert, animated: true, completion: nil)
     }
 }
 

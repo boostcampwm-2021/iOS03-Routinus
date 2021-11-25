@@ -9,15 +9,10 @@ import Combine
 import UIKit
 
 final class DetailCoordinator: RoutinusCoordinator {
-    static let confirmParticipation = Notification.Name("confirmParticipation")
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
     let challengeID: String?
-    let authPublisher = NotificationCenter.default.publisher(for: AuthCoordinator.confirmAuth,
-                                                             object: nil)
-    let updatePublisher = NotificationCenter.default.publisher(for: CreateCoordinator.confirmCreate,
-                                                               object: nil)
 
     init(navigationController: UINavigationController, challengeID: String) {
         self.navigationController = navigationController
@@ -68,13 +63,6 @@ final class DetailCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-        detailViewModel.alertConfirmTap
-            .sink { _ in
-                NotificationCenter.default.post(name: DetailCoordinator.confirmParticipation,
-                                                object: nil)
-            }
-            .store(in: &cancellables)
-
         detailViewModel.allAuthDisplayViewTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
@@ -115,19 +103,6 @@ final class DetailCoordinator: RoutinusCoordinator {
             .sink { imageData in
                 let imageViewController = detailViewController.presentedViewController as? ImagePinchViewController
                 imageViewController?.setImage(data: imageData)
-            }
-            .store(in: &cancellables)
-
-        self.authPublisher
-            .sink { _ in
-                detailViewModel.fetchParticipationAuthState()
-            }
-            .store(in: &cancellables)
-
-        self.updatePublisher
-            .receive(on: RunLoop.main)
-            .sink { _ in
-                detailViewModel.fetchChallenge()
             }
             .store(in: &cancellables)
 

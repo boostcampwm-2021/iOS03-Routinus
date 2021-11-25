@@ -25,13 +25,16 @@ protocol ChallengeRepository {
                                 completion: @escaping (Challenge) -> Void)
     func fetchChallenge(challengeID: String,
                         completion: @escaping (Challenge) -> Void)
-    func save(challenge: Challenge,
-              imageURL: String,
-              thumbnailImageURL: String,
-              authExampleImageURL: String,
-              authExampleThumbnailImageURL: String)
-    func update(challenge: Challenge)
-    func updateParticipantCount(challengeID: String)
+    func insert(challenge: Challenge,
+                imageURL: String,
+                thumbnailImageURL: String,
+                authExampleImageURL: String,
+                authExampleThumbnailImageURL: String,
+                completion: (() -> Void)?)
+    func update(challenge: Challenge,
+                completion: (() -> Void)?)
+    func updateParticipantCount(challengeID: String,
+                                completion: (() -> Void)?)
 }
 
 extension RoutinusRepository: ChallengeRepository {
@@ -81,7 +84,7 @@ extension RoutinusRepository: ChallengeRepository {
                                 completion: @escaping (Challenge) -> Void) {
         guard let ownerID = RoutinusRepository.userID() else { return }
         RoutinusNetwork.challenge(ownerID: ownerID,
-                                   challengeID: challengeID) { dto in
+                                  challengeID: challengeID) { dto in
             let imageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "image")
             let thumbnailImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "thumbnail_image")
             let authExampleImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "auth_method")
@@ -101,11 +104,12 @@ extension RoutinusRepository: ChallengeRepository {
         }
     }
 
-    func save(challenge: Challenge,
-              imageURL: String,
-              thumbnailImageURL: String,
-              authExampleImageURL: String,
-              authExampleThumbnailImageURL: String) {
+    func insert(challenge: Challenge,
+                imageURL: String,
+                thumbnailImageURL: String,
+                authExampleImageURL: String,
+                authExampleThumbnailImageURL: String,
+                completion: (() -> Void)?) {
         guard let startDate = challenge.startDate?.toDateString(),
               let endDate = challenge.endDate?.toDateString() else { return }
         let challengeDTO = ChallengeDTO(id: challenge.challengeID,
@@ -131,10 +135,12 @@ extension RoutinusRepository: ChallengeRepository {
                                         authExampleImageURL: authExampleImageURL,
                                         authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
             RoutinusStorage.removeCachedImages(from: "temp")
+            completion?()
         }
     }
 
-    func update(challenge: Challenge) {
+    func update(challenge: Challenge,
+                completion: (() -> Void)?) {
         guard let startDate = challenge.startDate?.toDateString(),
               let endDate = challenge.endDate?.toDateString() else { return }
         let challengeDTO = ChallengeDTO(id: challenge.challengeID,
@@ -147,11 +153,15 @@ extension RoutinusRepository: ChallengeRepository {
                                         endDate: endDate,
                                         participantCount: challenge.participantCount,
                                         ownerID: challenge.ownerID)
-        RoutinusNetwork.updateChallenge(challengeDTO: challengeDTO,
-                                        completion: nil)
+        RoutinusNetwork.updateChallenge(challengeDTO: challengeDTO) {
+            completion?()
+        }
     }
 
-    func updateParticipantCount(challengeID: String) {
-        RoutinusNetwork.updateParticipantCount(challengeID: challengeID, completion: nil)
+    func updateParticipantCount(challengeID: String,
+                                completion: (() -> Void)?) {
+        RoutinusNetwork.updateParticipantCount(challengeID: challengeID) {
+            completion?()
+        }
     }
 }

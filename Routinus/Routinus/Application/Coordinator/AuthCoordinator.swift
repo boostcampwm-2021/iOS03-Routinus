@@ -9,7 +9,6 @@ import Combine
 import UIKit
 
 final class AuthCoordinator: RoutinusCoordinator {
-    static let confirmAuth = Notification.Name("confirmAuth")
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()

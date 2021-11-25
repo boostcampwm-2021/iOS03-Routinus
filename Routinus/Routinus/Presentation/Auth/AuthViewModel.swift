@@ -11,7 +11,6 @@ import Foundation
 protocol AuthViewModelInput {
     func fetchChallenge(challengeID: String)
     func didTappedAuthButton()
-    func didTappedAlertConfirm()
     func didTappedAuthMethodImage(image: Data)
     func loadedAuthMethodImage(image: Data)
     func update(userAuthImageURL: String?)
@@ -35,7 +34,7 @@ protocol AuthViewModelOutput {
 
 protocol AuthViewModelIO: AuthViewModelInput, AuthViewModelOutput { }
 
-class AuthViewModel: AuthViewModelIO {
+final class AuthViewModel: AuthViewModelIO {
     var authButtonState = CurrentValueSubject<Bool, Never>(false)
     var challenge = CurrentValueSubject<Challenge?, Never>(nil)
     var alertConfirmTap = PassthroughSubject<Void, Never>()
@@ -92,10 +91,6 @@ extension AuthViewModel {
         self.participationUpdateUsecase.updateParticipationAuthCount(challengeID: challengeID)
         self.achievementUpdateUsecase.updateAchievementCount()
         self.userUpdateUsecase.updateContinuityDayByAuth()
-    }
-
-    func didTappedAlertConfirm() {
-        self.alertConfirmTap.send()
     }
 
     func didTappedAuthMethodImage(image: Data) {
