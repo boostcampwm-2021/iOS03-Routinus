@@ -42,16 +42,28 @@ final class AuthCoordinator: RoutinusCoordinator {
         authViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(authViewController, animated: true)
 
-        authViewModel.methodImageTap
+        authViewModel.alertConfirmTap
+            .sink { _ in
+                NotificationCenter.default.post(name: AuthCoordinator.confirmAuth, object: nil)
+            }
+            .store(in: &cancellables)
+
+        authViewModel.authMethodImageTap
             .receive(on: RunLoop.main)
             .sink { [weak self] imageData in
                 guard let self = self else { return }
-
                 let imageViewController = ImagePinchViewController()
                 imageViewController.setImage(data: imageData)
                 imageViewController.modalPresentationStyle = .overCurrentContext
-                imageViewController.modalTransitionStyle = .crossDissolve
                 self.navigationController.present(imageViewController, animated: true)
+            }
+            .store(in: &cancellables)
+
+        authViewModel.authMethodImageLoad
+            .receive(on: RunLoop.main)
+            .sink { imageData in
+                let imageViewController = authViewController.presentedViewController as? ImagePinchViewController
+                imageViewController?.setImage(data: imageData)
             }
             .store(in: &cancellables)
     }

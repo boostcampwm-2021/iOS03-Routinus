@@ -102,6 +102,10 @@ extension AuthMethodView {
     func update(to data: Data) {
         self.methodImageView.image = UIImage(data: data)
     }
+    
+    var authThumbnailImage: Data? {
+        return methodImageView.image?.jpegData(compressionQuality: 1)
+    }
 }
 
 protocol AuthMethodViewDelegate: AnyObject {

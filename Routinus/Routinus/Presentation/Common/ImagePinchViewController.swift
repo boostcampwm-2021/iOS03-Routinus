@@ -28,14 +28,16 @@ final class ImagePinchViewController: UIViewController {
         return button
     }()
 
-    private var imageData: Data?
+    private var imageData: Data? {
+        didSet {
+            fetchImage()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
         configurePinch()
-
-        fetchImage()
     }
 
     private func configureViews() {

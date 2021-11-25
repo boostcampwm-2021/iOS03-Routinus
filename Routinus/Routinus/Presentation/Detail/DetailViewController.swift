@@ -226,11 +226,13 @@ extension DetailViewController: AuthDisplayViewDelegate {
 
 extension DetailViewController: AuthMethodViewDelegate {
     func didTappedAuthMethodImageView() {
+        guard let thumbnailImage = authMethodView.authThumbnailImage else { return }
+        self.viewModel?.didTappedAuthMethodImage(imageData: thumbnailImage)
         guard let challengeID = viewModel?.challengeID else { return }
         self.viewModel?.imageData(from: challengeID,
                                   filename: "auth_method") { data in
             guard let data = data else { return }
-            self.viewModel?.didTappedAuthMethodImage(imageData: data)
+            self.viewModel?.loadedAuthMethodImage(imageData: data)
         }
     }
 }
