@@ -24,9 +24,9 @@ public enum RoutinusNetwork {
 
     public static func insertUser(id: String,
                                   name: String,
-                                  completion: ((UserDTO?) -> Void)?) {
+                                  completion: (() -> Void)?) {
         guard let url = URL(string: "\(firestoreURL)/user") else {
-            completion?(nil)
+            completion?()
             return
         }
         var request = URLRequest(url: url)
@@ -35,13 +35,7 @@ public enum RoutinusNetwork {
         request.httpBody = UserQuery.insert(id: id, name: name)
 
         URLSession.shared.dataTask(with: request) { _, _, _ in
-            let userDTO = UserDTO(id: id,
-                                  name: name,
-                                  grade: 0,
-                                  continuityDay: 0,
-                                  userImageCategoryID: "0",
-                                  lastAuthDay: "0")
-            completion?(userDTO)
+            completion?()
         }.resume()
     }
 

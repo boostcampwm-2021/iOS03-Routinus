@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol MyPageViewModelInput {
-    func fetchUserData()
+    func fetchUser()
     func fetchThemeStyle()
     func didTappedDeveloperCell()
 }
@@ -29,23 +29,36 @@ protocol MyPageViewModelIO: MyPageViewModelInput, MyPageViewModelOutput { }
 final class MyPageViewModel: MyPageViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
     var themeStyle = CurrentValueSubject<Int, Never>(0)
-
     var developerCellTap = PassthroughSubject<Void, Never>()
+    var cancellables = Set<AnyCancellable>()
 
     var userFetchUsecase: UserFetchableUsecase
     var userUpdateUsecase: UserUpdatableUsecase
+
+    let userCreatePublisher = NotificationCenter.default.publisher(for: UserCreateUsecase.didCreateUser,
+                                                                   object: nil)
 
     init(userFetchUsecase: UserFetchableUsecase,
          userUpdateUsecase: UserUpdatableUsecase) {
         self.userFetchUsecase = userFetchUsecase
         self.userUpdateUsecase = userUpdateUsecase
-        fetchUserData()
+        fetchUser()
         fetchThemeStyle()
+        configurePublishers()
     }
 }
 
 extension MyPageViewModel {
-    func fetchUserData() {
+    func configurePublishers() {
+        self.userCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchUser()
+            }
+            .store(in: &cancellables)
+    }
+
+    func fetchUser() {
         guard let id = userFetchUsecase.fetchUserID() else { return }
         userFetchUsecase.fetchUser(id: id) { [weak self] user in
             self?.user.value = user

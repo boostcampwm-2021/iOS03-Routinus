@@ -9,10 +9,12 @@ import CryptoKit
 import Foundation
 
 protocol UserCreatableUsecase {
-    func createUser(completion: ((User) -> Void)?)
+    func createUser()
 }
 
 struct UserCreateUsecase: UserCreatableUsecase {
+    static let didCreateUser = Notification.Name("didCreateUser")
+
     var repository: UserRepository
 
     init(repository: UserRepository) {
@@ -26,13 +28,14 @@ struct UserCreateUsecase: UserCreatableUsecase {
         return sha256.compactMap { String(format: "%02x", $0) }.joined()
     }
 
-    func createUser(completion: ((User) -> Void)?) {
+    func createUser() {
         guard repository.isEmptyUserID() else { return }
         let id = createID()
         let name = UsernameFactory.randomName()
-        repository.save(id: id, name: name) { userDTO in
-            let user = User(userDTO: userDTO)
-            completion?(user)
+
+        repository.save(id: id, name: name) {
+            NotificationCenter.default.post(name: UserCreateUsecase.didCreateUser,
+                                            object: nil)
         }
     }
 }
