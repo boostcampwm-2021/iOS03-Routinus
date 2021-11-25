@@ -33,7 +33,6 @@ protocol CreateViewModelInput {
     func update(authExampleImageURL: String?)
     func update(authExampleThumbnailImageURL: String?)
     func didTappedCreateButton()
-    func didTappedAlertConfirm()
     func validateTextView(currentText: String,
                           range: NSRange,
                           text: String) -> Bool
@@ -57,7 +56,6 @@ protocol CreateViewModelOutput {
     var buttonState: CurrentValueSubject<Bool, Never> { get }
     var expectedEndDate: CurrentValueSubject<Date, Never> { get }
     var challenge: CurrentValueSubject<Challenge?, Never> { get }
-    var alertConfirmTap: PassthroughSubject<Void, Never> { get }
 }
 
 protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
@@ -67,7 +65,6 @@ final class CreateViewModel: CreateViewModelIO {
     var buttonState = CurrentValueSubject<Bool, Never>(false)
     var expectedEndDate = CurrentValueSubject<Date, Never>(Calendar.current.date(byAdding: DateComponents(day: 7), to: Date()) ?? Date())
     var challenge = CurrentValueSubject<Challenge?, Never>(nil)
-    var alertConfirmTap = PassthroughSubject<Void, Never>()
 
     var cancellables = Set<AnyCancellable>()
     var challengeCreateUsecase: ChallengeCreatableUsecase
@@ -201,10 +198,6 @@ extension CreateViewModel {
         } else {
             updateChallenge()
         }
-    }
-
-    func didTappedAlertConfirm() {
-        self.alertConfirmTap.send()
     }
 
     func validateTextView(currentText: String, range: NSRange, text: String) -> Bool {

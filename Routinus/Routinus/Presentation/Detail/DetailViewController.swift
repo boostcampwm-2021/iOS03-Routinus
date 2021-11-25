@@ -161,7 +161,6 @@ final class DetailViewController: UIViewController {
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 self.viewModel?.updateParticipantCount()
-                self.presentAlert()
             })
             .store(in: &cancellables)
     }
@@ -170,16 +169,6 @@ final class DetailViewController: UIViewController {
         participantButton.delegate = self
         detailAuthDisplayListView.delegate = self
         authMethodView.delegate = self
-    }
-
-    private func presentAlert() {
-        let alert = UIAlertController(title: "알림", message: "챌린지에 참여되었습니다.", preferredStyle: .alert)
-        let confirm = UIAlertAction(title: "확인", style: .default) { _ in
-            self.viewModel?.didTappedAlertConfirm()
-        }
-
-        alert.addAction(confirm)
-        present(alert, animated: true, completion: nil)
     }
 
     @objc private func didTappedEditBarButton(_ sender: UIBarButtonItem) {
