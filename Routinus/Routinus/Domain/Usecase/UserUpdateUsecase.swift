@@ -15,7 +15,7 @@ protocol UserUpdatableUsecase {
 }
 
 struct UserUpdateUsecase: UserUpdatableUsecase {
-    static let didUpdateUsername = Notification.Name("didUpdateUsername")
+    static let didUpdateUser = Notification.Name("didUpdateUser")
 
     var repository: UserRepository
 
@@ -40,7 +40,7 @@ struct UserUpdateUsecase: UserUpdatableUsecase {
                         name: String) {
         self.repository.updateUsername(of: id,
                                        name: name) {
-            NotificationCenter.default.post(name: UserUpdateUsecase.didUpdateUsername,
+            NotificationCenter.default.post(name: UserUpdateUsecase.didUpdateUser,
                                             object: nil)
         }
     }

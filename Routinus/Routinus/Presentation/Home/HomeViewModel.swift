@@ -59,8 +59,8 @@ final class HomeViewModel: HomeViewModelIO {
 
     let formatter = DateFormatter()
 
-    let usernameUpdatePublisher = NotificationCenter.default.publisher(for: UserUpdateUsecase.didUpdateUsername,
-                                                                       object: nil)
+    let userUpdatePublisher = NotificationCenter.default.publisher(for: UserUpdateUsecase.didUpdateUser,
+                                                                   object: nil)
     let challengeCreatePublisher = NotificationCenter.default.publisher(for: ChallengeCreateUsecase.didCreateChallenge,
                                                                         object: nil)
     let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
@@ -110,7 +110,7 @@ extension HomeViewModel {
     }
 
     func configurePublishers() {
-        self.usernameUpdatePublisher
+        self.userUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchUser()
