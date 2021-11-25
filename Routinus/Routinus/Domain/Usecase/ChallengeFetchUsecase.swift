@@ -32,25 +32,28 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
 
     func fetchRecommendChallenges(completion: @escaping ([Challenge]) -> Void) {
         repository.fetchRecommendChallenges { challenges in
-            completion(challenges)
+            completion(challenges.filter { $0.endDate ?? Date() >= Date() })
         }
     }
 
     func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void) {
-        repository.fetchLatestChallenges { list in
-            let challenges = list.sorted { $0.participantCount > $1.participantCount }
+        repository.fetchLatestChallenges { challenges in
+            let challenges = challenges
+                .filter { $0.endDate ?? Date() >= Date() }
+                .sorted { $0.participantCount > $1.participantCount }
             completion(challenges)
         }
     }
 
     func fetchSearchChallenges(keyword: String,
                                completion: @escaping ([Challenge]) -> Void) {
-        repository.fetchSearchChallengesBy(keyword: keyword) { list in
+        repository.fetchSearchChallengesBy(keyword: keyword) { challenges in
+            let challenges = challenges.filter { $0.endDate ?? Date() >= Date() }
             let keywords = keyword.components(separatedBy: " ")
             var results: Set<Challenge> = []
 
             keywords.forEach { keyword in
-                list.filter { challenge in
+                challenges.filter { challenge in
                     challenge.title.contains(keyword)
                 }.forEach {
                     results.insert($0)
@@ -63,8 +66,10 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     func fetchSearchChallenges(category: Challenge.Category,
                                completion: @escaping ([Challenge]) -> Void) {
         let categoryID = category.id
-        repository.fetchSearchChallengesBy(categoryID: categoryID) { list in
-            let challenges = list.filter { $0.category == category }
+        repository.fetchSearchChallengesBy(categoryID: categoryID) { challenges in
+            let challenges = challenges
+                .filter { $0.endDate ?? Date() >= Date() }
+                .filter { $0.category == category }
             completion(challenges)
         }
     }
