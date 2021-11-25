@@ -17,14 +17,6 @@ final class TodayRoutineView: UIView {
 
     let challengePromotionView = ChallengePromotionView()
 
-//    private lazy var challengePromotionContentView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = UIColor(named: "MainColor0.5")
-//        view.layer.cornerRadius = 10
-//        view.isUserInteractionEnabled = false
-//        return view
-//    }()
-
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.estimatedRowHeight = 100
@@ -33,10 +25,6 @@ final class TodayRoutineView: UIView {
         tableView.register(RoutineTableViewCell.self, forCellReuseIdentifier: RoutineTableViewCell.identifier)
         return tableView
     }()
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print(touches.description)
-    }
 
     weak var promotionViewDelegate: ChallengePromotionViewDelegate? {
         didSet {
@@ -104,21 +92,10 @@ extension TodayRoutineView {
         let constraint = tableView.heightAnchor.constraint(equalToConstant: 60)
         constraint.priority = UILayoutPriority(100)
         constraint.isActive = true
-        
+
         addSubview(challengePromotionView)
         challengePromotionView.anchor(leading: self.leadingAnchor, paddingLeading: 30,
                                              trailing: self.trailingAnchor, paddingTrailing: 30,
-                                             top: titleLabel.bottomAnchor, paddingTop: 10,
-                                             height: 150)
-        
-//        addSubview(challengePromotionContentView)
-//        challengePromotionContentView.anchor(leading: self.leadingAnchor, paddingLeading: 30,
-//                                             trailing: self.trailingAnchor, paddingTrailing: 30,
-//                                             top: titleLabel.bottomAnchor, paddingTop: 10,
-//                                             height: 150)
-//
-//        challengePromotionContentView.addSubview(challengePromotionView)
-//        challengePromotionView.anchor(centerX: challengePromotionContentView.centerXAnchor,
-//                                      centerY: challengePromotionContentView.centerYAnchor)
+                                             top: titleLabel.bottomAnchor, paddingTop: 10)
     }
 }
