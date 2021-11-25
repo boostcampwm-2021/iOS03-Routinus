@@ -53,6 +53,12 @@ final class ManageAddChallengeView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
+
+    func configureChallengePromotionView(titleLabel: String,
+                                         buttonLabel: String) {
+        self.titleLabel.text = titleLabel
+        self.addButton.setTitle(buttonLabel, for: .normal)
+    }
 }
 
 extension ManageAddChallengeView {

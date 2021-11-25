@@ -17,14 +17,13 @@ final class TodayRoutineView: UIView {
         return label
     }()
 
-    private lazy var challengeSearchButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("챌린지 둘러보기", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.backgroundColor = UIColor(named: "MainColor")
-        button.layer.cornerRadius = 15
-        button.addTarget(self, action: #selector(didTappedAddChallengeButton), for: .touchUpInside)
-        return button
+    private let challengePromotionView = ManageAddChallengeView()
+
+    private lazy var searchChallengeView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "MainColor0.5")
+        view.layer.cornerRadius = 10
+        return view
     }()
 
     private(set) lazy var tableView: UITableView = {
@@ -34,13 +33,6 @@ final class TodayRoutineView: UIView {
         tableView.separatorStyle = .none
         tableView.register(RoutineTableViewCell.self, forCellReuseIdentifier: RoutineTableViewCell.identifier)
         return tableView
-    }()
-
-    private lazy var addRoutineLabel: UILabel = {
-        let label = UILabel()
-        label.text = "add routine".localized
-        label.numberOfLines = 2
-        return label
     }()
 
     weak var delegate: UITableViewDelegate? {
@@ -75,10 +67,9 @@ final class TodayRoutineView: UIView {
         tableView.anchor(height: 60 * CGFloat(cellCount))
         tableView.layoutIfNeeded()
 
-        let offset = cellCount == 0 ? addRoutineLabel.frame.height + challengeSearchButton.frame.height + 30 : CGFloat(60 * cellCount)
+        let offset = cellCount == 0 ? searchChallengeView.frame.height + 30 : CGFloat(60 * cellCount)
         anchor(height: 25 + offset)
-        addRoutineLabel.isHidden = cellCount != 0
-        challengeSearchButton.isHidden = cellCount != 0
+        searchChallengeView.isHidden = cellCount != 0
     }
 }
 
@@ -91,6 +82,9 @@ extension TodayRoutineView {
 extension TodayRoutineView {
     private func configure() {
         configureSubviews()
+        challengePromotionView.delegate = self
+        challengePromotionView.configureChallengePromotionView(titleLabel: "add routine".localized,
+                                                               buttonLabel: "챌린지 둘러보기")
     }
 
     private func configureSubviews() {
@@ -109,13 +103,21 @@ extension TodayRoutineView {
         constraint.priority = UILayoutPriority(100)
         constraint.isActive = true
 
-        addSubview(addRoutineLabel)
-        addRoutineLabel.anchor(leading: self.leadingAnchor, paddingLeading: 30,
-                               top: titleLabel.bottomAnchor, paddingTop: 15)
+        addSubview(searchChallengeView)
+        searchChallengeView.anchor(leading: self.leadingAnchor, paddingLeading: 30,
+                                   trailing: self.trailingAnchor, paddingTrailing: 30,
+                                   top: titleLabel.bottomAnchor, paddingTop: 10,
+                                   height: 150)
 
-        addSubview(challengeSearchButton)
-        challengeSearchButton.anchor(trailing: self.trailingAnchor, paddingTrailing: 20,
-                                     top: addRoutineLabel.bottomAnchor, paddingTop: 10)
+        searchChallengeView.addSubview(challengePromotionView)
+        challengePromotionView.anchor(centerX: searchChallengeView.centerXAnchor,
+                                      centerY: searchChallengeView.centerYAnchor)
+    }
+}
+
+extension TodayRoutineView: AddChallengeDelegate {
+    func didTappedAddButton() {
+        self.challengeAddDelegate?.didTappedAddChallengeButton()
     }
 }
 
