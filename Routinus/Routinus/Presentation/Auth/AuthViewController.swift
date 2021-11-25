@@ -177,18 +177,18 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
         guard let viewModel = viewModel else { return }
         if let originalImage = info[InfoKey.originalImage] as? UIImage {
-            let timeAddedImage = originalImage.insertText(name: viewModel.userName,
-                                                          date: Date().toDateWithWeekdayString(),
-                                                          time: Date().toTimeColonString())
-            let mainImage = timeAddedImage.resizedImage(.original)
-            let thumbnailImage = timeAddedImage.resizedImage(.thumbnail)
+            var mainImage = originalImage.resizedImage(.original)
+            mainImage = mainImage.insertText(name: viewModel.userName,
+                                             date: Date().toDateWithWeekdayString(),
+                                             time: Date().toTimeColonString())
+            let thumbnailImage = mainImage.resizedImage(.thumbnail)
 
             let mainImageURL = viewModel.saveImage(to: "temp",
-                                                    filename: "auth",
-                                                    data: mainImage.jpegData(compressionQuality: 0.9))
+                                                   filename: "auth",
+                                                   data: mainImage.jpegData(compressionQuality: 0.9))
             let thumbnailImageURL = viewModel.saveImage(to: "temp",
-                                                         filename: "thumbnail_auth",
-                                                         data: thumbnailImage.jpegData(compressionQuality: 0.9))
+                                                        filename: "thumbnail_auth",
+                                                        data: thumbnailImage.jpegData(compressionQuality: 0.9))
             self.viewModel?.update(userAuthImageURL: mainImageURL)
             self.viewModel?.update(userAuthThumbnailImageURL: thumbnailImageURL)
             previewView.setImage(mainImage)

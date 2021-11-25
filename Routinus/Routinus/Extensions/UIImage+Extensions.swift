@@ -47,7 +47,7 @@ extension UIImage {
         label.textAlignment = .center
         label.numberOfLines = 2
         label.textColor = .white.withAlphaComponent(0.5)
-        label.font = UIFont.boldSystemFont(ofSize: 200)
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         label.text = "\(name)\n\(date) \(time)"
 
         let imageView = UIImageView(image: self)
