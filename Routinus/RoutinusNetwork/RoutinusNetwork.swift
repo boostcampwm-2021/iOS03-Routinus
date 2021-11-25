@@ -62,22 +62,33 @@ public enum RoutinusNetwork {
             }
 
             let id = challenge.document?.fields.id.stringValue ?? ""
+            group.enter()
             uploadImage(id: id,
                         filename: "image",
-                        imageURL: imageURL,
-                        completion: nil)
+                        imageURL: imageURL) {
+                group.leave()
+            }
+
+            group.enter()
             uploadImage(id: id,
                         filename: "thumbnail_image",
-                        imageURL: thumbnailImageURL,
-                        completion: nil)
+                        imageURL: thumbnailImageURL) {
+                group.leave()
+            }
+
+            group.enter()
             uploadImage(id: id,
                         filename: "auth_method",
-                        imageURL: authExampleImageURL,
-                        completion: nil)
+                        imageURL: authExampleImageURL) {
+                group.leave()
+            }
+
+            group.enter()
             uploadImage(id: id,
                         filename: "thumbnail_auth_method",
-                        imageURL: authExampleThumbnailImageURL,
-                        completion: nil)
+                        imageURL: authExampleThumbnailImageURL) {
+                group.leave()
+            }
 
             group.leave()
         }
@@ -96,18 +107,26 @@ public enum RoutinusNetwork {
         let uploadQueue = DispatchQueue(label: "uploadQueue")
         let group = DispatchGroup()
 
+        group.enter()
         uploadQueue.async(group: group) {
             let id = challengeAuth.document?.fields.challengeID.stringValue ?? ""
             let userID = challengeAuth.document?.fields.userID.stringValue ?? ""
             let date = challengeAuth.document?.fields.date.stringValue ?? ""
+            group.enter()
             uploadImage(id: id,
                         filename: "\(userID)_\(date)_auth",
-                        imageURL: userAuthImageURL,
-                        completion: nil)
+                        imageURL: userAuthImageURL) {
+                group.leave()
+            }
+
+            group.enter()
             uploadImage(id: id,
                         filename: "\(userID)_\(date)_thumbnail_auth",
-                        imageURL: userAuthThumbnailImageURL,
-                        completion: nil)
+                        imageURL: userAuthThumbnailImageURL) {
+                group.leave()
+            }
+
+            group.leave()
         }
 
         group.notify(queue: uploadQueue) {
