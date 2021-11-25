@@ -9,7 +9,7 @@ import UIKit
 
 class CalendarExplanationViewController: UIViewController {
     enum StickerPercent: String, CaseIterable {
-        case miss = "0-19", bad = "20-39", good = "40-65", great = "66-99", perfect = "100"
+        case miss = "1-19", bad = "20-39", good = "40-65", great = "66-99", perfect = "100"
     }
 
     private lazy var popUpView: UIView = {
