@@ -68,6 +68,8 @@ class DetailViewModel: DetailViewModelIO {
 
     let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
                                                                         object: nil)
+    let authCreatePublisher = NotificationCenter.default.publisher(for: ChallengeAuthCreateUsecase.didCreateAuth,
+                                                                   object: nil)
 
     init(challengeID: String,
          challengeFetchUsecase: ChallengeFetchableUsecase,
@@ -99,6 +101,13 @@ extension DetailViewModel {
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchChallenge()
+            }
+            .store(in: &cancellables)
+
+        self.authCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchParticipationAuthState()
             }
             .store(in: &cancellables)
     }
