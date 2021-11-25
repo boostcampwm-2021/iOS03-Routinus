@@ -8,8 +8,6 @@
 import UIKit
 
 final class TodayRoutineView: UIView {
-    weak var challengeAddDelegate: TodayRoutineDelegate?
-
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "today routine".localized
@@ -17,14 +15,15 @@ final class TodayRoutineView: UIView {
         return label
     }()
 
-    private let challengePromotionView = ChallengePromotionView()
+    let challengePromotionView = ChallengePromotionView()
 
-    private lazy var searchChallengeView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(named: "MainColor0.5")
-        view.layer.cornerRadius = 10
-        return view
-    }()
+//    private lazy var challengePromotionContentView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = UIColor(named: "MainColor0.5")
+//        view.layer.cornerRadius = 10
+//        view.isUserInteractionEnabled = false
+//        return view
+//    }()
 
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -34,6 +33,16 @@ final class TodayRoutineView: UIView {
         tableView.register(RoutineTableViewCell.self, forCellReuseIdentifier: RoutineTableViewCell.identifier)
         return tableView
     }()
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print(touches.description)
+    }
+
+    weak var promotionViewDelegate: ChallengePromotionViewDelegate? {
+        didSet {
+            challengePromotionView.delegate = promotionViewDelegate
+        }
+    }
 
     weak var delegate: UITableViewDelegate? {
         didSet {
@@ -67,24 +76,17 @@ final class TodayRoutineView: UIView {
         tableView.anchor(height: 60 * CGFloat(cellCount))
         tableView.layoutIfNeeded()
 
-        let offset = cellCount == 0 ? searchChallengeView.frame.height + 30 : CGFloat(60 * cellCount)
+        let offset = cellCount == 0 ? challengePromotionView.frame.height + 30 : CGFloat(60 * cellCount)
         anchor(height: 25 + offset)
-        searchChallengeView.isHidden = cellCount != 0
-    }
-}
-
-extension TodayRoutineView {
-    @objc func didTappedAddChallengeButton() {
-        self.challengeAddDelegate?.didTappedAddChallengeButton()
+        challengePromotionView.isHidden = cellCount != 0
     }
 }
 
 extension TodayRoutineView {
     private func configure() {
         configureSubviews()
-        challengePromotionView.delegate = self
         challengePromotionView.configureChallengePromotionView(titleLabel: "add routine".localized,
-                                                               buttonLabel: "챌린지 둘러보기")
+                                                               buttonLabel: "search challenge".localized)
     }
 
     private func configureSubviews() {
@@ -102,25 +104,21 @@ extension TodayRoutineView {
         let constraint = tableView.heightAnchor.constraint(equalToConstant: 60)
         constraint.priority = UILayoutPriority(100)
         constraint.isActive = true
-
-        addSubview(searchChallengeView)
-        searchChallengeView.anchor(leading: self.leadingAnchor, paddingLeading: 30,
-                                   trailing: self.trailingAnchor, paddingTrailing: 30,
-                                   top: titleLabel.bottomAnchor, paddingTop: 10,
-                                   height: 150)
-
-        searchChallengeView.addSubview(challengePromotionView)
-        challengePromotionView.anchor(centerX: searchChallengeView.centerXAnchor,
-                                      centerY: searchChallengeView.centerYAnchor)
+        
+        addSubview(challengePromotionView)
+        challengePromotionView.anchor(leading: self.leadingAnchor, paddingLeading: 30,
+                                             trailing: self.trailingAnchor, paddingTrailing: 30,
+                                             top: titleLabel.bottomAnchor, paddingTop: 10,
+                                             height: 150)
+        
+//        addSubview(challengePromotionContentView)
+//        challengePromotionContentView.anchor(leading: self.leadingAnchor, paddingLeading: 30,
+//                                             trailing: self.trailingAnchor, paddingTrailing: 30,
+//                                             top: titleLabel.bottomAnchor, paddingTop: 10,
+//                                             height: 150)
+//
+//        challengePromotionContentView.addSubview(challengePromotionView)
+//        challengePromotionView.anchor(centerX: challengePromotionContentView.centerXAnchor,
+//                                      centerY: challengePromotionContentView.centerYAnchor)
     }
-}
-
-extension TodayRoutineView: ChallengePromotionViewDelegate {
-    func didTappedPromotionButton() {
-        self.challengeAddDelegate?.didTappedAddChallengeButton()
-    }
-}
-
-protocol TodayRoutineDelegate: AnyObject {
-    func didTappedAddChallengeButton()
 }
