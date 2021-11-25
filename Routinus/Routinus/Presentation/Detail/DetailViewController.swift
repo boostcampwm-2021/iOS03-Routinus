@@ -232,7 +232,7 @@ extension DetailViewController: AuthMethodViewDelegate {
         self.viewModel?.imageData(from: challengeID,
                                   filename: "auth_method") { data in
             guard let data = data else { return }
-            self.viewModel?.loadAuthMethodImage(imageData: data)
+            self.viewModel?.loadedAuthMethodImage(imageData: data)
         }
     }
 }

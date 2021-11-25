@@ -11,6 +11,9 @@
 "challenge" = "챌린지";
 "my challenges" = "나의 챌린지";
 
+// common
+"alarm" = "알림";
+
 // home
 "in a row" = "일 연속 달성!";
 "today routine" = "오늘 루틴";
@@ -44,6 +47,10 @@
 "participate" = "참여하기";
 "certify" = "인증하기";
 "certified" = "인증 완료";
+"" = "기간";
+"" = "챌린지 기간";
+"" = "인증 방법";
+
 
 // manage
 "participatingChallenges" = "참여 중인 챌린지";

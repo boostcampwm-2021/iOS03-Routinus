@@ -11,6 +11,9 @@
 "challenge" = "Challenges";
 "my challenges" = "My Challenges";
 
+// common
+"alarm" = "Alarm";
+
 // home
 "in a row" = "days achieved!";
 "today routine" = "Today's Routine";
@@ -44,6 +47,8 @@
 "participate" = "Participate";
 "certify" = "Certify";
 "certified" = "Certified!";
+"" = "";
+"" = "";
 
 // manage
 "participatingChallenges" = "Particiating Challenges";

@@ -25,7 +25,7 @@ protocol DetailViewModelInput {
     func didTappedAllAuthDisplayView()
     func didTappedMyAuthDisplayView() 
     func didTappedAuthMethodImage(imageData: Data)
-    func loadAuthMethodImage(imageData: Data)
+    func loadedAuthMethodImage(imageData: Data)
     func updateParticipantCount()
 }
 
@@ -147,7 +147,7 @@ extension DetailViewModel {
         self.authMethodImageTap.send(imageData)
     }
 
-    func loadAuthMethodImage(imageData: Data) {
+    func loadedAuthMethodImage(imageData: Data) {
         self.authMethodImageLoad.send(imageData)
     }
 
