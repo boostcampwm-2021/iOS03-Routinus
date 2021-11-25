@@ -13,6 +13,7 @@ protocol AuthViewModelInput {
     func didTappedAuthButton()
     func didTappedAlertConfirm()
     func didTappedAuthMethodImage(image: Data)
+    func loadedAuthMethodImage(image: Data)
     func update(userAuthImageURL: String?)
     func update(userAuthThumbnailImageURL: String?)
     func imageData(from directory: String,
@@ -27,7 +28,8 @@ protocol AuthViewModelOutput {
     var authButtonState: CurrentValueSubject<Bool, Never> { get }
     var challenge: CurrentValueSubject<Challenge?, Never> { get }
     var alertConfirmTap: PassthroughSubject<Void, Never> { get }
-    var methodImageTap: PassthroughSubject<Data, Never> { get }
+    var authMethodImageTap: PassthroughSubject<Data, Never> { get }
+    var authMethodImageLoad: PassthroughSubject<Data, Never> { get }
     var userName: String { get }
 }
 
@@ -37,7 +39,8 @@ class AuthViewModel: AuthViewModelIO {
     var authButtonState = CurrentValueSubject<Bool, Never>(false)
     var challenge = CurrentValueSubject<Challenge?, Never>(nil)
     var alertConfirmTap = PassthroughSubject<Void, Never>()
-    var methodImageTap = PassthroughSubject<Data, Never>()
+    var authMethodImageTap = PassthroughSubject<Data, Never>()
+    var authMethodImageLoad = PassthroughSubject<Data, Never>()
     var userName: String = ""
     var challengeFetchUsecase: ChallengeFetchableUsecase
     var imageFetchUsecase: ImageFetchableUsecase
@@ -96,7 +99,11 @@ extension AuthViewModel {
     }
 
     func didTappedAuthMethodImage(image: Data) {
-        self.methodImageTap.send(image)
+        self.authMethodImageTap.send(image)
+    }
+    
+    func loadedAuthMethodImage(image: Data) {
+        self.authMethodImageLoad.send(image)
     }
 
     func update(userAuthImageURL: String?) {

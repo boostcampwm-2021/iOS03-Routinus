@@ -110,6 +110,14 @@ final class DetailCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
+        detailViewModel.authMethodImageLoad
+            .receive(on: RunLoop.main)
+            .sink { imageData in
+                let imageViewController = detailViewController.presentedViewController as? ImagePinchViewController
+                imageViewController?.setImage(data: imageData)
+            }
+            .store(in: &cancellables)
+
         self.authPublisher
             .sink { _ in
                 detailViewModel.fetchParticipationAuthState()
