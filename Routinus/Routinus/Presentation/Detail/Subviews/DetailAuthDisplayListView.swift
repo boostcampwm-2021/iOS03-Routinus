@@ -33,7 +33,7 @@ final class DetailAuthDisplayListView: UIView {
         var meAuthDisplayView = DetailAuthDisplayView()
 
         let gesture = UITapGestureRecognizer(target: self,
-                                             action: #selector(didTappedMeAuthDisplayView))
+                                             action: #selector(didTappedMyAuthDisplayView))
         gesture.numberOfTapsRequired = 1
         meAuthDisplayView.isUserInteractionEnabled = true
         meAuthDisplayView.addGestureRecognizer(gesture)
@@ -59,7 +59,7 @@ final class DetailAuthDisplayListView: UIView {
         delegate?.didTappedAllAuthDisplayView()
     }
 
-    @objc func didTappedMeAuthDisplayView() {
+    @objc func didTappedMyAuthDisplayView() {
         delegate?.didTappedMeAuthDisplayView()
     }
 }

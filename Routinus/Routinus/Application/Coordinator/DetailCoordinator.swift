@@ -94,6 +94,8 @@ final class DetailCoordinator: RoutinusCoordinator {
                                                               authDisplayState: .me)
                 authListCoordinator.start()
                 self.childCoordinator.append(authListCoordinator)
+            }
+            .store(in: &cancellables)
 
         detailViewModel.authMethodImageTap
             .receive(on: RunLoop.main)
@@ -125,3 +127,4 @@ final class DetailCoordinator: RoutinusCoordinator {
                                                      animated: true)
     }
 }
+

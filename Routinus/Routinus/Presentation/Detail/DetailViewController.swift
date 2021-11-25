@@ -201,7 +201,9 @@ extension DetailViewController: AuthDisplayViewDelegate {
     }
 
     func didTappedMeAuthDisplayView() {
-        self.viewModel?.didTappedMeAuthDisplayView()
+        self.viewModel?.didTappedMyAuthDisplayView()
+    }
+}
 
 extension DetailViewController: AuthMethodViewDelegate {
     func didTappedAuthMethodImageView() {

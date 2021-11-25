@@ -23,7 +23,7 @@ protocol DetailViewModelInput {
     func didTappedParticipationAuthButton()
     func didTappedAlertConfirm()
     func didTappedAllAuthDisplayView()
-    func didTappedMeAuthDisplayView() 
+    func didTappedMyAuthDisplayView() 
     func didTappedAuthMethodImage(imageData: Data)
     func updateParticipantCount()
 }
@@ -135,9 +135,10 @@ extension DetailViewModel {
         allAuthDisplayViewTap.send(challengeID)
     }
 
-    func didTappedMeAuthDisplayView() {
+    func didTappedMyAuthDisplayView() {
         guard let challengeID = challengeID else { return }
         meAuthDisplayViewTap.send(challengeID)
+    }
 
     func didTappedAuthMethodImage(imageData: Data) {
         self.authMethodImageTap.send(imageData)
