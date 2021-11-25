@@ -16,14 +16,14 @@ final class CalendarView: UIView {
         return label
     }()
 
-    private lazy var questionButton: UIButton = {
+    private lazy var explanationButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "questionmark.circle"), for: .normal)
         button.tintColor = UIColor(named: "Black")
         button.anchor(width: 24, height: 24)
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
-        button.addTarget(self, action: #selector(didTappedQuestionButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTappedExplanationButton), for: .touchUpInside)
         return button
     }()
 
@@ -76,7 +76,7 @@ final class CalendarView: UIView {
         }
     }
 
-    weak var questionDeleatge: QuestionButtonDelegate?
+    weak var explanationDeleatge: ExplanationButtonDelegate?
 
     init(viewModel: HomeViewModelIO?) {
         self.viewModel = viewModel
@@ -93,7 +93,7 @@ final class CalendarView: UIView {
 
     func configureView() {
         self.addSubview(titleLabel)
-        self.addSubview(questionButton)
+        self.addSubview(explanationButton)
         self.addSubview(calendarView)
         self.addSubview(headerView)
 
@@ -112,7 +112,7 @@ final class CalendarView: UIView {
                           top: readableContentGuide.topAnchor,
                           paddingTop: 10)
 
-        questionButton.anchor(trailing: self.trailingAnchor,
+        explanationButton.anchor(trailing: self.trailingAnchor,
                               paddingTrailing: 10,
                               top: readableContentGuide.topAnchor,
                               paddingTop: 10)
@@ -149,11 +149,11 @@ final class CalendarView: UIView {
         self.calendarView.reloadData()
     }
 
-    @objc private func didTappedQuestionButton() {
-        questionDeleatge?.didTappedQuestionButton()
+    @objc private func didTappedExplanationButton() {
+        explanationDeleatge?.didTappedExplanationButton()
     }
 }
 
-protocol QuestionButtonDelegate: AnyObject {
-    func didTappedQuestionButton()
+protocol ExplanationButtonDelegate: AnyObject {
+    func didTappedExplanationButton()
 }

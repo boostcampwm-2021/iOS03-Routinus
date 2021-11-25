@@ -149,7 +149,7 @@ extension HomeViewController {
         todayRoutineView.challengeAddDelegate = self
         calendarView.delegate = self
         calendarView.dataSource = self
-        calendarView.questionDeleatge = self
+        calendarView.explanationDeleatge = self
     }
 }
 
@@ -236,8 +236,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension HomeViewController: QuestionButtonDelegate {
-    func didTappedQuestionButton() {
-        self.viewModel?.didTappedQuestionButton()
+extension HomeViewController: ExplanationButtonDelegate {
+    func didTappedExplanationButton() {
+        self.viewModel?.didTappedExplanationButton()
     }
 }
