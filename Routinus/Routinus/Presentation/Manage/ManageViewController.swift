@@ -149,8 +149,10 @@ extension ManageViewController {
     }
 
     @objc private func refreshData() {
-        self.viewModel?.didLoadedManageView()
-        self.collectionView.refreshControl?.endRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.viewModel?.didLoadedManageView()
+            self.collectionView.refreshControl?.endRefreshing()
+        }
     }
 }
 

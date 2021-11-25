@@ -199,8 +199,10 @@ extension ChallengeViewController {
     }
 
     @objc private func refreshData() {
-        self.viewModel?.fetchChallenge()
-        self.collectionView.refreshControl?.endRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.viewModel?.fetchChallenge()
+            self.collectionView.refreshControl?.endRefreshing()
+        }
     }
 }
 

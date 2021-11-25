@@ -166,8 +166,10 @@ extension HomeViewController {
     }
 
     @objc private func refreshData() {
-        self.viewModel?.fetchMyHomeData()
-        self.scrollView.refreshControl?.endRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.viewModel?.fetchMyHomeData()
+            self.scrollView.refreshControl?.endRefreshing()
+        }
     }
 }
 
