@@ -20,7 +20,7 @@ extension UICollectionView {
         let titleLabel: UILabel = {
             let label = UILabel()
             label.text = "auth empty".localized
-            label.textColor = .black
+            label.textColor = UIColor(named: "Black")
             label.font = UIFont.boldSystemFont(ofSize: 18)
             return label
         }()

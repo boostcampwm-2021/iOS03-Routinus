@@ -149,6 +149,11 @@ extension ManageViewController {
     }
 
     @objc private func refresh() {
+        // TODO: 오류 임시 해결(isExpaned VM으로 옮겨야 함)
+        for view in self.collectionView.subviews.compactMap { $0 as? ManageCollectionViewHeader } {
+            view.isExpanded = true
+        }
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.viewModel?.didLoadedManageView()
             self.collectionView.refreshControl?.endRefreshing()
@@ -256,7 +261,7 @@ extension ManageViewController: UIGestureRecognizerDelegate {
         switch headerView.section {
         case .participating:
             var snapshot = dataSource.snapshot(for: .participating)
-            if headerView.isExpanded == true {
+            if headerView.isExpanded {
                 guard let challenges = viewModel?.participatingChallenges.value else { return }
                 let contents = challenges.map { Item.challenge($0) }
                 snapshot.append(contents)
@@ -266,7 +271,7 @@ extension ManageViewController: UIGestureRecognizerDelegate {
             dataSource.apply(snapshot, to: .participating)
         case .created:
             var snapshot = dataSource.snapshot(for: .created)
-            if headerView.isExpanded == true {
+            if headerView.isExpanded {
                 guard let challenges = viewModel?.createdChallenges.value else { return }
                 let contents = challenges.map { Item.challenge($0) }
                 snapshot.append(contents)
@@ -276,7 +281,7 @@ extension ManageViewController: UIGestureRecognizerDelegate {
             dataSource.apply(snapshot, to: .created)
         case .ended:
             var snapshot = dataSource.snapshot(for: .ended)
-            if headerView.isExpanded == true {
+            if headerView.isExpanded {
                 guard let challenges = viewModel?.endedChallenges.value else { return }
                 let contents = challenges.map { Item.challenge($0) }
                 snapshot.append(contents)

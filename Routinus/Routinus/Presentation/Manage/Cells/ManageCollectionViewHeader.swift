@@ -40,7 +40,7 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
     }()
 
     private(set) var section: Section?
-    private(set) var isExpanded: Bool = true {
+    public var isExpanded: Bool = true {
         didSet {
             let angle = isExpanded ? 0 : -Double.pi / 2
             DispatchQueue.main.async {
