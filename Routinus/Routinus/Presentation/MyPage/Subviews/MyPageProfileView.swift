@@ -13,7 +13,6 @@ final class MyPageProfileView: UIView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "seed")
         return imageView
     }()
 
@@ -62,6 +61,10 @@ final class MyPageProfileView: UIView {
 
     func setName(_ name: String) {
         self.nameLabel.text = name
+    }
+
+    func setImage(with user: User) {
+        imageView.image = UIImage(named: ContinuityState.image(for: user.continuityDay))
     }
 }
 

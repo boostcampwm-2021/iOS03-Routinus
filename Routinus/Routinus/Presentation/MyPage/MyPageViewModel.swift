@@ -37,6 +37,8 @@ final class MyPageViewModel: MyPageViewModelIO {
 
     let userCreatePublisher = NotificationCenter.default.publisher(for: UserCreateUsecase.didCreateUser,
                                                                    object: nil)
+    let userUpdatePublisher = NotificationCenter.default.publisher(for: UserUpdateUsecase.didUpdateUser,
+                                                                   object: nil)
 
     init(userFetchUsecase: UserFetchableUsecase,
          userUpdateUsecase: UserUpdatableUsecase) {
@@ -51,6 +53,13 @@ final class MyPageViewModel: MyPageViewModelIO {
 extension MyPageViewModel {
     func configurePublishers() {
         self.userCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchUser()
+            }
+            .store(in: &cancellables)
+
+        self.userUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchUser()

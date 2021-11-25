@@ -116,6 +116,7 @@ extension MyPageViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] user in
                 self?.profileView.setName(user.name)
+                self?.profileView.setImage(with: user)
             })
             .store(in: &cancellables)
 
