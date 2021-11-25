@@ -75,6 +75,28 @@ final class DetailCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
+        detailViewModel.allAuthDisplayViewTap
+            .sink { [weak self] challengeID in
+                guard let self = self else { return }
+                let authListCoordinator = AuthListCoordinator(navigationController: self.navigationController,
+                                                              challengeID: challengeID,
+                                                              authDisplayState: .all)
+                authListCoordinator.start()
+                self.childCoordinator.append(authListCoordinator)
+            }
+            .store(in: &cancellables)
+
+        detailViewModel.myAuthDisplayViewTap
+            .sink { [weak self] challengeID in
+                guard let self = self else { return }
+                let authListCoordinator = AuthListCoordinator(navigationController: self.navigationController,
+                                                              challengeID: challengeID,
+                                                              authDisplayState: .my)
+                authListCoordinator.start()
+                self.childCoordinator.append(authListCoordinator)
+            }
+            .store(in: &cancellables)
+
         detailViewModel.authMethodImageTap
             .receive(on: RunLoop.main)
             .sink { [weak self] imageData in
@@ -105,3 +127,4 @@ final class DetailCoordinator: RoutinusCoordinator {
                                                      animated: true)
     }
 }
+

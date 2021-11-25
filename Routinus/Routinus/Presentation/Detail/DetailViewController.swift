@@ -9,7 +9,6 @@ import Combine
 import UIKit
 
 final class DetailViewController: UIViewController {
-
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
@@ -45,6 +44,7 @@ final class DetailViewController: UIViewController {
     private lazy var informationView = InformationView()
     private lazy var authMethodView = AuthMethodView()
     private lazy var participantButton = ParticipantButton()
+    private lazy var detailAuthDisplayListView = DetailAuthDisplayListView()
 
     private var viewModel: DetailViewModelIO?
     private var cancellables = Set<AnyCancellable>()
@@ -101,6 +101,7 @@ final class DetailViewController: UIViewController {
 
         stackView.addArrangedSubview(informationView)
         stackView.addArrangedSubview(authMethodView)
+        stackView.addArrangedSubview(detailAuthDisplayListView)
     }
 
     private func configureNavigationBar() {
@@ -119,8 +120,8 @@ final class DetailViewController: UIViewController {
                 self.viewModel?.imageData(from: challenge.challengeID,
                                           filename: "image",
                                           completion: { data in
-                    guard let data = data else { return }
-                    guard let image = UIImage(data: data) else { return }
+                    guard let data = data,
+                          let image = UIImage(data: data) else { return }
                     DispatchQueue.main.async {
                         self.mainImageView.image = image
                     }
@@ -167,6 +168,7 @@ final class DetailViewController: UIViewController {
 
     private func configureDelegate() {
         participantButton.delegate = self
+        detailAuthDisplayListView.delegate = self
         authMethodView.delegate = self
     }
 
@@ -188,6 +190,16 @@ final class DetailViewController: UIViewController {
 extension DetailViewController: ParticipantButtonDelegate {
     func didTappedParticipantButton() {
         viewModel?.didTappedParticipationAuthButton()
+    }
+}
+
+extension DetailViewController: AuthDisplayViewDelegate {
+    func didTappedAllAuthDisplayView() {
+        self.viewModel?.didTappedAllAuthDisplayView()
+    }
+
+    func didTappedMyAuthDisplayView() {
+        self.viewModel?.didTappedMyAuthDisplayView()
     }
 }
 

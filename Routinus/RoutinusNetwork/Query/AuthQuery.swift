@@ -49,6 +49,69 @@ internal enum AuthQuery {
         """.data(using: .utf8)
     }
 
+    internal static func select(challengeID: String) -> Data? {
+        return """
+        {
+            "structuredQuery": {
+                "from": { "collectionId": "challenge_auth" },
+                "where": {
+                    "fieldFilter": {
+                        "field": { "fieldPath": "challenge_id" },
+                        "op": "EQUAL",
+                        "value": { "stringValue": "\(challengeID)" }
+                    },
+                },
+                "orderBy": [
+                    {
+                        "field": { "fieldPath": "date" },
+                        "direction": "DESCENDING"
+                    },
+                ],
+                "limit": 50
+            }
+        }
+        """.data(using: .utf8)
+    }
+
+    internal static func select(challengeID: String,
+                                userID: String) -> Data? {
+        return """
+        {
+            "structuredQuery": {
+                "from": { "collectionId": "challenge_auth" },
+                "where": {
+                    "compositeFilter": {
+                        "filters": [
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "user_id" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(userID)" }
+                                }
+                            },
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "challenge_id" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(challengeID)" }
+                                },
+                            }
+                        ],
+                        "op": "AND"
+                    }
+                },
+                "orderBy": [
+                    {
+                        "field": { "fieldPath": "date" },
+                        "direction": "DESCENDING"
+                    },
+                ],
+                "limit": 50
+            }
+        }
+        """.data(using: .utf8)
+    }
+
     internal static func insert(document: ChallengeAuthFields) -> Data? {
         return """
         {

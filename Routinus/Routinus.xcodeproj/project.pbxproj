@@ -37,11 +37,18 @@
 		1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF4B2739078700296F9E /* UserNameFactory.swift */; };
 		1497CF572739215C00296F9E /* UserCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF562739215C00296F9E /* UserCreateUsecase.swift */; };
 		149B8D9C274C6D410065E64D /* ImageUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149B8D9B274C6D410065E64D /* ImageUpdateUsecase.swift */; };
+		149B8DA2274CC3650065E64D /* DetailAuthDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149B8DA1274CC3650065E64D /* DetailAuthDisplayView.swift */; };
+		149B8DA4274CD0470065E64D /* DetailAuthDisplayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149B8DA3274CD0470065E64D /* DetailAuthDisplayListView.swift */; };
+		149B8DAA274CF75C0065E64D /* AuthListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149B8DA9274CF75C0065E64D /* AuthListCoordinator.swift */; };
 		14AFD0FA2746211F00011CC1 /* ChallengeAuthFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AFD0F92746211F00011CC1 /* ChallengeAuthFetchUsecase.swift */; };
 		14B1810E27454DBF0061F2AE /* ParticipationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */; };
 		14B181122745511A0061F2AE /* Participation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B181112745511A0061F2AE /* Participation.swift */; };
 		14B18116274555CE0061F2AE /* ParticipationFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */; };
 		14B18118274561E20061F2AE /* ParticipationCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B18117274561E20061F2AE /* ParticipationCreateUsecase.swift */; };
+		14BFC0DA274DB7E100A982CB /* AuthImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0D9274DB7E100A982CB /* AuthImagesViewModel.swift */; };
+		14BFC0DC274DBBF100A982CB /* AuthImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0DB274DBBF100A982CB /* AuthImagesViewController.swift */; };
+		14BFC0DF274DC09C00A982CB /* AuthImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0DE274DC09C00A982CB /* AuthImagesCollectionViewCell.swift */; };
+		14BFC0E1274E106D00A982CB /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0E0274E106D00A982CB /* UICollectionView+Extensions.swift */; };
 		14FCD60B27311CF600626E74 /* RoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FCD60A27311CF600626E74 /* RoutineTableViewCell.swift */; };
 		441CEDD127378573006C261F /* ContinuityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD027378573006C261F /* ContinuityView.swift */; };
 		441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD227378EBF006C261F /* TodayRoutineView.swift */; };
@@ -218,11 +225,18 @@
 		1497CF4B2739078700296F9E /* UserNameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameFactory.swift; sourceTree = "<group>"; };
 		1497CF562739215C00296F9E /* UserCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCreateUsecase.swift; sourceTree = "<group>"; };
 		149B8D9B274C6D410065E64D /* ImageUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUpdateUsecase.swift; sourceTree = "<group>"; };
+		149B8DA1274CC3650065E64D /* DetailAuthDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAuthDisplayView.swift; sourceTree = "<group>"; };
+		149B8DA3274CD0470065E64D /* DetailAuthDisplayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAuthDisplayListView.swift; sourceTree = "<group>"; };
+		149B8DA9274CF75C0065E64D /* AuthListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthListCoordinator.swift; sourceTree = "<group>"; };
 		14AFD0F92746211F00011CC1 /* ChallengeAuthFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthFetchUsecase.swift; sourceTree = "<group>"; };
 		14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationRepository.swift; sourceTree = "<group>"; };
 		14B181112745511A0061F2AE /* Participation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participation.swift; sourceTree = "<group>"; };
 		14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationFetchUsecase.swift; sourceTree = "<group>"; };
 		14B18117274561E20061F2AE /* ParticipationCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationCreateUsecase.swift; sourceTree = "<group>"; };
+		14BFC0D9274DB7E100A982CB /* AuthImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthImagesViewModel.swift; sourceTree = "<group>"; };
+		14BFC0DB274DBBF100A982CB /* AuthImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthImagesViewController.swift; sourceTree = "<group>"; };
+		14BFC0DE274DC09C00A982CB /* AuthImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthImagesCollectionViewCell.swift; sourceTree = "<group>"; };
+		14BFC0E0274E106D00A982CB /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		14FCD60A27311CF600626E74 /* RoutineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTableViewCell.swift; sourceTree = "<group>"; };
 		21D4AB5FB6AB0717E5C7402C /* Pods-Routinus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.release.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.release.xcconfig"; sourceTree = "<group>"; };
 		2813D98BB29BFEBCA9A154AE /* Pods-Routinus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Routinus.debug.xcconfig"; path = "Target Support Files/Pods-Routinus/Pods-Routinus.debug.xcconfig"; sourceTree = "<group>"; };
@@ -399,6 +413,8 @@
 			children = (
 				148387372743817F00731F98 /* InformationView.swift */,
 				1483873B2743F2FF00731F98 /* ParticipantButton.swift */,
+				149B8DA3274CD0470065E64D /* DetailAuthDisplayListView.swift */,
+				149B8DA1274CC3650065E64D /* DetailAuthDisplayView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -433,6 +449,24 @@
 				14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		14BFC0D6274DB7BB00A982CB /* AuthImages */ = {
+			isa = PBXGroup;
+			children = (
+				14BFC0DB274DBBF100A982CB /* AuthImagesViewController.swift */,
+				14BFC0D9274DB7E100A982CB /* AuthImagesViewModel.swift */,
+				14BFC0DD274DC07300A982CB /* Cells */,
+			);
+			path = AuthImages;
+			sourceTree = "<group>";
+		};
+		14BFC0DD274DC07300A982CB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				14BFC0DE274DC09C00A982CB /* AuthImagesCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		441CEDD4273796C4006C261F /* Subviews */ = {
@@ -617,6 +651,7 @@
 				0D053E58274654390042DAF2 /* String+Extensions.swift */,
 				0DC38F58273BA89000331C25 /* UIImage+Extensions.swift */,
 				0DFF32BC274548D8004FA9BD /* UIView+Extensions.swift */,
+				14BFC0E0274E106D00A982CB /* UICollectionView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -742,6 +777,7 @@
 				E9797CAF2731078400A14A0F /* Detail */,
 				E9797CAE2731077A00A14A0F /* Create */,
 				E9797CB7273108EA00A14A0F /* Auth */,
+				14BFC0D6274DB7BB00A982CB /* AuthImages */,
 				E9797CA92731072700A14A0F /* Manage */,
 				E9797CA8273106E300A14A0F /* MyPage */,
 			);
@@ -792,6 +828,7 @@
 				E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */,
 				E994744F2736D54C0054A631 /* DetailCoordinator.swift */,
 				E99474512736F4B30054A631 /* AuthCoordinator.swift */,
+				149B8DA9274CF75C0065E64D /* AuthListCoordinator.swift */,
 				14572CEC273BF644007E6ECE /* CreateCoordinator.swift */,
 			);
 			path = Coordinator;
@@ -1184,14 +1221,18 @@
 				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
 				441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */,
 				1483873C2743F2FF00731F98 /* ParticipantButton.swift in Sources */,
+				14BFC0DA274DB7E100A982CB /* AuthImagesViewModel.swift in Sources */,
+				14BFC0DC274DBBF100A982CB /* AuthImagesViewController.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DBBAA3727341C1600B32EB5 /* ChallengeCollectionViewLayouts.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* CalendarHeader.swift in Sources */,
 				E9493DCC273A75220095CF6D /* SearchCollectionViewHeader.swift in Sources */,
 				1497CF572739215C00296F9E /* UserCreateUsecase.swift in Sources */,
 				E9753900273220F6004358C5 /* User.swift in Sources */,
+				149B8DA2274CC3650065E64D /* DetailAuthDisplayView.swift in Sources */,
 				0DBBAA3C27341C3600B32EB5 /* ChallengeRecommendCollectionViewCell.swift in Sources */,
 				E9B87CC6274950FC00D7C0D2 /* UserUpdateUsecase.swift in Sources */,
+				149B8DA4274CD0470065E64D /* DetailAuthDisplayListView.swift in Sources */,
 				E9493DC3273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift in Sources */,
 				0DE0339A274355700026F502 /* ManageCollectionViewLayouts.swift in Sources */,
 				E9B58196274DFAFA00C39BD7 /* ChallengeRecommendCollectionViewHeader.swift in Sources */,
@@ -1206,10 +1247,12 @@
 				441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */,
 				E901EFDE2744CBDE00B14847 /* UserFetchUsecase.swift in Sources */,
 				E901EFE827453F1100B14847 /* ChallengeAuthRepository.swift in Sources */,
+				14BFC0DF274DC09C00A982CB /* AuthImagesCollectionViewCell.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
 				0DEDAA17274C8F6B0030B7D9 /* ImagePinchViewController.swift in Sources */,
+				14BFC0E1274E106D00A982CB /* UICollectionView+Extensions.swift in Sources */,
 				0D053E59274654390042DAF2 /* String+Extensions.swift in Sources */,
 				0DC38F59273BA89000331C25 /* UIImage+Extensions.swift in Sources */,
 				14B181122745511A0061F2AE /* Participation.swift in Sources */,
@@ -1260,6 +1303,7 @@
 				E9797CB3273107BE00A14A0F /* CreateViewController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E94B49762739118B00708D7B /* Challenge.swift in Sources */,
+				149B8DAA274CF75C0065E64D /* AuthListCoordinator.swift in Sources */,
 				0D18D06D2749167700AD11F8 /* ManageCollectionViewHeader.swift in Sources */,
 				0DE03398274329BA0026F502 /* Calendar.swift in Sources */,
 				148387382743817F00731F98 /* InformationView.swift in Sources */,
