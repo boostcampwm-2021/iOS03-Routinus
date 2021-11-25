@@ -8,8 +8,8 @@
 import UIKit
 
 extension UICollectionView {
-    func setEmptyView() {
-        let emptyView: UIView = {
+    func notifyEmptyData() {
+        let informationView: UIView = {
             let view = UIView(frame: CGRect(x: self.center.x,
                                             y: self.center.y,
                                             width: self.bounds.width,
@@ -35,16 +35,16 @@ extension UICollectionView {
             return label
         }()
 
-        emptyView.addSubview(titleLabel)
-        emptyView.addSubview(messageLabel)
+        informationView.addSubview(titleLabel)
+        informationView.addSubview(messageLabel)
 
-        titleLabel.anchor(centerX: emptyView.centerXAnchor,
-                          centerY: emptyView.centerYAnchor)
+        titleLabel.anchor(centerX: informationView.centerXAnchor,
+                          centerY: informationView.centerYAnchor)
 
-        messageLabel.anchor(centerX: emptyView.centerXAnchor,
+        messageLabel.anchor(centerX: informationView.centerXAnchor,
                             top: titleLabel.bottomAnchor, paddingTop: 20)
 
-        self.backgroundView = emptyView
+        self.backgroundView = informationView
     }
 
     func restore() {

@@ -70,7 +70,7 @@ extension AuthListViewController {
             .sink(receiveValue: { [weak self] auths in
                 guard let self = self else { return }
                 if auths.isEmpty {
-                    self.collectionView.setEmptyView()
+                    self.collectionView.notifyEmptyData()
                 } else {
                     self.collectionView.restore()
                     self.collectionView.reloadData()
