@@ -23,13 +23,13 @@ struct UserCreateUsecase: UserCreatableUsecase {
         let uuid = UUID().uuidString
         guard let data = uuid.data(using: .utf8) else { return "" }
         let sha256 = SHA256.hash(data: data)
-        return sha256.compactMap {String(format: "%02x", $0)}.joined()
+        return sha256.compactMap { String(format: "%02x", $0) }.joined()
     }
 
     func createUser(completion: ((User) -> Void)?) {
         guard repository.isEmptyUserID() else { return }
         let id = createID()
-        let name = UserNameFactory.createRandomName()
+        let name = UsernameFactory.randomName()
         repository.save(id: id, name: name) { userDTO in
             let user = User(userDTO: userDTO)
             completion?(user)

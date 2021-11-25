@@ -35,7 +35,7 @@
 		149411DC273A314B004BE485 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411DB273A314B004BE485 /* CreateViewModel.swift */; };
 		149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */; };
 		1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF432738FFA600296F9E /* RoutinusRepository.swift */; };
-		1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF4B2739078700296F9E /* UserNameFactory.swift */; };
+		1497CF4C2739078700296F9E /* UsernameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF4B2739078700296F9E /* UsernameFactory.swift */; };
 		1497CF572739215C00296F9E /* UserCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1497CF562739215C00296F9E /* UserCreateUsecase.swift */; };
 		149B8D9C274C6D410065E64D /* ImageUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149B8D9B274C6D410065E64D /* ImageUpdateUsecase.swift */; };
 		149B8DA2274CC3650065E64D /* DetailAuthDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149B8DA1274CC3650065E64D /* DetailAuthDisplayView.swift */; };
@@ -224,7 +224,7 @@
 		149411DB273A314B004BE485 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreateUsecase.swift; sourceTree = "<group>"; };
 		1497CF432738FFA600296F9E /* RoutinusRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusRepository.swift; sourceTree = "<group>"; };
-		1497CF4B2739078700296F9E /* UserNameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameFactory.swift; sourceTree = "<group>"; };
+		1497CF4B2739078700296F9E /* UsernameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameFactory.swift; sourceTree = "<group>"; };
 		1497CF562739215C00296F9E /* UserCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCreateUsecase.swift; sourceTree = "<group>"; };
 		149B8D9B274C6D410065E64D /* ImageUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUpdateUsecase.swift; sourceTree = "<group>"; };
 		149B8DA1274CC3650065E64D /* DetailAuthDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAuthDisplayView.swift; sourceTree = "<group>"; };
@@ -442,13 +442,13 @@
 			children = (
 				1497CF432738FFA600296F9E /* RoutinusRepository.swift */,
 				E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */,
-				1497CF4B2739078700296F9E /* UserNameFactory.swift */,
 				E901EFD72744C9E300B14847 /* UserRepository.swift */,
 				E901EFDB2744CAF900B14847 /* TodayRoutineRepository.swift */,
 				E901EFE12744CC6E00B14847 /* AchievementRepository.swift */,
 				E901EFD32744BD3400B14847 /* ImageRepository.swift */,
 				E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */,
 				14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */,
+				1497CF4B2739078700296F9E /* UsernameFactory.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1330,7 +1330,7 @@
 				149B8D9C274C6D410065E64D /* ImageUpdateUsecase.swift in Sources */,
 				E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */,
 				E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */,
-				1497CF4C2739078700296F9E /* UserNameFactory.swift in Sources */,
+				1497CF4C2739078700296F9E /* UsernameFactory.swift in Sources */,
 				E9493DC6273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
