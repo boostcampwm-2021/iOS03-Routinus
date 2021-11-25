@@ -140,7 +140,7 @@ extension ManageViewController {
         refresh.addTarget(self,
                            action: #selector(refreshData),
                            for: .valueChanged)
-        refresh.attributedTitle = NSAttributedString(string: "Loading Data...",
+        refresh.attributedTitle = NSAttributedString(string: "swipe".localized,
                                                      attributes: [NSAttributedString.Key.foregroundColor:
                                                                     UIColor.systemGray,
                                                                   NSAttributedString.Key.font:
