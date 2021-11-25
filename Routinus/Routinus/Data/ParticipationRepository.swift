@@ -13,11 +13,11 @@ protocol ParticipationRepository {
     func fetchChallengeParticipation(userID: String,
                                      challengeID: String,
                                      completion: @escaping (Participation?) -> Void)
-
     func save(challengeID: String,
-              joinDate: String)
-
-    func updateAuthCount(challengeID: String)
+              joinDate: String,
+              completion: (() -> Void)?)
+    func updateAuthCount(challengeID: String,
+                         completion: (() -> Void)?)
 }
 
 extension RoutinusRepository: ParticipationRepository {
@@ -35,20 +35,25 @@ extension RoutinusRepository: ParticipationRepository {
         }
     }
 
-    func save(challengeID: String, joinDate: String) {
+    func save(challengeID: String,
+              joinDate: String,
+              completion: (() -> Void)?) {
         guard let userID = RoutinusRepository.userID() else { return }
         let dto = ParticipationDTO(authCount: 0,
                                    challengeID: challengeID,
                                    joinDate: joinDate,
                                    userID: userID)
-        RoutinusNetwork.insertChallengeParticipation(dto: dto,
-                                                     completion: nil)
+        RoutinusNetwork.insertChallengeParticipation(dto: dto) {
+            completion?()
+        }
     }
 
-    func updateAuthCount(challengeID: String) {
+    func updateAuthCount(challengeID: String,
+                         completion: (() -> Void)?) {
         guard let userID = RoutinusRepository.userID() else { return }
         RoutinusNetwork.updateChallengeParticipationAuthCount(challengeID: challengeID,
-                                                              userID: userID,
-                                                              completion: nil)
+                                                              userID: userID) {
+            completion?()
+        }
     }
 }

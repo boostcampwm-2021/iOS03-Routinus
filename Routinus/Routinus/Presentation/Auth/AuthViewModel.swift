@@ -30,7 +30,7 @@ protocol AuthViewModelOutput {
 
 protocol AuthViewModelIO: AuthViewModelInput, AuthViewModelOutput { }
 
-class AuthViewModel: AuthViewModelIO {
+final class AuthViewModel: AuthViewModelIO {
     var authButtonState = CurrentValueSubject<Bool, Never>(false)
     var challenge = CurrentValueSubject<Challenge?, Never>(nil)
     var methodImageTap = PassthroughSubject<Data, Never>()
