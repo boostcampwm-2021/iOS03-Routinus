@@ -11,6 +11,12 @@ class CalendarExplanationViewController: UIViewController {
     enum StickerPercent: String, CaseIterable {
         case miss = "1-19", bad = "20-39", good = "40-65", great = "66-99", perfect = "100"
     }
+    
+    private lazy var backgroundView: UIView =  {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        return view
+    }()
 
     private lazy var popUpView: UIView = {
         let view = UIView()
@@ -48,7 +54,13 @@ class CalendarExplanationViewController: UIViewController {
     }
 
     private func configureViews() {
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        view.addSubview(backgroundView)
+        backgroundView.anchor(edges: view)
+
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
+        tapGesture.delegate = self
+        backgroundView.addGestureRecognizer(tapGesture)
+
         view.addSubview(popUpView)
         popUpView.anchor(centerX: view.centerXAnchor,
                          horizontal: view,
@@ -97,5 +109,12 @@ class CalendarExplanationViewController: UIViewController {
 
     @objc private func didTappedDismisButton(_ sender: UIButton) {
         dismiss(animated: false, completion: nil)
+    }
+}
+
+extension CalendarExplanationViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        dismiss(animated: false, completion: nil)
+        return true
     }
 }
