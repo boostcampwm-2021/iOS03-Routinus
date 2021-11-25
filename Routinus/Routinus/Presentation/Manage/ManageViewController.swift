@@ -156,8 +156,8 @@ extension ManageViewController {
     }
 }
 
-extension ManageViewController: AddChallengeDelegate {
-    func didTappedAddButton() {
+extension ManageViewController: ChallengePromotionViewDelegate {
+    func didTappedPromotionButton() {
         viewModel?.didTappedAddButton()
     }
 

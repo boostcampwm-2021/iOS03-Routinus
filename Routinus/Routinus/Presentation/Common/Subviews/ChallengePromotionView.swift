@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol AddChallengeDelegate: AnyObject {
-    func didTappedAddButton()
+protocol ChallengePromotionViewDelegate: AnyObject {
+    func didTappedPromotionButton()
 }
 
-final class ManageAddChallengeView: UIView {
-    weak var delegate: AddChallengeDelegate?
+final class ChallengePromotionView: UIView {
+    weak var delegate: ChallengePromotionViewDelegate?
 
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -30,13 +30,13 @@ final class ManageAddChallengeView: UIView {
         return label
     }()
 
-    private lazy var addButton: UIButton = {
+    private lazy var promotionButton: UIButton = {
         let button = UIButton()
         button.setTitle("챌린지 개설하기", for: .normal)
         button.setTitleColor(.systemBackground, for: .normal)
         button.backgroundColor = UIColor(named: "MainColor")
         button.layer.cornerRadius = 5
-        button.addTarget(self, action: #selector(didTappedAddButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTappedPromotionButton), for: .touchUpInside)
         return button
     }()
 
@@ -57,11 +57,11 @@ final class ManageAddChallengeView: UIView {
     func configureChallengePromotionView(titleLabel: String,
                                          buttonLabel: String) {
         self.titleLabel.text = titleLabel
-        self.addButton.setTitle(buttonLabel, for: .normal)
+        self.promotionButton.setTitle(buttonLabel, for: .normal)
     }
 }
 
-extension ManageAddChallengeView {
+extension ChallengePromotionView {
     private func configureView() {
         backgroundColor = UIColor(named: "MainColor")?.withAlphaComponent(0.5)
         layer.cornerRadius = 10
@@ -69,12 +69,12 @@ extension ManageAddChallengeView {
 
         addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(addButton)
+        stackView.addArrangedSubview(promotionButton)
         stackView.anchor(centerX: centerXAnchor,
                          centerY: centerYAnchor)
     }
 
-    @objc func didTappedAddButton() {
-        delegate?.didTappedAddButton()
+    @objc func didTappedPromotionButton() {
+        delegate?.didTappedPromotionButton()
     }
 }

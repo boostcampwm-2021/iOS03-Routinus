@@ -17,7 +17,7 @@ final class TodayRoutineView: UIView {
         return label
     }()
 
-    private let challengePromotionView = ManageAddChallengeView()
+    private let challengePromotionView = ChallengePromotionView()
 
     private lazy var searchChallengeView: UIView = {
         let view = UIView()
@@ -115,8 +115,8 @@ extension TodayRoutineView {
     }
 }
 
-extension TodayRoutineView: AddChallengeDelegate {
-    func didTappedAddButton() {
+extension TodayRoutineView: ChallengePromotionViewDelegate {
+    func didTappedPromotionButton() {
         self.challengeAddDelegate?.didTappedAddChallengeButton()
     }
 }

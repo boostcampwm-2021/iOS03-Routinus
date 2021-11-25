@@ -18,9 +18,9 @@ final class ManageAddCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
-    private lazy var addChallengeView = ManageAddChallengeView()
+    private lazy var addChallengeView = ChallengePromotionView()
 
-    weak var delegate: AddChallengeDelegate? {
+    weak var delegate: ChallengePromotionViewDelegate? {
         didSet {
             addChallengeView.delegate = delegate
         }
