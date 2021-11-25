@@ -179,6 +179,17 @@ final class DetailViewController: UIViewController {
 extension DetailViewController: ParticipantButtonDelegate {
     func didTappedParticipantButton() {
         viewModel?.didTappedParticipationAuthButton()
+        presentAlert()
+    }
+
+    func presentAlert() {
+        let alert = UIAlertController(title: "알림",
+                                      message: "참여되었습니다",
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "확인",
+                                   style: .default)
+        alert.addAction(action)
+        present(alert, animated: true)
     }
 }
 
