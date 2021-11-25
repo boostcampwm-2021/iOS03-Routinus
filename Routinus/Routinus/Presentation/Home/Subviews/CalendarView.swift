@@ -74,7 +74,7 @@ final class CalendarView: UIView {
             calendarView.dataSource = dataSource
         }
     }
-    
+
     weak var questionDeleatge: QuestionButtonDelegate?
 
     init(viewModel: HomeViewModelIO?) {

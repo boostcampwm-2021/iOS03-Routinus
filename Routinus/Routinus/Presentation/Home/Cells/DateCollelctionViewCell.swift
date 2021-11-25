@@ -48,13 +48,13 @@ final class DateCollectionViewCell: UICollectionViewCell {
 
             var image: UIImage?
             if achievementRate > 0 && achievementRate < 0.2 {
-                image = UIImage(named: "0-20")
+                image = UIImage(named: "0-19")
             } else if achievementRate >= 0.2 && achievementRate < 0.4 {
-                image = UIImage(named: "20-40")
-            } else if achievementRate >= 0.4 && achievementRate < 0.7 {
-                image = UIImage(named: "40-70")
-            } else if achievementRate >= 0.7 && achievementRate < 1 {
-                image = UIImage(named: "70-99")
+                image = UIImage(named: "20-39")
+            } else if achievementRate >= 0.4 && achievementRate < 0.66 {
+                image = UIImage(named: "40-65")
+            } else if achievementRate >= 0.66 && achievementRate < 1 {
+                image = UIImage(named: "66-99")
             } else if achievementRate == 1 {
                 image = UIImage(named: "100")
             }
