@@ -26,6 +26,8 @@ protocol ChallengeCreatableUsecase {
 }
 
 struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
+    static let didCreateChallenge = Notification.Name("didCreateChallenge")
+
     var repository: ChallengeRepository
 
     init(repository: ChallengeRepository) {
@@ -75,11 +77,14 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
                                   week: week,
                                   participantCount: 1)
 
-        repository.save(challenge: challenge,
-                        imageURL: imageURL,
-                        thumbnailImageURL: thumbnailImageURL,
-                        authExampleImageURL: authExampleImageURL,
-                        authExampleThumbnailImageURL: authExampleThumbnailImageURL)
+        repository.insert(challenge: challenge,
+                          imageURL: imageURL,
+                          thumbnailImageURL: thumbnailImageURL,
+                          authExampleImageURL: authExampleImageURL,
+                          authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
+            NotificationCenter.default.post(name: ChallengeCreateUsecase.didCreateChallenge,
+                                            object: nil)
+        }
     }
 
     func isEmpty(title: String,

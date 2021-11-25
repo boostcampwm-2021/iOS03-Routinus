@@ -37,13 +37,26 @@ final class ChallengeViewModel: ChallengeViewModelIO {
     let challengeFetchUsecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
+    let challengeCreatePublisher = NotificationCenter.default.publisher(for: ChallengeCreateUsecase.didCreateChallenge,
+                                                                        object: nil)
+
     init(challengeFetchUsecase: ChallengeFetchableUsecase) {
         self.challengeFetchUsecase = challengeFetchUsecase
         self.fetchChallenge()
+        self.configurePublishers()
     }
 }
 
 extension ChallengeViewModel {
+    func configurePublishers() {
+        self.challengeCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchChallenge()
+            }
+            .store(in: &cancellables)
+    }
+
     func didTappedSearchButton() {
         searchButtonTap.send()
     }

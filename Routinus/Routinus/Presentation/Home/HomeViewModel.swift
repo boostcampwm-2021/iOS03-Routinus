@@ -59,8 +59,10 @@ final class HomeViewModel: HomeViewModelIO {
 
     let formatter = DateFormatter()
 
-    var usernamePublisher = NotificationCenter.default.publisher(for: UserUpdateUsecase.didUpdateUsername,
-                                                                 object: nil)
+    let usernameUpdatePublisher = NotificationCenter.default.publisher(for: UserUpdateUsecase.didUpdateUsername,
+                                                                       object: nil)
+    let challengeCreatePublisher = NotificationCenter.default.publisher(for: ChallengeCreateUsecase.didCreateChallenge,
+                                                                        object: nil)
 
     init(userCreateUsecase: UserCreatableUsecase,
          userFetchUsecase: UserFetchableUsecase,
@@ -79,7 +81,7 @@ final class HomeViewModel: HomeViewModelIO {
         self.baseDate.value = Date()
         self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
         self.fetchMyHomeData()
-        self.configurePublisher()
+        self.configurePublishers()
     }
 }
 
@@ -105,12 +107,19 @@ extension HomeViewModel {
         self.todayRoutineAuthTap.send(challengeID)
     }
 
-    func configurePublisher() {
-        self.usernamePublisher
+    func configurePublishers() {
+        self.usernameUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { notification in
                 guard let user = notification.object as? User else { return }
                 self.user.value = user
+            }
+            .store(in: &cancellables)
+
+        self.challengeCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchTodayRoutine()
             }
             .store(in: &cancellables)
     }
