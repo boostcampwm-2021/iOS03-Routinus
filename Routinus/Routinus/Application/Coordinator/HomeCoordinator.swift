@@ -70,27 +70,6 @@ final class HomeCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-        self.authPublisher
-            .receive(on: RunLoop.main)
-            .sink { _ in
-                homeViewModel.fetchMyHomeData()
-            }
-            .store(in: &cancellables)
-
-        self.participationPublisher
-            .receive(on: RunLoop.main)
-            .sink { _ in
-                homeViewModel.fetchMyHomeData()
-            }
-            .store(in: &cancellables)
-
-        self.createPublisher
-            .receive(on: RunLoop.main)
-            .sink { _ in
-                homeViewModel.fetchMyHomeData()
-            }
-            .store(in: &cancellables)
-
         self.navigationController.pushViewController(homeViewController, animated: false)
     }
 }
