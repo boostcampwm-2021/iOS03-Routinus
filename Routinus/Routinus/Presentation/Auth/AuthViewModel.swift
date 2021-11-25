@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 protocol AuthViewModelInput {
+    func fetchChallenge(challengeID: String)
     func didTappedAuthButton()
     func didTappedAlertConfirm()
     func didTappedAuthMethodImage(image: Data)
@@ -129,7 +130,7 @@ extension AuthViewModel {
 }
 
 extension AuthViewModel {
-    private func fetchChallenge(challengeID: String) {
+    func fetchChallenge(challengeID: String) {
         self.challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
             guard let self = self else { return }
             self.challenge.value = challenge
