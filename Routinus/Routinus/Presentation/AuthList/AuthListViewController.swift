@@ -17,7 +17,6 @@ class AuthListViewController: UIViewController {
         return collectionView
     }()
 
-
     private var viewModel: AuthListViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
@@ -35,16 +34,14 @@ class AuthListViewController: UIViewController {
 
         configureViews()
         configureDelegates()
-        configureViewModels()
+        configureViewModel()
     }
 }
 
 extension AuthListViewController {
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
-
         self.view.addSubview(collectionView)
-
         collectionView.anchor(leading: view.leadingAnchor, paddingLeading: 10,
                               trailing: view.trailingAnchor, paddingTrailing: 10,
                               top: view.topAnchor, paddingTop: 10,
@@ -56,7 +53,7 @@ extension AuthListViewController {
         self.collectionView.delegate = self
     }
 
-    private func configureViewModels() {
+    private func configureViewModel() {
         self.viewModel?.authDisplayState
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] state in
@@ -89,11 +86,13 @@ extension AuthListViewController: UICollectionViewDataSource, UICollectionViewDe
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AuthListCollectionViewCell.identifier,
                                                             for: indexPath) as? AuthListCollectionViewCell else { return UICollectionViewCell() }
 
-        guard let auth = viewModel?.auths.value[indexPath.item], let date = auth.date?.toDateString() else { return UICollectionViewCell() }
+        guard let auth = viewModel?.auths.value[indexPath.item],
+              let date = auth.date?.toDateString() else { return UICollectionViewCell() }
         let filename = "\(auth.userID)_\(date)_thumbnail_auth"
         viewModel?.imageData(from: auth.challengeID,
                             filename: filename) { data in
-            guard let data = data, let image = UIImage(data: data) else { return }
+            guard let data = data,
+                  let image = UIImage(data: data) else { return }
             DispatchQueue.main.async {
                 cell.update(image: image)
             }
@@ -105,6 +104,6 @@ extension AuthListViewController: UICollectionViewDataSource, UICollectionViewDe
         let numberOfCells: CGFloat = 2
         let minimumInteritemSpacing: CGFloat = 10
         let width = collectionView.frame.size.width - (minimumInteritemSpacing * (numberOfCells-1))
-        return CGSize(width: width/numberOfCells, height: width/numberOfCells)
+        return CGSize(width: width / numberOfCells, height: width / numberOfCells)
     }
 }

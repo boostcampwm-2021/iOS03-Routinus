@@ -52,10 +52,11 @@ final class AuthListViewModel: AuthListViewModelIO {
 
 extension AuthListViewModel {
     private func fetchChallengeAuthData(authDisplayState: AuthDisplayState) {
-        if authDisplayState == .all {
+        switch authDisplayState {
+        case .all:
             self.authDisplayState.value = .all
             self.fetchChallengeAuths()
-        } else {
+        case .my:
             self.authDisplayState.value = .my
             self.fetchMyChallengeAuths()
         }

@@ -62,8 +62,11 @@ extension RoutinusRepository: ChallengeAuthRepository {
 
     func fetchChallengeAuths(challengeID: String,
                              completion: (([ChallengeAuth]) -> Void)?) {
-        RoutinusNetwork.challengeAuths(challengeID: challengeID) { list in
-            completion?(list.filter { $0.document != nil }.map { ChallengeAuth(challengeAuthDTO: $0) })
+        RoutinusNetwork.challengeAuths(challengeID: challengeID) { challengeAuths in
+            let challengeAuths = challengeAuths
+                                    .filter { $0.document != nil }
+                                    .map { ChallengeAuth(challengeAuthDTO: $0) }
+            completion?(challengeAuths)
         }
     }
 
@@ -71,8 +74,11 @@ extension RoutinusRepository: ChallengeAuthRepository {
                                challengeID: String,
                                completion: (([ChallengeAuth]) -> Void)?) {
         RoutinusNetwork.challengeAuths(userID: userID,
-                                       challengeID: challengeID) { list in
-            completion?(list.filter { $0.document != nil }.map { ChallengeAuth(challengeAuthDTO: $0) })
+                                       challengeID: challengeID) { challengeAuths in
+            let challengeAuths = challengeAuths
+                                    .filter { $0.document != nil }
+                                    .map { ChallengeAuth(challengeAuthDTO: $0) }
+            completion?(challengeAuths)
         }
     }
 }
