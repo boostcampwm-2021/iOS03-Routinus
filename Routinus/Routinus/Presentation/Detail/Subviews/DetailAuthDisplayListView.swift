@@ -29,16 +29,16 @@ final class DetailAuthDisplayListView: UIView {
         return detailAuthDisplayView
     }()
 
-    private lazy var meAuthDisplayView: DetailAuthDisplayView = {
-        var meAuthDisplayView = DetailAuthDisplayView()
+    private lazy var myAuthDisplayView: DetailAuthDisplayView = {
+        var myAuthDisplayView = DetailAuthDisplayView()
 
         let gesture = UITapGestureRecognizer(target: self,
                                              action: #selector(didTappedMyAuthDisplayView))
         gesture.numberOfTapsRequired = 1
-        meAuthDisplayView.isUserInteractionEnabled = true
-        meAuthDisplayView.addGestureRecognizer(gesture)
+        myAuthDisplayView.isUserInteractionEnabled = true
+        myAuthDisplayView.addGestureRecognizer(gesture)
 
-        return meAuthDisplayView
+        return myAuthDisplayView
     }()
 
     override init(frame: CGRect) {
@@ -60,7 +60,7 @@ final class DetailAuthDisplayListView: UIView {
     }
 
     @objc func didTappedMyAuthDisplayView() {
-        delegate?.didTappedMeAuthDisplayView()
+        delegate?.didTappedMyAuthDisplayView()
     }
 }
 
@@ -68,7 +68,7 @@ extension DetailAuthDisplayListView {
     private func configureSubviews() {
         self.backgroundColor = .systemBackground
         allAuthDisplayView.update(to: .all)
-        meAuthDisplayView.update(to: .me)
+        myAuthDisplayView.update(to: .my)
 
         self.addSubview(titleLabel)
         titleLabel.anchor(leading: self.leadingAnchor, paddingLeading: 20,
@@ -79,8 +79,8 @@ extension DetailAuthDisplayListView {
                     trailing: self.trailingAnchor, paddingTrailing: 20,
                     top: titleLabel.bottomAnchor, paddingTop: 20)
 
-        self.addSubview(meAuthDisplayView)
-        meAuthDisplayView.anchor(leading: self.leadingAnchor, paddingLeading: 20,
+        self.addSubview(myAuthDisplayView)
+        myAuthDisplayView.anchor(leading: self.leadingAnchor, paddingLeading: 20,
                                   trailing: self.trailingAnchor, paddingTrailing: 20,
                                   top: allAuthDisplayView.bottomAnchor, paddingTop: 20,
                                   bottom: self.bottomAnchor, paddingBottom: 20)
@@ -89,5 +89,5 @@ extension DetailAuthDisplayListView {
 
 protocol AuthDisplayViewDelegate: AnyObject {
     func didTappedAllAuthDisplayView()
-    func didTappedMeAuthDisplayView()
+    func didTappedMyAuthDisplayView()
 }

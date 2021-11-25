@@ -86,12 +86,12 @@ final class DetailCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-        detailViewModel.meAuthDisplayViewTap
+        detailViewModel.myAuthDisplayViewTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
                 let authListCoordinator = AuthListCoordinator(navigationController: self.navigationController,
                                                               challengeID: challengeID,
-                                                              authDisplayState: .me)
+                                                              authDisplayState: .my)
                 authListCoordinator.start()
                 self.childCoordinator.append(authListCoordinator)
             }

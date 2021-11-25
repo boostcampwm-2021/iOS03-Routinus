@@ -38,7 +38,7 @@ protocol DetailViewModelOutput {
     var authButtonTap: PassthroughSubject<String, Never> { get }
     var alertConfirmTap: PassthroughSubject<Void, Never> { get }
     var allAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
-    var meAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
+    var myAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
     var authMethodImageTap: PassthroughSubject<Data, Never> { get }
     var challengeID: String? { get }
 }
@@ -55,7 +55,7 @@ class DetailViewModel: DetailViewModelIO {
     var authButtonTap = PassthroughSubject<String, Never>()
     var alertConfirmTap = PassthroughSubject<Void, Never>()
     var allAuthDisplayViewTap = PassthroughSubject<String, Never>()
-    var meAuthDisplayViewTap = PassthroughSubject<String, Never>()
+    var myAuthDisplayViewTap = PassthroughSubject<String, Never>()
     var authMethodImageTap = PassthroughSubject<Data, Never>()
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
@@ -137,7 +137,7 @@ extension DetailViewModel {
 
     func didTappedMyAuthDisplayView() {
         guard let challengeID = challengeID else { return }
-        meAuthDisplayViewTap.send(challengeID)
+        myAuthDisplayViewTap.send(challengeID)
     }
 
     func didTappedAuthMethodImage(imageData: Data) {

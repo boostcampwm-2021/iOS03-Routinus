@@ -56,7 +56,7 @@ extension AuthListViewModel {
             self.authDisplayState.value = .all
             self.fetchChallengeAuths()
         } else {
-            self.authDisplayState.value = .me
+            self.authDisplayState.value = .my
             self.fetchMyChallengeAuths()
         }
     }

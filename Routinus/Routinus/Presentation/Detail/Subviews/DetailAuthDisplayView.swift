@@ -9,13 +9,13 @@ import UIKit
 
 enum AuthDisplayState {
     case all
-    case me
+    case my
 
     var title: String {
         switch self {
         case .all:
             return "모든 참여자의 인증 사진 목록"
-        case .me:
+        case .my:
             return "나의 인증 사진 목록"
         }
     }
@@ -24,7 +24,7 @@ enum AuthDisplayState {
         switch self {
         case .all:
             return "함께 하는 사람들의 인증 사진을 통해 의지를 다잡아 보세요!"
-        case .me:
+        case .my:
             return "나의 인증 사진들을 한눈에 모아 보세요!"
         }
     }
@@ -33,7 +33,7 @@ enum AuthDisplayState {
         switch self {
         case .all:
             return "🤵🏻‍♀️🤵🏻"
-        case .me:
+        case .my:
             return "🤵🏻‍♀️"
         }
     }
