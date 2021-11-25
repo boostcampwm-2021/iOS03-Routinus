@@ -13,6 +13,7 @@ protocol HomeViewModelInput {
     func didTappedTodayRoutine(index: Int)
     func didTappedAddChallengeButton()
     func didTappedTodayRoutineAuth(index: Int)
+    func didTappedExplanationButton()
     func generateDaysInMonth(for baseDate: Date) -> [Day]
     func changeDate(month: Int)
 }
@@ -25,6 +26,7 @@ protocol HomeViewModelOutput {
     var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
     var todayRoutineTap: PassthroughSubject<String, Never> { get }
     var todayRoutineAuthTap: PassthroughSubject<String, Never> { get }
+    var calendarExplanationButtonTap: PassthroughSubject<Void, Never> { get }
     var baseDate: CurrentValueSubject<Date, Never> { get }
     var days: CurrentValueSubject<[Day], Never> { get }
     var calendar: Calendar { get }
@@ -43,6 +45,7 @@ final class HomeViewModel: HomeViewModelIO {
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var todayRoutineTap = PassthroughSubject<String, Never>()
     var todayRoutineAuthTap = PassthroughSubject<String, Never>()
+    var calendarExplanationButtonTap = PassthroughSubject<Void, Never>()
 
     var userCreateUsecase: UserCreatableUsecase
     var userFetchUsecase: UserFetchableUsecase
@@ -99,6 +102,10 @@ extension HomeViewModel {
     func didTappedTodayRoutineAuth(index: Int) {
         let challengeID = self.todayRoutines.value[index].challengeID
         self.todayRoutineAuthTap.send(challengeID)
+    }
+    
+    func didTappedExplanationButton() {
+        self.calendarExplanationButtonTap.send()
     }
 }
 

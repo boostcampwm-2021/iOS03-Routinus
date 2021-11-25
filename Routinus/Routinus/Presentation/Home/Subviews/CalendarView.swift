@@ -16,10 +16,21 @@ final class CalendarView: UIView {
         return label
     }()
 
+    private lazy var explanationButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "questionmark.circle"), for: .normal)
+        button.tintColor = UIColor(named: "Black")
+        button.anchor(width: 24, height: 24)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(didTappedExplanationButton), for: .touchUpInside)
+        return button
+    }()
+
     private lazy var calendarView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 0.5
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = false
@@ -27,6 +38,7 @@ final class CalendarView: UIView {
         layout.collectionView?.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         layout.collectionView?.layer.cornerCurve = .continuous
         layout.collectionView?.layer.cornerRadius = 15
+        collectionView.backgroundColor = UIColor(named: "LightGray")
         collectionView.layer.borderWidth = 1
         collectionView.layer.borderColor = UIColor(named: "LightGray")?.cgColor
         return collectionView
@@ -64,6 +76,8 @@ final class CalendarView: UIView {
         }
     }
 
+    weak var explanationDeleatge: ExplanationButtonDelegate?
+
     init(viewModel: HomeViewModelIO?) {
         self.viewModel = viewModel
         super.init(frame: CGRect(origin: .zero, size: .zero))
@@ -79,6 +93,7 @@ final class CalendarView: UIView {
 
     func configureView() {
         self.addSubview(titleLabel)
+        self.addSubview(explanationButton)
         self.addSubview(calendarView)
         self.addSubview(headerView)
 
@@ -86,15 +101,21 @@ final class CalendarView: UIView {
             DateCollectionViewCell.self,
             forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier
         )
-
         headerView.baseDate = self.viewModel?.baseDate.value ?? Date()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: 10,
-                          top: readableContentGuide.topAnchor, paddingTop: 10)
+        titleLabel.anchor(horizontal: self,
+                          paddingHorizontal: 10,
+                          top: readableContentGuide.topAnchor,
+                          paddingTop: 10)
+
+        explanationButton.anchor(trailing: self.trailingAnchor,
+                              paddingTrailing: 10,
+                              top: readableContentGuide.topAnchor,
+                              paddingTop: 10)
 
         headerView.anchor(horizontal: headerView.superview,
                           top: titleLabel.bottomAnchor, paddingTop: 20,
@@ -102,7 +123,7 @@ final class CalendarView: UIView {
 
         calendarView.anchor(horizontal: headerView,
                             top: headerView.bottomAnchor,
-                            height: 55 * 6 + 10)
+                            height: 56 * 6)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -127,4 +148,12 @@ final class CalendarView: UIView {
     func reloadData() {
         self.calendarView.reloadData()
     }
+
+    @objc private func didTappedExplanationButton() {
+        explanationDeleatge?.didTappedExplanationButton()
+    }
+}
+
+protocol ExplanationButtonDelegate: AnyObject {
+    func didTappedExplanationButton()
 }

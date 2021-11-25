@@ -48,13 +48,13 @@ final class DateCollectionViewCell: UICollectionViewCell {
 
             var image: UIImage?
             if achievementRate > 0 && achievementRate < 0.2 {
-                image = UIImage(named: "0-20")
+                image = UIImage(named: "1-19")
             } else if achievementRate >= 0.2 && achievementRate < 0.4 {
-                image = UIImage(named: "20-40")
-            } else if achievementRate >= 0.4 && achievementRate < 0.7 {
-                image = UIImage(named: "40-70")
-            } else if achievementRate >= 0.7 && achievementRate < 1 {
-                image = UIImage(named: "70-99")
+                image = UIImage(named: "20-39")
+            } else if achievementRate >= 0.4 && achievementRate < 0.66 {
+                image = UIImage(named: "40-65")
+            } else if achievementRate >= 0.66 && achievementRate < 1 {
+                image = UIImage(named: "66-99")
             } else if achievementRate == 1 {
                 image = UIImage(named: "100")
             }
@@ -77,13 +77,14 @@ final class DateCollectionViewCell: UICollectionViewCell {
 
         let size = traitCollection.horizontalSizeClass == .compact ?
           min(min(frame.width, frame.height) - 10, 60) : 45
+        backgroundColor = .systemBackground
 
         numberLabel.anchor(leading: numberLabel.superview?.leadingAnchor, paddingLeading: 5,
                            top: numberLabel.superview?.topAnchor, paddingTop: 5)
 
         achievementCharacterView.anchor(centerX: achievementCharacterView.superview?.centerXAnchor,
                                         centerY: achievementCharacterView.superview?.centerYAnchor,
-                                        width: size - 10)
+                                        width: size - 8)
         let constraint = achievementCharacterView.heightAnchor
             .constraint(equalToConstant: achievementCharacterView.frame.width)
         constraint.priority = UILayoutPriority(900)

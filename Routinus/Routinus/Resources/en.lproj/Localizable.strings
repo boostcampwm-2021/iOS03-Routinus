@@ -23,6 +23,7 @@
 "fri" = "F";
 "sat" = "S";
 "sun" = "S";
+"calendar explanation" = "Depending on how much\nyou've done your routine,\nyou'll get a different sticker :)";
 
 // challenge
 "challenge category" = "Challenge Category";
