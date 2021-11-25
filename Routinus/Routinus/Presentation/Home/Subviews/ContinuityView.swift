@@ -12,24 +12,13 @@ final class ContinuityView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "seed")
-        imageView.isHidden = true
         return imageView
-    }()
-
-    private lazy var initContinuityLabel: UILabel = {
-        let label = UILabel()
-        label.text = "루티너스와 함께 시작해봐요!"
-        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        label.textColor = UIColor(named: "Black")
-        label.isHidden = true
-        return label
     }()
 
     private lazy var continuityDayLabel: UILabel = {
         let label = UILabel()
         label.text = "0"
         label.font = UIFont.boldSystemFont(ofSize: 48)
-        label.isHidden = true
         return label
     }()
 
@@ -37,7 +26,6 @@ final class ContinuityView: UIView {
         let label = UILabel()
         label.text = "in a row".localized
         label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        label.isHidden = true
         return label
     }()
 
@@ -57,12 +45,6 @@ final class ContinuityView: UIView {
 
     func configureContents(with user: User) {
         guard !user.name.isEmpty else { return }
-        let isZero = user.continuityDay == 0
-
-        seedImageView.isHidden = isZero
-        initContinuityLabel.isHidden = !isZero
-        continuityDayLabel.isHidden = isZero
-        continuityLabel.isHidden = isZero
         continuityDayLabel.text = "\(user.continuityDay)"
     }
 }
@@ -84,10 +66,6 @@ extension ContinuityView {
         seedImageView.anchor(leading: self.leadingAnchor, paddingLeading: 20,
                              centerY: self.centerYAnchor,
                              width: 60, height: 60)
-
-        addSubview(initContinuityLabel)
-        initContinuityLabel.anchor(centerX: self.centerXAnchor,
-                                   centerY: self.centerYAnchor)
 
         addSubview(continuityDayLabel)
         continuityDayLabel.anchor(leading: seedImageView.trailingAnchor, paddingLeading: 10,
