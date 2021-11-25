@@ -52,13 +52,21 @@ public enum RoutinusNetwork {
                                        authExampleImageURL: String,
                                        authExampleThumbnailImageURL: String,
                                        completion: (() -> Void)?) {
-        insertChallenge(dto: challenge, completion: nil)
-        insertChallengeParticipation(dto: participation, completion: nil)
-
         let uploadQueue = DispatchQueue(label: "uploadQueue")
         let group = DispatchGroup()
 
+        group.enter()
         uploadQueue.async(group: group) {
+            group.enter()
+            insertChallenge(dto: challenge) {
+                group.leave()
+            }
+
+            group.enter()
+            insertChallengeParticipation(dto: participation) {
+                group.leave()
+            }
+
             let id = challenge.document?.fields.id.stringValue ?? ""
             uploadImage(id: id,
                         filename: "image",
@@ -76,6 +84,8 @@ public enum RoutinusNetwork {
                         filename: "thumbnail_auth_method",
                         imageURL: authExampleThumbnailImageURL,
                         completion: nil)
+
+            group.leave()
         }
 
         group.notify(queue: uploadQueue) {

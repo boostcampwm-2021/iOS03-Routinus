@@ -9,7 +9,6 @@ import Combine
 import UIKit
 
 final class CreateCoordinator: RoutinusCoordinator {
-    static let confirmCreate = Notification.Name("confirmCreate")
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
@@ -43,11 +42,5 @@ final class CreateCoordinator: RoutinusCoordinator {
         let createViewController = CreateViewController(with: createViewModel)
         createViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(createViewController, animated: true)
-
-        createViewModel.alertConfirmTap
-            .sink { _ in
-                NotificationCenter.default.post(name: CreateCoordinator.confirmCreate, object: nil)
-            }
-            .store(in: &cancellables)
     }
 }

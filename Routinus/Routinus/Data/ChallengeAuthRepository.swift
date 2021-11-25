@@ -11,9 +11,10 @@ import RoutinusNetwork
 import RoutinusStorage
 
 protocol ChallengeAuthRepository {
-    func save(challengeAuth: ChallengeAuth,
-              userAuthImageURL: String,
-              userAuthThumbnailImageURL: String)
+    func insert(challengeAuth: ChallengeAuth,
+                userAuthImageURL: String,
+                userAuthThumbnailImageURL: String,
+                completion: (() -> Void)?)
     func fetchChallengeAuth(todayDate: String,
                             userID: String,
                             challengeID: String,
@@ -26,9 +27,10 @@ protocol ChallengeAuthRepository {
 }
 
 extension RoutinusRepository: ChallengeAuthRepository {
-    func save(challengeAuth: ChallengeAuth,
-              userAuthImageURL: String,
-              userAuthThumbnailImageURL: String) {
+    func insert(challengeAuth: ChallengeAuth,
+                userAuthImageURL: String,
+                userAuthThumbnailImageURL: String,
+                completion: (() -> Void)?) {
         guard let date = challengeAuth.date?.toDateString(),
               let time = challengeAuth.time?.toTimeString() else { return }
 
@@ -41,6 +43,7 @@ extension RoutinusRepository: ChallengeAuthRepository {
                                             userAuthImageURL: userAuthImageURL,
                                             userAuthThumbnailImageURL: userAuthThumbnailImageURL) {
             RoutinusStorage.removeCachedImages(from: "temp")
+            completion?()
         }
     }
 

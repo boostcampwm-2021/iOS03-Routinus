@@ -40,14 +40,36 @@ final class ManageViewModel: ManageViewModelIO {
     let challengeFetchUsecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
+    let challengeCreatePublisher = NotificationCenter.default.publisher(for: ChallengeCreateUsecase.didCreateChallenge,
+                                                                        object: nil)
+    let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
+                                                                        object: nil)
+
     init(imageFetchUsecase: ImageFetchableUsecase,
          challengeFetchUsecase: ChallengeFetchableUsecase) {
         self.imageFetchUsecase = imageFetchUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
+        self.configurePublishers()
     }
 }
 
 extension ManageViewModel {
+    func configurePublishers() {
+        self.challengeCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.didLoadedManageView()
+            }
+            .store(in: &cancellables)
+
+        self.challengeUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.didLoadedManageView()
+            }
+            .store(in: &cancellables)
+    }
+
     func didTappedAddButton() {
         challengeAddButtonTap.send()
     }

@@ -62,6 +62,21 @@ final class HomeViewModel: HomeViewModelIO {
 
     let formatter = DateFormatter()
 
+    let userUpdatePublisher = NotificationCenter.default.publisher(for: UserUpdateUsecase.didUpdateUser,
+                                                                   object: nil)
+    let challengeCreatePublisher = NotificationCenter.default.publisher(for: ChallengeCreateUsecase.didCreateChallenge,
+                                                                        object: nil)
+    let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
+                                                                        object: nil)
+    let achievementUpdatePublisher = NotificationCenter.default.publisher(for: AchievementUpdateUsecase.didUpdateAchievement,
+                                                                          object: nil)
+    let authCreatePublisher = NotificationCenter.default.publisher(for: ChallengeAuthCreateUsecase.didCreateAuth,
+                                                                   object: nil)
+    let participationCreatePublisher = NotificationCenter.default.publisher(for: ParticipationCreateUsecase.didCreateParticipation,
+                                                                            object: nil)
+    let participationUpdatePublisher = NotificationCenter.default.publisher(for: ParticipationUpdateUsecase.didUpdateParticipation,
+                                                                            object: nil)
+
     init(userCreateUsecase: UserCreatableUsecase,
          userFetchUsecase: UserFetchableUsecase,
          userUpdateUsecase: UserUpdatableUsecase,
@@ -79,6 +94,7 @@ final class HomeViewModel: HomeViewModelIO {
         self.baseDate.value = Date()
         self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
         self.fetchMyHomeData()
+        self.configurePublishers()
     }
 }
 
@@ -86,7 +102,7 @@ extension HomeViewModel {
     func fetchMyHomeData() {
         fetchUser()
         fetchTodayRoutine()
-        fetchAchievement()
+        fetchAchievement(date: baseDate.value)
         updateContinuityDay()
     }
 
@@ -103,9 +119,63 @@ extension HomeViewModel {
         let challengeID = self.todayRoutines.value[index].challengeID
         self.todayRoutineAuthTap.send(challengeID)
     }
-    
+  
     func didTappedExplanationButton() {
         self.calendarExplanationButtonTap.send()
+    }
+
+    func configurePublishers() {
+        self.userUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchMyHomeData()
+            }
+            .store(in: &cancellables)
+
+        self.challengeCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchTodayRoutine()
+            }
+            .store(in: &cancellables)
+
+        self.challengeUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchTodayRoutine()
+            }
+            .store(in: &cancellables)
+
+        self.achievementUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchAchievement(date: self.baseDate.value)
+            }
+            .store(in: &cancellables)
+
+        self.authCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchTodayRoutine()
+                self.fetchAchievement(date: self.baseDate.value)
+            }
+            .store(in: &cancellables)
+
+        self.participationCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchTodayRoutine()
+                self.fetchAchievement(date: self.baseDate.value)
+            }
+            .store(in: &cancellables)
+
+        self.participationUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchTodayRoutine()
+                self.fetchAchievement(date: self.baseDate.value)
+            }
+            .store(in: &cancellables)
     }
 }
 

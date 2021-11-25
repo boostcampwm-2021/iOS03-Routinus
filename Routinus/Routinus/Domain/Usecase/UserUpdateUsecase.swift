@@ -15,6 +15,8 @@ protocol UserUpdatableUsecase {
 }
 
 struct UserUpdateUsecase: UserUpdatableUsecase {
+    static let didUpdateUser = Notification.Name("didUpdateUser")
+
     var repository: UserRepository
 
     init(repository: UserRepository) {
@@ -31,13 +33,19 @@ struct UserUpdateUsecase: UserUpdatableUsecase {
 
     func updateContinuityDayByAuth() {
         guard let userID = RoutinusRepository.userID() else { return }
-        self.repository.updateContinuityDayByAuth(by: userID)
+        self.repository.updateContinuityDayByAuth(by: userID) {
+            NotificationCenter.default.post(name: UserUpdateUsecase.didUpdateUser,
+                                            object: nil)
+        }
     }
 
     func updateUsername(of id: String,
                         name: String) {
         self.repository.updateUsername(of: id,
-                                       name: name)
+                                       name: name) {
+            NotificationCenter.default.post(name: UserUpdateUsecase.didUpdateUser,
+                                            object: nil)
+        }
     }
 
     func updateThemeStyle(_ style: Int) {
