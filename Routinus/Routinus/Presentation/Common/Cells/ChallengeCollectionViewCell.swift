@@ -57,4 +57,10 @@ extension ChallengeCollectionViewCell {
                           top: imageView.bottomAnchor, paddingTop: 10,
                           bottom: titleLabel.superview?.bottomAnchor)
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.titleLabel.text = ""
+        self.imageView.image = nil
+    }
 }
