@@ -41,4 +41,9 @@ extension AuthImagesCollectionViewCell {
                          top: self.topAnchor,
                          bottom: self.bottomAnchor)
     }
+
+    func imageData() -> Data {
+        guard let imageData = imageView.image?.jpegData(compressionQuality: 1) else { return Data() }
+        return imageData
+    }
 }

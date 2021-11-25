@@ -18,6 +18,8 @@ protocol AuthImagesViewModelInput {
 protocol AuthImagesViewModelOutput {
     var auths: CurrentValueSubject<[ChallengeAuth], Never> { get }
     var authDisplayState: CurrentValueSubject<AuthDisplayState, Never> { get }
+    var authImageTap: PassthroughSubject<Data, Never> { get }
+    var authImageLoad: PassthroughSubject<Data, Never> { get }
 }
 
 protocol AuthImagesViewModelIO: AuthImagesViewModelInput, AuthImagesViewModelOutput { }
@@ -25,6 +27,8 @@ protocol AuthImagesViewModelIO: AuthImagesViewModelInput, AuthImagesViewModelOut
 final class AuthImagesViewModel: AuthImagesViewModelIO {
     var auths = CurrentValueSubject<[ChallengeAuth], Never>([])
     var authDisplayState = CurrentValueSubject<AuthDisplayState, Never>(.all)
+    var authImageTap = PassthroughSubject<Data, Never>()
+    var authImageLoad = PassthroughSubject<Data, Never>()
 
     let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
     let imageFetchUsecase: ImageFetchableUsecase

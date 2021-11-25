@@ -99,12 +99,15 @@ extension AuthImagesViewController {
     }
 }
 
-extension AuthImagesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension AuthImagesViewController: UICollectionViewDataSource,
+                                    UICollectionViewDelegate,
+                                    UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.auths.value.count ?? 0
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AuthImagesCollectionViewCell.identifier,
                                                             for: indexPath) as? AuthImagesCollectionViewCell else { return UICollectionViewCell() }
 
@@ -112,7 +115,7 @@ extension AuthImagesViewController: UICollectionViewDataSource, UICollectionView
               let date = auth.date?.toDateString() else { return UICollectionViewCell() }
         let filename = "\(auth.userID)_\(date)_thumbnail_auth"
         viewModel?.imageData(from: auth.challengeID,
-                            filename: filename) { data in
+                             filename: filename) { data in
             guard let data = data,
                   let image = UIImage(data: data) else { return }
             DispatchQueue.main.async {
@@ -127,5 +130,23 @@ extension AuthImagesViewController: UICollectionViewDataSource, UICollectionView
         let minimumInteritemSpacing: CGFloat = 10
         let width = collectionView.frame.size.width - (minimumInteritemSpacing * (numberOfCells-1))
         return CGSize(width: width / numberOfCells, height: width / numberOfCells)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? AuthImagesCollectionViewCell else { return }
+        self.viewModel?.authImageTap.send(cell.imageData())
+
+        guard let auth = viewModel?.auths.value[indexPath.item],
+              let date = auth.date?.toDateString() else { return }
+        let filename = "\(auth.userID)_\(date)_auth"
+        viewModel?.imageData(from: auth.challengeID,
+                             filename: filename) { data in
+            guard let data = data,
+                  let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                self.viewModel?.authImageLoad.send(data)
+                print(data)
+            }
+        }
     }
 }
