@@ -141,11 +141,9 @@ extension AuthImagesViewController: UICollectionViewDataSource,
         let filename = "\(auth.userID)_\(date)_auth"
         viewModel?.imageData(from: auth.challengeID,
                              filename: filename) { data in
-            guard let data = data,
-                  let image = UIImage(data: data) else { return }
+            guard let data = data else { return }
             DispatchQueue.main.async {
                 self.viewModel?.authImageLoad.send(data)
-                print(data)
             }
         }
     }
