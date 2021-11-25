@@ -66,6 +66,14 @@ final class HomeCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
+        homeViewModel.calendarQuestionButtonTap
+            .sink { _ in
+                homeViewController.present(CalendarExplanationViewController(),
+                                             animated: true,
+                                             completion: nil)
+            }
+            .store(in: &cancellables)
+
         self.authPublisher
             .receive(on: RunLoop.main)
             .sink { _ in

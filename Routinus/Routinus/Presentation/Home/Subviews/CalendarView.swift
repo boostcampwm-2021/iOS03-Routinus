@@ -16,6 +16,17 @@ final class CalendarView: UIView {
         return label
     }()
 
+    private lazy var questionButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "questionmark.circle"), for: .normal)
+        button.tintColor = UIColor(named: "Black")
+        button.anchor(width: 24, height: 24)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(self, action: #selector(didTappedQuestionButton), for: .touchUpInside)
+        return button
+    }()
+
     private lazy var calendarView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -63,6 +74,8 @@ final class CalendarView: UIView {
             calendarView.dataSource = dataSource
         }
     }
+    
+    weak var questionDeleatge: QuestionButtonDelegate?
 
     init(viewModel: HomeViewModelIO?) {
         self.viewModel = viewModel
@@ -79,6 +92,7 @@ final class CalendarView: UIView {
 
     func configureView() {
         self.addSubview(titleLabel)
+        self.addSubview(questionButton)
         self.addSubview(calendarView)
         self.addSubview(headerView)
 
@@ -93,8 +107,15 @@ final class CalendarView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: 10,
-                          top: readableContentGuide.topAnchor, paddingTop: 10)
+        titleLabel.anchor(horizontal: self,
+                          paddingHorizontal: 10,
+                          top: readableContentGuide.topAnchor,
+                          paddingTop: 10)
+
+        questionButton.anchor(trailing: self.trailingAnchor,
+                              paddingTrailing: 10,
+                              top: readableContentGuide.topAnchor,
+                              paddingTop: 10)
 
         headerView.anchor(horizontal: headerView.superview,
                           top: titleLabel.bottomAnchor, paddingTop: 20,
@@ -127,4 +148,12 @@ final class CalendarView: UIView {
     func reloadData() {
         self.calendarView.reloadData()
     }
+    
+    @objc private func didTappedQuestionButton() {
+        questionDeleatge?.didTappedQuestionButton()
+    }
+}
+
+protocol QuestionButtonDelegate: AnyObject {
+    func didTappedQuestionButton()
 }

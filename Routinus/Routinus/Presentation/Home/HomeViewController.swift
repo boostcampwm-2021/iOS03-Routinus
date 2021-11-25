@@ -149,6 +149,7 @@ extension HomeViewController {
         todayRoutineView.challengeAddDelegate = self
         calendarView.delegate = self
         calendarView.dataSource = self
+        calendarView.questionDeleatge = self
     }
 }
 
@@ -232,5 +233,11 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let width = Int(collectionView.frame.width / 7)
         let height = 55
         return CGSize(width: width, height: height)
+    }
+}
+
+extension HomeViewController: QuestionButtonDelegate {
+    func didTappedQuestionButton() {
+        self.viewModel?.didTappedQuestionButton()
     }
 }
