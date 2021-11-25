@@ -29,8 +29,8 @@ final class CalendarView: UIView {
 
     private lazy var calendarView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 0.5
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = false
@@ -38,6 +38,7 @@ final class CalendarView: UIView {
         layout.collectionView?.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         layout.collectionView?.layer.cornerCurve = .continuous
         layout.collectionView?.layer.cornerRadius = 15
+        collectionView.backgroundColor = UIColor(named: "LightGray")
         collectionView.layer.borderWidth = 1
         collectionView.layer.borderColor = UIColor(named: "LightGray")?.cgColor
         return collectionView
@@ -100,7 +101,6 @@ final class CalendarView: UIView {
             DateCollectionViewCell.self,
             forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier
         )
-
         headerView.baseDate = self.viewModel?.baseDate.value ?? Date()
     }
 
@@ -123,7 +123,7 @@ final class CalendarView: UIView {
 
         calendarView.anchor(horizontal: headerView,
                             top: headerView.bottomAnchor,
-                            height: 55 * 6 + 10)
+                            height: 56 * 6)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

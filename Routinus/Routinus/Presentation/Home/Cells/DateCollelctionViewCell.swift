@@ -77,13 +77,14 @@ final class DateCollectionViewCell: UICollectionViewCell {
 
         let size = traitCollection.horizontalSizeClass == .compact ?
           min(min(frame.width, frame.height) - 10, 60) : 45
+        backgroundColor = .systemBackground
 
         numberLabel.anchor(leading: numberLabel.superview?.leadingAnchor, paddingLeading: 5,
                            top: numberLabel.superview?.topAnchor, paddingTop: 5)
 
         achievementCharacterView.anchor(centerX: achievementCharacterView.superview?.centerXAnchor,
                                         centerY: achievementCharacterView.superview?.centerYAnchor,
-                                        width: size - 10)
+                                        width: size - 8)
         let constraint = achievementCharacterView.heightAnchor
             .constraint(equalToConstant: achievementCharacterView.frame.width)
         constraint.priority = UILayoutPriority(900)
