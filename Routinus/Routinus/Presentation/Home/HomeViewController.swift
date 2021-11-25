@@ -49,6 +49,7 @@ final class HomeViewController: UIViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
+        configureRefreshControl()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +150,27 @@ extension HomeViewController {
         todayRoutineView.challengeAddDelegate = self
         calendarView.delegate = self
         calendarView.dataSource = self
+        calendarView.explanationDeleatge = self
+    }
+
+    private func configureRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                           action: #selector(refresh),
+                           for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "swipe".localized,
+                                                     attributes: [NSAttributedString.Key.foregroundColor:
+                                                                    UIColor.systemGray,
+                                                                  NSAttributedString.Key.font:
+                                                                    UIFont.boldSystemFont(ofSize: 16)])
+        self.scrollView.refreshControl = refreshControl
+    }
+
+    @objc private func refresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.viewModel?.fetchMyHomeData()
+            self.scrollView.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -232,5 +254,11 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let width = Int(collectionView.frame.width / 7)
         let height = 55
         return CGSize(width: width, height: height)
+    }
+}
+
+extension HomeViewController: ExplanationButtonDelegate {
+    func didTappedExplanationButton() {
+        self.viewModel?.didTappedExplanationButton()
     }
 }

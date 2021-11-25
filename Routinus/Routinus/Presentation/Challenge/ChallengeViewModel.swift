@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 protocol ChallengeViewModelInput {
+    func fetchChallenge()
     func didTappedSearchButton()
     func didTappedSeeAllButton()
     func didTappedRecommendChallenge(index: Int)
@@ -65,6 +66,12 @@ extension ChallengeViewModel {
             }
             .store(in: &cancellables)
     }
+  
+    func fetchChallenge() {
+        challengeFetchUsecase.fetchRecommendChallenges { [weak self] recommendChallenge in
+            self?.recommendChallenges.value = recommendChallenge
+        }
+    }
 
     func didTappedSearchButton() {
         searchButtonTap.send()
@@ -81,13 +88,5 @@ extension ChallengeViewModel {
 
     func didTappedCategoryButton(category: Challenge.Category) {
         categoryButtonTap.send(category)
-    }
-}
-
-extension ChallengeViewModel {
-    func fetchChallenge() {
-        challengeFetchUsecase.fetchRecommendChallenges { [weak self] recommendChallenge in
-            self?.recommendChallenges.value = recommendChallenge
-        }
     }
 }

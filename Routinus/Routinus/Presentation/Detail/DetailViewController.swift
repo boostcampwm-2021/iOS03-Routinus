@@ -54,6 +54,7 @@ final class DetailViewController: UIViewController {
         self.configureViews()
         self.configureViewModel()
         self.configureDelegate()
+        self.configureRefreshControl()
     }
 
     init(with viewModel: DetailViewModelIO) {
@@ -169,6 +170,26 @@ final class DetailViewController: UIViewController {
         participantButton.delegate = self
         detailAuthDisplayListView.delegate = self
         authMethodView.delegate = self
+    }
+
+    private func configureRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                           action: #selector(refresh),
+                           for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "swipe".localized,
+                                                     attributes: [NSAttributedString.Key.foregroundColor:
+                                                                    UIColor.systemGray,
+                                                                  NSAttributedString.Key.font:
+                                                                    UIFont.boldSystemFont(ofSize: 20)])
+        self.scrollView.refreshControl = refreshControl
+    }
+
+    @objc private func refresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.viewModel?.fetchChallenge()
+            self.scrollView.refreshControl?.endRefreshing()
+        }
     }
 
     @objc private func didTappedEditBarButton(_ sender: UIBarButtonItem) {

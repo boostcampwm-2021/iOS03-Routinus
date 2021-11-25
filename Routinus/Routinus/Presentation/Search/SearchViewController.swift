@@ -70,6 +70,7 @@ final class SearchViewController: UIViewController {
         self.snapshot.appendSections(Section.allCases)
         self.configureViews()
         self.configureViewModel()
+        self.configureRefreshControl()
         self.didLoadedSearchView()
     }
 }
@@ -171,6 +172,26 @@ extension SearchViewController {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
             let layout = SearchCollectionViewLayouts()
             return layout.section(at: sectionNumber)
+        }
+    }
+
+    private func configureRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                           action: #selector(refresh),
+                           for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "swipe".localized,
+                                                     attributes: [NSAttributedString.Key.foregroundColor:
+                                                                    UIColor.systemGray,
+                                                                  NSAttributedString.Key.font:
+                                                                    UIFont.boldSystemFont(ofSize: 20)])
+        self.collectionView.refreshControl = refreshControl
+    }
+
+    @objc private func refresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.viewModel?.didLoadedSearchView()
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
 }

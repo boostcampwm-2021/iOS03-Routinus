@@ -23,6 +23,7 @@
 "fri" = "금";
 "sat" = "토";
 "sun" = "일";
+"calendar explanation" = "오늘 루틴을 달성한 정도에 따라\n다른 스티커가 붙어요 :)";
 
 //challenge
 "challenge category" = "챌린지 카테고리";
@@ -55,3 +56,6 @@
 "Email inquiry" = "이메일 문의";
 "Q&A" = "자주 묻는 질문";
 "Open Source Licenses" = "오픈소스 라이선스";
+
+// swipe
+"swipe" = "잠시만 기다려주세요...";

@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 protocol AuthImagesViewModelInput {
+    func fetchChallengeAuthData(authDisplayState: AuthDisplayState)
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)?)
@@ -51,7 +52,7 @@ final class AuthImagesViewModel: AuthImagesViewModelIO {
 }
 
 extension AuthImagesViewModel {
-    private func fetchChallengeAuthData(authDisplayState: AuthDisplayState) {
+    func fetchChallengeAuthData(authDisplayState: AuthDisplayState) {
         switch authDisplayState {
         case .all:
             self.authDisplayState.value = .all
