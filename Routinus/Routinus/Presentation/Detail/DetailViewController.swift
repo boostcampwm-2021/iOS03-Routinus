@@ -162,6 +162,7 @@ final class DetailViewController: UIViewController {
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
                 self.viewModel?.updateParticipantCount()
+                self.presentAlert()
             })
             .store(in: &cancellables)
     }
@@ -200,7 +201,6 @@ final class DetailViewController: UIViewController {
 extension DetailViewController: ParticipantButtonDelegate {
     func didTappedParticipantButton() {
         viewModel?.didTappedParticipationAuthButton()
-        presentAlert()
     }
 
     func presentAlert() {
