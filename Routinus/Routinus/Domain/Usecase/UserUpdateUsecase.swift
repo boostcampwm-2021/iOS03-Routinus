@@ -39,10 +39,9 @@ struct UserUpdateUsecase: UserUpdatableUsecase {
     func updateUsername(of id: String,
                         name: String) {
         self.repository.updateUsername(of: id,
-                                       name: name) { dto in
-            let user = User(userDTO: dto)
+                                       name: name) {
             NotificationCenter.default.post(name: UserUpdateUsecase.didUpdateUsername,
-                                            object: user)
+                                            object: nil)
         }
     }
 

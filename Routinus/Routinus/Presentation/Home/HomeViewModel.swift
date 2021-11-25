@@ -112,9 +112,8 @@ extension HomeViewModel {
     func configurePublishers() {
         self.usernameUpdatePublisher
             .receive(on: RunLoop.main)
-            .sink { notification in
-                guard let user = notification.object as? User else { return }
-                self.user.value = user
+            .sink { _ in
+                self.fetchUser()
             }
             .store(in: &cancellables)
 

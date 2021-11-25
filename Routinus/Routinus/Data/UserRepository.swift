@@ -22,7 +22,7 @@ protocol UserRepository {
     func fetchThemeStyle() -> Int
     func updateUsername(of id: String,
                         name: String,
-                        completion: ((UserDTO) -> Void)?)
+                        completion: (() -> Void)?)
     func updateThemeStyle(_ style: Int)
 }
 
@@ -68,10 +68,10 @@ extension RoutinusRepository: UserRepository {
 
     func updateUsername(of id: String,
                         name: String,
-                        completion: ((UserDTO) -> Void)?) {
+                        completion: (() -> Void)?) {
         RoutinusNetwork.updateUsername(of: id,
-                                       name: name) { dto in
-            completion?(dto)
+                                       name: name) {
+            completion?()
         }
     }
 
