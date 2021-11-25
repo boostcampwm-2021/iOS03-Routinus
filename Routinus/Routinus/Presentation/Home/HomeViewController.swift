@@ -49,6 +49,7 @@ final class HomeViewController: UIViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
+        configureRefreshControl()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -149,6 +150,24 @@ extension HomeViewController {
         todayRoutineView.challengeAddDelegate = self
         calendarView.delegate = self
         calendarView.dataSource = self
+    }
+
+    private func configureRefreshControl() {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self,
+                           action: #selector(refreshData),
+                           for: .valueChanged)
+        refresh.attributedTitle = NSAttributedString(string: "Loading Data...",
+                                                     attributes: [NSAttributedString.Key.foregroundColor:
+                                                                    UIColor.systemGray,
+                                                                  NSAttributedString.Key.font:
+                                                                    UIFont.boldSystemFont(ofSize: 20)])
+        self.scrollView.refreshControl = refresh
+    }
+
+    @objc private func refreshData() {
+        self.viewModel?.fetchMyHomeData()
+        self.scrollView.refreshControl?.endRefreshing()
     }
 }
 
