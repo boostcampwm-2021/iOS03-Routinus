@@ -54,6 +54,7 @@ final class DetailViewController: UIViewController {
         self.configureViews()
         self.configureViewModel()
         self.configureDelegate()
+        self.configureRefreshControl()
     }
 
     init(with viewModel: DetailViewModelIO) {
@@ -170,6 +171,26 @@ final class DetailViewController: UIViewController {
         participantButton.delegate = self
         detailAuthDisplayListView.delegate = self
         authMethodView.delegate = self
+    }
+
+    private func configureRefreshControl() {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self,
+                           action: #selector(refreshData),
+                           for: .valueChanged)
+        refresh.attributedTitle = NSAttributedString(string: "Loading Data...",
+                                                     attributes: [NSAttributedString.Key.foregroundColor:
+                                                                    UIColor.systemGray,
+                                                                  NSAttributedString.Key.font:
+                                                                    UIFont.boldSystemFont(ofSize: 20)])
+        self.scrollView.refreshControl = refresh
+    }
+
+    @objc private func refreshData() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.viewModel?.fetchChallenge()
+            self.scrollView.refreshControl?.endRefreshing()
+        }
     }
 
     private func presentAlert() {
