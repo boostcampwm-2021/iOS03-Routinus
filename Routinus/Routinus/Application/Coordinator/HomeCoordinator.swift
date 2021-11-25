@@ -65,7 +65,7 @@ final class HomeCoordinator: RoutinusCoordinator {
                 let explanationController = CalendarExplanationViewController()
                 explanationController.modalPresentationStyle = .overFullScreen
                 homeViewController.present(explanationController,
-                                           animated: true,
+                                           animated: false,
                                            completion: nil)
             }
             .store(in: &cancellables)

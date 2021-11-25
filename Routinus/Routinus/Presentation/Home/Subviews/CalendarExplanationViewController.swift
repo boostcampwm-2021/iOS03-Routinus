@@ -23,7 +23,7 @@ class CalendarExplanationViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.tintColor = UIColor(named: "Black")
-        button.addTarget(self, action: #selector(didTapDismisButton(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTappedDismisButton(_:)), for: .touchUpInside)
         return button
     }()
 
@@ -95,7 +95,7 @@ class CalendarExplanationViewController: UIViewController {
         }
     }
 
-    @objc private func didTapDismisButton(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+    @objc private func didTappedDismisButton(_ sender: UIButton) {
+        dismiss(animated: false, completion: nil)
     }
 }
