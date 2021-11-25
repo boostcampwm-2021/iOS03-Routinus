@@ -174,19 +174,19 @@ final class DetailViewController: UIViewController {
     }
 
     private func configureRefreshControl() {
-        let refresh = UIRefreshControl()
-        refresh.addTarget(self,
-                           action: #selector(refreshData),
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                           action: #selector(refresh),
                            for: .valueChanged)
-        refresh.attributedTitle = NSAttributedString(string: "swipe".localized,
+        refreshControl.attributedTitle = NSAttributedString(string: "swipe".localized,
                                                      attributes: [NSAttributedString.Key.foregroundColor:
                                                                     UIColor.systemGray,
                                                                   NSAttributedString.Key.font:
                                                                     UIFont.boldSystemFont(ofSize: 20)])
-        self.scrollView.refreshControl = refresh
+        self.scrollView.refreshControl = refreshControl
     }
 
-    @objc private func refreshData() {
+    @objc private func refresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.viewModel?.fetchChallenge()
             self.scrollView.refreshControl?.endRefreshing()
