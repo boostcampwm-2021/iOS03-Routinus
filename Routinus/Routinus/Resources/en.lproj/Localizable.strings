@@ -17,7 +17,8 @@
 // home
 "in a row" = "days achieved!";
 "today routine" = "Today's Routine";
-"add routine" = "There seems no routine to do today.\nLet's see what challenges there are.🤗";
+"add routine" = "No routine.\nLet's see our challenges.🤗";
+"search challenge" = "Search Challenge";
 "summary" = "Summary";
 "mon" = "M";
 "tue" = "T";
