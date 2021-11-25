@@ -18,7 +18,8 @@ protocol UserRepository {
                    completion: ((User) -> Void)?)
     func updateContinuityDay(by id: String,
                              completion: ((UserDTO) -> Void)?)
-    func updateContinuityDayByAuth(by id: String)
+    func updateContinuityDayByAuth(by id: String,
+                                   completion: (() -> Void)?)
     func fetchThemeStyle() -> Int
     func updateUsername(of id: String,
                         name: String,
@@ -57,9 +58,11 @@ extension RoutinusRepository: UserRepository {
         }
     }
 
-    func updateContinuityDayByAuth(by id: String) {
-        RoutinusNetwork.updateContinuityDayByAuth(of: id,
-                                                  completion: nil)
+    func updateContinuityDayByAuth(by id: String,
+                                   completion: (() -> Void)?) {
+        RoutinusNetwork.updateContinuityDayByAuth(of: id) {
+            completion?()
+        }
     }
 
     func fetchThemeStyle() -> Int {

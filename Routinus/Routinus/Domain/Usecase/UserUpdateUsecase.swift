@@ -33,7 +33,10 @@ struct UserUpdateUsecase: UserUpdatableUsecase {
 
     func updateContinuityDayByAuth() {
         guard let userID = RoutinusRepository.userID() else { return }
-        self.repository.updateContinuityDayByAuth(by: userID)
+        self.repository.updateContinuityDayByAuth(by: userID) {
+            NotificationCenter.default.post(name: UserUpdateUsecase.didUpdateUser,
+                                            object: nil)
+        }
     }
 
     func updateUsername(of id: String,
