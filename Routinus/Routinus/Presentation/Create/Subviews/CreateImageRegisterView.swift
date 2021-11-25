@@ -12,8 +12,9 @@ final class CreateImageRegisterView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "챌린지 대표 이미지를 등록하세요."
+        label.text = "upload challenge main image".localized
         label.font = .boldSystemFont(ofSize: 20)
+        label.numberOfLines = 2
         return label
     }()
 
@@ -58,8 +59,7 @@ extension CreateImageRegisterView {
     private func configureSubviews() {
         addSubview(titleLabel)
         titleLabel.anchor(top: titleLabel.superview?.topAnchor,
-                          width: UIScreen.main.bounds.width - 20,
-                          height: 24)
+                          width: UIScreen.main.bounds.width - 40)
 
         addSubview(imageView)
         imageView.anchor(centerX: imageView.superview?.centerXAnchor,

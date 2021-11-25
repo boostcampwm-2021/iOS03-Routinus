@@ -12,14 +12,14 @@ final class CreateIntroductionView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "챌린지를 소개하세요."
+        label.text = "introduce challenge".localized
         label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "챌린지를 자세히 소개해보세요. (최대 150자)"
+        label.text = "introduce challenge 150".localized
         label.font = .systemFont(ofSize: 16)
         label.textColor = .systemGray
         label.numberOfLines = 2

@@ -12,7 +12,7 @@ final class AuthMethodView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "인증 방법"
+        label.text = "auth method".localized
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()

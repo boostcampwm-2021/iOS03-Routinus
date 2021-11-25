@@ -204,10 +204,10 @@ extension DetailViewController: ParticipantButtonDelegate {
     }
 
     func presentAlert() {
-        let alert = UIAlertController(title: "알림",
-                                      message: "참여되었습니다",
+        let alert = UIAlertController(title: "alarm".localized,
+                                      message: "participated".localized,
                                       preferredStyle: .alert)
-        let action = UIAlertAction(title: "확인",
+        let action = UIAlertAction(title: "ok".localized,
                                    style: .default)
         alert.addAction(action)
         present(alert, animated: true)

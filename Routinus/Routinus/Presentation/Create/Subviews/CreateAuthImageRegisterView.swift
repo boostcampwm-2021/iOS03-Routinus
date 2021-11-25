@@ -12,17 +12,18 @@ final class CreateAuthImageRegisterView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "인증샷 예시를 등록하세요."
+        label.text = "upload auth exmaple photo".localized
         label.font = .boldSystemFont(ofSize: 20)
+        label.numberOfLines = 2
         return label
     }()
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "다른 사람들이 인증 방법을 이해하기 쉽도록 인증샷을 추가 해주세요."
+        label.text = "add auth example photo".localized
         label.font = .systemFont(ofSize: 16)
         label.textColor = .systemGray
-        label.numberOfLines = 2
+        label.numberOfLines = 3
         return label
     }()
 

@@ -48,7 +48,7 @@ final class InformationView: UIView {
 
     private lazy var weekTitleLabel: UILabel = {
         var label = UILabel()
-        label.text = "기간"
+        label.text = "period".localized
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = UIColor(named: "DayColor")
         return label
@@ -77,7 +77,7 @@ final class InformationView: UIView {
 
     private lazy var endDateTitleLabel: UILabel = {
         var label = UILabel()
-        label.text = "종료일"
+        label.text = "enddate".localized
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = UIColor(named: "DayColor")
         return label
@@ -93,7 +93,7 @@ final class InformationView: UIView {
 
     private lazy var introductionTitleLabel: UILabel = {
         var label = UILabel()
-        label.text = "소개"
+        label.text = "introduction".localized
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = UIColor(named: "DayColor")
         return label
@@ -153,7 +153,6 @@ extension InformationView {
         weekStackView.anchor(height: 20)
 
         weekStackView.addArrangedSubview(weekTitleLabel)
-        weekTitleLabel.anchor(width: 40)
 
         weekView.addSubview(weekLabel)
         weekLabel.anchor(centerX: weekView.centerXAnchor,
@@ -165,7 +164,6 @@ extension InformationView {
         stackView.addArrangedSubview(endDateStackView)
 
         endDateStackView.addArrangedSubview(endDateTitleLabel)
-        endDateTitleLabel.anchor(width: 40)
 
         endDateStackView.addArrangedSubview(endDateLabel)
         endDateLabel.anchor(width: 170)

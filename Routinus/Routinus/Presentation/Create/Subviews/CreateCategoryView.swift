@@ -12,7 +12,7 @@ final class CreateCategoryView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "어떤 주제와 관련이 있나요?"
+        label.text = "what category?".localized
         label.font = .boldSystemFont(ofSize: 20)
         return label
     }()

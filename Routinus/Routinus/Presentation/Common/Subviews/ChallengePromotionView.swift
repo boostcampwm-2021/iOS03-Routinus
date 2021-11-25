@@ -23,7 +23,7 @@ final class ChallengePromotionView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "원하는 챌린지를\n직접 만들어보세요!"
+        label.text = "make your challenge".localized
         label.numberOfLines = 2
         label.textAlignment = .center
         label.font = .boldSystemFont(ofSize: 18)
@@ -32,7 +32,7 @@ final class ChallengePromotionView: UIView {
 
     private lazy var promotionButton: UIButton = {
         let button = UIButton()
-        button.setTitle("챌린지 개설하기", for: .normal)
+        button.setTitle("make challenge".localized, for: .normal)
         button.setTitleColor(.systemBackground, for: .normal)
         button.backgroundColor = UIColor(named: "MainColor")
         button.layer.cornerRadius = 5

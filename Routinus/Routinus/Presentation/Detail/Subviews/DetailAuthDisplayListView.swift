@@ -12,7 +12,7 @@ final class DetailAuthDisplayListView: UIView {
 
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
-        label.text = "인증 목록"
+        label.text = "auth list".localized
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()

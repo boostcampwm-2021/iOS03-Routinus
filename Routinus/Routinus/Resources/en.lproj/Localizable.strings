@@ -10,6 +10,7 @@
 "%@ routine" = "%@'s Routine";
 "challenge" = "Challenges";
 "my challenges" = "My Challenges";
+"mypage" = "My Page";
 
 // common
 "alarm" = "Alarm";
@@ -48,20 +49,58 @@
 "participate" = "Participate";
 "certify" = "Certify";
 "certified" = "Certified!";
-"" = "";
-"" = "";
+"period" = "Period";
+"challenge period" = "Challenge Period";
+"auth method" = "Authenfication Method";
+"enddate" = "End date";
+"introduction" = "Introduction";
+"auth list" = "Authentication list";
+"everyone auth title" = "Auth. photos of all participants";
+"my auth title" = "Auth. photos of mine";
+"everyone auth subtitle" = "Grab all your will through auth. photos of the people you're with!";
+"my auth subtitle" = "Gather your auth. photos at a glance!";
+"participated" = "Participated";
+"auth empty" = "The authentication list is empty. 😞";
+"lets auth" = "Please participate in the authentication right now!";
 
 // manage
 "participatingChallenges" = "Particiating Challenges";
 "createdChallenges" = "Challenges I Created";
 "endedChallenges" = "Ended Challenges";
+"make your challenge" = "Create your own Challenges!";
+"make challenge" = "Create Challenge";
+
+// create
+"what category?" = "Which category is it related to?";
+"write challenge name" = "Please enter the title of the challenge.";
+"don't use bad words" = "Please avoid words that offend others.";
+"ex) wake up at 6am" = "ex) Wake up at 6am";
+"add challenge main image" = "Upload the main image of challenge";
+"upload challenge main image" = "Upload the main image of challenge.";
+"challenge period" = "Challenge Period";
+"enter only number" = "Please enter only numbers. (max 52weeks)";
+"expected end date" = "Expected end date";
+"introduce challenge" = "Introduce the challenge.";
+"introduce challenge 150" = "Introduce the challenge in detail. (max 150 characters)";
+"write auth method" = "Please enter the authentication method.";
+"auth method 150" = "Plase write down the specific authentication method .(max 150 characters)";
+"add auth method image" = "Upload Authenficiation Example Image";
+"upload auth exmaple photo" = "Please upload an example of a authentication photo.";
+"add auth example photo" = "Please add a authentication photo so that others can understand how to do it.";
+"select camera or album" = "You can select a photo app or a camera app.";
+"photo" = "Photo";
+"camera" = "Camera";
+"alarm" = "Alarm";
+"ok" = "OK";
+"cancel" = "Cancel";
+"week" = "week";
 
 // myPage
-"Theme setting" = "Theme setting";
-"Alarm setting" = "Alarm setting";
-"Email inquiry" = "Email inquiry";
-"Q&A" = "Q&A";
-"Open Source Licenses" = "Open Source Licenses";
+"theme setting" = "Theme setting";
+"developer info" = "Developer Info";
+"app version" = "App Version";
+"edit name" = "Edit name";
+"name max 8" = "Please enter it in 8 letters.";
 
 // swipe
 "swipe" = "Wait a second please...";

@@ -19,7 +19,7 @@ extension UICollectionView {
 
         let titleLabel: UILabel = {
             let label = UILabel()
-            label.text = "인증 목록이 비었습니다. 😞"
+            label.text = "auth empty".localized
             label.textColor = .black
             label.font = UIFont.boldSystemFont(ofSize: 18)
             return label
@@ -27,11 +27,12 @@ extension UICollectionView {
 
         let messageLabel: UILabel = {
             let label = UILabel()
-            label.text = "지금 바로 인증에 참여해주세요!"
+            label.text = "lets auth".localized
             label.textColor = .lightGray
             label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
             label.numberOfLines = 0
             label.textAlignment = .center
+            label.numberOfLines = 2
             return label
         }()
 

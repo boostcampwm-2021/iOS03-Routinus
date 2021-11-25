@@ -12,14 +12,15 @@ final class CreateTitleView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "챌린지 제목을 입력해주세요."
+        label.text = "write challenge name".localized
         label.font = .boldSystemFont(ofSize: 20)
+        label.numberOfLines = 2
         return label
     }()
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "타인에게 불쾌감을 주는 단어는 지양해주세요."
+        label.text = "don't use bad words".localized
         label.font = .systemFont(ofSize: 16)
         label.numberOfLines = 2
         label.textColor = .systemGray
@@ -28,7 +29,7 @@ final class CreateTitleView: UIView {
 
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "예) 아침 6시에 일어나기"
+        textField.placeholder = "ex) wake up at 6am".localized
         textField.borderStyle = .roundedRect
         textField.tag = Tag.title.rawValue
         return textField

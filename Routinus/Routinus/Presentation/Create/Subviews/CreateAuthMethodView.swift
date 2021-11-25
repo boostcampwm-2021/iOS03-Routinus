@@ -12,17 +12,18 @@ final class CreateAuthMethodView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "인증 방법을 입력해주세요."
+        label.text = "write auth method".localized
         label.font = .boldSystemFont(ofSize: 20)
+        label.numberOfLines = 2
         return label
     }()
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "실천여부를 알 수 있도록 구체적인 인증방법을 적어주세요. (최대 150자)"
+        label.text = "auth method 150".localized
         label.font = .systemFont(ofSize: 16)
         label.textColor = .systemGray
-        label.numberOfLines = 2
+        label.numberOfLines = 3
         return label
     }()
 

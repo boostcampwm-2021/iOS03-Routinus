@@ -326,33 +326,33 @@ extension CreateViewController: CreateImagePickerDelegate {
 
         switch tag {
         case InputTag.image.rawValue:
-            title = "챌린지 대표 이미지 등록"
+            title = "add challenge main image"
             selectedImagePickerTag = .image
         case InputTag.authImage.rawValue:
-            title = "인증샷 예시 이미지 등록"
+            title = "add auth method image"
             selectedImagePickerTag = .authImage
         default:
             return
         }
 
-        let alert = UIAlertController(title: title,
-                                      message: "사진 앱이나 카메라 앱을 선택할 수 있습니다.",
+        let alert = UIAlertController(title: title.localized,
+                                      message: "select camera or album".localized,
                                       preferredStyle: .actionSheet)
 
-        let photo = UIAlertAction(title: "사진", style: .default) { [weak self] _ in
+        let photo = UIAlertAction(title: "photo".localized, style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true, completion: nil)
         }
         alert.addAction(photo)
 
-        let camera = UIAlertAction(title: "카메라", style: .default) { [weak self] _ in
+        let camera = UIAlertAction(title: "camera".localized, style: .default) { [weak self] _ in
             guard let self = self else { return }
 #if targetEnvironment(simulator)
-            let alert = UIAlertController(title: "알림",
+            let alert = UIAlertController(title: "alarm".localized,
                                           message: "시뮬레이터에서는 카메라를 이용할 수 없습니다.",
                                           preferredStyle: .alert)
-            let cancel = UIAlertAction(title: "확인", style: .default, handler: nil)
+            let cancel = UIAlertAction(title: "ok".localized, style: .default, handler: nil)
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
 #else
@@ -362,7 +362,7 @@ extension CreateViewController: CreateImagePickerDelegate {
         }
         alert.addAction(camera)
 
-        let cancel = UIAlertAction(title: "취소", style: .destructive, handler: nil)
+        let cancel = UIAlertAction(title: "cancel".localized, style: .destructive, handler: nil)
         alert.addAction(cancel)
 
         present(alert, animated: true, completion: nil)

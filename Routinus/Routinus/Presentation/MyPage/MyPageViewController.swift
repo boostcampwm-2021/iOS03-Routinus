@@ -13,7 +13,7 @@ final class MyPageViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width <= 350 ? 30 : 34,
                                        weight: .bold)
-        label.text = "마이페이지"
+        label.text = "mypage".localized
         return label
     }()
     private lazy var profileView = MyPageProfileView()
@@ -150,8 +150,8 @@ extension MyPageViewController {
 
 extension MyPageViewController: MyPageUserNameUpdatableDelegate, UITextFieldDelegate {
     func didTappedNameStackView() {
-        let alert = UIAlertController(title: "이름 수정",
-                                      message: "최대 8글자로 입력해주세요",
+        let alert = UIAlertController(title: "edit name".localized,
+                                      message: "name max 8".localized,
                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
             guard let name = alert.textFields?.first?.text,
@@ -193,11 +193,11 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
         func title() -> String {
             switch self {
             case .theme:
-                return "테마 설정"
+                return "theme setting"
             case .developer:
-                return "개발자 정보"
+                return "developer info"
             case .version:
-                return "앱 버전"
+                return "app version"
             }
         }
     }
@@ -211,7 +211,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.selectionStyle = .none
-        cell.textLabel?.text = MyPageSettings(rawValue: indexPath.row)?.title()
+        cell.textLabel?.text = MyPageSettings(rawValue: indexPath.row)?.title().localized
         cell.imageView?.tintColor = UIColor(named: "MainColor")
 
         switch indexPath.row {

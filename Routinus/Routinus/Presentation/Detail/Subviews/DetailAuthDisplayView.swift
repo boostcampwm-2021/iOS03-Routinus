@@ -14,18 +14,18 @@ enum AuthDisplayState {
     var title: String {
         switch self {
         case .all:
-            return "모든 참여자의 인증 사진 목록"
+            return "everyone auth title".localized
         case .my:
-            return "나의 인증 사진 목록"
+            return "my auth title".localized
         }
     }
 
     var description: String {
         switch self {
         case .all:
-            return "함께 하는 사람들의 인증 사진을 통해 의지를 다잡아 보세요!"
+            return "everyone auth subtitle".localized
         case .my:
-            return "나의 인증 사진들을 한눈에 모아 보세요!"
+            return "my auth subtitle".localized
         }
     }
 
