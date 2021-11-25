@@ -13,6 +13,8 @@ protocol AchievementUpdatableUsecase {
 }
 
 struct AchievementUpdateUsecase: AchievementUpdatableUsecase {
+    static let didUpdateAchievement = Notification.Name("didUpdateAchievement")
+
     var repository: AchievementRepository
 
     init(repository: AchievementRepository) {
@@ -24,8 +26,11 @@ struct AchievementUpdateUsecase: AchievementUpdatableUsecase {
         let yearMonth = Date().toYearMonthString()
         let day = Date().toDayString()
         self.repository.updateAchievementCount(userID: userID,
-                                          yearMonth: yearMonth,
-                                          day: day)
+                                               yearMonth: yearMonth,
+                                               day: day) {
+            NotificationCenter.default.post(name: AchievementUpdateUsecase.didUpdateAchievement,
+                                            object: nil)
+        }
     }
 
     func updateTotalCount() {
@@ -34,6 +39,9 @@ struct AchievementUpdateUsecase: AchievementUpdatableUsecase {
         let day = Date().toDayString()
         self.repository.updateTotalCount(userID: userID,
                                          yearMonth: yearMonth,
-                                         day: day)
+                                         day: day) {
+            NotificationCenter.default.post(name: AchievementUpdateUsecase.didUpdateAchievement,
+                                            object: nil)
+        }
     }
 }

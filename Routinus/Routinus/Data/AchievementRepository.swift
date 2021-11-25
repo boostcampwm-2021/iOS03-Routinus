@@ -13,14 +13,14 @@ protocol AchievementRepository {
     func fetchAchievements(by id: String,
                            in yearMonth: String,
                            completion: (([Achievement]) -> Void)?)
-
     func updateAchievementCount(userID: String,
                                 yearMonth: String,
-                                day: String)
-
+                                day: String,
+                                completion: (() -> Void)?)
     func updateTotalCount(userID: String,
                           yearMonth: String,
-                          day: String)
+                          day: String,
+                          completion: (() -> Void)?)
 }
 
 extension RoutinusRepository: AchievementRepository {
@@ -34,19 +34,23 @@ extension RoutinusRepository: AchievementRepository {
 
     func updateAchievementCount(userID: String,
                                 yearMonth: String,
-                                day: String) {
+                                day: String,
+                                completion: (() -> Void)?) {
         RoutinusNetwork.updateAchievementCount(userID: userID,
                                                yearMonth: yearMonth,
-                                               day: day,
-                                               completion: nil)
+                                               day: day) {
+            completion?()
+        }
     }
 
     func updateTotalCount(userID: String,
                           yearMonth: String,
-                          day: String) {
+                          day: String,
+                          completion: (() -> Void)?) {
         RoutinusNetwork.updateTotalCount(userID: userID,
                                          yearMonth: yearMonth,
-                                         day: day,
-                                         completion: nil)
+                                         day: day) {
+            completion?()
+        }
     }
 }

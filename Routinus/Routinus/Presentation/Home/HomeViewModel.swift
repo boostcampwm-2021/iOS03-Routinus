@@ -65,6 +65,8 @@ final class HomeViewModel: HomeViewModelIO {
                                                                         object: nil)
     let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
                                                                         object: nil)
+    let achievementUpdatePublisher = NotificationCenter.default.publisher(for: AchievementUpdateUsecase.didUpdateAchievement,
+                                                                          object: nil)
 
     init(userCreateUsecase: UserCreatableUsecase,
          userFetchUsecase: UserFetchableUsecase,
@@ -128,6 +130,13 @@ extension HomeViewModel {
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchTodayRoutine()
+            }
+            .store(in: &cancellables)
+
+        self.achievementUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchAchievement()
             }
             .store(in: &cancellables)
     }
