@@ -99,7 +99,7 @@ extension HomeViewModel {
     func fetchMyHomeData() {
         fetchUser()
         fetchTodayRoutine()
-        fetchAchievement()
+        fetchAchievement(date: baseDate.value)
         updateContinuityDay()
     }
 
@@ -142,7 +142,7 @@ extension HomeViewModel {
         self.achievementUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
-                self.fetchAchievement()
+                self.fetchAchievement(date: self.baseDate.value)
             }
             .store(in: &cancellables)
 
@@ -150,7 +150,7 @@ extension HomeViewModel {
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchTodayRoutine()
-                self.fetchAchievement()
+                self.fetchAchievement(date: self.baseDate.value)
             }
             .store(in: &cancellables)
 
@@ -158,7 +158,7 @@ extension HomeViewModel {
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchTodayRoutine()
-                self.fetchAchievement()
+                self.fetchAchievement(date: self.baseDate.value)
             }
             .store(in: &cancellables)
 
@@ -166,7 +166,7 @@ extension HomeViewModel {
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchTodayRoutine()
-                self.fetchAchievement()
+                self.fetchAchievement(date: self.baseDate.value)
             }
             .store(in: &cancellables)
     }
