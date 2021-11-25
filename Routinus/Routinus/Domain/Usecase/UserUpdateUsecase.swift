@@ -15,6 +15,8 @@ protocol UserUpdatableUsecase {
 }
 
 struct UserUpdateUsecase: UserUpdatableUsecase {
+    static let didUpdateUsername = Notification.Name("didUpdateUsername")
+
     var repository: UserRepository
 
     init(repository: UserRepository) {
@@ -37,7 +39,11 @@ struct UserUpdateUsecase: UserUpdatableUsecase {
     func updateUsername(of id: String,
                         name: String) {
         self.repository.updateUsername(of: id,
-                                       name: name)
+                                       name: name) { dto in
+            let user = User(userDTO: dto)
+            NotificationCenter.default.post(name: UserUpdateUsecase.didUpdateUsername,
+                                            object: user)
+        }
     }
 
     func updateThemeStyle(_ style: Int) {

@@ -14,6 +14,10 @@ public struct UserDTO: Codable {
         self.document = nil
     }
 
+    public init(fields: Fields<UserFields>) {
+        self.document = fields
+    }
+
     public init(id: String,
                 name: String,
                 grade: Int,

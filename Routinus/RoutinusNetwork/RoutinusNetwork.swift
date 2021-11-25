@@ -624,7 +624,7 @@ public enum RoutinusNetwork {
 
     public static func updateUsername(of id: String,
                                       name: String,
-                                      completion: (() -> Void)?) {
+                                      completion: ((UserDTO) -> Void)?) {
         user(of: id) { dto in
             guard let document = dto.document,
                   let grade = Int(document.fields.grade.integerValue),
@@ -653,8 +653,11 @@ public enum RoutinusNetwork {
             request.httpMethod = HTTPMethod.patch.rawValue
             request.httpBody = UserQuery.updateUsername(document: userField)
 
-            URLSession.shared.dataTask(with: request) { _, _, _ in
-                completion?()
+            URLSession.shared.dataTask(with: request) { data, _, _ in
+                guard let data = data,
+                      let fields = try? JSONDecoder().decode(Fields<UserFields>.self, from: data) else { return }
+                let dto = UserDTO(fields: fields)
+                completion?(dto)
             }.resume()
         }
     }
