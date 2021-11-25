@@ -42,12 +42,6 @@ final class AuthCoordinator: RoutinusCoordinator {
         authViewController.hidesBottomBarWhenPushed = true
         self.navigationController.pushViewController(authViewController, animated: true)
 
-        authViewModel.alertConfirmTap
-            .sink { _ in
-                NotificationCenter.default.post(name: AuthCoordinator.confirmAuth, object: nil)
-            }
-            .store(in: &cancellables)
-
         authViewModel.authMethodImageTap
             .receive(on: RunLoop.main)
             .sink { [weak self] imageData in
