@@ -70,6 +70,7 @@ final class ChallengeViewController: UIViewController {
         self.configureViews()
         self.configureViewModel()
         self.configureCategory()
+        self.configureRefreshControl()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -182,6 +183,24 @@ extension ChallengeViewController {
             let layout = ChallengeCollectionViewLayouts()
             return layout.section(at: sectionNumber)
         }
+    }
+
+    private func configureRefreshControl() {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self,
+                           action: #selector(refreshData),
+                           for: .valueChanged)
+        refresh.attributedTitle = NSAttributedString(string: "Loading Data...",
+                                                     attributes: [NSAttributedString.Key.foregroundColor:
+                                                                    UIColor.systemGray,
+                                                                  NSAttributedString.Key.font:
+                                                                    UIFont.boldSystemFont(ofSize: 20)])
+        self.collectionView.refreshControl = refresh
+    }
+
+    @objc private func refreshData() {
+        self.viewModel?.fetchChallenge()
+        self.collectionView.refreshControl?.endRefreshing()
     }
 }
 
