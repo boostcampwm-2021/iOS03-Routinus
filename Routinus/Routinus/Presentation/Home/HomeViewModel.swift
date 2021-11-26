@@ -14,7 +14,6 @@ protocol HomeViewModelInput {
     func didTappedAddChallengeButton()
     func didTappedTodayRoutineAuth(index: Int)
     func didTappedExplanationButton()
-    func generateDaysInMonth(for baseDate: Date) -> [Day]
     func changeDate(month: Int)
 }
 
