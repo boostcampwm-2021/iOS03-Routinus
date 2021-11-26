@@ -22,7 +22,6 @@ protocol HomeViewModelOutput {
     var user: CurrentValueSubject<User, Never> { get }
     var todayRoutines: CurrentValueSubject<[TodayRoutine], Never> { get }
     var participationAuthStates: [ParticipationAuthState] { get }
-    var achievements: [Achievement] { get }
     var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
     var todayRoutineTap: PassthroughSubject<String, Never> { get }
     var todayRoutineAuthTap: PassthroughSubject<String, Never> { get }
