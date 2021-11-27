@@ -196,6 +196,7 @@ extension SearchViewController {
     @objc private func refresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.viewModel?.didLoadedSearchView()
+            self.searchBarView.updateSearchBar(keyword: "")
             self.collectionView.refreshControl?.endRefreshing()
         }
     }
