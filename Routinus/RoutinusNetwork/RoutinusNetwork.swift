@@ -45,6 +45,8 @@ public enum RoutinusNetwork {
                                        thumbnailImageURL: String,
                                        authExampleImageURL: String,
                                        authExampleThumbnailImageURL: String,
+                                       yearMonth: String,
+                                       day: String,
                                        completion: (() -> Void)?) {
         let uploadQueue = DispatchQueue(label: "uploadQueue")
         let group = DispatchGroup()
@@ -58,6 +60,14 @@ public enum RoutinusNetwork {
 
             group.enter()
             insertChallengeParticipation(dto: participation) {
+                group.leave()
+            }
+            
+            let userID = challenge.document?.fields.ownerID.stringValue ?? ""
+            group.enter()
+            updateTotalCount(userID: userID,
+                             yearMonth: yearMonth,
+                             day: day) {
                 group.leave()
             }
 
