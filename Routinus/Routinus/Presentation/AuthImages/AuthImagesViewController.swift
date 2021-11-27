@@ -31,7 +31,6 @@ class AuthImagesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureViews()
         configureDelegates()
         configureViewModel()
