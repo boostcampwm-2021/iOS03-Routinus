@@ -61,6 +61,7 @@ final class ManageViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.collectionView.removeAfterimage()
     }
 
     override func viewWillDisappear(_ animated: Bool) {

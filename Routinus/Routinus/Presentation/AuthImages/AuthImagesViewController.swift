@@ -37,6 +37,11 @@ class AuthImagesViewController: UIViewController {
         configureViewModel()
         configureRefreshControl()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.collectionView.removeAfterimage()
+    }
 }
 
 extension AuthImagesViewController {

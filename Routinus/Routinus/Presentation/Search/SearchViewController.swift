@@ -73,6 +73,11 @@ final class SearchViewController: UIViewController {
         self.configureRefreshControl()
         self.didLoadedSearchView()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.collectionView.removeAfterimage()
+    }
 }
 
 extension SearchViewController {

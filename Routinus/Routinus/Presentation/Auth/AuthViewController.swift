@@ -46,6 +46,11 @@ final class AuthViewController: UIViewController {
         configureDelegates()
         configureRefreshControl()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.scrollView.removeAfterimage()
+    }
 }
 
 extension AuthViewController {

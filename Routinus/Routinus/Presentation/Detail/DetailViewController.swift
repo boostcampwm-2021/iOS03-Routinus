@@ -57,6 +57,11 @@ final class DetailViewController: UIViewController {
         self.configureRefreshControl()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.scrollView.removeAfterimage()
+    }
+
     init(with viewModel: DetailViewModelIO) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
