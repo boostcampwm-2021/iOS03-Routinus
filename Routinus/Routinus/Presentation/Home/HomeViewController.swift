@@ -279,6 +279,12 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let height = 55.0
         return CGSize(width: width, height: height)
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? DateCollectionViewCell else { return }
+        guard let date = cell.day?.date else { return }
+        self.viewModel?.didTappedCalendarDate(date: date)
+    }
 }
 
 extension HomeViewController: ChallengePromotionViewDelegate {
