@@ -62,6 +62,8 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
         guard let ownerID = RoutinusRepository.userID(),
               let endDate = endDate(week: week) else { return }
         let challengeID = createChallengeID()
+        let yearMonth = Date().toYearMonthString()
+        let day = Date().toDayString()
         let challenge = Challenge(challengeID: challengeID,
                                   title: title,
                                   introduction: introduction,
@@ -81,7 +83,9 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
                           imageURL: imageURL,
                           thumbnailImageURL: thumbnailImageURL,
                           authExampleImageURL: authExampleImageURL,
-                          authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
+                          authExampleThumbnailImageURL: authExampleThumbnailImageURL,
+                          yearMonth: yearMonth,
+                          day: day) {
             NotificationCenter.default.post(name: ChallengeCreateUsecase.didCreateChallenge,
                                             object: nil)
         }
