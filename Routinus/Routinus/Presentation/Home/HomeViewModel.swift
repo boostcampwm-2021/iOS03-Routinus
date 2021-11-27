@@ -16,6 +16,8 @@ protocol HomeViewModelInput {
     func didTappedAddChallengeButton()
     func didTappedTodayRoutineAuth(index: Int)
     func didTappedExplanationButton()
+    func didTappedCalendarDate(date: Date)
+    func changeDate(month: Int)
 }
 
 protocol HomeViewModelOutput {
@@ -123,6 +125,12 @@ extension HomeViewModel {
         days.value = generateDaysInMonth(for: baseDate.value)
     }
 
+    func didTappedCalendarDate(date: Date) {
+        self.challengeAuthFetchUsecase.fetchChallengeAuthsOfDate(date: date) { aa in
+            print(aa)
+        }
+    }
+
     private func configurePublishers() {
         userCreatePublisher
             .receive(on: RunLoop.main)
@@ -223,6 +231,12 @@ extension HomeViewModel {
     private func fetchAuth(challengeID: String, completion: @escaping (Auth?) -> Void) {
         authFetchUsecase.fetchAuth(challengeID: challengeID) { auth in
             completion(auth)
+        }
+    }
+
+    private func fetchAuth(date: Date, completion: @escaping (ChallengeAuth?) -> Void) {
+        self.challengeAuthFetchUsecase.fetchChallengeAuthsOfDate(date: date) { challenge in
+            print(challenge.first)
         }
     }
 

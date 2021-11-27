@@ -791,6 +791,25 @@ enum FirebaseService {
         }.resume()
     }
 
+    public static func challengeAuthsOfDate(date: String,
+                                            userID: String,
+                                            completion: (([ChallengeAuthDTO]) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?([])
+            return
+        }
+        var request = URLRequest(url: url)
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = AuthQuery.select(userID: userID, todayDate: date)
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
+            let list = try? JSONDecoder().decode([ChallengeAuthDTO].self, from: data)
+            completion?(list ?? [])
+        }.resume()
+    }
+
     static func updateAchievementCount(userID: String,
                                        yearMonth: String,
                                        day: String,

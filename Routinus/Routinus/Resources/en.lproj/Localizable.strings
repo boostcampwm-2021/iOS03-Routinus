@@ -31,6 +31,7 @@
 "sat" = "S";
 "sun" = "S";
 "calendar explanation" = "Depending on how much\nyou've done your routine,\nyou'll get a different sticker :)";
+"authificated %d challenges" = "You authetificated %d challenges";
 
 // challenge
 "challenge category" = "Challenge Category";
