@@ -158,13 +158,13 @@ extension HomeViewController {
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self,
-                           action: #selector(refresh),
-                           for: .valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "swipe".localized,
-                                                     attributes: [NSAttributedString.Key.foregroundColor:
-                                                                    UIColor.systemGray,
-                                                                  NSAttributedString.Key.font:
-                                                                    UIFont.boldSystemFont(ofSize: 16)])
+                                 action: #selector(refresh),
+                                 for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(
+            string: "swipe".localized,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+                         NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+        )
         self.scrollView.refreshControl = refreshControl
     }
 
