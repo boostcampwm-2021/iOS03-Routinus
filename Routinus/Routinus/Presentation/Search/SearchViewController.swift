@@ -73,6 +73,11 @@ final class SearchViewController: UIViewController {
         self.configureRefreshControl()
         self.didLoadedSearchView()
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.searchBarView.hideKeyboard()
+    }
 }
 
 extension SearchViewController {
