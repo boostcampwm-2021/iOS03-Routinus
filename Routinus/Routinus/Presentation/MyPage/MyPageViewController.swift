@@ -136,13 +136,11 @@ extension MyPageViewController {
     }
 
     private func setThemeStyle(_ style: Int) {
-        guard let style = UIUserInterfaceStyle(rawValue: style),
-              let window = self.view.window else { return }
-
-        UIView.transition(with: window,
-                          duration: 0.4,
-                          options: .transitionCrossDissolve) {
-            window.overrideUserInterfaceStyle = style
+        guard let style = UIUserInterfaceStyle(rawValue: style) else { return }
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.4) {
+                self.view.window?.overrideUserInterfaceStyle = style
+            }
         }
         viewModel?.updateThemeStyle(style.rawValue)
     }

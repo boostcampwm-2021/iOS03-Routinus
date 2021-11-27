@@ -69,11 +69,10 @@ extension HomeViewController {
 
     private func configureThemeStyle() {
         guard let rawValue = self.viewModel?.themeStyle(),
-              let style = UIUserInterfaceStyle(rawValue: rawValue),
-              let window = self.view.window else { return }
+              let style = UIUserInterfaceStyle(rawValue: rawValue) else { return }
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.4) {
-                window.overrideUserInterfaceStyle = style
+                self.view.window?.overrideUserInterfaceStyle = style
             }
         }
     }
