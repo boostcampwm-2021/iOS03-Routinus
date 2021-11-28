@@ -207,17 +207,19 @@ extension CreateViewController {
         let scrollViewHeight = scrollView.frame.size.height
         let animationCallOffset = stackViewHeight - scrollViewHeight
 
-        if scrollView.contentOffset.y > animationCallOffset {
-            DispatchQueue.main.async {
-                UIView.animate(withDuration: 0.5) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5) {
+                if self.scrollView.contentOffset.y > animationCallOffset {
                     self.scrollView.setContentOffset(CGPoint(x: 0, y: animationCallOffset + 20),
                                                      animated: false)
-                } completion: { _ in
-                    self.constraint?.isActive = false
-                    self.constraint = self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor,
-                                                                             constant: 0)
-                    self.constraint?.isActive = true
                 }
+            } completion: { _ in
+                self.constraint?.isActive = false
+                self.constraint = self.stackView.bottomAnchor.constraint(
+                    equalTo: self.scrollView.bottomAnchor,
+                    constant: 0
+                )
+                self.constraint?.isActive = true
             }
         }
     }
