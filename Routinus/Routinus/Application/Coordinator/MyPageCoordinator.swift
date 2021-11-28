@@ -26,14 +26,5 @@ final class MyPageCoordinator: RoutinusCoordinator {
         let myPageViewController = MyPageViewController(with: myPageViewModel)
 
         self.navigationController.pushViewController(myPageViewController, animated: false)
-
-        myPageViewModel.developerCellTap
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                myPageViewController.present(MyPageDeveloperViewController(),
-                                             animated: true,
-                                             completion: nil)
-            }
-            .store(in: &cancellables)
     }
 }
