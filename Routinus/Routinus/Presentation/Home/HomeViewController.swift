@@ -44,6 +44,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLaunchView()
+        configureThemeStyle()
         configureViews()
         configureViewModel()
         configureDelegates()
@@ -65,6 +66,16 @@ final class HomeViewController: UIViewController {
 extension HomeViewController {
     private func configureLaunchView() {
         self.tabBarController?.view.addSubview(launchView)
+    }
+
+    private func configureThemeStyle() {
+        guard let rawValue = self.viewModel?.themeStyle(),
+              let style = UIUserInterfaceStyle(rawValue: rawValue) else { return }
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.4) {
+                self.view.window?.overrideUserInterfaceStyle = style
+            }
+        }
     }
 
     private func configureViews() {

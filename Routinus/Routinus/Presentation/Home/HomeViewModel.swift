@@ -15,6 +15,7 @@ protocol HomeViewModelInput {
     func didTappedTodayRoutineAuth(index: Int)
     func didTappedExplanationButton()
     func changeDate(month: Int)
+    func themeStyle() -> Int
 }
 
 protocol HomeViewModelOutput {
@@ -90,7 +91,7 @@ final class HomeViewModel: HomeViewModelIO {
         self.achievementFetchUsecase = achievementFetchUsecase
         self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
 
-        setDateFormatter()
+        self.setDateFormatter()
         self.baseDate.value = Date()
         self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
         self.fetchMyHomeData()
@@ -104,6 +105,10 @@ extension HomeViewModel {
         fetchTodayRoutine()
         fetchAchievement(date: baseDate.value)
         updateContinuityDay()
+    }
+
+    func themeStyle() -> Int {
+        return userFetchUsecase.fetchThemeStyle()
     }
 
     func didTappedTodayRoutine(index: Int) {
