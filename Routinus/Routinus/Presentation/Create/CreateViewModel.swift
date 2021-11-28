@@ -123,7 +123,7 @@ extension CreateViewModel {
     }
 
     func update(title: String) {
-        self.title = title
+        self.title = title.trimmingCharacters(in: .whitespacesAndNewlines)
         self.validate()
     }
 
@@ -146,12 +146,12 @@ extension CreateViewModel {
     }
 
     func update(introduction: String) {
-        self.introduction = introduction
+        self.introduction = introduction.trimmingCharacters(in: .whitespacesAndNewlines)
         self.validate()
     }
 
     func update(authMethod: String) {
-        self.authMethod = authMethod
+        self.authMethod = authMethod.trimmingCharacters(in: .whitespacesAndNewlines)
         self.validate()
     }
 

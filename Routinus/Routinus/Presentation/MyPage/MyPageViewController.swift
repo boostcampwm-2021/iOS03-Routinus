@@ -155,7 +155,7 @@ extension MyPageViewController: MyPageUserNameUpdatableDelegate, UITextFieldDele
                                       message: "name max 8".localized,
                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
-            guard let name = alert.textFields?.first?.text,
+            guard let name = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines),
                   !name.isEmpty else { return }
             self?.updateUsername(name)
         }
