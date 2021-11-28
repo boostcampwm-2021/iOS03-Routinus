@@ -30,6 +30,8 @@ protocol ChallengeRepository {
                 thumbnailImageURL: String,
                 authExampleImageURL: String,
                 authExampleThumbnailImageURL: String,
+                yearMonth: String,
+                day: String,
                 completion: (() -> Void)?)
     func update(challenge: Challenge,
                 completion: (() -> Void)?)
@@ -109,6 +111,8 @@ extension RoutinusRepository: ChallengeRepository {
                 thumbnailImageURL: String,
                 authExampleImageURL: String,
                 authExampleThumbnailImageURL: String,
+                yearMonth: String,
+                day: String,
                 completion: (() -> Void)?) {
         guard let startDate = challenge.startDate?.toDateString(),
               let endDate = challenge.endDate?.toDateString() else { return }
@@ -133,7 +137,9 @@ extension RoutinusRepository: ChallengeRepository {
                                         imageURL: imageURL,
                                         thumbnailImageURL: thumbnailImageURL,
                                         authExampleImageURL: authExampleImageURL,
-                                        authExampleThumbnailImageURL: authExampleThumbnailImageURL) {
+                                        authExampleThumbnailImageURL: authExampleThumbnailImageURL,
+                                        yearMonth: yearMonth,
+                                        day: day) {
             RoutinusStorage.removeCachedImages(from: "temp")
             completion?()
         }
