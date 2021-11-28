@@ -60,11 +60,14 @@ final class ManageViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.collectionView.removeAfterimage()
         self.expandHeaders()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
@@ -139,13 +142,13 @@ extension ManageViewController {
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self,
-                           action: #selector(refresh),
-                           for: .valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "swipe".localized,
-                                                     attributes: [NSAttributedString.Key.foregroundColor:
-                                                                    UIColor.systemGray,
-                                                                  NSAttributedString.Key.font:
-                                                                    UIFont.boldSystemFont(ofSize: 20)])
+                                 action: #selector(refresh),
+                                 for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(
+            string: "swipe".localized,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+                         NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
+        )
         self.collectionView.refreshControl = refreshControl
     }
 

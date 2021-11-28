@@ -73,6 +73,12 @@ final class SearchViewController: UIViewController {
         self.configureRefreshControl()
         self.didLoadedSearchView()
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.searchBarView.hideKeyboard()
+        self.collectionView.removeAfterimage()
+    }
 }
 
 extension SearchViewController {
@@ -178,19 +184,20 @@ extension SearchViewController {
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self,
-                           action: #selector(refresh),
-                           for: .valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "swipe".localized,
-                                                     attributes: [NSAttributedString.Key.foregroundColor:
-                                                                    UIColor.systemGray,
-                                                                  NSAttributedString.Key.font:
-                                                                    UIFont.boldSystemFont(ofSize: 20)])
+                                 action: #selector(refresh),
+                                 for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(
+            string: "swipe".localized,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+                         NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
+        )
         self.collectionView.refreshControl = refreshControl
     }
 
     @objc private func refresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.viewModel?.didLoadedSearchView()
+            self.searchBarView.updateSearchBar(keyword: "")
             self.collectionView.refreshControl?.endRefreshing()
         }
     }

@@ -31,7 +31,6 @@ final class HomeViewController: UIViewController {
 
     private var viewModel: HomeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
-    private var achievements = [Achievement]()
 
     init(with viewModel: HomeViewModelIO) {
         self.viewModel = viewModel
@@ -44,7 +43,6 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureLaunchView()
         configureViews()
         configureViewModel()
@@ -53,10 +51,13 @@ final class HomeViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.scrollView.removeAfterimage()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
@@ -156,13 +157,13 @@ extension HomeViewController {
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self,
-                           action: #selector(refresh),
-                           for: .valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "swipe".localized,
-                                                     attributes: [NSAttributedString.Key.foregroundColor:
-                                                                    UIColor.systemGray,
-                                                                  NSAttributedString.Key.font:
-                                                                    UIFont.boldSystemFont(ofSize: 16)])
+                                 action: #selector(refresh),
+                                 for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(
+            string: "swipe".localized,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+                         NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+        )
         self.scrollView.refreshControl = refreshControl
     }
 
@@ -251,8 +252,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = Int(collectionView.frame.width / 7)
-        let height = 55
+        let width = CGFloat(collectionView.frame.width / 7) - 0.5
+        let height = 55.0
         return CGSize(width: width, height: height)
     }
 }

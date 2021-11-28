@@ -94,6 +94,7 @@
 		44AAA2C1272FDF8F002E16C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44AAA2BF272FDF8F002E16C4 /* LaunchScreen.storyboard */; };
 		44AAA2CA272FE13D002E16C4 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 44AAA2C9272FE13D002E16C4 /* .swiftlint.yml */; };
 		44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA3232733819B002E16C4 /* Date+Extensions.swift */; };
+		44EA8A262751FF5D00861183 /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A252751FF5D00861183 /* UIScrollView+Extensions.swift */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
 		E901EFD42744BD3400B14847 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFD32744BD3400B14847 /* ImageRepository.swift */; };
 		E901EFD62744BDBD00B14847 /* ImageFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */; };
@@ -285,6 +286,7 @@
 		44AAA2C2272FDF8F002E16C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44AAA2C9272FE13D002E16C4 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		44AAA3232733819B002E16C4 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		44EA8A252751FF5D00861183 /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
 		5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E901EFD32744BD3400B14847 /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUsecase.swift; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 				0DC38F58273BA89000331C25 /* UIImage+Extensions.swift */,
 				0DFF32BC274548D8004FA9BD /* UIView+Extensions.swift */,
 				14BFC0E0274E106D00A982CB /* UICollectionView+Extensions.swift */,
+				44EA8A252751FF5D00861183 /* UIScrollView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1217,6 +1220,7 @@
 				441CEE11273A332D006C261F /* CreateCategoryView.swift in Sources */,
 				1483873C2743F2FF00731F98 /* ParticipantButton.swift in Sources */,
 				14BFC0DA274DB7E100A982CB /* AuthImagesViewModel.swift in Sources */,
+				44EA8A262751FF5D00861183 /* UIScrollView+Extensions.swift in Sources */,
 				14BFC0DC274DBBF100A982CB /* AuthImagesViewController.swift in Sources */,
 				E9B1298227336EE50072D254 /* TodayRoutine.swift in Sources */,
 				0DBBAA3727341C1600B32EB5 /* ChallengeCollectionViewLayouts.swift in Sources */,
