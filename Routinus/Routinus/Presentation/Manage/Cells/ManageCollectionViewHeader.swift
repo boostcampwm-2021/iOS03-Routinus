@@ -8,8 +8,8 @@
 import UIKit
 
 final class ManageCollectionViewHeader: UICollectionReusableView {
-    enum Section {
-        case participating, created, ended
+    enum Section: Int {
+        case participating = 1, created, ended
 
         var title: String {
             switch self {
