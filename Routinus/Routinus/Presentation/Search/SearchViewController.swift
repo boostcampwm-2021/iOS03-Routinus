@@ -74,8 +74,9 @@ final class SearchViewController: UIViewController {
         self.didLoadedSearchView()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.searchBarView.hideKeyboard()
         self.collectionView.removeAfterimage()
     }
 }
@@ -196,6 +197,7 @@ extension SearchViewController {
     @objc private func refresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.viewModel?.didLoadedSearchView()
+            self.searchBarView.updateSearchBar(keyword: "")
             self.collectionView.refreshControl?.endRefreshing()
         }
     }
