@@ -9,8 +9,8 @@ import Combine
 import UIKit
 
 final class ManageViewController: UIViewController {
-    enum Section: CaseIterable {
-        case add, participating, created, ended
+    enum Section: Int, CaseIterable {
+        case add = 0, participating, created, ended
     }
 
     enum Item: Hashable {
@@ -161,6 +161,7 @@ extension ManageViewController {
         let headers = self.collectionView.subviews.compactMap { $0 as? ManageCollectionViewHeader }
         for header in headers {
             header.isExpanded = true
+            updateCells(of: header)
         }
     }
 }
@@ -259,42 +260,35 @@ extension ManageViewController: UICollectionViewDelegate {
 
 extension ManageViewController: UIGestureRecognizerDelegate {
     @objc func collectionViewHeaderTouched(_ sender: UITapGestureRecognizer) {
-        guard let headerView = sender.view as? ManageCollectionViewHeader else { return }
+        guard let header = sender.view as? ManageCollectionViewHeader else { return }
+        header.didTouchedHeader()
+        updateCells(of: header)
+    }
 
-        headerView.didTouchedHeader()
-        switch headerView.section {
+    private func updateCells(of header: ManageCollectionViewHeader) {
+        var challenges: [Challenge]?
+
+        switch header.section {
         case .participating:
-            var snapshot = dataSource.snapshot(for: .participating)
-            if headerView.isExpanded {
-                guard let challenges = viewModel?.participatingChallenges.value else { return }
-                let contents = challenges.map { Item.challenge($0) }
-                snapshot.append(contents)
-            } else {
-                snapshot.deleteAll()
-            }
-            dataSource.apply(snapshot, to: .participating)
+            challenges = viewModel?.participatingChallenges.value
         case .created:
-            var snapshot = dataSource.snapshot(for: .created)
-            if headerView.isExpanded {
-                guard let challenges = viewModel?.createdChallenges.value else { return }
-                let contents = challenges.map { Item.challenge($0) }
-                snapshot.append(contents)
-            } else {
-                snapshot.deleteAll()
-            }
-            dataSource.apply(snapshot, to: .created)
+            challenges = viewModel?.createdChallenges.value
         case .ended:
-            var snapshot = dataSource.snapshot(for: .ended)
-            if headerView.isExpanded {
-                guard let challenges = viewModel?.endedChallenges.value else { return }
-                let contents = challenges.map { Item.challenge($0) }
-                snapshot.append(contents)
-            } else {
-                snapshot.deleteAll()
-            }
-            dataSource.apply(snapshot, to: .ended)
-        case .none:
-            break
+            challenges = viewModel?.endedChallenges.value
+        default:
+            return
         }
+
+        guard let items = challenges,
+              let headerSection = header.section?.rawValue,
+              let section = Section(rawValue: headerSection) else { return }
+
+        var snapshot = dataSource.snapshot(for: section)
+        snapshot.deleteAll()
+        if header.isExpanded {
+            snapshot.append(items.map { Item.challenge($0) })
+        }
+
+        dataSource.apply(snapshot, to: section)
     }
 }
