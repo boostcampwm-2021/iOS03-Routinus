@@ -61,6 +61,7 @@ final class ManageViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.expandHeaders()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -149,14 +150,17 @@ extension ManageViewController {
     }
 
     @objc private func refresh() {
-        // TODO: 오류 임시 해결(isExpaned VM으로 옮겨야 함)
-        for view in self.collectionView.subviews.compactMap { $0 as? ManageCollectionViewHeader } {
-            view.isExpanded = true
-        }
-
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.expandHeaders()
             self.viewModel?.didLoadedManageView()
             self.collectionView.refreshControl?.endRefreshing()
+        }
+    }
+
+    private func expandHeaders() {
+        let headers = self.collectionView.subviews.compactMap { $0 as? ManageCollectionViewHeader }
+        for header in headers {
+            header.isExpanded = true
         }
     }
 }
