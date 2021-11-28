@@ -40,11 +40,15 @@ final class AuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureViews()
         configureViewModel()
         configureDelegates()
         configureRefreshControl()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.scrollView.removeAfterimage()
     }
 }
 
@@ -125,13 +129,13 @@ extension AuthViewController {
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self,
-                           action: #selector(refresh),
-                           for: .valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "swipe".localized,
-                                                     attributes: [NSAttributedString.Key.foregroundColor:
-                                                                    UIColor.systemGray,
-                                                                  NSAttributedString.Key.font:
-                                                                    UIFont.boldSystemFont(ofSize: 20)])
+                                 action: #selector(refresh),
+                                 for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(
+            string: "swipe".localized,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+                         NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
+        )
         self.scrollView.refreshControl = refreshControl
     }
 
