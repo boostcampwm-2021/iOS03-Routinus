@@ -31,7 +31,6 @@ final class HomeViewController: UIViewController {
 
     private var viewModel: HomeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
-    private var achievements = [Achievement]()
 
     init(with viewModel: HomeViewModelIO) {
         self.viewModel = viewModel
@@ -253,8 +252,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = Int(collectionView.frame.width / 7)
-        let height = 55
+        let width = CGFloat(collectionView.frame.width / 7) - 0.5
+        let height = 55.0
         return CGSize(width: width, height: height)
     }
 }
