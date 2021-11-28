@@ -234,7 +234,9 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 1:
-            self.viewModel?.didTappedDeveloperCell()
+            guard let url = URL(string: "https://github.com/boostcampwm-2021/iOS03-Routinus"),
+                  UIApplication.shared.canOpenURL(url) else { return }
+            UIApplication.shared.open(url)
         default:
             break
         }
