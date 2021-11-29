@@ -262,14 +262,20 @@ enum FirebaseService {
 
             for participation in participations {
                 group.enter()
-                guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
+                guard let challengeID = participation.document?.fields.challengeID.stringValue else {
+                    group.leave()
+                    continue
+                }
                 request.httpBody = ChallengeQuery.select(challengeID: challengeID,
                                                          date: date)
 
                 URLSession.shared.dataTask(with: request) { data, _, _ in
                     guard let data = data,
                           let challenge = try? JSONDecoder().decode([ChallengeDTO].self,
-                                                                    from: data).first else { return }
+                                                                    from: data).first else {
+                              group.leave()
+                              return
+                          }
 
                     if challenge.document != nil {
                         let todayRoutine = TodayRoutineDTO(participation: participation,
@@ -480,13 +486,19 @@ enum FirebaseService {
 
             for participation in participations {
                 group.enter()
-                guard let challengeID = participation.document?.fields.challengeID.stringValue else { continue }
+                guard let challengeID = participation.document?.fields.challengeID.stringValue else {
+                    group.leave()
+                    continue
+                }
                 request.httpBody = ChallengeQuery.select(challengeID: challengeID)
 
                 URLSession.shared.dataTask(with: request) { data, _, _ in
                     guard let data = data,
                         let challenge = try? JSONDecoder().decode([ChallengeDTO].self,
-                                                                  from: data).first else { return }
+                                                                  from: data).first else {
+                            group.leave()
+                            return
+                        }
                     challenges.append(challenge)
                     group.leave()
                 }.resume()
