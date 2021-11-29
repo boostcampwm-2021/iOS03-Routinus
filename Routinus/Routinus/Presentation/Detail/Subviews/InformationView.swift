@@ -145,7 +145,9 @@ extension InformationView {
         titleStackView.anchor(height: 20)
 
         titleStackView.addArrangedSubview(categoryImageView)
-        categoryImageView.heightAnchor.constraint(equalTo: categoryImageView.widthAnchor, multiplier: 1).isActive = true
+        categoryImageView.heightAnchor.constraint(
+            equalTo: categoryImageView.widthAnchor,
+            multiplier: 1).isActive = true
 
         titleStackView.addArrangedSubview(titleLabel)
 
@@ -179,10 +181,7 @@ extension InformationView {
 
     func update(to challenge: Challenge) {
         guard let endDate = challenge.endDate?.toDateWithWeekdayString() else { return }
-        let image = challenge.category == .exercise
-                    || challenge.category == .lifeStyle
-                        ? UIImage(named: challenge.category.symbol)
-                        : UIImage(systemName: challenge.category.symbol)
+        let image = challenge.category == .exercise || challenge.category == .lifeStyle ? UIImage(named: challenge.category.symbol) : UIImage(systemName: challenge.category.symbol)
         categoryImageView.image = image
         titleLabel.text = challenge.title
         weekLabel.text = "\(challenge.week)주"
