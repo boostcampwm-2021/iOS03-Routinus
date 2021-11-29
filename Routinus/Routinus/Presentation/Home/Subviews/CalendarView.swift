@@ -81,27 +81,27 @@ final class CalendarView: UIView {
     init(viewModel: HomeViewModelIO?) {
         self.viewModel = viewModel
         super.init(frame: CGRect(origin: .zero, size: .zero))
-        self.configureView()
-        self.configureViewModel()
+        configureView()
+        configureViewModel()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.configureView()
-        self.configureViewModel()
+        configureView()
+        configureViewModel()
     }
 
     func configureView() {
-        self.addSubview(titleLabel)
-        self.addSubview(explanationButton)
-        self.addSubview(calendarView)
-        self.addSubview(headerView)
+        addSubview(titleLabel)
+        addSubview(explanationButton)
+        addSubview(calendarView)
+        addSubview(headerView)
 
         calendarView.register(
             DateCollectionViewCell.self,
             forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier
         )
-        headerView.baseDate = self.viewModel?.baseDate.value ?? Date()
+        headerView.baseDate = viewModel?.baseDate.value ?? Date()
     }
 
     override func layoutSubviews() {
@@ -134,7 +134,7 @@ final class CalendarView: UIView {
     }
 
     private func configureViewModel() {
-        self.viewModel?.baseDate
+        viewModel?.baseDate
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] baseDate in
                 guard let self = self else { return }
@@ -145,7 +145,7 @@ final class CalendarView: UIView {
     }
 
     func reloadData() {
-        self.calendarView.reloadData()
+        calendarView.reloadData()
     }
 
     @objc private func didTappedExplanationButton() {
