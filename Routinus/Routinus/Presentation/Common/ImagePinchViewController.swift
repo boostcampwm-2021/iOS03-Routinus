@@ -72,7 +72,8 @@ final class ImagePinchViewController: UIViewController {
 
     private func fetchImage() {
         guard let image = imageData else { return }
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.imageView.image = UIImage(data: image)
         }
     }
