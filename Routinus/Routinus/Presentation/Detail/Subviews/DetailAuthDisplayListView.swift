@@ -76,14 +76,14 @@ extension DetailAuthDisplayListView {
 
         self.addSubview(allAuthDisplayView)
         allAuthDisplayView.anchor(leading: self.leadingAnchor, paddingLeading: 20,
-                    trailing: self.trailingAnchor, paddingTrailing: 20,
-                    top: titleLabel.bottomAnchor, paddingTop: 20)
+                                  trailing: self.trailingAnchor, paddingTrailing: 20,
+                                  top: titleLabel.bottomAnchor, paddingTop: 20)
 
         self.addSubview(myAuthDisplayView)
         myAuthDisplayView.anchor(leading: self.leadingAnchor, paddingLeading: 20,
-                                  trailing: self.trailingAnchor, paddingTrailing: 20,
-                                  top: allAuthDisplayView.bottomAnchor, paddingTop: 20,
-                                  bottom: self.bottomAnchor, paddingBottom: 20)
+                                 trailing: self.trailingAnchor, paddingTrailing: 20,
+                                 top: allAuthDisplayView.bottomAnchor, paddingTop: 20,
+                                 bottom: self.bottomAnchor, paddingBottom: 20)
     }
 }
 
