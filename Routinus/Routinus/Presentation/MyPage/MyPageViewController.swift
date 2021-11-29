@@ -20,8 +20,7 @@ final class MyPageViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.isScrollEnabled = false
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: "UITableViewCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
         return tableView
     }()
     private lazy var segmentedControl: UISegmentedControl = {
@@ -157,8 +156,7 @@ extension MyPageViewController: MyPageUserNameUpdatableDelegate, UITextFieldDele
                   !name.isEmpty else { return }
             self?.updateUsername(name)
         }
-        let cancelAction = UIAlertAction(title: "취소",
-                                         style: .cancel)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
 
         alert.addTextField { [weak self] textField in
             textField.delegate = self
@@ -201,13 +199,11 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return MyPageSettings.allCases.count
     }
 
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.selectionStyle = .none
         cell.textLabel?.text = MyPageSettings(rawValue: indexPath.row)?.title().localized

@@ -31,13 +31,16 @@ final class MyPageViewModel: MyPageViewModelIO {
     var userFetchUsecase: UserFetchableUsecase
     var userUpdateUsecase: UserUpdatableUsecase
 
-    let userCreatePublisher = NotificationCenter.default.publisher(for: UserCreateUsecase.didCreateUser,
-                                                                   object: nil)
-    let userUpdatePublisher = NotificationCenter.default.publisher(for: UserUpdateUsecase.didUpdateUser,
-                                                                   object: nil)
+    let userCreatePublisher = NotificationCenter.default.publisher(
+        for: UserCreateUsecase.didCreateUser,
+           object: nil
+    )
+    let userUpdatePublisher = NotificationCenter.default.publisher(
+        for: UserUpdateUsecase.didUpdateUser,
+           object: nil
+    )
 
-    init(userFetchUsecase: UserFetchableUsecase,
-         userUpdateUsecase: UserUpdatableUsecase) {
+    init(userFetchUsecase: UserFetchableUsecase, userUpdateUsecase: UserUpdatableUsecase) {
         self.userFetchUsecase = userFetchUsecase
         self.userUpdateUsecase = userUpdateUsecase
         fetchUser()
@@ -75,8 +78,7 @@ extension MyPageViewModel {
     }
 
     func updateUsername(_ name: String) {
-        userUpdateUsecase.updateUsername(of: user.value.id,
-                                         name: name)
+        userUpdateUsecase.updateUsername(of: user.value.id, name: name)
     }
 
     func updateThemeStyle(_ style: Int) {
