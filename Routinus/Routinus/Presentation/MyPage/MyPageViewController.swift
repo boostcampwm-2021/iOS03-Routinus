@@ -115,16 +115,18 @@ extension MyPageViewController {
         viewModel?.user
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] user in
-                self?.profileView.setName(user.name)
-                self?.profileView.setImage(with: user)
+                guard let self = self else { return }
+                self.profileView.setName(user.name)
+                self.profileView.setImage(with: user)
             })
             .store(in: &cancellables)
 
         viewModel?.themeStyle
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] style in
-                self?.segmentedControl.selectedSegmentIndex = style
-                self?.setThemeStyle(style)
+                guard let self = self else { return }
+                self.segmentedControl.selectedSegmentIndex = style
+                self.setThemeStyle(style)
             })
             .store(in: &cancellables)
     }
@@ -137,7 +139,8 @@ extension MyPageViewController {
 
     private func setThemeStyle(_ style: Int) {
         guard let style = UIUserInterfaceStyle(rawValue: style) else { return }
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             UIView.animate(withDuration: 0.4) {
                 self.view.window?.overrideUserInterfaceStyle = style
             }
@@ -152,15 +155,17 @@ extension MyPageViewController: MyPageUserNameUpdatableDelegate, UITextFieldDele
                                       message: "name max 8".localized,
                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
-            guard let name = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+            guard let self = self,
+                  let name = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines),
                   !name.isEmpty else { return }
-            self?.updateUsername(name)
+            self.updateUsername(name)
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
 
         alert.addTextField { [weak self] textField in
+            guard let self = self else { return }
             textField.delegate = self
-            textField.text = self?.profileView.name
+            textField.text = self.profileView.name
         }
         alert.addAction(okAction)
         alert.addAction(cancelAction)

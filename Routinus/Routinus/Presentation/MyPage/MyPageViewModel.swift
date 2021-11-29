@@ -53,14 +53,16 @@ extension MyPageViewModel {
     func configurePublishers() {
         userCreatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] in
+                guard let self = self else { return }
                 self.fetchUser()
             }
             .store(in: &cancellables)
 
         userUpdatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchUser()
             }
             .store(in: &cancellables)
@@ -69,7 +71,8 @@ extension MyPageViewModel {
     func fetchUser() {
         guard let id = userFetchUsecase.fetchUserID() else { return }
         userFetchUsecase.fetchUser(id: id) { [weak self] user in
-            self?.user.value = user
+            guard let self = self else { return }
+            self.user.value = user
         }
     }
 
