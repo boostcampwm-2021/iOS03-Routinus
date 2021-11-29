@@ -83,7 +83,10 @@ extension CreateAuthImageRegisterView {
     }
 
     private func configureGesture() {
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedImageView(_:)))
+        let recognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(didTappedImageView(_:))
+        )
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(recognizer)
     }

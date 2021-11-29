@@ -33,21 +33,13 @@ protocol CreateViewModelInput {
     func update(authExampleImageURL: String?)
     func update(authExampleThumbnailImageURL: String?)
     func didTappedCreateButton()
-    func validateTextView(currentText: String,
-                          range: NSRange,
-                          text: String) -> Bool
-    func validateTextField(currentText: String,
-                           range: NSRange,
-                           text: String) -> Bool
+    func validateTextView(currentText: String, range: NSRange, text: String) -> Bool
+    func validateTextField(currentText: String, range: NSRange, text: String) -> Bool
     func validateWeek(currentText: String) -> String
     func didLoadedChallenge()
     func updateChallenge()
-    func saveImage(to directory: String,
-                   filename: String,
-                   data: Data?) -> String?
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)?)
+    func saveImage(to directory: String, filename: String, data: Data?) -> String?
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
     
 }
 
@@ -186,15 +178,17 @@ extension CreateViewModel {
     func didTappedCreateButton() {
         guard let category = category else { return }
         if buttonType.value == .create {
-            challengeCreateUsecase.createChallenge(category: category,
-                                                   title: title,
-                                                   imageURL: imageURL,
-                                                   thumbnailImageURL: thumbnailImageURL,
-                                                   authExampleImageURL: authExampleImageURL,
-                                                   authExampleThumbnailImageURL: authExampleThumbnailImageURL,
-                                                   authMethod: authMethod,
-                                                   week: week,
-                                                   introduction: introduction)
+            challengeCreateUsecase.createChallenge(
+                category: category,
+                title: title,
+                imageURL: imageURL,
+                thumbnailImageURL: thumbnailImageURL,
+                authExampleImageURL: authExampleImageURL,
+                authExampleThumbnailImageURL: authExampleThumbnailImageURL,
+                authMethod: authMethod,
+                week: week,
+                introduction: introduction
+            )
         } else {
             updateChallenge()
         }
@@ -250,11 +244,8 @@ extension CreateViewModel {
         return imageSaveUsecase.saveImage(to: directory, filename: filename, data: data)
     }
 
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)? = nil) {
-        imageFetchUsecase.fetchImageData(from: directory,
-                                         filename: filename) { data in
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
         }
     }
@@ -262,11 +253,13 @@ extension CreateViewModel {
 
 extension CreateViewModel {
     private func validate() {
-        buttonState.value = !challengeCreateUsecase.isEmpty(title: title,
-                                                            imageURL: imageURL,
-                                                            introduction: introduction,
-                                                            authMethod: authMethod,
-                                                            authExampleImageURL: authExampleImageURL)
+        buttonState.value = !challengeCreateUsecase.isEmpty(
+            title: title,
+            imageURL: imageURL,
+            introduction: introduction,
+            authMethod: authMethod,
+            authExampleImageURL: authExampleImageURL
+        )
     }
 
     private func fetchChallenge() {

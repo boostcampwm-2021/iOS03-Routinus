@@ -167,7 +167,8 @@ extension CreateViewController {
     }
 
     private func configureGesture() {
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedScrollView(_:)))
+        let recognizer = UITapGestureRecognizer(target: self,
+                                                action: #selector(didTappedScrollView(_:)))
         scrollView.addGestureRecognizer(recognizer)
     }
 
@@ -381,22 +382,30 @@ extension CreateViewController: UIImagePickerControllerDelegate, UINavigationCon
 
             switch selectedImagePickerTag {
             case .image:
-                let mainImageURL = viewModel?.saveImage(to: "temp",
-                                                        filename: "image",
-                                                        data: mainImage.jpegData(compressionQuality: 0.9))
-                let thumbnailImageURL = viewModel?.saveImage(to: "temp",
-                                                             filename: "thumbnail_image",
-                                                             data: thumbnailImage.jpegData(compressionQuality: 0.9))
+                let mainImageURL = viewModel?.saveImage(
+                    to: "temp",
+                    filename: "image",
+                    data: mainImage.jpegData(compressionQuality: 0.9)
+                )
+                let thumbnailImageURL = viewModel?.saveImage(
+                    to: "temp",
+                    filename: "thumbnail_image",
+                    data: thumbnailImage.jpegData(compressionQuality: 0.9)
+                )
                 viewModel?.update(imageURL: mainImageURL)
                 viewModel?.update(thumbnailImageURL: thumbnailImageURL)
                 imageRegisterView.setImage(thumbnailImage)
             case .authImage:
-                let mainImageURL = viewModel?.saveImage(to: "temp",
-                                                        filename: "auth_method",
-                                                        data: mainImage.jpegData(compressionQuality: 0.9))
-                let thumbnailImageURL = viewModel?.saveImage(to: "temp",
-                                                             filename: "thumbnail_auth_method",
-                                                             data: thumbnailImage.jpegData(compressionQuality: 0.9))
+                let mainImageURL = viewModel?.saveImage(
+                    to: "temp",
+                    filename: "auth_method",
+                    data: mainImage.jpegData(compressionQuality: 0.9)
+                )
+                let thumbnailImageURL = viewModel?.saveImage(
+                    to: "temp",
+                    filename: "thumbnail_auth_method",
+                    data: thumbnailImage.jpegData(compressionQuality: 0.9)
+                )
                 viewModel?.update(authExampleImageURL: mainImageURL)
                 viewModel?.update(authExampleThumbnailImageURL: thumbnailImageURL)
                 authImageRegisterView.setImage(thumbnailImage)

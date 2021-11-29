@@ -56,7 +56,7 @@ final class CreateAuthMethodView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
-    
+
     func hideKeyboard() {
         textView.endEditing(true)
     }
