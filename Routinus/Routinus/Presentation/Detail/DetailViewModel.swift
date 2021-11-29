@@ -16,9 +16,7 @@ enum ParticipationAuthState: String {
 
 protocol DetailViewModelInput {
     func fetchChallenge()
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)?)
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
     func didTappedEditBarButton()
     func didTappedParticipationAuthButton()
     func didTappedAllAuthDisplayView()
@@ -69,14 +67,22 @@ class DetailViewModel: DetailViewModelIO {
     var cancellables = Set<AnyCancellable>()
     private(set) var challengeID: String?
 
-    let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
-                                                                        object: nil)
-    let authCreatePublisher = NotificationCenter.default.publisher(for: ChallengeAuthCreateUsecase.didCreateAuth,
-                                                                   object: nil)
-    let participationCreatePublisher = NotificationCenter.default.publisher(for: ParticipationCreateUsecase.didCreateParticipation,
-                                                                            object: nil)
-    let participationUpdatePublisher = NotificationCenter.default.publisher(for: ParticipationUpdateUsecase.didUpdateParticipation,
-                                                                            object: nil)
+    let challengeUpdatePublisher = NotificationCenter.default.publisher(
+        for: ChallengeUpdateUsecase.didUpdateChallenge,
+        object: nil
+    )
+    let authCreatePublisher = NotificationCenter.default.publisher(
+        for: ChallengeAuthCreateUsecase.didCreateAuth,
+        object: nil
+    )
+    let participationCreatePublisher = NotificationCenter.default.publisher(
+        for: ParticipationCreateUsecase.didCreateParticipation,
+        object: nil
+    )
+    let participationUpdatePublisher = NotificationCenter.default.publisher(
+        for: ParticipationUpdateUsecase.didUpdateParticipation,
+        object: nil
+    )
 
     init(challengeID: String,
          challengeFetchUsecase: ChallengeFetchableUsecase,
@@ -142,9 +148,7 @@ extension DetailViewModel {
         }
     }
 
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)? = nil) {
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
         imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
         }
