@@ -56,7 +56,7 @@ final class ChallengePromotionView: UIView {
 
     func configureChallengePromotionView(titleLabel: String, buttonLabel: String) {
         self.titleLabel.text = titleLabel
-        self.promotionButton.setTitle(buttonLabel, for: .normal)
+        promotionButton.setTitle(buttonLabel, for: .normal)
     }
 }
 

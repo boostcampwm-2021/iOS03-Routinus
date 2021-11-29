@@ -47,12 +47,12 @@ final class ChallengeCollectionViewCell: UICollectionViewCell {
 
 extension ChallengeCollectionViewCell {
     private func configureViews() {
-        self.addSubview(imageView)
+        addSubview(imageView)
         imageView.anchor(horizontal: imageView.superview,
                          top: imageView.superview?.topAnchor,
                          height: 110)
 
-        self.addSubview(titleLabel)
+        addSubview(titleLabel)
         titleLabel.anchor(horizontal: titleLabel.superview,
                           top: imageView.bottomAnchor,
                           paddingTop: 10,
@@ -61,7 +61,7 @@ extension ChallengeCollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.titleLabel.text = ""
-        self.imageView.image = nil
+        titleLabel.text = ""
+        imageView.image = nil
     }
 }

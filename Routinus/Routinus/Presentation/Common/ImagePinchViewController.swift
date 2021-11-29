@@ -71,14 +71,14 @@ final class ImagePinchViewController: UIViewController {
     }
 
     private func fetchImage() {
-        guard let image = self.imageData else { return }
+        guard let image = imageData else { return }
         DispatchQueue.main.async {
             self.imageView.image = UIImage(data: image)
         }
     }
 
     @objc private func didTappedCloseButton() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
 
@@ -116,7 +116,7 @@ extension ImagePinchViewController: UIGestureRecognizerDelegate {
         pan.setTranslation(.zero, in: imageView)
 
         if currentScale <= 1 && pan.state == .ended {
-            self.dismiss(animated: true)
+            dismiss(animated: true)
         }
     }
 }

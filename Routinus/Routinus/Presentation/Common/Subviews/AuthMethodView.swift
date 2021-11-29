@@ -58,19 +58,19 @@ final class AuthMethodView: UIView {
 
 extension AuthMethodView {
     private func configure() {
-        self.backgroundColor = .systemBackground
+        backgroundColor = .systemBackground
         configureSubviews()
         configureMethodViewTapGesture()
     }
 
     private func configureSubviews() {
-        self.addSubview(titleLabel)
+        addSubview(titleLabel)
         titleLabel.anchor(leading: leadingAnchor,
                           paddingLeading: 20,
                           top: topAnchor,
                           paddingTop: 20)
 
-        self.addSubview(methodImageView)
+        addSubview(methodImageView)
         methodImageView.anchor(leading: leadingAnchor,
                                paddingLeading: 20,
                                top: titleLabel.bottomAnchor,
@@ -78,7 +78,7 @@ extension AuthMethodView {
                                width: 150,
                                height: 150)
 
-        self.addSubview(methodView)
+        addSubview(methodView)
         methodView.anchor(horizontal: self,
                           paddingHorizontal: 20,
                           top: methodImageView.bottomAnchor,
@@ -101,11 +101,11 @@ extension AuthMethodView {
         singleTapGestureRecognizer.numberOfTapsRequired = 1
         singleTapGestureRecognizer.isEnabled = true
         singleTapGestureRecognizer.cancelsTouchesInView = false
-        self.methodImageView.addGestureRecognizer(singleTapGestureRecognizer)
+        methodImageView.addGestureRecognizer(singleTapGestureRecognizer)
     }
 
     @objc func tappedMethodImageView() {
-        self.delegate?.didTappedAuthMethodImageView()
+        delegate?.didTappedAuthMethodImageView()
     }
 
     func update(to text: String) {
@@ -113,9 +113,9 @@ extension AuthMethodView {
     }
 
     func update(to data: Data) {
-        self.methodImageView.image = UIImage(data: data)
+        methodImageView.image = UIImage(data: data)
     }
-    
+
     var authThumbnailImage: Data? {
         return methodImageView.image?.jpegData(compressionQuality: 1)
     }
