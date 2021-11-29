@@ -8,7 +8,6 @@
 import Foundation
 
 import RoutinusNetwork
-import RoutinusStorage
 
 protocol ChallengeAuthRepository {
     func insert(challengeAuth: ChallengeAuth,
@@ -42,7 +41,7 @@ extension RoutinusRepository: ChallengeAuthRepository {
         RoutinusNetwork.insertChallengeAuth(challengeAuth: challengeAuthDTO,
                                             userAuthImageURL: userAuthImageURL,
                                             userAuthThumbnailImageURL: userAuthThumbnailImageURL) {
-            RoutinusStorage.removeCachedImages(from: "temp")
+            ImageManager.removeCachedImages(from: "temp")
             completion?()
         }
     }

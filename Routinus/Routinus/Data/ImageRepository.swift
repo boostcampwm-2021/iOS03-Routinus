@@ -8,7 +8,6 @@
 import Foundation
 
 import RoutinusNetwork
-import RoutinusStorage
 
 protocol ImageRepository {
     func fetchImageData(from directory: String,
@@ -29,13 +28,13 @@ extension RoutinusRepository: ImageRepository {
     func fetchImageData(from directory: String,
                         filename: String,
                         completion: ((Data?) -> Void)? = nil) {
-        if RoutinusStorage.isExist(in: directory, filename: filename) {
-            RoutinusStorage.cachedImageData(from: directory, filename: filename) { data in
+        if ImageManager.isExist(in: directory, filename: filename) {
+            ImageManager.cachedImageData(from: directory, filename: filename) { data in
                 completion?(data)
             }
         } else {
             RoutinusNetwork.imageData(from: directory, filename: filename) { data in
-                RoutinusStorage.saveImage(to: directory, filename: filename, imageData: data)
+                ImageManager.saveImage(to: directory, filename: filename, imageData: data)
                 completion?(data)
             }
         }
@@ -44,7 +43,7 @@ extension RoutinusRepository: ImageRepository {
     func saveImage(to directory: String,
                    filename: String,
                    data: Data?) -> String? {
-        return RoutinusStorage.saveImage(to: directory,
+        return ImageManager.saveImage(to: directory,
                                          filename: filename,
                                          imageData: data)
     }
@@ -60,7 +59,7 @@ extension RoutinusRepository: ImageRepository {
                                     filename: "thumbnail_image",
                                     imageURL: thumbnailImageURL,
                                     completion: nil)
-        RoutinusStorage.removeCachedImages(from: challengeID)
+        ImageManager.removeCachedImages(from: challengeID)
     }
 
     func updateImage(challengeID: String,
@@ -74,6 +73,6 @@ extension RoutinusRepository: ImageRepository {
                                     filename: "thumbnail_auth_method",
                                     imageURL: authExampleThumbnailImageURL,
                                     completion: nil)
-        RoutinusStorage.removeCachedImages(from: challengeID)
+        ImageManager.removeCachedImages(from: challengeID)
     }
 }

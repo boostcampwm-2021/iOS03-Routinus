@@ -8,7 +8,6 @@
 import Foundation
 
 import RoutinusNetwork
-import RoutinusStorage
 
 protocol ChallengeRepository {
     func fetchRecommendChallenges(completion: (([Challenge]) -> Void)?)
@@ -87,10 +86,10 @@ extension RoutinusRepository: ChallengeRepository {
         guard let ownerID = RoutinusRepository.userID() else { return }
         RoutinusNetwork.challenge(ownerID: ownerID,
                                   challengeID: challengeID) { dto in
-            let imageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "image")
-            let thumbnailImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "thumbnail_image")
-            let authExampleImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "auth_method")
-            let authExampleThumbnailImageURL = RoutinusStorage.cachedImageURL(from: challengeID, filename: "thumbnail_auth_method")
+            let imageURL = ImageManager.cachedImageURL(from: challengeID, filename: "image")
+            let thumbnailImageURL = ImageManager.cachedImageURL(from: challengeID, filename: "thumbnail_image")
+            let authExampleImageURL = ImageManager.cachedImageURL(from: challengeID, filename: "auth_method")
+            let authExampleThumbnailImageURL = ImageManager.cachedImageURL(from: challengeID, filename: "thumbnail_auth_method")
             completion(Challenge(challengeDTO: dto,
                                  imageURL: imageURL,
                                  thumbnailImageURL: thumbnailImageURL,
@@ -140,7 +139,7 @@ extension RoutinusRepository: ChallengeRepository {
                                         authExampleThumbnailImageURL: authExampleThumbnailImageURL,
                                         yearMonth: yearMonth,
                                         day: day) {
-            RoutinusStorage.removeCachedImages(from: "temp")
+            ImageManager.removeCachedImages(from: "temp")
             completion?()
         }
     }

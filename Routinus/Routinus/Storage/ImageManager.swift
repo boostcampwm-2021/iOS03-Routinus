@@ -1,14 +1,14 @@
 //
-//  RoutinusStorage.swift
-//  RoutinusStorage
+//  ImageManager.swift
+//  Routinus
 //
-//  Created by 유석환 on 2021/11/15.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-public enum RoutinusStorage {
-    public static func isExist(in directory: String, filename: String) -> Bool {
+enum ImageManager {
+    static func isExist(in directory: String, filename: String) -> Bool {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
                                                              true).first else { return false }
@@ -20,7 +20,7 @@ public enum RoutinusStorage {
         return FileManager.default.fileExists(atPath: url.path)
     }
 
-    public static func cachedFilenames() -> [String] {
+    static func cachedFilenames() -> [String] {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
                                                              true).first else { return [] }
@@ -29,7 +29,7 @@ public enum RoutinusStorage {
         return (try? FileManager.default.contentsOfDirectory(atPath: url.path)) ?? []
     }
 
-    public static func cachedImageData(from directory: String,
+    static func cachedImageData(from directory: String,
                                        filename: String,
                                        completion: ((Data?) -> Void)? = nil) {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
@@ -46,7 +46,7 @@ public enum RoutinusStorage {
         completion?(try? Data(contentsOf: url))
     }
 
-    public static func cachedImageURL(from directory: String, filename: String) -> String {
+    static func cachedImageURL(from directory: String, filename: String) -> String {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
                                                              true).first else { return "" }
@@ -58,8 +58,7 @@ public enum RoutinusStorage {
         return url.absoluteString
     }
 
-    @discardableResult
-    public static func saveImage(to directory: String, filename: String, imageData: Data?) -> String? {
+    @discardableResult static func saveImage(to directory: String, filename: String, imageData: Data?) -> String? {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
                                                              true).first else { return nil }
@@ -73,7 +72,7 @@ public enum RoutinusStorage {
                                               attributes: nil) ? url.absoluteString : nil
     }
 
-    public static func removeCachedImages(from directory: String) {
+    static func removeCachedImages(from directory: String) {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
                                                              true).first else { return }
@@ -92,15 +91,15 @@ public enum RoutinusStorage {
 }
 
 // TODO: 개발 완료 후 삭제(개발/테스트용으로 작성된 메소드)
-extension RoutinusStorage {
-    public static func removeAllCachedImages() {
+extension ImageManager {
+    static func removeAllCachedImages() {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
                                                              true).first else { return }
 
         let url = URL(fileURLWithPath: path)
         let filenames = cachedFilenames()
-            .filter{ $0.hasSuffix(".jpeg") }
+            .filter { $0.hasSuffix(".jpeg") }
 
         for filename in filenames {
             var url = url
