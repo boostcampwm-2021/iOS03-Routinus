@@ -21,12 +21,12 @@ final class AppCoordinator: RoutinusCoordinator {
     }
 
     private func configureNavigationController() {
-        self.navigationController.navigationBar.isHidden = true
+        navigationController.navigationBar.isHidden = true
     }
 
     private func configureTabBar() {
         let tabBarCoordinator = TabBarCoordinator(navigationController: navigationController)
         tabBarCoordinator.start()
-        self.childCoordinator.append(tabBarCoordinator)
+        childCoordinator.append(tabBarCoordinator)
     }
 }
