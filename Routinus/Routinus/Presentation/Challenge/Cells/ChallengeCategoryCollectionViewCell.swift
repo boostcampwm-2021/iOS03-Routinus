@@ -47,9 +47,7 @@ final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
 
         for (index, category) in Challenge.Category.allCases.enumerated() {
             let button = ChallengeCategoryIconView()
-            button.setImage(UIImage(named: category.symbol) != nil
-                            ? UIImage(named: category.symbol)
-                            : UIImage(systemName: category.symbol))
+            button.setImage(UIImage(named: category.symbol) != nil ? UIImage(named: category.symbol) : UIImage(systemName: category.symbol))
             button.setTitle(category.title)
             button.setTintColor(UIColor(named: category.color))
 

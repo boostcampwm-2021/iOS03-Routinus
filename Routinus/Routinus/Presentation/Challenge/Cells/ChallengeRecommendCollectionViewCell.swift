@@ -55,9 +55,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
     func configureViews(recommendChallenge: Challenge) {
         let category = recommendChallenge.category
-        let image = UIImage(named: category.symbol) != nil
-                    ? UIImage(named: category.symbol)
-                    : UIImage(systemName: category.symbol)
+        let image = UIImage(named: category.symbol) != nil ? UIImage(named: category.symbol) : UIImage(systemName: category.symbol)
         imageView.image = image
         imageView.tintColor = UIColor(named: category.color)
 

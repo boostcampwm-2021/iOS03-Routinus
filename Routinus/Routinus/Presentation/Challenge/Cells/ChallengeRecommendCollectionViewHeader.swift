@@ -24,12 +24,12 @@ final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.configureViews()
+        configureViews()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.configureViews()
+        configureViews()
     }
 
     override func layoutSubviews() {

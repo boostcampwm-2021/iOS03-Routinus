@@ -12,15 +12,15 @@ final class ChallengeCategoryIconView: UIView {
     private var title = UILabel()
 
     override init(frame: CGRect) {
-        self.imageView = UIImageView()
-        self.title = UILabel()
+        imageView = UIImageView()
+        title = UILabel()
         super.init(frame: frame)
         configureViews()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        self.imageView = UIImageView()
-        self.title = UILabel()
+        imageView = UIImageView()
+        title = UILabel()
         super.init(coder: aDecoder)
         configureViews()
     }
