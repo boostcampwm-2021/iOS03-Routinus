@@ -53,19 +53,19 @@ final class HomeViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        self.scrollView.removeAfterimage()
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        scrollView.removeAfterimage()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 
 extension HomeViewController {
     private func configureLaunchView() {
-        self.tabBarController?.view.addSubview(launchView)
+        tabBarController?.view.addSubview(launchView)
     }
 
     private func configureThemeStyle() {
@@ -82,41 +82,41 @@ extension HomeViewController {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        self.view.backgroundColor = .systemBackground
-        self.configureNavigationBar()
+        view.backgroundColor = .systemBackground
+        configureNavigationBar()
 
-        self.view.addSubview(scrollView)
-        scrollView.anchor(edges: self.view.safeAreaLayoutGuide)
+        view.addSubview(scrollView)
+        scrollView.anchor(edges: view.safeAreaLayoutGuide)
 
-        self.scrollView.addSubview(contentView)
+        scrollView.addSubview(contentView)
         contentView.anchor(centerX: contentView.superview?.centerXAnchor,
                            vertical: contentView.superview,
                            width: UIScreen.main.bounds.width)
 
-        self.contentView.addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
         titleLabel.anchor(horizontal: titleLabel.superview,
                           paddingHorizontal: offset,
                           top: titleLabel.superview?.topAnchor,
                           paddingTop: smallWidth ? 28 : 32,
                           height: 80)
 
-        self.contentView.addSubview(continuityView)
+        contentView.addSubview(continuityView)
         continuityView.anchor(horizontal: continuityView.superview,
                               paddingHorizontal: offset,
                               top: titleLabel.bottomAnchor,
                               paddingTop: 10,
                               height: 80)
 
-        self.contentView.addSubview(todayRoutineView)
+        contentView.addSubview(todayRoutineView)
         todayRoutineView.anchor(horizontal: todayRoutineView.superview,
-                                top: self.continuityView.bottomAnchor,
+                                top: continuityView.bottomAnchor,
                                 paddingTop: 25)
 
         let constraint = todayRoutineView.heightAnchor.constraint(equalToConstant: 25)
         constraint.priority = UILayoutPriority(900)
         constraint.isActive = true
 
-        self.contentView.addSubview(calendarView)
+        contentView.addSubview(calendarView)
         calendarView.anchor(centerX: calendarView.superview?.centerXAnchor,
                             top: todayRoutineView.bottomAnchor,
                             paddingTop: offset,
@@ -128,11 +128,11 @@ extension HomeViewController {
     private func configureNavigationBar() {
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = UIColor(named: "Black")
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     private func configureViewModel() {
-        self.viewModel?.user
+        viewModel?.user
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] user in
                 guard let self = self else { return }
@@ -141,7 +141,7 @@ extension HomeViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.todayRoutines
+        viewModel?.todayRoutines
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routines in
                 guard let self = self else { return }
@@ -154,7 +154,7 @@ extension HomeViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.days
+        viewModel?.days
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
@@ -193,7 +193,7 @@ extension HomeViewController {
 
 extension HomeViewController: ChallengePromotionViewDelegate {
     func didTappedPromotionButton() {
-        self.viewModel?.didTappedAddChallengeButton()
+        viewModel?.didTappedAddChallengeButton()
     }
 }
 
@@ -246,19 +246,19 @@ extension HomeViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.viewModel?.didTappedTodayRoutine(index: indexPath.row)
+        viewModel?.didTappedTodayRoutine(index: indexPath.row)
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        self.viewModel?.days.value.count ?? 0
+        viewModel?.days.value.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let day = self.viewModel?.days.value[indexPath.row]
+        let day = viewModel?.days.value[indexPath.row]
 
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: DateCollectionViewCell.reuseIdentifier,
@@ -281,6 +281,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: ExplanationButtonDelegate {
     func didTappedExplanationButton() {
-        self.viewModel?.didTappedExplanationButton()
+        viewModel?.didTappedExplanationButton()
     }
 }
