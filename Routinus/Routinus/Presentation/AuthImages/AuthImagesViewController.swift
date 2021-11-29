@@ -47,10 +47,14 @@ extension AuthImagesViewController {
     private func configureViews() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(collectionView)
-        collectionView.anchor(leading: view.leadingAnchor, paddingLeading: 10,
-                              trailing: view.trailingAnchor, paddingTrailing: 10,
-                              top: view.topAnchor, paddingTop: 10,
-                              bottom: view.bottomAnchor, paddingBottom: 10)
+        collectionView.anchor(leading: view.leadingAnchor,
+                              paddingLeading: 10,
+                              trailing: view.trailingAnchor,
+                              paddingTrailing: 10,
+                              top: view.topAnchor,
+                              paddingTop: 10,
+                              bottom: view.bottomAnchor,
+                              paddingBottom: 10)
     }
 
     private func configureDelegates() {
@@ -83,9 +87,7 @@ extension AuthImagesViewController {
 
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self,
-                                 action: #selector(refresh),
-                                 for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
@@ -106,20 +108,21 @@ extension AuthImagesViewController {
 extension AuthImagesViewController: UICollectionViewDataSource,
                                     UICollectionViewDelegate,
                                     UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         return self.viewModel?.auths.value.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AuthImagesCollectionViewCell.identifier,
-                                                            for: indexPath) as? AuthImagesCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: AuthImagesCollectionViewCell.identifier,
+            for: indexPath) as? AuthImagesCollectionViewCell else { return UICollectionViewCell() }
 
         guard let auth = viewModel?.auths.value[indexPath.item],
               let date = auth.date?.toDateString() else { return UICollectionViewCell() }
         let filename = "\(auth.userID)_\(date)_thumbnail_auth"
-        viewModel?.imageData(from: auth.challengeID,
-                             filename: filename) { data in
+        viewModel?.imageData(from: auth.challengeID, filename: filename) { data in
             guard let data = data,
                   let image = UIImage(data: data) else { return }
             DispatchQueue.main.async {
@@ -129,7 +132,9 @@ extension AuthImagesViewController: UICollectionViewDataSource,
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfCells: CGFloat = 2
         let minimumInteritemSpacing: CGFloat = 10
         let width = collectionView.frame.size.width - (minimumInteritemSpacing * (numberOfCells-1))
@@ -137,14 +142,14 @@ extension AuthImagesViewController: UICollectionViewDataSource,
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? AuthImagesCollectionViewCell else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath)
+                as? AuthImagesCollectionViewCell else { return }
         self.viewModel?.authImageTap.send(cell.imageData())
 
         guard let auth = viewModel?.auths.value[indexPath.item],
               let date = auth.date?.toDateString() else { return }
         let filename = "\(auth.userID)_\(date)_auth"
-        viewModel?.imageData(from: auth.challengeID,
-                             filename: filename) { data in
+        viewModel?.imageData(from: auth.challengeID, filename: filename) { data in
             guard let data = data else { return }
             DispatchQueue.main.async {
                 self.viewModel?.authImageLoad.send(data)

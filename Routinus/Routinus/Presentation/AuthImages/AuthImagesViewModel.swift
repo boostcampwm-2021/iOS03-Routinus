@@ -10,9 +10,7 @@ import Foundation
 
 protocol AuthImagesViewModelInput {
     func fetchChallengeAuthData(authDisplayState: AuthDisplayState)
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)?)
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
 }
 
 protocol AuthImagesViewModelOutput {
@@ -46,9 +44,7 @@ final class AuthImagesViewModel: AuthImagesViewModelIO {
         self.fetchChallengeAuthData(authDisplayState: authDisplayState)
     }
 
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)? = nil) {
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
         imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
         }
