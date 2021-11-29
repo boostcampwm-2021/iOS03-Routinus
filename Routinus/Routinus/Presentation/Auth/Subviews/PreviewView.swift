@@ -70,7 +70,7 @@ final class PreviewView: UIView {
         backgroundImage.image = image
         backgroundImage.contentMode = .scaleAspectFill
         backgroundImage.clipsToBounds = true
-        self.previewView.addSubview(backgroundImage)
+        previewView.addSubview(backgroundImage)
     }
 }
 
@@ -81,7 +81,7 @@ extension PreviewView {
     }
 
     private func configureSubviews() {
-        self.addSubview(previewView)
+        addSubview(previewView)
         previewView.anchor(horizontal: self, paddingHorizontal: 20, vertical: self)
 
         previewView.addSubview(stackView)
@@ -95,8 +95,8 @@ extension PreviewView {
     private func configureGesture() {
         let recognizer = UITapGestureRecognizer(target: self,
                                                 action: #selector(didTappedPreviewView))
-        self.previewView.isUserInteractionEnabled = true
-        self.previewView.addGestureRecognizer(recognizer)
+        previewView.isUserInteractionEnabled = true
+        previewView.addGestureRecognizer(recognizer)
     }
 
     @objc private func didTappedPreviewView(_ sender: UITapGestureRecognizer) {

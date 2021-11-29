@@ -81,38 +81,38 @@ final class AuthViewModel: AuthViewModelIO {
 
 extension AuthViewModel {
     func didTappedAuthButton() {
-        self.challengeAuthCreateUsecase.createChallengeAuth(
+        challengeAuthCreateUsecase.createChallengeAuth(
             challengeID: challengeID,
             userAuthImageURL: userAuthImageURL,
             userAuthThumbnailImageURL: userAuthThumbnailImageURL
         )
-        self.participationUpdateUsecase.updateParticipationAuthCount(challengeID: challengeID)
-        self.achievementUpdateUsecase.updateAchievementCount()
-        self.userUpdateUsecase.updateContinuityDayByAuth()
+        participationUpdateUsecase.updateParticipationAuthCount(challengeID: challengeID)
+        achievementUpdateUsecase.updateAchievementCount()
+        userUpdateUsecase.updateContinuityDayByAuth()
     }
 
     func didTappedAuthMethodImage(image: Data) {
-        self.authMethodImageTap.send(image)
+        authMethodImageTap.send(image)
     }
-    
+
     func loadedAuthMethodImage(image: Data) {
-        self.authMethodImageLoad.send(image)
+        authMethodImageLoad.send(image)
     }
 
     func update(userAuthImageURL: String?) {
         self.userAuthImageURL = userAuthImageURL ?? ""
-        self.validate()
+        validate()
     }
 
     func update(userAuthThumbnailImageURL: String?) {
         self.userAuthThumbnailImageURL = userAuthThumbnailImageURL ?? ""
-        self.validate()
+        validate()
     }
 
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)? = nil) {
-        self.imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
         }
     }
@@ -120,7 +120,7 @@ extension AuthViewModel {
     func saveImage(to directory: String, filename: String, data: Data?) -> String? {
         return imageSaveUsecase.saveImage(to: directory, filename: filename, data: data)
     }
-    
+
     func fetchUsername() {
         guard let userID = userFetchUsecase.fetchUserID() else { return }
         userFetchUsecase.fetchUser(id: userID) { [weak self] user in
@@ -131,7 +131,7 @@ extension AuthViewModel {
 
 extension AuthViewModel {
     func fetchChallenge(challengeID: String) {
-        self.challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
+        challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
             guard let self = self else { return }
             self.challenge.value = challenge
         }
