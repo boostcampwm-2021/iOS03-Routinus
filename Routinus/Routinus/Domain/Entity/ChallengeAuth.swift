@@ -13,10 +13,7 @@ struct ChallengeAuth {
     var date: Date?
     var time: Date?
 
-    init(challengeID: String,
-         userID: String,
-         date: Date?,
-         time: Date?) {
+    init(challengeID: String, userID: String, date: Date?, time: Date?) {
         self.challengeID = challengeID
         self.userID = userID
         self.date = date
