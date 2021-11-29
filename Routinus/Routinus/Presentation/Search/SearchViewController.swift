@@ -42,13 +42,19 @@ final class SearchViewController: UIViewController {
 
         collectionView.showsVerticalScrollIndicator = false
 
-        collectionView.register(SearchCollectionViewHeader.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: SearchCollectionViewHeader.identifier)
-        collectionView.register(SearchPopularKeywordCollectionViewCell.self,
-                                forCellWithReuseIdentifier: SearchPopularKeywordCollectionViewCell.identifier)
-        collectionView.register(ChallengeCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ChallengeCollectionViewCell.identifier)
+        collectionView.register(
+            SearchCollectionViewHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: SearchCollectionViewHeader.identifier
+        )
+        collectionView.register(
+            SearchPopularKeywordCollectionViewCell.self,
+            forCellWithReuseIdentifier: SearchPopularKeywordCollectionViewCell.identifier
+        )
+        collectionView.register(
+            ChallengeCollectionViewCell.self,
+            forCellWithReuseIdentifier: ChallengeCollectionViewCell.identifier
+        )
 
         return collectionView
     }()
@@ -83,18 +89,24 @@ final class SearchViewController: UIViewController {
 
 extension SearchViewController {
     private func configureDataSource() -> DataSource {
-        let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, content in
+        let dataSource = DataSource(
+            collectionView: self.collectionView
+        ) { collectionView, indexPath, content in
             switch content {
             case .popularSearchKeyword(let keyword):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchPopularKeywordCollectionViewCell.identifier,
-                                                              for: indexPath) as? SearchPopularKeywordCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: SearchPopularKeywordCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? SearchPopularKeywordCollectionViewCell
                 cell?.configureViews(keyword: keyword)
                 cell?.delegate = self
                 return cell
 
             case .challenge(let challenge):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCollectionViewCell.identifier,
-                                                              for: indexPath) as? ChallengeCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: ChallengeCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? ChallengeCollectionViewCell
                 cell?.setTitle(challenge.title)
                 self.viewModel?.imageData(from: challenge.challengeID,
                                      filename: "thumbnail_image") { data in
@@ -121,7 +133,8 @@ extension SearchViewController {
             let view = collectionView.dequeueReusableSupplementaryView(
                         ofKind: kind,
                         withReuseIdentifier: SearchCollectionViewHeader.identifier,
-                        for: indexPath) as? SearchCollectionViewHeader
+                        for: indexPath
+            ) as? SearchCollectionViewHeader
             let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
             view?.title = section.title
@@ -159,7 +172,9 @@ extension SearchViewController {
                 let challengeContents = challengeItem.map { SearchContents.challenge($0) }
                 challengeSnapshot.deleteAll()
                 challengeSnapshot.append(challengeContents)
-                self.dataSource.apply(challengeSnapshot, to: Section.challenge, animatingDifferences: true)
+                self.dataSource.apply(challengeSnapshot,
+                                      to: Section.challenge,
+                                      animatingDifferences: true)
             })
             .store(in: &cancellables)
     }
@@ -183,9 +198,7 @@ extension SearchViewController {
 
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self,
-                                 action: #selector(refresh),
-                                 for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
@@ -205,7 +218,8 @@ extension SearchViewController {
 
 extension SearchViewController {
     private func configureKeyboard() {
-        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedView))
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                                action: #selector(tappedView))
         singleTapGestureRecognizer.numberOfTapsRequired = 1
         singleTapGestureRecognizer.isEnabled = true
         singleTapGestureRecognizer.cancelsTouchesInView = false
