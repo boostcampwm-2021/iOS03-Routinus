@@ -114,18 +114,18 @@ extension CalendarHeader {
     }
 
     private func configureViews() {
-        self.backgroundColor = .tertiarySystemGroupedBackground
+        backgroundColor = .tertiarySystemGroupedBackground
 
-        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        self.layer.cornerCurve = .continuous
-        self.layer.cornerRadius = 15
+        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        layer.cornerCurve = .continuous
+        layer.cornerRadius = 15
 
-        self.addSubview(todayButton)
-        self.addSubview(monthLabel)
-        self.addSubview(previousMonthButton)
-        self.addSubview(nextMonthButton)
-        self.addSubview(dayOfWeekStackView)
-        self.addSubview(separatorView)
+        addSubview(todayButton)
+        addSubview(monthLabel)
+        addSubview(previousMonthButton)
+        addSubview(nextMonthButton)
+        addSubview(dayOfWeekStackView)
+        addSubview(separatorView)
 
         for dayNumber in 1...7 {
             let dayLabel = UILabel()
