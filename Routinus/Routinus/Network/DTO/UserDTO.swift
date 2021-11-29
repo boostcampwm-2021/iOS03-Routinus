@@ -30,7 +30,7 @@ struct UserDTO: Codable {
     }
 
     var documentID: String? {
-        return self.document?.name?.components(separatedBy: "/").last
+        return document?.name?.components(separatedBy: "/").last
     }
 }
 
