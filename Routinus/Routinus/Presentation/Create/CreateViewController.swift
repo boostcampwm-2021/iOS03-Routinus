@@ -208,7 +208,8 @@ extension CreateViewController {
         let scrollViewHeight = scrollView.frame.size.height
         let animationCallOffset = stackViewHeight - scrollViewHeight
 
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             UIView.animate(withDuration: 0.5) {
                 if self.scrollView.contentOffset.y > animationCallOffset {
                     self.scrollView.setContentOffset(CGPoint(x: 0, y: animationCallOffset + 20),
@@ -248,7 +249,8 @@ extension CreateViewController: CreateSubviewDelegate {
 extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         guard let offset = textField.superview?.frame.origin.y else { return }
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             UIView.animate(withDuration: 0.5) {
                 self.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
             }
@@ -257,7 +259,8 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
 
     func textViewDidBeginEditing(_ textView: UITextView) {
         guard let offset = textView.superview?.frame.origin.y else { return }
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             UIView.animate(withDuration: 0.5) {
                 self.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
             }
