@@ -12,9 +12,7 @@ protocol SearchViewModelInput {
     func didChangedSearchText(_ keyword: String)
     func didTappedChallenge(index: Int)
     func didLoadedSearchView()
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)?)
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
 }
 
 protocol SearchViewModelOutput {
@@ -83,9 +81,7 @@ extension SearchViewModel {
         self.fetchChallenges()
     }
 
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)? = nil) {
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
         imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
         }
