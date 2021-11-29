@@ -1,5 +1,5 @@
 //
-//  AuthListCoordinator.swift
+//  AuthsCoordinator.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/23.
@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class AuthListCoordinator: RoutinusCoordinator {
+final class AuthsCoordinator: RoutinusCoordinator {
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
