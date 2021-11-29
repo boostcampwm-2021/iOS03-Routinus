@@ -26,8 +26,7 @@ enum UserQuery {
         """.data(using: .utf8)
     }
 
-    static func insert(id: String,
-                                name: String) -> Data? {
+    static func insert(id: String, name: String) -> Data? {
         return """
         {
             "fields": {
