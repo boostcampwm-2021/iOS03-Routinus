@@ -9,6 +9,7 @@ import UIKit
 
 final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
     static let identifier = "ChallengeRecommendCollectionViewHeader"
+
     weak var delegate: ChallengeRecommendHeaderDelegate?
 
     private lazy var titleLabel: UILabel = {
@@ -45,12 +46,12 @@ final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
     }()
 
     @objc func didTappedSearchButton() {
-        self.delegate?.didTappedSearchButton()
+        delegate?.didTappedSearchButton()
     }
 
     var title: String = "" {
         didSet {
-            self.titleLabel.text = title
+            titleLabel.text = title
         }
     }
 

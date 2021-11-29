@@ -59,9 +59,9 @@ final class ChallengeCollectionViewLayouts {
 
     func section(at sectionNumber: Int) -> NSCollectionLayoutSection {
         if sectionNumber == 0 {
-            return self.recommendLayout
+            return recommendLayout
         } else {
-            return self.mainLayout
+            return mainLayout
         }
     }
 }

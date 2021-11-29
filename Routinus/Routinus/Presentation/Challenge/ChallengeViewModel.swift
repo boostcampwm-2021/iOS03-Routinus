@@ -56,7 +56,7 @@ final class ChallengeViewModel: ChallengeViewModelIO {
 
 extension ChallengeViewModel {
     func configurePublishers() {
-        self.challengeCreatePublisher
+        challengeCreatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchChallenge()
@@ -86,7 +86,7 @@ extension ChallengeViewModel {
     }
 
     func didTappedRecommendChallenge(index: Int) {
-        let challengeID = self.recommendChallenges.value[index].challengeID
+        let challengeID = recommendChallenges.value[index].challengeID
         recommendChallengeTap.send(challengeID)
     }
 

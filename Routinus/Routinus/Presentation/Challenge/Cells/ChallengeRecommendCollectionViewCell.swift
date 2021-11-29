@@ -58,44 +58,53 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         let image = UIImage(named: category.symbol) != nil
                     ? UIImage(named: category.symbol)
                     : UIImage(systemName: category.symbol)
-        self.imageView.image = image
-        self.imageView.tintColor = UIColor(named: category.color)
+        imageView.image = image
+        imageView.tintColor = UIColor(named: category.color)
 
-        self.titleLabel.text = recommendChallenge.title
-        self.subtitleLabel.text = recommendChallenge.introduction
-        self.encounterLabel.text = "\(recommendChallenge.participantCount)명 참가"
+        titleLabel.text = recommendChallenge.title
+        subtitleLabel.text = recommendChallenge.introduction
+        encounterLabel.text = "\(recommendChallenge.participantCount)명 참가"
 
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 15
-        self.layer.borderColor = UIColor(named: "Black")?.cgColor
+        layer.borderWidth = 1
+        layer.cornerRadius = 15
+        layer.borderColor = UIColor(named: "Black")?.cgColor
 
-        self.addSubview(imageView)
-        imageView.anchor(trailing: imageView.superview?.trailingAnchor, paddingTrailing: 10,
+        addSubview(imageView)
+        imageView.anchor(trailing: imageView.superview?.trailingAnchor,
+                         paddingTrailing: 10,
                          vertical: imageView.superview,
-                         width: self.frame.size.width / 2.2)
+                         width: frame.size.width / 2.2)
 
-        self.addSubview(titleLabel)
-        titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: 25,
-                          top: titleLabel.superview?.topAnchor, paddingTop: 35)
+        addSubview(titleLabel)
+        titleLabel.anchor(horizontal: titleLabel.superview,
+                          paddingHorizontal: 25,
+                          top: titleLabel.superview?.topAnchor,
+                          paddingTop: 35)
 
-        self.addSubview(subtitleLabel)
+        addSubview(subtitleLabel)
         subtitleLabel.anchor(horizontal: titleLabel,
-                             top: titleLabel.bottomAnchor, paddingTop: 5)
+                             top: titleLabel.bottomAnchor,
+                             paddingTop: 5)
 
-        self.addSubview(encounterView)
+        addSubview(encounterView)
 
-        self.encounterView.addSubview(encounterIcon)
-        encounterIcon.anchor(leading: encounterIcon.superview?.leadingAnchor, paddingLeading: 15,
+        encounterView.addSubview(encounterIcon)
+        encounterIcon.anchor(leading: encounterIcon.superview?.leadingAnchor,
+                             paddingLeading: 15,
                              centerY: encounterIcon.superview?.centerYAnchor,
-                             width: 16, height: 16)
+                             width: 16,
+                             height: 16)
 
-        self.encounterView.addSubview(encounterLabel)
-        encounterLabel.anchor(leading: encounterIcon.trailingAnchor, paddingLeading: 5,
+        encounterView.addSubview(encounterLabel)
+        encounterLabel.anchor(leading: encounterIcon.trailingAnchor,
+                              paddingLeading: 5,
                               centerY: encounterLabel.superview?.centerYAnchor)
 
         encounterView.anchor(leading: titleLabel.leadingAnchor,
-                             trailing: encounterLabel.trailingAnchor, paddingTrailing: -15,
-                             bottom: encounterView.superview?.bottomAnchor, paddingBottom: 20)
+                             trailing: encounterLabel.trailingAnchor,
+                             paddingTrailing: -15,
+                             bottom: encounterView.superview?.bottomAnchor,
+                             paddingBottom: 20)
 
         let constraint = encounterView.heightAnchor.constraint(equalToConstant: 30)
         constraint.priority = UILayoutPriority(900)
@@ -106,7 +115,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         super.traitCollectionDidChange(previousTraitCollection)
 
         if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            self.layer.borderColor = UIColor(named: "Black")?.cgColor
+            layer.borderColor = UIColor(named: "Black")?.cgColor
         }
     }
 }

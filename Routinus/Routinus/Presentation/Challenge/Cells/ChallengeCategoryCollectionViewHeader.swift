@@ -9,6 +9,7 @@ import UIKit
 
 final class ChallengeCategoryCollectionViewHeader: UICollectionReusableView {
     static let identifier = "ChallengeCategoryCollectionViewHeader"
+
     weak var delegate: ChallengeCategoryHeaderDelegate?
 
     private lazy var label: UILabel = {
@@ -46,12 +47,12 @@ final class ChallengeCategoryCollectionViewHeader: UICollectionReusableView {
     }()
 
     @objc func didTappedSeeAllButton() {
-        self.delegate?.didTappedSeeAllButton()
+        delegate?.didTappedSeeAllButton()
     }
 
     var title: String = "" {
         didSet {
-            self.label.text = title
+            label.text = title
         }
     }
 

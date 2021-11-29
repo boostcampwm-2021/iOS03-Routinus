@@ -73,29 +73,29 @@ final class ChallengeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = dataSource
-        self.configureViews()
-        self.configureViewModel()
-        self.configureCategory()
-        self.configureRefreshControl()
+        collectionView.delegate = self
+        collectionView.dataSource = dataSource
+        configureViews()
+        configureViewModel()
+        configureCategory()
+        configureRefreshControl()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        self.collectionView.removeAfterimage()
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        collectionView.removeAfterimage()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 
 extension ChallengeViewController {
     private func configureDataSource() -> DataSource {
-        let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, content in
+        let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, content in
             switch content {
             case .recommend(let recommendChallenge):
                 let cell = collectionView.dequeueReusableCell(
@@ -157,24 +157,24 @@ extension ChallengeViewController {
     }
 
     private func configureViews() {
-        self.view.backgroundColor = .systemBackground
-        self.configureNavigationBar()
+        view.backgroundColor = .systemBackground
+        configureNavigationBar()
 
-        self.view.addSubview(collectionView)
+        view.addSubview(collectionView)
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 28.0 : 32.0
-        collectionView.anchor(edges: self.view.safeAreaLayoutGuide)
+        collectionView.anchor(edges: view.safeAreaLayoutGuide)
         collectionView.contentInset = .init(top: offset, left: 0, bottom: 0, right: 0)
     }
 
     private func configureNavigationBar() {
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = UIColor(named: "Black")
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     private func configureViewModel() {
-        self.viewModel?.recommendChallenges
+        viewModel?.recommendChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] recommendChallenges in
                 guard let self = self else { return }
@@ -188,9 +188,9 @@ extension ChallengeViewController {
     }
 
     private func configureCategory() {
-        var snapshot = self.dataSource.snapshot(for: Section.category)
+        var snapshot = dataSource.snapshot(for: Section.category)
         snapshot.append([ChallengeContents.category])
-        self.dataSource.apply(snapshot, to: Section.category)
+        dataSource.apply(snapshot, to: Section.category)
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
@@ -210,7 +210,7 @@ extension ChallengeViewController {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
         )
-        self.collectionView.refreshControl = refreshControl
+        collectionView.refreshControl = refreshControl
     }
 
     @objc private func refresh() {
@@ -224,31 +224,31 @@ extension ChallengeViewController {
 extension ChallengeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            self.viewModel?.didTappedRecommendChallenge(index: indexPath.item)
+            viewModel?.didTappedRecommendChallenge(index: indexPath.item)
         }
     }
 }
 
 extension ChallengeViewController: ChallengeRecommendHeaderDelegate {
     func didTappedSearchButton() {
-        self.viewModel?.didTappedSearchButton()
+        viewModel?.didTappedSearchButton()
     }
 }
 
 extension ChallengeViewController: ChallengeCategoryHeaderDelegate {
     func didTappedSeeAllButton() {
-        self.viewModel?.didTappedSeeAllButton()
+        viewModel?.didTappedSeeAllButton()
     }
 }
 
 extension ChallengeViewController: ChallengeCategoryCellDelegate {
     func didTappedCategoryButton(category: Challenge.Category) {
-        self.viewModel?.didTappedCategoryButton(category: category)
+        viewModel?.didTappedCategoryButton(category: category)
     }
 }
 
 extension ChallengeViewController {
     @objc private func didTappedSearchButton(_ sender: UIButton) {
-        self.viewModel?.didTappedSearchButton()
+        viewModel?.didTappedSearchButton()
     }
 }

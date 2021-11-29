@@ -42,19 +42,20 @@ final class ChallengeCategoryIconView: UIView {
     private func configureViews() {
         anchor(width: 60, height: 60)
 
-        self.addSubview(imageView)
+        addSubview(imageView)
         imageView.anchor(centerX: imageView.superview?.centerXAnchor,
                          top: imageView.superview?.topAnchor,
-                         width: 35, height: 35)
+                         width: 35,
+                         height: 35)
 
-        self.addSubview(title)
+        addSubview(title)
         title.anchor(centerX: title.superview?.centerXAnchor,
                      bottom: title.superview?.bottomAnchor)
     }
 }
 
 final class ChallengeCategoryIconViewTapGesture: UITapGestureRecognizer {
-    private (set) var category: Challenge.Category?
+    private(set) var category: Challenge.Category?
 
     func configureCategory(category: Challenge.Category) {
         self.category = category

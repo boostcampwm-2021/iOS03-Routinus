@@ -9,6 +9,7 @@ import UIKit
 
 final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
     static let identifier = "ChallengeCategoryCollectionViewCell"
+
     weak var delegate: ChallengeCategoryCellDelegate?
 
     private lazy var yStackView: UIStackView = {
@@ -38,11 +39,11 @@ final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
     }
 
     func configureViews() {
-        self.addSubview(yStackView)
+        addSubview(yStackView)
         yStackView.anchor(horizontal: yStackView.superview, top: yStackView.superview?.topAnchor)
 
-        self.yStackView.addArrangedSubview(xStackView1)
-        self.yStackView.addArrangedSubview(xStackView2)
+        yStackView.addArrangedSubview(xStackView1)
+        yStackView.addArrangedSubview(xStackView2)
 
         for (index, category) in Challenge.Category.allCases.enumerated() {
             let button = ChallengeCategoryIconView()
@@ -58,13 +59,13 @@ final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
             )
             gesture.numberOfTapsRequired = 1
             gesture.configureCategory(category: category)
-            self.isUserInteractionEnabled = true
+            isUserInteractionEnabled = true
             button.addGestureRecognizer(gesture)
 
             if index < 4 {
-                self.xStackView1.addArrangedSubview(button)
+                xStackView1.addArrangedSubview(button)
             } else {
-                self.xStackView2.addArrangedSubview(button)
+                xStackView2.addArrangedSubview(button)
             }
         }
     }
