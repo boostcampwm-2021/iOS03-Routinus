@@ -392,13 +392,13 @@
 			isa = PBXGroup;
 			children = (
 				1497CF432738FFA600296F9E /* RoutinusRepository.swift */,
-				E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */,
 				E901EFD72744C9E300B14847 /* UserRepository.swift */,
 				E901EFDB2744CAF900B14847 /* TodayRoutineRepository.swift */,
 				E901EFE12744CC6E00B14847 /* AchievementRepository.swift */,
-				E901EFD32744BD3400B14847 /* ImageRepository.swift */,
-				E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */,
+				E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */,
 				14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */,
+				E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */,
+				E901EFD32744BD3400B14847 /* ImageRepository.swift */,
 				1497CF4B2739078700296F9E /* UsernameFactory.swift */,
 			);
 			path = Data;
@@ -555,10 +555,10 @@
 			children = (
 				44AAA3232733819B002E16C4 /* Date+Extensions.swift */,
 				0D053E58274654390042DAF2 /* String+Extensions.swift */,
-				0DC38F58273BA89000331C25 /* UIImage+Extensions.swift */,
-				0DFF32BC274548D8004FA9BD /* UIView+Extensions.swift */,
 				14BFC0E0274E106D00A982CB /* UICollectionView+Extensions.swift */,
+				0DC38F58273BA89000331C25 /* UIImage+Extensions.swift */,
 				44EA8A252751FF5D00861183 /* UIScrollView+Extensions.swift */,
+				0DFF32BC274548D8004FA9BD /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -585,10 +585,10 @@
 			isa = PBXGroup;
 			children = (
 				44EA8A4627549A6000861183 /* UserQuery.swift */,
+				44EA8A4E27549A7D00861183 /* AchievementQuery.swift */,
 				44EA8A4827549A6700861183 /* ChallengeQuery.swift */,
 				44EA8A4A27549A6E00861183 /* ParticipationQuery.swift */,
 				44EA8A4C27549A7600861183 /* AuthQuery.swift */,
-				44EA8A4E27549A7D00861183 /* AchievementQuery.swift */,
 			);
 			path = Query;
 			sourceTree = "<group>";
@@ -682,13 +682,13 @@
 			isa = PBXGroup;
 			children = (
 				E97538FF273220F6004358C5 /* User.swift */,
-				E975390527325538004358C5 /* Achievement.swift */,
 				E9B1298127336EE50072D254 /* TodayRoutine.swift */,
+				E975390527325538004358C5 /* Achievement.swift */,
+				0DE03397274329B90026F502 /* Calendar.swift */,
 				E94B49752739118B00708D7B /* Challenge.swift */,
+				14B181112745511A0061F2AE /* Participation.swift */,
 				E901EFEB27453F6600B14847 /* ChallengeAuth.swift */,
 				E91C1915273CACDD00D11127 /* PopularKeyword.swift */,
-				0DE03397274329B90026F502 /* Calendar.swift */,
-				14B181112745511A0061F2AE /* Participation.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -696,23 +696,23 @@
 		E975390727325674004358C5 /* Usecase */ = {
 			isa = PBXGroup;
 			children = (
-				E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */,
-				149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */,
-				145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */,
-				E901EFDD2744CBDE00B14847 /* UserFetchUsecase.swift */,
 				1497CF562739215C00296F9E /* UserCreateUsecase.swift */,
+				E901EFDD2744CBDE00B14847 /* UserFetchUsecase.swift */,
 				E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */,
 				E901EFD92744CAA800B14847 /* TodayRoutineFetchUsecase.swift */,
 				E901EFDF2744CC4F00B14847 /* AchievementFetchUsecase.swift */,
 				E9A7943E274618AB00731DEB /* AchievementUpdateUsecase.swift */,
-				E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */,
-				E901EFE32744D41600B14847 /* ImageSaveUsecase.swift */,
-				149B8D9B274C6D410065E64D /* ImageUpdateUsecase.swift */,
-				14AFD0F92746211F00011CC1 /* ChallengeAuthFetchUsecase.swift */,
-				E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */,
-				14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */,
+				149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */,
+				E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */,
+				145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */,
 				14B18117274561E20061F2AE /* ParticipationCreateUsecase.swift */,
+				14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */,
 				E9A7943C2746125E00731DEB /* ParticipationUpdateUsecase.swift */,
+				E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */,
+				14AFD0F92746211F00011CC1 /* ChallengeAuthFetchUsecase.swift */,
+				E901EFE32744D41600B14847 /* ImageSaveUsecase.swift */,
+				E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */,
+				149B8D9B274C6D410065E64D /* ImageUpdateUsecase.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -726,10 +726,10 @@
 				E9797CA52731066100A14A0F /* Challenge */,
 				E9797CB4273107E100A14A0F /* Search */,
 				E9797CAF2731078400A14A0F /* Detail */,
-				E9797CAE2731077A00A14A0F /* Create */,
 				E9797CB7273108EA00A14A0F /* Auth */,
 				14BFC0D6274DB7BB00A982CB /* AuthImages */,
 				E9797CA92731072700A14A0F /* Manage */,
+				E9797CAE2731077A00A14A0F /* Create */,
 				E9797CA8273106E300A14A0F /* MyPage */,
 			);
 			path = Presentation;
@@ -774,13 +774,13 @@
 				E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */,
 				E9797CBC27310E1900A14A0F /* HomeCoordinator.swift */,
 				E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */,
-				E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */,
 				0DC38F43273A3B9800331C25 /* SearchCoordinator.swift */,
-				E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */,
 				E994744F2736D54C0054A631 /* DetailCoordinator.swift */,
 				E99474512736F4B30054A631 /* AuthCoordinator.swift */,
 				149B8DA9274CF75C0065E64D /* AuthsCoordinator.swift */,
+				E9797CBE27310E2A00A14A0F /* ManageCoordinator.swift */,
 				14572CEC273BF644007E6ECE /* CreateCoordinator.swift */,
+				E9797CC027310E3300A14A0F /* MyPageCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
