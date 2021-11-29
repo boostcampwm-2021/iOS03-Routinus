@@ -29,7 +29,7 @@ final class CreateViewController: UIViewController {
     private lazy var authImageRegisterView = CreateAuthImageRegisterView()
     private lazy var createButton: UIButton = {
         var button = UIButton()
-        button.setTitle(ButtonType.create.rawValue, for: .normal)
+        button.setTitle(ButtonType.create.rawValue.localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
         button.backgroundColor = UIColor(red: 180/255, green: 231/255, blue: 160/255, alpha: 1)
@@ -104,7 +104,7 @@ extension CreateViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] buttonType in
                 guard let self = self else { return }
-                self.createButton.setTitle(buttonType.rawValue, for: .normal)
+                self.createButton.setTitle(buttonType.rawValue.localized, for: .normal)
             })
             .store(in: &cancellables)
 
@@ -331,10 +331,10 @@ extension CreateViewController: CreateImagePickerDelegate {
 
         switch tag {
         case InputTag.image.rawValue:
-            title = "add challenge main image"
+            title = "add challenge main image".localized
             selectedImagePickerTag = .image
         case InputTag.authImage.rawValue:
-            title = "add auth method image"
+            title = "add auth method image".localized
             selectedImagePickerTag = .authImage
         default:
             return

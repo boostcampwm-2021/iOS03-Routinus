@@ -14,7 +14,7 @@ final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "challenge".localized
+        label.text = "challenges".localized
         label.font = UIFont.systemFont(ofSize: UIScreen.main.bounds.width <= 350 ? 30 : 34,
                                        weight: .bold)
         return label

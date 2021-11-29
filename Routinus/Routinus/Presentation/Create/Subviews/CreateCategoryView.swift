@@ -114,7 +114,7 @@ extension CreateCategoryView {
             alert.addAction(action)
         }
 
-        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil)
         alert.addAction(cancel)
 
         let height = NSLayoutConstraint(item: alert.view,

@@ -9,15 +9,15 @@ import Combine
 import Foundation
 
 enum ButtonType: String {
-    case create = "생성하기"
-    case update = "수정하기"
+    case create = "create"
+    case update = "edit"
 
     var confirmMessage: String {
         switch self {
         case .create:
-            return "챌린지가 생성되었습니다."
+            return "challenge created".localized
         case .update:
-            return "챌린지가 수정되었습니다."
+            return "challenge edited".localized
         }
     }
 }

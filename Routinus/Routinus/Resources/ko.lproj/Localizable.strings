@@ -8,8 +8,10 @@
 
 // titles
 "%@ routine" = "%@";
-"challenge" = "챌린지";
+"home" = "홈";
+"challenges" = "챌린지";
 "my challenges" = "나의 챌린지";
+"manage" = "나의 챌린지";
 "mypage" = "마이페이지";
 
 // common
@@ -40,6 +42,7 @@
 "hobby" = "취미";
 "emotionManage" = "감정 관리";
 "etc" = "기타";
+"%d people" = "%d명 참가";
 
 // search
 "popular keyword" = "인기 검색어";
@@ -93,7 +96,11 @@
 "ok" = "확인";
 "cancel" = "취소";
 "week" = "주";
- 
+"create" = "생성하기";
+" edit" = "수정하기";
+"challenge created" = "챌린지가 생성되었습니다.";
+"challenge edited" = "챌린지가 수정되었습니다.";
+
 // myPage
 "theme setting" = "테마 설정";
 "developer info" = "개발자 정보";

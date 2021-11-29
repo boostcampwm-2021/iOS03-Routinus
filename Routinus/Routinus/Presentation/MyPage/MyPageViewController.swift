@@ -154,13 +154,13 @@ extension MyPageViewController: MyPageUserNameUpdatableDelegate, UITextFieldDele
         let alert = UIAlertController(title: "edit name".localized,
                                       message: "name max 8".localized,
                                       preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
+        let okAction = UIAlertAction(title: "ok".localized, style: .default) { [weak self] _ in
             guard let self = self,
                   let name = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines),
                   !name.isEmpty else { return }
             self.updateUsername(name)
         }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel)
 
         alert.addTextField { [weak self] textField in
             guard let self = self else { return }

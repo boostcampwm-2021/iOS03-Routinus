@@ -15,7 +15,7 @@ final class ChallengeViewController: UIViewController {
         var title: String {
             switch self {
             case .recommend:
-                return "challenge".localized
+                return "challenges".localized
             case .category:
                 return "challenge category".localized
             }

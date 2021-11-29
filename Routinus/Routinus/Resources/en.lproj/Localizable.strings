@@ -8,8 +8,10 @@
 
 // titles
 "%@ routine" = "%@'s Routine";
-"challenge" = "Challenges";
+"home" = "Home";
+"challenges" = "Challenges";
 "my challenges" = "My Challenges";
+"manage" = "Manage";
 "mypage" = "My Page";
 
 // common
@@ -40,6 +42,7 @@
 "hobby" = "Hobby";
 "emotionManage" = "Emotion";
 "etc" = "etc.";
+"%d people" = "%d people";
 
 // search
 "popular keyword" = "Popular Keyword";
@@ -94,6 +97,10 @@
 "ok" = "OK";
 "cancel" = "Cancel";
 "week" = "week";
+"create" = "Create";
+"edit" = "Update";
+"challenge created" = "Challenge has been created.";
+"challenge edited" = "Challenge has been edited.";
 
 // myPage
 "theme setting" = "Theme setting";

@@ -49,7 +49,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
     private lazy var encounterLabel: UILabel = {
         let label = UILabel()
-        label.text = "0명 참가"
+        label.text = "%d people".localized
         return label
     }()
 
@@ -61,7 +61,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
         titleLabel.text = recommendChallenge.title
         subtitleLabel.text = recommendChallenge.introduction
-        encounterLabel.text = "\(recommendChallenge.participantCount)명 참가"
+        encounterLabel.text = "%d people".localized(with: recommendChallenge.participantCount)
 
         layer.borderWidth = 1
         layer.cornerRadius = 15

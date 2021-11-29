@@ -17,13 +17,13 @@ final class TabBarCoordinator: NSObject, RoutinusCoordinator {
         func title() -> String {
             switch self {
             case .home:
-                return "Home"
+                return "home".localized
             case .challenge:
-                return "Challenge"
+                return "challenges".localized
             case .manage:
-                return "Manage"
+                return "manage".localized
             case .myPage:
-                return "MyPage"
+                return "mypage".localized
             }
         }
 
