@@ -76,9 +76,11 @@ final class TabBarCoordinator: NSObject, RoutinusCoordinator {
 
     private func getTabBarController(_ page: TabBarPage) -> UINavigationController {
         let navigationController = UINavigationController()
-        navigationController.tabBarItem = UITabBarItem.init(title: page.title(),
-                                                            image: page.tabBarSelectedImage(),
-                                                            selectedImage: page.tabBarSelectedImage())
+        navigationController.tabBarItem = UITabBarItem.init(
+            title: page.title(),
+            image: page.tabBarSelectedImage(),
+            selectedImage: page.tabBarSelectedImage()
+        )
 
         switch page {
         case .home:
