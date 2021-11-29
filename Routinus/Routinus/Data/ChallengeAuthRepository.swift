@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusNetwork
-
 protocol ChallengeAuthRepository {
     func insert(challengeAuth: ChallengeAuth,
                 userAuthImageURL: String,
@@ -38,7 +36,7 @@ extension RoutinusRepository: ChallengeAuthRepository {
                                                 date: date,
                                                 time: time)
 
-        RoutinusNetwork.insertChallengeAuth(challengeAuth: challengeAuthDTO,
+        FirebaseService.insertChallengeAuth(challengeAuth: challengeAuthDTO,
                                             userAuthImageURL: userAuthImageURL,
                                             userAuthThumbnailImageURL: userAuthThumbnailImageURL) {
             ImageManager.removeCachedImages(from: "temp")
@@ -50,7 +48,7 @@ extension RoutinusRepository: ChallengeAuthRepository {
                             userID: String,
                             challengeID: String,
                             completion: @escaping (ChallengeAuth?) -> Void) {
-        RoutinusNetwork.challengeAuth(todayDate: todayDate,
+        FirebaseService.challengeAuth(todayDate: todayDate,
                                       userID: userID,
                                       challengeID: challengeID) { dto in
             guard let dto = dto,
@@ -64,7 +62,7 @@ extension RoutinusRepository: ChallengeAuthRepository {
 
     func fetchChallengeAuths(challengeID: String,
                              completion: (([ChallengeAuth]) -> Void)?) {
-        RoutinusNetwork.challengeAuths(challengeID: challengeID) { challengeAuths in
+        FirebaseService.challengeAuths(challengeID: challengeID) { challengeAuths in
             let challengeAuths = challengeAuths
                                     .filter { $0.document != nil }
                                     .map { ChallengeAuth(challengeAuthDTO: $0) }
@@ -75,7 +73,7 @@ extension RoutinusRepository: ChallengeAuthRepository {
     func fetchMyChallengeAuths(userID: String,
                                challengeID: String,
                                completion: (([ChallengeAuth]) -> Void)?) {
-        RoutinusNetwork.challengeAuths(userID: userID,
+        FirebaseService.challengeAuths(userID: userID,
                                        challengeID: challengeID) { challengeAuths in
             let challengeAuths = challengeAuths
                                     .filter { $0.document != nil }

@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusNetwork
-
 struct ChallengeAuth {
     var challengeID: String
     var userID: String

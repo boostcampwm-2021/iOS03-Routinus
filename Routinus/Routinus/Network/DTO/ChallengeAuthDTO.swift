@@ -1,20 +1,20 @@
 //
 //  ChallengeAuthDTO.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 박상우 on 2021/11/17.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-public struct ChallengeAuthDTO: Codable {
-    public let document: Fields<ChallengeAuthFields>?
+struct ChallengeAuthDTO: Codable {
+    let document: Fields<ChallengeAuthFields>?
 
     init() {
         self.document = nil
     }
 
-    public init(challengeID: String,
+    init(challengeID: String,
                 userID: String,
                 date: String,
                 time: String) {
@@ -26,13 +26,13 @@ public struct ChallengeAuthDTO: Codable {
     }
 }
 
-public struct ChallengeAuthFields: Codable {
-    public let challengeID: StringField
-    public let userID: StringField
-    public let date: StringField
-    public let time: StringField
+struct ChallengeAuthFields: Codable {
+    let challengeID: StringField
+    let userID: StringField
+    let date: StringField
+    let time: StringField
 
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case date, time
         case challengeID = "challenge_id"
         case userID = "user_id"

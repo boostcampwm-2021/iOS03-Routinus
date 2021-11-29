@@ -63,22 +63,6 @@
 		441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */; };
 		44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */; };
 		44234F18273C0917004D6834 /* CreateImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */; };
-		4432139E274B3336003551E8 /* RoutinusNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 4432139D274B3336003551E8 /* RoutinusNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		443213A1274B3336003551E8 /* RoutinusNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4432139B274B3336003551E8 /* RoutinusNetwork.framework */; };
-		443213A2274B3336003551E8 /* RoutinusNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4432139B274B3336003551E8 /* RoutinusNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		443213A7274B3347003551E8 /* RoutinusNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213A6274B3347003551E8 /* RoutinusNetwork.swift */; };
-		443213AB274B3382003551E8 /* Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213AA274B3382003551E8 /* Fields.swift */; };
-		443213AD274B338F003551E8 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213AC274B338F003551E8 /* UserDTO.swift */; };
-		443213AF274B339F003551E8 /* TodayRoutineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213AE274B339F003551E8 /* TodayRoutineDTO.swift */; };
-		443213B1274B33AA003551E8 /* AchievementDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213B0274B33AA003551E8 /* AchievementDTO.swift */; };
-		443213B3274B33B5003551E8 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213B2274B33B5003551E8 /* ChallengeDTO.swift */; };
-		443213B5274B33BC003551E8 /* ParticipationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213B4274B33BC003551E8 /* ParticipationDTO.swift */; };
-		443213B7274B33C2003551E8 /* ChallengeAuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213B6274B33C2003551E8 /* ChallengeAuthDTO.swift */; };
-		443213B9274B33DE003551E8 /* UserQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213B8274B33DE003551E8 /* UserQuery.swift */; };
-		443213BB274B3406003551E8 /* ChallengeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213BA274B3406003551E8 /* ChallengeQuery.swift */; };
-		443213BD274B340E003551E8 /* ParticipationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213BC274B340E003551E8 /* ParticipationQuery.swift */; };
-		443213BF274B3414003551E8 /* AuthQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213BE274B3414003551E8 /* AuthQuery.swift */; };
-		443213C1274B341A003551E8 /* AchievementQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213C0274B341A003551E8 /* AchievementQuery.swift */; };
 		443213C3274B673D003551E8 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213C2274B673D003551E8 /* MyPageViewModel.swift */; };
 		443213C6274B6A78003551E8 /* MyPageProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213C5274B6A78003551E8 /* MyPageProfileView.swift */; };
 		443213CF274BD566003551E8 /* MyPageUserNameUpdatableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213CE274BD566003551E8 /* MyPageUserNameUpdatableDelegate.swift */; };
@@ -92,6 +76,18 @@
 		44EA8A262751FF5D00861183 /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A252751FF5D00861183 /* UIScrollView+Extensions.swift */; };
 		44EA8A33275497D100861183 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A32275497D100861183 /* FirebaseService.swift */; };
 		44EA8A35275497DD00861183 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A34275497DD00861183 /* ImageManager.swift */; };
+		44EA8A39275499C800861183 /* Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A38275499C800861183 /* Fields.swift */; };
+		44EA8A3B275499D100861183 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A3A275499D100861183 /* UserDTO.swift */; };
+		44EA8A3D275499D900861183 /* TodayRoutineDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A3C275499D900861183 /* TodayRoutineDTO.swift */; };
+		44EA8A3F275499E000861183 /* AchievementDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A3E275499E000861183 /* AchievementDTO.swift */; };
+		44EA8A41275499E800861183 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A40275499E800861183 /* ChallengeDTO.swift */; };
+		44EA8A43275499EF00861183 /* ParticipationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A42275499EF00861183 /* ParticipationDTO.swift */; };
+		44EA8A45275499F700861183 /* ChallengeAuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A44275499F700861183 /* ChallengeAuthDTO.swift */; };
+		44EA8A4727549A6000861183 /* UserQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4627549A6000861183 /* UserQuery.swift */; };
+		44EA8A4927549A6700861183 /* ChallengeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4827549A6700861183 /* ChallengeQuery.swift */; };
+		44EA8A4B27549A6E00861183 /* ParticipationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4A27549A6E00861183 /* ParticipationQuery.swift */; };
+		44EA8A4D27549A7600861183 /* AuthQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4C27549A7600861183 /* AuthQuery.swift */; };
+		44EA8A4F27549A7D00861183 /* AchievementQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4E27549A7D00861183 /* AchievementQuery.swift */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
 		E901EFD42744BD3400B14847 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFD32744BD3400B14847 /* ImageRepository.swift */; };
 		E901EFD62744BDBD00B14847 /* ImageFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */; };
@@ -154,13 +150,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4432139F274B3336003551E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 44AAA2A9272FDF8A002E16C4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4432139A274B3336003551E8;
-			remoteInfo = RoutinusNetwork;
-		};
 		E99D9E54273FC570008A7E07 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 44AAA2A9272FDF8A002E16C4 /* Project object */;
@@ -177,7 +166,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				443213A2274B3336003551E8 /* RoutinusNetwork.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,21 +232,6 @@
 		441CEE1C273A3434006C261F /* CreateAuthImageRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAuthImageRegisterView.swift; sourceTree = "<group>"; };
 		44234F14273BB6C9004D6834 /* CreateSubviewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSubviewDelegate.swift; sourceTree = "<group>"; };
 		44234F17273C0917004D6834 /* CreateImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateImagePickerDelegate.swift; sourceTree = "<group>"; };
-		4432139B274B3336003551E8 /* RoutinusNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutinusNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4432139D274B3336003551E8 /* RoutinusNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutinusNetwork.h; sourceTree = "<group>"; };
-		443213A6274B3347003551E8 /* RoutinusNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusNetwork.swift; sourceTree = "<group>"; };
-		443213AA274B3382003551E8 /* Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fields.swift; sourceTree = "<group>"; };
-		443213AC274B338F003551E8 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
-		443213AE274B339F003551E8 /* TodayRoutineDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineDTO.swift; sourceTree = "<group>"; };
-		443213B0274B33AA003551E8 /* AchievementDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDTO.swift; sourceTree = "<group>"; };
-		443213B2274B33B5003551E8 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
-		443213B4274B33BC003551E8 /* ParticipationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationDTO.swift; sourceTree = "<group>"; };
-		443213B6274B33C2003551E8 /* ChallengeAuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthDTO.swift; sourceTree = "<group>"; };
-		443213B8274B33DE003551E8 /* UserQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserQuery.swift; sourceTree = "<group>"; };
-		443213BA274B3406003551E8 /* ChallengeQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeQuery.swift; sourceTree = "<group>"; };
-		443213BC274B340E003551E8 /* ParticipationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationQuery.swift; sourceTree = "<group>"; };
-		443213BE274B3414003551E8 /* AuthQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthQuery.swift; sourceTree = "<group>"; };
-		443213C0274B341A003551E8 /* AchievementQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementQuery.swift; sourceTree = "<group>"; };
 		443213C2274B673D003551E8 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		443213C5274B6A78003551E8 /* MyPageProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageProfileView.swift; sourceTree = "<group>"; };
 		443213CE274BD566003551E8 /* MyPageUserNameUpdatableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageUserNameUpdatableDelegate.swift; sourceTree = "<group>"; };
@@ -274,6 +247,18 @@
 		44EA8A252751FF5D00861183 /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
 		44EA8A32275497D100861183 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		44EA8A34275497DD00861183 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		44EA8A38275499C800861183 /* Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fields.swift; sourceTree = "<group>"; };
+		44EA8A3A275499D100861183 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		44EA8A3C275499D900861183 /* TodayRoutineDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayRoutineDTO.swift; sourceTree = "<group>"; };
+		44EA8A3E275499E000861183 /* AchievementDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDTO.swift; sourceTree = "<group>"; };
+		44EA8A40275499E800861183 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
+		44EA8A42275499EF00861183 /* ParticipationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationDTO.swift; sourceTree = "<group>"; };
+		44EA8A44275499F700861183 /* ChallengeAuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthDTO.swift; sourceTree = "<group>"; };
+		44EA8A4627549A6000861183 /* UserQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserQuery.swift; sourceTree = "<group>"; };
+		44EA8A4827549A6700861183 /* ChallengeQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeQuery.swift; sourceTree = "<group>"; };
+		44EA8A4A27549A6E00861183 /* ParticipationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationQuery.swift; sourceTree = "<group>"; };
+		44EA8A4C27549A7600861183 /* AuthQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthQuery.swift; sourceTree = "<group>"; };
+		44EA8A4E27549A7D00861183 /* AchievementQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementQuery.swift; sourceTree = "<group>"; };
 		5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E901EFD32744BD3400B14847 /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUsecase.swift; sourceTree = "<group>"; };
@@ -337,18 +322,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		44321398274B3336003551E8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		44AAA2AE272FDF8B002E16C4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				443213A1274B3336003551E8 /* RoutinusNetwork.framework in Frameworks */,
 				8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,43 +457,6 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
-		4432139C274B3336003551E8 /* RoutinusNetwork */ = {
-			isa = PBXGroup;
-			children = (
-				4432139D274B3336003551E8 /* RoutinusNetwork.h */,
-				443213A6274B3347003551E8 /* RoutinusNetwork.swift */,
-				443213A8274B336B003551E8 /* DTO */,
-				443213A9274B336E003551E8 /* Query */,
-			);
-			path = RoutinusNetwork;
-			sourceTree = "<group>";
-		};
-		443213A8274B336B003551E8 /* DTO */ = {
-			isa = PBXGroup;
-			children = (
-				443213AA274B3382003551E8 /* Fields.swift */,
-				443213AC274B338F003551E8 /* UserDTO.swift */,
-				443213AE274B339F003551E8 /* TodayRoutineDTO.swift */,
-				443213B0274B33AA003551E8 /* AchievementDTO.swift */,
-				443213B2274B33B5003551E8 /* ChallengeDTO.swift */,
-				443213B4274B33BC003551E8 /* ParticipationDTO.swift */,
-				443213B6274B33C2003551E8 /* ChallengeAuthDTO.swift */,
-			);
-			path = DTO;
-			sourceTree = "<group>";
-		};
-		443213A9274B336E003551E8 /* Query */ = {
-			isa = PBXGroup;
-			children = (
-				443213B8274B33DE003551E8 /* UserQuery.swift */,
-				443213BA274B3406003551E8 /* ChallengeQuery.swift */,
-				443213BC274B340E003551E8 /* ParticipationQuery.swift */,
-				443213BE274B3414003551E8 /* AuthQuery.swift */,
-				443213C0274B341A003551E8 /* AchievementQuery.swift */,
-			);
-			path = Query;
-			sourceTree = "<group>";
-		};
 		443213C4274B6A67003551E8 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -579,7 +519,6 @@
 			children = (
 				44AAA2C9272FE13D002E16C4 /* .swiftlint.yml */,
 				44AAA2B3272FDF8B002E16C4 /* Routinus */,
-				4432139C274B3336003551E8 /* RoutinusNetwork */,
 				44AAA2B2272FDF8B002E16C4 /* Products */,
 				C6BC838A122CF798FF91016F /* Pods */,
 				E3D71BDBA3D7EC43BE475984 /* Frameworks */,
@@ -592,7 +531,6 @@
 			children = (
 				44AAA2B1272FDF8B002E16C4 /* Routinus.app */,
 				E99D9E50273FC570008A7E07 /* RoutinusTests.xctest */,
-				4432139B274B3336003551E8 /* RoutinusNetwork.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -637,8 +575,36 @@
 			isa = PBXGroup;
 			children = (
 				44EA8A32275497D100861183 /* FirebaseService.swift */,
+				44EA8A37275499B800861183 /* DTO */,
+				44EA8A36275499B600861183 /* Query */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		44EA8A36275499B600861183 /* Query */ = {
+			isa = PBXGroup;
+			children = (
+				44EA8A4627549A6000861183 /* UserQuery.swift */,
+				44EA8A4827549A6700861183 /* ChallengeQuery.swift */,
+				44EA8A4A27549A6E00861183 /* ParticipationQuery.swift */,
+				44EA8A4C27549A7600861183 /* AuthQuery.swift */,
+				44EA8A4E27549A7D00861183 /* AchievementQuery.swift */,
+			);
+			path = Query;
+			sourceTree = "<group>";
+		};
+		44EA8A37275499B800861183 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				44EA8A38275499C800861183 /* Fields.swift */,
+				44EA8A3A275499D100861183 /* UserDTO.swift */,
+				44EA8A3C275499D900861183 /* TodayRoutineDTO.swift */,
+				44EA8A3E275499E000861183 /* AchievementDTO.swift */,
+				44EA8A40275499E800861183 /* ChallengeDTO.swift */,
+				44EA8A42275499EF00861183 /* ParticipationDTO.swift */,
+				44EA8A44275499F700861183 /* ChallengeAuthDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		C6BC838A122CF798FF91016F /* Pods */ = {
@@ -943,36 +909,7 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		44321396274B3336003551E8 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4432139E274B3336003551E8 /* RoutinusNetwork.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		4432139A274B3336003551E8 /* RoutinusNetwork */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 443213A3274B3336003551E8 /* Build configuration list for PBXNativeTarget "RoutinusNetwork" */;
-			buildPhases = (
-				44321396274B3336003551E8 /* Headers */,
-				44321397274B3336003551E8 /* Sources */,
-				44321398274B3336003551E8 /* Frameworks */,
-				44321399274B3336003551E8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = RoutinusNetwork;
-			productName = RoutinusNetwork;
-			productReference = 4432139B274B3336003551E8 /* RoutinusNetwork.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		44AAA2B0272FDF8B002E16C4 /* Routinus */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 44AAA2C5272FDF8F002E16C4 /* Build configuration list for PBXNativeTarget "Routinus" */;
@@ -987,7 +924,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				443213A0274B3336003551E8 /* PBXTargetDependency */,
 			);
 			name = Routinus;
 			productName = Routinus;
@@ -1022,10 +958,6 @@
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
-					4432139A274B3336003551E8 = {
-						CreatedOnToolsVersion = 13.1;
-						LastSwiftMigration = 1310;
-					};
 					44AAA2B0272FDF8B002E16C4 = {
 						CreatedOnToolsVersion = 13.1;
 					};
@@ -1051,19 +983,11 @@
 			targets = (
 				44AAA2B0272FDF8B002E16C4 /* Routinus */,
 				E99D9E4F273FC570008A7E07 /* RoutinusTests */,
-				4432139A274B3336003551E8 /* RoutinusNetwork */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		44321399274B3336003551E8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		44AAA2AF272FDF8B002E16C4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1127,26 +1051,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		44321397274B3336003551E8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				443213B1274B33AA003551E8 /* AchievementDTO.swift in Sources */,
-				443213AD274B338F003551E8 /* UserDTO.swift in Sources */,
-				443213BF274B3414003551E8 /* AuthQuery.swift in Sources */,
-				443213B5274B33BC003551E8 /* ParticipationDTO.swift in Sources */,
-				443213AB274B3382003551E8 /* Fields.swift in Sources */,
-				443213AF274B339F003551E8 /* TodayRoutineDTO.swift in Sources */,
-				443213B9274B33DE003551E8 /* UserQuery.swift in Sources */,
-				443213BB274B3406003551E8 /* ChallengeQuery.swift in Sources */,
-				443213B7274B33C2003551E8 /* ChallengeAuthDTO.swift in Sources */,
-				443213C1274B341A003551E8 /* AchievementQuery.swift in Sources */,
-				443213A7274B3347003551E8 /* RoutinusNetwork.swift in Sources */,
-				443213B3274B33B5003551E8 /* ChallengeDTO.swift in Sources */,
-				443213BD274B340E003551E8 /* ParticipationQuery.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		44AAA2AD272FDF8B002E16C4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1164,10 +1068,12 @@
 				0DBBAA3727341C1600B32EB5 /* ChallengeCollectionViewLayouts.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* CalendarHeader.swift in Sources */,
 				E9493DCC273A75220095CF6D /* SearchCollectionViewHeader.swift in Sources */,
+				44EA8A45275499F700861183 /* ChallengeAuthDTO.swift in Sources */,
 				1497CF572739215C00296F9E /* UserCreateUsecase.swift in Sources */,
 				E9753900273220F6004358C5 /* User.swift in Sources */,
 				149B8DA2274CC3650065E64D /* DetailAuthDisplayView.swift in Sources */,
 				0DBBAA3C27341C3600B32EB5 /* ChallengeRecommendCollectionViewCell.swift in Sources */,
+				44EA8A4927549A6700861183 /* ChallengeQuery.swift in Sources */,
 				E9B87CC6274950FC00D7C0D2 /* UserUpdateUsecase.swift in Sources */,
 				149B8DA4274CD0470065E64D /* DetailAuthDisplayListView.swift in Sources */,
 				E9493DC3273A5D8B0095CF6D /* SearchCollectionViewLayouts.swift in Sources */,
@@ -1186,6 +1092,7 @@
 				E901EFE827453F1100B14847 /* ChallengeAuthRepository.swift in Sources */,
 				14BFC0DF274DC09C00A982CB /* AuthImagesCollectionViewCell.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
+				44EA8A43275499EF00861183 /* ParticipationDTO.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
 				441CEDD327378EBF006C261F /* TodayRoutineView.swift in Sources */,
 				0DEDAA17274C8F6B0030B7D9 /* ImagePinchViewController.swift in Sources */,
@@ -1213,6 +1120,7 @@
 				14B1810E27454DBF0061F2AE /* ParticipationRepository.swift in Sources */,
 				E901EFDC2744CAF900B14847 /* TodayRoutineRepository.swift in Sources */,
 				E901EFD62744BDBD00B14847 /* ImageFetchUsecase.swift in Sources */,
+				44EA8A3D275499D900861183 /* TodayRoutineDTO.swift in Sources */,
 				441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */,
 				441CEE13273A334B006C261F /* CreateTitleView.swift in Sources */,
 				441CEDD627379939006C261F /* CalendarView.swift in Sources */,
@@ -1220,12 +1128,15 @@
 				149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
+				44EA8A3F275499E000861183 /* AchievementDTO.swift in Sources */,
 				E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
 				0DE0339C274355770026F502 /* ManageViewModel.swift in Sources */,
 				443213CF274BD566003551E8 /* MyPageUserNameUpdatableDelegate.swift in Sources */,
+				44EA8A4F27549A7D00861183 /* AchievementQuery.swift in Sources */,
 				441CEDD127378573006C261F /* ContinuityView.swift in Sources */,
 				14FCD60B27311CF600626E74 /* RoutineTableViewCell.swift in Sources */,
+				44EA8A41275499E800861183 /* ChallengeDTO.swift in Sources */,
 				14FCD60B27311CF600626E74 /* RoutineTableViewCell.swift in Sources */,
 				E9B58194274DF75A00C39BD7 /* ChallengeCategoryHeaderDelegate.swift in Sources */,
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
@@ -1235,6 +1146,7 @@
 				E9493DC1273A4E5B0095CF6D /* ChallengeRepository.swift in Sources */,
 				E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */,
 				E9A7943D2746125E00731DEB /* ParticipationUpdateUsecase.swift in Sources */,
+				44EA8A4B27549A6E00861183 /* ParticipationQuery.swift in Sources */,
 				E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */,
 				E937044627434D8F00D82B1D /* AuthButton.swift in Sources */,
 				E901EFD42744BD3400B14847 /* ImageRepository.swift in Sources */,
@@ -1250,15 +1162,18 @@
 				E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */,
 				0DC38F44273A3B9900331C25 /* SearchCoordinator.swift in Sources */,
 				E901EFEA27453F2000B14847 /* ChallengeAuthCreateUsecase.swift in Sources */,
+				44EA8A4D27549A7600861183 /* AuthQuery.swift in Sources */,
 				E93704492743B2F800D82B1D /* AuthViewModel.swift in Sources */,
 				443213C6274B6A78003551E8 /* MyPageProfileView.swift in Sources */,
 				E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */,
+				44EA8A39275499C800861183 /* Fields.swift in Sources */,
 				E9493DC8273A70280095CF6D /* SearchPopularKeywordCollectionViewCell.swift in Sources */,
 				14AFD0FA2746211F00011CC1 /* ChallengeAuthFetchUsecase.swift in Sources */,
 				441CEE17273A33CD006C261F /* CreateIntroductionView.swift in Sources */,
 				E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */,
 				145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */,
 				E937044427434D6300D82B1D /* PreviewView.swift in Sources */,
+				44EA8A3B275499D100861183 /* UserDTO.swift in Sources */,
 				E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */,
 				0DBBAA3E27341C3600B32EB5 /* ChallengeCategoryCollectionViewHeader.swift in Sources */,
 				149B8D9C274C6D410065E64D /* ImageUpdateUsecase.swift in Sources */,
@@ -1269,6 +1184,7 @@
 				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
 				148A09EF2744C5C800809CB8 /* DetailViewModel.swift in Sources */,
+				44EA8A4727549A6000861183 /* UserQuery.swift in Sources */,
 				441CEE15273A33BE006C261F /* CreateImageRegisterView.swift in Sources */,
 				E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */,
 				E901EFE22744CC6E00B14847 /* AchievementRepository.swift in Sources */,
@@ -1292,11 +1208,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		443213A0274B3336003551E8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4432139A274B3336003551E8 /* RoutinusNetwork */;
-			targetProxy = 4432139F274B3336003551E8 /* PBXContainerItemProxy */;
-		};
 		E99D9E55273FC570008A7E07 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 44AAA2B0272FDF8B002E16C4 /* Routinus */;
@@ -1325,71 +1236,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		443213A4274B3336003551E8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusNetwork;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		443213A5274B3336003551E8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.boostcamp.ios03.RoutinusNetwork;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		44AAA2C3272FDF8F002E16C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1619,15 +1465,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		443213A3274B3336003551E8 /* Build configuration list for PBXNativeTarget "RoutinusNetwork" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				443213A4274B3336003551E8 /* Debug */,
-				443213A5274B3336003551E8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		44AAA2AC272FDF8A002E16C4 /* Build configuration list for PBXProject "Routinus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusNetwork
-
 protocol AchievementRepository {
     func fetchAchievements(by id: String,
                            in yearMonth: String,
@@ -27,7 +25,7 @@ extension RoutinusRepository: AchievementRepository {
     func fetchAchievements(by id: String,
                            in yearMonth: String,
                            completion: (([Achievement]) -> Void)?) {
-        RoutinusNetwork.achievements(of: id, in: yearMonth) { list in
+        FirebaseService.achievements(of: id, in: yearMonth) { list in
             completion?(list.map { Achievement(achievementDTO: $0) })
         }
     }
@@ -36,7 +34,7 @@ extension RoutinusRepository: AchievementRepository {
                                 yearMonth: String,
                                 day: String,
                                 completion: (() -> Void)?) {
-        RoutinusNetwork.updateAchievementCount(userID: userID,
+        FirebaseService.updateAchievementCount(userID: userID,
                                                yearMonth: yearMonth,
                                                day: day) {
             completion?()
@@ -47,7 +45,7 @@ extension RoutinusRepository: AchievementRepository {
                           yearMonth: String,
                           day: String,
                           completion: (() -> Void)?) {
-        RoutinusNetwork.updateTotalCount(userID: userID,
+        FirebaseService.updateTotalCount(userID: userID,
                                          yearMonth: yearMonth,
                                          day: day) {
             completion?()

@@ -1,20 +1,20 @@
 //
 //  AchievementDTO.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 유석환 on 2021/11/08.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-public struct AchievementDTO: Codable {
-    public let document: Fields<AchievementFields>?
+struct AchievementDTO: Codable {
+    let document: Fields<AchievementFields>?
 
     init() {
         self.document = nil
     }
 
-    public init(totalCount: Int,
+    init(totalCount: Int,
                 day: String,
                 userID: String,
                 achievementCount: Int,
@@ -32,14 +32,14 @@ public struct AchievementDTO: Codable {
     }
 }
 
-public struct AchievementFields: Codable {
-    public let totalCount: IntegerField
-    public let day: StringField
-    public let userID: StringField
-    public let achievementCount: IntegerField
-    public let yearMonth: StringField
+struct AchievementFields: Codable {
+    let totalCount: IntegerField
+    let day: StringField
+    let userID: StringField
+    let achievementCount: IntegerField
+    let yearMonth: StringField
 
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case day
         case totalCount = "total_count"
         case userID = "user_id"

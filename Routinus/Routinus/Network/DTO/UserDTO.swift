@@ -1,20 +1,20 @@
 //
 //  UserDTO.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 유석환 on 2021/11/08.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-public struct UserDTO: Codable {
-    public let document: Fields<UserFields>?
+struct UserDTO: Codable {
+    let document: Fields<UserFields>?
 
     init() {
         self.document = nil
     }
 
-    public init(id: String,
+    init(id: String,
                 name: String,
                 grade: Int,
                 continuityDay: Int,
@@ -34,15 +34,15 @@ public struct UserDTO: Codable {
     }
 }
 
-public struct UserFields: Codable {
-    public let id: StringField
-    public let name: StringField
-    public let grade: IntegerField
-    public let continuityDay: IntegerField
-    public let userImageCategoryID: StringField
-    public let lastAuthDay: StringField
+struct UserFields: Codable {
+    let id: StringField
+    let name: StringField
+    let grade: IntegerField
+    let continuityDay: IntegerField
+    let userImageCategoryID: StringField
+    let lastAuthDay: StringField
 
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case id, name, grade
         case continuityDay = "continuity_day"
         case userImageCategoryID = "user_image_category_id"

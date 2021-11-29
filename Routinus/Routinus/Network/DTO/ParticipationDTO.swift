@@ -1,20 +1,20 @@
 //
 //  ParticipationDTO.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 유석환 on 2021/11/14.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-public struct ParticipationDTO: Codable {
-    public let document: Fields<ParticipationFields>?
+struct ParticipationDTO: Codable {
+    let document: Fields<ParticipationFields>?
 
     init() {
         self.document = nil
     }
 
-    public init(authCount: Int,
+    init(authCount: Int,
                 challengeID: String,
                 joinDate: String,
                 userID: String) {
@@ -30,13 +30,13 @@ public struct ParticipationDTO: Codable {
     }
 }
 
-public struct ParticipationFields: Codable {
-    public let authCount: IntegerField
-    public let challengeID: StringField
-    public let joinDate: StringField
-    public let userID: StringField
+struct ParticipationFields: Codable {
+    let authCount: IntegerField
+    let challengeID: StringField
+    let joinDate: StringField
+    let userID: StringField
 
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case authCount = "auth_count"
         case challengeID = "challenge_id"
         case joinDate = "join_date"

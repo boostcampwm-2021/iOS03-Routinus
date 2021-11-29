@@ -1,22 +1,22 @@
 //
 //  TodayRoutineDTO.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 유석환 on 2021/11/08.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-public struct TodayRoutineDTO {
-    public var id: String
-    public var challengeID: String
-    public var categoryID: String
-    public var title: String
-    public var authCount: Int
-    public var joinDate: String
-    public var endDate: String
+struct TodayRoutineDTO {
+    var id: String
+    var challengeID: String
+    var categoryID: String
+    var title: String
+    var authCount: Int
+    var joinDate: String
+    var endDate: String
 
-    public init(participation: ParticipationDTO, challenge: ChallengeDTO) {
+    init(participation: ParticipationDTO, challenge: ChallengeDTO) {
         self.id = participation.document?.fields.userID.stringValue ?? ""
         self.challengeID = participation.document?.fields.challengeID.stringValue ?? ""
         self.categoryID = challenge.document?.fields.categoryID.stringValue ?? ""

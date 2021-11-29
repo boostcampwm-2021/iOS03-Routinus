@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusNetwork
-
 struct Participation {
     let authCount: Int
     let challengeID: String

@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusNetwork
-
 struct Challenge: Hashable {
     enum Category: CaseIterable {
         case exercise, study, read, lifeStyle, finance, hobby, emotionManage, etc

@@ -1,14 +1,14 @@
 //
 //  AchievementQuery.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 유석환 on 2021/11/20.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-internal enum AchievementQuery {
-    internal static func select(id: String,
+enum AchievementQuery {
+    static func select(id: String,
                                 yearMonth: String) -> Data? {
         return """
         {
@@ -41,7 +41,7 @@ internal enum AchievementQuery {
         """.data(using: .utf8)
     }
 
-    internal static func select(id: String,
+    static func select(id: String,
                                 yearMonth: String,
                                 day: String) -> Data? {
         return """
@@ -82,7 +82,7 @@ internal enum AchievementQuery {
         """.data(using: .utf8)
     }
 
-    internal static func insert(id: String,
+    static func insert(id: String,
                                 yearMonth: String,
                                 day: String,
                                 totalCount: String) -> Data? {
@@ -99,7 +99,7 @@ internal enum AchievementQuery {
         """.data(using: .utf8)
     }
 
-    internal static func update(document: AchievementFields) -> Data? {
+    static func update(document: AchievementFields) -> Data? {
         return """
         {
             "fields": {
@@ -109,7 +109,7 @@ internal enum AchievementQuery {
         """.data(using: .utf8)
     }
 
-    internal static func updateTotalCount(document: AchievementFields) -> Data? {
+    static func updateTotalCount(document: AchievementFields) -> Data? {
         return """
         {
             "fields": {

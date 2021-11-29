@@ -1,20 +1,20 @@
 //
 //  ChallengeDTO.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 박상우 on 2021/11/09.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-public struct ChallengeDTO: Codable {
-    public var document: Fields<ChallengeFields>?
+struct ChallengeDTO: Codable {
+    var document: Fields<ChallengeFields>?
 
-    public init() {
+    init() {
         self.document = nil
     }
 
-    public init(id: String,
+    init(id: String,
                 title: String,
                 authMethod: String,
                 categoryID: String,
@@ -42,19 +42,19 @@ public struct ChallengeDTO: Codable {
     }
 }
 
-public struct ChallengeFields: Codable {
-    public var authMethod: StringField
-    public var categoryID: StringField
-    public var desc: StringField
-    public var endDate: StringField
-    public var id: StringField
-    public var ownerID: StringField
-    public var participantCount: IntegerField
-    public var startDate: StringField
-    public var title: StringField
-    public var week: IntegerField
+struct ChallengeFields: Codable {
+    var authMethod: StringField
+    var categoryID: StringField
+    var desc: StringField
+    var endDate: StringField
+    var id: StringField
+    var ownerID: StringField
+    var participantCount: IntegerField
+    var startDate: StringField
+    var title: StringField
+    var week: IntegerField
 
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case desc, id, title, week
         case authMethod = "auth_method"
         case categoryID = "category_id"

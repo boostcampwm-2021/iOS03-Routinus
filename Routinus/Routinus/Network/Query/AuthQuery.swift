@@ -1,14 +1,14 @@
 //
 //  AuthQuery.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 유석환 on 2021/11/20.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-internal enum AuthQuery {
-    internal static func select(userID: String,
+enum AuthQuery {
+    static func select(userID: String,
                                 challengeID: String,
                                 todayDate: String) -> Data? {
         return """
@@ -49,7 +49,7 @@ internal enum AuthQuery {
         """.data(using: .utf8)
     }
 
-    internal static func select(challengeID: String) -> Data? {
+    static func select(challengeID: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -73,7 +73,7 @@ internal enum AuthQuery {
         """.data(using: .utf8)
     }
 
-    internal static func select(challengeID: String,
+    static func select(challengeID: String,
                                 userID: String) -> Data? {
         return """
         {
@@ -112,7 +112,7 @@ internal enum AuthQuery {
         """.data(using: .utf8)
     }
 
-    internal static func insert(document: ChallengeAuthFields) -> Data? {
+    static func insert(document: ChallengeAuthFields) -> Data? {
         return """
         {
             "fields": {

@@ -1,14 +1,14 @@
 //
 //  UserQuery.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 유석환 on 2021/11/20.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-internal enum UserQuery {
-    internal static func select(id: String) -> Data? {
+enum UserQuery {
+    static func select(id: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -26,7 +26,7 @@ internal enum UserQuery {
         """.data(using: .utf8)
     }
 
-    internal static func insert(id: String,
+    static func insert(id: String,
                                 name: String) -> Data? {
         return """
         {
@@ -42,7 +42,7 @@ internal enum UserQuery {
         """.data(using: .utf8)
     }
 
-    internal static func update(document: UserFields) -> Data? {
+    static func update(document: UserFields) -> Data? {
         return """
         {
             "fields": {
@@ -53,7 +53,7 @@ internal enum UserQuery {
         """.data(using: .utf8)
     }
 
-    internal static func updateUsername(document: UserFields) -> Data? {
+    static func updateUsername(document: UserFields) -> Data? {
         return """
         {
             "fields": {

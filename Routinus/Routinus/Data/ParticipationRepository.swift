@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusNetwork
-
 protocol ParticipationRepository {
     func fetchChallengeParticipation(userID: String,
                                      challengeID: String,
@@ -24,7 +22,7 @@ extension RoutinusRepository: ParticipationRepository {
     func fetchChallengeParticipation(userID: String,
                                      challengeID: String,
                                      completion: @escaping (Participation?) -> Void) {
-        RoutinusNetwork.challengeParticipation(userID: userID,
+        FirebaseService.challengeParticipation(userID: userID,
                                                challengeID: challengeID) { dto in
             guard let dto = dto,
                   dto.document != nil else {
@@ -43,7 +41,7 @@ extension RoutinusRepository: ParticipationRepository {
                                    challengeID: challengeID,
                                    joinDate: joinDate,
                                    userID: userID)
-        RoutinusNetwork.insertChallengeParticipation(dto: dto) {
+        FirebaseService.insertChallengeParticipation(dto: dto) {
             completion?()
         }
     }
@@ -51,7 +49,7 @@ extension RoutinusRepository: ParticipationRepository {
     func updateAuthCount(challengeID: String,
                          completion: (() -> Void)?) {
         guard let userID = RoutinusRepository.userID() else { return }
-        RoutinusNetwork.updateChallengeParticipationAuthCount(challengeID: challengeID,
+        FirebaseService.updateChallengeParticipationAuthCount(challengeID: challengeID,
                                                               userID: userID) {
             completion?()
         }

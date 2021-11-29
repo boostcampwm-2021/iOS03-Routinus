@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusNetwork
-
 protocol ImageRepository {
     func fetchImageData(from directory: String,
                         filename: String,
@@ -33,7 +31,7 @@ extension RoutinusRepository: ImageRepository {
                 completion?(data)
             }
         } else {
-            RoutinusNetwork.imageData(from: directory, filename: filename) { data in
+            FirebaseService.imageData(from: directory, filename: filename) { data in
                 ImageManager.saveImage(to: directory, filename: filename, imageData: data)
                 completion?(data)
             }
@@ -51,11 +49,11 @@ extension RoutinusRepository: ImageRepository {
     func updateImage(challengeID: String,
                      imageURL: String,
                      thumbnailImageURL: String) {
-        RoutinusNetwork.uploadImage(id: challengeID,
+        FirebaseService.uploadImage(id: challengeID,
                                     filename: "image",
                                     imageURL: imageURL,
                                     completion: nil)
-        RoutinusNetwork.uploadImage(id: challengeID,
+        FirebaseService.uploadImage(id: challengeID,
                                     filename: "thumbnail_image",
                                     imageURL: thumbnailImageURL,
                                     completion: nil)
@@ -65,11 +63,11 @@ extension RoutinusRepository: ImageRepository {
     func updateImage(challengeID: String,
                      authExampleImageURL: String,
                      authExampleThumbnailImageURL: String) {
-        RoutinusNetwork.uploadImage(id: challengeID,
+        FirebaseService.uploadImage(id: challengeID,
                                     filename: "auth_method",
                                     imageURL: authExampleImageURL,
                                     completion: nil)
-        RoutinusNetwork.uploadImage(id: challengeID,
+        FirebaseService.uploadImage(id: challengeID,
                                     filename: "thumbnail_auth_method",
                                     imageURL: authExampleThumbnailImageURL,
                                     completion: nil)

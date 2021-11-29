@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusNetwork
-
 protocol UserRepository {
     func isEmptyUserID() -> Bool
     func save(id: String,
@@ -37,7 +35,7 @@ extension RoutinusRepository: UserRepository {
               completion: (() -> Void)?) {
         UserDefaults.standard.set(id,
                                   forKey: RoutinusRepository.userIDKey)
-        RoutinusNetwork.insertUser(id: id,
+        FirebaseService.insertUser(id: id,
                                    name: name) {
             completion?()
         }
@@ -45,21 +43,21 @@ extension RoutinusRepository: UserRepository {
 
     func fetchUser(by id: String,
                    completion: ((User) -> Void)?) {
-        RoutinusNetwork.user(of: id) { dto in
+        FirebaseService.user(of: id) { dto in
             completion?(User(userDTO: dto))
         }
     }
 
     func updateContinuityDay(by id: String,
                              completion: ((UserDTO) -> Void)?) {
-        RoutinusNetwork.updateContinuityDay(of: id) { dto in
+        FirebaseService.updateContinuityDay(of: id) { dto in
             completion?(dto)
         }
     }
 
     func updateContinuityDayByAuth(by id: String,
                                    completion: (() -> Void)?) {
-        RoutinusNetwork.updateContinuityDayByAuth(of: id) {
+        FirebaseService.updateContinuityDayByAuth(of: id) {
             completion?()
         }
     }
@@ -71,7 +69,7 @@ extension RoutinusRepository: UserRepository {
     func updateUsername(of id: String,
                         name: String,
                         completion: (() -> Void)?) {
-        RoutinusNetwork.updateUsername(of: id,
+        FirebaseService.updateUsername(of: id,
                                        name: name) {
             completion?()
         }

@@ -1,14 +1,14 @@
 //
 //  ParticipationQuery.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 유석환 on 2021/11/20.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-internal enum ParticipationQuery {
-    internal static func select(userID: String) -> Data? {
+enum ParticipationQuery {
+    static func select(userID: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -26,7 +26,7 @@ internal enum ParticipationQuery {
         """.data(using: .utf8)
     }
 
-    internal static func select(userID: String,
+    static func select(userID: String,
                                 challengeID: String) -> Data? {
         return """
         {
@@ -59,7 +59,7 @@ internal enum ParticipationQuery {
         """.data(using: .utf8)
     }
 
-    internal static func insert(document: ParticipationFields) -> Data? {
+    static func insert(document: ParticipationFields) -> Data? {
         return """
         {
             "fields": {
@@ -72,7 +72,7 @@ internal enum ParticipationQuery {
         """.data(using: .utf8)
     }
 
-    internal static func update(document: ParticipationFields) -> Data? {
+    static func update(document: ParticipationFields) -> Data? {
         return """
         {
             "fields": {

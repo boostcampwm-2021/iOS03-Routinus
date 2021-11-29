@@ -7,8 +7,6 @@
 
 import Foundation
 
-import RoutinusNetwork
-
 struct TodayRoutine: Hashable {
     let challengeID: String
     let category: Challenge.Category

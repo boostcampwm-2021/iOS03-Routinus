@@ -1,14 +1,14 @@
 //
 //  ChallengeQuery.swift
-//  RoutinusNetwork
+//  Routinus
 //
-//  Created by 유석환 on 2021/11/20.
+//  Created by 유석환 on 2021/11/29.
 //
 
 import Foundation
 
-internal enum ChallengeQuery {
-    internal static func select(categoryID: String) -> Data? {
+enum ChallengeQuery {
+    static func select(categoryID: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -32,7 +32,7 @@ internal enum ChallengeQuery {
         """.data(using: .utf8)
     }
 
-    internal static func select(ownerID: String) -> Data? {
+    static func select(ownerID: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -50,7 +50,7 @@ internal enum ChallengeQuery {
         """.data(using: .utf8)
     }
 
-    internal static func select(challengeID: String) -> Data? {
+    static func select(challengeID: String) -> Data? {
         return """
             {
                 "structuredQuery": {
@@ -68,7 +68,7 @@ internal enum ChallengeQuery {
             """.data(using: .utf8)
     }
 
-    internal static func select(challengeID: String, date: String) -> Data? {
+    static func select(challengeID: String, date: String) -> Data? {
         return """
             {
                 "structuredQuery": {
@@ -100,7 +100,7 @@ internal enum ChallengeQuery {
             """.data(using: .utf8)
     }
 
-    internal static func select(ownerID: String,
+    static func select(ownerID: String,
                                 challengeID: String) -> Data? {
         return """
         {
@@ -133,7 +133,7 @@ internal enum ChallengeQuery {
         """.data(using: .utf8)
     }
 
-    internal static func selectOrderByParticipantCount(ascending: Bool,
+    static func selectOrderByParticipantCount(ascending: Bool,
                                                        limit: Int) -> Data? {
         return """
         {
@@ -151,7 +151,7 @@ internal enum ChallengeQuery {
         """.data(using: .utf8)
     }
 
-    internal static func selectOrderByStartDate() -> Data? {
+    static func selectOrderByStartDate() -> Data? {
         return """
         {
             "structuredQuery": {
@@ -168,7 +168,7 @@ internal enum ChallengeQuery {
         """.data(using: .utf8)
     }
 
-    internal static func insert(document: ChallengeFields) -> Data? {
+    static func insert(document: ChallengeFields) -> Data? {
         return """
         {
             "fields": {
@@ -187,7 +187,7 @@ internal enum ChallengeQuery {
         """.data(using: .utf8)
     }
 
-    internal static func update(document: ChallengeFields) -> Data? {
+    static func update(document: ChallengeFields) -> Data? {
         return """
         {
             "fields": {
@@ -202,7 +202,7 @@ internal enum ChallengeQuery {
         """.data(using: .utf8)
     }
 
-    internal static func updateParticipantCount(document: ChallengeFields) -> Data? {
+    static func updateParticipantCount(document: ChallengeFields) -> Data? {
         return """
         {
             "fields": {
