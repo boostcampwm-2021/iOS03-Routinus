@@ -107,11 +107,11 @@ final class HomeViewModel: HomeViewModelIO {
         self.achievementFetchUsecase = achievementFetchUsecase
         self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
 
-        self.setDateFormatter()
-        self.baseDate.value = Date()
-        self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
-        self.fetchMyHomeData()
-        self.configurePublishers()
+        setDateFormatter()
+        baseDate.value = Date()
+        days.value = generateDaysInMonth(for: baseDate.value)
+        fetchMyHomeData()
+        configurePublishers()
     }
 }
 
@@ -128,68 +128,60 @@ extension HomeViewModel {
     }
 
     func didTappedTodayRoutine(index: Int) {
-        let challengeID = self.todayRoutines.value[index].challengeID
-        self.todayRoutineTap.send(challengeID)
+        let challengeID = todayRoutines.value[index].challengeID
+        todayRoutineTap.send(challengeID)
     }
 
     func didTappedAddChallengeButton() {
-        self.challengeAddButtonTap.send()
+        challengeAddButtonTap.send()
     }
 
     func didTappedTodayRoutineAuth(index: Int) {
-        let challengeID = self.todayRoutines.value[index].challengeID
-        self.todayRoutineAuthTap.send(challengeID)
+        let challengeID = todayRoutines.value[index].challengeID
+        todayRoutineAuthTap.send(challengeID)
     }
   
     func didTappedExplanationButton() {
-        self.calendarExplanationButtonTap.send()
+        calendarExplanationButtonTap.send()
     }
 
     func configurePublishers() {
-        self.userCreatePublisher
+        userCreatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchUser()
             }
             .store(in: &cancellables)
 
-        self.userUpdatePublisher
+        userUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchMyHomeData()
             }
             .store(in: &cancellables)
 
-        self.challengeCreatePublisher
+        challengeCreatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchTodayRoutine()
             }
             .store(in: &cancellables)
 
-        self.challengeUpdatePublisher
+        challengeUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchTodayRoutine()
             }
             .store(in: &cancellables)
 
-        self.achievementUpdatePublisher
+        achievementUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchAchievement(date: self.baseDate.value)
             }
             .store(in: &cancellables)
 
-        self.authCreatePublisher
-            .receive(on: RunLoop.main)
-            .sink { _ in
-                self.fetchTodayRoutine()
-                self.fetchAchievement(date: self.baseDate.value)
-            }
-            .store(in: &cancellables)
-
-        self.participationCreatePublisher
+        authCreatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchTodayRoutine()
@@ -197,7 +189,15 @@ extension HomeViewModel {
             }
             .store(in: &cancellables)
 
-        self.participationUpdatePublisher
+        participationCreatePublisher
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                self.fetchTodayRoutine()
+                self.fetchAchievement(date: self.baseDate.value)
+            }
+            .store(in: &cancellables)
+
+        participationUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchTodayRoutine()
@@ -234,20 +234,20 @@ extension HomeViewModel {
     }
 
     private func fetchAuth(challengeID: String, completion: @escaping (ChallengeAuth?) -> Void) {
-        self.challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
+        challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
             completion(challengeAuth)
         }
     }
 
     private func updateContinuityDay() {
-        self.userUpdateUsecase.updateContinuityDay { [weak self] user in
+        userUpdateUsecase.updateContinuityDay { [weak self] user in
             self?.user.value = user
         }
     }
 
     private func configureParticipationAuthStates(todayRoutines: [TodayRoutine]) {
-        self.participationAuthStates = Array(repeating: .notAuthenticating,
-                                             count: todayRoutines.count)
+        participationAuthStates = Array(repeating: .notAuthenticating,
+                                        count: todayRoutines.count)
 
         todayRoutines.enumerated().forEach { [weak self] (idx, routine) in
             self?.fetchAuth(challengeID: routine.challengeID, completion: { challengAuth in
@@ -264,8 +264,8 @@ extension HomeViewModel {
     }
 
     func setDateFormatter() {
-        self.formatter.timeZone = Calendar.current.timeZone
-        self.formatter.locale = Calendar.current.locale
+        formatter.timeZone = Calendar.current.timeZone
+        formatter.locale = Calendar.current.locale
     }
 
     private func monthMetadata(for baseDate: Date) throws -> MonthMetadata {

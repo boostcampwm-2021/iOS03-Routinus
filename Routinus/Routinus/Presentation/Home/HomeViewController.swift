@@ -69,7 +69,7 @@ extension HomeViewController {
     }
 
     private func configureThemeStyle() {
-        guard let rawValue = self.viewModel?.themeStyle(),
+        guard let rawValue = viewModel?.themeStyle(),
               let style = UIUserInterfaceStyle(rawValue: rawValue) else { return }
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.4) {
