@@ -82,12 +82,10 @@ extension PreviewView {
 
     private func configureSubviews() {
         self.addSubview(previewView)
-        previewView.anchor(horizontal: self, paddingHorizontal: 20,
-                           vertical: self)
+        previewView.anchor(horizontal: self, paddingHorizontal: 20, vertical: self)
 
         previewView.addSubview(stackView)
-        stackView.anchor(centerX: self.centerXAnchor,
-                         centerY: self.centerYAnchor)
+        stackView.anchor(centerX: self.centerXAnchor, centerY: self.centerYAnchor)
 
         authButton.anchor(width: 80, height: 80)
         previewLabel.anchor(width: 100)
@@ -95,7 +93,8 @@ extension PreviewView {
     }
 
     private func configureGesture() {
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTappedPreviewView))
+        let recognizer = UITapGestureRecognizer(target: self,
+                                                action: #selector(didTappedPreviewView))
         self.previewView.isUserInteractionEnabled = true
         self.previewView.addGestureRecognizer(recognizer)
     }
