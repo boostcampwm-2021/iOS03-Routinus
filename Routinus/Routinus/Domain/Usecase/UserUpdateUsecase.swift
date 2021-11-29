@@ -25,7 +25,7 @@ struct UserUpdateUsecase: UserUpdatableUsecase {
 
     func updateContinuityDay(completion: ((User) -> Void)?) {
         guard let userID = RoutinusRepository.userID() else { return }
-        self.repository.updateContinuityDay(by: userID) { userDTO in
+        repository.updateContinuityDay(by: userID) { userDTO in
             let user = User(userDTO: userDTO)
             completion?(user)
         }
@@ -33,20 +33,20 @@ struct UserUpdateUsecase: UserUpdatableUsecase {
 
     func updateContinuityDayByAuth() {
         guard let userID = RoutinusRepository.userID() else { return }
-        self.repository.updateContinuityDayByAuth(by: userID) {
+        repository.updateContinuityDayByAuth(by: userID) {
             NotificationCenter.default.post(name: UserUpdateUsecase.didUpdateUser,
                                             object: nil)
         }
     }
 
     func updateUsername(of id: String, name: String) {
-        self.repository.updateUsername(of: id, name: name) {
+        repository.updateUsername(of: id, name: name) {
             NotificationCenter.default.post(name: UserUpdateUsecase.didUpdateUser,
                                             object: nil)
         }
     }
 
     func updateThemeStyle(_ style: Int) {
-        self.repository.updateThemeStyle(style)
+        repository.updateThemeStyle(style)
     }
 }
