@@ -26,8 +26,7 @@ enum ParticipationQuery {
         """.data(using: .utf8)
     }
 
-    static func select(userID: String,
-                                challengeID: String) -> Data? {
+    static func select(userID: String, challengeID: String) -> Data? {
         return """
         {
             "structuredQuery": {
