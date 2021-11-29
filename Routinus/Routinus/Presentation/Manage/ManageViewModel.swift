@@ -12,9 +12,7 @@ protocol ManageViewModelInput {
     func didTappedAddButton()
     func didTappedChallenge(index: IndexPath)
     func didLoadedManageView()
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)?)
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
 }
 
 protocol ManageViewModelOutput {
@@ -40,10 +38,14 @@ final class ManageViewModel: ManageViewModelIO {
     let challengeFetchUsecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
-    let challengeCreatePublisher = NotificationCenter.default.publisher(for: ChallengeCreateUsecase.didCreateChallenge,
-                                                                        object: nil)
-    let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
-                                                                        object: nil)
+    let challengeCreatePublisher = NotificationCenter.default.publisher(
+        for: ChallengeCreateUsecase.didCreateChallenge,
+        object: nil
+    )
+    let challengeUpdatePublisher = NotificationCenter.default.publisher(
+        for: ChallengeUpdateUsecase.didUpdateChallenge,
+        object: nil
+    )
 
     init(imageFetchUsecase: ImageFetchableUsecase,
          challengeFetchUsecase: ChallengeFetchableUsecase) {
@@ -98,8 +100,7 @@ extension ManageViewModel {
     func imageData(from directory: String,
                    filename: String,
                    completion: ((Data?) -> Void)?) {
-        imageFetchUsecase.fetchImageData(from: directory,
-                                         filename: filename) { data in
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
         }
     }
