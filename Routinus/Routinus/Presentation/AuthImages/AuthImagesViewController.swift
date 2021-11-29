@@ -39,14 +39,14 @@ class AuthImagesViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.collectionView.removeAfterimage()
+        collectionView.removeAfterimage()
     }
 }
 
 extension AuthImagesViewController {
     private func configureViews() {
-        self.view.backgroundColor = .systemBackground
-        self.view.addSubview(collectionView)
+        view.backgroundColor = .systemBackground
+        view.addSubview(collectionView)
         collectionView.anchor(leading: view.leadingAnchor,
                               paddingLeading: 10,
                               trailing: view.trailingAnchor,
@@ -58,12 +58,12 @@ extension AuthImagesViewController {
     }
 
     private func configureDelegates() {
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
 
     private func configureViewModel() {
-        self.viewModel?.authDisplayState
+        viewModel?.authDisplayState
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] state in
                 guard let self = self else { return }
@@ -71,7 +71,7 @@ extension AuthImagesViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.auths
+        viewModel?.auths
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] auths in
                 guard let self = self else { return }
@@ -93,7 +93,7 @@ extension AuthImagesViewController {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
         )
-        self.collectionView.refreshControl = refreshControl
+        collectionView.refreshControl = refreshControl
     }
 
     @objc private func refresh() {
@@ -110,7 +110,7 @@ extension AuthImagesViewController: UICollectionViewDataSource,
                                     UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel?.auths.value.count ?? 0
+        return viewModel?.auths.value.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -144,7 +144,7 @@ extension AuthImagesViewController: UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath)
                 as? AuthImagesCollectionViewCell else { return }
-        self.viewModel?.authImageTap.send(cell.imageData())
+        viewModel?.authImageTap.send(cell.imageData())
 
         guard let auth = viewModel?.auths.value[indexPath.item],
               let date = auth.date?.toDateString() else { return }

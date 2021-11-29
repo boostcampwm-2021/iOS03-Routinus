@@ -35,11 +35,11 @@ final class AuthImagesCollectionViewCell: UICollectionViewCell {
 
 extension AuthImagesCollectionViewCell {
     private func configureCell() {
-        self.addSubview(imageView)
-        imageView.anchor(leading: self.leadingAnchor,
-                         trailing: self.trailingAnchor,
-                         top: self.topAnchor,
-                         bottom: self.bottomAnchor)
+        addSubview(imageView)
+        imageView.anchor(leading: leadingAnchor,
+                         trailing: trailingAnchor,
+                         top: topAnchor,
+                         bottom: bottomAnchor)
     }
 
     func imageData() -> Data {

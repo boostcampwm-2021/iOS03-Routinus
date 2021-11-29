@@ -41,7 +41,7 @@ final class AuthImagesViewModel: AuthImagesViewModelIO {
         self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
 
-        self.fetchChallengeAuthData(authDisplayState: authDisplayState)
+        fetchChallengeAuthData(authDisplayState: authDisplayState)
     }
 
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
