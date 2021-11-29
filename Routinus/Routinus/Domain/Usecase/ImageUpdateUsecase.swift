@@ -8,9 +8,7 @@
 import Foundation
 
 protocol ImageUpdatableUsecase {
-    func updateImage(challenge: Challenge,
-                     isChangedImage: Bool,
-                     isChangedAuthImage: Bool)
+    func updateImage(challenge: Challenge, isChangedImage: Bool, isChangedAuthImage: Bool)
 }
 
 struct ImageUpdateUsecase: ImageUpdatableUsecase {
@@ -20,18 +18,20 @@ struct ImageUpdateUsecase: ImageUpdatableUsecase {
         self.repository = repository
     }
 
-    func updateImage(challenge: Challenge,
-                     isChangedImage: Bool,
-                     isChangedAuthImage: Bool) {
+    func updateImage(challenge: Challenge, isChangedImage: Bool, isChangedAuthImage: Bool) {
         if isChangedImage {
-            repository.updateImage(challengeID: challenge.challengeID,
-                                   imageURL: challenge.imageURL,
-                                   thumbnailImageURL: challenge.thumbnailImageURL)
+            repository.updateImage(
+                challengeID: challenge.challengeID,
+                imageURL: challenge.imageURL,
+                thumbnailImageURL: challenge.thumbnailImageURL
+            )
         }
         if isChangedAuthImage {
-            repository.updateImage(challengeID: challenge.challengeID,
-                                   authExampleImageURL: challenge.authExampleImageURL,
-                                   authExampleThumbnailImageURL: challenge.authExampleThumbnailImageURL)
+            repository.updateImage(
+                challengeID: challenge.challengeID,
+                authExampleImageURL: challenge.authExampleImageURL,
+                authExampleThumbnailImageURL: challenge.authExampleThumbnailImageURL
+            )
         }
 
     }

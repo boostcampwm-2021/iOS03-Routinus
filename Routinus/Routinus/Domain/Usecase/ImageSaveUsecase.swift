@@ -8,9 +8,7 @@
 import Foundation
 
 protocol ImageSavableUsecase {
-    func saveImage(to directory: String,
-                   filename: String,
-                   data: Data?) -> String?
+    func saveImage(to directory: String, filename: String, data: Data?) -> String?
 }
 
 struct ImageSaveUsecase: ImageSavableUsecase {
@@ -20,11 +18,7 @@ struct ImageSaveUsecase: ImageSavableUsecase {
         self.repository = repository
     }
 
-    func saveImage(to directory: String,
-                   filename: String,
-                   data: Data?) -> String? {
-        return repository.saveImage(to: directory,
-                                    filename: filename,
-                                    data: data)
+    func saveImage(to directory: String, filename: String, data: Data?) -> String? {
+        return repository.saveImage(to: directory, filename: filename, data: data)
     }
 }
