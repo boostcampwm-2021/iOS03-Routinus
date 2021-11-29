@@ -56,12 +56,10 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
         label.text = section.title
 
         addSubview(label)
-        label.anchor(leading: self.leadingAnchor,
-                     centerY: centerYAnchor)
+        label.anchor(leading: self.leadingAnchor, centerY: centerYAnchor)
 
         addSubview(toggleImageView)
-        toggleImageView.anchor(trailing: self.trailingAnchor,
-                               centerY: centerYAnchor)
+        toggleImageView.anchor(trailing: self.trailingAnchor, centerY: centerYAnchor)
     }
 
     func didTouchedHeader() {
