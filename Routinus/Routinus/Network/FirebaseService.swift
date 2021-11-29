@@ -17,14 +17,11 @@ enum FirebaseService {
     private static let firestoreURL = "https://firestore.googleapis.com/v1/projects/boostcamp-ios03-routinus/databases/(default)/documents"
     private static let storageURL = "https://firebasestorage.googleapis.com/v0/b/boostcamp-ios03-routinus.appspot.com/o"
 
-    static func imageURL(id: String,
-                                filename: String) -> URL? {
+    static func imageURL(id: String, filename: String) -> URL? {
         return URL(string: "\(storageURL)/\(id)%2F\(filename).jpeg?alt=media")
     }
 
-    static func insertUser(id: String,
-                                  name: String,
-                                  completion: (() -> Void)?) {
+    static func insertUser(id: String, name: String, completion: (() -> Void)?) {
         guard let url = URL(string: "\(firestoreURL)/user") else {
             completion?()
             return
@@ -40,14 +37,14 @@ enum FirebaseService {
     }
 
     static func insertChallenge(challenge: ChallengeDTO,
-                                       participation: ParticipationDTO,
-                                       imageURL: String,
-                                       thumbnailImageURL: String,
-                                       authExampleImageURL: String,
-                                       authExampleThumbnailImageURL: String,
-                                       yearMonth: String,
-                                       day: String,
-                                       completion: (() -> Void)?) {
+                                participation: ParticipationDTO,
+                                imageURL: String,
+                                thumbnailImageURL: String,
+                                authExampleImageURL: String,
+                                authExampleThumbnailImageURL: String,
+                                yearMonth: String,
+                                day: String,
+                                completion: (() -> Void)?) {
         let uploadQueue = DispatchQueue(label: "uploadQueue")
         let group = DispatchGroup()
 
@@ -65,9 +62,7 @@ enum FirebaseService {
 
             let userID = challenge.document?.fields.ownerID.stringValue ?? ""
             group.enter()
-            updateTotalCount(userID: userID,
-                             yearMonth: yearMonth,
-                             day: day) {
+            updateTotalCount(userID: userID, yearMonth: yearMonth, day: day) {
                 group.leave()
             }
 
@@ -109,9 +104,9 @@ enum FirebaseService {
     }
 
     static func insertChallengeAuth(challengeAuth: ChallengeAuthDTO,
-                                           userAuthImageURL: String,
-                                           userAuthThumbnailImageURL: String,
-                                           completion: @escaping () -> Void) {
+                                    userAuthImageURL: String,
+                                    userAuthThumbnailImageURL: String,
+                                    completion: @escaping () -> Void) {
         insertChallengeAuth(dto: challengeAuth)
 
         let uploadQueue = DispatchQueue(label: "uploadQueue")
@@ -144,8 +139,7 @@ enum FirebaseService {
         }
     }
 
-    static func insertChallenge(dto: ChallengeDTO,
-                                       completion: (() -> Void)?) {
+    static func insertChallenge(dto: ChallengeDTO, completion: (() -> Void)?) {
         guard let url = URL(string: "\(firestoreURL)/challenge"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
@@ -159,7 +153,7 @@ enum FirebaseService {
     }
 
     static func insertChallengeParticipation(dto: ParticipationDTO,
-                                                    completion: (() -> Void)? = nil) {
+                                             completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(firestoreURL)/challenge_participation"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
@@ -172,8 +166,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func insertChallengeAuth(dto: ChallengeAuthDTO,
-                                           completion: (() -> Void)? = nil) {
+    static func insertChallengeAuth(dto: ChallengeAuthDTO, completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(firestoreURL)/challenge_auth"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
@@ -188,9 +181,9 @@ enum FirebaseService {
     }
 
     static func uploadImage(id: String,
-                                   filename: String,
-                                   imageURL: String,
-                                   completion: (() -> Void)?) {
+                            filename: String,
+                            imageURL: String,
+                            completion: (() -> Void)?) {
         guard let url = URL(string: "\(storageURL)?uploadType=media&name=\(id)%2F\(filename).jpeg"),
               let imageURL = URL(string: imageURL) else { return }
         var request = URLRequest(url: url)
@@ -203,9 +196,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func imageData(from id: String,
-                                 filename: String,
-                                 completion: ((Data?) -> Void)?) {
+    static func imageData(from id: String, filename: String, completion: ((Data?) -> Void)?) {
         guard let url = imageURL(id: id, filename: filename) else {
             completion?(nil)
             return
@@ -218,8 +209,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func user(of id: String,
-                            completion: ((UserDTO) -> Void)?) {
+    static func user(of id: String, completion: ((UserDTO) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?(UserDTO())
             return
@@ -236,8 +226,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func routines(of id: String,
-                                completion: (([TodayRoutineDTO]) -> Void)?) {
+    static func routines(of id: String, completion: (([TodayRoutineDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return
@@ -266,8 +255,7 @@ enum FirebaseService {
                     group.leave()
                     continue
                 }
-                request.httpBody = ChallengeQuery.select(challengeID: challengeID,
-                                                         date: date)
+                request.httpBody = ChallengeQuery.select(challengeID: challengeID, date: date)
 
                 URLSession.shared.dataTask(with: request) { data, _, _ in
                     guard let data = data,
@@ -289,16 +277,12 @@ enum FirebaseService {
             group.notify(queue: fetchQueue) {
                 todayRoutines.sort { $0.challengeID > $1.challengeID }
                 completion?(todayRoutines)
-                todayAchievement(of: id,
-                                 totalCount: todayRoutines.count,
-                                 completion: nil)
+                todayAchievement(of: id, totalCount: todayRoutines.count, completion: nil)
             }
         }.resume()
     }
 
-    static func todayAchievement(of id: String,
-                                        totalCount: Int,
-                                        completion: (() -> Void)?) {
+    static func todayAchievement(of id: String, totalCount: Int, completion: (() -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
 
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
@@ -317,7 +301,8 @@ enum FirebaseService {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data,
-                  let dto = try? JSONDecoder().decode([AchievementDTO].self, from: data).first else { return }
+                  let dto = try? JSONDecoder().decode([AchievementDTO].self,
+                                                      from: data).first else { return }
             if dto.document == nil {
                 insertAchievement(of: id,
                                   yearMonth: yearMonthString,
@@ -329,10 +314,10 @@ enum FirebaseService {
     }
 
     static func insertAchievement(of id: String,
-                                         yearMonth: String,
-                                         day: String,
-                                         totalCount: Int,
-                                         completion: (() -> Void)?) {
+                                  yearMonth: String,
+                                  day: String,
+                                  totalCount: Int,
+                                  completion: (() -> Void)?) {
         guard let url = URL(string: "\(firestoreURL)/achievement") else {
             completion?()
             return
@@ -351,8 +336,8 @@ enum FirebaseService {
     }
 
     static func achievements(of id: String,
-                                    in yearMonth: String,
-                                    completion: (([AchievementDTO]) -> Void)?) {
+                             in yearMonth: String,
+                             completion: (([AchievementDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return
@@ -360,8 +345,7 @@ enum FirebaseService {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = AchievementQuery.select(id: id,
-                                                   yearMonth: yearMonth)
+        request.httpBody = AchievementQuery.select(id: id, yearMonth: yearMonth)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -371,16 +355,14 @@ enum FirebaseService {
     }
 
     static func achievement(userID: String,
-                                   yearMonth: String,
-                                   day: String,
-                                   completion: @escaping (AchievementDTO?) -> Void) {
+                            yearMonth: String,
+                            day: String,
+                            completion: @escaping (AchievementDTO?) -> Void) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = AchievementQuery.select(id: userID,
-                                                   yearMonth: yearMonth,
-                                                   day: day)
+        request.httpBody = AchievementQuery.select(id: userID, yearMonth: yearMonth, day: day)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -397,8 +379,7 @@ enum FirebaseService {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = ChallengeQuery.selectOrderByParticipantCount(ascending: true,
-                                                                        limit: 50)
+        request.httpBody = ChallengeQuery.selectOrderByParticipantCount(ascending: true, limit: 50)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -432,8 +413,7 @@ enum FirebaseService {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = ChallengeQuery.selectOrderByParticipantCount(ascending: false,
-                                                                        limit: 5)
+        request.httpBody = ChallengeQuery.selectOrderByParticipantCount(ascending: false, limit: 5)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -444,8 +424,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func searchChallenges(ownerID: String,
-                                        completion: (([ChallengeDTO]) -> Void)?) {
+    static func searchChallenges(ownerID: String, completion: (([ChallengeDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return
@@ -464,8 +443,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func searchChallenges(participantID: String,
-                                        completion: (([ChallengeDTO]) -> Void)?) {
+    static func searchChallenges(participantID: String, completion: (([ChallengeDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return
@@ -510,8 +488,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func searchChallenges(categoryID: String,
-                                        completion: (([ChallengeDTO]) -> Void)?) {
+    static func searchChallenges(categoryID: String, completion: (([ChallengeDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return
@@ -529,8 +506,8 @@ enum FirebaseService {
     }
 
     static func challenge(ownerID: String,
-                                 challengeID: String,
-                                 completion: ((ChallengeDTO) -> Void)?) {
+                          challengeID: String,
+                          completion: ((ChallengeDTO) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?(ChallengeDTO())
             return
@@ -538,8 +515,7 @@ enum FirebaseService {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = ChallengeQuery.select(ownerID: ownerID,
-                                                 challengeID: challengeID)
+        request.httpBody = ChallengeQuery.select(ownerID: ownerID, challengeID: challengeID)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -548,8 +524,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func challenge(challengeID: String,
-                                 completion: @escaping (ChallengeDTO) -> Void) {
+    static func challenge(challengeID: String, completion: @escaping (ChallengeDTO) -> Void) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
@@ -564,14 +539,13 @@ enum FirebaseService {
     }
 
     static func challengeParticipation(userID: String,
-                                              challengeID: String,
-                                              completion: @escaping (ParticipationDTO?) -> Void) {
+                                       challengeID: String,
+                                       completion: @escaping (ParticipationDTO?) -> Void) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = ParticipationQuery.select(userID: userID,
-                                                     challengeID: challengeID)
+        request.httpBody = ParticipationQuery.select(userID: userID, challengeID: challengeID)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -580,8 +554,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func updateContinuityDay(of id: String,
-                                           completion: ((UserDTO) -> Void)?) {
+    static func updateContinuityDay(of id: String, completion: ((UserDTO) -> Void)?) {
         user(of: id) { dto in
             guard let document = dto.document,
                   let grade = Int(document.fields.grade.integerValue),
@@ -623,8 +596,7 @@ enum FirebaseService {
         }
     }
 
-    static func updateContinuityDayByAuth(of id: String,
-                                                 completion: (() -> Void)?) {
+    static func updateContinuityDayByAuth(of id: String, completion: (() -> Void)?) {
         user(of: id) { dto in
             guard let document = dto.document,
                   let grade = Int(document.fields.grade.integerValue),
@@ -667,9 +639,7 @@ enum FirebaseService {
         }
     }
 
-    static func updateUsername(of id: String,
-                                      name: String,
-                                      completion: (() -> Void)?) {
+    static func updateUsername(of id: String, name: String, completion: (() -> Void)?) {
         user(of: id) { dto in
             guard let document = dto.document,
                   let grade = Int(document.fields.grade.integerValue),
@@ -704,8 +674,7 @@ enum FirebaseService {
         }
     }
 
-    static func updateChallenge(challengeDTO: ChallengeDTO,
-                                       completion: (() -> Void)?) {
+    static func updateChallenge(challengeDTO: ChallengeDTO, completion: (() -> Void)?) {
         guard let ownerID = challengeDTO.document?.fields.ownerID.stringValue,
               let challengeID = challengeDTO.document?.fields.id.stringValue,
               let challengeField = challengeDTO.document?.fields else { return }
@@ -736,8 +705,8 @@ enum FirebaseService {
     }
 
     static func updateChallengeParticipationAuthCount(challengeID: String,
-                                                             userID: String,
-                                                             completion: (() -> Void)?) {
+                                                      userID: String,
+                                                      completion: (() -> Void)?) {
         challengeParticipation(userID: userID, challengeID: challengeID) { dto in
             guard let dto = dto,
                   let document = dto.document,
@@ -770,9 +739,9 @@ enum FirebaseService {
     }
 
     static func challengeAuth(todayDate: String,
-                                     userID: String,
-                                     challengeID: String,
-                                     completion: @escaping (ChallengeAuthDTO?) -> Void) {
+                              userID: String,
+                              challengeID: String,
+                              completion: @escaping (ChallengeAuthDTO?) -> Void) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
 
@@ -789,8 +758,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func challengeAuths(challengeID: String,
-                                      completion: (([ChallengeAuthDTO]) -> Void)?) {
+    static func challengeAuths(challengeID: String, completion: (([ChallengeAuthDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return
@@ -808,8 +776,8 @@ enum FirebaseService {
     }
 
     static func challengeAuths(userID: String,
-                                      challengeID: String,
-                                      completion: (([ChallengeAuthDTO]) -> Void)?) {
+                               challengeID: String,
+                               completion: (([ChallengeAuthDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return
@@ -817,8 +785,7 @@ enum FirebaseService {
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.post.rawValue
-        request.httpBody = AuthQuery.select(challengeID: challengeID,
-                                            userID: userID)
+        request.httpBody = AuthQuery.select(challengeID: challengeID, userID: userID)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
@@ -828,9 +795,9 @@ enum FirebaseService {
     }
 
     static func updateAchievementCount(userID: String,
-                                              yearMonth: String,
-                                              day: String,
-                                              completion: (() -> Void)?) {
+                                       yearMonth: String,
+                                       day: String,
+                                       completion: (() -> Void)?) {
         achievement(userID: userID, yearMonth: yearMonth, day: day) { dto in
             guard let dto = dto,
                   let document = dto.document,
@@ -864,9 +831,9 @@ enum FirebaseService {
     }
 
     static func updateTotalCount(userID: String,
-                                        yearMonth: String,
-                                        day: String,
-                                        completion: (() -> Void)?) {
+                                 yearMonth: String,
+                                 day: String,
+                                 completion: (() -> Void)?) {
         achievement(userID: userID, yearMonth: yearMonth, day: day) { dto in
             guard let dto = dto,
                   let document = dto.document,
@@ -899,8 +866,7 @@ enum FirebaseService {
         }
     }
 
-    static func updateParticipantCount(challengeID: String,
-                                              completion: (() -> Void)?) {
+    static func updateParticipantCount(challengeID: String, completion: (() -> Void)?) {
         challenge(challengeID: challengeID) { dto in
             guard let document = dto.document,
                   let week = Int(document.fields.week.integerValue),
@@ -925,7 +891,8 @@ enum FirebaseService {
                                             participantCount: participationCount + 1,
                                             ownerID: ownerID)
 
-            guard let challengeField = challengeDTO.document?.fields, let documentID = dto.documentID else { return }
+            guard let challengeField = challengeDTO.document?.fields,
+                  let documentID = dto.documentID else { return }
             var urlComponent = URLComponents(string: "\(firestoreURL)/challenge/\(documentID)?")
             let queryItems = [
                 URLQueryItem(name: "updateMask.fieldPaths", value: "participant_count")
