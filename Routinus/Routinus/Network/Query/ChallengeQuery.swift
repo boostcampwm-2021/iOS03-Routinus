@@ -100,8 +100,7 @@ enum ChallengeQuery {
             """.data(using: .utf8)
     }
 
-    static func select(ownerID: String,
-                                challengeID: String) -> Data? {
+    static func select(ownerID: String, challengeID: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -133,8 +132,7 @@ enum ChallengeQuery {
         """.data(using: .utf8)
     }
 
-    static func selectOrderByParticipantCount(ascending: Bool,
-                                                       limit: Int) -> Data? {
+    static func selectOrderByParticipantCount(ascending: Bool, limit: Int) -> Data? {
         return """
         {
             "structuredQuery": {
