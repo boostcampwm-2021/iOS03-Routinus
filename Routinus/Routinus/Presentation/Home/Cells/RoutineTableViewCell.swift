@@ -18,6 +18,7 @@ final class RoutineTableViewCell: UITableViewCell {
         progressView.clipsToBounds = true
         progressView.trackTintColor = .systemBackground
         progressView.tintColor = UIColor(named: "MainColor")
+        progressView.layer.borderColor = UIColor(named: "MainColor")?.cgColor
         return progressView
     }()
 
@@ -63,7 +64,6 @@ final class RoutineTableViewCell: UITableViewCell {
             categoryImageView.image = UIImage(systemName: routine.category.symbol)
         }
         categoryNameLabel.text = routine.title
-        progressView.layer.borderColor = UIColor(named: "MainColor")?.cgColor
         DispatchQueue.main.async {
             UIView.animate(withDuration: 1.5, delay: 3) {
                 let progress = Float(routine.authCount) / Float(routine.totalCount)
@@ -103,5 +103,13 @@ extension RoutineTableViewCell {
                                  trailing: leftArrow.leadingAnchor,
                                  centerY: centerYAnchor)
 
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            progressView.layer.borderColor = UIColor(named: "MainColor")?.cgColor
+        }
     }
 }
