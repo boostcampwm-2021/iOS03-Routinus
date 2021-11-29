@@ -70,9 +70,12 @@ extension AuthViewController {
                         height: smallWidth ? 60 : 90)
 
         self.authView.addSubview(authButton)
-        authButton.anchor(horizontal: authButton.superview, paddingHorizontal: offset,
-                          top: authButton.superview?.topAnchor, paddingTop: 10,
-                          bottom: authButton.superview?.bottomAnchor, paddingBottom: smallWidth ? 10 : 30)
+        authButton.anchor(horizontal: authButton.superview,
+                          paddingHorizontal: offset,
+                          top: authButton.superview?.topAnchor,
+                          paddingTop: 10,
+                          bottom: authButton.superview?.bottomAnchor,
+                          paddingBottom: smallWidth ? 10 : 30)
 
         self.scrollView.addSubview(stackView)
         self.stackView.anchor(centerX: self.scrollView.centerXAnchor,
@@ -128,9 +131,7 @@ extension AuthViewController {
 
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self,
-                                 action: #selector(refresh),
-                                 for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
@@ -168,8 +169,7 @@ extension AuthViewController: AuthMethodViewDelegate {
         guard let challengeID = viewModel?.challenge.value?.challengeID else { return }
         guard let thumbnailImage = self.authMethodView.authThumbnailImage else { return }
         self.viewModel?.didTappedAuthMethodImage(image: thumbnailImage)
-        self.viewModel?.imageData(from: challengeID,
-                                  filename: "auth_method") { data in
+        self.viewModel?.imageData(from: challengeID, filename: "auth_method") { data in
             guard let data = data else { return }
             self.viewModel?.loadedAuthMethodImage(image: data)
         }
@@ -189,12 +189,16 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
                                              time: Date().toTimeColonString())
             let thumbnailImage = mainImage.resizedImage(.thumbnail)
 
-            let mainImageURL = viewModel.saveImage(to: "temp",
-                                                   filename: "auth",
-                                                   data: mainImage.jpegData(compressionQuality: 0.9))
-            let thumbnailImageURL = viewModel.saveImage(to: "temp",
-                                                        filename: "thumbnail_auth",
-                                                        data: thumbnailImage.jpegData(compressionQuality: 0.9))
+            let mainImageURL = viewModel.saveImage(
+                to: "temp",
+                filename: "auth",
+                data: mainImage.jpegData(compressionQuality: 0.9)
+            )
+            let thumbnailImageURL = viewModel.saveImage(
+                to: "temp",
+                filename: "thumbnail_auth",
+                data: thumbnailImage.jpegData(compressionQuality: 0.9)
+            )
             self.viewModel?.update(userAuthImageURL: mainImageURL)
             self.viewModel?.update(userAuthThumbnailImageURL: thumbnailImageURL)
             previewView.setImage(mainImage)
