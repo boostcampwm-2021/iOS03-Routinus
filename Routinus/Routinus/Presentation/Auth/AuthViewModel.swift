@@ -15,12 +15,8 @@ protocol AuthViewModelInput {
     func loadedAuthMethodImage(image: Data)
     func update(userAuthImageURL: String?)
     func update(userAuthThumbnailImageURL: String?)
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)?)
-    func saveImage(to directory: String,
-                   filename: String,
-                   data: Data?) -> String?
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
+    func saveImage(to directory: String, filename: String, data: Data?) -> String?
 }
 
 protocol AuthViewModelOutput {
@@ -85,9 +81,11 @@ final class AuthViewModel: AuthViewModelIO {
 
 extension AuthViewModel {
     func didTappedAuthButton() {
-        self.challengeAuthCreateUsecase.createChallengeAuth(challengeID: challengeID,
-                                                            userAuthImageURL: userAuthImageURL,
-                                                            userAuthThumbnailImageURL: userAuthThumbnailImageURL)
+        self.challengeAuthCreateUsecase.createChallengeAuth(
+            challengeID: challengeID,
+            userAuthImageURL: userAuthImageURL,
+            userAuthThumbnailImageURL: userAuthThumbnailImageURL
+        )
         self.participationUpdateUsecase.updateParticipationAuthCount(challengeID: challengeID)
         self.achievementUpdateUsecase.updateAchievementCount()
         self.userUpdateUsecase.updateContinuityDayByAuth()
