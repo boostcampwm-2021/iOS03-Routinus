@@ -738,9 +738,9 @@
 		E9797C9B2730F7BC00A14A0F /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				E9797C9E2730FF9000A14A0F /* Coordinator */,
 				44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */,
 				44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */,
+				E9797C9E2730FF9000A14A0F /* Coordinator */,
 			);
 			path = Application;
 			sourceTree = "<group>";
