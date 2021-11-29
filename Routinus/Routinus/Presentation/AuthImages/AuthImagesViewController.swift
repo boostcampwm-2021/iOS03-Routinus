@@ -97,7 +97,8 @@ extension AuthImagesViewController {
     }
 
     @objc private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
+            guard let self = self else { return }
             guard let authDisplayState = self.viewModel?.authDisplayState.value else { return }
             self.viewModel?.fetchChallengeAuthData(authDisplayState: authDisplayState)
             self.collectionView.refreshControl?.endRefreshing()
@@ -151,7 +152,8 @@ extension AuthImagesViewController: UICollectionViewDataSource,
         let filename = "\(auth.userID)_\(date)_auth"
         viewModel?.imageData(from: auth.challengeID, filename: filename) { data in
             guard let data = data else { return }
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 self.viewModel?.authImageLoad.send(data)
             }
         }
