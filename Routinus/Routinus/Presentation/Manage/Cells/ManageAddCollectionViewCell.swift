@@ -44,12 +44,9 @@ extension ManageAddCollectionViewCell {
         anchor(height: 250 + offset)
 
         addSubview(titleLabel)
-        titleLabel.anchor(horizontal: self,
-                          top: topAnchor, paddingTop: offset,
-                          height: 80)
+        titleLabel.anchor(horizontal: self, top: topAnchor, paddingTop: offset, height: 80)
 
         addSubview(addChallengeView)
-        addChallengeView.anchor(horizontal: self,
-                                top: titleLabel.bottomAnchor, paddingTop: 10)
+        addChallengeView.anchor(horizontal: self, top: titleLabel.bottomAnchor, paddingTop: 10)
     }
 }
