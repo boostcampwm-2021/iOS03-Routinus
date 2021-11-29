@@ -88,10 +88,11 @@ final class SearchViewController: UIViewController {
 }
 
 extension SearchViewController {
-    private func configureDataSource() -> DataSource {
+    private func configureDataSource() -> DataSource? {
         let dataSource = DataSource(
             collectionView: collectionView
-        ) { collectionView, indexPath, content in
+        ) { [weak self] collectionView, indexPath, content in
+            guard let self = self else { return nil }
             switch content {
             case .popularSearchKeyword(let keyword):
                 let cell = collectionView.dequeueReusableCell(
@@ -109,7 +110,7 @@ extension SearchViewController {
                 ) as? ChallengeCollectionViewCell
                 cell?.setTitle(challenge.title)
                 self.viewModel?.imageData(from: challenge.challengeID,
-                                     filename: "thumbnail_image") { data in
+                                          filename: "thumbnail_image") { data in
                     guard let data = data,
                           let image = UIImage(data: data) else { return }
 
@@ -157,23 +158,25 @@ extension SearchViewController {
         viewModel?.popularKeywords
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] keywords in
-                guard let self = self else { return }
-                var popularSnapshot = self.dataSource.snapshot(for: Section.popularSearchKeyword)
+                guard let self = self,
+                      let dataSource = self.dataSource else { return }
+                var popularSnapshot = dataSource.snapshot(for: Section.popularSearchKeyword)
                 let popularContents = keywords.map { SearchContents.popularSearchKeyword($0) }
                 popularSnapshot.append(popularContents)
-                self.dataSource.apply(popularSnapshot, to: Section.popularSearchKeyword)
+                dataSource.apply(popularSnapshot, to: Section.popularSearchKeyword)
             })
             .store(in: &cancellables)
 
         viewModel?.challenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
-                guard let self = self else { return }
-                var challengeSnapshot = self.dataSource.snapshot(for: Section.challenge)
+                guard let self = self,
+                      let dataSource = self.dataSource else { return }
+                var challengeSnapshot = dataSource.snapshot(for: Section.challenge)
                 let challengeContents = challengeItem.map { SearchContents.challenge($0) }
                 challengeSnapshot.deleteAll()
                 challengeSnapshot.append(challengeContents)
-                self.dataSource.apply(challengeSnapshot,
+                dataSource.apply(challengeSnapshot,
                                       to: Section.challenge,
                                       animatingDifferences: true)
             })
