@@ -25,9 +25,7 @@ struct AchievementUpdateUsecase: AchievementUpdatableUsecase {
         guard let userID = RoutinusRepository.userID() else { return }
         let yearMonth = Date().toYearMonthString()
         let day = Date().toDayString()
-        self.repository.updateAchievementCount(userID: userID,
-                                               yearMonth: yearMonth,
-                                               day: day) {
+        self.repository.updateAchievementCount(userID: userID, yearMonth: yearMonth, day: day) {
             NotificationCenter.default.post(name: AchievementUpdateUsecase.didUpdateAchievement,
                                             object: nil)
         }
@@ -37,9 +35,7 @@ struct AchievementUpdateUsecase: AchievementUpdatableUsecase {
         guard let userID = RoutinusRepository.userID() else { return }
         let yearMonth = Date().toYearMonthString()
         let day = Date().toDayString()
-        self.repository.updateTotalCount(userID: userID,
-                                         yearMonth: yearMonth,
-                                         day: day) {
+        self.repository.updateTotalCount(userID: userID, yearMonth: yearMonth, day: day) {
             NotificationCenter.default.post(name: AchievementUpdateUsecase.didUpdateAchievement,
                                             object: nil)
         }

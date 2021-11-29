@@ -8,8 +8,7 @@
 import Foundation
 
 protocol AchievementFetchableUsecase {
-    func fetchAchievements(yearMonth: String,
-                           completion: @escaping ([Achievement]) -> Void)
+    func fetchAchievements(yearMonth: String, completion: @escaping ([Achievement]) -> Void)
 }
 
 struct AchievementFetchUsecase: AchievementFetchableUsecase {
@@ -19,8 +18,7 @@ struct AchievementFetchUsecase: AchievementFetchableUsecase {
         self.repository = repository
     }
 
-    func fetchAchievements(yearMonth: String,
-                           completion: @escaping ([Achievement]) -> Void) {
+    func fetchAchievements(yearMonth: String, completion: @escaping ([Achievement]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
 
         repository.fetchAchievements(by: id, in: yearMonth) { achievements in
