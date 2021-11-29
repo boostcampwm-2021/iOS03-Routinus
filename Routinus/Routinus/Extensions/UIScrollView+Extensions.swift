@@ -9,7 +9,7 @@ import UIKit
 
 extension UIScrollView {
     func removeAfterimage() {
-        self.refreshControl?.beginRefreshing()
-        self.refreshControl?.endRefreshing()
+        refreshControl?.beginRefreshing()
+        refreshControl?.endRefreshing()
     }
 }

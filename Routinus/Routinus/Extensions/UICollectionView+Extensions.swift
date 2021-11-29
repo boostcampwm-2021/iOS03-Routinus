@@ -10,10 +10,10 @@ import UIKit
 extension UICollectionView {
     func notifyEmptyData() {
         let informationView: UIView = {
-            let view = UIView(frame: CGRect(x: self.center.x,
-                                            y: self.center.y,
-                                            width: self.bounds.width,
-                                            height: self.bounds.height))
+            let view = UIView(frame: CGRect(x: center.x,
+                                            y: center.y,
+                                            width: bounds.width,
+                                            height: bounds.height))
             return view
         }()
 
@@ -45,10 +45,10 @@ extension UICollectionView {
         messageLabel.anchor(centerX: informationView.centerXAnchor,
                             top: titleLabel.bottomAnchor, paddingTop: 20)
 
-        self.backgroundView = informationView
+        backgroundView = informationView
     }
 
     func restore() {
-        self.backgroundView = nil
+        backgroundView = nil
     }
 }
