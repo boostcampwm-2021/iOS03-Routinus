@@ -102,6 +102,7 @@
 		E901EFEA27453F2000B14847 /* ChallengeAuthCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */; };
 		E901EFEC27453F6600B14847 /* ChallengeAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFEB27453F6600B14847 /* ChallengeAuth.swift */; };
 		E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C1915273CACDD00D11127 /* PopularKeyword.swift */; };
+		E932229A2754C45D007DBAF2 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93222992754C45D007DBAF2 /* LaunchView.swift */; };
 		E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044127434D4700D82B1D /* AuthMethodView.swift */; };
 		E937044427434D6300D82B1D /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044327434D6300D82B1D /* PreviewView.swift */; };
 		E937044627434D8F00D82B1D /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044527434D8F00D82B1D /* AuthButton.swift */; };
@@ -114,7 +115,6 @@
 		E94B497227390FD300708D7B /* ChallengeCategoryIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B497127390FD300708D7B /* ChallengeCategoryIconView.swift */; };
 		E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B4973273910F400708D7B /* ChallengeViewModel.swift */; };
 		E94B49762739118B00708D7B /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94B49752739118B00708D7B /* Challenge.swift */; };
-		E96979EA274BD8C1003AF60D /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96979E9274BD8C1003AF60D /* LaunchView.swift */; };
 		E9753900273220F6004358C5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* User.swift */; };
 		E975390627325538004358C5 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* Achievement.swift */; };
 		E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797C9F2730FF9C00A14A0F /* RoutinusCoordinator.swift */; };
@@ -273,6 +273,7 @@
 		E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthCreateUsecase.swift; sourceTree = "<group>"; };
 		E901EFEB27453F6600B14847 /* ChallengeAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuth.swift; sourceTree = "<group>"; };
 		E91C1915273CACDD00D11127 /* PopularKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeyword.swift; sourceTree = "<group>"; };
+		E93222992754C45D007DBAF2 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		E937044127434D4700D82B1D /* AuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMethodView.swift; sourceTree = "<group>"; };
 		E937044327434D6300D82B1D /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		E937044527434D8F00D82B1D /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
@@ -285,7 +286,6 @@
 		E94B497127390FD300708D7B /* ChallengeCategoryIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCategoryIconView.swift; sourceTree = "<group>"; };
 		E94B4973273910F400708D7B /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
 		E94B49752739118B00708D7B /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
-		E96979E9274BD8C1003AF60D /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		E97538FF273220F6004358C5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E975390527325538004358C5 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		E9797C9F2730FF9C00A14A0F /* RoutinusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusCoordinator.swift; sourceTree = "<group>"; };
@@ -636,7 +636,7 @@
 		E903FAAD274B99B500D11C99 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				E96979E9274BD8C1003AF60D /* LaunchView.swift */,
+				E93222992754C45D007DBAF2 /* LaunchView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1124,7 +1124,7 @@
 				441CEE1D273A3434006C261F /* CreateAuthImageRegisterView.swift in Sources */,
 				441CEE13273A334B006C261F /* CreateTitleView.swift in Sources */,
 				441CEDD627379939006C261F /* CalendarView.swift in Sources */,
-				E96979EA274BD8C1003AF60D /* LaunchView.swift in Sources */,
+				E932229A2754C45D007DBAF2 /* LaunchView.swift in Sources */,
 				149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
