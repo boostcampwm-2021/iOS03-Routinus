@@ -26,13 +26,19 @@ final class ManageViewController: UIViewController {
         collectionView.backgroundColor = .systemBackground
         collectionView.showsVerticalScrollIndicator = false
 
-        collectionView.register(ManageCollectionViewHeader.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: ManageCollectionViewHeader.identifier)
-        collectionView.register(ChallengeCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ChallengeCollectionViewCell.identifier)
-        collectionView.register(ManageAddCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ManageAddCollectionViewCell.identifier)
+        collectionView.register(
+            ManageCollectionViewHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: ManageCollectionViewHeader.identifier
+        )
+        collectionView.register(
+            ChallengeCollectionViewCell.self,
+            forCellWithReuseIdentifier: ChallengeCollectionViewCell.identifier
+        )
+        collectionView.register(
+            ManageAddCollectionViewCell.self,
+            forCellWithReuseIdentifier: ManageAddCollectionViewCell.identifier
+        )
 
         return collectionView
     }()
@@ -141,9 +147,7 @@ extension ManageViewController {
 
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self,
-                                 action: #selector(refresh),
-                                 for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
@@ -184,14 +188,18 @@ extension ManageViewController {
         let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, content in
             switch content {
             case .title:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManageAddCollectionViewCell.identifier,
-                                                              for: indexPath) as? ManageAddCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: ManageAddCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? ManageAddCollectionViewCell
                 cell?.delegate = self
                 return cell
 
             case .challenge(let challenge):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCollectionViewCell.identifier,
-                                                              for: indexPath) as? ChallengeCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: ChallengeCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? ChallengeCollectionViewCell
                 cell?.setTitle(challenge.title)
                 self.viewModel?.imageData(from: challenge.challengeID,
                                           filename: "thumbnail_image") { data in
@@ -236,8 +244,10 @@ extension ManageViewController {
             }
 
             if view?.gestureRecognizers?.count == nil {
-                let tapGesture = UITapGestureRecognizer(target: self,
-                                                        action: #selector(self.collectionViewHeaderTouched(_:)))
+                let tapGesture = UITapGestureRecognizer(
+                    target: self,
+                    action: #selector(self.collectionViewHeaderTouched(_:))
+                )
                 tapGesture.delegate = self
                 view?.addGestureRecognizer(tapGesture)
             }
