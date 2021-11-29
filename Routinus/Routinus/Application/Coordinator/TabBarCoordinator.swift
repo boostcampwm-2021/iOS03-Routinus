@@ -60,8 +60,8 @@ final class TabBarCoordinator: NSObject, RoutinusCoordinator {
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.tabBarController = UITabBarController()
         self.navigationController.navigationBar.isHidden = true
+        self.tabBarController = UITabBarController()
     }
 
     func start() {
@@ -86,19 +86,19 @@ final class TabBarCoordinator: NSObject, RoutinusCoordinator {
         case .home:
             let homeCoordinator = HomeCoordinator(navigationController: navigationController)
             homeCoordinator.start()
-            self.childCoordinator.append(homeCoordinator)
+            childCoordinator.append(homeCoordinator)
         case .challenge:
             let challengeCoordinator = ChallengeCoordinator(navigationController: navigationController)
             challengeCoordinator.start()
-            self.childCoordinator.append(challengeCoordinator)
+            childCoordinator.append(challengeCoordinator)
         case .manage:
             let manageCoordinator = ManageCoordinator(navigationController: navigationController)
             manageCoordinator.start()
-            self.childCoordinator.append(manageCoordinator)
+            childCoordinator.append(manageCoordinator)
         case .myPage:
             let myPageCoordinator = MyPageCoordinator(navigationController: navigationController)
             myPageCoordinator.start()
-            self.childCoordinator.append(myPageCoordinator)
+            childCoordinator.append(myPageCoordinator)
         }
 
         return navigationController
