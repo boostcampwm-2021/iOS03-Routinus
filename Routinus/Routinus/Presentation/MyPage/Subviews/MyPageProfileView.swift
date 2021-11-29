@@ -60,7 +60,7 @@ final class MyPageProfileView: UIView {
     }
 
     func setName(_ name: String) {
-        self.nameLabel.text = name
+        nameLabel.text = name
     }
 
     func setImage(with user: User) {
@@ -70,19 +70,19 @@ final class MyPageProfileView: UIView {
 
 extension MyPageProfileView {
     private func configureViews() {
-        self.addSubview(imageView)
-        imageView.anchor(centerX: self.centerXAnchor,
-                         top: self.topAnchor,
+        addSubview(imageView)
+        imageView.anchor(centerX: centerXAnchor,
+                         top: topAnchor,
                          paddingTop: 10,
                          width: 120,
                          height: 120)
 
-        self.addSubview(nameStackView)
-        nameStackView.anchor(centerX: self.centerXAnchor,
-                             top: self.imageView.bottomAnchor,
+        addSubview(nameStackView)
+        nameStackView.anchor(centerX: centerXAnchor,
+                             top: imageView.bottomAnchor,
                              paddingTop: 20)
 
-        self.nameStackView.addArrangedSubview(nameLabel)
-        self.nameStackView.addArrangedSubview(updateIconImageView)
+        nameStackView.addArrangedSubview(nameLabel)
+        nameStackView.addArrangedSubview(updateIconImageView)
     }
 }
