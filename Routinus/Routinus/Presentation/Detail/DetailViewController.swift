@@ -51,15 +51,15 @@ final class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureViews()
-        self.configureViewModel()
-        self.configureDelegate()
-        self.configureRefreshControl()
+        configureViews()
+        configureViewModel()
+        configureDelegate()
+        configureRefreshControl()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.scrollView.removeAfterimage()
+        scrollView.removeAfterimage()
     }
 
     init(with viewModel: DetailViewModelIO) {
@@ -75,11 +75,11 @@ final class DetailViewController: UIViewController {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        self.view.backgroundColor = .systemBackground
-        self.configureNavigationBar()
+        view.backgroundColor = .systemBackground
+        configureNavigationBar()
 
         view.addSubview(scrollView)
-        self.scrollView.anchor(edges: view)
+        scrollView.anchor(edges: view)
 
         view.addSubview(participantView)
         participantView.anchor(horizontal: participantView.superview,
@@ -110,14 +110,14 @@ final class DetailViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        self.navigationItem.largeTitleDisplayMode = .never
+        navigationItem.largeTitleDisplayMode = .never
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = UIColor(named: "Black")
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     private func configureViewModel() {
-        self.viewModel?.challenge
+        viewModel?.challenge
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challenge in
                 guard let self = self else { return }
@@ -144,7 +144,7 @@ final class DetailViewController: UIViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.ownerState
+        viewModel?.ownerState
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] ownerState in
                 guard let self = self else { return }
@@ -153,7 +153,7 @@ final class DetailViewController: UIViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.participationAuthState
+        viewModel?.participationAuthState
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] participationState in
                 guard let self = self else { return }
@@ -161,7 +161,7 @@ final class DetailViewController: UIViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.participationButtonTap
+        viewModel?.participationButtonTap
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] _ in
                 guard let self = self else { return }
@@ -185,7 +185,7 @@ final class DetailViewController: UIViewController {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
         )
-        self.scrollView.refreshControl = refreshControl
+        scrollView.refreshControl = refreshControl
     }
 
     @objc private func refresh() {
@@ -217,20 +217,20 @@ extension DetailViewController: ParticipantButtonDelegate {
 
 extension DetailViewController: AuthDisplayViewDelegate {
     func didTappedAllAuthDisplayView() {
-        self.viewModel?.didTappedAllAuthDisplayView()
+        viewModel?.didTappedAllAuthDisplayView()
     }
 
     func didTappedMyAuthDisplayView() {
-        self.viewModel?.didTappedMyAuthDisplayView()
+        viewModel?.didTappedMyAuthDisplayView()
     }
 }
 
 extension DetailViewController: AuthMethodViewDelegate {
     func didTappedAuthMethodImageView() {
         guard let thumbnailImage = authMethodView.authThumbnailImage else { return }
-        self.viewModel?.didTappedAuthMethodImage(imageData: thumbnailImage)
+        viewModel?.didTappedAuthMethodImage(imageData: thumbnailImage)
         guard let challengeID = viewModel?.challengeID else { return }
-        self.viewModel?.imageData(from: challengeID, filename: "auth_method") { data in
+        viewModel?.imageData(from: challengeID, filename: "auth_method") { data in
             guard let data = data else { return }
             self.viewModel?.loadedAuthMethodImage(imageData: data)
         }

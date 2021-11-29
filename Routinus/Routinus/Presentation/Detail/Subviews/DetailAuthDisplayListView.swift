@@ -66,24 +66,24 @@ final class DetailAuthDisplayListView: UIView {
 
 extension DetailAuthDisplayListView {
     private func configureSubviews() {
-        self.backgroundColor = .systemBackground
+        backgroundColor = .systemBackground
         allAuthDisplayView.update(to: .all)
         myAuthDisplayView.update(to: .my)
 
-        self.addSubview(titleLabel)
-        titleLabel.anchor(leading: self.leadingAnchor, paddingLeading: 20,
-                          top: self.topAnchor, paddingTop: 20)
+        addSubview(titleLabel)
+        titleLabel.anchor(leading: leadingAnchor, paddingLeading: 20,
+                          top: topAnchor, paddingTop: 20)
 
-        self.addSubview(allAuthDisplayView)
-        allAuthDisplayView.anchor(leading: self.leadingAnchor, paddingLeading: 20,
-                                  trailing: self.trailingAnchor, paddingTrailing: 20,
+        addSubview(allAuthDisplayView)
+        allAuthDisplayView.anchor(leading: leadingAnchor, paddingLeading: 20,
+                                  trailing: trailingAnchor, paddingTrailing: 20,
                                   top: titleLabel.bottomAnchor, paddingTop: 20)
 
-        self.addSubview(myAuthDisplayView)
-        myAuthDisplayView.anchor(leading: self.leadingAnchor, paddingLeading: 20,
-                                 trailing: self.trailingAnchor, paddingTrailing: 20,
+        addSubview(myAuthDisplayView)
+        myAuthDisplayView.anchor(leading: leadingAnchor, paddingLeading: 20,
+                                 trailing: trailingAnchor, paddingTrailing: 20,
                                  top: allAuthDisplayView.bottomAnchor, paddingTop: 20,
-                                 bottom: self.bottomAnchor, paddingBottom: 20)
+                                 bottom: bottomAnchor, paddingBottom: 20)
     }
 }
 

@@ -110,28 +110,28 @@ class DetailViewModel: DetailViewModelIO {
 
 extension DetailViewModel {
     func configurePublishers() {
-        self.challengeUpdatePublisher
+        challengeUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchChallenge()
             }
             .store(in: &cancellables)
 
-        self.authCreatePublisher
+        authCreatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchParticipationAuthState()
             }
             .store(in: &cancellables)
 
-        self.participationCreatePublisher
+        participationCreatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchParticipationAuthState()
             }
             .store(in: &cancellables)
 
-        self.participationUpdatePublisher
+        participationUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.fetchParticipationAuthState()
@@ -156,14 +156,14 @@ extension DetailViewModel {
 
     func didTappedEditBarButton() {
         guard let challengeID = challengeID else { return }
-        self.editBarButtonTap.send(challengeID)
+        editBarButtonTap.send(challengeID)
     }
 
     func didTappedParticipationAuthButton() {
         guard let challengeID = challengeID else { return }
         if participationAuthState.value == .notParticipating {
             participationCreateUsecase.createParticipation(challengeID: challengeID)
-            self.participationAuthState.value = .notAuthenticating
+            participationAuthState.value = .notAuthenticating
             participationButtonTap.send()
         } else if participationAuthState.value == .notAuthenticating {
             authButtonTap.send(challengeID)
@@ -181,15 +181,15 @@ extension DetailViewModel {
     }
 
     func didTappedAuthMethodImage(imageData: Data) {
-        self.authMethodImageTap.send(imageData)
+        authMethodImageTap.send(imageData)
     }
 
     func loadedAuthMethodImage(imageData: Data) {
-        self.authMethodImageLoad.send(imageData)
+        authMethodImageLoad.send(imageData)
     }
 
     func fetchParticipationAuthState() {
-        self.updateParticipationAuthState()
+        updateParticipationAuthState()
     }
 
     func updateParticipantCount() {
@@ -202,20 +202,20 @@ extension DetailViewModel {
 extension DetailViewModel {
     private func fetchParticipation(completion: @escaping (Participation?) -> Void) {
         guard let challengeID = challengeID else { return }
-        self.participationFetchUsecase.fetchParticipation(challengeID: challengeID) { participation in
+        participationFetchUsecase.fetchParticipation(challengeID: challengeID) { participation in
             completion(participation)
         }
     }
 
     private func fetchAuth(completion: @escaping (ChallengeAuth?) -> Void) {
         guard let challengeID = challengeID else { return }
-        self.challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
+        challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
             completion(challengeAuth)
         }
     }
 
     private func updateParticipationAuthState() {
-        self.fetchParticipation { [weak self] participation in
+        fetchParticipation { [weak self] participation in
             guard let self = self else { return }
             if participation == nil {
                 self.participationAuthState.value = .notParticipating

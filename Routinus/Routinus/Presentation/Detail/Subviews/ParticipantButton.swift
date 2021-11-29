@@ -34,12 +34,12 @@ final class ParticipantButton: UIButton {
     }
 
     func update(to state: ParticipationAuthState) {
-        self.isEnabled = state == .authenticated ? false : true
+        isEnabled = state == .authenticated ? false : true
         let backgroundColor = isEnabled ? "MainColor" : "MainColor0.5"
         let titleColor = isEnabled ? "Black" : "DayColor"
-        self.setTitle(state.rawValue.localized, for: .normal)
+        setTitle(state.rawValue.localized, for: .normal)
         self.backgroundColor = UIColor(named: backgroundColor)
-        self.setTitleColor(UIColor(named: titleColor), for: .normal)
+        setTitleColor(UIColor(named: titleColor), for: .normal)
     }
 }
 

@@ -88,30 +88,39 @@ final class DetailAuthDisplayView: UIView {
 
 extension DetailAuthDisplayView {
     private func configure() {
-        self.backgroundColor = .systemBackground
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor(named: "LightGray")?.cgColor
-        self.layer.cornerRadius = 5
+        backgroundColor = .systemBackground
+        layer.borderWidth = 1
+        layer.borderColor = UIColor(named: "LightGray")?.cgColor
+        layer.cornerRadius = 5
     }
 
     private func configureSubviews() {
-        self.addSubview(accessoryImageView)
-        accessoryImageView.anchor(trailing: self.trailingAnchor, paddingTrailing: 20,
-                                  centerY: self.centerYAnchor)
+        addSubview(accessoryImageView)
+        accessoryImageView.anchor(trailing: trailingAnchor,
+                                  paddingTrailing: 20,
+                                  centerY: centerYAnchor)
 
-        self.addSubview(emojiLabel)
-        emojiLabel.anchor(leading: self.leadingAnchor, paddingLeading: 20,
-                          top: self.topAnchor, paddingTop: 20,
+        addSubview(emojiLabel)
+        emojiLabel.anchor(leading: leadingAnchor,
+                          paddingLeading: 20,
+                          top: topAnchor,
+                          paddingTop: 20,
                           height: 20)
 
-        self.addSubview(titleLabel)
-        titleLabel.anchor(leading: emojiLabel.trailingAnchor, paddingLeading: 10,
-                          top: self.topAnchor, paddingTop: 20, height: 20)
+        addSubview(titleLabel)
+        titleLabel.anchor(leading: emojiLabel.trailingAnchor,
+                          paddingLeading: 10,
+                          top: topAnchor, paddingTop: 20,
+                          height: 20)
 
-        self.addSubview(descriptionLabel)
-        descriptionLabel.anchor(leading: self.leadingAnchor, paddingLeading: 20,
-                                trailing: accessoryImageView.leadingAnchor, paddingTrailing: 5,
-                                top: emojiLabel.bottomAnchor, paddingTop: 20,
-                                bottom: self.bottomAnchor, paddingBottom: 20)
+        addSubview(descriptionLabel)
+        descriptionLabel.anchor(leading: leadingAnchor,
+                                paddingLeading: 20,
+                                trailing: accessoryImageView.leadingAnchor,
+                                paddingTrailing: 5,
+                                top: emojiLabel.bottomAnchor,
+                                paddingTop: 20,
+                                bottom: bottomAnchor,
+                                paddingBottom: 20)
     }
 }
