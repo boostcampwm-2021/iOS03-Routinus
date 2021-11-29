@@ -30,8 +30,8 @@ enum ImageManager {
     }
 
     static func cachedImageData(from directory: String,
-                                       filename: String,
-                                       completion: ((Data?) -> Void)? = nil) {
+                                filename: String,
+                                completion: ((Data?) -> Void)? = nil) {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
                                                              true).first else {
@@ -58,7 +58,9 @@ enum ImageManager {
         return url.absoluteString
     }
 
-    @discardableResult static func saveImage(to directory: String, filename: String, imageData: Data?) -> String? {
+    @discardableResult static func saveImage(to directory: String,
+                                             filename: String,
+                                             imageData: Data?) -> String? {
         guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
                                                              .userDomainMask,
                                                              true).first else { return nil }
@@ -78,8 +80,7 @@ enum ImageManager {
                                                              true).first else { return }
 
         let url = URL(fileURLWithPath: path)
-        let filenames = cachedFilenames()
-            .filter{ $0.hasPrefix(directory) && $0.hasSuffix(".jpeg") }
+        let filenames = cachedFilenames().filter{ $0.hasPrefix(directory) && $0.hasSuffix(".jpeg") }
 
         for filename in filenames {
             var url = url
