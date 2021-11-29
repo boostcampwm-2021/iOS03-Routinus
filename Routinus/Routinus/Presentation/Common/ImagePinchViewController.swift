@@ -47,8 +47,7 @@ final class ImagePinchViewController: UIViewController {
                                     width: view.frame.width * 2,
                                     height: view.frame.height * 2)
         view.addSubview(imageView)
-        imageView.anchor(horizontal: view,
-                         centerY: view.centerYAnchor)
+        imageView.anchor(horizontal: view, centerY: view.centerYAnchor)
 
         view.addSubview(closeButton)
         closeButton.anchor(trailing: view.trailingAnchor,
@@ -84,8 +83,10 @@ final class ImagePinchViewController: UIViewController {
 }
 
 extension ImagePinchViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
         return true
     }
 

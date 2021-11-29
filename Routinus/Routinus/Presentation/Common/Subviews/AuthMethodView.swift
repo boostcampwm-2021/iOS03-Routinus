@@ -65,26 +65,39 @@ extension AuthMethodView {
 
     private func configureSubviews() {
         self.addSubview(titleLabel)
-        titleLabel.anchor(leading: leadingAnchor, paddingLeading: 20,
-                          top: topAnchor, paddingTop: 20)
+        titleLabel.anchor(leading: leadingAnchor,
+                          paddingLeading: 20,
+                          top: topAnchor,
+                          paddingTop: 20)
 
         self.addSubview(methodImageView)
-        methodImageView.anchor(leading: leadingAnchor, paddingLeading: 20,
-                               top: titleLabel.bottomAnchor, paddingTop: 10,
-                               width: 150, height: 150)
+        methodImageView.anchor(leading: leadingAnchor,
+                               paddingLeading: 20,
+                               top: titleLabel.bottomAnchor,
+                               paddingTop: 10,
+                               width: 150,
+                               height: 150)
 
         self.addSubview(methodView)
-        methodView.anchor(horizontal: self, paddingHorizontal: 20,
-                          top: methodImageView.bottomAnchor, paddingTop: 15,
-                          bottom: bottomAnchor, paddingBottom: 20)
+        methodView.anchor(horizontal: self,
+                          paddingHorizontal: 20,
+                          top: methodImageView.bottomAnchor,
+                          paddingTop: 15,
+                          bottom: bottomAnchor,
+                          paddingBottom: 20)
 
         methodView.addSubview(methodLabel)
-        methodLabel.anchor(horizontal: methodView, paddingHorizontal: 10,
-                           vertical: methodView, paddingVertical: 10)
+        methodLabel.anchor(horizontal: methodView,
+                           paddingHorizontal: 10,
+                           vertical: methodView,
+                           paddingVertical: 10)
     }
 
     private func configureMethodViewTapGesture() {
-        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedMethodImageView))
+        let singleTapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(tappedMethodImageView)
+        )
         singleTapGestureRecognizer.numberOfTapsRequired = 1
         singleTapGestureRecognizer.isEnabled = true
         singleTapGestureRecognizer.cancelsTouchesInView = false

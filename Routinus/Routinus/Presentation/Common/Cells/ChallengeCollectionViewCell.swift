@@ -54,7 +54,8 @@ extension ChallengeCollectionViewCell {
 
         self.addSubview(titleLabel)
         titleLabel.anchor(horizontal: titleLabel.superview,
-                          top: imageView.bottomAnchor, paddingTop: 10,
+                          top: imageView.bottomAnchor,
+                          paddingTop: 10,
                           bottom: titleLabel.superview?.bottomAnchor)
     }
 

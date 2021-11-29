@@ -54,8 +54,7 @@ final class ChallengePromotionView: UIView {
         self.init(frame: CGRect.zero)
     }
 
-    func configureChallengePromotionView(titleLabel: String,
-                                         buttonLabel: String) {
+    func configureChallengePromotionView(titleLabel: String, buttonLabel: String) {
         self.titleLabel.text = titleLabel
         self.promotionButton.setTitle(buttonLabel, for: .normal)
     }
@@ -70,8 +69,7 @@ extension ChallengePromotionView {
         addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(promotionButton)
-        stackView.anchor(centerX: centerXAnchor,
-                         centerY: centerYAnchor)
+        stackView.anchor(centerX: centerXAnchor, centerY: centerYAnchor)
     }
 
     @objc func didTappedPromotionButton() {
