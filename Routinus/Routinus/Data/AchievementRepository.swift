@@ -45,9 +45,7 @@ extension RoutinusRepository: AchievementRepository {
                           yearMonth: String,
                           day: String,
                           completion: (() -> Void)?) {
-        FirebaseService.updateTotalCount(userID: userID,
-                                         yearMonth: yearMonth,
-                                         day: day) {
+        FirebaseService.updateTotalCount(userID: userID, yearMonth: yearMonth, day: day) {
             completion?()
         }
     }
