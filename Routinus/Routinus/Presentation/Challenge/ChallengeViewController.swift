@@ -214,7 +214,8 @@ extension ChallengeViewController {
     }
 
     @objc private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
+            guard let self = self else { return }
             self.viewModel?.fetchChallenge()
             self.collectionView.refreshControl?.endRefreshing()
         }
