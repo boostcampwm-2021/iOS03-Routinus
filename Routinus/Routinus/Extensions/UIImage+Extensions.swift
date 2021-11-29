@@ -40,9 +40,9 @@ extension UIImage {
 
     func insertText(name: String, date: String, time: String) -> UIImage {
         let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions(self.size, false, scale)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
 
-        let label = UILabel(frame: CGRect(origin: .zero, size: self.size))
+        let label = UILabel(frame: CGRect(origin: .zero, size: size))
         label.backgroundColor = UIColor.clear
         label.textAlignment = .center
         label.numberOfLines = 2
