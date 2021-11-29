@@ -8,8 +8,7 @@
 import Foundation
 
 protocol UserFetchableUsecase {
-    func fetchUser(id: String,
-                   completion: @escaping (User) -> Void)
+    func fetchUser(id: String, completion: @escaping (User) -> Void)
     func fetchUserID() -> String?
     func fetchThemeStyle() -> Int
 }
@@ -21,8 +20,7 @@ struct UserFetchUsecase: UserFetchableUsecase {
         self.repository = repository
     }
 
-    func fetchUser(id: String,
-                   completion: @escaping (User) -> Void) {
+    func fetchUser(id: String, completion: @escaping (User) -> Void) {
         repository.fetchUser(by: id) { user in
             completion(user)
         }

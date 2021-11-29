@@ -39,10 +39,8 @@ struct UserUpdateUsecase: UserUpdatableUsecase {
         }
     }
 
-    func updateUsername(of id: String,
-                        name: String) {
-        self.repository.updateUsername(of: id,
-                                       name: name) {
+    func updateUsername(of id: String, name: String) {
+        self.repository.updateUsername(of: id, name: name) {
             NotificationCenter.default.post(name: UserUpdateUsecase.didUpdateUser,
                                             object: nil)
         }
