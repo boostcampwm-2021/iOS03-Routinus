@@ -33,15 +33,15 @@ final class LaunchView: UIView {
 
 extension LaunchView {
     private func configureViews() {
-        self.backgroundColor = .systemBackground
-        self.addSubview(launchImageView)
+        backgroundColor = .systemBackground
+        addSubview(launchImageView)
 
-        self.launchImageView.anchor(leading: self.leadingAnchor,
-                                    paddingLeading: 30,
-                                    trailing: self.trailingAnchor,
-                                    paddingTrailing: 30,
-                                    centerX: self.centerXAnchor,
-                                    centerY: self.centerYAnchor)
+        launchImageView.anchor(leading: leadingAnchor,
+                               paddingLeading: 30,
+                               trailing: trailingAnchor,
+                               paddingTrailing: 30,
+                               centerX: centerXAnchor,
+                               centerY: centerYAnchor)
     }
 
     private func animation() {
