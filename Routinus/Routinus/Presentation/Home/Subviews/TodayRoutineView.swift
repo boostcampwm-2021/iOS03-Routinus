@@ -99,9 +99,9 @@ extension TodayRoutineView {
         constraint.isActive = true
 
         addSubview(challengePromotionView)
-        challengePromotionView.anchor(leading: self.leadingAnchor,
+        challengePromotionView.anchor(leading: leadingAnchor,
                                       paddingLeading: 30,
-                                      trailing: self.trailingAnchor,
+                                      trailing: trailingAnchor,
                                       paddingTrailing: 30,
                                       top: titleLabel.bottomAnchor,
                                       paddingTop: 10)

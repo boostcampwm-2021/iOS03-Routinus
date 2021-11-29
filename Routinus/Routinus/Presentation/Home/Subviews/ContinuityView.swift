@@ -90,9 +90,9 @@ extension ContinuityView {
 
     private func configureSubviews() {
         addSubview(seedImageView)
-        seedImageView.anchor(leading: self.leadingAnchor,
+        seedImageView.anchor(leading: leadingAnchor,
                              paddingLeading: 20,
-                             centerY: self.centerYAnchor,
+                             centerY: centerYAnchor,
                              width: 60,
                              height: 60)
 

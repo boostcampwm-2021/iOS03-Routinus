@@ -22,8 +22,8 @@ final class HomeViewController: UIViewController {
     }()
     private lazy var launchView = LaunchView(frame: CGRect(x: 0,
                                                            y: 0,
-                                                           width: self.view.frame.width,
-                                                           height: self.view.frame.height))
+                                                           width: view.frame.width,
+                                                           height: view.frame.height))
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView(viewModel: viewModel)
@@ -71,7 +71,8 @@ extension HomeViewController {
     private func configureThemeStyle() {
         guard let rawValue = viewModel?.themeStyle(),
               let style = UIUserInterfaceStyle(rawValue: rawValue) else { return }
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             UIView.animate(withDuration: 0.4) {
                 self.view.window?.overrideUserInterfaceStyle = style
             }
@@ -180,11 +181,12 @@ extension HomeViewController {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
         )
-        self.scrollView.refreshControl = refreshControl
+        scrollView.refreshControl = refreshControl
     }
 
     @objc private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
+            guard let self = self else { return }
             self.viewModel?.fetchMyHomeData()
             self.scrollView.refreshControl?.endRefreshing()
         }
@@ -199,11 +201,14 @@ extension HomeViewController: ChallengePromotionViewDelegate {
 
 extension HomeViewController: UITableViewDelegate {
     func configureDataSource() -> DataSource {
-        let dataSource = DataSource(tableView: todayRoutineView.tableView) { tableView, indexPath, _ in
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: RoutineTableViewCell.identifier,
-                for: indexPath
-            ) as? RoutineTableViewCell,
+        let dataSource = DataSource(
+            tableView: todayRoutineView.tableView
+        ) { [weak self] tableView, indexPath, _ in
+            guard let self = self,
+                  let cell = tableView.dequeueReusableCell(
+                    withIdentifier: RoutineTableViewCell.identifier,
+                    for: indexPath
+                  ) as? RoutineTableViewCell,
                   let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
             cell.configureCell(routine: routines[indexPath.row])
             cell.selectionStyle = .none
@@ -235,7 +240,8 @@ extension HomeViewController: UITableViewDelegate {
                 style: .normal,
                 title: nil
             ) { [weak self] (_, _, completion: @escaping (Bool) -> Void) in
-                self?.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
+                guard let self = self else { return }
+                self.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
                 completion(true)
             }
             auth.backgroundColor = UIColor(named: "MainColor")

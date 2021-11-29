@@ -65,7 +65,8 @@ final class RoutineTableViewCell: UITableViewCell {
             categoryImageView.image = UIImage(systemName: routine.category.symbol)
         }
         categoryNameLabel.text = routine.title
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             UIView.animate(withDuration: 1.5, delay: 3) {
                 let progress = Float(routine.authCount) / Float(routine.totalCount)
                 self.progressView.setProgress(progress, animated: true)
@@ -79,27 +80,27 @@ extension RoutineTableViewCell {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        self.backgroundColor = .systemBackground
+        backgroundColor = .systemBackground
 
-        self.contentView.addSubview(progressView)
+        contentView.addSubview(progressView)
         progressView.anchor(horizontal: progressView.superview,
                             paddingHorizontal: offset,
                             centerY: centerYAnchor,
                             height: contentView.frame.height + 5)
 
-        self.contentView.addSubview(leftArrow)
+        contentView.addSubview(leftArrow)
         leftArrow.anchor(trailing: trailingAnchor,
                          paddingTrailing: 20 + offset,
                          centerY: centerYAnchor)
 
-        self.contentView.addSubview(categoryImageView)
+        contentView.addSubview(categoryImageView)
         categoryImageView.anchor(leading: leadingAnchor,
                                  paddingLeading: offset + 20,
                                  centerY: centerYAnchor,
                                  width: 30,
                                  height: 30)
 
-        self.contentView.addSubview(categoryNameLabel)
+        contentView.addSubview(categoryNameLabel)
         categoryNameLabel.anchor(leading: categoryImageView.trailingAnchor,
                                  paddingLeading: 10,
                                  trailing: leftArrow.leadingAnchor,

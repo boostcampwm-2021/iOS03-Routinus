@@ -148,42 +148,48 @@ extension HomeViewModel {
     func configurePublishers() {
         userCreatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchUser()
             }
             .store(in: &cancellables)
 
         userUpdatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchMyHomeData()
             }
             .store(in: &cancellables)
 
         challengeCreatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchTodayRoutine()
             }
             .store(in: &cancellables)
 
         challengeUpdatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchTodayRoutine()
             }
             .store(in: &cancellables)
 
         achievementUpdatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchAchievement(date: self.baseDate.value)
             }
             .store(in: &cancellables)
 
         authCreatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchTodayRoutine()
                 self.fetchAchievement(date: self.baseDate.value)
             }
@@ -191,7 +197,8 @@ extension HomeViewModel {
 
         participationCreatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchTodayRoutine()
                 self.fetchAchievement(date: self.baseDate.value)
             }
@@ -199,7 +206,8 @@ extension HomeViewModel {
 
         participationUpdatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchTodayRoutine()
                 self.fetchAchievement(date: self.baseDate.value)
             }
@@ -211,7 +219,8 @@ extension HomeViewModel {
     private func fetchUser() {
         if let userID = userFetchUsecase.fetchUserID() {
             userFetchUsecase.fetchUser(id: userID) { [weak self] user in
-                self?.user.value = user
+                guard let self = self else { return }
+                self.user.value = user
             }
         } else {
             userCreateUsecase.createUser()
@@ -220,13 +229,17 @@ extension HomeViewModel {
 
     private func fetchTodayRoutine() {
         todayRoutineFetchUsecase.fetchTodayRoutines { [weak self] todayRoutines in
-            self?.todayRoutines.value = todayRoutines
-            self?.configureParticipationAuthStates(todayRoutines: todayRoutines)
+            guard let self = self else { return }
+            self.todayRoutines.value = todayRoutines
+            self.configureParticipationAuthStates(todayRoutines: todayRoutines)
         }
     }
 
     private func fetchAchievement(date: Date = Date()) {
-        achievementFetchUsecase.fetchAchievements(yearMonth: date.toYearMonthString()) { achievement in
+        achievementFetchUsecase.fetchAchievements(
+            yearMonth: date.toYearMonthString()
+        ) { [weak self] achievement in
+            guard let self = self else { return }
             self.selectedDates = achievement.map { Date(dateString: "\($0.yearMonth)\($0.day)") }
             self.achievements = achievement
             self.days.value = self.generateDaysInMonth(for: self.baseDate.value)
@@ -241,18 +254,19 @@ extension HomeViewModel {
 
     private func updateContinuityDay() {
         userUpdateUsecase.updateContinuityDay { [weak self] user in
-            self?.user.value = user
+            guard let self = self else { return }
+            self.user.value = user
         }
     }
 
     private func configureParticipationAuthStates(todayRoutines: [TodayRoutine]) {
-        participationAuthStates = Array(repeating: .notAuthenticating,
-                                        count: todayRoutines.count)
+        participationAuthStates = Array(repeating: .notAuthenticating, count: todayRoutines.count)
 
         todayRoutines.enumerated().forEach { [weak self] (idx, routine) in
-            self?.fetchAuth(challengeID: routine.challengeID, completion: { challengAuth in
+            guard let self = self else { return }
+            self.fetchAuth(challengeID: routine.challengeID, completion: { challengAuth in
                 let authState: ParticipationAuthState = challengAuth != nil ? .authenticated : .notAuthenticating
-                self?.participationAuthStates[idx] = authState
+                self.participationAuthStates[idx] = authState
             })
         }
     }
