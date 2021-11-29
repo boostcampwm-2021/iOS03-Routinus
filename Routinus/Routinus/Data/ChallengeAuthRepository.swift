@@ -16,8 +16,7 @@ protocol ChallengeAuthRepository {
                             userID: String,
                             challengeID: String,
                             completion: @escaping (ChallengeAuth?) -> Void)
-    func fetchChallengeAuths(challengeID: String,
-                             completion: (([ChallengeAuth]) -> Void)?)
+    func fetchChallengeAuths(challengeID: String, completion: (([ChallengeAuth]) -> Void)?)
     func fetchMyChallengeAuths(userID: String,
                                challengeID: String,
                                completion: (([ChallengeAuth]) -> Void)?)
@@ -60,12 +59,11 @@ extension RoutinusRepository: ChallengeAuthRepository {
         }
     }
 
-    func fetchChallengeAuths(challengeID: String,
-                             completion: (([ChallengeAuth]) -> Void)?) {
+    func fetchChallengeAuths(challengeID: String, completion: (([ChallengeAuth]) -> Void)?) {
         FirebaseService.challengeAuths(challengeID: challengeID) { challengeAuths in
             let challengeAuths = challengeAuths
-                                    .filter { $0.document != nil }
-                                    .map { ChallengeAuth(challengeAuthDTO: $0) }
+                .filter { $0.document != nil }
+                .map { ChallengeAuth(challengeAuthDTO: $0) }
             completion?(challengeAuths)
         }
     }
@@ -73,11 +71,10 @@ extension RoutinusRepository: ChallengeAuthRepository {
     func fetchMyChallengeAuths(userID: String,
                                challengeID: String,
                                completion: (([ChallengeAuth]) -> Void)?) {
-        FirebaseService.challengeAuths(userID: userID,
-                                       challengeID: challengeID) { challengeAuths in
+        FirebaseService.challengeAuths(userID: userID, challengeID: challengeID) { challengeAuths in
             let challengeAuths = challengeAuths
-                                    .filter { $0.document != nil }
-                                    .map { ChallengeAuth(challengeAuthDTO: $0) }
+                .filter { $0.document != nil }
+                .map { ChallengeAuth(challengeAuthDTO: $0) }
             completion?(challengeAuths)
         }
     }
