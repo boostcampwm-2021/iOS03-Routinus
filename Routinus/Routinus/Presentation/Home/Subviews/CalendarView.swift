@@ -112,11 +112,12 @@ final class CalendarView: UIView {
                           top: readableContentGuide.topAnchor)
 
         explanationButton.anchor(trailing: self.trailingAnchor,
-                              paddingTrailing: 10,
-                              top: readableContentGuide.topAnchor)
+                                 paddingTrailing: 10,
+                                 top: readableContentGuide.topAnchor)
 
         headerView.anchor(horizontal: headerView.superview,
-                          top: titleLabel.bottomAnchor, paddingTop: 20,
+                          top: titleLabel.bottomAnchor,
+                          paddingTop: 20,
                           height: 85)
 
         calendarView.anchor(horizontal: headerView,

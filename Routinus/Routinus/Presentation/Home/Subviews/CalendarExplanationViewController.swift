@@ -12,7 +12,7 @@ class CalendarExplanationViewController: UIViewController {
         case miss = "1-19", bad = "20-39", good = "40-65", great = "66-99", perfect = "100"
     }
     
-    private lazy var backgroundView: UIView =  {
+    private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         return view
@@ -93,11 +93,9 @@ class CalendarExplanationViewController: UIViewController {
             let title = UILabel()
             title.text = sticker.rawValue + "%"
 
-            view.anchor(width: 120,
-                        height: 40)
+            view.anchor(width: 120, height: 40)
             view.addSubview(imageView)
-            imageView.anchor(leading: view.leadingAnchor,
-                             top: view.topAnchor)
+            imageView.anchor(leading: view.leadingAnchor, top: view.topAnchor)
             view.addSubview(title)
             title.anchor(leading: imageView.trailingAnchor,
                          paddingLeading: 10,
@@ -113,7 +111,8 @@ class CalendarExplanationViewController: UIViewController {
 }
 
 extension CalendarExplanationViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldReceive touch: UITouch) -> Bool {
         dismiss(animated: false, completion: nil)
         return true
     }

@@ -90,17 +90,22 @@ extension ContinuityView {
 
     private func configureSubviews() {
         addSubview(seedImageView)
-        seedImageView.anchor(leading: self.leadingAnchor, paddingLeading: 20,
+        seedImageView.anchor(leading: self.leadingAnchor,
+                             paddingLeading: 20,
                              centerY: self.centerYAnchor,
-                             width: 60, height: 60)
+                             width: 60,
+                             height: 60)
 
         addSubview(continuityDayLabel)
-        continuityDayLabel.anchor(leading: seedImageView.trailingAnchor, paddingLeading: 10,
+        continuityDayLabel.anchor(leading: seedImageView.trailingAnchor,
+                                  paddingLeading: 10,
                                   centerY: continuityDayLabel.superview?.centerYAnchor)
 
         addSubview(continuityLabel)
-        continuityLabel.anchor(leading: continuityDayLabel.trailingAnchor, paddingLeading: 5,
-                               bottom: continuityDayLabel.bottomAnchor, paddingBottom: 8)
+        continuityLabel.anchor(leading: continuityDayLabel.trailingAnchor,
+                               paddingLeading: 5,
+                               bottom: continuityDayLabel.bottomAnchor,
+                               paddingBottom: 8)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -37,7 +37,8 @@ final class RoutineTableViewCell: UITableViewCell {
 
     private lazy var leftArrow: UIImageView = {
         let imageConfig = UIImage.SymbolConfiguration(weight: .semibold)
-        let image = UIImageView(image: UIImage(systemName: "chevron.left.2", withConfiguration: imageConfig))
+        let image = UIImageView(image: UIImage(systemName: "chevron.left.2",
+                                               withConfiguration: imageConfig))
         image.tintColor = UIColor(named: "DayColor")
         image.anchor(width: image.frame.width)
         return image
@@ -95,7 +96,8 @@ extension RoutineTableViewCell {
         categoryImageView.anchor(leading: leadingAnchor,
                                  paddingLeading: offset + 20,
                                  centerY: centerYAnchor,
-                                 width: 30, height: 30)
+                                 width: 30,
+                                 height: 30)
 
         self.contentView.addSubview(categoryNameLabel)
         categoryNameLabel.anchor(leading: categoryImageView.trailingAnchor,

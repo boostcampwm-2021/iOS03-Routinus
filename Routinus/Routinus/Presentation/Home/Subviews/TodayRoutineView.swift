@@ -22,7 +22,8 @@ final class TodayRoutineView: UIView {
         tableView.estimatedRowHeight = 100
         tableView.alwaysBounceVertical = false
         tableView.separatorStyle = .none
-        tableView.register(RoutineTableViewCell.self, forCellReuseIdentifier: RoutineTableViewCell.identifier)
+        tableView.register(RoutineTableViewCell.self,
+                           forCellReuseIdentifier: RoutineTableViewCell.identifier)
         return tableView
     }()
 
@@ -73,8 +74,10 @@ final class TodayRoutineView: UIView {
 extension TodayRoutineView {
     private func configure() {
         configureSubviews()
-        challengePromotionView.configureChallengePromotionView(titleLabel: "add routine".localized,
-                                                               buttonLabel: "search challenge".localized)
+        challengePromotionView.configureChallengePromotionView(
+            titleLabel: "add routine".localized,
+            buttonLabel: "search challenge".localized
+        )
     }
 
     private func configureSubviews() {
@@ -82,20 +85,25 @@ extension TodayRoutineView {
         let offset = smallWidth ? 15.0 : 20.0
 
         addSubview(titleLabel)
-        titleLabel.anchor(leading: leadingAnchor, paddingLeading: offset,
+        titleLabel.anchor(leading: leadingAnchor,
+                          paddingLeading: offset,
                           top: topAnchor)
 
         addSubview(tableView)
         tableView.anchor(centerX: centerXAnchor,
-                         top: titleLabel.bottomAnchor, paddingTop: 10,
+                         top: titleLabel.bottomAnchor,
+                         paddingTop: 10,
                          width: UIScreen.main.bounds.width)
         let constraint = tableView.heightAnchor.constraint(equalToConstant: 60)
         constraint.priority = UILayoutPriority(100)
         constraint.isActive = true
 
         addSubview(challengePromotionView)
-        challengePromotionView.anchor(leading: self.leadingAnchor, paddingLeading: 30,
-                                             trailing: self.trailingAnchor, paddingTrailing: 30,
-                                             top: titleLabel.bottomAnchor, paddingTop: 10)
+        challengePromotionView.anchor(leading: self.leadingAnchor,
+                                      paddingLeading: 30,
+                                      trailing: self.trailingAnchor,
+                                      paddingTrailing: 30,
+                                      top: titleLabel.bottomAnchor,
+                                      paddingTop: 10)
     }
 }

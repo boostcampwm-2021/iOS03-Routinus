@@ -94,25 +94,32 @@ extension HomeViewController {
                            width: UIScreen.main.bounds.width)
 
         self.contentView.addSubview(titleLabel)
-        titleLabel.anchor(horizontal: titleLabel.superview, paddingHorizontal: offset,
-                          top: titleLabel.superview?.topAnchor, paddingTop: smallWidth ? 28 : 32,
+        titleLabel.anchor(horizontal: titleLabel.superview,
+                          paddingHorizontal: offset,
+                          top: titleLabel.superview?.topAnchor,
+                          paddingTop: smallWidth ? 28 : 32,
                           height: 80)
 
         self.contentView.addSubview(continuityView)
-        continuityView.anchor(horizontal: continuityView.superview, paddingHorizontal: offset,
-                              top: titleLabel.bottomAnchor, paddingTop: 10,
+        continuityView.anchor(horizontal: continuityView.superview,
+                              paddingHorizontal: offset,
+                              top: titleLabel.bottomAnchor,
+                              paddingTop: 10,
                               height: 80)
 
         self.contentView.addSubview(todayRoutineView)
         todayRoutineView.anchor(horizontal: todayRoutineView.superview,
-                                top: self.continuityView.bottomAnchor, paddingTop: 25)
+                                top: self.continuityView.bottomAnchor,
+                                paddingTop: 25)
+
         let constraint = todayRoutineView.heightAnchor.constraint(equalToConstant: 25)
         constraint.priority = UILayoutPriority(900)
         constraint.isActive = true
 
         self.contentView.addSubview(calendarView)
         calendarView.anchor(centerX: calendarView.superview?.centerXAnchor,
-                            top: todayRoutineView.bottomAnchor, paddingTop: offset,
+                            top: todayRoutineView.bottomAnchor,
+                            paddingTop: offset,
                             width: UIScreen.main.bounds.width - offset,
                             height: 500)
         contentView.anchor(bottom: calendarView.bottomAnchor)
@@ -167,9 +174,7 @@ extension HomeViewController {
 
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self,
-                                 action: #selector(refresh),
-                                 for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
@@ -195,8 +200,10 @@ extension HomeViewController: ChallengePromotionViewDelegate {
 extension HomeViewController: UITableViewDelegate {
     func configureDataSource() -> DataSource {
         let dataSource = DataSource(tableView: todayRoutineView.tableView) { tableView, indexPath, _ in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTableViewCell.identifier,
-                                                           for: indexPath) as? RoutineTableViewCell,
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: RoutineTableViewCell.identifier,
+                for: indexPath
+            ) as? RoutineTableViewCell,
                   let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
             cell.configureCell(routine: routines[indexPath.row])
             cell.selectionStyle = .none
@@ -205,13 +212,14 @@ extension HomeViewController: UITableViewDelegate {
         return dataSource
     }
 
-    func tableView(_ tableView: UITableView,
-                   heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
 
-    func tableView(_ tableView: UITableView,
-                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         guard let viewModel = viewModel else { return nil }
         var auth = UIContextualAction()
         if viewModel.participationAuthStates[indexPath.item] == .authenticated {
@@ -223,8 +231,10 @@ extension HomeViewController: UITableViewDelegate {
             auth.backgroundColor = UIColor(named: "LightGray")
             auth.title = "certified".localized
         } else {
-            auth = UIContextualAction(style: .normal,
-                                      title: nil) { [weak self] (_, _, completion: @escaping (Bool) -> Void) in
+            auth = UIContextualAction(
+                style: .normal,
+                title: nil
+            ) { [weak self] (_, _, completion: @escaping (Bool) -> Void) in
                 self?.viewModel?.didTappedTodayRoutineAuth(index: indexPath.row)
                 completion(true)
             }
@@ -235,8 +245,7 @@ extension HomeViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [auth])
     }
 
-    func tableView(_ tableView: UITableView,
-                   didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewModel?.didTappedTodayRoutine(index: indexPath.row)
     }
 }
@@ -253,7 +262,8 @@ extension HomeViewController: UICollectionViewDataSource {
 
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: DateCollectionViewCell.reuseIdentifier,
-            for: indexPath) as? DateCollectionViewCell else { return UICollectionViewCell() }
+            for: indexPath
+        ) as? DateCollectionViewCell else { return UICollectionViewCell() }
         cell.setDay(day)
         return cell
     }

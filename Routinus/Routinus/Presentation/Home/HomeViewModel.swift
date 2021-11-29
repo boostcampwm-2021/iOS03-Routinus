@@ -61,22 +61,38 @@ final class HomeViewModel: HomeViewModelIO {
 
     let formatter = DateFormatter()
 
-    let userCreatePublisher = NotificationCenter.default.publisher(for: UserCreateUsecase.didCreateUser,
-                                                                   object: nil)
-    let userUpdatePublisher = NotificationCenter.default.publisher(for: UserUpdateUsecase.didUpdateUser,
-                                                                   object: nil)
-    let challengeCreatePublisher = NotificationCenter.default.publisher(for: ChallengeCreateUsecase.didCreateChallenge,
-                                                                        object: nil)
-    let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
-                                                                        object: nil)
-    let achievementUpdatePublisher = NotificationCenter.default.publisher(for: AchievementUpdateUsecase.didUpdateAchievement,
-                                                                          object: nil)
-    let authCreatePublisher = NotificationCenter.default.publisher(for: ChallengeAuthCreateUsecase.didCreateAuth,
-                                                                   object: nil)
-    let participationCreatePublisher = NotificationCenter.default.publisher(for: ParticipationCreateUsecase.didCreateParticipation,
-                                                                            object: nil)
-    let participationUpdatePublisher = NotificationCenter.default.publisher(for: ParticipationUpdateUsecase.didUpdateParticipation,
-                                                                            object: nil)
+    let userCreatePublisher = NotificationCenter.default.publisher(
+        for: UserCreateUsecase.didCreateUser,
+        object: nil
+    )
+    let userUpdatePublisher = NotificationCenter.default.publisher(
+        for: UserUpdateUsecase.didUpdateUser,
+        object: nil
+    )
+    let challengeCreatePublisher = NotificationCenter.default.publisher(
+        for: ChallengeCreateUsecase.didCreateChallenge,
+        object: nil
+    )
+    let challengeUpdatePublisher = NotificationCenter.default.publisher(
+        for: ChallengeUpdateUsecase.didUpdateChallenge,
+        object: nil
+    )
+    let achievementUpdatePublisher = NotificationCenter.default.publisher(
+        for: AchievementUpdateUsecase.didUpdateAchievement,
+        object: nil
+    )
+    let authCreatePublisher = NotificationCenter.default.publisher(
+        for: ChallengeAuthCreateUsecase.didCreateAuth,
+        object: nil
+    )
+    let participationCreatePublisher = NotificationCenter.default.publisher(
+        for: ParticipationCreateUsecase.didCreateParticipation,
+        object: nil
+    )
+    let participationUpdatePublisher = NotificationCenter.default.publisher(
+        for: ParticipationUpdateUsecase.didUpdateParticipation,
+        object: nil
+    )
 
     init(userCreateUsecase: UserCreatableUsecase,
          userFetchUsecase: UserFetchableUsecase,
@@ -231,11 +247,10 @@ extension HomeViewModel {
 
     private func configureParticipationAuthStates(todayRoutines: [TodayRoutine]) {
         self.participationAuthStates = Array(repeating: .notAuthenticating,
-                                              count: todayRoutines.count)
+                                             count: todayRoutines.count)
 
         todayRoutines.enumerated().forEach { [weak self] (idx, routine) in
-            self?.fetchAuth(challengeID: routine.challengeID,
-                            completion: { challengAuth in
+            self?.fetchAuth(challengeID: routine.challengeID, completion: { challengAuth in
                 let authState: ParticipationAuthState = challengAuth != nil ? .authenticated : .notAuthenticating
                 self?.participationAuthStates[idx] = authState
             })
@@ -255,17 +270,15 @@ extension HomeViewModel {
 
     private func monthMetadata(for baseDate: Date) throws -> MonthMetadata {
         guard let numberOfDaysInMonth = calendar.range(of: .day, in: .month, for: baseDate)?.count,
-              let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: baseDate))
-        else {
-            throw CalendarDataError.metadataGenerationFailed
-        }
-
+              let firstDayOfMonth = calendar.date(from: calendar.dateComponents(
+                [.year, .month],
+                from: baseDate)
+              ) else { throw CalendarDataError.metadataGenerationFailed }
         let firstDayWeekday = calendar.component(.weekday, from: firstDayOfMonth)
 
-        return MonthMetadata(
-            numberOfDays: numberOfDaysInMonth,
-            firstDay: firstDayOfMonth,
-            firstDayWeekday: firstDayWeekday)
+        return MonthMetadata(numberOfDays: numberOfDaysInMonth,
+                             firstDay: firstDayOfMonth,
+                             firstDayWeekday: firstDayWeekday)
     }
 
     func generateDaysInMonth(for baseDate: Date) -> [Day] {
@@ -279,10 +292,9 @@ extension HomeViewModel {
             let isWithinDisplayedMonth = day >= offsetInInitialRow
             let dayOffset = isWithinDisplayedMonth ? day - offsetInInitialRow : -(offsetInInitialRow - day)
 
-            return generateDay(
-                offsetBy: dayOffset,
-                for: firstDayOfMonth,
-                isWithinDisplayedMonth: isWithinDisplayedMonth)
+            return generateDay(offsetBy: dayOffset,
+                               for: firstDayOfMonth,
+                               isWithinDisplayedMonth: isWithinDisplayedMonth)
         }
 
         days += generateStartOfNextMonth(using: firstDayOfMonth)
@@ -290,26 +302,24 @@ extension HomeViewModel {
         return days
     }
 
-    private func generateDay(offsetBy dayOffset: Int, for baseDate: Date, isWithinDisplayedMonth: Bool) -> Day {
+    private func generateDay(offsetBy dayOffset: Int,
+                             for baseDate: Date,
+                             isWithinDisplayedMonth: Bool) -> Day {
         let date = calendar.date(byAdding: .day, value: dayOffset, to: baseDate) ?? baseDate
         let achievement = achievements.filter { "\($0.yearMonth)\($0.day)" == date.toDateString() }
         let achievementRate = Double(achievement.first?.achievementCount ?? 0) / Double(achievement.first?.totalCount ?? 0)
-        return Day(
-            date: date,
-            number: "\(date.day)",
-            isSelected: selectedDates.contains(date),
-            achievementRate: (achievement.count > 0
-                              ? achievementRate
-                              : 0),
-            isWithinDisplayedMonth: isWithinDisplayedMonth
+
+        return Day(date: date,
+                   number: "\(date.day)",
+                   isSelected: selectedDates.contains(date),
+                   achievementRate: (achievement.count > 0 ? achievementRate : 0),
+                   isWithinDisplayedMonth: isWithinDisplayedMonth
         )
     }
 
     private func generateStartOfNextMonth(using firstDayOfDisplayedMonth: Date) -> [Day] {
-        guard let lastDayInMonth = calendar.date(
-            byAdding: DateComponents(month: 1, day: -1),
-            to: firstDayOfDisplayedMonth)
-        else { return [] }
+        guard let lastDayInMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1),
+                                                 to: firstDayOfDisplayedMonth) else { return [] }
 
         let additionalDays = 7 - calendar.component(.weekday, from: lastDayInMonth)
         guard additionalDays > 0 else { return [] }
@@ -322,7 +332,9 @@ extension HomeViewModel {
     }
 
     func changeDate(month: Int) {
-        let changedDate = calendar.date(byAdding: .month, value: month, to: baseDate.value) ?? Date()
+        let changedDate = calendar.date(byAdding: .month,
+                                        value: month,
+                                        to: baseDate.value) ?? Date()
         baseDate.value = month == 0 ? Date() : changedDate
         days.value = generateDaysInMonth(for: baseDate.value)
         fetchAchievement(date: baseDate.value)

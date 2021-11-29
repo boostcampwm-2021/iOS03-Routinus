@@ -31,7 +31,6 @@ final class CalendarHeader: UIView {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         button.tintColor = UIColor(named: "Black")
-
         button.addTarget(self, action: #selector(didTappedPreviousMonthButton), for: .touchUpInside)
         return button
     }()
@@ -40,7 +39,6 @@ final class CalendarHeader: UIView {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         button.tintColor =  UIColor(named: "Black")
-
         button.addTarget(self, action: #selector(didTappedNextMonthButton), for: .touchUpInside)
         return button
     }()
@@ -142,24 +140,32 @@ extension CalendarHeader {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        previousMonthButton.anchor(leading: previousMonthButton.superview?.leadingAnchor, paddingLeading: 10,
-                                   top: previousMonthButton.superview?.topAnchor, paddingTop: 15,
-                                   width: 36, height: 36)
+        previousMonthButton.anchor(leading: previousMonthButton.superview?.leadingAnchor,
+                                   paddingLeading: 10,
+                                   top: previousMonthButton.superview?.topAnchor,
+                                   paddingTop: 15,
+                                   width: 36,
+                                   height: 36)
 
-        monthLabel.anchor(leading: previousMonthButton.trailingAnchor, paddingLeading: 10,
+        monthLabel.anchor(leading: previousMonthButton.trailingAnchor,
+                          paddingLeading: 10,
                           centerY: previousMonthButton.centerYAnchor,
                           width: 100)
 
-        nextMonthButton.anchor(leading: monthLabel.trailingAnchor, paddingLeading: 10,
+        nextMonthButton.anchor(leading: monthLabel.trailingAnchor,
+                               paddingLeading: 10,
                                centerY: previousMonthButton.centerYAnchor,
-                               width: 36, height: 36)
+                               width: 36,
+                               height: 36)
 
-        todayButton.anchor(trailing: todayButton.superview?.trailingAnchor, paddingTrailing: 15,
+        todayButton.anchor(trailing: todayButton.superview?.trailingAnchor,
+                           paddingTrailing: 15,
                            centerY: previousMonthButton.centerYAnchor,
                            width: 80)
 
         dayOfWeekStackView.anchor(horizontal: dayOfWeekStackView.superview,
-                                  bottom: separatorView.bottomAnchor, paddingBottom: 5)
+                                  bottom: separatorView.bottomAnchor,
+                                  paddingBottom: 5)
 
         separatorView.anchor(horizontal: separatorView.superview,
                              bottom: separatorView.superview?.bottomAnchor,

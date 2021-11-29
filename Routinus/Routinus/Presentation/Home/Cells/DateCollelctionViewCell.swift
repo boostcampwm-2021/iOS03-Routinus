@@ -79,8 +79,10 @@ final class DateCollectionViewCell: UICollectionViewCell {
           min(min(frame.width, frame.height) - 10, 60) : 45
         backgroundColor = .systemBackground
 
-        numberLabel.anchor(leading: numberLabel.superview?.leadingAnchor, paddingLeading: 5,
-                           top: numberLabel.superview?.topAnchor, paddingTop: 5)
+        numberLabel.anchor(leading: numberLabel.superview?.leadingAnchor,
+                           paddingLeading: 5,
+                           top: numberLabel.superview?.topAnchor,
+                           paddingTop: 5)
 
         achievementCharacterView.anchor(centerX: achievementCharacterView.superview?.centerXAnchor,
                                         centerY: achievementCharacterView.superview?.centerYAnchor,
