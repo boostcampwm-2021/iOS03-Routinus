@@ -31,23 +31,27 @@ final class DetailCoordinator: RoutinusCoordinator {
         let userFetchUsecase = UserFetchUsecase(repository: repository)
         let challengeAuthFetchUsecase = ChallengeAuthFetchUsecase(repository: repository)
         let achievementUpdateUsecase = AchievementUpdateUsecase(repository: repository)
-        let detailViewModel = DetailViewModel(challengeID: challengeID,
-                                              challengeFetchUsecase: challengeFetchUsecase,
-                                              challengeUpdateUsecase: challengeUpdateUsecase,
-                                              imageFetchUsecase: imageFetchUsecase,
-                                              participationFetchUsecase: participationFetchUsecase,
-                                              participationCreateUsecase: participationCreateUsecase,
-                                              userFetchUsecase: userFetchUsecase,
-                                              challengeAuthFetchUsecase: challengeAuthFetchUsecase,
-                                              achievementUpdateUsecase: achievementUpdateUsecase)
+        let detailViewModel = DetailViewModel(
+            challengeID: challengeID,
+            challengeFetchUsecase: challengeFetchUsecase,
+            challengeUpdateUsecase: challengeUpdateUsecase,
+            imageFetchUsecase: imageFetchUsecase,
+            participationFetchUsecase: participationFetchUsecase,
+            participationCreateUsecase: participationCreateUsecase,
+            userFetchUsecase: userFetchUsecase,
+            challengeAuthFetchUsecase: challengeAuthFetchUsecase,
+            achievementUpdateUsecase: achievementUpdateUsecase
+        )
         let detailViewController = DetailViewController(with: detailViewModel)
         detailViewController.hidesBottomBarWhenPushed = true
 
         detailViewModel.editBarButtonTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
-                let createCoordinator = CreateCoordinator(navigationController: self.navigationController,
-                                                          challengeID: challengeID)
+                let createCoordinator = CreateCoordinator(
+                    navigationController: self.navigationController,
+                    challengeID: challengeID
+                )
                 createCoordinator.start()
                 self.childCoordinator.append(createCoordinator)
             }
@@ -56,8 +60,10 @@ final class DetailCoordinator: RoutinusCoordinator {
         detailViewModel.authButtonTap
             .sink { [ weak self ] challengeID in
                 guard let self = self else { return }
-                let authCoordinator = AuthCoordinator(navigationController: self.navigationController,
-                                                      challengeID: challengeID)
+                let authCoordinator = AuthCoordinator(
+                    navigationController: self.navigationController,
+                    challengeID: challengeID
+                )
                 authCoordinator.start()
                 self.childCoordinator.append(authCoordinator)
             }
@@ -66,22 +72,26 @@ final class DetailCoordinator: RoutinusCoordinator {
         detailViewModel.allAuthDisplayViewTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
-                let authListCoordinator = AuthsCoordinator(navigationController: self.navigationController,
-                                                              challengeID: challengeID,
-                                                              authDisplayState: .all)
-                authListCoordinator.start()
-                self.childCoordinator.append(authListCoordinator)
+                let authsCoordinator = AuthsCoordinator(
+                    navigationController: self.navigationController,
+                    challengeID: challengeID,
+                    authDisplayState: .all
+                )
+                authsCoordinator.start()
+                self.childCoordinator.append(authsCoordinator)
             }
             .store(in: &cancellables)
 
         detailViewModel.myAuthDisplayViewTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
-                let authListCoordinator = AuthsCoordinator(navigationController: self.navigationController,
-                                                              challengeID: challengeID,
-                                                              authDisplayState: .my)
-                authListCoordinator.start()
-                self.childCoordinator.append(authListCoordinator)
+                let authsCoordinator = AuthsCoordinator(
+                    navigationController: self.navigationController,
+                    challengeID: challengeID,
+                    authDisplayState: .my
+                )
+                authsCoordinator.start()
+                self.childCoordinator.append(authsCoordinator)
             }
             .store(in: &cancellables)
 
