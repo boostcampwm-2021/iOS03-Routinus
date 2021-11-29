@@ -47,6 +47,6 @@ final class ManageCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-        self.navigationController.pushViewController(manageViewController, animated: false)
+        navigationController.pushViewController(manageViewController, animated: false)
     }
 }
