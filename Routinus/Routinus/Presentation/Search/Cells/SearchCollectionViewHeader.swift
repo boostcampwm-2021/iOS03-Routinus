@@ -20,7 +20,7 @@ final class SearchCollectionViewHeader: UICollectionReusableView {
 
     var title: String = "" {
         didSet {
-            self.label.text = title
+            label.text = title
         }
     }
 
@@ -35,7 +35,7 @@ final class SearchCollectionViewHeader: UICollectionReusableView {
     }
 
     func configureViews() {
-        self.addSubview(label)
+        addSubview(label)
 
         label.anchor(leading: label.superview?.leadingAnchor,
                      centerY: label.superview?.centerYAnchor)

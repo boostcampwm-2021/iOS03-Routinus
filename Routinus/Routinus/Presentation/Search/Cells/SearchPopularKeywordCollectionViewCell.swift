@@ -23,9 +23,9 @@ final class SearchPopularKeywordCollectionViewCell: UICollectionViewCell {
     }()
 
     func configureViews(keyword: String) {
-        self.popularKeywordButton.keyword = keyword
-        self.popularKeywordButton.setTitle(keyword, for: .normal)
-        self.addSubview(popularKeywordButton)
+        popularKeywordButton.keyword = keyword
+        popularKeywordButton.setTitle(keyword, for: .normal)
+        addSubview(popularKeywordButton)
         popularKeywordButton.anchor(horizontal: popularKeywordButton.superview,
                                     vertical: popularKeywordButton.superview)
     }

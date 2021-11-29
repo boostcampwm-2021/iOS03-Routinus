@@ -61,9 +61,9 @@ final class SearchCollectionViewLayouts {
 
     func section(at sectionNumber: Int) -> NSCollectionLayoutSection {
         if sectionNumber == 0 {
-            return self.pupularSearchKeywordLayout
+            return pupularSearchKeywordLayout
         } else {
-            return self.challengeLayout
+            return challengeLayout
         }
     }
 }

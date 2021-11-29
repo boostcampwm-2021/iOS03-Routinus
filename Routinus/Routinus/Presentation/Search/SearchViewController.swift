@@ -70,27 +70,27 @@ final class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = dataSource
-        self.searchBarView.delegate = self
-        self.snapshot.appendSections(Section.allCases)
-        self.configureViews()
-        self.configureViewModel()
-        self.configureRefreshControl()
-        self.didLoadedSearchView()
+        collectionView.delegate = self
+        collectionView.dataSource = dataSource
+        searchBarView.delegate = self
+        snapshot.appendSections(Section.allCases)
+        configureViews()
+        configureViewModel()
+        configureRefreshControl()
+        didLoadedSearchView()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.searchBarView.hideKeyboard()
-        self.collectionView.removeAfterimage()
+        searchBarView.hideKeyboard()
+        collectionView.removeAfterimage()
     }
 }
 
 extension SearchViewController {
     private func configureDataSource() -> DataSource {
         let dataSource = DataSource(
-            collectionView: self.collectionView
+            collectionView: collectionView
         ) { collectionView, indexPath, content in
             switch content {
             case .popularSearchKeyword(let keyword):
@@ -135,7 +135,7 @@ extension SearchViewController {
                         withReuseIdentifier: SearchCollectionViewHeader.identifier,
                         for: indexPath
             ) as? SearchCollectionViewHeader
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
             view?.title = section.title
             view?.configureViews()
@@ -145,18 +145,19 @@ extension SearchViewController {
     }
 
     private func configureViews() {
-        self.view.backgroundColor = .systemBackground
-        self.view.addSubview(collectionView)
-        self.configureNavigationBar()
-        self.configureKeyboard()
+        view.backgroundColor = .systemBackground
+        view.addSubview(collectionView)
+        configureNavigationBar()
+        configureKeyboard()
         collectionView.anchor(horizontal: collectionView.superview,
                               vertical: collectionView.superview)
     }
 
     private func configureViewModel() {
-        self.viewModel?.popularKeywords
+        viewModel?.popularKeywords
             .receive(on: RunLoop.main)
-            .sink(receiveValue: { keywords in
+            .sink(receiveValue: { [weak self] keywords in
+                guard let self = self else { return }
                 var popularSnapshot = self.dataSource.snapshot(for: Section.popularSearchKeyword)
                 let popularContents = keywords.map { SearchContents.popularSearchKeyword($0) }
                 popularSnapshot.append(popularContents)
@@ -164,7 +165,7 @@ extension SearchViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.challenges
+        viewModel?.challenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self else { return }
@@ -180,13 +181,13 @@ extension SearchViewController {
     }
 
     private func configureNavigationBar() {
-        self.searchBarView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
-        self.navigationItem.titleView = searchBarView
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationItem.largeTitleDisplayMode = .never
+        searchBarView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
+        navigationItem.titleView = searchBarView
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.largeTitleDisplayMode = .never
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = UIColor(named: "Black")
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     static func createLayout() -> UICollectionViewCompositionalLayout {
@@ -223,18 +224,18 @@ extension SearchViewController {
         singleTapGestureRecognizer.numberOfTapsRequired = 1
         singleTapGestureRecognizer.isEnabled = true
         singleTapGestureRecognizer.cancelsTouchesInView = false
-        self.collectionView.addGestureRecognizer(singleTapGestureRecognizer)
+        collectionView.addGestureRecognizer(singleTapGestureRecognizer)
     }
 
     @objc func tappedView(sender: UITapGestureRecognizer) {
-        self.searchBarView.hideKeyboard()
+        searchBarView.hideKeyboard()
     }
 }
 
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            self.viewModel?.didTappedChallenge(index: indexPath.item)
+            viewModel?.didTappedChallenge(index: indexPath.item)
         }
     }
 }
@@ -249,14 +250,14 @@ extension SearchViewController: SearchPopularKeywordDelegate {
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.viewModel?.didChangedSearchText(searchText)
+        viewModel?.didChangedSearchText(searchText)
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBarView.hideKeyboard()
+        searchBarView.hideKeyboard()
     }
 
     func didLoadedSearchView() {
-        self.viewModel?.didLoadedSearchView()
+        viewModel?.didLoadedSearchView()
     }
 }

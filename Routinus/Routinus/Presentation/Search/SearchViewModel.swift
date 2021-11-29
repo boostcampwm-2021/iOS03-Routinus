@@ -52,7 +52,8 @@ extension SearchViewModel {
          searchKeyword
              .debounce(for: 0.4, scheduler: RunLoop.main)
              .compactMap { $0 }
-             .sink { keyword in
+             .sink { [weak self] keyword in
+                 guard let self = self else { return }
                  if keyword == "" {
                      self.challengeFetchUsecase.fetchLatestChallenges { [weak self] challenges in
                          self?.challenges.value = challenges
@@ -73,12 +74,12 @@ extension SearchViewModel {
     }
 
     func didTappedChallenge(index: Int) {
-        let challengeID = self.challenges.value[index].challengeID
+        let challengeID = challenges.value[index].challengeID
         challengeTap.send(challengeID)
     }
 
     func didLoadedSearchView() {
-        self.fetchChallenges()
+        fetchChallenges()
     }
 
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
@@ -104,14 +105,16 @@ extension SearchViewModel {
 
     private func fetchLatestChallenges() {
         challengeFetchUsecase.fetchLatestChallenges { [weak self] challenge in
-            self?.challenges.value = challenge
+            guard let self = self else { return }
+            self.challenges.value = challenge
         }
     }
 
     private func fetchCategoryChallenges() {
         guard let searchCategory = searchCategory else { return }
         challengeFetchUsecase.fetchSearchChallenges(category: searchCategory) { [weak self] challenge in
-            self?.challenges.value = challenge
+            guard let self = self else { return }
+            self.challenges.value = challenge
         }
     }
 }
