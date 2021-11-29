@@ -8,13 +8,11 @@
 import Foundation
 
 protocol TodayRoutineRepository {
-    func fetchTodayRoutine(by id: String,
-                           completion: (([TodayRoutine]) -> Void)?)
+    func fetchTodayRoutine(by id: String, completion: (([TodayRoutine]) -> Void)?)
 }
 
 extension RoutinusRepository: TodayRoutineRepository {
-    func fetchTodayRoutine(by id: String,
-                           completion: (([TodayRoutine]) -> Void)?) {
+    func fetchTodayRoutine(by id: String, completion: (([TodayRoutine]) -> Void)?) {
         FirebaseService.routines(of: id) { list in
             completion?(list.map { TodayRoutine(todayRoutineDTO: $0) })
         }
