@@ -124,7 +124,8 @@ extension AuthViewModel {
     func fetchUsername() {
         guard let userID = userFetchUsecase.fetchUserID() else { return }
         userFetchUsecase.fetchUser(id: userID) { [weak self] user in
-            self?.userName = user.name
+            guard let self = self else { return }
+            self.userName = user.name
         }
     }
 }

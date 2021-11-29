@@ -141,8 +141,9 @@ extension AuthViewController {
     }
 
     @objc private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            guard let viewModel = self.viewModel,
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
+            guard let self = self,
+                  let viewModel = self.viewModel,
                   let challengeID = viewModel.challenge.value?.challengeID else { return }
             viewModel.fetchChallenge(challengeID: challengeID)
             self.scrollView.refreshControl?.endRefreshing()
@@ -169,8 +170,9 @@ extension AuthViewController: AuthMethodViewDelegate {
         guard let challengeID = viewModel?.challenge.value?.challengeID else { return }
         guard let thumbnailImage = self.authMethodView.authThumbnailImage else { return }
         viewModel?.didTappedAuthMethodImage(image: thumbnailImage)
-        viewModel?.imageData(from: challengeID, filename: "auth_method") { data in
-            guard let data = data else { return }
+        viewModel?.imageData(from: challengeID, filename: "auth_method") { [weak self] data in
+            guard let self = self,
+                  let data = data else { return }
             self.viewModel?.loadedAuthMethodImage(image: data)
         }
     }
