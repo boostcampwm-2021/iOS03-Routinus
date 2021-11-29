@@ -9,19 +9,13 @@ import Foundation
 
 protocol ChallengeRepository {
     func fetchRecommendChallenges(completion: (([Challenge]) -> Void)?)
-    func fetchSearchChallengesBy(keyword: String,
-                                 completion: (([Challenge]) -> Void)?)
-    func fetchSearchChallengesBy(categoryID: String,
-                                 completion: (([Challenge]) -> Void)?)
+    func fetchSearchChallengesBy(keyword: String, completion: (([Challenge]) -> Void)?)
+    func fetchSearchChallengesBy(categoryID: String, completion: (([Challenge]) -> Void)?)
     func fetchLatestChallenges(completion: (([Challenge]) -> Void)?)
-    func fetchChallenges(by userID: String,
-                         completion: (([Challenge]) -> Void)?)
-    func fetchChallenges(of userID: String,
-                         completion: (([Challenge]) -> Void)?)
-    func fetchEdittingChallenge(challengeID: String,
-                                completion: @escaping (Challenge) -> Void)
-    func fetchChallenge(challengeID: String,
-                        completion: @escaping (Challenge) -> Void)
+    func fetchChallenges(by userID: String, completion: (([Challenge]) -> Void)?)
+    func fetchChallenges(of userID: String, completion: (([Challenge]) -> Void)?)
+    func fetchEdittingChallenge(challengeID: String, completion: @escaping (Challenge) -> Void)
+    func fetchChallenge(challengeID: String, completion: @escaping (Challenge) -> Void)
     func insert(challenge: Challenge,
                 imageURL: String,
                 thumbnailImageURL: String,
@@ -30,10 +24,8 @@ protocol ChallengeRepository {
                 yearMonth: String,
                 day: String,
                 completion: (() -> Void)?)
-    func update(challenge: Challenge,
-                completion: (() -> Void)?)
-    func updateParticipantCount(challengeID: String,
-                                completion: (() -> Void)?)
+    func update(challenge: Challenge, completion: (() -> Void)?)
+    func updateParticipantCount(challengeID: String, completion: (() -> Void)?)
 }
 
 extension RoutinusRepository: ChallengeRepository {
@@ -43,8 +35,7 @@ extension RoutinusRepository: ChallengeRepository {
         }
     }
 
-    func fetchSearchChallengesBy(keyword: String,
-                                 completion: (([Challenge]) -> Void)?) {
+    func fetchSearchChallengesBy(keyword: String, completion: (([Challenge]) -> Void)?) {
         FirebaseService.latestChallenges { list in
             let challenges = list.map { Challenge(challengeDTO: $0) }
                 .filter { $0.title.contains(keyword) }
@@ -52,8 +43,7 @@ extension RoutinusRepository: ChallengeRepository {
         }
     }
 
-    func fetchSearchChallengesBy(categoryID: String,
-                                 completion: (([Challenge]) -> Void)?) {
+    func fetchSearchChallengesBy(categoryID: String, completion: (([Challenge]) -> Void)?) {
         FirebaseService.searchChallenges(categoryID: categoryID) { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
@@ -65,29 +55,37 @@ extension RoutinusRepository: ChallengeRepository {
         }
     }
 
-    func fetchChallenges(by userID: String,
-                         completion: (([Challenge]) -> Void)?) {
+    func fetchChallenges(by userID: String, completion: (([Challenge]) -> Void)?) {
         FirebaseService.searchChallenges(ownerID: userID) { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }
 
-    func fetchChallenges(of userID: String,
-                         completion: (([Challenge]) -> Void)?) {
+    func fetchChallenges(of userID: String, completion: (([Challenge]) -> Void)?) {
         FirebaseService.searchChallenges(participantID: userID) { list in
             completion?(list.map { Challenge(challengeDTO: $0) })
         }
     }
 
-    func fetchEdittingChallenge(challengeID: String,
-                                completion: @escaping (Challenge) -> Void) {
+    func fetchEdittingChallenge(challengeID: String, completion: @escaping (Challenge) -> Void) {
         guard let ownerID = RoutinusRepository.userID() else { return }
-        FirebaseService.challenge(ownerID: ownerID,
-                                  challengeID: challengeID) { dto in
-            let imageURL = ImageManager.cachedImageURL(from: challengeID, filename: "image")
-            let thumbnailImageURL = ImageManager.cachedImageURL(from: challengeID, filename: "thumbnail_image")
-            let authExampleImageURL = ImageManager.cachedImageURL(from: challengeID, filename: "auth_method")
-            let authExampleThumbnailImageURL = ImageManager.cachedImageURL(from: challengeID, filename: "thumbnail_auth_method")
+        FirebaseService.challenge(ownerID: ownerID, challengeID: challengeID) { dto in
+            let imageURL = ImageManager.cachedImageURL(
+                from: challengeID,
+                filename: "image"
+            )
+            let thumbnailImageURL = ImageManager.cachedImageURL(
+                from: challengeID,
+                filename: "thumbnail_image"
+            )
+            let authExampleImageURL = ImageManager.cachedImageURL(
+                from: challengeID,
+                filename: "auth_method"
+            )
+            let authExampleThumbnailImageURL = ImageManager.cachedImageURL(
+                from: challengeID,
+                filename: "thumbnail_auth_method"
+            )
             completion(Challenge(challengeDTO: dto,
                                  imageURL: imageURL,
                                  thumbnailImageURL: thumbnailImageURL,
@@ -96,8 +94,7 @@ extension RoutinusRepository: ChallengeRepository {
         }
     }
 
-    func fetchChallenge(challengeID: String,
-                        completion: @escaping (Challenge) -> Void) {
+    func fetchChallenge(challengeID: String, completion: @escaping (Challenge) -> Void) {
         FirebaseService.challenge(challengeID: challengeID) { dto in
             completion(Challenge(challengeDTO: dto))
         }
@@ -142,8 +139,7 @@ extension RoutinusRepository: ChallengeRepository {
         }
     }
 
-    func update(challenge: Challenge,
-                completion: (() -> Void)?) {
+    func update(challenge: Challenge, completion: (() -> Void)?) {
         guard let startDate = challenge.startDate?.toDateString(),
               let endDate = challenge.endDate?.toDateString() else { return }
         let challengeDTO = ChallengeDTO(id: challenge.challengeID,
@@ -161,8 +157,7 @@ extension RoutinusRepository: ChallengeRepository {
         }
     }
 
-    func updateParticipantCount(challengeID: String,
-                                completion: (() -> Void)?) {
+    func updateParticipantCount(challengeID: String, completion: (() -> Void)?) {
         FirebaseService.updateParticipantCount(challengeID: challengeID) {
             completion?()
         }
