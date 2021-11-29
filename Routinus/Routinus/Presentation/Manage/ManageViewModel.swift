@@ -57,14 +57,14 @@ final class ManageViewModel: ManageViewModelIO {
 
 extension ManageViewModel {
     func configurePublishers() {
-        self.challengeCreatePublisher
+        challengeCreatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.didLoadedManageView()
             }
             .store(in: &cancellables)
 
-        self.challengeUpdatePublisher
+        challengeUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { _ in
                 self.didLoadedManageView()
@@ -80,11 +80,11 @@ extension ManageViewModel {
         var challengeID: String = ""
         switch index.section {
         case 1:
-            challengeID = self.participatingChallenges.value[index.item].challengeID
+            challengeID = participatingChallenges.value[index.item].challengeID
         case 2:
-            challengeID = self.createdChallenges.value[index.item].challengeID
+            challengeID = createdChallenges.value[index.item].challengeID
         case 3:
-            challengeID = self.endedChallenges.value[index.item].challengeID
+            challengeID = endedChallenges.value[index.item].challengeID
         default:
             break
         }

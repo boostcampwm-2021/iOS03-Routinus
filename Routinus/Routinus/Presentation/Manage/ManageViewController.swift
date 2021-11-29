@@ -67,20 +67,20 @@ final class ManageViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        self.collectionView.removeAfterimage()
-        self.expandHeaders()
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        collectionView.removeAfterimage()
+        expandHeaders()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 
 extension ManageViewController {
     private func configureViews() {
-        self.configureNavigationBar()
+        configureNavigationBar()
         view.backgroundColor = .systemBackground
 
         view.addSubview(collectionView)
@@ -90,7 +90,7 @@ extension ManageViewController {
     private func configureNavigationBar() {
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = UIColor(named: "Black")
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     private func configureViewModel() {
@@ -153,7 +153,7 @@ extension ManageViewController {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
         )
-        self.collectionView.refreshControl = refreshControl
+        collectionView.refreshControl = refreshControl
     }
 
     @objc private func refresh() {
@@ -165,7 +165,7 @@ extension ManageViewController {
     }
 
     private func expandHeaders() {
-        let headers = self.collectionView.subviews.compactMap { $0 as? ManageCollectionViewHeader }
+        let headers = collectionView.subviews.compactMap { $0 as? ManageCollectionViewHeader }
         for header in headers {
             header.isExpanded = true
             updateCells(of: header)
@@ -257,7 +257,7 @@ extension ManageViewController {
     }
 
     private func configureTitle() {
-        var snapshot = self.dataSource.snapshot(for: .add)
+        var snapshot = dataSource.snapshot(for: .add)
         snapshot.append([Item.title])
         dataSource.apply(snapshot, to: .add)
     }
