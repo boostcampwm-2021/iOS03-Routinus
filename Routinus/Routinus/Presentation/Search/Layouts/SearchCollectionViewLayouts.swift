@@ -22,10 +22,11 @@ final class SearchCollectionViewLayouts {
                                                        subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                      heightDimension: .absolute(50)),
-                                                    elementKind: UICollectionView.elementKindSectionHeader,
-                                                    alignment: .topLeading)]
+        section.boundarySupplementaryItems = [.init(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .topLeading
+        )]
         section.orthogonalScrollingBehavior = .groupPaging
         section.contentInsets = .init(top: 5, leading: offset, bottom: 20, trailing: offset)
         section.interGroupSpacing = 20
@@ -48,11 +49,10 @@ final class SearchCollectionViewLayouts {
         group.interItemSpacing = .fixed(15)
 
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                      heightDimension: .absolute(50)),
-                                                    elementKind: UICollectionView.elementKindSectionHeader,
-                                                    alignment: .topLeading)]
-
+        section.boundarySupplementaryItems = [.init(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)),
+            elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading
+        )]
         section.orthogonalScrollingBehavior = .none
         section.contentInsets = .init(top: 10, leading: offset, bottom: 10, trailing: offset)
         section.interGroupSpacing = 30
