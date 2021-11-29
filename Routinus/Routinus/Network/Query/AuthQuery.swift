@@ -8,9 +8,7 @@
 import Foundation
 
 enum AuthQuery {
-    static func select(userID: String,
-                                challengeID: String,
-                                todayDate: String) -> Data? {
+    static func select(userID: String, challengeID: String, todayDate: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -73,8 +71,7 @@ enum AuthQuery {
         """.data(using: .utf8)
     }
 
-    static func select(challengeID: String,
-                                userID: String) -> Data? {
+    static func select(challengeID: String, userID: String) -> Data? {
         return """
         {
             "structuredQuery": {
