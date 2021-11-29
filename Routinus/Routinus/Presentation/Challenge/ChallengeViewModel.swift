@@ -38,10 +38,14 @@ final class ChallengeViewModel: ChallengeViewModelIO {
     let challengeFetchUsecase: ChallengeFetchableUsecase
     var cancellables = Set<AnyCancellable>()
 
-    let challengeCreatePublisher = NotificationCenter.default.publisher(for: ChallengeCreateUsecase.didCreateChallenge,
-                                                                        object: nil)
-    let challengeUpdatePublisher = NotificationCenter.default.publisher(for: ChallengeUpdateUsecase.didUpdateChallenge,
-                                                                        object: nil)
+    let challengeCreatePublisher = NotificationCenter.default.publisher(
+        for: ChallengeCreateUsecase.didCreateChallenge,
+        object: nil
+    )
+    let challengeUpdatePublisher = NotificationCenter.default.publisher(
+        for: ChallengeUpdateUsecase.didUpdateChallenge,
+        object: nil
+    )
 
     init(challengeFetchUsecase: ChallengeFetchableUsecase) {
         self.challengeFetchUsecase = challengeFetchUsecase
@@ -66,7 +70,7 @@ extension ChallengeViewModel {
             }
             .store(in: &cancellables)
     }
-  
+
     func fetchChallenge() {
         challengeFetchUsecase.fetchRecommendChallenges { [weak self] recommendChallenge in
             self?.recommendChallenges.value = recommendChallenge

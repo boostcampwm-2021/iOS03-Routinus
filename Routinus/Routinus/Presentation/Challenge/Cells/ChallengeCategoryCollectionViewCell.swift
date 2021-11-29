@@ -39,8 +39,7 @@ final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
 
     func configureViews() {
         self.addSubview(yStackView)
-        yStackView.anchor(horizontal: yStackView.superview,
-                          top: yStackView.superview?.topAnchor)
+        yStackView.anchor(horizontal: yStackView.superview, top: yStackView.superview?.topAnchor)
 
         self.yStackView.addArrangedSubview(xStackView1)
         self.yStackView.addArrangedSubview(xStackView2)
@@ -53,8 +52,10 @@ final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
             button.setTitle(category.title)
             button.setTintColor(UIColor(named: category.color))
 
-            let gesture = ChallengeCategoryIconViewTapGesture(target: self,
-                                                              action: #selector(didTappedCategoryButton))
+            let gesture = ChallengeCategoryIconViewTapGesture(
+                target: self,
+                action: #selector(didTappedCategoryButton)
+            )
             gesture.numberOfTapsRequired = 1
             gesture.configureCategory(category: category)
             self.isUserInteractionEnabled = true

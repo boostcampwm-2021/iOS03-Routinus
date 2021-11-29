@@ -18,14 +18,14 @@ final class ChallengeCollectionViewLayouts {
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8),
                                                heightDimension: .estimated(170))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                       subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                      heightDimension: .estimated(80)),
-                                                    elementKind: UICollectionView.elementKindSectionHeader,
-                                                    alignment: .topLeading)]
+        section.boundarySupplementaryItems = [.init(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(80)),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .topLeading
+        )]
 
         section.orthogonalScrollingBehavior = .groupPaging
         section.contentInsets = .init(top: 10, leading: offset, bottom: 20, trailing: offset)
@@ -43,14 +43,14 @@ final class ChallengeCollectionViewLayouts {
 
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                heightDimension: .estimated(200))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                       subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                      heightDimension: .absolute(70)),
-                                                    elementKind: UICollectionView.elementKindSectionHeader,
-                                                    alignment: .topLeading)]
+        section.boundarySupplementaryItems = [.init(
+            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(70)),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .topLeading
+        )]
 
         section.orthogonalScrollingBehavior = .none
         section.contentInsets = .init(top: 0, leading: offset, bottom: 0, trailing: offset)

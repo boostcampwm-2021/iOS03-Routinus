@@ -40,16 +40,24 @@ final class ChallengeViewController: UIViewController {
 
         collectionView.showsVerticalScrollIndicator = false
 
-        collectionView.register(ChallengeRecommendCollectionViewHeader.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: ChallengeRecommendCollectionViewHeader.identifier)
-        collectionView.register(ChallengeCategoryCollectionViewHeader.self,
-                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: ChallengeCategoryCollectionViewHeader.identifier)
-        collectionView.register(ChallengeRecommendCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ChallengeRecommendCollectionViewCell.identifier)
-        collectionView.register(ChallengeCategoryCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ChallengeCategoryCollectionViewCell.identifier)
+        collectionView.register(
+            ChallengeRecommendCollectionViewHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: ChallengeRecommendCollectionViewHeader.identifier
+        )
+        collectionView.register(
+            ChallengeCategoryCollectionViewHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: ChallengeCategoryCollectionViewHeader.identifier
+        )
+        collectionView.register(
+            ChallengeRecommendCollectionViewCell.self,
+            forCellWithReuseIdentifier: ChallengeRecommendCollectionViewCell.identifier
+        )
+        collectionView.register(
+            ChallengeCategoryCollectionViewCell.self,
+            forCellWithReuseIdentifier: ChallengeCategoryCollectionViewCell.identifier
+        )
 
         return collectionView
     }()
@@ -90,13 +98,17 @@ extension ChallengeViewController {
         let dataSource = DataSource(collectionView: self.collectionView) { collectionView, indexPath, content in
             switch content {
             case .recommend(let recommendChallenge):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeRecommendCollectionViewCell.identifier,
-                                                              for: indexPath) as? ChallengeRecommendCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: ChallengeRecommendCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? ChallengeRecommendCollectionViewCell
                 cell?.configureViews(recommendChallenge: recommendChallenge)
                 return cell
             case .category:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChallengeCategoryCollectionViewCell.identifier,
-                                                              for: indexPath) as? ChallengeCategoryCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: ChallengeCategoryCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? ChallengeCategoryCollectionViewCell
                 cell?.delegate = self
                 cell?.configureViews()
                 return cell
@@ -120,9 +132,10 @@ extension ChallengeViewController {
             switch section {
             case .recommend:
                 let recommendHeader = collectionView.dequeueReusableSupplementaryView(
-                            ofKind: kind,
-                            withReuseIdentifier: ChallengeRecommendCollectionViewHeader.identifier,
-                            for: indexPath) as? ChallengeRecommendCollectionViewHeader
+                    ofKind: kind,
+                    withReuseIdentifier: ChallengeRecommendCollectionViewHeader.identifier,
+                    for: indexPath
+                ) as? ChallengeRecommendCollectionViewHeader
 
                 recommendHeader?.delegate = self
                 recommendHeader?.title = section.title
@@ -130,9 +143,10 @@ extension ChallengeViewController {
                 return recommendHeader
             case .category:
                 let categoryHeader = collectionView.dequeueReusableSupplementaryView(
-                            ofKind: kind,
-                            withReuseIdentifier: ChallengeCategoryCollectionViewHeader.identifier,
-                            for: indexPath) as? ChallengeCategoryCollectionViewHeader
+                    ofKind: kind,
+                    withReuseIdentifier: ChallengeCategoryCollectionViewHeader.identifier,
+                    for: indexPath
+                ) as? ChallengeCategoryCollectionViewHeader
 
                 categoryHeader?.delegate = self
                 categoryHeader?.title = section.title
