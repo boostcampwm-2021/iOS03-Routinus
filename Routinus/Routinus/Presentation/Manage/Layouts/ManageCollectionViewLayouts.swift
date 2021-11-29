@@ -16,8 +16,10 @@ final class ManageCollectionViewLayouts {
                                               heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .estimated(250 + (smallWidth ? 28 : 32)))
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .estimated(250 + (smallWidth ? 28 : 32))
+        )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitem: item,
                                                        count: 1)
@@ -44,10 +46,12 @@ final class ManageCollectionViewLayouts {
         group.interItemSpacing = .fixed(20)
 
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                      heightDimension: .absolute(70)),
-                                                    elementKind: UICollectionView.elementKindSectionHeader,
-                                                    alignment: .topLeading)]
+        section.boundarySupplementaryItems = [.init(
+            layoutSize: .init(widthDimension: .fractionalWidth(1),
+                              heightDimension: .absolute(70)),
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .topLeading
+        )]
         section.orthogonalScrollingBehavior = .none
         section.contentInsets = .init(top: 10, leading: offset, bottom: 10, trailing: offset)
         section.interGroupSpacing = 30
