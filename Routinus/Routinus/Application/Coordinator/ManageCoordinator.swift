@@ -30,7 +30,8 @@ final class ManageCoordinator: RoutinusCoordinator {
                 guard let self = self else { return }
                 let detailCoordinator = DetailCoordinator(
                     navigationController: self.navigationController,
-                    challengeID: challengeID)
+                    challengeID: challengeID
+                )
                 detailCoordinator.start()
                 self.childCoordinator.append(detailCoordinator)
             }
