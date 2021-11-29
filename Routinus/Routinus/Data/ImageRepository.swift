@@ -8,15 +8,9 @@
 import Foundation
 
 protocol ImageRepository {
-    func fetchImageData(from directory: String,
-                        filename: String,
-                        completion: ((Data?) -> Void)?)
-    func saveImage(to directory: String,
-                   filename: String,
-                   data: Data?) -> String?
-    func updateImage(challengeID: String,
-                     imageURL: String,
-                     thumbnailImageURL: String)
+    func fetchImageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
+    func saveImage(to directory: String, filename: String, data: Data?) -> String?
+    func updateImage(challengeID: String, imageURL: String, thumbnailImageURL: String)
     func updateImage(challengeID: String,
                      authExampleImageURL: String,
                      authExampleThumbnailImageURL: String)
@@ -38,19 +32,12 @@ extension RoutinusRepository: ImageRepository {
         }
     }
 
-    func saveImage(to directory: String,
-                   filename: String,
-                   data: Data?) -> String? {
-        return ImageManager.saveImage(to: directory,
-                                         filename: filename,
-                                         imageData: data)
+    func saveImage(to directory: String, filename: String, data: Data?) -> String? {
+        return ImageManager.saveImage(to: directory, filename: filename, imageData: data)
     }
 
-    func updateImage(challengeID: String,
-                     imageURL: String,
-                     thumbnailImageURL: String) {
-        FirebaseService.uploadImage(id: challengeID,
-                                    filename: "image",
+    func updateImage(challengeID: String, imageURL: String, thumbnailImageURL: String) {
+        FirebaseService.uploadImage(id: challengeID, filename: "image",
                                     imageURL: imageURL,
                                     completion: nil)
         FirebaseService.uploadImage(id: challengeID,
