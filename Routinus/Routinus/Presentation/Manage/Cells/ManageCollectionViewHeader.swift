@@ -43,7 +43,8 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
     public var isExpanded: Bool = true {
         didSet {
             let angle = isExpanded ? 0 : -Double.pi / 2
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
                 UIView.animate(withDuration: 0.3) {
                     self.toggleImageView.transform = CGAffineTransform(rotationAngle: angle)
                 }

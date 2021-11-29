@@ -97,36 +97,39 @@ extension ManageViewController {
         viewModel?.participatingChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
-                guard let self = self else { return }
+                guard let self = self,
+                      let dataSource = self.dataSource else { return }
                 let contents = challengeItem.map { Item.challenge($0) }
-                var snapshot = self.dataSource.snapshot(for: .participating)
+                var snapshot = dataSource.snapshot(for: .participating)
                 snapshot.deleteAll()
                 snapshot.append(contents)
-                self.dataSource.apply(snapshot, to: .participating)
+                dataSource.apply(snapshot, to: .participating)
             })
             .store(in: &cancellables)
 
         viewModel?.createdChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
-                guard let self = self else { return }
+                guard let self = self,
+                      let dataSource = self.dataSource else { return }
                 let contents = challengeItem.map { Item.challenge($0) }
-                var snapshot = self.dataSource.snapshot(for: .created)
+                var snapshot = dataSource.snapshot(for: .created)
                 snapshot.deleteAll()
                 snapshot.append(contents)
-                self.dataSource.apply(snapshot, to: .created)
+                dataSource.apply(snapshot, to: .created)
             })
             .store(in: &cancellables)
 
         viewModel?.endedChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
-                guard let self = self else { return }
+                guard let self = self,
+                      let dataSource = self.dataSource  else { return }
                 let contents = challengeItem.map { Item.challenge($0) }
-                var snapshot = self.dataSource.snapshot(for: .ended)
+                var snapshot = dataSource.snapshot(for: .ended)
                 snapshot.deleteAll()
                 snapshot.append(contents)
-                self.dataSource.apply(snapshot, to: .ended)
+                dataSource.apply(snapshot, to: .ended)
             })
             .store(in: &cancellables)
     }
@@ -157,7 +160,8 @@ extension ManageViewController {
     }
 
     @objc private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
+            guard let self = self else { return }
             self.expandHeaders()
             self.viewModel?.didLoadedManageView()
             self.collectionView.refreshControl?.endRefreshing()
@@ -184,8 +188,9 @@ extension ManageViewController: ChallengePromotionViewDelegate {
 }
 
 extension ManageViewController {
-    private func configureDataSource() -> DataSource {
-        let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, content in
+    private func configureDataSource() -> DataSource? {
+        let dataSource = DataSource(collectionView: collectionView) { [weak self] collectionView, indexPath, content in
+            guard let self = self else { return nil }
             switch content {
             case .title:
                 let cell = collectionView.dequeueReusableCell(
@@ -220,8 +225,10 @@ extension ManageViewController {
         return dataSource
     }
 
-    private func configureHeader(of dataSource: DataSource) {
-        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+    private func configureHeader(of dataSource: DataSource?) {
+        dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+            guard let self = self,
+                  let dataSource = self.dataSource  else { return nil }
             guard kind == UICollectionView.elementKindSectionHeader else {
                 return nil
             }
@@ -230,7 +237,7 @@ extension ManageViewController {
                                       ofKind: kind,
                                       withReuseIdentifier: ManageCollectionViewHeader.identifier,
                                       for: indexPath) as? ManageCollectionViewHeader
-            let section = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
 
             switch section {
             case .created:
@@ -257,9 +264,9 @@ extension ManageViewController {
     }
 
     private func configureTitle() {
-        var snapshot = dataSource.snapshot(for: .add)
+        guard var snapshot = dataSource?.snapshot(for: .add) else { return }
         snapshot.append([Item.title])
-        dataSource.apply(snapshot, to: .add)
+        dataSource?.apply(snapshot, to: .add)
     }
 }
 
@@ -296,12 +303,12 @@ extension ManageViewController: UIGestureRecognizerDelegate {
               let headerSection = header.section?.rawValue,
               let section = Section(rawValue: headerSection) else { return }
 
-        var snapshot = dataSource.snapshot(for: section)
+        guard var snapshot = dataSource?.snapshot(for: section) else { return }
         snapshot.deleteAll()
         if header.isExpanded {
             snapshot.append(items.map { Item.challenge($0) })
         }
 
-        dataSource.apply(snapshot, to: section)
+        dataSource?.apply(snapshot, to: section)
     }
 }

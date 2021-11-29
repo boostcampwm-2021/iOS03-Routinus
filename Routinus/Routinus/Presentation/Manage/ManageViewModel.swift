@@ -59,14 +59,16 @@ extension ManageViewModel {
     func configurePublishers() {
         challengeCreatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.didLoadedManageView()
             }
             .store(in: &cancellables)
 
         challengeUpdatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.didLoadedManageView()
             }
             .store(in: &cancellables)
