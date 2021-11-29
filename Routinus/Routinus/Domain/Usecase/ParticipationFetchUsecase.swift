@@ -21,8 +21,10 @@ struct ParticipationFetchUsecase: ParticipationFetchableUsecase {
     func fetchParticipation(challengeID: String, completion: @escaping (Participation?) -> Void) {
         guard let userID = RoutinusRepository.userID() else {
             completion(nil)
-            return }
-        repository.fetchChallengeParticipation(userID: userID, challengeID: challengeID) { participation in
+            return
+        }
+        repository.fetchChallengeParticipation(userID: userID,
+                                               challengeID: challengeID) { participation in
             completion(participation)
         }
     }

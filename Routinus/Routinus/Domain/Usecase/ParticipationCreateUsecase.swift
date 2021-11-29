@@ -22,8 +22,7 @@ struct ParticipationCreateUsecase: ParticipationCreatableUsecase {
 
     func createParticipation(challengeID: String) {
         let date = Date().toDateString()
-        repository.save(challengeID: challengeID,
-                        joinDate: date) {
+        repository.save(challengeID: challengeID, joinDate: date) {
             NotificationCenter.default.post(name: ParticipationCreateUsecase.didCreateParticipation,
                                             object: nil)
         }
