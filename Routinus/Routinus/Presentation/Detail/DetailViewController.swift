@@ -189,7 +189,8 @@ final class DetailViewController: UIViewController {
     }
 
     @objc private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
+            guard let self = self else { return }
             self.viewModel?.fetchChallenge()
             self.scrollView.refreshControl?.endRefreshing()
         }
@@ -230,8 +231,9 @@ extension DetailViewController: AuthMethodViewDelegate {
         guard let thumbnailImage = authMethodView.authThumbnailImage else { return }
         viewModel?.didTappedAuthMethodImage(imageData: thumbnailImage)
         guard let challengeID = viewModel?.challengeID else { return }
-        viewModel?.imageData(from: challengeID, filename: "auth_method") { data in
-            guard let data = data else { return }
+        viewModel?.imageData(from: challengeID, filename: "auth_method") { [weak self] data in
+            guard let self = self,
+                  let data = data else { return }
             self.viewModel?.loadedAuthMethodImage(imageData: data)
         }
     }

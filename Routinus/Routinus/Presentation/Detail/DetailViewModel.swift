@@ -112,28 +112,32 @@ extension DetailViewModel {
     func configurePublishers() {
         challengeUpdatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchChallenge()
             }
             .store(in: &cancellables)
 
         authCreatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchParticipationAuthState()
             }
             .store(in: &cancellables)
 
         participationCreatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchParticipationAuthState()
             }
             .store(in: &cancellables)
 
         participationUpdatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchParticipationAuthState()
             }
             .store(in: &cancellables)
