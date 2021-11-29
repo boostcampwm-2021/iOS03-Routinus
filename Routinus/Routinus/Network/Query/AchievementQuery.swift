@@ -8,8 +8,7 @@
 import Foundation
 
 enum AchievementQuery {
-    static func select(id: String,
-                                yearMonth: String) -> Data? {
+    static func select(id: String, yearMonth: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -41,9 +40,7 @@ enum AchievementQuery {
         """.data(using: .utf8)
     }
 
-    static func select(id: String,
-                                yearMonth: String,
-                                day: String) -> Data? {
+    static func select(id: String, yearMonth: String, day: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -82,10 +79,7 @@ enum AchievementQuery {
         """.data(using: .utf8)
     }
 
-    static func insert(id: String,
-                                yearMonth: String,
-                                day: String,
-                                totalCount: String) -> Data? {
+    static func insert(id: String, yearMonth: String, day: String, totalCount: String) -> Data? {
         return """
         {
             "fields": {
