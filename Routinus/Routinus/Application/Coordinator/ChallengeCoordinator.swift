@@ -43,8 +43,10 @@ final class ChallengeCoordinator: RoutinusCoordinator {
         challengeViewModel.recommendChallengeTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
-                let detailCoordinator = DetailCoordinator(navigationController: self.navigationController,
-                                                          challengeID: challengeID)
+                let detailCoordinator = DetailCoordinator(
+                    navigationController: self.navigationController,
+                    challengeID: challengeID
+                )
                 detailCoordinator.start()
                 self.childCoordinator.append(detailCoordinator)
             }
@@ -53,8 +55,10 @@ final class ChallengeCoordinator: RoutinusCoordinator {
         challengeViewModel.categoryButtonTap
             .sink { [weak self] category in
                 guard let self = self else { return }
-                let searchCoordinator = SearchCoordinator(navigationController: self.navigationController,
-                                                          category: category)
+                let searchCoordinator = SearchCoordinator(
+                    navigationController: self.navigationController,
+                    category: category
+                )
                 searchCoordinator.start()
                 self.childCoordinator.append(searchCoordinator)
             }
