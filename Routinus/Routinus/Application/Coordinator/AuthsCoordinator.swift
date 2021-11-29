@@ -27,10 +27,12 @@ final class AuthsCoordinator: RoutinusCoordinator {
         let repository = RoutinusRepository()
         let challengeAuthFetchUsecase = ChallengeAuthFetchUsecase(repository: repository)
         let imageFetchUsecase = ImageFetchUsecase(repository: repository)
-        let authImagesViewModel = AuthImagesViewModel(challengeID: challengeID,
-                                                      authDisplayState: authDisplayState,
-                                                      challengeAuthFetchUsecase: challengeAuthFetchUsecase,
-                                                      imageFetchUsecase: imageFetchUsecase)
+        let authImagesViewModel = AuthImagesViewModel(
+            challengeID: challengeID,
+            authDisplayState: authDisplayState,
+            challengeAuthFetchUsecase: challengeAuthFetchUsecase,
+            imageFetchUsecase: imageFetchUsecase
+        )
         let authImagesViewController = AuthImagesViewController(viewModel: authImagesViewModel)
         navigationController.pushViewController(authImagesViewController, animated: true)
 
@@ -38,7 +40,6 @@ final class AuthsCoordinator: RoutinusCoordinator {
             .receive(on: RunLoop.main)
             .sink { [weak self] imageData in
                 guard let self = self else { return }
-
                 let imageViewController = ImagePinchViewController()
                 imageViewController.setImage(data: imageData)
                 imageViewController.modalPresentationStyle = .overCurrentContext

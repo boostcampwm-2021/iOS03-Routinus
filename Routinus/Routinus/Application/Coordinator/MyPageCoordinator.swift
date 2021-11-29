@@ -25,6 +25,6 @@ final class MyPageCoordinator: RoutinusCoordinator {
                                               userUpdateUsecase: userUpdateUsecase)
         let myPageViewController = MyPageViewController(with: myPageViewModel)
 
-        self.navigationController.pushViewController(myPageViewController, animated: false)
+        navigationController.pushViewController(myPageViewController, animated: false)
     }
 }

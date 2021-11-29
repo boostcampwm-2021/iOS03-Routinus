@@ -40,7 +40,6 @@ final class AuthCoordinator: RoutinusCoordinator {
                                           userFetchUsecase: userFetchUsecase)
         let authViewController = AuthViewController(viewModel: authViewModel)
         authViewController.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(authViewController, animated: true)
 
         authViewModel.authMethodImageTap
             .receive(on: RunLoop.main)
@@ -60,5 +59,7 @@ final class AuthCoordinator: RoutinusCoordinator {
                 imageViewController?.setImage(data: imageData)
             }
             .store(in: &cancellables)
+
+        navigationController.pushViewController(authViewController, animated: true)
     }
 }

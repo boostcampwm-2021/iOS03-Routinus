@@ -74,6 +74,6 @@ final class HomeCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
-        self.navigationController.pushViewController(homeViewController, animated: false)
+        navigationController.pushViewController(homeViewController, animated: false)
     }
 }

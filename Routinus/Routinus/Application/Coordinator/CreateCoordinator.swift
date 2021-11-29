@@ -31,7 +31,6 @@ final class CreateCoordinator: RoutinusCoordinator {
         let imageFetchUsecase = ImageFetchUsecase(repository: repository)
         let imageSaveUsecase = ImageSaveUsecase(repository: repository)
         let imageUpdateUsecase = ImageUpdateUsecase(repository: repository)
-
         let createViewModel = CreateViewModel(challengeID: challengeID,
                                               challengeCreateUsecase: challengeCreateUsecase,
                                               challengeUpdateUsecase: challengeUpdateUsecase,
@@ -41,6 +40,7 @@ final class CreateCoordinator: RoutinusCoordinator {
                                               imageUpdateUsecase: imageUpdateUsecase)
         let createViewController = CreateViewController(with: createViewModel)
         createViewController.hidesBottomBarWhenPushed = true
+
         navigationController.pushViewController(createViewController, animated: true)
     }
 }
