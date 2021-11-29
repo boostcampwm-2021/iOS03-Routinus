@@ -4,6 +4,4 @@ disabled_rules:
 - file_length
 
 excluded:
-- Routinus/Application/AppDelegate.swift
-- Routinus/Application/SceneDelegate.swift
 - Pods/
