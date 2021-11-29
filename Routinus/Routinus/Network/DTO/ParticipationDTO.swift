@@ -14,10 +14,7 @@ struct ParticipationDTO: Codable {
         self.document = nil
     }
 
-    init(authCount: Int,
-                challengeID: String,
-                joinDate: String,
-                userID: String) {
+    init(authCount: Int, challengeID: String, joinDate: String, userID: String) {
         let field = ParticipationFields(authCount: IntegerField(integerValue: "\(authCount)"),
                                         challengeID: StringField(stringValue: challengeID),
                                         joinDate: StringField(stringValue: joinDate),

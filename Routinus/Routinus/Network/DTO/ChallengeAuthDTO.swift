@@ -14,10 +14,7 @@ struct ChallengeAuthDTO: Codable {
         self.document = nil
     }
 
-    init(challengeID: String,
-                userID: String,
-                date: String,
-                time: String) {
+    init(challengeID: String, userID: String, date: String, time: String) {
         let field = ChallengeAuthFields(challengeID: StringField(stringValue: challengeID),
                                         userID: StringField(stringValue: userID),
                                         date: StringField(stringValue: date),

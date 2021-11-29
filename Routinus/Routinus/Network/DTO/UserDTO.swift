@@ -15,11 +15,11 @@ struct UserDTO: Codable {
     }
 
     init(id: String,
-                name: String,
-                grade: Int,
-                continuityDay: Int,
-                userImageCategoryID: String,
-                lastAuthDay: String) {
+         name: String,
+         grade: Int,
+         continuityDay: Int,
+         userImageCategoryID: String,
+         lastAuthDay: String) {
         let field = UserFields(id: StringField(stringValue: id),
                                name: StringField(stringValue: name),
                                grade: IntegerField(integerValue: "\(grade)"),
