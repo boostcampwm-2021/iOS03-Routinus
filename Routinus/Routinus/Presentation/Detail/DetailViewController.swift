@@ -102,8 +102,7 @@ final class DetailViewController: UIViewController {
                          paddingBottom: smallWidth ? 60 : 90)
 
         stackView.addArrangedSubview(mainImageView)
-        mainImageView.anchor(horizontal: stackView,
-                             height: UIScreen.main.bounds.width)
+        mainImageView.anchor(horizontal: stackView, height: UIScreen.main.bounds.width)
 
         stackView.addArrangedSubview(informationView)
         stackView.addArrangedSubview(authMethodView)
@@ -180,9 +179,7 @@ final class DetailViewController: UIViewController {
 
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self,
-                                 action: #selector(refresh),
-                                 for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
@@ -212,8 +209,7 @@ extension DetailViewController: ParticipantButtonDelegate {
         let alert = UIAlertController(title: "alarm".localized,
                                       message: "participated".localized,
                                       preferredStyle: .alert)
-        let action = UIAlertAction(title: "ok".localized,
-                                   style: .default)
+        let action = UIAlertAction(title: "ok".localized, style: .default)
         alert.addAction(action)
         present(alert, animated: true)
     }
@@ -234,8 +230,7 @@ extension DetailViewController: AuthMethodViewDelegate {
         guard let thumbnailImage = authMethodView.authThumbnailImage else { return }
         self.viewModel?.didTappedAuthMethodImage(imageData: thumbnailImage)
         guard let challengeID = viewModel?.challengeID else { return }
-        self.viewModel?.imageData(from: challengeID,
-                                  filename: "auth_method") { data in
+        self.viewModel?.imageData(from: challengeID, filename: "auth_method") { data in
             guard let data = data else { return }
             self.viewModel?.loadedAuthMethodImage(imageData: data)
         }
