@@ -62,12 +62,12 @@ final class MyPageViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 }
 
@@ -76,43 +76,43 @@ extension MyPageViewController {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        self.view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground
 
-        self.view.addSubview(titleLabel)
+        view.addSubview(titleLabel)
         titleLabel.anchor(horizontal: titleLabel.superview,
                           paddingHorizontal: offset,
                           top: view.safeAreaLayoutGuide.topAnchor,
                           paddingTop: smallWidth ? 28 : 32,
                           height: 80)
 
-        self.view.addSubview(profileView)
+        view.addSubview(profileView)
         profileView.anchor(horizontal: profileView.superview,
                            paddingHorizontal: offset,
                            top: titleLabel.bottomAnchor,
                            paddingTop: 10,
                            height: 190)
 
-        self.view.addSubview(tableView)
+        view.addSubview(tableView)
         tableView.anchor(leading: view.leadingAnchor,
                          trailing: view.trailingAnchor,
                          top: profileView.bottomAnchor,
                          paddingTop: 20,
                          height: 150)
 
-        self.view.addSubview(versionLabel)
+        view.addSubview(versionLabel)
         versionLabel.anchor(centerX: versionLabel.superview?.centerXAnchor,
                             top: tableView.bottomAnchor,
                             paddingTop: 10)
     }
 
     private func configureDelegates() {
-        self.profileView.delegate = self
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        profileView.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     private func configureViewModel() {
-        self.viewModel?.user
+        viewModel?.user
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] user in
                 self?.profileView.setName(user.name)
@@ -120,7 +120,7 @@ extension MyPageViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.themeStyle
+        viewModel?.themeStyle
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] style in
                 self?.segmentedControl.selectedSegmentIndex = style
@@ -169,8 +169,8 @@ extension MyPageViewController: MyPageUserNameUpdatableDelegate, UITextFieldDele
     }
 
     private func updateUsername(_ name: String) {
-        self.viewModel?.updateUsername(name)
-        self.profileView.setName(name)
+        viewModel?.updateUsername(name)
+        profileView.setName(name)
     }
 
     func textFieldDidChangeSelection(_ textField: UITextField) {
