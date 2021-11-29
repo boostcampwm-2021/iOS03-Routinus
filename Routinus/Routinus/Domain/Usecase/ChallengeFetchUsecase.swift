@@ -10,17 +10,14 @@ import Foundation
 protocol ChallengeFetchableUsecase {
     func fetchRecommendChallenges(completion: @escaping ([Challenge]) -> Void)
     func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void)
-    func fetchSearchChallenges(keyword: String,
-                               completion: @escaping ([Challenge]) -> Void)
+    func fetchSearchChallenges(keyword: String, completion: @escaping ([Challenge]) -> Void)
     func fetchSearchChallenges(category: Challenge.Category,
                                completion: @escaping ([Challenge]) -> Void)
     func fetchCreatedChallengesByMe(completion: @escaping ([Challenge]) -> Void)
     func fetchMyParticipatingChallenges(completion: @escaping ([Challenge]) -> Void)
     func fetchMyEndedChallenges(completion: @escaping ([Challenge]) -> Void)
-    func fetchEdittingChallenge(challengeID: String,
-                                completion: @escaping (Challenge?) -> Void)
-    func fetchChallenge(challengeID: String,
-                        completion: @escaping (Challenge) -> Void)
+    func fetchEdittingChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void)
+    func fetchChallenge(challengeID: String, completion: @escaping (Challenge) -> Void)
 }
 
 struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
@@ -45,8 +42,7 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
         }
     }
 
-    func fetchSearchChallenges(keyword: String,
-                               completion: @escaping ([Challenge]) -> Void) {
+    func fetchSearchChallenges(keyword: String, completion: @escaping ([Challenge]) -> Void) {
         repository.fetchSearchChallengesBy(keyword: keyword) { challenges in
             let challenges = challenges.filter { $0.endDate ?? Date() >= Date() }
             let keywords = keyword.components(separatedBy: " ")
@@ -84,7 +80,9 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     func fetchMyParticipatingChallenges(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(of: id) { challenges in
-            completion(challenges.filter { $0.endDate ?? Date() >= Date() }.filter { $0.ownerID != id })
+            completion(challenges
+                        .filter { $0.endDate ?? Date() >= Date() }
+                        .filter { $0.ownerID != id })
         }
     }
 
@@ -95,15 +93,13 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
         }
     }
 
-    func fetchEdittingChallenge(challengeID: String,
-                                completion: @escaping (Challenge?) -> Void) {
+    func fetchEdittingChallenge(challengeID: String, completion: @escaping (Challenge?) -> Void) {
         repository.fetchEdittingChallenge(challengeID: challengeID) { challenge in
             completion(challenge)
         }
     }
 
-    func fetchChallenge(challengeID: String,
-                        completion: @escaping (Challenge) -> Void) {
+    func fetchChallenge(challengeID: String, completion: @escaping (Challenge) -> Void) {
         repository.fetchChallenge(challengeID: challengeID) { challenge in
             completion(challenge)
         }
