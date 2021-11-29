@@ -67,7 +67,7 @@ final class CreateWeekView: UIView {
 
     weak var delegate: UITextFieldDelegate? {
         didSet {
-            self.weekTextField.delegate = delegate
+            weekTextField.delegate = delegate
         }
     }
 

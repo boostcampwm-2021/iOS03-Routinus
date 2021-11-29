@@ -111,51 +111,51 @@ final class CreateViewModel: CreateViewModelIO {
 extension CreateViewModel {
     func update(category: Challenge.Category) {
         self.category = category
-        self.validate()
+        validate()
     }
 
     func update(title: String) {
         self.title = title.trimmingCharacters(in: .whitespacesAndNewlines)
-        self.validate()
+        validate()
     }
 
     func update(imageURL: String?) {
         self.imageURL = imageURL ?? ""
-        self.isChangedImage = true
-        self.validate()
+        isChangedImage = true
+        validate()
     }
 
     func update(thumbnailImageURL: String?) {
         self.thumbnailImageURL = thumbnailImageURL ?? ""
-        self.validate()
+        validate()
     }
 
     func update(week: Int) {
         guard let endDate = challengeCreateUsecase.endDate(week: week) else { return }
         self.week = week
         expectedEndDate.value = endDate
-        self.validate()
+        validate()
     }
 
     func update(introduction: String) {
         self.introduction = introduction.trimmingCharacters(in: .whitespacesAndNewlines)
-        self.validate()
+        validate()
     }
 
     func update(authMethod: String) {
         self.authMethod = authMethod.trimmingCharacters(in: .whitespacesAndNewlines)
-        self.validate()
+        validate()
     }
 
     func update(authExampleImageURL: String?) {
         self.authExampleImageURL = authExampleImageURL ?? ""
-        self.isChangedAuthImage = true
-        self.validate()
+        isChangedAuthImage = true
+        validate()
     }
 
     func update(authExampleThumbnailImageURL: String?) {
         self.authExampleThumbnailImageURL = authExampleThumbnailImageURL ?? ""
-        self.validate()
+        validate()
     }
 
     func updateAll(challenge: Challenge) {
@@ -170,9 +170,10 @@ extension CreateViewModel {
         self.authMethod = challenge.authMethod
         self.authExampleImageURL = challenge.authExampleImageURL
         self.authExampleThumbnailImageURL = challenge.authExampleThumbnailImageURL
-        guard let endDate = challengeUpdateUsecase.endDate(startDate: startDate, week: week) else { return }
+        guard let endDate = challengeUpdateUsecase.endDate(startDate: startDate,
+                                                           week: week) else { return }
         expectedEndDate.value = endDate
-        self.validate()
+        validate()
     }
 
     func didTappedCreateButton() {

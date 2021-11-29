@@ -37,7 +37,7 @@ final class CreateTitleView: UIView {
 
     weak var delegate: UITextFieldDelegate? {
         didSet {
-            self.textField.delegate = delegate
+            textField.delegate = delegate
         }
     }
 

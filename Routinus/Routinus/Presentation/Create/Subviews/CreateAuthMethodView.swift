@@ -39,7 +39,7 @@ final class CreateAuthMethodView: UIView {
 
     weak var delegate: UITextViewDelegate? {
         didSet {
-            self.textView.delegate = delegate
+            textView.delegate = delegate
         }
     }
 

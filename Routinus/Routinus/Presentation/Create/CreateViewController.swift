@@ -66,7 +66,7 @@ final class CreateViewController: UIViewController {
 
     @objc private func didTappedCreateButton(_ sender: UIButton) {
         viewModel?.didTappedCreateButton()
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -98,9 +98,9 @@ extension CreateViewController {
     }
 
     private func configureViewModel() {
-        self.viewModel?.didLoadedChallenge()
+        viewModel?.didLoadedChallenge()
 
-        self.viewModel?.buttonType
+        viewModel?.buttonType
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] buttonType in
                 guard let self = self else { return }
@@ -108,7 +108,7 @@ extension CreateViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.buttonState
+        viewModel?.buttonState
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isEnabled in
                 guard let self = self else { return }
@@ -117,7 +117,7 @@ extension CreateViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.expectedEndDate
+        viewModel?.expectedEndDate
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] endDate in
                 guard let self = self else { return }
@@ -125,7 +125,7 @@ extension CreateViewController {
             })
             .store(in: &cancellables)
 
-        self.viewModel?.challenge
+        viewModel?.challenge
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challenge in
                 guard let self = self, let challenge = challenge else { return }
