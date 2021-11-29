@@ -94,8 +94,9 @@ final class ChallengeViewController: UIViewController {
 }
 
 extension ChallengeViewController {
-    private func configureDataSource() -> DataSource {
-        let dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, content in
+    private func configureDataSource() -> DataSource? {
+        let dataSource = DataSource(collectionView: collectionView) { [weak self] collectionView, indexPath, content in
+            guard let self = self else { return nil }
             switch content {
             case .recommend(let recommendChallenge):
                 let cell = collectionView.dequeueReusableCell(
@@ -123,7 +124,8 @@ extension ChallengeViewController {
     }
 
     private func configureHeader(of dataSource: DataSource) {
-        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+        dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+            guard let self = self else { return nil }
             guard kind == UICollectionView.elementKindSectionHeader else {
                 return nil
             }
@@ -177,17 +179,18 @@ extension ChallengeViewController {
         viewModel?.recommendChallenges
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] recommendChallenges in
-                guard let self = self else { return }
-                var snapshot = self.dataSource.snapshot(for: Section.recommend)
+                guard let self = self, let dataSource = self.dataSource else { return }
+                var snapshot = dataSource.snapshot(for: Section.recommend)
                 let contents = recommendChallenges.map { ChallengeContents.recommend($0) }
                 snapshot.deleteAll()
                 snapshot.append(contents)
-                self.dataSource.apply(snapshot, to: Section.recommend)
+                dataSource.apply(snapshot, to: Section.recommend)
             })
             .store(in: &cancellables)
     }
 
     private func configureCategory() {
+        guard let dataSource = dataSource else { return }
         var snapshot = dataSource.snapshot(for: Section.category)
         snapshot.append([ChallengeContents.category])
         dataSource.apply(snapshot, to: Section.category)

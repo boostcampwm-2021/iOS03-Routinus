@@ -58,14 +58,16 @@ extension ChallengeViewModel {
     func configurePublishers() {
         challengeCreatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchChallenge()
             }
             .store(in: &cancellables)
 
         self.challengeUpdatePublisher
             .receive(on: RunLoop.main)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
                 self.fetchChallenge()
             }
             .store(in: &cancellables)
@@ -73,7 +75,8 @@ extension ChallengeViewModel {
 
     func fetchChallenge() {
         challengeFetchUsecase.fetchRecommendChallenges { [weak self] recommendChallenge in
-            self?.recommendChallenges.value = recommendChallenge
+            guard let self = self else { return }
+            self.recommendChallenges.value = recommendChallenge
         }
     }
 
