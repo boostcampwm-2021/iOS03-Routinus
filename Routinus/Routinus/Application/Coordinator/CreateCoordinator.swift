@@ -41,6 +41,6 @@ final class CreateCoordinator: RoutinusCoordinator {
                                               imageUpdateUsecase: imageUpdateUsecase)
         let createViewController = CreateViewController(with: createViewModel)
         createViewController.hidesBottomBarWhenPushed = true
-        self.navigationController.pushViewController(createViewController, animated: true)
+        navigationController.pushViewController(createViewController, animated: true)
     }
 }

@@ -15,7 +15,9 @@ final class AuthsCoordinator: RoutinusCoordinator {
     let challengeID: String
     let authDisplayState: AuthDisplayState
 
-    init(navigationController: UINavigationController, challengeID: String, authDisplayState: AuthDisplayState) {
+    init(navigationController: UINavigationController,
+         challengeID: String,
+         authDisplayState: AuthDisplayState) {
         self.navigationController = navigationController
         self.challengeID = challengeID
         self.authDisplayState = authDisplayState
@@ -30,7 +32,7 @@ final class AuthsCoordinator: RoutinusCoordinator {
                                                       challengeAuthFetchUsecase: challengeAuthFetchUsecase,
                                                       imageFetchUsecase: imageFetchUsecase)
         let authImagesViewController = AuthImagesViewController(viewModel: authImagesViewModel)
-        self.navigationController.pushViewController(authImagesViewController, animated: true)
+        navigationController.pushViewController(authImagesViewController, animated: true)
 
         authImagesViewModel.authImageTap
             .receive(on: RunLoop.main)
