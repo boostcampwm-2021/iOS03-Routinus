@@ -8,7 +8,7 @@
 import XCTest
 @testable import Routinus
 
-class ParticipantionFetchableUsecaseMock: ParticipationFetchableUsecase {
+class ParticipationFetchableUsecaseMock: ParticipationFetchableUsecase {
     func fetchParticipation(challengeID: String, completion: @escaping (Participation?) -> Void) {
         let participationDTO = ParticipationDTO(authCount: 2,
                                                 challengeID: "testChallengeID",
