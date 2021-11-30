@@ -91,4 +91,46 @@ class SearchViewModelTests: XCTestCase {
         XCTAssertEqual(week, 1)
         XCTAssertEqual(participantCount, 10)
     }
+
+    func testDidTappedChallenge() {
+        searchViewModel = SearchViewModel(category: nil,
+                                          imageFetchUsecase: ImageFetchableUsecaseMock(),
+                                          challengeFetchUsecase: ChallengeFetchableUsecaseMock())
+
+        let expectation = expectation(description: "Show Detail By Tapped Challenge")
+
+        searchViewModel.challengeTap
+            .sink { challgenID in
+                if challgenID != "" {
+                    expectation.fulfill()
+                } else {
+                    XCTFail("ChallengeID Not Exist")
+                }
+            }
+            .store(in: &cancellables)
+
+        searchViewModel.didTappedChallenge(index: 0)
+        wait(for: [expectation], timeout: 2)
+    }
+
+    func testDidChangedSearchText() {
+        searchViewModel = SearchViewModel(category: nil,
+                                          imageFetchUsecase: ImageFetchableUsecaseMock(),
+                                          challengeFetchUsecase: ChallengeFetchableUsecaseMock())
+
+        let expectation = expectation(description: "Change SearchBarText By Keyword")
+
+        searchViewModel.searchKeyword
+            .sink { keyword in
+                if keyword == "test" {
+                    expectation.fulfill()
+                } else {
+                    XCTFail("keyword Not Equal")
+                }
+            }
+            .store(in: &cancellables)
+
+        searchViewModel.didChangedSearchText("test")
+        wait(for: [expectation], timeout: 2)
+    }
 }
