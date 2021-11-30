@@ -181,7 +181,7 @@ extension DetailViewController {
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
-                         NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
+                         NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
         )
         scrollView.refreshControl = refreshControl
     }
