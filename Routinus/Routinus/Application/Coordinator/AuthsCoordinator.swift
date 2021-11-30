@@ -9,11 +9,11 @@ import Combine
 import UIKit
 
 final class AuthsCoordinator: RoutinusCoordinator {
+    let challengeID: String
+    let authDisplayState: AuthDisplayState
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
-    let challengeID: String
-    let authDisplayState: AuthDisplayState
 
     init(navigationController: UINavigationController,
          challengeID: String,
@@ -34,7 +34,6 @@ final class AuthsCoordinator: RoutinusCoordinator {
             imageFetchUsecase: imageFetchUsecase
         )
         let authImagesViewController = AuthImagesViewController(viewModel: authImagesViewModel)
-        navigationController.pushViewController(authImagesViewController, animated: true)
 
         authImagesViewModel.authImageTap
             .receive(on: RunLoop.main)
@@ -55,5 +54,7 @@ final class AuthsCoordinator: RoutinusCoordinator {
                 imageViewController?.setImage(data: imageData)
             }
             .store(in: &cancellables)
+
+        navigationController.pushViewController(authImagesViewController, animated: true)
     }
 }

@@ -9,10 +9,10 @@ import Combine
 import UIKit
 
 final class SearchCoordinator: RoutinusCoordinator {
+    var category: Challenge.Category?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
-    var category: Challenge.Category?
 
     init(navigationController: UINavigationController, category: Challenge.Category? = nil) {
         self.navigationController = navigationController

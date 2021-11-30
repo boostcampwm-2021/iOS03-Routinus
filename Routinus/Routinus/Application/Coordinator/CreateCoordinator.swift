@@ -9,10 +9,10 @@ import Combine
 import UIKit
 
 final class CreateCoordinator: RoutinusCoordinator {
+    var challengeID: String?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
-    var challengeID: String?
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -39,8 +39,8 @@ final class CreateCoordinator: RoutinusCoordinator {
                                               imageSaveUsecase: imageSaveUsecase,
                                               imageUpdateUsecase: imageUpdateUsecase)
         let createViewController = CreateViewController(with: createViewModel)
-        createViewController.hidesBottomBarWhenPushed = true
 
+        createViewController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(createViewController, animated: true)
     }
 }

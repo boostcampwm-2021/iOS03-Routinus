@@ -9,10 +9,10 @@ import Combine
 import UIKit
 
 final class DetailCoordinator: RoutinusCoordinator {
+    let challengeID: String?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
     var cancellables = Set<AnyCancellable>()
-    let challengeID: String?
 
     init(navigationController: UINavigationController, challengeID: String) {
         self.navigationController = navigationController
@@ -21,7 +21,6 @@ final class DetailCoordinator: RoutinusCoordinator {
 
     func start() {
         guard let challengeID = challengeID else { return }
-
         let repository = RoutinusRepository()
         let challengeFetchUsecase = ChallengeFetchUsecase(repository: repository)
         let challengeUpdateUsecase = ChallengeUpdateUsecase(repository: repository)
@@ -43,7 +42,6 @@ final class DetailCoordinator: RoutinusCoordinator {
             achievementUpdateUsecase: achievementUpdateUsecase
         )
         let detailViewController = DetailViewController(with: detailViewModel)
-        detailViewController.hidesBottomBarWhenPushed = true
 
         detailViewModel.editBarButtonTap
             .sink { [weak self] challengeID in
@@ -116,6 +114,7 @@ final class DetailCoordinator: RoutinusCoordinator {
             }
             .store(in: &cancellables)
 
+        detailViewController.hidesBottomBarWhenPushed = true
         navigationController.pushViewController(detailViewController, animated: true)
     }
 }

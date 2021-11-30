@@ -67,14 +67,22 @@ final class TabBarCoordinator: NSObject, RoutinusCoordinator {
     func start() {
         configureTabBarController()
     }
+}
 
+extension TabBarCoordinator {
     private func configureTabBarController() {
         let pages: [TabBarPage] = [.home, .challenge, .manage, .myPage]
-        let controllers: [UINavigationController] = pages.map { getTabBarController($0) }
-        prepareTabBarController(withTabControllers: controllers)
+        let controllers: [UINavigationController] = pages.map { tabBarController($0) }
+
+        tabBarController.setViewControllers(controllers, animated: true)
+        tabBarController.selectedIndex = TabBarPage.home.tabBarIndex()
+        tabBarController.tabBar.tintColor = UIColor(named: "MainColor")
+        tabBarController.tabBar.backgroundColor = .systemBackground
+        tabBarController.tabBar.isTranslucent = false
+        navigationController.viewControllers = [tabBarController]
     }
 
-    private func getTabBarController(_ page: TabBarPage) -> UINavigationController {
+    private func tabBarController(_ page: TabBarPage) -> UINavigationController {
         let navigationController = UINavigationController()
         navigationController.tabBarItem = UITabBarItem.init(
             title: page.title(),
@@ -102,14 +110,5 @@ final class TabBarCoordinator: NSObject, RoutinusCoordinator {
         }
 
         return navigationController
-    }
-
-    private func prepareTabBarController(withTabControllers tabControllers: [UIViewController]) {
-        tabBarController.setViewControllers(tabControllers, animated: true)
-        tabBarController.selectedIndex = TabBarPage.home.tabBarIndex()
-        tabBarController.tabBar.tintColor = UIColor(named: "MainColor")
-        tabBarController.tabBar.backgroundColor = .systemBackground
-        tabBarController.tabBar.isTranslucent = false
-        navigationController.viewControllers = [tabBarController]
     }
 }
