@@ -102,6 +102,9 @@
 "challenge created" = "Challenge has been created.";
 "challenge edited" = "Challenge has been edited.";
 "category" = "Category";
+"simulator is not allowed" = "The camera is not available in the simulator.";
+"no camera permission" = "No camera permission";
+"go to settings" = "Go to settings";
 
 // myPage
 "theme setting" = "Theme setting";

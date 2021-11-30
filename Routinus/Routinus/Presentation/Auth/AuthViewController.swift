@@ -5,6 +5,7 @@
 //  Created by 박상우 on 2021/11/02.
 //
 
+import AVFoundation
 import Combine
 import UIKit
 
@@ -153,8 +154,45 @@ extension AuthViewController {
 
 extension AuthViewController: PreviewViewDelegate {
     func didTappedPreviewView() {
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true, completion: nil)
+#if targetEnvironment(simulator)
+        let simulatorAlert = simulatorAlert()
+        present(simulatorAlert, animated: true, completion: nil)
+#else
+        let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        if status == .denied {
+            let authDeniedAlert = authDeniedAlert()
+            present(authDeniedAlert, animated: true, completion: nil)
+        } else {
+            imagePicker.sourceType = .camera
+            present(imagePicker, animated: true, completion: nil)
+        }
+#endif
+    }
+
+    private func simulatorAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "alarm".localized,
+                                      message: "simulator is not allowed".localized,
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "ok".localized, style: .default, handler: nil)
+        alert.addAction(okAction)
+        return alert
+    }
+
+    private func authDeniedAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "alarm".localized,
+                                      message: "no camera permission".localized,
+                                      preferredStyle: .alert)
+        let ok = UIAlertAction(title: "ok".localized, style: .default, handler: nil)
+        let moveSettings = UIAlertAction(title: "go to settings".localized, style: .default) { _ in
+            let settingsURL = UIApplication.openSettingsURLString
+            guard let appBundleID = Bundle.main.bundleIdentifier,
+                  let url = URL(string: "\(settingsURL)\(appBundleID)"),
+                  UIApplication.shared.canOpenURL(url) else { return }
+            UIApplication.shared.open(url)
+        }
+        alert.addAction(ok)
+        alert.addAction(moveSettings)
+        return alert
     }
 }
 
