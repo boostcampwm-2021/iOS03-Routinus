@@ -31,10 +31,7 @@ class AuthImagesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
-        configureDelegates()
-        configureViewModel()
-        configureRefreshControl()
+        configure()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +41,13 @@ class AuthImagesViewController: UIViewController {
 }
 
 extension AuthImagesViewController {
+    private func configure() {
+        configureViews()
+        configureViewModel()
+        configureDelegates()
+        configureRefreshControl()
+    }
+    
     private func configureViews() {
         view.backgroundColor = .systemBackground
         view.addSubview(collectionView)
@@ -55,11 +59,6 @@ extension AuthImagesViewController {
                               paddingTop: 10,
                               bottom: view.bottomAnchor,
                               paddingBottom: 10)
-    }
-
-    private func configureDelegates() {
-        collectionView.dataSource = self
-        collectionView.delegate = self
     }
 
     private func configureViewModel() {
@@ -85,6 +84,11 @@ extension AuthImagesViewController {
             .store(in: &cancellables)
     }
 
+    private func configureDelegates() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
+
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -106,9 +110,7 @@ extension AuthImagesViewController {
     }
 }
 
-extension AuthImagesViewController: UICollectionViewDataSource,
-                                    UICollectionViewDelegate,
-                                    UICollectionViewDelegateFlowLayout {
+extension AuthImagesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         return viewModel?.auths.value.count ?? 0
@@ -132,16 +134,9 @@ extension AuthImagesViewController: UICollectionViewDataSource,
         }
         return cell
     }
+}
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfCells: CGFloat = 2
-        let minimumInteritemSpacing: CGFloat = 10
-        let width = collectionView.frame.size.width - (minimumInteritemSpacing * (numberOfCells-1))
-        return CGSize(width: width / numberOfCells, height: width / numberOfCells)
-    }
-
+extension AuthImagesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath)
                 as? AuthImagesCollectionViewCell else { return }
@@ -157,5 +152,16 @@ extension AuthImagesViewController: UICollectionViewDataSource,
                 self.viewModel?.authImageLoad.send(data)
             }
         }
+    }
+}
+
+extension AuthImagesViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfCells: CGFloat = 2
+        let minimumInteritemSpacing: CGFloat = 10
+        let width = collectionView.frame.size.width - (minimumInteritemSpacing * (numberOfCells-1))
+        return CGSize(width: width / numberOfCells, height: width / numberOfCells)
     }
 }

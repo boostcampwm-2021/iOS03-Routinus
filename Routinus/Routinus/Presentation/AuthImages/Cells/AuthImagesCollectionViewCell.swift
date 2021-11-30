@@ -20,30 +20,34 @@ final class AuthImagesCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureCell()
+        configure()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureCell()
+        configure()
     }
 
     func update(image: UIImage) {
         imageView.image = image
     }
+    
+    func imageData() -> Data {
+        guard let imageData = imageView.image?.jpegData(compressionQuality: 1) else { return Data() }
+        return imageData
+    }
 }
 
 extension AuthImagesCollectionViewCell {
+    private func configure() {
+        configureCell()
+    }
+
     private func configureCell() {
         addSubview(imageView)
         imageView.anchor(leading: leadingAnchor,
                          trailing: trailingAnchor,
                          top: topAnchor,
                          bottom: bottomAnchor)
-    }
-
-    func imageData() -> Data {
-        guard let imageData = imageView.image?.jpegData(compressionQuality: 1) else { return Data() }
-        return imageData
     }
 }

@@ -25,13 +25,14 @@ protocol AuthImagesViewModelIO: AuthImagesViewModelInput, AuthImagesViewModelOut
 final class AuthImagesViewModel: AuthImagesViewModelIO {
     var auths = CurrentValueSubject<[ChallengeAuth], Never>([])
     var authDisplayState = CurrentValueSubject<AuthDisplayState, Never>(.all)
+
+    private var challengeID: String?
+
     var authImageTap = PassthroughSubject<Data, Never>()
     var authImageLoad = PassthroughSubject<Data, Never>()
 
     let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
     let imageFetchUsecase: ImageFetchableUsecase
-
-    private var challengeID: String?
 
     init(challengeID: String,
          authDisplayState: AuthDisplayState,
@@ -40,13 +41,20 @@ final class AuthImagesViewModel: AuthImagesViewModelIO {
         self.challengeID = challengeID
         self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
-
         fetchChallengeAuthData(authDisplayState: authDisplayState)
     }
 
-    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
-        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
-            completion?(data)
+    private func fetchChallengeAuths() {
+        guard let challengeID = challengeID else { return }
+        challengeAuthFetchUsecase.fetchChallengeAuths(challengeID: challengeID) { challengeAuths in
+            self.auths.value = challengeAuths
+        }
+    }
+
+    private func fetchMyChallengeAuths() {
+        guard let challengeID = challengeID else { return }
+        challengeAuthFetchUsecase.fetchMyChallengeAuths(challengeID: challengeID) { challengeAuths in
+            self.auths.value = challengeAuths
         }
     }
 }
@@ -63,17 +71,9 @@ extension AuthImagesViewModel {
         }
     }
 
-    private func fetchChallengeAuths() {
-        guard let challengeID = challengeID else { return }
-        challengeAuthFetchUsecase.fetchChallengeAuths(challengeID: challengeID) { challengeAuths in
-            self.auths.value = challengeAuths
-        }
-    }
-
-    private func fetchMyChallengeAuths() {
-        guard let challengeID = challengeID else { return }
-        challengeAuthFetchUsecase.fetchMyChallengeAuths(challengeID: challengeID) { challengeAuths in
-            self.auths.value = challengeAuths
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+            completion?(data)
         }
     }
 }
