@@ -114,8 +114,8 @@ extension MyPageViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] user in
                 guard let self = self else { return }
-                self.profileView.setName(user.name)
-                self.profileView.setImage(with: user)
+                self.profileView.updateName(user.name)
+                self.profileView.updateImage(with: user)
             })
             .store(in: &cancellables)
 
@@ -124,7 +124,7 @@ extension MyPageViewController {
             .sink(receiveValue: { [weak self] style in
                 guard let self = self else { return }
                 self.segmentedControl.selectedSegmentIndex = style
-                self.setThemeStyle(style)
+                self.updateThemeStyle(style)
             })
             .store(in: &cancellables)
     }
@@ -137,10 +137,10 @@ extension MyPageViewController {
 
     private func updateUsername(_ name: String) {
         viewModel?.updateUsername(name)
-        profileView.setName(name)
+        profileView.updateName(name)
     }
 
-    private func setThemeStyle(_ style: Int) {
+    private func updateThemeStyle(_ style: Int) {
         guard let style = UIUserInterfaceStyle(rawValue: style) else { return }
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
@@ -152,7 +152,7 @@ extension MyPageViewController {
     }
 
     @objc private func didChangeSegmentedControlValue(_ sender: UISegmentedControl) {
-        setThemeStyle(sender.selectedSegmentIndex)
+        updateThemeStyle(sender.selectedSegmentIndex)
     }
 }
 

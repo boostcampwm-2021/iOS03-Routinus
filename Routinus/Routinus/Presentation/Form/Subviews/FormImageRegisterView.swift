@@ -43,7 +43,7 @@ final class FormImageRegisterView: UIView {
         self.init(frame: CGRect.zero)
     }
 
-    func setImage(_ image: UIImage) {
+    func updateImage(_ image: UIImage) {
         imageView.image = image
         imageView.contentMode = .scaleAspectFill
     }

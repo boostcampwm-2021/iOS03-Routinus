@@ -65,7 +65,7 @@ final class PreviewView: UIView {
         self.init(frame: CGRect.zero)
     }
 
-    func setImage(_ image: UIImage) {
+    func updateImage(_ image: UIImage) {
         let backgroundImage = UIImageView(frame: previewView.bounds)
         backgroundImage.image = image
         backgroundImage.contentMode = .scaleAspectFill

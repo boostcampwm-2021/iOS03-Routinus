@@ -266,7 +266,7 @@ extension HomeViewController: UICollectionViewDataSource {
             withReuseIdentifier: DateCollectionViewCell.reuseIdentifier,
             for: indexPath
         ) as? DateCollectionViewCell else { return UICollectionViewCell() }
-        cell.setDay(day)
+        cell.updateDay(day)
         return cell
     }
 }

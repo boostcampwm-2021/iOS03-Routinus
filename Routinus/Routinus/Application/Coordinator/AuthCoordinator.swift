@@ -45,7 +45,7 @@ final class AuthCoordinator: RoutinusCoordinator {
             .sink { [weak self] imageData in
                 guard let self = self else { return }
                 let imageViewController = ImagePinchViewController()
-                imageViewController.setImage(data: imageData)
+                imageViewController.updateImage(data: imageData)
                 imageViewController.modalPresentationStyle = .overCurrentContext
                 self.navigationController.present(imageViewController, animated: true)
             }
@@ -55,7 +55,7 @@ final class AuthCoordinator: RoutinusCoordinator {
             .receive(on: RunLoop.main)
             .sink { imageData in
                 let imageViewController = authViewController.presentedViewController as? ImagePinchViewController
-                imageViewController?.setImage(data: imageData)
+                imageViewController?.updateImage(data: imageData)
             }
             .store(in: &cancellables)
 

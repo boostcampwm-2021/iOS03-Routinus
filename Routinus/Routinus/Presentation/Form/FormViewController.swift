@@ -136,7 +136,7 @@ extension FormViewController {
                                           completion: { data in
                     guard let data = data, let image = UIImage(data: data) else { return }
                     DispatchQueue.main.async {
-                        self.imageRegisterView.setImage(image)
+                        self.imageRegisterView.updateImage(image)
                     }
                 })
                 self.weekView.update(week: challenge.week) 
@@ -147,7 +147,7 @@ extension FormViewController {
                                           completion: { data in
                     guard let data = data, let image = UIImage(data: data) else { return }
                     DispatchQueue.main.async {
-                        self.authImageRegisterView.setImage(image)
+                        self.authImageRegisterView.updateImage(image)
                     }
                 })
             })
@@ -402,7 +402,7 @@ extension FormViewController: UIImagePickerControllerDelegate, UINavigationContr
                 )
                 viewModel?.update(imageURL: mainImageURL)
                 viewModel?.update(thumbnailImageURL: thumbnailImageURL)
-                imageRegisterView.setImage(thumbnailImage)
+                imageRegisterView.updateImage(thumbnailImage)
             case .authImage:
                 let mainImageURL = viewModel?.saveImage(
                     to: "temp",
@@ -416,7 +416,7 @@ extension FormViewController: UIImagePickerControllerDelegate, UINavigationContr
                 )
                 viewModel?.update(authExampleImageURL: mainImageURL)
                 viewModel?.update(authExampleThumbnailImageURL: thumbnailImageURL)
-                authImageRegisterView.setImage(thumbnailImage)
+                authImageRegisterView.updateImage(thumbnailImage)
 
             default:
                 break

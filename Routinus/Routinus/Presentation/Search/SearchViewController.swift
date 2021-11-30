@@ -165,13 +165,13 @@ extension SearchViewController {
                     withReuseIdentifier: ChallengeCollectionViewCell.identifier,
                     for: indexPath
                 ) as? ChallengeCollectionViewCell
-                cell?.setTitle(challenge.title)
+                cell?.updateTitle(challenge.title)
                 self.viewModel?.imageData(from: challenge.challengeID,
                                           filename: "thumbnail_image") { data in
                     guard let data = data,
                           let image = UIImage(data: data) else { return }
                     DispatchQueue.main.async {
-                        cell?.setImage(image)
+                        cell?.updateImage(image)
                     }
                 }
                 return cell

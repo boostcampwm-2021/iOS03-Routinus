@@ -42,11 +42,11 @@ final class ChallengeCollectionViewCell: UICollectionViewCell {
         imageView.image = nil
     }
 
-    func setTitle(_ title: String) {
+    func updateTitle(_ title: String) {
         titleLabel.text = title
     }
 
-    func setImage(_ image: UIImage) {
+    func updateImage(_ image: UIImage) {
         imageView.image = image
     }
 }

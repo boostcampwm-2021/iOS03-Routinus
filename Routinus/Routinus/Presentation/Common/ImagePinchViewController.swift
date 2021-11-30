@@ -40,7 +40,7 @@ final class ImagePinchViewController: UIViewController {
         configurePinch()
     }
 
-    func setImage(data: Data) {
+    func updateImage(data: Data) {
         imageData = data
     }
 }

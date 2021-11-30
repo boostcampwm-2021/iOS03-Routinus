@@ -203,7 +203,7 @@ extension AuthViewController: UIImagePickerControllerDelegate, UINavigationContr
             )
             self.viewModel?.update(userAuthImageURL: mainImageURL)
             self.viewModel?.update(userAuthThumbnailImageURL: thumbnailImageURL)
-            previewView.setImage(mainImage)
+            previewView.updateImage(mainImage)
         }
         dismiss(animated: true, completion: nil)
     }

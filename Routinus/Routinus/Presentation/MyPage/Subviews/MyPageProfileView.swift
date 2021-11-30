@@ -51,11 +51,11 @@ final class MyPageProfileView: UIView {
         configure()
     }
 
-    func setName(_ name: String) {
+    func updateName(_ name: String) {
         nameLabel.text = name
     }
 
-    func setImage(with user: User) {
+    func updateImage(with user: User) {
         imageView.image = UIImage(named: ContinuityState.image(for: user.continuityDay))
     }
 }

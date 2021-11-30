@@ -72,7 +72,7 @@ final class DateCollectionViewCell: UICollectionViewCell {
         configureViews()
     }
 
-    func setDay(_ day: Day?) {
+    func updateDay(_ day: Day?) {
         self.day = day
     }
 
