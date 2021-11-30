@@ -43,10 +43,10 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, scale)
 
         let label = UILabel(frame: CGRect(origin: .zero, size: size))
-        label.backgroundColor = UIColor.clear
+        label.backgroundColor = UIColor(named: "SystemBackground")?.withAlphaComponent(0)
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.textColor = .white.withAlphaComponent(0.5)
+        label.textColor = UIColor(named: "White").withAlphaComponent(0.5)
         label.font = UIFont.boldSystemFont(ofSize: 12)
         label.text = "\(name)\n\(date) \(time)"
 

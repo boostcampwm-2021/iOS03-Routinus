@@ -16,10 +16,10 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         imageView.alpha = 0.3
         return imageView
     }()
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor =  UIColor(named: "Black")
+        label.textColor =  UIColor(named: "SystemForeground")
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.lineBreakMode = .byTruncatingTail
         return label
@@ -43,7 +43,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
     private lazy var encounterIcon: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "person")
-        image.tintColor = UIColor(named: "Black")
+        image.tintColor = UIColor(named: "SystemForeground")
         return image
     }()
 
@@ -65,7 +65,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
 
         layer.borderWidth = 1
         layer.cornerRadius = 15
-        layer.borderColor = UIColor(named: "Black")?.cgColor
+        layer.borderColor = UIColor(named: "SystemForeground")?.cgColor
 
         addSubview(imageView)
         imageView.anchor(trailing: imageView.superview?.trailingAnchor,
@@ -113,7 +113,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         super.traitCollectionDidChange(previousTraitCollection)
 
         if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            layer.borderColor = UIColor(named: "Black")?.cgColor
+            layer.borderColor = UIColor(named: "SystemForeground")?.cgColor
         }
     }
 }

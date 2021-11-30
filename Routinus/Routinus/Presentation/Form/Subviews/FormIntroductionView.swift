@@ -26,13 +26,13 @@ final class FormIntroductionView: UIView {
         let label = UILabel()
         label.text = "introduce challenge 150".localized
         label.font = .systemFont(ofSize: 16)
-        label.textColor = .systemGray
+        label.textColor = UIColor(named: "DayColor")
         label.numberOfLines = 2
         return label
     }()
     private lazy var textView: UITextView = {
         let textView = UITextView()
-        textView.layer.borderColor = UIColor(named: "Black")?.cgColor
+        textView.layer.borderColor = UIColor(named: "SystemForeground")?.cgColor
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 10
         textView.font = .systemFont(ofSize: 16)

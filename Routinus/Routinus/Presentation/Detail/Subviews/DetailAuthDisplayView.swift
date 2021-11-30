@@ -53,14 +53,14 @@ final class DetailAuthDisplayView: UIView {
     private lazy var descriptionLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "DayColor")
         label.numberOfLines = 0
         return label
     }()
     private lazy var accessoryImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.right")
-        imageView.tintColor = UIColor(named: "Black")
+        imageView.tintColor = UIColor(named: "SystemForeground")
         return imageView
     }()
 
@@ -87,7 +87,7 @@ extension DetailAuthDisplayView {
     }
 
     private func configureSubviews() {
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "SystemBackground")
         layer.borderWidth = 1
         layer.borderColor = UIColor(named: "LightGray")?.cgColor
         layer.cornerRadius = 5

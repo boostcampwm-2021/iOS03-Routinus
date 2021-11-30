@@ -37,7 +37,7 @@ final class MyPageViewController: UIViewController {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         label.font = .systemFont(ofSize: 18)
         label.text = "v\(version ?? "0.0")"
-        label.textColor = .systemGray
+        label.textColor = UIColor(named: "DayColor")
         return label
     }()
 
@@ -80,7 +80,7 @@ extension MyPageViewController {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "SystemBackground")
 
         view.addSubview(titleLabel)
         titleLabel.anchor(horizontal: titleLabel.superview,

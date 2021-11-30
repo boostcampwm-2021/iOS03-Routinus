@@ -26,7 +26,7 @@ final class FormWeekView: UIView {
         let label = UILabel()
         label.text = "enter only number".localized
         label.font = .systemFont(ofSize: 16)
-        label.textColor = .systemGray
+        label.textColor = UIColor(named: "DayColor")
         label.numberOfLines = 2
         return label
     }()
@@ -47,9 +47,9 @@ final class FormWeekView: UIView {
     private lazy var endDateView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor(red: 1, green: 119/255, blue: 119/255, alpha: 1).cgColor
+        view.layer.borderColor = UIColor(named: "EndDateColor")?.cgColor
         view.layer.cornerRadius = 5
-        view.backgroundColor = UIColor(red: 252/255, green: 209/255, blue: 209/255, alpha: 1)
+        view.backgroundColor = UIColor(named: "WeekColor")
         return view
     }()
     private lazy var endTitleLabel: UILabel = {

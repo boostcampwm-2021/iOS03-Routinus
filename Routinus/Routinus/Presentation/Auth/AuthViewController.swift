@@ -18,7 +18,7 @@ final class AuthViewController: UIViewController {
     }()
     private lazy var authView: UIView = {
         var view = UIView()
-        view.backgroundColor = .systemBackground.withAlphaComponent(0.7)
+        view.backgroundColor = UIColor(named: "SystemBackground")?.withAlphaComponent(0.7)
         return view
     }()
     private lazy var authMethodView = AuthMethodView()
@@ -61,7 +61,7 @@ extension AuthViewController {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "SystemBackground")
         scrollView.showsVerticalScrollIndicator = false
         navigationItem.largeTitleDisplayMode = .never
 
@@ -134,7 +134,7 @@ extension AuthViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "DayColor"),
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
         )
         scrollView.refreshControl = refreshControl

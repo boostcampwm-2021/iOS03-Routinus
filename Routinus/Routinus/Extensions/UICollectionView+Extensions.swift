@@ -20,7 +20,7 @@ extension UICollectionView {
         let titleLabel: UILabel = {
             let label = UILabel()
             label.text = "auth empty".localized
-            label.textColor = UIColor(named: "Black")
+            label.textColor = UIColor(named: "SystemForeground")
             label.font = UIFont.boldSystemFont(ofSize: 18)
             return label
         }()
@@ -28,7 +28,7 @@ extension UICollectionView {
         let messageLabel: UILabel = {
             let label = UILabel()
             label.text = "lets auth".localized
-            label.textColor = .lightGray
+            label.textColor = UIColor(named: "LightGray")
             label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
             label.numberOfLines = 0
             label.textAlignment = .center

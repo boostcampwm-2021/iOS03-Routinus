@@ -32,7 +32,7 @@ final class ChallengeViewController: UIViewController {
 
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: ChallengeViewController.createLayout())
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = UIColor(named: "SystemBackground")
 
         collectionView.showsVerticalScrollIndicator = false
 
@@ -106,10 +106,10 @@ extension ChallengeViewController {
     }
 
     private func configureViews() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "SystemBackground")
 
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = UIColor(named: "Black")
+        backBarButtonItem.tintColor = UIColor(named: "SystemForeground")
         navigationItem.backBarButtonItem = backBarButtonItem
 
         view.addSubview(collectionView)
@@ -217,7 +217,7 @@ extension ChallengeViewController {
                                  for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "DayColor"),
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
         )
         collectionView.refreshControl = refreshControl

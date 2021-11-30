@@ -282,7 +282,7 @@ extension HomeViewModel {
         let challengeID = todayRoutines.value[index].challengeID
         todayRoutineAuthTap.send(challengeID)
     }
-  
+
     func didTappedExplanationButton() {
         calendarExplanationButtonTap.send()
     }

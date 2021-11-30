@@ -36,7 +36,7 @@ final class SearchViewController: UIViewController {
             frame: .zero,
             collectionViewLayout: SearchViewController.createLayout()
         )
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = UIColor(named: "SystemBackground")
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(
             SearchCollectionViewHeader.self,
@@ -98,7 +98,7 @@ extension SearchViewController {
     }
 
     private func configureViews() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "SystemBackground")
         view.addSubview(collectionView)
         configureNavigationBar()
         configureKeyboard()
@@ -184,7 +184,7 @@ extension SearchViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "DayColor"),
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
         )
         self.collectionView.refreshControl = refreshControl
@@ -212,7 +212,7 @@ extension SearchViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.largeTitleDisplayMode = .never
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = UIColor(named: "Black")
+        backBarButtonItem.tintColor = UIColor(named: "SystemForeground")
         navigationItem.backBarButtonItem = backBarButtonItem
     }
 

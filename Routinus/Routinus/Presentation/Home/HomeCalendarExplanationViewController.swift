@@ -14,19 +14,19 @@ final class HomeCalendarExplanationViewController: UIViewController {
 
     private lazy var backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        view.backgroundColor = UIColor(named: "Black")?.withAlphaComponent(0.8)
         return view
     }()
     private lazy var popUpView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "SystemBackground")
         view.anchor(height: 400)
         return view
     }()
     private lazy var dismissButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
-        button.tintColor = UIColor(named: "Black")
+        button.tintColor = UIColor(named: "SystemForeground")
         button.addTarget(self, action: #selector(didTappedDismisButton(_:)), for: .touchUpInside)
         return button
     }()

@@ -11,7 +11,7 @@ final class DetailInformationView: UIView {
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.backgroundColor = .systemBackground
+        stackView.backgroundColor = UIColor(named: "SystemBackground")
         stackView.distribution = .fill
         stackView.spacing = 10
         return stackView
@@ -26,7 +26,7 @@ final class DetailInformationView: UIView {
     private lazy var categoryImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.tintColor = UIColor(named: "Black")
+        imageView.tintColor = UIColor(named: "SystemForeground")
         return imageView
     }()
     private lazy var titleLabel: UILabel = {
@@ -89,7 +89,7 @@ final class DetailInformationView: UIView {
     private lazy var introductionView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 5
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = UIColor(named: "LightGray")
         return view
     }()
     private lazy var introductionLabel: UILabel = {
@@ -136,7 +136,7 @@ extension DetailInformationView {
     private func configure() {
         configureSubviews()
     }
-    
+
     private func configureSubviews() {
         addSubview(stackView)
         stackView.anchor(edges: self)

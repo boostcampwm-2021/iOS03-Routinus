@@ -76,8 +76,8 @@ extension TabBarCoordinator {
 
         tabBarController.setViewControllers(controllers, animated: true)
         tabBarController.selectedIndex = TabBarPage.home.tabBarIndex()
-        tabBarController.tabBar.tintColor = UIColor(named: "MainColor")
-        tabBarController.tabBar.backgroundColor = .systemBackground
+        tabBarController.tabBar.tintColor = UIColor(named: "MainColorReverse")
+        tabBarController.tabBar.backgroundColor = UIColor(named: "SystemBackground")
         tabBarController.tabBar.isTranslucent = false
         navigationController.viewControllers = [tabBarController]
     }

@@ -14,7 +14,7 @@ final class AuthButton: UIButton {
         super.init(frame: .zero)
         self.setTitle("certify".localized, for: .normal)
         self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 26)
-        self.setTitleColor(.black, for: .normal)
+        self.setTitleColor(UIColor(named: "Black"), for: .normal)
         self.backgroundColor = UIColor(named: "MainColor")
         self.layer.cornerRadius = 15
         self.addTarget(self, action: #selector(didTappedAuthButton), for: .touchUpInside)

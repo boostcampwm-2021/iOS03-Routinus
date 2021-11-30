@@ -32,7 +32,7 @@ final class ChallengeCategoryIconView: UIView {
 
     func updateTitle(_ text: String) {
         title.text = text
-        title.tintColor = UIColor(named: "Black")
+        title.tintColor = UIColor(named: "SystemForeground")
     }
 
     func updateTintColor(_ color: UIColor?) {

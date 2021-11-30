@@ -79,7 +79,7 @@ final class HomeContinuityView: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
 
         if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            layer.borderColor = UIColor(named: "Black")?.cgColor
+            layer.borderColor = UIColor(named: "SystemForeground")?.cgColor
         }
     }
 
@@ -94,7 +94,7 @@ extension HomeContinuityView {
     private func configureLayout() {
         layer.borderWidth = 1
         layer.cornerRadius = 5
-        layer.borderColor = UIColor(named: "Black")?.cgColor
+        layer.borderColor = UIColor(named: "SystemForeground")?.cgColor
     }
 
     private func configureSubviews() {

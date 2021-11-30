@@ -47,9 +47,9 @@ extension AuthImagesViewController {
         configureDelegates()
         configureRefreshControl()
     }
-    
+
     private func configureViews() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "SystemBackground")
         view.addSubview(collectionView)
         collectionView.anchor(leading: view.leadingAnchor,
                               paddingLeading: 10,
@@ -94,7 +94,7 @@ extension AuthImagesViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "DayColor"),
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
         )
         collectionView.refreshControl = refreshControl
