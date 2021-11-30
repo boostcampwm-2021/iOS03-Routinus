@@ -75,7 +75,7 @@ extension ChallengeViewModel {
     }
 }
 
-extension ChallengeViewModel {
+extension ChallengeViewModel: ChallengeViewModelInput {
     func fetchChallenge() {
         challengeFetchUsecase.fetchRecommendChallenges { [weak self] recommendChallenge in
             guard let self = self else { return }
