@@ -43,13 +43,7 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLaunchView()
-        configureThemeStyle()
-        configureViews()
-        configureViewModel()
-        configureDelegates()
-        configureDataSource()
-        configureRefreshControl()
+        configure()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +59,16 @@ final class HomeViewController: UIViewController {
 }
 
 extension HomeViewController {
+    private func configure() {
+        configureLaunchView()
+        configureThemeStyle()
+        configureViews()
+        configureViewModel()
+        configureDelegates()
+        configureDataSource()
+        configureRefreshControl()
+    }
+
     private func configureLaunchView() {
         tabBarController?.view.addSubview(launchView)
     }
