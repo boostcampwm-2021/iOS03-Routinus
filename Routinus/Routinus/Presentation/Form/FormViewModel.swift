@@ -120,14 +120,21 @@ extension FormViewModel {
         }
     }
 
-    private func validate() {
-        buttonState.value = !challengeCreateUsecase.isEmpty(
-            title: title,
-            imageURL: imageURL,
-            introduction: introduction,
-            authMethod: authMethod,
-            authExampleImageURL: authExampleImageURL
-        ) && validate(week: week)
+    private func checkButtonState() {
+        buttonState.value = !isEmpty(title: title,
+                                     imageURL: imageURL,
+                                     introduction: introduction,
+                                     authMethod: authMethod,
+                                     authExampleImageURL: authExampleImageURL)
+                            && validate(week: week)
+    }
+
+    private func isEmpty(title: String,
+                 imageURL: String,
+                 introduction: String,
+                 authMethod: String,
+                 authExampleImageURL: String) -> Bool {
+        return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
     }
 
     private func validate(week: Int) -> Bool {
@@ -144,51 +151,51 @@ extension FormViewModel: FormViewModelInput {
 
     func update(category: Challenge.Category) {
         self.category = category
-        validate()
+        checkButtonState()
     }
 
     func update(title: String) {
         self.title = title.trimmingCharacters(in: .whitespacesAndNewlines)
-        validate()
+        checkButtonState()
     }
 
     func update(imageURL: String?) {
         self.imageURL = imageURL ?? ""
         isChangedImage = true
-        validate()
+        checkButtonState()
     }
 
     func update(thumbnailImageURL: String?) {
         self.thumbnailImageURL = thumbnailImageURL ?? ""
-        validate()
+        checkButtonState()
     }
 
     func update(week: Int) {
         guard let endDate = challengeCreateUsecase.endDate(week: week) else { return }
         self.week = week
         expectedEndDate.value = endDate
-        validate()
+        checkButtonState()
     }
 
     func update(introduction: String) {
         self.introduction = introduction.trimmingCharacters(in: .whitespacesAndNewlines)
-        validate()
+        checkButtonState()
     }
 
     func update(authMethod: String) {
         self.authMethod = authMethod.trimmingCharacters(in: .whitespacesAndNewlines)
-        validate()
+        checkButtonState()
     }
 
     func update(authExampleImageURL: String?) {
         self.authExampleImageURL = authExampleImageURL ?? ""
         isChangedAuthImage = true
-        validate()
+        checkButtonState()
     }
 
     func update(authExampleThumbnailImageURL: String?) {
         self.authExampleThumbnailImageURL = authExampleThumbnailImageURL ?? ""
-        validate()
+        checkButtonState()
     }
 
     func updateAll(challenge: Challenge) {
@@ -206,7 +213,7 @@ extension FormViewModel: FormViewModelInput {
         guard let endDate = challengeUpdateUsecase.endDate(startDate: startDate,
                                                            week: week) else { return }
         expectedEndDate.value = endDate
-        validate()
+        checkButtonState()
     }
 
     func validateTextView(currentText: String, range: NSRange, text: String) -> Bool {
