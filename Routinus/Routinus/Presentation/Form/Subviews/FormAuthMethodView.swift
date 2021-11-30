@@ -1,5 +1,5 @@
 //
-//  CreateIntroductionView.swift
+//  FormAuthMethodView.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/09.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class CreateIntroductionView: UIView {
-    typealias Tag = CreateViewController.InputTag
+final class FormAuthMethodView: UIView {
+    typealias Tag = FormViewController.InputTag
 
     weak var delegate: UITextViewDelegate? {
         didSet {
@@ -18,16 +18,17 @@ final class CreateIntroductionView: UIView {
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "introduce challenge".localized
+        label.text = "write auth method".localized
         label.font = .boldSystemFont(ofSize: 20)
+        label.numberOfLines = 2
         return label
     }()
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "introduce challenge 150".localized
+        label.text = "auth method 150".localized
         label.font = .systemFont(ofSize: 16)
         label.textColor = .systemGray
-        label.numberOfLines = 2
+        label.numberOfLines = 3
         return label
     }()
     private lazy var textView: UITextView = {
@@ -36,7 +37,7 @@ final class CreateIntroductionView: UIView {
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 10
         textView.font = .systemFont(ofSize: 16)
-        textView.tag = Tag.introduction.rawValue
+        textView.tag = Tag.authMethod.rawValue
         return textView
     }()
 
@@ -58,12 +59,12 @@ final class CreateIntroductionView: UIView {
         textView.endEditing(true)
     }
 
-    func update(introduction: String) {
-        textView.text = introduction
+    func update(authMethod: String) {
+        textView.text = authMethod
     }
 }
 
-extension CreateIntroductionView {
+extension FormAuthMethodView {
     private func configure() {
         configureSubviews()
     }

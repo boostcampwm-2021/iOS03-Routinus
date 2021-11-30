@@ -1,5 +1,5 @@
 //
-//  CreateCoordinator.swift
+//  FormCoordinator.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/10.
@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class CreateCoordinator: RoutinusCoordinator {
+final class FormCoordinator: RoutinusCoordinator {
     var challengeID: String?
     var childCoordinator: [RoutinusCoordinator] = []
     var navigationController: UINavigationController
@@ -31,16 +31,16 @@ final class CreateCoordinator: RoutinusCoordinator {
         let imageFetchUsecase = ImageFetchUsecase(repository: repository)
         let imageSaveUsecase = ImageSaveUsecase(repository: repository)
         let imageUpdateUsecase = ImageUpdateUsecase(repository: repository)
-        let createViewModel = CreateViewModel(challengeID: challengeID,
-                                              challengeCreateUsecase: challengeCreateUsecase,
-                                              challengeUpdateUsecase: challengeUpdateUsecase,
-                                              challengeFetchUsecase: challengeFetchUsecase,
-                                              imageFetchUsecase: imageFetchUsecase,
-                                              imageSaveUsecase: imageSaveUsecase,
-                                              imageUpdateUsecase: imageUpdateUsecase)
-        let createViewController = CreateViewController(with: createViewModel)
+        let formViewModel = FormViewModel(challengeID: challengeID,
+                                          challengeCreateUsecase: challengeCreateUsecase,
+                                          challengeUpdateUsecase: challengeUpdateUsecase,
+                                          challengeFetchUsecase: challengeFetchUsecase,
+                                          imageFetchUsecase: imageFetchUsecase,
+                                          imageSaveUsecase: imageSaveUsecase,
+                                          imageUpdateUsecase: imageUpdateUsecase)
+        let formViewController = FormViewController(with: formViewModel)
 
-        createViewController.hidesBottomBarWhenPushed = true
-        navigationController.pushViewController(createViewController, animated: true)
+        formViewController.hidesBottomBarWhenPushed = true
+        navigationController.pushViewController(formViewController, animated: true)
     }
 }

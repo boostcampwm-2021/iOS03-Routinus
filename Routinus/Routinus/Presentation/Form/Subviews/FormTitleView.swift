@@ -1,5 +1,5 @@
 //
-//  CreateAuthMethodView.swift
+//  FormTitleView.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/09.
@@ -7,38 +7,36 @@
 
 import UIKit
 
-final class CreateAuthMethodView: UIView {
-    typealias Tag = CreateViewController.InputTag
-
-    weak var delegate: UITextViewDelegate? {
+final class FormTitleView: UIView {
+    typealias Tag = FormViewController.InputTag
+    
+    weak var delegate: UITextFieldDelegate? {
         didSet {
-            textView.delegate = delegate
+            textField.delegate = delegate
         }
     }
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "write auth method".localized
+        label.text = "write challenge name".localized
         label.font = .boldSystemFont(ofSize: 20)
         label.numberOfLines = 2
         return label
     }()
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "auth method 150".localized
+        label.text = "don't use bad words".localized
         label.font = .systemFont(ofSize: 16)
+        label.numberOfLines = 2
         label.textColor = .systemGray
-        label.numberOfLines = 3
         return label
     }()
-    private lazy var textView: UITextView = {
-        let textView = UITextView()
-        textView.layer.borderColor = UIColor(named: "Black")?.cgColor
-        textView.layer.borderWidth = 1
-        textView.layer.cornerRadius = 10
-        textView.font = .systemFont(ofSize: 16)
-        textView.tag = Tag.authMethod.rawValue
-        return textView
+    private lazy var textField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "ex) wake up at 6am".localized
+        textField.borderStyle = .roundedRect
+        textField.tag = Tag.title.rawValue
+        return textField
     }()
 
     override init(frame: CGRect) {
@@ -56,15 +54,15 @@ final class CreateAuthMethodView: UIView {
     }
 
     func hideKeyboard() {
-        textView.endEditing(true)
+        textField.endEditing(true)
     }
 
-    func update(authMethod: String) {
-        textView.text = authMethod
+    func update(title: String) {
+        textField.text = title
     }
 }
 
-extension CreateAuthMethodView {
+extension FormTitleView {
     private func configure() {
         configureSubviews()
     }
@@ -78,11 +76,10 @@ extension CreateAuthMethodView {
         descriptionLabel.anchor(top: titleLabel.bottomAnchor, paddingTop: 10,
                                 width: UIScreen.main.bounds.width - 40)
 
-        addSubview(textView)
-        textView.anchor(top: descriptionLabel.bottomAnchor, paddingTop: 20,
-                        width: UIScreen.main.bounds.width - 40,
-                        height: 150)
+        addSubview(textField)
+        textField.anchor(top: descriptionLabel.bottomAnchor, paddingTop: 20,
+                         width: UIScreen.main.bounds.width - 40)
 
-        anchor(bottom: textView.bottomAnchor)
+        anchor(bottom: textField.bottomAnchor)
     }
 }

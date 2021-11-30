@@ -1,5 +1,5 @@
 //
-//  CreateTitleView.swift
+//  FormIntroductionView.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/09.
@@ -7,36 +7,37 @@
 
 import UIKit
 
-final class CreateTitleView: UIView {
-    typealias Tag = CreateViewController.InputTag
-    
-    weak var delegate: UITextFieldDelegate? {
+final class FormIntroductionView: UIView {
+    typealias Tag = FormViewController.InputTag
+
+    weak var delegate: UITextViewDelegate? {
         didSet {
-            textField.delegate = delegate
+            textView.delegate = delegate
         }
     }
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "write challenge name".localized
+        label.text = "introduce challenge".localized
         label.font = .boldSystemFont(ofSize: 20)
-        label.numberOfLines = 2
         return label
     }()
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "don't use bad words".localized
+        label.text = "introduce challenge 150".localized
         label.font = .systemFont(ofSize: 16)
-        label.numberOfLines = 2
         label.textColor = .systemGray
+        label.numberOfLines = 2
         return label
     }()
-    private lazy var textField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "ex) wake up at 6am".localized
-        textField.borderStyle = .roundedRect
-        textField.tag = Tag.title.rawValue
-        return textField
+    private lazy var textView: UITextView = {
+        let textView = UITextView()
+        textView.layer.borderColor = UIColor(named: "Black")?.cgColor
+        textView.layer.borderWidth = 1
+        textView.layer.cornerRadius = 10
+        textView.font = .systemFont(ofSize: 16)
+        textView.tag = Tag.introduction.rawValue
+        return textView
     }()
 
     override init(frame: CGRect) {
@@ -54,15 +55,15 @@ final class CreateTitleView: UIView {
     }
 
     func hideKeyboard() {
-        textField.endEditing(true)
+        textView.endEditing(true)
     }
 
-    func update(title: String) {
-        textField.text = title
+    func update(introduction: String) {
+        textView.text = introduction
     }
 }
 
-extension CreateTitleView {
+extension FormIntroductionView {
     private func configure() {
         configureSubviews()
     }
@@ -76,10 +77,11 @@ extension CreateTitleView {
         descriptionLabel.anchor(top: titleLabel.bottomAnchor, paddingTop: 10,
                                 width: UIScreen.main.bounds.width - 40)
 
-        addSubview(textField)
-        textField.anchor(top: descriptionLabel.bottomAnchor, paddingTop: 20,
-                         width: UIScreen.main.bounds.width - 40)
+        addSubview(textView)
+        textView.anchor(top: descriptionLabel.bottomAnchor, paddingTop: 20,
+                        width: UIScreen.main.bounds.width - 40,
+                        height: 150)
 
-        anchor(bottom: textField.bottomAnchor)
+        anchor(bottom: textView.bottomAnchor)
     }
 }

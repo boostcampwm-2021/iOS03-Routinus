@@ -1,5 +1,5 @@
 //
-//  CreateViewModel.swift
+//  FormViewModel.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/09.
@@ -22,7 +22,7 @@ enum ButtonType: String {
     }
 }
 
-protocol CreateViewModelInput {
+protocol FormViewModelInput {
     func update(category: Challenge.Category)
     func update(title: String)
     func update(imageURL: String?)
@@ -32,7 +32,7 @@ protocol CreateViewModelInput {
     func update(authMethod: String)
     func update(authExampleImageURL: String?)
     func update(authExampleThumbnailImageURL: String?)
-    func didTappedCreateButton()
+    func didTappedCompleteButton()
     func validateTextView(currentText: String, range: NSRange, text: String) -> Bool
     func validateTextField(currentText: String, range: NSRange, text: String) -> Bool
     func validateWeek(currentText: String) -> String
@@ -41,16 +41,16 @@ protocol CreateViewModelInput {
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
 }
 
-protocol CreateViewModelOutput {
+protocol FormViewModelOutput {
     var buttonType: CurrentValueSubject<ButtonType, Never> { get }
     var buttonState: CurrentValueSubject<Bool, Never> { get }
     var expectedEndDate: CurrentValueSubject<Date, Never> { get }
     var challenge: CurrentValueSubject<Challenge?, Never> { get }
 }
 
-protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
+protocol FormViewModelIO: FormViewModelInput, FormViewModelOutput { }
 
-final class CreateViewModel: CreateViewModelIO {
+final class FormViewModel: FormViewModelIO {
     var buttonType = CurrentValueSubject<ButtonType, Never>(.create)
     var buttonState = CurrentValueSubject<Bool, Never>(false)
     var expectedEndDate = CurrentValueSubject<Date, Never>(
@@ -130,7 +130,7 @@ final class CreateViewModel: CreateViewModelIO {
     }
 }
 
-extension CreateViewModel {
+extension FormViewModel {
     func update(category: Challenge.Category) {
         self.category = category
         validate()
@@ -198,7 +198,7 @@ extension CreateViewModel {
         validate()
     }
 
-    func didTappedCreateButton() {
+    func didTappedCompleteButton() {
         guard let category = category else { return }
         if buttonType.value == .create {
             challengeCreateUsecase.createChallenge(

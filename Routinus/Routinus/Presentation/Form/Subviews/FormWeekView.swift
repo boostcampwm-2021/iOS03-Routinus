@@ -1,5 +1,5 @@
 //
-//  CreateWeekView.swift
+//  FormWeekView.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/09.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class CreateWeekView: UIView {
-    typealias Tag = CreateViewController.InputTag
+final class FormWeekView: UIView {
+    typealias Tag = FormViewController.InputTag
 
     weak var delegate: UITextFieldDelegate? {
         didSet {
@@ -92,7 +92,7 @@ final class CreateWeekView: UIView {
     }
 }
 
-extension CreateWeekView {
+extension FormWeekView {
     private func configure() {
         configureSubviews()
     }

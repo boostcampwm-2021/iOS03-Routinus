@@ -1,5 +1,5 @@
 //
-//  CreateAuthImageRegisterView.swift
+//  FormAuthImageRegisterView.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/09.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class CreateAuthImageRegisterView: UIView {
-    weak var delegate: CreateImagePickerDelegate?
+final class FormAuthImageRegisterView: UIView {
+    weak var delegate: FormImagePickerDelegate?
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -57,7 +57,7 @@ final class CreateAuthImageRegisterView: UIView {
     }
 }
 
-extension CreateAuthImageRegisterView {
+extension FormAuthImageRegisterView {
     private func configure() {
         configureSubviews()
         configureGesture()
@@ -89,6 +89,6 @@ extension CreateAuthImageRegisterView {
 
     @objc private func didTappedImageView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
-        delegate?.didTappedImageView(CreateViewController.InputTag.authImage.rawValue)
+        delegate?.didTappedImageView(FormViewController.InputTag.authImage.rawValue)
     }
 }

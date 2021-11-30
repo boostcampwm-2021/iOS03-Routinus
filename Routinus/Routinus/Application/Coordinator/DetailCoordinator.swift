@@ -46,12 +46,12 @@ final class DetailCoordinator: RoutinusCoordinator {
         detailViewModel.editBarButtonTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
-                let createCoordinator = CreateCoordinator(
+                let formCoordinator = FormCoordinator(
                     navigationController: self.navigationController,
                     challengeID: challengeID
                 )
-                createCoordinator.start()
-                self.childCoordinator.append(createCoordinator)
+                formCoordinator.start()
+                self.childCoordinator.append(formCoordinator)
             }
             .store(in: &cancellables)
 

@@ -41,9 +41,9 @@ final class ManageCoordinator: RoutinusCoordinator {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.navigationController.navigationBar.prefersLargeTitles = false
-                let createCoordinator = CreateCoordinator(navigationController: self.navigationController)
-                createCoordinator.start()
-                self.childCoordinator.append(createCoordinator)
+                let formCoordinator = FormCoordinator(navigationController: self.navigationController)
+                formCoordinator.start()
+                self.childCoordinator.append(formCoordinator)
             }
             .store(in: &cancellables)
 

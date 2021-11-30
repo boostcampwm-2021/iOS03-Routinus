@@ -1,5 +1,5 @@
 //
-//  CreateCategoryView.swift
+//  FormCategoryView.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/09.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class CreateCategoryView: UIView {
-    weak var delegate: CreateSubviewDelegate?
+final class FormCategoryView: UIView {
+    weak var delegate: FormSubviewDelegate?
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -70,7 +70,7 @@ final class CreateCategoryView: UIView {
     }
 }
 
-extension CreateCategoryView {
+extension FormCategoryView {
     private func configure() {
         configureButton()
         configureLayouts()

@@ -1,5 +1,5 @@
 //
-//  CreateViewController.swift
+//  FormViewController.swift
 //  Routinus
 //
 //  Created by 박상우 on 2021/11/02.
@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class CreateViewController: UIViewController {
+final class FormViewController: UIViewController {
     enum InputTag: Int {
         case category = 0, title, image, week, introduction, authMethod, authImage
     }
@@ -22,14 +22,14 @@ final class CreateViewController: UIViewController {
         stackView.spacing = 35
         return stackView
     }()
-    private lazy var categoryView = CreateCategoryView()
-    private lazy var titleView = CreateTitleView()
-    private lazy var imageRegisterView = CreateImageRegisterView()
-    private lazy var weekView = CreateWeekView()
-    private lazy var introductionView = CreateIntroductionView()
-    private lazy var authMethodView = CreateAuthMethodView()
-    private lazy var authImageRegisterView = CreateAuthImageRegisterView()
-    private lazy var createButton: UIButton = {
+    private lazy var categoryView = FormCategoryView()
+    private lazy var titleView = FormTitleView()
+    private lazy var imageRegisterView = FormImageRegisterView()
+    private lazy var weekView = FormWeekView()
+    private lazy var introductionView = FormIntroductionView()
+    private lazy var authMethodView = FormAuthMethodView()
+    private lazy var authImageRegisterView = FormAuthImageRegisterView()
+    private lazy var completeButton: UIButton = {
         var button = UIButton()
         button.setTitle(ButtonType.create.rawValue.localized, for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -38,17 +38,17 @@ final class CreateViewController: UIViewController {
         button.layer.cornerRadius = 20
         button.isEnabled = false
         button.alpha = 0.5
-        button.addTarget(self, action: #selector(didTappedCreateButton(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTappedCompleteButton(_:)), for: .touchUpInside)
         return button
     }()
 
-    private var viewModel: CreateViewModelIO?
+    private var viewModel: FormViewModelIO?
     private var cancellables = Set<AnyCancellable>()
     private var imagePicker = UIImagePickerController()
     private var selectedImagePickerTag: InputTag?
     private var constraint: NSLayoutConstraint?
 
-    init(with viewModel: CreateViewModelIO) {
+    init(with viewModel: FormViewModelIO) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -63,7 +63,7 @@ final class CreateViewController: UIViewController {
     }
 }
 
-extension CreateViewController {
+extension FormViewController {
     private func configure() {
         configureViews()
         configureViewModel()
@@ -94,8 +94,8 @@ extension CreateViewController {
         stackView.addArrangedSubview(introductionView)
         stackView.addArrangedSubview(authMethodView)
         stackView.addArrangedSubview(authImageRegisterView)
-        stackView.addArrangedSubview(createButton)
-        createButton.anchor(height: 55)
+        stackView.addArrangedSubview(completeButton)
+        completeButton.anchor(height: 55)
     }
 
     private func configureViewModel() {
@@ -103,7 +103,7 @@ extension CreateViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] buttonType in
                 guard let self = self else { return }
-                self.createButton.setTitle(buttonType.rawValue.localized, for: .normal)
+                self.completeButton.setTitle(buttonType.rawValue.localized, for: .normal)
             })
             .store(in: &cancellables)
 
@@ -111,8 +111,8 @@ extension CreateViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isEnabled in
                 guard let self = self else { return }
-                self.createButton.isEnabled = isEnabled
-                self.createButton.alpha = isEnabled ? 1 : 0.5
+                self.completeButton.isEnabled = isEnabled
+                self.completeButton.alpha = isEnabled ? 1 : 0.5
             })
             .store(in: &cancellables)
 
@@ -190,8 +190,8 @@ extension CreateViewController {
         authMethodView.hideKeyboard()
     }
 
-    @objc private func didTappedCreateButton(_ sender: UIButton) {
-        viewModel?.didTappedCreateButton()
+    @objc private func didTappedCompleteButton(_ sender: UIButton) {
+        viewModel?.didTappedCompleteButton()
         navigationController?.popViewController(animated: true)
     }
 
@@ -232,7 +232,7 @@ extension CreateViewController {
     }
 }
 
-extension CreateViewController: CreateSubviewDelegate {
+extension FormViewController: FormSubviewDelegate {
     func didChange(category: Challenge.Category) {
         viewModel?.update(category: category)
     }
@@ -251,7 +251,7 @@ extension CreateViewController: CreateSubviewDelegate {
     }
 }
 
-extension CreateViewController: UITextFieldDelegate {
+extension FormViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         guard let offset = textField.superview?.frame.origin.y else { return }
         DispatchQueue.main.async { [weak self] in
@@ -295,7 +295,7 @@ extension CreateViewController: UITextFieldDelegate {
     }
 }
 
-extension CreateViewController: UITextViewDelegate {
+extension FormViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         guard let offset = textView.superview?.frame.origin.y else { return }
         DispatchQueue.main.async { [weak self] in
@@ -332,7 +332,7 @@ extension CreateViewController: UITextViewDelegate {
     }
 }
 
-extension CreateViewController: CreateImagePickerDelegate {
+extension FormViewController: FormImagePickerDelegate {
     func didTappedImageView(_ tag: Int) {
         var title = ""
 
@@ -381,7 +381,7 @@ extension CreateViewController: CreateImagePickerDelegate {
     }
 }
 
-extension CreateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension FormViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
         if let originalImage = info[InfoKey.originalImage] as? UIImage {
