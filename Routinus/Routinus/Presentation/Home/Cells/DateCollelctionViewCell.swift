@@ -72,6 +72,10 @@ final class DateCollectionViewCell: UICollectionViewCell {
         configureViews()
     }
 
+    func setDay(_ day: Day?) {
+        self.day = day
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -95,18 +99,12 @@ final class DateCollectionViewCell: UICollectionViewCell {
 }
 
 extension DateCollectionViewCell {
-    func setDay(_ day: Day?) {
-        self.day = day
-    }
-
     private func configureViews() {
         contentView.addSubview(numberLabel)
         contentView.addSubview(achievementCharacterView)
     }
-}
 
-private extension DateCollectionViewCell {
-    func updateSelectionStatus() {
+    private func updateSelectionStatus() {
         guard let day = day else { return }
 
         applyDefaultStyle(isWithinDisplayedMonth: day.isWithinDisplayedMonth,
@@ -116,7 +114,7 @@ private extension DateCollectionViewCell {
         }
     }
 
-    func applyDefaultStyle(isWithinDisplayedMonth: Bool, weekday: Int) {
+    private func applyDefaultStyle(isWithinDisplayedMonth: Bool, weekday: Int) {
         let color: UIColor?
         switch weekday {
         case 1:

@@ -11,7 +11,7 @@ class CalendarExplanationViewController: UIViewController {
     enum StickerPercent: String, CaseIterable {
         case miss = "1-19", bad = "20-39", good = "40-65", great = "66-99", perfect = "100"
     }
-    
+
     private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
@@ -52,7 +52,9 @@ class CalendarExplanationViewController: UIViewController {
         super.viewDidLoad()
         configureViews()
     }
+}
 
+extension CalendarExplanationViewController {
     private func configureViews() {
         view.addSubview(backgroundView)
         backgroundView.anchor(edges: view)

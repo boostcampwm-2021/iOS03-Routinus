@@ -136,7 +136,7 @@ extension HomeViewController {
             .sink(receiveValue: { [weak self] user in
                 guard let self = self else { return }
                 self.titleLabel.text = "%@ routine".localized(with: user.name)
-                self.continuityView.configureContents(with: user)
+                self.continuityView.updateContents(with: user)
             })
             .store(in: &cancellables)
 
@@ -182,7 +182,7 @@ extension HomeViewController {
                     for: indexPath
                   ) as? RoutineTableViewCell,
                   let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
-            cell.configureCell(routine: routines[indexPath.row])
+            cell.updateCell(routine: routines[indexPath.row])
             cell.selectionStyle = .none
             return cell
         }

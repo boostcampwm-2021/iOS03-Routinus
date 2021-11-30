@@ -54,11 +54,7 @@ final class RoutineTableViewCell: UITableViewCell {
         self.configureViews()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
-    func configureCell(routine: TodayRoutine) {
+    func updateCell(routine: TodayRoutine) {
         if UIImage(systemName: routine.category.symbol) == nil {
             categoryImageView.image = UIImage(named: routine.category.symbol)
         } else {
@@ -71,6 +67,18 @@ final class RoutineTableViewCell: UITableViewCell {
                 let progress = Float(routine.authCount) / Float(routine.totalCount)
                 self.progressView.setProgress(progress, animated: true)
             }
+        }
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            progressView.layer.borderColor = UIColor(named: "MainColor")?.cgColor
         }
     }
 }
@@ -106,13 +114,5 @@ extension RoutineTableViewCell {
                                  trailing: leftArrow.leadingAnchor,
                                  centerY: centerYAnchor)
 
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            progressView.layer.borderColor = UIColor(named: "MainColor")?.cgColor
-        }
     }
 }

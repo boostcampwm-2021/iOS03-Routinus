@@ -15,7 +15,7 @@ final class TodayRoutineView: UIView {
         return label
     }()
 
-    let challengePromotionView = ChallengePromotionView()
+    private lazy var challengePromotionView = ChallengePromotionView()
 
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)

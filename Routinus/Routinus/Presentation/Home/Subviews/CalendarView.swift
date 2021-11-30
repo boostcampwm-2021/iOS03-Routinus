@@ -81,27 +81,16 @@ final class CalendarView: UIView {
     init(viewModel: HomeViewModelIO?) {
         self.viewModel = viewModel
         super.init(frame: CGRect(origin: .zero, size: .zero))
-        configureView()
-        configureViewModel()
+        configure()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureView()
-        configureViewModel()
+        configure()
     }
 
-    func configureView() {
-        addSubview(titleLabel)
-        addSubview(explanationButton)
-        addSubview(calendarView)
-        addSubview(headerView)
-
-        calendarView.register(
-            DateCollectionViewCell.self,
-            forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier
-        )
-        headerView.baseDate = viewModel?.baseDate.value ?? Date()
+    func reloadData() {
+        calendarView.reloadData()
     }
 
     override func layoutSubviews() {
@@ -132,6 +121,26 @@ final class CalendarView: UIView {
             calendarView.layer.borderColor = UIColor(named: "LightGray")?.cgColor
         }
     }
+}
+
+extension CalendarView {
+    private func configure() {
+        configureView()
+        configureViewModel()
+    }
+
+    private func configureView() {
+        addSubview(titleLabel)
+        addSubview(explanationButton)
+        addSubview(calendarView)
+        addSubview(headerView)
+
+        calendarView.register(
+            DateCollectionViewCell.self,
+            forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier
+        )
+        headerView.baseDate = viewModel?.baseDate.value ?? Date()
+    }
 
     private func configureViewModel() {
         viewModel?.baseDate
@@ -142,10 +151,6 @@ final class CalendarView: UIView {
                 self.calendarView.reloadInputViews()
             })
             .store(in: &cancellables)
-    }
-
-    func reloadData() {
-        calendarView.reloadData()
     }
 
     @objc private func didTappedExplanationButton() {

@@ -69,11 +69,20 @@ final class ContinuityView: UIView {
         self.init(frame: CGRect.zero)
     }
 
-    func configureContents(with user: User) {
+    func updateContents(with user: User) {
         guard !user.name.isEmpty else { return }
         continuityDayLabel.text = "\(user.continuityDay)"
         seedImageView.image = UIImage(named: ContinuityState.image(for: user.continuityDay))
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            layer.borderColor = UIColor(named: "Black")?.cgColor
+        }
+    }
+
 }
 
 extension ContinuityView {
@@ -106,13 +115,5 @@ extension ContinuityView {
                                paddingLeading: 5,
                                bottom: continuityDayLabel.bottomAnchor,
                                paddingBottom: 8)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            layer.borderColor = UIColor(named: "Black")?.cgColor
-        }
     }
 }

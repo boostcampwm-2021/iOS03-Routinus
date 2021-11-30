@@ -89,54 +89,6 @@ final class CalendarHeader: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
-}
-
-extension CalendarHeader {
-    private func dayOfWeekLetter(for dayNumber: Int) -> String {
-        switch dayNumber {
-        case 1:
-            return "sun".localized
-        case 2:
-            return "mon".localized
-        case 3:
-            return "tue".localized
-        case 4:
-            return "wed".localized
-        case 5:
-            return "thu".localized
-        case 6:
-            return "fri".localized
-        case 7:
-            return "sat".localized
-        default:
-            return ""
-        }
-    }
-
-    private func configureViews() {
-        backgroundColor = .tertiarySystemGroupedBackground
-
-        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        layer.cornerCurve = .continuous
-        layer.cornerRadius = 15
-
-        addSubview(todayButton)
-        addSubview(monthLabel)
-        addSubview(previousMonthButton)
-        addSubview(nextMonthButton)
-        addSubview(dayOfWeekStackView)
-        addSubview(separatorView)
-
-        for dayNumber in 1...7 {
-            let dayLabel = UILabel()
-            dayLabel.font = .systemFont(ofSize: 12, weight: .bold)
-            dayLabel.textColor = UIColor(named: "DayColor")
-            dayLabel.textAlignment = .center
-            dayLabel.text = dayOfWeekLetter(for: dayNumber)
-
-            dayOfWeekStackView.addArrangedSubview(dayLabel)
-        }
-    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -170,6 +122,54 @@ extension CalendarHeader {
         separatorView.anchor(horizontal: separatorView.superview,
                              bottom: separatorView.superview?.bottomAnchor,
                              height: 1)
+    }
+}
+
+extension CalendarHeader {
+    private func configureViews() {
+        backgroundColor = .tertiarySystemGroupedBackground
+
+        layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        layer.cornerCurve = .continuous
+        layer.cornerRadius = 15
+
+        addSubview(todayButton)
+        addSubview(monthLabel)
+        addSubview(previousMonthButton)
+        addSubview(nextMonthButton)
+        addSubview(dayOfWeekStackView)
+        addSubview(separatorView)
+
+        for dayNumber in 1...7 {
+            let dayLabel = UILabel()
+            dayLabel.font = .systemFont(ofSize: 12, weight: .bold)
+            dayLabel.textColor = UIColor(named: "DayColor")
+            dayLabel.textAlignment = .center
+            dayLabel.text = dayOfWeekLetter(for: dayNumber)
+
+            dayOfWeekStackView.addArrangedSubview(dayLabel)
+        }
+    }
+
+    private func dayOfWeekLetter(for dayNumber: Int) -> String {
+        switch dayNumber {
+        case 1:
+            return "sun".localized
+        case 2:
+            return "mon".localized
+        case 3:
+            return "tue".localized
+        case 4:
+            return "wed".localized
+        case 5:
+            return "thu".localized
+        case 6:
+            return "fri".localized
+        case 7:
+            return "sat".localized
+        default:
+            return ""
+        }
     }
 
     @objc func didTappedPreviousMonthButton() {
