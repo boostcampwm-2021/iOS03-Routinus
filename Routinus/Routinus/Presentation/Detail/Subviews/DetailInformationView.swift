@@ -120,8 +120,11 @@ final class DetailInformationView: UIView {
 
     func update(to challenge: Challenge) {
         guard let endDate = challenge.endDate?.toDateWithWeekdayString() else { return }
-        let image = challenge.category == .exercise || challenge.category == .lifeStyle ? UIImage(named: challenge.category.symbol) : UIImage(systemName: challenge.category.symbol)
-        categoryImageView.image = image
+        if challenge.category == .exercise || challenge.category == .lifeStyle {
+            categoryImageView.image = UIImage(named: challenge.category.symbol)
+        } else {
+            categoryImageView.image = UIImage(systemName: challenge.category.symbol)
+        }
         titleLabel.text = challenge.title
         weekLabel.text = "\(challenge.week)주"
         endDateLabel.text = endDate
