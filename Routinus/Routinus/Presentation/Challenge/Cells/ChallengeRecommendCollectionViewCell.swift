@@ -16,7 +16,7 @@ final class ChallengeRecommendCollectionViewCell: UICollectionViewCell {
         imageView.alpha = 0.3
         return imageView
     }()
-
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor =  UIColor(named: "Black")

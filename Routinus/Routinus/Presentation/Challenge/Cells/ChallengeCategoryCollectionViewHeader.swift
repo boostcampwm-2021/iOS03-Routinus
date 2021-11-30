@@ -12,6 +12,8 @@ final class ChallengeCategoryCollectionViewHeader: UICollectionReusableView {
 
     weak var delegate: ChallengeCategoryHeaderDelegate?
 
+    private let stackView = UIStackView()
+
     private lazy var label: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: "Black")
@@ -19,24 +21,7 @@ final class ChallengeCategoryCollectionViewHeader: UICollectionReusableView {
 
         return label
     }()
-
-    private let stackView = UIStackView()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureViews()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        configureViews()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        stackView.frame = bounds
-    }
-
+    
     private lazy var seeAllButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("See all", for: .normal)
@@ -46,26 +31,44 @@ final class ChallengeCategoryCollectionViewHeader: UICollectionReusableView {
         return button
     }()
 
-    @objc func didTappedSeeAllButton() {
-        delegate?.didTappedSeeAllButton()
-    }
-
     var title: String = "" {
         didSet {
             label.text = title
         }
     }
 
-    func configureViews() {
-        addSubview(stackView)
-        stackView.addArrangedSubview(label)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configure()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        stackView.frame = bounds
     }
 
     func addSeeAllButton() {
         stackView.addArrangedSubview(seeAllButton)
     }
+}
 
-    func removeStackSubviews() {
-        seeAllButton.removeFromSuperview()
+extension ChallengeCategoryCollectionViewHeader {
+    private func configure() {
+        configureView()
+    }
+
+    private func configureView() {
+        addSubview(stackView)
+        stackView.addArrangedSubview(label)
+    }
+
+    @objc private func didTappedSeeAllButton() {
+        delegate?.didTappedSeeAllButton()
     }
 }
+

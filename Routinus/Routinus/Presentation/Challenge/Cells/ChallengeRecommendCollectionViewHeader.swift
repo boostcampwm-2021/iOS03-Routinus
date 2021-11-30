@@ -12,6 +12,7 @@ final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
 
     weak var delegate: ChallengeRecommendHeaderDelegate?
 
+    private let stackView = UIStackView()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "challenges".localized
@@ -19,24 +20,6 @@ final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
                                        weight: .bold)
         return label
     }()
-
-    private let stackView = UIStackView()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureViews()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        configureViews()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        stackView.frame = bounds
-    }
-
     private lazy var searchButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
@@ -45,22 +28,43 @@ final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
         return button
     }()
 
-    @objc func didTappedSearchButton() {
-        delegate?.didTappedSearchButton()
-    }
-
     var title: String = "" {
         didSet {
             titleLabel.text = title
         }
     }
 
-    func configureViews() {
-        addSubview(stackView)
-        stackView.addArrangedSubview(titleLabel)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configure()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        stackView.frame = bounds
     }
 
     func addSearchButton() {
         stackView.addArrangedSubview(searchButton)
+    }
+}
+
+extension ChallengeRecommendCollectionViewHeader {
+    private func configure() {
+        configureView()
+    }
+
+    private func configureView() {
+        addSubview(stackView)
+        stackView.addArrangedSubview(titleLabel)
+    }
+
+    @objc private func didTappedSearchButton() {
+        delegate?.didTappedSearchButton()
     }
 }
