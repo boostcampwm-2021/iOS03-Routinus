@@ -272,6 +272,9 @@ extension FormViewController: UITextFieldDelegate {
             viewModel.update(title: textField.text ?? "")
         case InputTag.week.rawValue:
             let week = viewModel.validateWeek(currentText: textField.text ?? "")
+            if textField.text != week {
+                impactLight()
+            }
             textField.text = week
             viewModel.update(week: Int(week) ?? 0)
         default:
