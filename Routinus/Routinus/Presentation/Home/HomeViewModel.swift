@@ -17,7 +17,6 @@ protocol HomeViewModelInput {
     func didTappedTodayRoutineAuth(index: Int)
     func didTappedExplanationButton()
     func didTappedCalendarDate(date: Date)
-    func changeDate(month: Int)
 }
 
 protocol HomeViewModelOutput {
@@ -126,8 +125,8 @@ extension HomeViewModel {
     }
 
     func didTappedCalendarDate(date: Date) {
-        self.challengeAuthFetchUsecase.fetchChallengeAuthsOfDate(date: date) { aa in
-            print(aa)
+        self.authFetchUsecase.fetchAuthedChallengesOfDate(date: date) { auths in
+            print(auths)
         }
     }
 
@@ -234,9 +233,9 @@ extension HomeViewModel {
         }
     }
 
-    private func fetchAuth(date: Date, completion: @escaping (ChallengeAuth?) -> Void) {
-        self.challengeAuthFetchUsecase.fetchChallengeAuthsOfDate(date: date) { challenge in
-            print(challenge.first)
+    private func fetchAuth(date: Date, completion: @escaping (Auth?) -> Void) {
+        self.authFetchUsecase.fetchAuthedChallengesOfDate(date: date) { challenge in
+            print("!@#!@#", challenge.first)
         }
     }
 
