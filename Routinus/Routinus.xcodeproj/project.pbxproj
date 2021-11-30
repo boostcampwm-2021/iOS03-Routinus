@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D053E4E2746490A0042DAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0D053E502746490A0042DAF2 /* Localizable.strings */; };
 		0D053E59274654390042DAF2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D053E58274654390042DAF2 /* String+Extensions.swift */; };
-		0D08E3352751C96800D1D596 /* CalendarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D08E3342751C96800D1D596 /* CalendarDetailViewController.swift */; };
+		0D08E3352751C96800D1D596 /* HomeCalendarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D08E3342751C96800D1D596 /* HomeCalendarDetailViewController.swift */; };
 		0D18D06D2749167700AD11F8 /* ManageCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D18D06C2749167700AD11F8 /* ManageCollectionViewHeader.swift */; };
 		0D18D06F27492F2900AD11F8 /* ChallengePromotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D18D06E27492F2800AD11F8 /* ChallengePromotionView.swift */; };
 		0D18D0712749CA4400AD11F8 /* ManageAddCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D18D0702749CA4400AD11F8 /* ManageAddCollectionViewCell.swift */; };
@@ -194,7 +194,7 @@
 		0D053E4F2746490A0042DAF2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0D053E512746491E0042DAF2 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0D053E58274654390042DAF2 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
-		0D08E3342751C96800D1D596 /* CalendarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailViewController.swift; sourceTree = "<group>"; };
+		0D08E3342751C96800D1D596 /* HomeCalendarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCalendarDetailViewController.swift; sourceTree = "<group>"; };
 		0D18D06C2749167700AD11F8 /* ManageCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageCollectionViewHeader.swift; sourceTree = "<group>"; };
 		0D18D06E27492F2800AD11F8 /* ChallengePromotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengePromotionView.swift; sourceTree = "<group>"; };
 		0D18D0702749CA4400AD11F8 /* ManageAddCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAddCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -458,11 +458,6 @@
 				441CEDD227378EBF006C261F /* HomeTodayRoutineView.swift */,
 				441CEDD527379939006C261F /* HomeCalendarView.swift */,
 				0DD1631B27312AC700DC5970 /* HomeCalendarHeaderView.swift */,
-				441CEDD027378573006C261F /* ContinuityView.swift */,
-				441CEDD227378EBF006C261F /* TodayRoutineView.swift */,
-				441CEDD527379939006C261F /* CalendarView.swift */,
-				0DD1631B27312AC700DC5970 /* CalendarHeader.swift */,
-				0DEDAA18274F31050030B7D9 /* CalendarExplanationViewController.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -825,7 +820,7 @@
 				44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */,
 				E9797CC22731258A00A14A0F /* HomeViewModel.swift */,
 				0DEDAA18274F31050030B7D9 /* HomeCalendarExplanationViewController.swift */,
-				0D08E3342751C96800D1D596 /* CalendarDetailViewController.swift */,
+				0D08E3342751C96800D1D596 /* HomeCalendarDetailViewController.swift */,
 				441CEDD4273796C4006C261F /* Subviews */,
 				446A071C2741F4F6009F8D98 /* Cells */,
 			);
@@ -1213,8 +1208,8 @@
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				44EA8A3F275499E000861183 /* AchievementDTO.swift in Sources */,
 				E9E9D1E8273BA83800F9CCBB /* SearchPopularKeywordButton.swift in Sources */,
-				E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */,
-				0D08E3352751C96800D1D596 /* CalendarDetailViewController.swift in Sources */,
+				E9E9D1E8273BA83800F9CCBB /* SearchPopularKeywordButton.swift in Sources */,
+				0D08E3352751C96800D1D596 /* HomeCalendarDetailViewController.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
 				0DE0339C274355770026F502 /* ManageViewModel.swift in Sources */,
 				443213CF274BD566003551E8 /* MyPageUserNameUpdatableDelegate.swift in Sources */,
