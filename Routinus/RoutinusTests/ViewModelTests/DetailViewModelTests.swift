@@ -57,10 +57,95 @@ class DetailViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
 
-    func testDidTappedAuthButton() {
-        let expectation = expectation(description: "Tapped Auth Button")
+    func testDidTappedAllAuthDisplayView() {
+        let expectation = expectation(description: "Tapped allAuthDisplayView")
+
+        detailViewModel.allAuthDisplayViewTap
+            .sink { _ in
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        detailViewModel.didTappedAllAuthDisplayView()
+        wait(for: [expectation], timeout: 2)
+    }
+
+    func testDidTappedMyAuthDisplayView() {
+        let expectation = expectation(description: "Tapped myAuthDisplayView")
+
+        detailViewModel.myAuthDisplayViewTap
+            .sink { _ in
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        detailViewModel.didTappedMyAuthDisplayView()
+        wait(for: [expectation], timeout: 2)
+    }
+
+    func testDidTappedEditButton() {
+        let expectation = expectation(description: "Tapped editBarButton")
+
+        detailViewModel.editBarButtonTap
+            .sink { _ in
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        detailViewModel.didTappedEditBarButton()
+        wait(for: [expectation], timeout: 2)
+    }
+
+    func testDidTappedAuthMethodImage() {
+        let expectation = expectation(description: "Tapped authMethodImage")
+
+        detailViewModel.authMethodImageTap
+            .sink { data in
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        detailViewModel.didTappedAuthMethodImage(imageData: Data())
+        wait(for: [expectation], timeout: 2)
+    }
+
+    func testDidTappedParticipationButton() {
+        let detailViewModel = DetailViewModel(challengeID: "ChallengeID1",
+                                              challengeFetchUsecase: ChallengeFetchableUsecaseMock(),
+                                              challengeUpdateUsecase: ChallengeUpdatableUsecaseMock(),
+                                              imageFetchUsecase: ImageFetchableUsecaseMock(),
+                                              participationFetchUsecase: ParticipationFetchableUsecaseNilMock(),
+                                              participationCreateUsecase: ParticipationCreatableUsecaseMock(),
+                                              userFetchUsecase: UserFetchableUsecaseMock(),
+                                              authFetchUsecase: AuthFetchableUsecaseMock(),
+                                              achievementUpdateUsecase: AchievementUpdatableUsecaseMock())
+
+        let expectation = expectation(description: "Tapped ParticipationButton")
 
         detailViewModel.participationButtonTap
+            .sink { _ in
+                expectation.fulfill()
+            }
+            .store(in: &cancellables)
+
+        detailViewModel.didTappedParticipationAuthButton()
+        wait(for: [expectation], timeout: 2)
+    }
+
+    func testDidTappedAuthButton() {
+        let detailViewModel = DetailViewModel(challengeID: "ChallengeID1",
+                                              challengeFetchUsecase: ChallengeFetchableUsecaseMock(),
+                                              challengeUpdateUsecase: ChallengeUpdatableUsecaseMock(),
+                                              imageFetchUsecase: ImageFetchableUsecaseMock(),
+                                              participationFetchUsecase: ParticipationFetchableUsecaseMock(),
+                                              participationCreateUsecase: ParticipationCreatableUsecaseMock(),
+                                              userFetchUsecase: UserFetchableUsecaseMock(),
+                                              authFetchUsecase: AuthFetchableUsecaseMock(),
+                                              achievementUpdateUsecase: AchievementUpdatableUsecaseMock())
+
+        let expectation = expectation(description: "Tapped AuthButton")
+
+        detailViewModel.authButtonTap
             .sink { _ in
                 expectation.fulfill()
             }

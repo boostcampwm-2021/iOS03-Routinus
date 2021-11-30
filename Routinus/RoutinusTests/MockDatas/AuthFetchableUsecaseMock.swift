@@ -10,11 +10,11 @@ import XCTest
 
 class AuthFetchableUsecaseMock: AuthFetchableUsecase {
     func fetchAuth(challengeID: String, completion: @escaping (Auth?) -> Void) {
-        let auth = Auth(challengeID: "testChallenge1",
-                        userID: "testUserID",
-                        date: Date(dateString: "20211129"),
-                        time: Date(timeString: "1130"))
-        completion(auth)
+//        let auth = Auth(challengeID: "testChallenge1",
+//                        userID: "testUserID",
+//                        date: Date(dateString: "20211129"),
+//                        time: Date(timeString: "1130"))
+        completion(nil)
     }
     
     func fetchAuths(challengeID: String, completion: @escaping ([Auth]) -> Void) {
