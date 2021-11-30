@@ -33,11 +33,6 @@ final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
         return stack
     }()
 
-    @objc func didTappedCategoryButton(_ gesture: ChallengeCategoryIconViewTapGesture) {
-        guard let category = gesture.category else { return }
-        delegate?.didTappedCategoryButton(category: category)
-    }
-
     func configureViews() {
         addSubview(yStackView)
         yStackView.anchor(horizontal: yStackView.superview, top: yStackView.superview?.topAnchor)
@@ -66,6 +61,13 @@ final class ChallengeCategoryCollectionViewCell: UICollectionViewCell {
                 xStackView2.addArrangedSubview(button)
             }
         }
+    }
+}
+
+extension ChallengeCategoryCollectionViewCell {
+    @objc private func didTappedCategoryButton(_ gesture: ChallengeCategoryIconViewTapGesture) {
+        guard let category = gesture.category else { return }
+        delegate?.didTappedCategoryButton(category: category)
     }
 }
 

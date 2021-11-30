@@ -20,6 +20,7 @@ final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
                                        weight: .bold)
         return label
     }()
+    
     private lazy var searchButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
