@@ -9,22 +9,24 @@ import Combine
 import Foundation
 
 protocol AuthViewModelInput {
+    func saveImage(to directory: String, filename: String, data: Data?) -> String?
     func fetchChallenge(challengeID: String)
-    func didTappedAuthButton()
-    func didTappedAuthMethodImage(image: Data)
     func loadedAuthMethodImage(image: Data)
     func update(userAuthImageURL: String?)
     func update(userAuthThumbnailImageURL: String?)
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
-    func saveImage(to directory: String, filename: String, data: Data?) -> String?
+    func didTappedAuthButton()
+    func didTappedAuthMethodImage(image: Data)
 }
 
 protocol AuthViewModelOutput {
     var authButtonState: CurrentValueSubject<Bool, Never> { get }
     var challenge: CurrentValueSubject<Challenge?, Never> { get }
+
     var alertConfirmTap: PassthroughSubject<Void, Never> { get }
     var authMethodImageTap: PassthroughSubject<Data, Never> { get }
     var authMethodImageLoad: PassthroughSubject<Data, Never> { get }
+
     var userName: String { get }
 }
 
