@@ -127,7 +127,11 @@ extension FormViewModel {
             introduction: introduction,
             authMethod: authMethod,
             authExampleImageURL: authExampleImageURL
-        )
+        ) && validate(week: week)
+    }
+
+    private func validate(week: Int) -> Bool {
+        return 1 <= week && week <= 52
     }
 }
 
