@@ -16,8 +16,8 @@ enum ParticipationAuthState: String {
 
 protocol DetailViewModelInput {
     func fetchChallenge()
-    func updateParticipantCount()
     func loadedAuthMethodImage(imageData: Data)
+    func updateParticipantCount()
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
     func didTappedEditBarButton()
     func didTappedAuthMethodImage(imageData: Data)
@@ -29,7 +29,7 @@ protocol DetailViewModelInput {
 protocol DetailViewModelOutput {
     var ownerState: CurrentValueSubject<Bool, Never> { get }
     var participationAuthState: CurrentValueSubject<ParticipationAuthState, Never> { get }
-    
+
     var challenge: PassthroughSubject<Challenge, Never> { get }
     var authButtonTap: PassthroughSubject<String, Never> { get }
     var editBarButtonTap: PassthroughSubject<String, Never> { get }
@@ -178,7 +178,7 @@ extension DetailViewModel {
     }
 }
 
-extension DetailViewModel {
+extension DetailViewModel: DetailViewModelInput {
     func fetchChallenge() {
         guard let challengeID = challengeID else { return }
         challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
@@ -186,6 +186,16 @@ extension DetailViewModel {
             self.ownerState.value = self.isChallengeOwner(challenge: challenge)
             self.challenge.send(challenge)
         }
+    }
+
+    func loadedAuthMethodImage(imageData: Data) {
+        authMethodImageLoad.send(imageData)
+    }
+
+    func updateParticipantCount() {
+        guard let challengeID = challengeID else { return }
+        challengeUpdateUsecase.updateParticipantCount(challengeID: challengeID)
+        achievementUpdateUsecase.updateTotalCount()
     }
 
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
@@ -197,17 +207,6 @@ extension DetailViewModel {
     func didTappedEditBarButton() {
         guard let challengeID = challengeID else { return }
         editBarButtonTap.send(challengeID)
-    }
-
-    func didTappedParticipationAuthButton() {
-        guard let challengeID = challengeID else { return }
-        if participationAuthState.value == .notParticipating {
-            participationCreateUsecase.createParticipation(challengeID: challengeID)
-            participationAuthState.value = .notAuthenticating
-            participationButtonTap.send()
-        } else if participationAuthState.value == .notAuthenticating {
-            authButtonTap.send(challengeID)
-        }
     }
 
     func didTappedAllAuthDisplayView() {
@@ -224,13 +223,14 @@ extension DetailViewModel {
         authMethodImageTap.send(imageData)
     }
 
-    func loadedAuthMethodImage(imageData: Data) {
-        authMethodImageLoad.send(imageData)
-    }
-
-    func updateParticipantCount() {
+    func didTappedParticipationAuthButton() {
         guard let challengeID = challengeID else { return }
-        challengeUpdateUsecase.updateParticipantCount(challengeID: challengeID)
-        achievementUpdateUsecase.updateTotalCount()
+        if participationAuthState.value == .notParticipating {
+            participationCreateUsecase.createParticipation(challengeID: challengeID)
+            participationAuthState.value = .notAuthenticating
+            participationButtonTap.send()
+        } else if participationAuthState.value == .notAuthenticating {
+            authButtonTap.send(challengeID)
+        }
     }
 }

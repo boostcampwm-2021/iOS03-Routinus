@@ -91,12 +91,20 @@ extension AuthViewModel {
     }
 }
 
-extension AuthViewModel {
+extension AuthViewModel: AuthViewModelInput {
+    func saveImage(to directory: String, filename: String, data: Data?) -> String? {
+        return imageSaveUsecase.saveImage(to: directory, filename: filename, data: data)
+    }
+
     func fetchChallenge(challengeID: String) {
         challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
             guard let self = self else { return }
             self.challenge.value = challenge
         }
+    }
+
+    func loadedAuthMethodImage(image: Data) {
+        authMethodImageLoad.send(image)
     }
 
     func didTappedAuthButton() {
@@ -112,10 +120,6 @@ extension AuthViewModel {
 
     func didTappedAuthMethodImage(image: Data) {
         authMethodImageTap.send(image)
-    }
-
-    func loadedAuthMethodImage(image: Data) {
-        authMethodImageLoad.send(image)
     }
 
     func update(userAuthImageURL: String?) {
@@ -134,9 +138,5 @@ extension AuthViewModel {
         imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
         }
-    }
-
-    func saveImage(to directory: String, filename: String, data: Data?) -> String? {
-        return imageSaveUsecase.saveImage(to: directory, filename: filename, data: data)
     }
 }
