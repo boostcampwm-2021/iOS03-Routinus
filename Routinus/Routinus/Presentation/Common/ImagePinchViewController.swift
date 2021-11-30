@@ -40,6 +40,12 @@ final class ImagePinchViewController: UIViewController {
         configurePinch()
     }
 
+    func setImage(data: Data) {
+        imageData = data
+    }
+}
+
+extension ImagePinchViewController {
     private func configureViews() {
         view.addSubview(dimmedBackgroundView)
         dimmedBackgroundView.anchor(centerX: view.centerXAnchor,
@@ -64,31 +70,6 @@ final class ImagePinchViewController: UIViewController {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(doPan(_:)))
         pan.delegate = self
         view.addGestureRecognizer(pan)
-    }
-
-    func setImage(data: Data) {
-        imageData = data
-    }
-
-    private func fetchImage() {
-        guard let image = imageData else { return }
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.imageView.image = UIImage(data: image)
-        }
-    }
-
-    @objc private func didTappedCloseButton() {
-        dismiss(animated: true)
-    }
-}
-
-extension ImagePinchViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
-    ) -> Bool {
-        return true
     }
 
     @objc private func doPinch(_ pinch: UIPinchGestureRecognizer) {
@@ -119,5 +100,26 @@ extension ImagePinchViewController: UIGestureRecognizerDelegate {
         if currentScale <= 1 && pan.state == .ended {
             dismiss(animated: true)
         }
+    }
+
+    @objc private func didTappedCloseButton() {
+        dismiss(animated: true)
+    }
+
+    private func fetchImage() {
+        guard let image = imageData else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.imageView.image = UIImage(data: image)
+        }
+    }
+}
+
+extension ImagePinchViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+    ) -> Bool {
+        return true
     }
 }

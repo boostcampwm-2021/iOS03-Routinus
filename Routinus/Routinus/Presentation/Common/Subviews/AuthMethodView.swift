@@ -54,16 +54,29 @@ final class AuthMethodView: UIView {
     convenience init() {
         self.init(frame: CGRect.zero)
     }
+
+    func update(to text: String) {
+        methodLabel.text = text
+    }
+
+    func update(to data: Data) {
+        methodImageView.image = UIImage(data: data)
+    }
+
+    var authThumbnailImage: Data? {
+        return methodImageView.image?.jpegData(compressionQuality: 1)
+    }
 }
 
 extension AuthMethodView {
     private func configure() {
-        backgroundColor = .systemBackground
         configureSubviews()
         configureMethodViewTapGesture()
     }
 
     private func configureSubviews() {
+        backgroundColor = .systemBackground
+
         addSubview(titleLabel)
         titleLabel.anchor(leading: leadingAnchor,
                           paddingLeading: 20,
@@ -106,18 +119,6 @@ extension AuthMethodView {
 
     @objc func tappedMethodImageView() {
         delegate?.didTappedAuthMethodImageView()
-    }
-
-    func update(to text: String) {
-        methodLabel.text = text
-    }
-
-    func update(to data: Data) {
-        methodImageView.image = UIImage(data: data)
-    }
-
-    var authThumbnailImage: Data? {
-        return methodImageView.image?.jpegData(compressionQuality: 1)
     }
 }
 

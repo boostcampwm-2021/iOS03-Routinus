@@ -28,12 +28,18 @@ final class ChallengeCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureViews()
+        configure()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureViews()
+        configure()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = ""
+        imageView.image = nil
     }
 
     func setTitle(_ title: String) {
@@ -46,6 +52,10 @@ final class ChallengeCollectionViewCell: UICollectionViewCell {
 }
 
 extension ChallengeCollectionViewCell {
+    private func configure() {
+        configureViews()
+    }
+
     private func configureViews() {
         addSubview(imageView)
         imageView.anchor(horizontal: imageView.superview,
@@ -57,11 +67,5 @@ extension ChallengeCollectionViewCell {
                           top: imageView.bottomAnchor,
                           paddingTop: 10,
                           bottom: titleLabel.superview?.bottomAnchor)
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        titleLabel.text = ""
-        imageView.image = nil
     }
 }

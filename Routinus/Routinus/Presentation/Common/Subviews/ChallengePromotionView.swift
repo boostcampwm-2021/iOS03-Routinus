@@ -42,12 +42,12 @@ final class ChallengePromotionView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureView()
+        configure()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureView()
+        configure()
     }
 
     convenience init() {
@@ -61,6 +61,10 @@ final class ChallengePromotionView: UIView {
 }
 
 extension ChallengePromotionView {
+    private func configure() {
+        configureView()
+    }
+
     private func configureView() {
         backgroundColor = UIColor(named: "MainColor")?.withAlphaComponent(0.5)
         layer.cornerRadius = 10
