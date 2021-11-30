@@ -9,10 +9,10 @@ import Combine
 import Foundation
 
 protocol ManageViewModelInput {
-    func didTappedAddButton()
-    func didTappedChallenge(index: IndexPath)
     func didLoadedManageView()
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
+    func didTappedAddButton()
+    func didTappedChallenge(index: IndexPath)
 }
 
 protocol ManageViewModelOutput {
@@ -92,7 +92,21 @@ extension ManageViewModel {
     }
 }
 
-extension ManageViewModel {
+extension ManageViewModel: ManageViewModelInput {
+    func didLoadedManageView() {
+        fetchParticipatingChallenges()
+        fetchCreatedChallenges()
+        fetchEndedChallenges()
+    }
+
+    func imageData(from directory: String,
+                   filename: String,
+                   completion: ((Data?) -> Void)?) {
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+            completion?(data)
+        }
+    }
+
     func didTappedAddButton() {
         challengeAddButtonTap.send()
     }
@@ -110,19 +124,5 @@ extension ManageViewModel {
             break
         }
         challengeTap.send(challengeID)
-    }
-
-    func didLoadedManageView() {
-        fetchParticipatingChallenges()
-        fetchCreatedChallenges()
-        fetchEndedChallenges()
-    }
-
-    func imageData(from directory: String,
-                   filename: String,
-                   completion: ((Data?) -> Void)?) {
-        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
-            completion?(data)
-        }
     }
 }
