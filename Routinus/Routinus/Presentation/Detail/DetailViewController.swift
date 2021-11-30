@@ -37,9 +37,9 @@ final class DetailViewController: UIViewController {
         view.backgroundColor = .systemBackground.withAlphaComponent(0.7)
         return view
     }()
-    private lazy var informationView = InformationView()
+    private lazy var informationView = DetailInformationView()
     private lazy var authMethodView = AuthMethodView()
-    private lazy var participantButton = ParticipantButton()
+    private lazy var participantButton = DetailParticipantButton()
     private lazy var detailAuthDisplayListView = DetailAuthDisplayListView()
 
     private var viewModel: DetailViewModelIO?

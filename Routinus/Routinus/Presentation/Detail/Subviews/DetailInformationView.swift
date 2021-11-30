@@ -1,5 +1,5 @@
 //
-//  InformationView.swift
+//  DetailInformationView.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/16.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class InformationView: UIView {
+final class DetailInformationView: UIView {
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
@@ -129,7 +129,7 @@ final class InformationView: UIView {
     }
 }
 
-extension InformationView {
+extension DetailInformationView {
     private func configure() {
         configureSubviews()
     }

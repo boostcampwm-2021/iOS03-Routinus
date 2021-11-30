@@ -1,5 +1,5 @@
 //
-//  ParticipantButton.swift
+//  DetailParticipantButton.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/16.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ParticipantButton: UIButton {
+final class DetailParticipantButton: UIButton {
     weak var delegate: ParticipantButtonDelegate?
 
     init() {

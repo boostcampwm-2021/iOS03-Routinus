@@ -29,8 +29,8 @@
 		0DFF32BD274548D8004FA9BD /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFF32BC274548D8004FA9BD /* UIView+Extensions.swift */; };
 		14572CED273BF644007E6ECE /* FormCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14572CEC273BF644007E6ECE /* FormCoordinator.swift */; };
 		145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */; };
-		148387382743817F00731F98 /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148387372743817F00731F98 /* InformationView.swift */; };
-		1483873C2743F2FF00731F98 /* ParticipantButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1483873B2743F2FF00731F98 /* ParticipantButton.swift */; };
+		148387382743817F00731F98 /* DetailInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148387372743817F00731F98 /* DetailInformationView.swift */; };
+		1483873C2743F2FF00731F98 /* DetailParticipantButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1483873B2743F2FF00731F98 /* DetailParticipantButton.swift */; };
 		148A09EF2744C5C800809CB8 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148A09EE2744C5C800809CB8 /* DetailViewModel.swift */; };
 		149411DC273A314B004BE485 /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411DB273A314B004BE485 /* FormViewModel.swift */; };
 		149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */; };
@@ -197,8 +197,8 @@
 		0DFF32BC274548D8004FA9BD /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		14572CEC273BF644007E6ECE /* FormCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCoordinator.swift; sourceTree = "<group>"; };
 		145F5323273FAF95000700A5 /* ChallengeUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpdateUsecase.swift; sourceTree = "<group>"; };
-		148387372743817F00731F98 /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
-		1483873B2743F2FF00731F98 /* ParticipantButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantButton.swift; sourceTree = "<group>"; };
+		148387372743817F00731F98 /* DetailInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInformationView.swift; sourceTree = "<group>"; };
+		1483873B2743F2FF00731F98 /* DetailParticipantButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailParticipantButton.swift; sourceTree = "<group>"; };
 		148A09EE2744C5C800809CB8 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		149411DB273A314B004BE485 /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
 		149411E5273A64EC004BE485 /* ChallengeCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreateUsecase.swift; sourceTree = "<group>"; };
@@ -365,8 +365,8 @@
 		148387342743807D00731F98 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				148387372743817F00731F98 /* InformationView.swift */,
-				1483873B2743F2FF00731F98 /* ParticipantButton.swift */,
+				148387372743817F00731F98 /* DetailInformationView.swift */,
+				1483873B2743F2FF00731F98 /* DetailParticipantButton.swift */,
 				149B8DA3274CD0470065E64D /* DetailAuthDisplayListView.swift */,
 				149B8DA1274CC3650065E64D /* DetailAuthDisplayView.swift */,
 			);
@@ -1087,7 +1087,7 @@
 				44234F18273C0917004D6834 /* FormImagePickerDelegate.swift in Sources */,
 				E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */,
 				441CEE11273A332D006C261F /* FormCategoryView.swift in Sources */,
-				1483873C2743F2FF00731F98 /* ParticipantButton.swift in Sources */,
+				1483873C2743F2FF00731F98 /* DetailParticipantButton.swift in Sources */,
 				14BFC0DA274DB7E100A982CB /* AuthImagesViewModel.swift in Sources */,
 				44EA8A262751FF5D00861183 /* UIScrollView+Extensions.swift in Sources */,
 				14BFC0DC274DBBF100A982CB /* AuthImagesViewController.swift in Sources */,
@@ -1184,7 +1184,7 @@
 				149B8DAA274CF75C0065E64D /* AuthImagesCoordinator.swift in Sources */,
 				0D18D06D2749167700AD11F8 /* ManageCollectionViewHeader.swift in Sources */,
 				0DE03398274329BA0026F502 /* Calendar.swift in Sources */,
-				148387382743817F00731F98 /* InformationView.swift in Sources */,
+				148387382743817F00731F98 /* DetailInformationView.swift in Sources */,
 				0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCollectionViewCell.swift in Sources */,
 				E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */,
 				0DC38F44273A3B9900331C25 /* SearchCoordinator.swift in Sources */,
