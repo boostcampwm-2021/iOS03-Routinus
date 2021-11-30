@@ -13,6 +13,7 @@ final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
     weak var delegate: ChallengeRecommendHeaderDelegate?
 
     private let stackView = UIStackView()
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "challenges".localized
