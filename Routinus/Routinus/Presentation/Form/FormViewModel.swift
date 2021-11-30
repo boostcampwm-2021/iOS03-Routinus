@@ -23,6 +23,7 @@ enum ButtonType: String {
 }
 
 protocol FormViewModelInput {
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
     func update(category: Challenge.Category)
     func update(title: String)
     func update(imageURL: String?)
@@ -32,20 +33,19 @@ protocol FormViewModelInput {
     func update(authMethod: String)
     func update(authExampleImageURL: String?)
     func update(authExampleThumbnailImageURL: String?)
-    func didTappedCompleteButton()
+    func updateChallenge()
+    func validateWeek(currentText: String) -> String
     func validateTextView(currentText: String, range: NSRange, text: String) -> Bool
     func validateTextField(currentText: String, range: NSRange, text: String) -> Bool
-    func validateWeek(currentText: String) -> String
-    func updateChallenge()
     func saveImage(to directory: String, filename: String, data: Data?) -> String?
-    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
+    func didTappedCompleteButton()
 }
 
 protocol FormViewModelOutput {
-    var buttonType: CurrentValueSubject<ButtonType, Never> { get }
     var buttonState: CurrentValueSubject<Bool, Never> { get }
-    var expectedEndDate: CurrentValueSubject<Date, Never> { get }
     var challenge: CurrentValueSubject<Challenge?, Never> { get }
+    var expectedEndDate: CurrentValueSubject<Date, Never> { get }
+    var buttonType: CurrentValueSubject<ButtonType, Never> { get }
 }
 
 protocol FormViewModelIO: FormViewModelInput, FormViewModelOutput { }
@@ -65,8 +65,8 @@ final class FormViewModel: FormViewModelIO {
     var imageFetchUsecase: ImageFetchableUsecase
     var imageSaveUsecase: ImageSavableUsecase
     var imageUpdateUsecase: ImageUpdatableUsecase
-    var challengeID: String?
 
+    var challengeID: String?
     private var title: String
     private var category: Challenge.Category?
     private var imageURL: String
@@ -76,7 +76,6 @@ final class FormViewModel: FormViewModelIO {
     private var authMethod: String
     private var authExampleImageURL: String
     private var authExampleThumbnailImageURL: String
-
     private var isChangedImage: Bool
     private var isChangedAuthImage: Bool
 
@@ -107,7 +106,9 @@ final class FormViewModel: FormViewModelIO {
         self.isChangedAuthImage = false
         fetchChallenge()
     }
+}
 
+extension FormViewModel {
     private func fetchChallenge() {
         guard let challengeID = challengeID else { return }
         challengeFetchUsecase.fetchEdittingChallenge(challengeID: challengeID) { [weak self] existedChallenge in
@@ -130,7 +131,13 @@ final class FormViewModel: FormViewModelIO {
     }
 }
 
-extension FormViewModel {
+extension FormViewModel: FormViewModelInput {
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+            completion?(data)
+        }
+    }
+
     func update(category: Challenge.Category) {
         self.category = category
         validate()
@@ -198,25 +205,6 @@ extension FormViewModel {
         validate()
     }
 
-    func didTappedCompleteButton() {
-        guard let category = category else { return }
-        if buttonType.value == .create {
-            challengeCreateUsecase.createChallenge(
-                category: category,
-                title: title,
-                imageURL: imageURL,
-                thumbnailImageURL: thumbnailImageURL,
-                authExampleImageURL: authExampleImageURL,
-                authExampleThumbnailImageURL: authExampleThumbnailImageURL,
-                authMethod: authMethod,
-                week: week,
-                introduction: introduction
-            )
-        } else {
-            updateChallenge()
-        }
-    }
-
     func validateTextView(currentText: String, range: NSRange, text: String) -> Bool {
         let newLength = currentText.count + text.count - range.length
         return newLength <= 150
@@ -263,9 +251,22 @@ extension FormViewModel {
         return imageSaveUsecase.saveImage(to: directory, filename: filename, data: data)
     }
 
-    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
-        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
-            completion?(data)
+    func didTappedCompleteButton() {
+        guard let category = category else { return }
+        if buttonType.value == .create {
+            challengeCreateUsecase.createChallenge(
+                category: category,
+                title: title,
+                imageURL: imageURL,
+                thumbnailImageURL: thumbnailImageURL,
+                authExampleImageURL: authExampleImageURL,
+                authExampleThumbnailImageURL: authExampleThumbnailImageURL,
+                authMethod: authMethod,
+                week: week,
+                introduction: introduction
+            )
+        } else {
+            updateChallenge()
         }
     }
 }

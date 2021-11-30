@@ -73,7 +73,7 @@ extension MyPageViewModel {
     }
 }
 
-extension MyPageViewModel {
+extension MyPageViewModel: MyPageViewModelInput {
     func fetchUser() {
         guard let id = userFetchUsecase.fetchUserID() else { return }
         userFetchUsecase.fetchUser(id: id) { [weak self] user in
