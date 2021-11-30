@@ -133,6 +133,7 @@
 		E95CDD182756689B00A3E485 /* DetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95CDD172756689B00A3E485 /* DetailViewModelTests.swift */; };
 		E95CDD1C275675AC00A3E485 /* ParticipationFetchableUsecaseNilMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95CDD1B275675AC00A3E485 /* ParticipationFetchableUsecaseNilMock.swift */; };
 		E95CDD1E2756799F00A3E485 /* ManageViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95CDD1D2756799F00A3E485 /* ManageViewModelTests.swift */; };
+		E95CDD2027567ECB00A3E485 /* MyPageViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95CDD1F27567ECB00A3E485 /* MyPageViewModelTests.swift */; };
 		E9753900273220F6004358C5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* User.swift */; };
 		E975390627325538004358C5 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* Achievement.swift */; };
 		E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797C9F2730FF9C00A14A0F /* RoutinusCoordinator.swift */; };
@@ -320,6 +321,7 @@
 		E95CDD172756689B00A3E485 /* DetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModelTests.swift; sourceTree = "<group>"; };
 		E95CDD1B275675AC00A3E485 /* ParticipationFetchableUsecaseNilMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationFetchableUsecaseNilMock.swift; sourceTree = "<group>"; };
 		E95CDD1D2756799F00A3E485 /* ManageViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewModelTests.swift; sourceTree = "<group>"; };
+		E95CDD1F27567ECB00A3E485 /* MyPageViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModelTests.swift; sourceTree = "<group>"; };
 		E97538FF273220F6004358C5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E975390527325538004358C5 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		E9797C9F2730FF9C00A14A0F /* RoutinusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusCoordinator.swift; sourceTree = "<group>"; };
@@ -957,6 +959,7 @@
 				E95CDD0D27565FFD00A3E485 /* SearchViewModelTests.swift */,
 				E95CDD172756689B00A3E485 /* DetailViewModelTests.swift */,
 				E95CDD1D2756799F00A3E485 /* ManageViewModelTests.swift */,
+				E95CDD1F27567ECB00A3E485 /* MyPageViewModelTests.swift */,
 			);
 			path = ViewModelTests;
 			sourceTree = "<group>";
@@ -1282,6 +1285,7 @@
 				E95CDD162756684500A3E485 /* AchievementUpdatableUsecaseMock.swift in Sources */,
 				E95CDD182756689B00A3E485 /* DetailViewModelTests.swift in Sources */,
 				E95CDD0A2756486C00A3E485 /* ChallengeViewModelTests.swift in Sources */,
+				E95CDD2027567ECB00A3E485 /* MyPageViewModelTests.swift in Sources */,
 				E95CDD10275665E500A3E485 /* ChallengeUpdatableUsecaseMock.swift in Sources */,
 				E95CDD002755F8F700A3E485 /* UserUpdatableUsecaseMock.swift in Sources */,
 				E95CDD022755FA8C00A3E485 /* TodayRoutineFetchableUsecaseMock.swift in Sources */,

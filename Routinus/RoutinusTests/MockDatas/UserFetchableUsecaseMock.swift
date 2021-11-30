@@ -20,7 +20,7 @@ class UserFetchableUsecaseMock: UserFetchableUsecase {
     }
 
     func fetchUserID() -> String? {
-        return nil
+        return "MockUserID"
     }
 
     func fetchThemeStyle() -> Int {
