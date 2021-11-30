@@ -23,8 +23,7 @@ struct ParticipationFetchUsecase: ParticipationFetchableUsecase {
             completion(nil)
             return
         }
-        repository.fetchChallengeParticipation(userID: userID,
-                                               challengeID: challengeID) { participation in
+        repository.fetchParticipation(userID: userID, challengeID: challengeID) { participation in
             completion(participation)
         }
     }

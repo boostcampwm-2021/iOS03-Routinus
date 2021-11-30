@@ -8,18 +8,18 @@
 import Foundation
 
 protocol ParticipationRepository {
-    func fetchChallengeParticipation(userID: String,
-                                     challengeID: String,
-                                     completion: @escaping (Participation?) -> Void)
+    func fetchParticipation(userID: String,
+                            challengeID: String,
+                            completion: @escaping (Participation?) -> Void)
     func save(challengeID: String, joinDate: String, completion: (() -> Void)?)
     func updateAuthCount(challengeID: String, completion: (() -> Void)?)
 }
 
 extension RoutinusRepository: ParticipationRepository {
-    func fetchChallengeParticipation(userID: String,
-                                     challengeID: String,
-                                     completion: @escaping (Participation?) -> Void) {
-        FirebaseService.challengeParticipation(userID: userID, challengeID: challengeID) { dto in
+    func fetchParticipation(userID: String,
+                            challengeID: String,
+                            completion: @escaping (Participation?) -> Void) {
+        FirebaseService.participation(userID: userID, challengeID: challengeID) { dto in
             guard let dto = dto, dto.document != nil else {
                 completion(nil)
                 return
@@ -34,15 +34,14 @@ extension RoutinusRepository: ParticipationRepository {
                                    challengeID: challengeID,
                                    joinDate: joinDate,
                                    userID: userID)
-        FirebaseService.insertChallengeParticipation(dto: dto) {
+        FirebaseService.insertParticipation(dto: dto) {
             completion?()
         }
     }
 
     func updateAuthCount(challengeID: String, completion: (() -> Void)?) {
         guard let userID = RoutinusRepository.userID() else { return }
-        FirebaseService.updateChallengeParticipationAuthCount(challengeID: challengeID,
-                                                              userID: userID) {
+        FirebaseService.updateParticipationAuthCount(challengeID: challengeID, userID: userID) {
             completion?()
         }
     }

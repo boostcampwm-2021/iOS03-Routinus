@@ -56,7 +56,7 @@ enum FirebaseService {
             }
 
             group.enter()
-            insertChallengeParticipation(dto: participation) {
+            insertParticipation(dto: participation) {
                 group.leave()
             }
 
@@ -152,8 +152,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func insertChallengeParticipation(dto: ParticipationDTO,
-                                             completion: (() -> Void)? = nil) {
+    static func insertParticipation(dto: ParticipationDTO, completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(firestoreURL)/challenge_participation"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
@@ -538,9 +537,9 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func challengeParticipation(userID: String,
-                                       challengeID: String,
-                                       completion: @escaping (ParticipationDTO?) -> Void) {
+    static func participation(userID: String,
+                              challengeID: String,
+                              completion: @escaping (ParticipationDTO?) -> Void) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
         request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
@@ -704,10 +703,10 @@ enum FirebaseService {
         }
     }
 
-    static func updateChallengeParticipationAuthCount(challengeID: String,
-                                                      userID: String,
-                                                      completion: (() -> Void)?) {
-        challengeParticipation(userID: userID, challengeID: challengeID) { dto in
+    static func updateParticipationAuthCount(challengeID: String,
+                                             userID: String,
+                                             completion: (() -> Void)?) {
+        participation(userID: userID, challengeID: challengeID) { dto in
             guard let dto = dto,
                   let document = dto.document,
                   let authCount = Int(document.fields.authCount.integerValue) else { return }
