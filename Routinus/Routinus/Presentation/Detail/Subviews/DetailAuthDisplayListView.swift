@@ -16,7 +16,6 @@ final class DetailAuthDisplayListView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
-
     private lazy var allAuthDisplayView: DetailAuthDisplayView = {
         var detailAuthDisplayView = DetailAuthDisplayView()
 
@@ -28,7 +27,6 @@ final class DetailAuthDisplayListView: UIView {
 
         return detailAuthDisplayView
     }()
-
     private lazy var myAuthDisplayView: DetailAuthDisplayView = {
         var myAuthDisplayView = DetailAuthDisplayView()
 
@@ -43,28 +41,24 @@ final class DetailAuthDisplayListView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureSubviews()
+        configure()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureSubviews()
+        configure()
     }
 
     convenience init() {
         self.init(frame: CGRect.zero)
     }
-
-    @objc func didTappedAllAuthDisplayView() {
-        delegate?.didTappedAllAuthDisplayView()
-    }
-
-    @objc func didTappedMyAuthDisplayView() {
-        delegate?.didTappedMyAuthDisplayView()
-    }
 }
 
 extension DetailAuthDisplayListView {
+    private func configure() {
+        configureSubviews()
+    }
+
     private func configureSubviews() {
         backgroundColor = .systemBackground
         allAuthDisplayView.update(to: .all)
@@ -84,6 +78,14 @@ extension DetailAuthDisplayListView {
                                  trailing: trailingAnchor, paddingTrailing: 20,
                                  top: allAuthDisplayView.bottomAnchor, paddingTop: 20,
                                  bottom: bottomAnchor, paddingBottom: 20)
+    }
+
+    @objc func didTappedAllAuthDisplayView() {
+        delegate?.didTappedAllAuthDisplayView()
+    }
+
+    @objc func didTappedMyAuthDisplayView() {
+        delegate?.didTappedMyAuthDisplayView()
     }
 }
 

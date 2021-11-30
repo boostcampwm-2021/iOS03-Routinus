@@ -17,7 +17,6 @@ final class DetailViewController: UIViewController {
         stackView.backgroundColor = UIColor(named: "LightGray")
         return stackView
     }()
-
     private lazy var editBarButtonItem: UIBarButtonItem = {
         var barButtonItem = UIBarButtonItem()
         barButtonItem.image = UIImage(systemName: "pencil")
@@ -26,7 +25,6 @@ final class DetailViewController: UIViewController {
         barButtonItem.action = #selector(didTappedEditBarButton(_:))
         return barButtonItem
     }()
-
     private lazy var mainImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.backgroundColor = .systemBackground
@@ -34,13 +32,11 @@ final class DetailViewController: UIViewController {
         imageView.clipsToBounds = true
         return imageView
     }()
-
     private lazy var participantView: UIView = {
         var view = UIView()
         view.backgroundColor = .systemBackground.withAlphaComponent(0.7)
         return view
     }()
-
     private lazy var informationView = InformationView()
     private lazy var authMethodView = AuthMethodView()
     private lazy var participantButton = ParticipantButton()
@@ -51,10 +47,7 @@ final class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
-        configureViewModel()
-        configureDelegate()
-        configureRefreshControl()
+        configure()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,13 +63,25 @@ final class DetailViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+}
+
+extension DetailViewController {
+    private func configure() {
+        configureViews()
+        configureViewModel()
+        configureDelegates()
+        configureRefreshControl()
+    }
 
     private func configureViews() {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
         view.backgroundColor = .systemBackground
-        configureNavigationBar()
+
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = UIColor(named: "Black")
+        navigationItem.backBarButtonItem = backBarButtonItem
 
         view.addSubview(scrollView)
         scrollView.anchor(edges: view)
@@ -107,13 +112,6 @@ final class DetailViewController: UIViewController {
         stackView.addArrangedSubview(informationView)
         stackView.addArrangedSubview(authMethodView)
         stackView.addArrangedSubview(detailAuthDisplayListView)
-    }
-
-    private func configureNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .never
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = UIColor(named: "Black")
-        navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     private func configureViewModel() {
@@ -171,7 +169,7 @@ final class DetailViewController: UIViewController {
             .store(in: &cancellables)
     }
 
-    private func configureDelegate() {
+    private func configureDelegates() {
         participantButton.delegate = self
         detailAuthDisplayListView.delegate = self
         authMethodView.delegate = self
@@ -199,20 +197,20 @@ final class DetailViewController: UIViewController {
     @objc private func didTappedEditBarButton(_ sender: UIBarButtonItem) {
         viewModel?.didTappedEditBarButton()
     }
-}
 
-extension DetailViewController: ParticipantButtonDelegate {
-    func didTappedParticipantButton() {
-        viewModel?.didTappedParticipationAuthButton()
-    }
-
-    func presentAlert() {
+    private func presentAlert() {
         let alert = UIAlertController(title: "alarm".localized,
                                       message: "participated".localized,
                                       preferredStyle: .alert)
         let action = UIAlertAction(title: "ok".localized, style: .default)
         alert.addAction(action)
         present(alert, animated: true)
+    }
+}
+
+extension DetailViewController: ParticipantButtonDelegate {
+    func didTappedParticipantButton() {
+        viewModel?.didTappedParticipationAuthButton()
     }
 }
 

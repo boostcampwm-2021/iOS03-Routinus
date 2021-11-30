@@ -38,8 +38,8 @@ final class ParticipantButton: UIButton {
         let backgroundColor = isEnabled ? "MainColor" : "MainColor0.5"
         let titleColor = isEnabled ? "Black" : "DayColor"
         setTitle(state.rawValue.localized, for: .normal)
-        self.backgroundColor = UIColor(named: backgroundColor)
         setTitleColor(UIColor(named: titleColor), for: .normal)
+        self.backgroundColor = UIColor(named: backgroundColor)
     }
 }
 

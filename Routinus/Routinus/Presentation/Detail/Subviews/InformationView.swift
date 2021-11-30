@@ -8,7 +8,6 @@
 import UIKit
 
 final class InformationView: UIView {
-
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
@@ -17,7 +16,6 @@ final class InformationView: UIView {
         stackView.spacing = 10
         return stackView
     }()
-
     private lazy var titleStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .horizontal
@@ -25,27 +23,23 @@ final class InformationView: UIView {
         stackView.distribution = .fill
         return stackView
     }()
-
     private lazy var categoryImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.tintColor = UIColor(named: "Black")
         return imageView
     }()
-
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
-
     private lazy var weekStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         return stackView
     }()
-
     private lazy var weekTitleLabel: UILabel = {
         var label = UILabel()
         label.text = "period".localized
@@ -53,28 +47,24 @@ final class InformationView: UIView {
         label.textColor = UIColor(named: "DayColor")
         return label
     }()
-
     private lazy var weekView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 5
         view.backgroundColor = UIColor(named: "WeekColor")
         return view
     }()
-
     private lazy var weekLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = UIColor(named: "Black")
         return label
     }()
-
     private lazy var endDateStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         return stackView
     }()
-
     private lazy var endDateTitleLabel: UILabel = {
         var label = UILabel()
         label.text = "enddate".localized
@@ -82,7 +72,6 @@ final class InformationView: UIView {
         label.textColor = UIColor(named: "DayColor")
         return label
     }()
-
     private lazy var endDateLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -90,7 +79,6 @@ final class InformationView: UIView {
         label.textColor = UIColor(named: "DayColor")
         return label
     }()
-
     private lazy var introductionTitleLabel: UILabel = {
         var label = UILabel()
         label.text = "introduction".localized
@@ -98,14 +86,12 @@ final class InformationView: UIView {
         label.textColor = UIColor(named: "DayColor")
         return label
     }()
-
     private lazy var introductionView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 5
         view.backgroundColor = .systemGray6
         return view
     }()
-
     private lazy var introductionLabel: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
@@ -113,7 +99,6 @@ final class InformationView: UIView {
         label.textColor = UIColor(named: "DayColor")
         return label
     }()
-
     private lazy var emptyView: UIView = {
         var view = UIView()
         return view
@@ -121,20 +106,34 @@ final class InformationView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureSubviews()
+        configure()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureSubviews()
+        configure()
     }
 
     convenience init() {
         self.init(frame: CGRect.zero)
     }
+
+    func update(to challenge: Challenge) {
+        guard let endDate = challenge.endDate?.toDateWithWeekdayString() else { return }
+        let image = challenge.category == .exercise || challenge.category == .lifeStyle ? UIImage(named: challenge.category.symbol) : UIImage(systemName: challenge.category.symbol)
+        categoryImageView.image = image
+        titleLabel.text = challenge.title
+        weekLabel.text = "\(challenge.week)주"
+        endDateLabel.text = endDate
+        introductionLabel.text = challenge.introduction
+    }
 }
 
 extension InformationView {
+    private func configure() {
+        configureSubviews()
+    }
+    
     private func configureSubviews() {
         addSubview(stackView)
         stackView.anchor(edges: self)
@@ -177,15 +176,5 @@ extension InformationView {
         introductionView.addSubview(introductionLabel)
         introductionLabel.anchor(horizontal: introductionView, paddingHorizontal: 10,
                                  vertical: introductionView, paddingVertical: 10)
-    }
-
-    func update(to challenge: Challenge) {
-        guard let endDate = challenge.endDate?.toDateWithWeekdayString() else { return }
-        let image = challenge.category == .exercise || challenge.category == .lifeStyle ? UIImage(named: challenge.category.symbol) : UIImage(systemName: challenge.category.symbol)
-        categoryImageView.image = image
-        titleLabel.text = challenge.title
-        weekLabel.text = "\(challenge.week)주"
-        endDateLabel.text = endDate
-        introductionLabel.text = challenge.introduction
     }
 }

@@ -29,7 +29,6 @@ protocol DetailViewModelInput {
 protocol DetailViewModelOutput {
     var ownerState: CurrentValueSubject<Bool, Never> { get }
     var participationAuthState: CurrentValueSubject<ParticipationAuthState, Never> { get }
-
     var challenge: PassthroughSubject<Challenge, Never> { get }
     var editBarButtonTap: PassthroughSubject<String, Never> { get }
     var participationButtonTap: PassthroughSubject<Void, Never> { get }
@@ -46,6 +45,9 @@ protocol DetailViewModelIO: DetailViewModelInput, DetailViewModelOutput { }
 class DetailViewModel: DetailViewModelIO {
     var ownerState = CurrentValueSubject<Bool, Never>(false)
     var participationAuthState = CurrentValueSubject<ParticipationAuthState, Never>(.notParticipating)
+
+    var cancellables = Set<AnyCancellable>()
+    private(set) var challengeID: String?
 
     var challenge = PassthroughSubject<Challenge, Never>()
     var editBarButtonTap = PassthroughSubject<String, Never>()
@@ -64,8 +66,6 @@ class DetailViewModel: DetailViewModelIO {
     let userFetchUsecase: UserFetchableUsecase
     let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
     let achievementUpdateUsecase: AchievementUpdatableUsecase
-    var cancellables = Set<AnyCancellable>()
-    private(set) var challengeID: String?
 
     let challengeUpdatePublisher = NotificationCenter.default.publisher(
         for: ChallengeUpdateUsecase.didUpdateChallenge,
@@ -102,9 +102,9 @@ class DetailViewModel: DetailViewModelIO {
         self.userFetchUsecase = userFetchUsecase
         self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
         self.achievementUpdateUsecase = achievementUpdateUsecase
+        self.configurePublishers()
         self.fetchChallenge()
         self.updateParticipationAuthState()
-        self.configurePublishers()
     }
 }
 
@@ -122,7 +122,7 @@ extension DetailViewModel {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.fetchParticipationAuthState()
+                self.updateParticipationAuthState()
             }
             .store(in: &cancellables)
 
@@ -130,7 +130,7 @@ extension DetailViewModel {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.fetchParticipationAuthState()
+                self.updateParticipationAuthState()
             }
             .store(in: &cancellables)
 
@@ -138,11 +138,45 @@ extension DetailViewModel {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.fetchParticipationAuthState()
+                self.updateParticipationAuthState()
             }
             .store(in: &cancellables)
     }
 
+    private func fetchParticipation(completion: @escaping (Participation?) -> Void) {
+        guard let challengeID = challengeID else { return }
+        participationFetchUsecase.fetchParticipation(challengeID: challengeID) { participation in
+            completion(participation)
+        }
+    }
+
+    private func fetchAuth(completion: @escaping (ChallengeAuth?) -> Void) {
+        guard let challengeID = challengeID else { return }
+        challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
+            completion(challengeAuth)
+        }
+    }
+
+    private func updateParticipationAuthState() {
+        fetchParticipation { [weak self] participation in
+            guard let self = self else { return }
+            if participation == nil {
+                self.participationAuthState.value = .notParticipating
+            } else {
+                self.fetchAuth { [weak self] challengeAuth in
+                    guard let self = self else { return }
+                    self.participationAuthState.value = challengeAuth == nil ? .notAuthenticating : .authenticated
+                }
+            }
+        }
+    }
+
+    private func isChallengeOwner(challenge: Challenge) -> Bool {
+        return challenge.ownerID == userFetchUsecase.fetchUserID()
+    }
+}
+
+extension DetailViewModel {
     func fetchChallenge() {
         guard let challengeID = challengeID else { return }
         challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
@@ -192,47 +226,9 @@ extension DetailViewModel {
         authMethodImageLoad.send(imageData)
     }
 
-    func fetchParticipationAuthState() {
-        updateParticipationAuthState()
-    }
-
     func updateParticipantCount() {
         guard let challengeID = challengeID else { return }
         challengeUpdateUsecase.updateParticipantCount(challengeID: challengeID)
         achievementUpdateUsecase.updateTotalCount()
-    }
-}
-
-extension DetailViewModel {
-    private func fetchParticipation(completion: @escaping (Participation?) -> Void) {
-        guard let challengeID = challengeID else { return }
-        participationFetchUsecase.fetchParticipation(challengeID: challengeID) { participation in
-            completion(participation)
-        }
-    }
-
-    private func fetchAuth(completion: @escaping (ChallengeAuth?) -> Void) {
-        guard let challengeID = challengeID else { return }
-        challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
-            completion(challengeAuth)
-        }
-    }
-
-    private func updateParticipationAuthState() {
-        fetchParticipation { [weak self] participation in
-            guard let self = self else { return }
-            if participation == nil {
-                self.participationAuthState.value = .notParticipating
-            } else {
-                self.fetchAuth { [weak self] challengeAuth in
-                    guard let self = self else { return }
-                    self.participationAuthState.value = challengeAuth == nil ? .notAuthenticating : .authenticated
-                }
-            }
-        }
-    }
-
-    private func isChallengeOwner(challenge: Challenge) -> Bool {
-        return challenge.ownerID == userFetchUsecase.fetchUserID()
     }
 }

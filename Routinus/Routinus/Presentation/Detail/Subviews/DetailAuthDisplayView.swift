@@ -45,13 +45,11 @@ final class DetailAuthDisplayView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
     }()
-
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
     }()
-
     private lazy var descriptionLabel: UILabel = {
         var label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
@@ -59,7 +57,6 @@ final class DetailAuthDisplayView: UIView {
         label.numberOfLines = 0
         return label
     }()
-
     private lazy var accessoryImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.right")
@@ -70,13 +67,11 @@ final class DetailAuthDisplayView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        configureSubviews()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
-        configureSubviews()
     }
 
     func update(to state: AuthDisplayState) {
@@ -88,13 +83,15 @@ final class DetailAuthDisplayView: UIView {
 
 extension DetailAuthDisplayView {
     private func configure() {
+        configureSubviews()
+    }
+
+    private func configureSubviews() {
         backgroundColor = .systemBackground
         layer.borderWidth = 1
         layer.borderColor = UIColor(named: "LightGray")?.cgColor
         layer.cornerRadius = 5
-    }
 
-    private func configureSubviews() {
         addSubview(accessoryImageView)
         accessoryImageView.anchor(trailing: trailingAnchor,
                                   paddingTrailing: 20,
