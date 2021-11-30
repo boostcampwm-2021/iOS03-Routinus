@@ -19,16 +19,6 @@ final class PreviewView: UIView {
         view.clipsToBounds = true
         return view
     }()
-
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.spacing = 10
-        stackView.clipsToBounds = true
-        return stackView
-    }()
-
     private lazy var authButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "camera.fill"), for: .normal)
@@ -41,14 +31,6 @@ final class PreviewView: UIView {
         button.layer.cornerRadius = 15
         button.isUserInteractionEnabled = false
         return button
-    }()
-
-    private lazy var previewLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Preview"
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 26)
-        return label
     }()
 
     override init(frame: CGRect) {
@@ -84,12 +66,11 @@ extension PreviewView {
         addSubview(previewView)
         previewView.anchor(horizontal: self, paddingHorizontal: 20, vertical: self)
 
-        previewView.addSubview(stackView)
-        stackView.anchor(centerX: self.centerXAnchor, centerY: self.centerYAnchor)
-
-        authButton.anchor(width: 80, height: 80)
-        previewLabel.anchor(width: 100)
-        [authButton, previewLabel].forEach { self.stackView.addArrangedSubview($0) }
+        previewView.addSubview(authButton)
+        authButton.anchor(centerX: self.centerXAnchor,
+                          centerY: self.centerYAnchor,
+                          width: 80,
+                          height: 80)
     }
 
     private func configureGesture() {
