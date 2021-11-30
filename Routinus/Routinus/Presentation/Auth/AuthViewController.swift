@@ -22,7 +22,7 @@ final class AuthViewController: UIViewController {
         return view
     }()
     private lazy var authMethodView = AuthMethodView()
-    private lazy var previewView = PreviewView()
+    private lazy var previewView = AuthPreviewView()
     private lazy var authButton = AuthButton()
 
     private var viewModel: AuthViewModelIO?

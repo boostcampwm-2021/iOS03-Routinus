@@ -105,7 +105,7 @@
 		E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C1915273CACDD00D11127 /* PopularKeyword.swift */; };
 		E932229A2754C45D007DBAF2 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93222992754C45D007DBAF2 /* LaunchView.swift */; };
 		E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044127434D4700D82B1D /* AuthMethodView.swift */; };
-		E937044427434D6300D82B1D /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044327434D6300D82B1D /* PreviewView.swift */; };
+		E937044427434D6300D82B1D /* AuthPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044327434D6300D82B1D /* AuthPreviewView.swift */; };
 		E937044627434D8F00D82B1D /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044527434D8F00D82B1D /* AuthButton.swift */; };
 		E93704492743B2F800D82B1D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93704482743B2F800D82B1D /* AuthViewModel.swift */; };
 		E9493DC1273A4E5B0095CF6D /* ChallengeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */; };
@@ -277,7 +277,7 @@
 		E91C1915273CACDD00D11127 /* PopularKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeyword.swift; sourceTree = "<group>"; };
 		E93222992754C45D007DBAF2 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		E937044127434D4700D82B1D /* AuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMethodView.swift; sourceTree = "<group>"; };
-		E937044327434D6300D82B1D /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		E937044327434D6300D82B1D /* AuthPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPreviewView.swift; sourceTree = "<group>"; };
 		E937044527434D8F00D82B1D /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		E93704482743B2F800D82B1D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRepository.swift; sourceTree = "<group>"; };
@@ -669,7 +669,7 @@
 		E937044027434D2400D82B1D /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				E937044327434D6300D82B1D /* PreviewView.swift */,
+				E937044327434D6300D82B1D /* AuthPreviewView.swift */,
 				E937044527434D8F00D82B1D /* AuthButton.swift */,
 			);
 			path = Subviews;
@@ -1199,7 +1199,7 @@
 				441CEE17273A33CD006C261F /* FormIntroductionView.swift in Sources */,
 				E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */,
 				145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */,
-				E937044427434D6300D82B1D /* PreviewView.swift in Sources */,
+				E937044427434D6300D82B1D /* AuthPreviewView.swift in Sources */,
 				44EA8A3B275499D100861183 /* UserDTO.swift in Sources */,
 				E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */,
 				0DBBAA3E27341C3600B32EB5 /* ChallengeCategoryCollectionViewHeader.swift in Sources */,

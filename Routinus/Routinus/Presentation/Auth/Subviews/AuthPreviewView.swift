@@ -1,5 +1,5 @@
 //
-//  PreviewView.swift
+//  AuthPreviewView.swift
 //  Routinus
 //
 //  Created by 박상우 on 2021/11/16.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PreviewView: UIView {
+final class AuthPreviewView: UIView {
     weak var delegate: PreviewViewDelegate?
 
     private lazy var previewView: UIView = {
@@ -56,7 +56,7 @@ final class PreviewView: UIView {
     }
 }
 
-extension PreviewView {
+extension AuthPreviewView {
     private func configure() {
         configureSubviews()
         configureGesture()
