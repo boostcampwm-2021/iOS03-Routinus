@@ -18,6 +18,7 @@ protocol ChallengeViewModelInput {
 
 protocol ChallengeViewModelOutput {
     var recommendChallenges: CurrentValueSubject<[Challenge], Never> { get }
+
     var searchButtonTap: PassthroughSubject<Void, Never> { get }
     var seeAllButtonTap: PassthroughSubject<Void, Never> { get }
     var recommendChallengeTap: PassthroughSubject<String, Never> { get }
