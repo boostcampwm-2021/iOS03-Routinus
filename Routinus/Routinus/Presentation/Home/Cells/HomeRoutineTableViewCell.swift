@@ -10,32 +10,30 @@ import UIKit
 final class HomeRoutineTableViewCell: UITableViewCell {
     static let identifier: String = "HomeRoutineTableViewCell"
 
-    private lazy var progressView: UIProgressView = {
-        let progressView = UIProgressView()
-        progressView.layer.borderWidth = 5
-        progressView.layer.cornerRadius = 25
-        progressView.progress = 0.0
-        progressView.clipsToBounds = true
-        progressView.trackTintColor = UIColor(named: "SystemBackground")
-        progressView.tintColor = UIColor(named: "MainColor")
-        progressView.layer.borderColor = UIColor(named: "MainColor")?.cgColor
-        return progressView
+    private lazy var borderView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 25
+        view.layer.borderWidth = 5
+        view.clipsToBounds = true
+        return view
     }()
-
+    private lazy var achievementRateView: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        return view
+    }()
     private lazy var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = UIColor(named: "SystemForeground")
         return imageView
     }()
-
     private lazy var categoryNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         return label
     }()
-
-    private lazy var leftArrow: UIImageView = {
+    private lazy var leftArrowImageView: UIImageView = {
         let imageConfig = UIImage.SymbolConfiguration(weight: .semibold)
         let image = UIImageView(image: UIImage(systemName: "chevron.left.2",
                                                withConfiguration: imageConfig))
@@ -60,26 +58,28 @@ final class HomeRoutineTableViewCell: UITableViewCell {
         } else {
             categoryImageView.image = UIImage(systemName: routine.category.symbol)
         }
+        borderView.layer.borderColor = UIColor(named: routine.category.color)?.cgColor
+        achievementRateView.backgroundColor = UIColor(named: routine.category.color)?.withAlphaComponent(0.7)
         categoryNameLabel.text = routine.title
+
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            UIView.animate(withDuration: 1.5, delay: 3) {
-                let progress = Float(routine.authCount) / Float(routine.totalCount)
-                self.progressView.setProgress(progress, animated: true)
+            let progress = Float(routine.authCount) / Float(routine.totalCount)
+            if progress != 0 {
+                self.achievementRateView.isHidden = false
+                self.achievementRateView.removeLastAnchor()
+                self.achievementRateView.anchor(leading: self.borderView.leadingAnchor,
+                                        top: self.borderView.topAnchor,
+                                        bottom: self.borderView.bottomAnchor,
+                                        width: self.borderView.bounds.width * CGFloat(progress))
+            } else {
+                self.achievementRateView.isHidden = true
             }
         }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-    }
-
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            progressView.layer.borderColor = UIColor(named: "MainColor")?.cgColor
-        }
     }
 }
 
@@ -90,14 +90,20 @@ extension HomeRoutineTableViewCell {
 
         backgroundColor = UIColor(named: "SystemBackground")
 
-        contentView.addSubview(progressView)
-        progressView.anchor(horizontal: progressView.superview,
+        contentView.addSubview(borderView)
+        borderView.anchor(horizontal: borderView.superview,
                             paddingHorizontal: offset,
                             centerY: centerYAnchor,
                             height: contentView.frame.height + 5)
 
-        contentView.addSubview(leftArrow)
-        leftArrow.anchor(trailing: trailingAnchor,
+        borderView.addSubview(achievementRateView)
+        achievementRateView.anchor(leading: borderView.leadingAnchor,
+                        top: borderView.topAnchor,
+                        bottom: borderView.bottomAnchor,
+                        width: 0)
+
+        contentView.addSubview(leftArrowImageView)
+        leftArrowImageView.anchor(trailing: trailingAnchor,
                          paddingTrailing: 20 + offset,
                          centerY: centerYAnchor)
 
@@ -111,8 +117,7 @@ extension HomeRoutineTableViewCell {
         contentView.addSubview(categoryNameLabel)
         categoryNameLabel.anchor(leading: categoryImageView.trailingAnchor,
                                  paddingLeading: 10,
-                                 trailing: leftArrow.leadingAnchor,
+                                 trailing: leftArrowImageView.leadingAnchor,
                                  centerY: centerYAnchor)
-
     }
 }
