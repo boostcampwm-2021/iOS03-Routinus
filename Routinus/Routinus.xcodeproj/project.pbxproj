@@ -138,8 +138,6 @@
 		E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CC22731258A00A14A0F /* HomeViewModel.swift */; };
 		E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E994744F2736D54C0054A631 /* DetailCoordinator.swift */; };
 		E99474522736F4B30054A631 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99474512736F4B30054A631 /* AuthCoordinator.swift */; };
-		E99D9E5F273FC623008A7E07 /* HomeCreatableUsecaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99D9E5E273FC623008A7E07 /* HomeCreatableUsecaseMock.swift */; };
-		E99D9E61273FC642008A7E07 /* HomeFetchableUsecaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99D9E60273FC642008A7E07 /* HomeFetchableUsecaseMock.swift */; };
 		E99D9E64273FC75E008A7E07 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99D9E63273FC75E008A7E07 /* HomeViewModelTests.swift */; };
 		E9A7943D2746125E00731DEB /* ParticipationUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7943C2746125E00731DEB /* ParticipationUpdateUsecase.swift */; };
 		E9A7943F274618AB00731DEB /* AchievementUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7943E274618AB00731DEB /* AchievementUpdateUsecase.swift */; };
@@ -314,8 +312,6 @@
 		E994744F2736D54C0054A631 /* DetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoordinator.swift; sourceTree = "<group>"; };
 		E99474512736F4B30054A631 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		E99D9E50273FC570008A7E07 /* RoutinusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutinusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E99D9E5E273FC623008A7E07 /* HomeCreatableUsecaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCreatableUsecaseMock.swift; sourceTree = "<group>"; };
-		E99D9E60273FC642008A7E07 /* HomeFetchableUsecaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFetchableUsecaseMock.swift; sourceTree = "<group>"; };
 		E99D9E63273FC75E008A7E07 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		E9A7943C2746125E00731DEB /* ParticipationUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationUpdateUsecase.swift; sourceTree = "<group>"; };
 		E9A7943E274618AB00731DEB /* AchievementUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementUpdateUsecase.swift; sourceTree = "<group>"; };
@@ -908,8 +904,6 @@
 		E99D9E59273FC591008A7E07 /* MockDatas */ = {
 			isa = PBXGroup;
 			children = (
-				E99D9E60273FC642008A7E07 /* HomeFetchableUsecaseMock.swift */,
-				E99D9E5E273FC623008A7E07 /* HomeCreatableUsecaseMock.swift */,
 				E95CDCFB2755F8C500A3E485 /* UserCreatableUsecaseMock.swift */,
 				E95CDCFD2755F8D500A3E485 /* UserFetchableUsecaseMock.swift */,
 				E95CDCFF2755F8F700A3E485 /* UserUpdatableUsecaseMock.swift */,
@@ -1238,8 +1232,6 @@
 			files = (
 				E95CDCFE2755F8D500A3E485 /* UserFetchableUsecaseMock.swift in Sources */,
 				E95CDD002755F8F700A3E485 /* UserUpdatableUsecaseMock.swift in Sources */,
-				E99D9E5F273FC623008A7E07 /* HomeCreatableUsecaseMock.swift in Sources */,
-				E99D9E61273FC642008A7E07 /* HomeFetchableUsecaseMock.swift in Sources */,
 				E95CDCFC2755F8C500A3E485 /* UserCreatableUsecaseMock.swift in Sources */,
 				E99D9E64273FC75E008A7E07 /* HomeViewModelTests.swift in Sources */,
 			);
