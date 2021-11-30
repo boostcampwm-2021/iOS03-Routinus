@@ -14,8 +14,12 @@ class HomeViewModelTests: XCTestCase {
     var cancellables: Set<AnyCancellable>!
 
     override func setUp() {
-        homeViewModel = HomeViewModel(createUsecase: HomeCreatableUsecaseMock(),
-                                      fetchUsecase: HomeFetchableUsecaseMock())
+        homeViewModel = HomeViewModel(userCreateUsecase: UserCreatableUsecaseMock(),
+                                      userFetchUsecase: UserFetchableUsecaseMock(),
+                                      userUpdateUsecase: UserUpdatableUsecaseMock(),
+                                      todayRoutineFetchUsecase: TodayRoutineFetchableUsecaseMock(),
+                                      achievementFetchUsecase: AchievementFetchableUsecaseMock(),
+                                      authFetchUsecase: AuthFetchableUsecaseMock())
         cancellables = []
     }
 
@@ -24,38 +28,53 @@ class HomeViewModelTests: XCTestCase {
     }
 
     func testFetchUserData() {
+        let id = homeViewModel.user.value.id
         let name = homeViewModel.user.value.name
         let continuityDay = homeViewModel.user.value.continuityDay
         let userImageCategoryID = homeViewModel.user.value.userImageCategoryID
         let grade = homeViewModel.user.value.grade
-        XCTAssertEqual(name, "testName")
-        XCTAssertEqual(continuityDay, 2)
-        XCTAssertEqual(userImageCategoryID, "1")
-        XCTAssertEqual(grade, 2)
+        let lastAuthDay = homeViewModel.user.value.lastAuthDay
+        XCTAssertEqual(id, "MockUserID")
+        XCTAssertEqual(name, "차분한 고양이")
+        XCTAssertEqual(continuityDay, 0)
+        XCTAssertEqual(userImageCategoryID, "0")
+        XCTAssertEqual(grade, 0)
+        XCTAssertEqual(lastAuthDay, "20201130")
     }
 
-    func testFetchRoutineData() {
-        let chllangeID = homeViewModel.todayRoutines.value.first!.challengeID
-        let category = homeViewModel.todayRoutines.value.first!.category
-        let title = homeViewModel.todayRoutines.value.first!.title
-        let authCount = homeViewModel.todayRoutines.value.first!.authCount
-        let totalCount = homeViewModel.todayRoutines.value.first!.totalCount
-        XCTAssertEqual(chllangeID, "mockChallengeID")
+    func testFetchTodayRoutineData() {
+        guard let chllangeID = homeViewModel.todayRoutines.value.first?.challengeID,
+              let category = homeViewModel.todayRoutines.value.first?.category,
+              let title = homeViewModel.todayRoutines.value.first?.title,
+              let authCount = homeViewModel.todayRoutines.value.first?.authCount,
+              let totalCount = homeViewModel.todayRoutines.value.first?.totalCount else { return }
+        XCTAssertEqual(chllangeID, "testChallenge1")
         XCTAssertEqual(category, .exercise)
-        XCTAssertEqual(title, "30분 운동하기")
-        XCTAssertEqual(authCount, 2)
-        XCTAssertEqual(totalCount, 4)
+        XCTAssertEqual(title, "테스트 챌린지1")
+        XCTAssertEqual(authCount, 0)
+        XCTAssertEqual(totalCount, 7)
     }
 
     func testFetchAchivementData() {
-        let yearMonth = homeViewModel.achievement.value.first!.yearMonth
-        let day = homeViewModel.achievement.value.first!.day
-        let achievementCount = homeViewModel.achievement.value.first!.achievementCount
-        let totalCount = homeViewModel.achievement.value.first!.totalCount
+        let yearMonth = homeViewModel.achievements[0].yearMonth
+        let day = homeViewModel.achievements[0].day
+        let achievementCount = homeViewModel.achievements[0].achievementCount
+        let totalCount = homeViewModel.achievements[0].totalCount
         XCTAssertEqual(yearMonth, "202111")
-        XCTAssertEqual(day, "06")
-        XCTAssertEqual(achievementCount, 1)
-        XCTAssertEqual(totalCount, 2)
+        XCTAssertEqual(day, "29")
+        XCTAssertEqual(achievementCount, 2)
+        XCTAssertEqual(totalCount, 4)
+    }
+
+    func testFetchThemeStyleData() {
+        let themeStyle = homeViewModel.themeStyle()
+        XCTAssertEqual(themeStyle, 1)
+    }
+
+    func testUpdateDate() {
+        homeViewModel.updateDate(month: 0)
+        let month = homeViewModel.baseDate.value.month
+        XCTAssertEqual(month, 11)
     }
 
     func testDidTappedChallengeAddButton() {

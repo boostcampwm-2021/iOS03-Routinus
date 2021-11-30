@@ -15,14 +15,14 @@ class UserFetchableUsecaseMock: UserFetchableUsecase {
                         continuityDay: 0,
                         userImageCategoryID: "0",
                         grade: 0,
-                        lastAuthDay: "2020")
+                        lastAuthDay: "20201130")
         completion(user)
     }
-    
+
     func fetchUserID() -> String? {
-        return "MockUserID"
+        return nil
     }
-    
+
     func fetchThemeStyle() -> Int {
         return 1
     }
