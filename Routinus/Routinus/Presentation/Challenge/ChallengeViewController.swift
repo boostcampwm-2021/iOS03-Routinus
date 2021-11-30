@@ -30,8 +30,8 @@ final class ChallengeViewController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ChallengeContents>
     typealias DataSource = UICollectionViewDiffableDataSource<Section, ChallengeContents>
 
-    private var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureLayout())
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: ChallengeViewController.createLayout())
         collectionView.backgroundColor = .systemBackground
 
         collectionView.showsVerticalScrollIndicator = false
@@ -58,9 +58,9 @@ final class ChallengeViewController: UIViewController {
         return collectionView
     }()
 
+    private var dataSource: DataSource?
     private var viewModel: ChallengeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
-    private lazy var dataSource = configureDataSource()
 
     init(with viewModel: ChallengeViewModelIO) {
         self.viewModel = viewModel
@@ -86,6 +86,13 @@ final class ChallengeViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+
+    static func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+            let layout = ChallengeCollectionViewLayouts()
+            return layout.section(at: sectionNumber)
+        }
+    }
 }
 
 extension ChallengeViewController {
@@ -93,6 +100,7 @@ extension ChallengeViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
+        configureDataSource()
         configureCategory()
         configureRefreshControl()
     }
@@ -130,8 +138,8 @@ extension ChallengeViewController {
         collectionView.dataSource = dataSource
     }
 
-    private func configureDataSource() -> DataSource? {
-        let dataSource = DataSource(collectionView: collectionView) { [weak self] collectionView, indexPath, content in
+    private func configureDataSource() {
+        dataSource = DataSource(collectionView: collectionView) { [weak self] collectionView, indexPath, content in
             guard let self = self else { return nil }
             switch content {
             case .recommend(let recommendChallenge):
@@ -155,11 +163,12 @@ extension ChallengeViewController {
         configureHeader(of: dataSource)
         var snapshot = Snapshot()
         snapshot.appendSections(Section.allCases)
-        dataSource.apply(snapshot, animatingDifferences: true)
-        return dataSource
+        dataSource?.apply(snapshot, animatingDifferences: true)
     }
 
-    private func configureHeader(of dataSource: DataSource) {
+    private func configureHeader(of dataSource: DataSource?) {
+        guard let dataSource = dataSource else { return }
+
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             guard let self = self else { return nil }
             guard kind == UICollectionView.elementKindSectionHeader else {
@@ -212,13 +221,6 @@ extension ChallengeViewController {
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
         )
         collectionView.refreshControl = refreshControl
-    }
-
-    static func configureLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
-            let layout = ChallengeCollectionViewLayouts()
-            return layout.section(at: sectionNumber)
-        }
     }
 
     @objc private func refresh() {
