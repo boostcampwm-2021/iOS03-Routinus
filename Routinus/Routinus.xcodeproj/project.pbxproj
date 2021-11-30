@@ -146,7 +146,7 @@
 		E9B58198274E0FDF00C39BD7 /* ChallengeRecommendHeaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B58197274E0FDF00C39BD7 /* ChallengeRecommendHeaderDelegate.swift */; };
 		E9B87CC6274950FC00D7C0D2 /* UserUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */; };
 		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
-		E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */; };
+		E9E9D1E8273BA83800F9CCBB /* SearchPopularKeywordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* SearchPopularKeywordButton.swift */; };
 		E9E9D1EB273C1A4200F9CCBB /* SearchBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */; };
 /* End PBXBuildFile section */
 
@@ -319,7 +319,7 @@
 		E9B58197274E0FDF00C39BD7 /* ChallengeRecommendHeaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRecommendHeaderDelegate.swift; sourceTree = "<group>"; };
 		E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUpdateUsecase.swift; sourceTree = "<group>"; };
 		E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFetchUsecase.swift; sourceTree = "<group>"; };
-		E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeywordButton.swift; sourceTree = "<group>"; };
+		E9E9D1E7273BA83800F9CCBB /* SearchPopularKeywordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPopularKeywordButton.swift; sourceTree = "<group>"; };
 		E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -929,7 +929,7 @@
 			isa = PBXGroup;
 			children = (
 				E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */,
-				E9E9D1E7273BA83800F9CCBB /* PopularKeywordButton.swift */,
+				E9E9D1E7273BA83800F9CCBB /* SearchPopularKeywordButton.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1156,7 +1156,7 @@
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				44EA8A3F275499E000861183 /* AchievementDTO.swift in Sources */,
-				E9E9D1E8273BA83800F9CCBB /* PopularKeywordButton.swift in Sources */,
+				E9E9D1E8273BA83800F9CCBB /* SearchPopularKeywordButton.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
 				0DE0339C274355770026F502 /* ManageViewModel.swift in Sources */,
 				443213CF274BD566003551E8 /* MyPageUserNameUpdatableDelegate.swift in Sources */,

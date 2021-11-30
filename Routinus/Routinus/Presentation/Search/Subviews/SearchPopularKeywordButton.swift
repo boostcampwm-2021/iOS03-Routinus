@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PopularKeywordButton: UIButton {
+final class SearchPopularKeywordButton: UIButton {
     var keyword: String?
 
     override init(frame: CGRect) {

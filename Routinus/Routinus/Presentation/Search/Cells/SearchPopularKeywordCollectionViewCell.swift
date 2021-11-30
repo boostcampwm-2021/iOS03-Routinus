@@ -12,8 +12,8 @@ final class SearchPopularKeywordCollectionViewCell: UICollectionViewCell {
 
     weak var delegate: SearchPopularKeywordDelegate?
 
-    private lazy var popularKeywordButton: PopularKeywordButton = {
-        let button = PopularKeywordButton()
+    private lazy var popularKeywordButton: SearchPopularKeywordButton = {
+        let button = SearchPopularKeywordButton()
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.backgroundColor = UIColor(named: "SundayColor")
         button.layer.borderWidth = 1
@@ -50,7 +50,7 @@ extension SearchPopularKeywordCollectionViewCell {
                                     vertical: popularKeywordButton.superview)
     }
 
-    @objc private func didTappedPopularKeyword(_ sender: PopularKeywordButton) {
+    @objc private func didTappedPopularKeyword(_ sender: SearchPopularKeywordButton) {
         delegate?.didTappedKeywordButton(keyword: sender.keyword)
     }
 }
