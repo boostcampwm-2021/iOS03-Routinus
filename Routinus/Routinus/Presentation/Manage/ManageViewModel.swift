@@ -33,11 +33,10 @@ final class ManageViewModel: ManageViewModelIO {
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var challengeTap = PassthroughSubject<String, Never>()
+    var cancellables = Set<AnyCancellable>()
 
     let imageFetchUsecase: ImageFetchableUsecase
     let challengeFetchUsecase: ChallengeFetchableUsecase
-    var cancellables = Set<AnyCancellable>()
-
     let challengeCreatePublisher = NotificationCenter.default.publisher(
         for: ChallengeCreateUsecase.didCreateChallenge,
         object: nil
@@ -56,7 +55,7 @@ final class ManageViewModel: ManageViewModelIO {
 }
 
 extension ManageViewModel {
-    func configurePublishers() {
+    private func configurePublishers() {
         challengeCreatePublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
@@ -74,6 +73,26 @@ extension ManageViewModel {
             .store(in: &cancellables)
     }
 
+    private func fetchParticipatingChallenges() {
+        challengeFetchUsecase.fetchMyParticipatingChallenges { [weak self] challenges in
+            self?.participatingChallenges.value = challenges
+        }
+    }
+
+    private func fetchCreatedChallenges() {
+        challengeFetchUsecase.fetchCreatedChallengesByMe { [weak self] challenges in
+            self?.createdChallenges.value = challenges
+        }
+    }
+
+    private func fetchEndedChallenges() {
+        challengeFetchUsecase.fetchMyEndedChallenges { [weak self] challenges in
+            self?.endedChallenges.value = challenges
+        }
+    }
+}
+
+extension ManageViewModel {
     func didTappedAddButton() {
         challengeAddButtonTap.send()
     }
@@ -94,8 +113,8 @@ extension ManageViewModel {
     }
 
     func didLoadedManageView() {
-        fetchCreatedChallenges()
         fetchParticipatingChallenges()
+        fetchCreatedChallenges()
         fetchEndedChallenges()
     }
 
@@ -104,26 +123,6 @@ extension ManageViewModel {
                    completion: ((Data?) -> Void)?) {
         imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
-        }
-    }
-}
-
-extension ManageViewModel {
-    private func fetchParticipatingChallenges() {
-        challengeFetchUsecase.fetchMyParticipatingChallenges { [weak self] challenges in
-            self?.participatingChallenges.value = challenges
-        }
-    }
-
-    private func fetchCreatedChallenges() {
-        challengeFetchUsecase.fetchCreatedChallengesByMe { [weak self] challenges in
-            self?.createdChallenges.value = challenges
-        }
-    }
-
-    private func fetchEndedChallenges() {
-        challengeFetchUsecase.fetchMyEndedChallenges { [weak self] challenges in
-            self?.endedChallenges.value = challenges
         }
     }
 }

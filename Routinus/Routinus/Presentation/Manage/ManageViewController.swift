@@ -42,7 +42,8 @@ final class ManageViewController: UIViewController {
 
         return collectionView
     }()
-    private lazy var dataSource = configureDataSource()
+
+    private var dataSource: DataSource?
     private var viewModel: ManageViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
@@ -57,12 +58,7 @@ final class ManageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
-        configureCollectionView()
-        configureViewModel()
-        configureRefreshControl()
-        configureTitle()
-        didLoadedManageView()
+        configure()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -76,21 +72,75 @@ final class ManageViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+
+    static func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+            let layout = ManageCollectionViewLayouts()
+            return layout.section(at: sectionNumber)
+        }
+    }
 }
 
 extension ManageViewController {
+    private func configure() {
+        configureViews()
+        configureCollectionView()
+        configureViewModel()
+        configureDelegates()
+        configureTitle()
+        configureRefreshControl()
+    }
+
     private func configureViews() {
-        configureNavigationBar()
         view.backgroundColor = .systemBackground
+
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = UIColor(named: "Black")
+        navigationItem.backBarButtonItem = backBarButtonItem
 
         view.addSubview(collectionView)
         collectionView.anchor(edges: view.safeAreaLayoutGuide)
     }
 
-    private func configureNavigationBar() {
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = UIColor(named: "Black")
-        navigationItem.backBarButtonItem = backBarButtonItem
+    private func configureCollectionView() {
+        dataSource = configureDataSource()
+        configureHeader(of: dataSource)
+    }
+
+    private func configureHeader(of dataSource: DataSource?) {
+        dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+            guard let self = self,
+                  let dataSource = self.dataSource,
+                  kind == UICollectionView.elementKindSectionHeader else { return nil }
+
+            let view = collectionView.dequeueReusableSupplementaryView(
+                                      ofKind: kind,
+                                      withReuseIdentifier: ManageCollectionViewHeader.identifier,
+                                      for: indexPath) as? ManageCollectionViewHeader
+            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
+
+            switch section {
+            case .created:
+                view?.updateViews(section: .created)
+            case .participating:
+                view?.updateViews(section: .participating)
+            case .ended:
+                view?.updateViews(section: .ended)
+            case .add:
+                break
+            }
+
+            if view?.gestureRecognizers?.count == nil {
+                let tapGesture = UITapGestureRecognizer(
+                    target: self,
+                    action: #selector(self.collectionViewHeaderTouched(_:))
+                )
+                tapGesture.delegate = self
+                view?.addGestureRecognizer(tapGesture)
+            }
+
+            return view
+        }
     }
 
     private func configureViewModel() {
@@ -134,18 +184,15 @@ extension ManageViewController {
             .store(in: &cancellables)
     }
 
-    private func configureCollectionView() {
+    private func configureDelegates() {
         collectionView.delegate = self
         collectionView.dataSource = dataSource
-
-        configureHeader(of: dataSource)
     }
 
-    static func createLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
-            let layout = ManageCollectionViewLayouts()
-            return layout.section(at: sectionNumber)
-        }
+    private func configureTitle() {
+        guard var snapshot = dataSource?.snapshot(for: .add) else { return }
+        snapshot.append([Item.title])
+        dataSource?.apply(snapshot, to: .add)
     }
 
     private func configureRefreshControl() {
@@ -159,35 +206,6 @@ extension ManageViewController {
         collectionView.refreshControl = refreshControl
     }
 
-    @objc private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
-            guard let self = self else { return }
-            self.expandHeaders()
-            self.viewModel?.didLoadedManageView()
-            self.collectionView.refreshControl?.endRefreshing()
-        }
-    }
-
-    private func expandHeaders() {
-        let headers = collectionView.subviews.compactMap { $0 as? ManageCollectionViewHeader }
-        for header in headers {
-            header.isExpanded = true
-            updateCells(of: header)
-        }
-    }
-}
-
-extension ManageViewController: ChallengePromotionViewDelegate {
-    func didTappedPromotionButton() {
-        viewModel?.didTappedAddButton()
-    }
-
-    func didLoadedManageView() {
-        viewModel?.didLoadedManageView()
-    }
-}
-
-extension ManageViewController {
     private func configureDataSource() -> DataSource? {
         let dataSource = DataSource(collectionView: collectionView) { [weak self] collectionView, indexPath, content in
             guard let self = self else { return nil }
@@ -225,66 +243,6 @@ extension ManageViewController {
         return dataSource
     }
 
-    private func configureHeader(of dataSource: DataSource?) {
-        dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
-            guard let self = self,
-                  let dataSource = self.dataSource  else { return nil }
-            guard kind == UICollectionView.elementKindSectionHeader else {
-                return nil
-            }
-
-            let view = collectionView.dequeueReusableSupplementaryView(
-                                      ofKind: kind,
-                                      withReuseIdentifier: ManageCollectionViewHeader.identifier,
-                                      for: indexPath) as? ManageCollectionViewHeader
-            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
-
-            switch section {
-            case .created:
-                view?.configureViews(section: .created)
-            case .participating:
-                view?.configureViews(section: .participating)
-            case .ended:
-                view?.configureViews(section: .ended)
-            case .add:
-                break
-            }
-
-            if view?.gestureRecognizers?.count == nil {
-                let tapGesture = UITapGestureRecognizer(
-                    target: self,
-                    action: #selector(self.collectionViewHeaderTouched(_:))
-                )
-                tapGesture.delegate = self
-                view?.addGestureRecognizer(tapGesture)
-            }
-
-            return view
-        }
-    }
-
-    private func configureTitle() {
-        guard var snapshot = dataSource?.snapshot(for: .add) else { return }
-        snapshot.append([Item.title])
-        dataSource?.apply(snapshot, to: .add)
-    }
-}
-
-extension ManageViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section != 0 {
-            viewModel?.didTappedChallenge(index: indexPath)
-        }
-    }
-}
-
-extension ManageViewController: UIGestureRecognizerDelegate {
-    @objc func collectionViewHeaderTouched(_ sender: UITapGestureRecognizer) {
-        guard let header = sender.view as? ManageCollectionViewHeader else { return }
-        header.didTouchedHeader()
-        updateCells(of: header)
-    }
-
     private func updateCells(of header: ManageCollectionViewHeader) {
         var challenges: [Challenge]?
 
@@ -310,5 +268,48 @@ extension ManageViewController: UIGestureRecognizerDelegate {
         }
 
         dataSource?.apply(snapshot, to: section)
+    }
+
+    private func expandHeaders() {
+        let headers = collectionView.subviews.compactMap { $0 as? ManageCollectionViewHeader }
+        for header in headers {
+            header.isExpanded = true
+            updateCells(of: header)
+        }
+    }
+
+    @objc private func refresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
+            guard let self = self else { return }
+            self.expandHeaders()
+            self.viewModel?.didLoadedManageView()
+            self.collectionView.refreshControl?.endRefreshing()
+        }
+    }
+}
+
+extension ManageViewController: ChallengePromotionViewDelegate {
+    func didTappedPromotionButton() {
+        viewModel?.didTappedAddButton()
+    }
+
+    func didLoadedManageView() {
+        viewModel?.didLoadedManageView()
+    }
+}
+
+extension ManageViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section != 0 {
+            viewModel?.didTappedChallenge(index: indexPath)
+        }
+    }
+}
+
+extension ManageViewController: UIGestureRecognizerDelegate {
+    @objc func collectionViewHeaderTouched(_ sender: UITapGestureRecognizer) {
+        guard let header = sender.view as? ManageCollectionViewHeader else { return }
+        header.didTouchedHeader()
+        updateCells(of: header)
     }
 }

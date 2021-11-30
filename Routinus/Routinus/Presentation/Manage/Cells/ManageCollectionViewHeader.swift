@@ -52,7 +52,7 @@ final class ManageCollectionViewHeader: UICollectionReusableView {
         }
     }
 
-    func configureViews(section: Section) {
+    func updateViews(section: Section) {
         self.section = section
         label.text = section.title
 
