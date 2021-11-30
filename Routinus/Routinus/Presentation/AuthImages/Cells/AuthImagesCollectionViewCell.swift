@@ -31,7 +31,7 @@ final class AuthImagesCollectionViewCell: UICollectionViewCell {
     func update(image: UIImage) {
         imageView.image = image
     }
-    
+
     func imageData() -> Data {
         guard let imageData = imageView.image?.jpegData(compressionQuality: 1) else { return Data() }
         return imageData

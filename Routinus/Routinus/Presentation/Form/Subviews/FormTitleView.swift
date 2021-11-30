@@ -9,7 +9,7 @@ import UIKit
 
 final class FormTitleView: UIView {
     typealias Tag = FormViewController.InputTag
-    
+
     weak var delegate: UITextFieldDelegate? {
         didSet {
             textField.delegate = delegate
@@ -28,7 +28,7 @@ final class FormTitleView: UIView {
         label.text = "don't use bad words".localized
         label.font = .systemFont(ofSize: 16)
         label.numberOfLines = 2
-        label.textColor = .systemGray
+        label.textColor = UIColor(named: "DayColor")
         return label
     }()
     private lazy var textField: UITextField = {

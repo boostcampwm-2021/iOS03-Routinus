@@ -15,7 +15,7 @@ final class DetailParticipantButton: UIButton {
         self.setTitle(ParticipationAuthState.notParticipating.rawValue, for: .normal)
         self.isEnabled = true
         self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 26)
-        self.setTitleColor(.black, for: .normal)
+        self.setTitleColor(UIColor(named: "Black"), for: .normal)
         self.backgroundColor = UIColor(named: "MainColor")
         self.layer.cornerRadius = 15
         self.addTarget(self, action: #selector(didTappedAuthButton), for: .touchUpInside)
@@ -36,7 +36,7 @@ final class DetailParticipantButton: UIButton {
     func update(to state: ParticipationAuthState) {
         isEnabled = state == .authenticated ? false : true
         let backgroundColor = isEnabled ? "MainColor" : "MainColor0.5"
-        let titleColor = isEnabled ? "Black" : "DayColor"
+        let titleColor = isEnabled ? "SystemForeground" : "DayColor"
         setTitle(state.rawValue.localized, for: .normal)
         setTitleColor(UIColor(named: titleColor), for: .normal)
         self.backgroundColor = UIColor(named: backgroundColor)

@@ -16,16 +16,16 @@ final class ChallengeCategoryCollectionViewHeader: UICollectionReusableView {
 
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(named: "Black")
+        label.textColor = UIColor(named: "SystemForeground")
         label.font = UIFont.boldSystemFont(ofSize: 18)
 
         return label
     }()
-    
+
     private lazy var seeAllButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("See all", for: .normal)
-        button.setTitleColor(UIColor(named: "Black"), for: .normal)
+        button.setTitleColor(UIColor(named: "SystemForeground"), for: .normal)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         button.addTarget(self, action: #selector(didTappedSeeAllButton), for: .touchUpInside)
         return button
@@ -71,4 +71,3 @@ extension ChallengeCategoryCollectionViewHeader {
         delegate?.didTappedSeeAllButton()
     }
 }
-

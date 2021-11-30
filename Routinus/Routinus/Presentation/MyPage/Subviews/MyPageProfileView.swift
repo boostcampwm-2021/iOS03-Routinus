@@ -33,7 +33,7 @@ final class MyPageProfileView: UIView {
     private lazy var updateIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "pencil")
-        imageView.tintColor = UIColor(named: "Black")
+        imageView.tintColor = UIColor(named: "SystemForeground")
         return imageView
     }()
 

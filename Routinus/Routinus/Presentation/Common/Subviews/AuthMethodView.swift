@@ -19,7 +19,7 @@ final class AuthMethodView: UIView {
 
     private lazy var methodImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemBackground
+        imageView.backgroundColor = UIColor(named: "SystemBackground")
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
@@ -29,14 +29,14 @@ final class AuthMethodView: UIView {
     private lazy var methodView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 5
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = UIColor(named: "LightGray")
         return view
     }()
 
     private lazy var methodLabel: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
-        label.textColor = UIColor(named: "Black")
+        label.textColor = UIColor(named: "SystemForeground")
         label.font = UIFont.boldSystemFont(ofSize: 15)
         return label
     }()
@@ -75,7 +75,7 @@ extension AuthMethodView {
     }
 
     private func configureSubviews() {
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "SystemBackground")
 
         addSubview(titleLabel)
         titleLabel.anchor(leading: leadingAnchor,

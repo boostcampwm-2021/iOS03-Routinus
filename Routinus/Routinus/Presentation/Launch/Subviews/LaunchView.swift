@@ -33,7 +33,7 @@ final class LaunchView: UIView {
 
 extension LaunchView {
     private func configureViews() {
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "SystemBackground")
         addSubview(launchImageView)
 
         launchImageView.anchor(leading: leadingAnchor,

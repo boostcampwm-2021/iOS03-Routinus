@@ -16,7 +16,7 @@ final class HomeRoutineTableViewCell: UITableViewCell {
         progressView.layer.cornerRadius = 25
         progressView.progress = 0.0
         progressView.clipsToBounds = true
-        progressView.trackTintColor = .systemBackground
+        progressView.trackTintColor = UIColor(named: "SystemBackground")
         progressView.tintColor = UIColor(named: "MainColor")
         progressView.layer.borderColor = UIColor(named: "MainColor")?.cgColor
         return progressView
@@ -25,7 +25,7 @@ final class HomeRoutineTableViewCell: UITableViewCell {
     private lazy var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = UIColor(named: "Black")
+        imageView.tintColor = UIColor(named: "SystemForeground")
         return imageView
     }()
 
@@ -88,7 +88,7 @@ extension HomeRoutineTableViewCell {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "SystemBackground")
 
         contentView.addSubview(progressView)
         progressView.anchor(horizontal: progressView.superview,

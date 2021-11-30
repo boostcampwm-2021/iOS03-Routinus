@@ -10,7 +10,7 @@ import UIKit
 final class ImagePinchViewController: UIViewController {
     private lazy var dimmedBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .black.withAlphaComponent(0.8)
+        view.backgroundColor = UIColor(named: "Black")?.withAlphaComponent(0.8)
         return view
     }()
 
@@ -18,14 +18,6 @@ final class ImagePinchViewController: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
-    }()
-
-    private lazy var closeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "xmark"), for: .normal)
-        button.tintColor = .red
-        button.addTarget(self, action: #selector(didTappedCloseButton), for: .touchUpInside)
-        return button
     }()
 
     private var imageData: Data? {
@@ -54,12 +46,6 @@ extension ImagePinchViewController {
                                     height: view.frame.height * 2)
         view.addSubview(imageView)
         imageView.anchor(horizontal: view, centerY: view.centerYAnchor)
-
-        view.addSubview(closeButton)
-        closeButton.anchor(trailing: view.trailingAnchor,
-                           paddingTrailing: 10,
-                           top: view.topAnchor,
-                           paddingTop: 10)
     }
 
     private func configurePinch() {

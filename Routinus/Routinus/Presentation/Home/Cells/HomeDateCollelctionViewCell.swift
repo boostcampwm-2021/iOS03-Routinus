@@ -20,7 +20,7 @@ final class HomeDateCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 16, weight: .light)
-        label.textColor = .label
+        label.textColor = UIColor(named: "DayColor")
         return label
     }()
 
@@ -81,7 +81,7 @@ final class HomeDateCollectionViewCell: UICollectionViewCell {
 
         let size = traitCollection.horizontalSizeClass == .compact ?
           min(min(frame.width, frame.height) - 10, 60) : 45
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "SystemBackground")
 
         numberLabel.anchor(leading: numberLabel.superview?.leadingAnchor,
                            paddingLeading: 5,
@@ -125,7 +125,7 @@ extension HomeDateCollectionViewCell {
             color = UIColor(named: "DayColor")
         }
 
-        numberLabel.textColor = isWithinDisplayedMonth ? color : .systemGray3
+        numberLabel.textColor = isWithinDisplayedMonth ? color : UIColor(named: "LightGray")
         achievementCharacterView.isHidden = true
     }
 }

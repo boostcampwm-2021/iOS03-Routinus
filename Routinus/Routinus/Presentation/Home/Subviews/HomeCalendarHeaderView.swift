@@ -11,7 +11,7 @@ final class HomeCalendarHeaderView: UIView {
     private lazy var todayButton: UIButton = {
         let button = UIButton()
         button.setTitle("Today", for: .normal)
-        button.setTitleColor(UIColor(named: "Black"), for: .normal)
+        button.setTitleColor(UIColor(named: "SystemForeground"), for: .normal)
         button.backgroundColor = UIColor(named: "MainColor")?.withAlphaComponent(0.5)
         button.isHidden = true
         button.layer.cornerRadius = 10
@@ -30,7 +30,7 @@ final class HomeCalendarHeaderView: UIView {
     private lazy var previousMonthButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.tintColor = UIColor(named: "Black")
+        button.tintColor = UIColor(named: "SystemForeground")
         button.addTarget(self, action: #selector(didTappedPreviousMonthButton), for: .touchUpInside)
         return button
     }()
@@ -38,7 +38,7 @@ final class HomeCalendarHeaderView: UIView {
     private lazy var nextMonthButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-        button.tintColor =  UIColor(named: "Black")
+        button.tintColor =  UIColor(named: "SystemForeground")
         button.addTarget(self, action: #selector(didTappedNextMonthButton), for: .touchUpInside)
         return button
     }()
@@ -51,7 +51,7 @@ final class HomeCalendarHeaderView: UIView {
 
     private lazy var separatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.label.withAlphaComponent(0.2)
+        view.backgroundColor = UIColor(named: "DayColor")?.withAlphaComponent(0.2)
         return view
     }()
 
@@ -127,7 +127,7 @@ final class HomeCalendarHeaderView: UIView {
 
 extension HomeCalendarHeaderView {
     private func configureViews() {
-        backgroundColor = .tertiarySystemGroupedBackground
+        backgroundColor = UIColor(named: "LightGray")
 
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         layer.cornerCurve = .continuous

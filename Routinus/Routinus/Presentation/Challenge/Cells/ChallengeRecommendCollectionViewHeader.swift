@@ -13,7 +13,7 @@ final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
     weak var delegate: ChallengeRecommendHeaderDelegate?
 
     private let stackView = UIStackView()
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "challenges".localized
@@ -21,11 +21,11 @@ final class ChallengeRecommendCollectionViewHeader: UICollectionReusableView {
                                        weight: .bold)
         return label
     }()
-    
+
     private lazy var searchButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        button.tintColor = UIColor(named: "Black")
+        button.tintColor = UIColor(named: "SystemForeground")
         button.addTarget(self, action: #selector(didTappedSearchButton), for: .touchUpInside)
         return button
     }()
