@@ -16,6 +16,7 @@ protocol AuthImagesViewModelInput {
 protocol AuthImagesViewModelOutput {
     var auths: CurrentValueSubject<[Auth], Never> { get }
     var authDisplayState: CurrentValueSubject<AuthDisplayState, Never> { get }
+
     var authImageTap: PassthroughSubject<Data, Never> { get }
     var authImageLoad: PassthroughSubject<Data, Never> { get }
 }
@@ -26,10 +27,10 @@ final class AuthImagesViewModel: AuthImagesViewModelIO {
     var auths = CurrentValueSubject<[Auth], Never>([])
     var authDisplayState = CurrentValueSubject<AuthDisplayState, Never>(.all)
 
-    private var challengeID: String?
-
     var authImageTap = PassthroughSubject<Data, Never>()
     var authImageLoad = PassthroughSubject<Data, Never>()
+
+    private var challengeID: String?
 
     let authFetchUsecase: AuthFetchableUsecase
     let imageFetchUsecase: ImageFetchableUsecase
@@ -43,7 +44,9 @@ final class AuthImagesViewModel: AuthImagesViewModelIO {
         self.imageFetchUsecase = imageFetchUsecase
         fetchAuthData(authDisplayState: authDisplayState)
     }
+}
 
+extension AuthImagesViewModel {
     private func fetchAuths() {
         guard let challengeID = challengeID else { return }
         authFetchUsecase.fetchAuths(challengeID: challengeID) { auths in
@@ -59,7 +62,7 @@ final class AuthImagesViewModel: AuthImagesViewModelIO {
     }
 }
 
-extension AuthImagesViewModel {
+extension AuthImagesViewModel: AuthImagesViewModelInput {
     func fetchAuthData(authDisplayState: AuthDisplayState) {
         switch authDisplayState {
         case .all:
