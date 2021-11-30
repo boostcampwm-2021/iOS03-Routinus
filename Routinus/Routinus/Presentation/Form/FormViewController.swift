@@ -206,9 +206,6 @@ extension FormViewController {
     }
 
     @objc private func willHideKeyboard(_ notification: Notification) {
-        guard let keyboardFrame = notification.userInfo?[
-            UIResponder.keyboardFrameEndUserInfoKey
-        ] as? NSValue else { return }
         let stackViewHeight = stackView.frame.size.height
         let scrollViewHeight = scrollView.frame.size.height
         let animationCallOffset = stackViewHeight - scrollViewHeight
