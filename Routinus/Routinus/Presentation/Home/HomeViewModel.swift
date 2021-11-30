@@ -14,7 +14,7 @@ protocol HomeViewModelInput {
     func didTappedAddChallengeButton()
     func didTappedTodayRoutineAuth(index: Int)
     func didTappedExplanationButton()
-    func changeDate(month: Int)
+    func updateDate(month: Int)
     func themeStyle() -> Int
 }
 
@@ -38,8 +38,15 @@ protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
 final class HomeViewModel: HomeViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
     var todayRoutines = CurrentValueSubject<[TodayRoutine], Never>([])
+    var days = CurrentValueSubject<[Day], Never>([])
+    var baseDate = CurrentValueSubject<Date, Never>(Date())
+
     var participationAuthStates = [ParticipationAuthState]()
     var achievements = [Achievement]()
+    var calendar = Calendar(identifier: .gregorian)
+    var selectedDates = [Date]()
+    let formatter = DateFormatter()
+    var cancellables = Set<AnyCancellable>()
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var todayRoutineTap = PassthroughSubject<String, Never>()
@@ -52,14 +59,6 @@ final class HomeViewModel: HomeViewModelIO {
     var todayRoutineFetchUsecase: TodayRoutineFetchableUsecase
     var achievementFetchUsecase: AchievementFetchableUsecase
     var challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
-    var cancellables = Set<AnyCancellable>()
-
-    var days = CurrentValueSubject<[Day], Never>([])
-    var baseDate = CurrentValueSubject<Date, Never>(Date())
-    var calendar = Calendar(identifier: .gregorian)
-    var selectedDates = [Date]()
-
-    let formatter = DateFormatter()
 
     let userCreatePublisher = NotificationCenter.default.publisher(
         for: UserCreateUsecase.didCreateUser,
@@ -107,45 +106,25 @@ final class HomeViewModel: HomeViewModelIO {
         self.achievementFetchUsecase = achievementFetchUsecase
         self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
 
-        setDateFormatter()
-        baseDate.value = Date()
-        days.value = generateDaysInMonth(for: baseDate.value)
-        fetchMyHomeData()
+        configureDateFormatter()
+        configureCalendar()
         configurePublishers()
+        fetchMyHomeData()
     }
 }
 
 extension HomeViewModel {
-    func fetchMyHomeData() {
-        fetchUser()
-        fetchTodayRoutine()
-        fetchAchievement(date: baseDate.value)
-        updateContinuityDay()
+    private func configureDateFormatter() {
+        formatter.timeZone = Calendar.current.timeZone
+        formatter.locale = Calendar.current.locale
     }
 
-    func themeStyle() -> Int {
-        return userFetchUsecase.fetchThemeStyle()
+    private func configureCalendar() {
+        baseDate.value = Date()
+        days.value = generateDaysInMonth(for: baseDate.value)
     }
 
-    func didTappedTodayRoutine(index: Int) {
-        let challengeID = todayRoutines.value[index].challengeID
-        todayRoutineTap.send(challengeID)
-    }
-
-    func didTappedAddChallengeButton() {
-        challengeAddButtonTap.send()
-    }
-
-    func didTappedTodayRoutineAuth(index: Int) {
-        let challengeID = todayRoutines.value[index].challengeID
-        todayRoutineAuthTap.send(challengeID)
-    }
-  
-    func didTappedExplanationButton() {
-        calendarExplanationButtonTap.send()
-    }
-
-    func configurePublishers() {
+    private func configurePublishers() {
         userCreatePublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
@@ -213,9 +192,7 @@ extension HomeViewModel {
             }
             .store(in: &cancellables)
     }
-}
 
-extension HomeViewModel {
     private func fetchUser() {
         if let userID = userFetchUsecase.fetchUserID() {
             userFetchUsecase.fetchUser(id: userID) { [weak self] user in
@@ -231,7 +208,7 @@ extension HomeViewModel {
         todayRoutineFetchUsecase.fetchTodayRoutines { [weak self] todayRoutines in
             guard let self = self else { return }
             self.todayRoutines.value = todayRoutines
-            self.configureParticipationAuthStates(todayRoutines: todayRoutines)
+            self.updateParticipationAuthStates(todayRoutines: todayRoutines)
         }
     }
 
@@ -259,7 +236,7 @@ extension HomeViewModel {
         }
     }
 
-    private func configureParticipationAuthStates(todayRoutines: [TodayRoutine]) {
+    private func updateParticipationAuthStates(todayRoutines: [TodayRoutine]) {
         participationAuthStates = Array(repeating: .notAuthenticating, count: todayRoutines.count)
 
         todayRoutines.enumerated().forEach { [weak self] (idx, routine) in
@@ -273,13 +250,48 @@ extension HomeViewModel {
 }
 
 extension HomeViewModel {
-    enum CalendarDataError: Error {
-        case metadataGenerationFailed
+    func fetchMyHomeData() {
+        fetchUser()
+        fetchTodayRoutine()
+        fetchAchievement(date: baseDate.value)
+        updateContinuityDay()
     }
 
-    func setDateFormatter() {
-        formatter.timeZone = Calendar.current.timeZone
-        formatter.locale = Calendar.current.locale
+    func themeStyle() -> Int {
+        return userFetchUsecase.fetchThemeStyle()
+    }
+
+    func didTappedTodayRoutine(index: Int) {
+        let challengeID = todayRoutines.value[index].challengeID
+        todayRoutineTap.send(challengeID)
+    }
+
+    func didTappedAddChallengeButton() {
+        challengeAddButtonTap.send()
+    }
+
+    func didTappedTodayRoutineAuth(index: Int) {
+        let challengeID = todayRoutines.value[index].challengeID
+        todayRoutineAuthTap.send(challengeID)
+    }
+  
+    func didTappedExplanationButton() {
+        calendarExplanationButtonTap.send()
+    }
+
+    func updateDate(month: Int) {
+        let changedDate = calendar.date(byAdding: .month,
+                                        value: month,
+                                        to: baseDate.value) ?? Date()
+        baseDate.value = month == 0 ? Date() : changedDate
+        days.value = generateDaysInMonth(for: baseDate.value)
+        fetchAchievement(date: baseDate.value)
+    }
+}
+
+extension HomeViewModel {
+    enum CalendarDataError: Error {
+        case metadataGenerationFailed
     }
 
     private func monthMetadata(for baseDate: Date) throws -> MonthMetadata {
@@ -295,7 +307,7 @@ extension HomeViewModel {
                              firstDayWeekday: firstDayWeekday)
     }
 
-    func generateDaysInMonth(for baseDate: Date) -> [Day] {
+    private func generateDaysInMonth(for baseDate: Date) -> [Day] {
         guard let metadata = try? monthMetadata(for: baseDate) else { return [] }
 
         let numberOfDaysInMonth = metadata.numberOfDays
@@ -343,14 +355,5 @@ extension HomeViewModel {
         }
 
         return days
-    }
-
-    func changeDate(month: Int) {
-        let changedDate = calendar.date(byAdding: .month,
-                                        value: month,
-                                        to: baseDate.value) ?? Date()
-        baseDate.value = month == 0 ? Date() : changedDate
-        days.value = generateDaysInMonth(for: baseDate.value)
-        fetchAchievement(date: baseDate.value)
     }
 }

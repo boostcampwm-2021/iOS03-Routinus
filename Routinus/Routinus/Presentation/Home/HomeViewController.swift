@@ -9,8 +9,8 @@ import Combine
 import UIKit
 
 final class HomeViewController: UIViewController {
-    typealias DataSource = UITableViewDiffableDataSource<Int, TodayRoutine>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, TodayRoutine>
+    typealias DataSource = UITableViewDiffableDataSource<Int, TodayRoutine>
 
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var contentView: UIView = UIView()
@@ -27,8 +27,8 @@ final class HomeViewController: UIViewController {
     private lazy var continuityView = ContinuityView()
     private lazy var todayRoutineView = TodayRoutineView()
     private lazy var calendarView = CalendarView(viewModel: viewModel)
-    private lazy var dataSource = configureDataSource()
 
+    private var dataSource: DataSource?
     private var viewModel: HomeViewModelIO?
     private var cancellables = Set<AnyCancellable>()
 
@@ -48,6 +48,7 @@ final class HomeViewController: UIViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
+        configureDataSource()
         configureRefreshControl()
     }
 
@@ -84,7 +85,10 @@ extension HomeViewController {
         let offset = smallWidth ? 15.0 : 20.0
 
         view.backgroundColor = .systemBackground
-        configureNavigationBar()
+
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = UIColor(named: "Black")
+        navigationItem.backBarButtonItem = backBarButtonItem
 
         view.addSubview(scrollView)
         scrollView.anchor(edges: view.safeAreaLayoutGuide)
@@ -126,12 +130,6 @@ extension HomeViewController {
         contentView.anchor(bottom: calendarView.bottomAnchor)
     }
 
-    private func configureNavigationBar() {
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = UIColor(named: "Black")
-        navigationItem.backBarButtonItem = backBarButtonItem
-    }
-
     private func configureViewModel() {
         viewModel?.user
             .receive(on: RunLoop.main)
@@ -145,12 +143,13 @@ extension HomeViewController {
         viewModel?.todayRoutines
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] routines in
-                guard let self = self else { return }
+                guard let self = self,
+                      let dataSource = self.dataSource else { return }
                 var snapshot = Snapshot()
                 snapshot.deleteAllItems()
                 snapshot.appendSections([0])
                 snapshot.appendItems(routines)
-                self.dataSource.apply(snapshot, animatingDifferences: false)
+                dataSource.apply(snapshot, animatingDifferences: false)
                 self.todayRoutineView.updateTableViewConstraints(cellCount: routines.count)
             })
             .store(in: &cancellables)
@@ -173,6 +172,22 @@ extension HomeViewController {
         calendarView.explanationDeleatge = self
     }
 
+    private func configureDataSource() {
+        dataSource = DataSource(
+            tableView: todayRoutineView.tableView
+        ) { [weak self] tableView, indexPath, _ in
+            guard let self = self,
+                  let cell = tableView.dequeueReusableCell(
+                    withIdentifier: RoutineTableViewCell.identifier,
+                    for: indexPath
+                  ) as? RoutineTableViewCell,
+                  let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
+            cell.configureCell(routine: routines[indexPath.row])
+            cell.selectionStyle = .none
+            return cell
+        }
+    }
+
     private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -193,30 +208,7 @@ extension HomeViewController {
     }
 }
 
-extension HomeViewController: ChallengePromotionViewDelegate {
-    func didTappedPromotionButton() {
-        viewModel?.didTappedAddChallengeButton()
-    }
-}
-
 extension HomeViewController: UITableViewDelegate {
-    func configureDataSource() -> DataSource {
-        let dataSource = DataSource(
-            tableView: todayRoutineView.tableView
-        ) { [weak self] tableView, indexPath, _ in
-            guard let self = self,
-                  let cell = tableView.dequeueReusableCell(
-                    withIdentifier: RoutineTableViewCell.identifier,
-                    for: indexPath
-                  ) as? RoutineTableViewCell,
-                  let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
-            cell.configureCell(routine: routines[indexPath.row])
-            cell.selectionStyle = .none
-            return cell
-        }
-        return dataSource
-    }
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
@@ -282,6 +274,12 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         let width = CGFloat(collectionView.frame.width / 7) - 0.5
         let height = 55.0
         return CGSize(width: width, height: height)
+    }
+}
+
+extension HomeViewController: ChallengePromotionViewDelegate {
+    func didTappedPromotionButton() {
+        viewModel?.didTappedAddChallengeButton()
     }
 }
 

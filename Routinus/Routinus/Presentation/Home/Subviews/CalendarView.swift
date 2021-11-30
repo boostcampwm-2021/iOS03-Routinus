@@ -47,17 +47,17 @@ final class CalendarView: UIView {
     private lazy var headerView = CalendarHeader(
         didTappedPreviousMonthCompletionHandler: { [weak self] in
             guard let self = self else { return }
-            self.viewModel?.changeDate(month: -1)
+            self.viewModel?.updateDate(month: -1)
             self.calendarView.reloadData()
         },
         didTappedNextMonthCompletionHandler: { [weak self] in
             guard let self = self else { return }
-            self.viewModel?.changeDate(month: 1)
+            self.viewModel?.updateDate(month: 1)
             self.calendarView.reloadData()
         },
         didTappedTodayCompletionHandler: { [weak self] in
             guard let self = self else { return }
-            self.viewModel?.changeDate(month: 0)
+            self.viewModel?.updateDate(month: 0)
             self.calendarView.reloadData()
         })
 
