@@ -1,5 +1,5 @@
 //
-//  AuthsCoordinator.swift
+//  AuthImagesCoordinator.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/23.
@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class AuthsCoordinator: RoutinusCoordinator {
+final class AuthImagesCoordinator: RoutinusCoordinator {
     let challengeID: String
     let authDisplayState: AuthDisplayState
     var childCoordinator: [RoutinusCoordinator] = []

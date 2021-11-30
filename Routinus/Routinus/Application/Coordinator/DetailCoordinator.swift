@@ -70,26 +70,26 @@ final class DetailCoordinator: RoutinusCoordinator {
         detailViewModel.allAuthDisplayViewTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
-                let authsCoordinator = AuthsCoordinator(
+                let authImagesCoordinator = AuthImagesCoordinator(
                     navigationController: self.navigationController,
                     challengeID: challengeID,
                     authDisplayState: .all
                 )
-                authsCoordinator.start()
-                self.childCoordinator.append(authsCoordinator)
+                authImagesCoordinator.start()
+                self.childCoordinator.append(authImagesCoordinator)
             }
             .store(in: &cancellables)
 
         detailViewModel.myAuthDisplayViewTap
             .sink { [weak self] challengeID in
                 guard let self = self else { return }
-                let authsCoordinator = AuthsCoordinator(
+                let authImagesCoordinator = AuthImagesCoordinator(
                     navigationController: self.navigationController,
                     challengeID: challengeID,
                     authDisplayState: .my
                 )
-                authsCoordinator.start()
-                self.childCoordinator.append(authsCoordinator)
+                authImagesCoordinator.start()
+                self.childCoordinator.append(authImagesCoordinator)
             }
             .store(in: &cancellables)
 
