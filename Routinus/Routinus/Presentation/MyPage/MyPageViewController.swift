@@ -55,9 +55,7 @@ final class MyPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
-        configureDelegates()
-        configureViewModel()
+        configure()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +70,12 @@ final class MyPageViewController: UIViewController {
 }
 
 extension MyPageViewController {
+    private func configure() {
+        configureViews()
+        configureViewModel()
+        configureDelegates()
+    }
+
     private func configureViews() {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
@@ -105,12 +109,6 @@ extension MyPageViewController {
                             paddingTop: 10)
     }
 
-    private func configureDelegates() {
-        profileView.delegate = self
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-
     private func configureViewModel() {
         viewModel?.user
             .receive(on: RunLoop.main)
@@ -130,11 +128,16 @@ extension MyPageViewController {
             })
             .store(in: &cancellables)
     }
-}
 
-extension MyPageViewController {
-    @objc private func didChangeSegmentedControlValue(_ sender: UISegmentedControl) {
-        setThemeStyle(sender.selectedSegmentIndex)
+    private func configureDelegates() {
+        profileView.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+
+    private func updateUsername(_ name: String) {
+        viewModel?.updateUsername(name)
+        profileView.setName(name)
     }
 
     private func setThemeStyle(_ style: Int) {
@@ -147,9 +150,13 @@ extension MyPageViewController {
         }
         viewModel?.updateThemeStyle(style.rawValue)
     }
+
+    @objc private func didChangeSegmentedControlValue(_ sender: UISegmentedControl) {
+        setThemeStyle(sender.selectedSegmentIndex)
+    }
 }
 
-extension MyPageViewController: MyPageUserNameUpdatableDelegate, UITextFieldDelegate {
+extension MyPageViewController: UITextFieldDelegate, MyPageUserNameUpdatableDelegate {
     func didTappedNameStackView() {
         let alert = UIAlertController(title: "edit name".localized,
                                       message: "name max 8".localized,
@@ -171,11 +178,6 @@ extension MyPageViewController: MyPageUserNameUpdatableDelegate, UITextFieldDele
         alert.addAction(cancelAction)
 
         present(alert, animated: true)
-    }
-
-    private func updateUsername(_ name: String) {
-        viewModel?.updateUsername(name)
-        profileView.setName(name)
     }
 
     func textFieldDidChangeSelection(_ textField: UITextField) {

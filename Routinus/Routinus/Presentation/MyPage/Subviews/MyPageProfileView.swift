@@ -15,10 +15,8 @@ final class MyPageProfileView: UIView {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-
     private lazy var recognizer = UITapGestureRecognizer(target: self,
                                                          action: #selector(didTapNameStackView))
-
     private lazy var nameStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -26,14 +24,12 @@ final class MyPageProfileView: UIView {
         stackView.addGestureRecognizer(recognizer)
         return stackView
     }()
-
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
         label.text = "username"
         return label
     }()
-
     private lazy var updateIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "pencil")
@@ -47,16 +43,12 @@ final class MyPageProfileView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureViews()
+        configure()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configureViews()
-    }
-
-    @objc private func didTapNameStackView() {
-        delegate?.didTappedNameStackView()
+        configure()
     }
 
     func setName(_ name: String) {
@@ -69,6 +61,10 @@ final class MyPageProfileView: UIView {
 }
 
 extension MyPageProfileView {
+    private func configure() {
+        configureViews()
+    }
+
     private func configureViews() {
         addSubview(imageView)
         imageView.anchor(centerX: centerXAnchor,
@@ -84,5 +80,9 @@ extension MyPageProfileView {
 
         nameStackView.addArrangedSubview(nameLabel)
         nameStackView.addArrangedSubview(updateIconImageView)
+    }
+
+    @objc private func didTapNameStackView() {
+        delegate?.didTappedNameStackView()
     }
 }

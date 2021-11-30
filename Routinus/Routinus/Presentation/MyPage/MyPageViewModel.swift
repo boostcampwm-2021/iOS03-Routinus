@@ -11,14 +11,13 @@ import Foundation
 protocol MyPageViewModelInput {
     func fetchUser()
     func fetchThemeStyle()
+    func updateUsername(_ name: String)
+    func updateThemeStyle(_ style: Int)
 }
 
 protocol MyPageViewModelOutput {
     var user: CurrentValueSubject<User, Never> { get }
     var themeStyle: CurrentValueSubject<Int, Never> { get }
-
-    func updateUsername(_ name: String)
-    func updateThemeStyle(_ style: Int)
 }
 
 protocol MyPageViewModelIO: MyPageViewModelInput, MyPageViewModelOutput { }
@@ -26,6 +25,7 @@ protocol MyPageViewModelIO: MyPageViewModelInput, MyPageViewModelOutput { }
 final class MyPageViewModel: MyPageViewModelIO {
     var user = CurrentValueSubject<User, Never>(User())
     var themeStyle = CurrentValueSubject<Int, Never>(0)
+
     var cancellables = Set<AnyCancellable>()
 
     var userFetchUsecase: UserFetchableUsecase
@@ -43,14 +43,18 @@ final class MyPageViewModel: MyPageViewModelIO {
     init(userFetchUsecase: UserFetchableUsecase, userUpdateUsecase: UserUpdatableUsecase) {
         self.userFetchUsecase = userFetchUsecase
         self.userUpdateUsecase = userUpdateUsecase
+        configure()
         fetchUser()
         fetchThemeStyle()
-        configurePublishers()
     }
 }
 
 extension MyPageViewModel {
-    func configurePublishers() {
+    private func configure() {
+        configurePublishers()
+    }
+
+    private func configurePublishers() {
         userCreatePublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
@@ -67,7 +71,9 @@ extension MyPageViewModel {
             }
             .store(in: &cancellables)
     }
+}
 
+extension MyPageViewModel {
     func fetchUser() {
         guard let id = userFetchUsecase.fetchUserID() else { return }
         userFetchUsecase.fetchUser(id: id) { [weak self] user in
