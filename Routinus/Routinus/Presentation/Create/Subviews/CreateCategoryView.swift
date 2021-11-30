@@ -16,13 +16,40 @@ final class CreateCategoryView: UIView {
         label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
-
     private lazy var button: UIButton = {
         let button = UIButton()
         button.tintColor = UIColor(named: "Black")
         button.titleLabel?.font = .systemFont(ofSize: 16)
         return button
     }()
+    var categoryAction: UIAlertController {
+        let alert = UIAlertController(title: "카테고리",
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+
+        for category in Challenge.Category.allCases {
+            let action = UIAlertAction(title: category.title,
+                                       style: .default) { [weak self] _ in
+                guard let self = self else { return }
+                self.delegate?.didChange(category: category)
+                self.button.setTitle(category.title, for: .normal)
+            }
+            alert.addAction(action)
+        }
+
+        let cancel = UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil)
+        alert.addAction(cancel)
+
+        let height = NSLayoutConstraint(item: alert.view,
+                                        attribute: NSLayoutConstraint.Attribute.height,
+                                        relatedBy: NSLayoutConstraint.Relation.equal,
+                                        toItem: nil,
+                                        attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+                                        multiplier: 1,
+                                        constant: UIScreen.main.bounds.height * 0.6)
+        alert.view.addConstraint(height)
+        return alert
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +63,10 @@ final class CreateCategoryView: UIView {
 
     convenience init() {
         self.init(frame: CGRect.zero)
+    }
+
+    func update(category: Challenge.Category) {
+        button.setTitle(category.title, for: .normal)
     }
 }
 
@@ -97,38 +128,5 @@ extension CreateCategoryView {
 
     @objc func didTappedCategoryButton(_ sender: UIButton) {
         delegate?.didTappedCategoryButton()
-    }
-
-    var categoryAction: UIAlertController {
-        let alert = UIAlertController(title: "카테고리",
-                                      message: nil,
-                                      preferredStyle: .actionSheet)
-
-        for category in Challenge.Category.allCases {
-            let action = UIAlertAction(title: category.title,
-                                       style: .default) { [weak self] _ in
-                guard let self = self else { return }
-                self.delegate?.didChange(category: category)
-                self.button.setTitle(category.title, for: .normal)
-            }
-            alert.addAction(action)
-        }
-
-        let cancel = UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil)
-        alert.addAction(cancel)
-
-        let height = NSLayoutConstraint(item: alert.view,
-                                        attribute: NSLayoutConstraint.Attribute.height,
-                                        relatedBy: NSLayoutConstraint.Relation.equal,
-                                        toItem: nil,
-                                        attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                                        multiplier: 1,
-                                        constant: UIScreen.main.bounds.height * 0.6)
-        alert.view.addConstraint(height)
-        return alert
-    }
-
-    func update(category: Challenge.Category) {
-        button.setTitle(category.title, for: .normal)
     }
 }

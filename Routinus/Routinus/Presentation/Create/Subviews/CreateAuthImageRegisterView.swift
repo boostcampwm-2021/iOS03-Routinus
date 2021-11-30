@@ -17,7 +17,6 @@ final class CreateAuthImageRegisterView: UIView {
         label.numberOfLines = 2
         return label
     }()
-
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "add auth example photo".localized
@@ -26,7 +25,6 @@ final class CreateAuthImageRegisterView: UIView {
         label.numberOfLines = 3
         return label
     }()
-
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "camera")

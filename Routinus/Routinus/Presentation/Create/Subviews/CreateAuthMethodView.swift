@@ -10,6 +10,12 @@ import UIKit
 final class CreateAuthMethodView: UIView {
     typealias Tag = CreateViewController.InputTag
 
+    weak var delegate: UITextViewDelegate? {
+        didSet {
+            textView.delegate = delegate
+        }
+    }
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "write auth method".localized
@@ -17,7 +23,6 @@ final class CreateAuthMethodView: UIView {
         label.numberOfLines = 2
         return label
     }()
-
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "auth method 150".localized
@@ -26,7 +31,6 @@ final class CreateAuthMethodView: UIView {
         label.numberOfLines = 3
         return label
     }()
-
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.layer.borderColor = UIColor(named: "Black")?.cgColor
@@ -36,12 +40,6 @@ final class CreateAuthMethodView: UIView {
         textView.tag = Tag.authMethod.rawValue
         return textView
     }()
-
-    weak var delegate: UITextViewDelegate? {
-        didSet {
-            textView.delegate = delegate
-        }
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

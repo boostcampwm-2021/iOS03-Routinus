@@ -10,13 +10,18 @@ import UIKit
 final class CreateWeekView: UIView {
     typealias Tag = CreateViewController.InputTag
 
+    weak var delegate: UITextFieldDelegate? {
+        didSet {
+            weekTextField.delegate = delegate
+        }
+    }
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "challenge period".localized
         label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
-
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "enter only number".localized
@@ -25,7 +30,6 @@ final class CreateWeekView: UIView {
         label.numberOfLines = 2
         return label
     }()
-
     private lazy var weekTextField: UITextField = {
         let textField = UITextField()
         textField.text = "1"
@@ -35,13 +39,11 @@ final class CreateWeekView: UIView {
         textField.tag = Tag.week.rawValue
         return textField
     }()
-
     private lazy var weekLabel: UILabel = {
         let label = UILabel()
         label.text = "week".localized
         return label
     }()
-
     private lazy var endDateView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 1
@@ -50,26 +52,18 @@ final class CreateWeekView: UIView {
         view.backgroundColor = UIColor(red: 252/255, green: 209/255, blue: 209/255, alpha: 1)
         return view
     }()
-
     private lazy var endTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "expected end date".localized
         label.font = .systemFont(ofSize: 14)
         return label
     }()
-
     private lazy var endDateLabel: UILabel = {
         let label = UILabel()
         label.text = "1999.01.01(금)"
         label.font = .boldSystemFont(ofSize: 14)
         return label
     }()
-
-    weak var delegate: UITextFieldDelegate? {
-        didSet {
-            weekTextField.delegate = delegate
-        }
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -87,6 +81,14 @@ final class CreateWeekView: UIView {
 
     func hideKeyboard() {
         weekTextField.endEditing(true)
+    }
+
+    func updateEndDate(date: Date) {
+        endDateLabel.text = date.toDateWithWeekdayString()
+    }
+
+    func update(week: Int) {
+        weekTextField.text = "\(week)"
     }
 }
 
@@ -129,13 +131,4 @@ extension CreateWeekView {
 
         anchor(bottom: endDateLabel.bottomAnchor)
     }
-
-    func updateEndDate(date: Date) {
-        endDateLabel.text = date.toDateWithWeekdayString()
-    }
-
-    func update(week: Int) {
-        weekTextField.text = "\(week)"
-    }
-
 }

@@ -17,7 +17,6 @@ final class CreateImageRegisterView: UIView {
         label.numberOfLines = 2
         return label
     }()
-
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "camera")

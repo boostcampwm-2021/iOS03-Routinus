@@ -10,13 +10,18 @@ import UIKit
 final class CreateIntroductionView: UIView {
     typealias Tag = CreateViewController.InputTag
 
+    weak var delegate: UITextViewDelegate? {
+        didSet {
+            textView.delegate = delegate
+        }
+    }
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "introduce challenge".localized
         label.font = .boldSystemFont(ofSize: 20)
         return label
     }()
-
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "introduce challenge 150".localized
@@ -25,7 +30,6 @@ final class CreateIntroductionView: UIView {
         label.numberOfLines = 2
         return label
     }()
-
     private lazy var textView: UITextView = {
         let textView = UITextView()
         textView.layer.borderColor = UIColor(named: "Black")?.cgColor
@@ -35,12 +39,6 @@ final class CreateIntroductionView: UIView {
         textView.tag = Tag.introduction.rawValue
         return textView
     }()
-
-    weak var delegate: UITextViewDelegate? {
-        didSet {
-            textView.delegate = delegate
-        }
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

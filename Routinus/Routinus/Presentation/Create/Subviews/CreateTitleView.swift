@@ -9,6 +9,12 @@ import UIKit
 
 final class CreateTitleView: UIView {
     typealias Tag = CreateViewController.InputTag
+    
+    weak var delegate: UITextFieldDelegate? {
+        didSet {
+            textField.delegate = delegate
+        }
+    }
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -17,7 +23,6 @@ final class CreateTitleView: UIView {
         label.numberOfLines = 2
         return label
     }()
-
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "don't use bad words".localized
@@ -26,7 +31,6 @@ final class CreateTitleView: UIView {
         label.textColor = .systemGray
         return label
     }()
-
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "ex) wake up at 6am".localized
@@ -34,12 +38,6 @@ final class CreateTitleView: UIView {
         textField.tag = Tag.title.rawValue
         return textField
     }()
-
-    weak var delegate: UITextFieldDelegate? {
-        didSet {
-            textField.delegate = delegate
-        }
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

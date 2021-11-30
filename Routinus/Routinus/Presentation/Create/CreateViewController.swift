@@ -13,6 +13,8 @@ final class CreateViewController: UIViewController {
         case category = 0, title, image, week, introduction, authMethod, authImage
     }
 
+    typealias InfoKey = UIImagePickerController.InfoKey
+
     private lazy var scrollView: UIScrollView = UIScrollView()
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
@@ -57,6 +59,12 @@ final class CreateViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configure()
+    }
+}
+
+extension CreateViewController {
+    private func configure() {
         configureViews()
         configureViewModel()
         configureDelegates()
@@ -64,13 +72,6 @@ final class CreateViewController: UIViewController {
         configureNotifications()
     }
 
-    @objc private func didTappedCreateButton(_ sender: UIButton) {
-        viewModel?.didTappedCreateButton()
-        navigationController?.popViewController(animated: true)
-    }
-}
-
-extension CreateViewController {
     private func configureViews() {
         view.backgroundColor = .systemBackground
 
@@ -98,8 +99,6 @@ extension CreateViewController {
     }
 
     private func configureViewModel() {
-        viewModel?.didLoadedChallenge()
-
         viewModel?.buttonType
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] buttonType in
@@ -172,14 +171,6 @@ extension CreateViewController {
         scrollView.addGestureRecognizer(recognizer)
     }
 
-    @objc private func didTappedScrollView(_ sender: UITapGestureRecognizer) {
-        guard sender.state == .ended else { return }
-        titleView.hideKeyboard()
-        weekView.hideKeyboard()
-        introductionView.hideKeyboard()
-        authMethodView.hideKeyboard()
-    }
-
     private func configureNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didShowKeyboard),
@@ -191,10 +182,23 @@ extension CreateViewController {
                                                object: nil)
     }
 
+    @objc private func didTappedScrollView(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        titleView.hideKeyboard()
+        weekView.hideKeyboard()
+        introductionView.hideKeyboard()
+        authMethodView.hideKeyboard()
+    }
+
+    @objc private func didTappedCreateButton(_ sender: UIButton) {
+        viewModel?.didTappedCreateButton()
+        navigationController?.popViewController(animated: true)
+    }
+
     @objc private func didShowKeyboard(_ notification: Notification) {
         guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let height = keyboardFrame.cgRectValue.height
-        
+
         constraint?.isActive = false
         constraint = stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor,
                                                        constant: -height)
@@ -202,8 +206,9 @@ extension CreateViewController {
     }
 
     @objc private func willHideKeyboard(_ notification: Notification) {
-        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        let height = keyboardFrame.cgRectValue.height
+        guard let keyboardFrame = notification.userInfo?[
+            UIResponder.keyboardFrameEndUserInfoKey
+        ] as? NSValue else { return }
         let stackViewHeight = stackView.frame.size.height
         let scrollViewHeight = scrollView.frame.size.height
         let animationCallOffset = stackViewHeight - scrollViewHeight
@@ -246,19 +251,9 @@ extension CreateViewController: CreateSubviewDelegate {
     }
 }
 
-extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
+extension CreateViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         guard let offset = textField.superview?.frame.origin.y else { return }
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            UIView.animate(withDuration: 0.5) {
-                self.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
-            }
-        }
-    }
-
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        guard let offset = textView.superview?.frame.origin.y else { return }
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             UIView.animate(withDuration: 0.5) {
@@ -281,17 +276,6 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
         }
     }
 
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        switch textView.tag {
-        case InputTag.introduction.rawValue:
-            viewModel?.update(introduction: textView.text ?? "")
-        case InputTag.authMethod.rawValue:
-            viewModel?.update(authMethod: textView.text ?? "")
-        default:
-            return
-        }
-    }
-
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
@@ -303,6 +287,33 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
             return viewModel.validateTextField(currentText: currentText, range: range, text: string)
         default:
             return true
+        }
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+    }
+}
+
+extension CreateViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        guard let offset = textView.superview?.frame.origin.y else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            UIView.animate(withDuration: 0.5) {
+                self.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
+            }
+        }
+    }
+
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        switch textView.tag {
+        case InputTag.introduction.rawValue:
+            viewModel?.update(introduction: textView.text ?? "")
+        case InputTag.authMethod.rawValue:
+            viewModel?.update(authMethod: textView.text ?? "")
+        default:
+            return
         }
     }
 
@@ -318,10 +329,6 @@ extension CreateViewController: UITextFieldDelegate, UITextViewDelegate {
         default:
             return true
         }
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.endEditing(true)
     }
 }
 
@@ -375,8 +382,6 @@ extension CreateViewController: CreateImagePickerDelegate {
 }
 
 extension CreateViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    typealias InfoKey = UIImagePickerController.InfoKey
-
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [InfoKey: Any]) {
         if let originalImage = info[InfoKey.originalImage] as? UIImage {

@@ -36,11 +36,9 @@ protocol CreateViewModelInput {
     func validateTextView(currentText: String, range: NSRange, text: String) -> Bool
     func validateTextField(currentText: String, range: NSRange, text: String) -> Bool
     func validateWeek(currentText: String) -> String
-    func didLoadedChallenge()
     func updateChallenge()
     func saveImage(to directory: String, filename: String, data: Data?) -> String?
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
-    
 }
 
 protocol CreateViewModelOutput {
@@ -55,7 +53,9 @@ protocol CreateViewModelIO: CreateViewModelInput, CreateViewModelOutput { }
 final class CreateViewModel: CreateViewModelIO {
     var buttonType = CurrentValueSubject<ButtonType, Never>(.create)
     var buttonState = CurrentValueSubject<Bool, Never>(false)
-    var expectedEndDate = CurrentValueSubject<Date, Never>(Calendar.current.date(byAdding: DateComponents(day: 7), to: Date()) ?? Date())
+    var expectedEndDate = CurrentValueSubject<Date, Never>(
+        Calendar.current.date(byAdding: DateComponents(day: 7), to: Date()) ?? Date()
+    )
     var challenge = CurrentValueSubject<Challenge?, Never>(nil)
 
     var cancellables = Set<AnyCancellable>()
@@ -105,6 +105,28 @@ final class CreateViewModel: CreateViewModelIO {
         self.authExampleThumbnailImageURL = ""
         self.isChangedImage = false
         self.isChangedAuthImage = false
+        fetchChallenge()
+    }
+
+    private func fetchChallenge() {
+        guard let challengeID = challengeID else { return }
+        challengeFetchUsecase.fetchEdittingChallenge(challengeID: challengeID) { [weak self] existedChallenge in
+            guard let self = self,
+                  let challenge = existedChallenge else { return }
+            self.challenge.value = challenge
+            self.buttonType.value = .update
+            self.updateAll(challenge: challenge)
+        }
+    }
+
+    private func validate() {
+        buttonState.value = !challengeCreateUsecase.isEmpty(
+            title: title,
+            imageURL: imageURL,
+            introduction: introduction,
+            authMethod: authMethod,
+            authExampleImageURL: authExampleImageURL
+        )
     }
 }
 
@@ -210,10 +232,6 @@ extension CreateViewModel {
         return "\(min(max(week, 0), 52))"
     }
 
-    func didLoadedChallenge() {
-        fetchChallenge()
-    }
-
     func updateChallenge() {
         guard let challenge = challenge.value,
               let startDate = challenge.startDate,
@@ -248,29 +266,6 @@ extension CreateViewModel {
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
         imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
             completion?(data)
-        }
-    }
-}
-
-extension CreateViewModel {
-    private func validate() {
-        buttonState.value = !challengeCreateUsecase.isEmpty(
-            title: title,
-            imageURL: imageURL,
-            introduction: introduction,
-            authMethod: authMethod,
-            authExampleImageURL: authExampleImageURL
-        )
-    }
-
-    private func fetchChallenge() {
-        guard let challengeID = challengeID else { return }
-        challengeFetchUsecase.fetchEdittingChallenge(challengeID: challengeID) { [weak self] existedChallenge in
-            guard let self = self,
-                  let challenge = existedChallenge else { return }
-            self.challenge.value = challenge
-            self.buttonType.value = .update
-            self.updateAll(challenge: challenge)
         }
     }
 }
