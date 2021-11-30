@@ -12,31 +12,37 @@ final class ChallengeCategoryIconView: UIView {
     private var title = UILabel()
 
     override init(frame: CGRect) {
+        super.init(frame: frame)
         imageView = UIImageView()
         title = UILabel()
-        super.init(frame: frame)
-        configureViews()
+        configure()
     }
 
     required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         imageView = UIImageView()
         title = UILabel()
-        super.init(coder: aDecoder)
-        configureViews()
+        configure()
     }
 
-    func setImage(_ image: UIImage?) {
+    func updateImage(_ image: UIImage?) {
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
     }
 
-    func setTitle(_ text: String) {
+    func updateTitle(_ text: String) {
         title.text = text
         title.tintColor = UIColor(named: "Black")
     }
 
-    func setTintColor(_ color: UIColor?) {
+    func updateTintColor(_ color: UIColor?) {
         imageView.tintColor = color
+    }
+}
+
+extension ChallengeCategoryIconView {
+    private func configure() {
+        configureViews()
     }
 
     private func configureViews() {
