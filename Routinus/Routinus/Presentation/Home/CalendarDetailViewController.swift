@@ -27,7 +27,7 @@ class CalendarDetailViewController: UIViewController {
         tableView.estimatedRowHeight = 300
         tableView.alwaysBounceVertical = false
         tableView.separatorStyle = .none
-        tableView.register(RoutineTableViewCell.self, forCellReuseIdentifier: RoutineTableViewCell.identifier)
+        tableView.register(HomeRoutineTableViewCell.self, forCellReuseIdentifier: HomeRoutineTableViewCell.identifier)
         return tableView
     }()
 
@@ -62,13 +62,14 @@ class CalendarDetailViewController: UIViewController {
 extension CalendarDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 받아오는 데이터 개수
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTableViewCell.identifier,
-                                                       for: indexPath) as? RoutineTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeRoutineTableViewCell.identifier,
+                                                       for: indexPath) as? HomeRoutineTableViewCell
             else { return UITableViewCell() }
-        cell.configureCell(routine: routines[indexPath.item])
+//        cell.configureViews(routine: routines?[indexPath.item])
         cell.selectionStyle = .none
         return cell
     }

@@ -8,7 +8,7 @@
 import Foundation
 
 enum AuthQuery {
-    static func select(userID: String, challengeID: String, todayDate: String) -> Data? {
+    static func select(userID: String, todayDate: String) -> Data? {
         return """
         {
             "structuredQuery": {
@@ -33,16 +33,13 @@ enum AuthQuery {
                         ],
                         "op": "AND"
                     }
-                },
-                "limit": 1
+                }
             }
         }
         """.data(using: .utf8)
     }
 
-    internal static func select(userID: String,
-                                challengeID: String,
-                                todayDate: String) -> Data? {
+    static func select(userID: String, challengeID: String, todayDate: String) -> Data? {
         return """
         {
             "structuredQuery": {

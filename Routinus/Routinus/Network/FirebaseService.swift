@@ -791,9 +791,9 @@ enum FirebaseService {
         }.resume()
     }
 
-    public static func challengeAuthsOfDate(date: String,
-                                            userID: String,
-                                            completion: (([ChallengeAuthDTO]) -> Void)?) {
+    public static func authedChallengesOfDate(date: String,
+                                   userID: String,
+                                   completion: (([ChallengeDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return
@@ -804,9 +804,36 @@ enum FirebaseService {
         request.httpBody = AuthQuery.select(userID: userID, todayDate: date)
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
-            guard let data = data else { return }
-            let list = try? JSONDecoder().decode([ChallengeAuthDTO].self, from: data)
-            completion?(list ?? [])
+            guard let data = data,
+                  let auths = try? JSONDecoder().decode([AuthDTO].self, from: data) else { return }
+
+            var challenges = [ChallengeDTO]()
+            let fetchQueue = DispatchQueue(label: "fetchQueue")
+            let group = DispatchGroup()
+
+            for auth in auths {
+                group.enter()
+                guard let challengeID = auth.document?.fields.challengeID.stringValue else {
+                    group.leave()
+                    continue
+                }
+                request.httpBody = ChallengeQuery.select(challengeID: challengeID)
+
+                URLSession.shared.dataTask(with: request) { data, _, _ in
+                    guard let data = data,
+                        let challenge = try? JSONDecoder().decode([ChallengeDTO].self,
+                                                                  from: data).first else {
+                            group.leave()
+                            return
+                        }
+                    challenges.append(challenge)
+                    group.leave()
+                }.resume()
+            }
+
+            group.notify(queue: fetchQueue) {
+                completion?(challenges)
+            }
         }.resume()
     }
 
