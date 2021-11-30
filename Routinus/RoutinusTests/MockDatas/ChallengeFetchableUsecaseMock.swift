@@ -278,7 +278,7 @@ class ChallengeFetchableUsecaseMock: ChallengeFetchableUsecase {
                                   authExampleThumbnailImageURL: "authExampleThumbnailImageURL1",
                                   authMethod: "authMethod1",
                                   startDate: Date(dateString: "20211120"),
-                                  endDate: Date(dateString: "2021126"),
+                                  endDate: Date(dateString: "20211126"),
                                   ownerID: "ownerID1",
                                   week: 1,
                                   participantCount: 10)
