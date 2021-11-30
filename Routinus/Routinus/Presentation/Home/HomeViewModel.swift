@@ -10,27 +10,26 @@ import Foundation
 
 protocol HomeViewModelInput {
     func fetchMyHomeData()
+    func themeStyle() -> Int
+    func updateDate(month: Int)
     func didTappedTodayRoutine(index: Int)
     func didTappedAddChallengeButton()
     func didTappedTodayRoutineAuth(index: Int)
     func didTappedExplanationButton()
-    func updateDate(month: Int)
-    func themeStyle() -> Int
 }
 
 protocol HomeViewModelOutput {
     var user: CurrentValueSubject<User, Never> { get }
+    var days: CurrentValueSubject<[Day], Never> { get }
+    var baseDate: CurrentValueSubject<Date, Never> { get }
     var todayRoutines: CurrentValueSubject<[TodayRoutine], Never> { get }
-    var participationAuthStates: [ParticipationAuthState] { get }
-    var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
+
     var todayRoutineTap: PassthroughSubject<String, Never> { get }
     var todayRoutineAuthTap: PassthroughSubject<String, Never> { get }
+    var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
     var calendarExplanationButtonTap: PassthroughSubject<Void, Never> { get }
-    var baseDate: CurrentValueSubject<Date, Never> { get }
-    var days: CurrentValueSubject<[Day], Never> { get }
-    var calendar: Calendar { get }
-    var selectedDates: [Date] { get }
-    var formatter: DateFormatter { get }
+
+    var participationAuthStates: [ParticipationAuthState] { get }
 }
 
 protocol HomeViewModelIO: HomeViewModelInput, HomeViewModelOutput { }
@@ -41,11 +40,11 @@ final class HomeViewModel: HomeViewModelIO {
     var days = CurrentValueSubject<[Day], Never>([])
     var baseDate = CurrentValueSubject<Date, Never>(Date())
 
-    var participationAuthStates = [ParticipationAuthState]()
+    let formatter = DateFormatter()
+    var selectedDates = [Date]()
     var achievements = [Achievement]()
     var calendar = Calendar(identifier: .gregorian)
-    var selectedDates = [Date]()
-    let formatter = DateFormatter()
+    var participationAuthStates = [ParticipationAuthState]()
     var cancellables = Set<AnyCancellable>()
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
@@ -257,6 +256,15 @@ extension HomeViewModel {
         updateContinuityDay()
     }
 
+    func updateDate(month: Int) {
+        let changedDate = calendar.date(byAdding: .month,
+                                        value: month,
+                                        to: baseDate.value) ?? Date()
+        baseDate.value = month == 0 ? Date() : changedDate
+        days.value = generateDaysInMonth(for: baseDate.value)
+        fetchAchievement(date: baseDate.value)
+    }
+
     func themeStyle() -> Int {
         return userFetchUsecase.fetchThemeStyle()
     }
@@ -277,15 +285,6 @@ extension HomeViewModel {
   
     func didTappedExplanationButton() {
         calendarExplanationButtonTap.send()
-    }
-
-    func updateDate(month: Int) {
-        let changedDate = calendar.date(byAdding: .month,
-                                        value: month,
-                                        to: baseDate.value) ?? Date()
-        baseDate.value = month == 0 ? Date() : changedDate
-        days.value = generateDaysInMonth(for: baseDate.value)
-        fetchAchievement(date: baseDate.value)
     }
 }
 
