@@ -100,6 +100,7 @@
 " edit" = "수정하기";
 "challenge created" = "챌린지가 생성되었습니다.";
 "challenge edited" = "챌린지가 수정되었습니다.";
+"category" = "카테고리";
 
 // myPage
 "theme setting" = "테마 설정";

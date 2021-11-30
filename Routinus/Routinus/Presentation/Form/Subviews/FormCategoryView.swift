@@ -23,7 +23,7 @@ final class FormCategoryView: UIView {
         return button
     }()
     var categoryAction: UIAlertController {
-        let alert = UIAlertController(title: "카테고리",
+        let alert = UIAlertController(title: "category".localized,
                                       message: nil,
                                       preferredStyle: .actionSheet)
 

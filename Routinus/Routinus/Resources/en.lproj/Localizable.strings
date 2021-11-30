@@ -101,6 +101,7 @@
 "edit" = "Update";
 "challenge created" = "Challenge has been created.";
 "challenge edited" = "Challenge has been edited.";
+"category" = "Category";
 
 // myPage
 "theme setting" = "Theme setting";
