@@ -18,7 +18,6 @@ protocol ChallengeViewModelInput {
 
 protocol ChallengeViewModelOutput {
     var recommendChallenges: CurrentValueSubject<[Challenge], Never> { get }
-
     var searchButtonTap: PassthroughSubject<Void, Never> { get }
     var seeAllButtonTap: PassthroughSubject<Void, Never> { get }
     var recommendChallengeTap: PassthroughSubject<String, Never> { get }
@@ -30,13 +29,14 @@ protocol ChallengeViewModelIO: ChallengeViewModelInput, ChallengeViewModelOutput
 final class ChallengeViewModel: ChallengeViewModelIO {
     var recommendChallenges = CurrentValueSubject<[Challenge], Never>([])
 
+    var cancellables = Set<AnyCancellable>()
+
     var searchButtonTap = PassthroughSubject<Void, Never>()
     var seeAllButtonTap = PassthroughSubject<Void, Never>()
     var recommendChallengeTap = PassthroughSubject<String, Never>()
     var categoryButtonTap = PassthroughSubject<Challenge.Category, Never>()
 
     let challengeFetchUsecase: ChallengeFetchableUsecase
-    var cancellables = Set<AnyCancellable>()
 
     let challengeCreatePublisher = NotificationCenter.default.publisher(
         for: ChallengeCreateUsecase.didCreateChallenge,
@@ -55,7 +55,7 @@ final class ChallengeViewModel: ChallengeViewModelIO {
 }
 
 extension ChallengeViewModel {
-    func configurePublishers() {
+    private func configurePublishers() {
         challengeCreatePublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
@@ -72,7 +72,9 @@ extension ChallengeViewModel {
             }
             .store(in: &cancellables)
     }
+}
 
+extension ChallengeViewModel {
     func fetchChallenge() {
         challengeFetchUsecase.fetchRecommendChallenges { [weak self] recommendChallenge in
             guard let self = self else { return }
