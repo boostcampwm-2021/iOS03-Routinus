@@ -58,7 +58,7 @@ class DetailViewModelTests: XCTestCase {
     }
 
     func testDidTappedAllAuthDisplayView() {
-        let expectation = expectation(description: "Tapped allAuthDisplayView")
+        let expectation = expectation(description: "Show AllAuthDisplay By Tapped allAuthDisplayView")
 
         detailViewModel.allAuthDisplayViewTap
             .sink { _ in
@@ -71,7 +71,7 @@ class DetailViewModelTests: XCTestCase {
     }
 
     func testDidTappedMyAuthDisplayView() {
-        let expectation = expectation(description: "Tapped myAuthDisplayView")
+        let expectation = expectation(description: "Show MyAuthDisplay By Tapped myAuthDisplayView")
 
         detailViewModel.myAuthDisplayViewTap
             .sink { _ in
@@ -84,7 +84,7 @@ class DetailViewModelTests: XCTestCase {
     }
 
     func testDidTappedEditButton() {
-        let expectation = expectation(description: "Tapped editBarButton")
+        let expectation = expectation(description: "Show Form By Tapped editBarButton")
 
         detailViewModel.editBarButtonTap
             .sink { _ in
@@ -97,7 +97,7 @@ class DetailViewModelTests: XCTestCase {
     }
 
     func testDidTappedAuthMethodImage() {
-        let expectation = expectation(description: "Tapped authMethodImage")
+        let expectation = expectation(description: "Show AuthMethodImage By Tapped authMethodImage")
 
         detailViewModel.authMethodImageTap
             .sink { data in
