@@ -9,10 +9,10 @@ import Combine
 import Foundation
 
 protocol SearchViewModelInput {
+    func fetchChallenges()
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
     func didChangedSearchText(_ keyword: String)
     func didTappedChallenge(index: Int)
-    func didLoadedSearchView()
-    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
 }
 
 protocol SearchViewModelOutput {
@@ -42,13 +42,19 @@ final class SearchViewModel: SearchViewModelIO {
         self.searchCategory = category
         self.imageFetchUsecase = imageFetchUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
+        self.fetchChallenges()
         self.fetchPopularKeywords()
         self.bindKeyword()
     }
 }
 
 extension SearchViewModel {
-     private func bindKeyword() {
+    private func fetchPopularKeywords() {
+        let popularKeywords = PopularKeyword.allCases.map { $0.rawValue }
+        self.popularKeywords.value = popularKeywords
+    }
+
+    private func bindKeyword() {
          searchKeyword.debounce(for: 0.4, scheduler: RunLoop.main)
              .compactMap { $0 }
              .sink { [weak self] keyword in
@@ -64,19 +70,6 @@ extension SearchViewModel {
                  }
              }
              .store(in: &cancellables)
-    }
-
-    private func fetchPopularKeywords() {
-        let popularKeywords = PopularKeyword.allCases.map { $0.rawValue }
-        self.popularKeywords.value = popularKeywords
-    }
-
-    private func fetchChallenges() {
-        if searchCategory != nil {
-            fetchCategoryChallenges()
-        } else {
-            fetchLatestChallenges()
-        }
     }
 
     private func fetchCategoryChallenges() {
@@ -95,7 +88,21 @@ extension SearchViewModel {
     }
 }
 
-extension SearchViewModel {
+extension SearchViewModel: SearchViewModelInput {
+    func fetchChallenges() {
+        if searchCategory != nil {
+            fetchCategoryChallenges()
+        } else {
+            fetchLatestChallenges()
+        }
+    }
+
+    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
+        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
+            completion?(data)
+        }
+    }
+
     func didChangedSearchText(_ keyword: String) {
         searchKeyword.send(keyword)
     }
@@ -103,15 +110,5 @@ extension SearchViewModel {
     func didTappedChallenge(index: Int) {
         let challengeID = challenges.value[index].challengeID
         challengeTap.send(challengeID)
-    }
-
-    func didLoadedSearchView() {
-        fetchChallenges()
-    }
-
-    func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)? = nil) {
-        imageFetchUsecase.fetchImageData(from: directory, filename: filename) { data in
-            completion?(data)
-        }
     }
 }

@@ -85,10 +85,6 @@ final class SearchViewController: UIViewController {
             return layout.section(at: sectionNumber)
         }
     }
-
-    func didLoadedSearchView() {
-        viewModel?.didLoadedSearchView()
-    }
 }
 
 extension SearchViewController {
@@ -99,7 +95,6 @@ extension SearchViewController {
         configureDataSource()
         configureSnapshot()
         configureRefreshControl()
-        didLoadedSearchView()
     }
 
     private func configureViews() {
@@ -232,7 +227,7 @@ extension SearchViewController {
 
     @objc private func refresh() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            self.viewModel?.didLoadedSearchView()
+            self.viewModel?.fetchChallenges()
             self.searchBarView.updateSearchBar(keyword: "")
             self.collectionView.refreshControl?.endRefreshing()
         }
