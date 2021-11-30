@@ -129,6 +129,7 @@
 		E95CDD10275665E500A3E485 /* ChallengeUpdatableUsecaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95CDD0F275665E500A3E485 /* ChallengeUpdatableUsecaseMock.swift */; };
 		E95CDD12275666B200A3E485 /* ParticipantionFetchableUsecaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95CDD11275666B200A3E485 /* ParticipantionFetchableUsecaseMock.swift */; };
 		E95CDD14275667E300A3E485 /* ParticipationCreatableUsecaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95CDD13275667E300A3E485 /* ParticipationCreatableUsecaseMock.swift */; };
+		E95CDD162756684500A3E485 /* AchievementUpdatableUsecaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95CDD152756684500A3E485 /* AchievementUpdatableUsecaseMock.swift */; };
 		E9753900273220F6004358C5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* User.swift */; };
 		E975390627325538004358C5 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* Achievement.swift */; };
 		E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797C9F2730FF9C00A14A0F /* RoutinusCoordinator.swift */; };
@@ -312,6 +313,7 @@
 		E95CDD0F275665E500A3E485 /* ChallengeUpdatableUsecaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpdatableUsecaseMock.swift; sourceTree = "<group>"; };
 		E95CDD11275666B200A3E485 /* ParticipantionFetchableUsecaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipantionFetchableUsecaseMock.swift; sourceTree = "<group>"; };
 		E95CDD13275667E300A3E485 /* ParticipationCreatableUsecaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationCreatableUsecaseMock.swift; sourceTree = "<group>"; };
+		E95CDD152756684500A3E485 /* AchievementUpdatableUsecaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementUpdatableUsecaseMock.swift; sourceTree = "<group>"; };
 		E97538FF273220F6004358C5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E975390527325538004358C5 /* Achievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
 		E9797C9F2730FF9C00A14A0F /* RoutinusCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinusCoordinator.swift; sourceTree = "<group>"; };
@@ -929,6 +931,7 @@
 				E95CDCFF2755F8F700A3E485 /* UserUpdatableUsecaseMock.swift */,
 				E95CDD012755FA8C00A3E485 /* TodayRoutineFetchableUsecaseMock.swift */,
 				E95CDD032755FB5C00A3E485 /* AchievementFetchableUsecaseMock.swift */,
+				E95CDD152756684500A3E485 /* AchievementUpdatableUsecaseMock.swift */,
 				E95CDD072756484300A3E485 /* ChallengeFetchableUsecaseMock.swift */,
 				E95CDD0F275665E500A3E485 /* ChallengeUpdatableUsecaseMock.swift */,
 				E95CDD11275666B200A3E485 /* ParticipantionFetchableUsecaseMock.swift */,
@@ -1266,6 +1269,7 @@
 				E95CDD14275667E300A3E485 /* ParticipationCreatableUsecaseMock.swift in Sources */,
 				E95CDD0C27565F3600A3E485 /* ImageFetchableUsecaseMock.swift in Sources */,
 				E95CDD082756484300A3E485 /* ChallengeFetchableUsecaseMock.swift in Sources */,
+				E95CDD162756684500A3E485 /* AchievementUpdatableUsecaseMock.swift in Sources */,
 				E95CDD0A2756486C00A3E485 /* ChallengeViewModelTests.swift in Sources */,
 				E95CDD10275665E500A3E485 /* ChallengeUpdatableUsecaseMock.swift in Sources */,
 				E95CDD002755F8F700A3E485 /* UserUpdatableUsecaseMock.swift in Sources */,
