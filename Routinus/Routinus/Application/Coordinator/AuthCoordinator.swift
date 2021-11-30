@@ -24,7 +24,7 @@ final class AuthCoordinator: RoutinusCoordinator {
         let challengeFetchUsecase = ChallengeFetchUsecase(repository: repository)
         let imageFetchUsecase = ImageFetchUsecase(repository: repository)
         let imageSaveUsecase = ImageSaveUsecase(repository: repository)
-        let challengeAuthCreateUsecase = ChallengeAuthCreateUsecase(repository: repository)
+        let authCreateUsecase = AuthCreateUsecase(repository: repository)
         let participationUpdateUsecase = ParticipationUpdateUsecase(repository: repository)
         let achievementUpdateUsecase = AchievementUpdateUsecase(repository: repository)
         let userUpdateUsecase = UserUpdateUsecase(repository: repository)
@@ -33,7 +33,7 @@ final class AuthCoordinator: RoutinusCoordinator {
                                           challengeFetchUsecase: challengeFetchUsecase,
                                           imageFetchUsecase: imageFetchUsecase,
                                           imageSaveUsecase: imageSaveUsecase,
-                                          challengeAuthCreateUsecase: challengeAuthCreateUsecase,
+                                          authCreateUsecase: authCreateUsecase,
                                           participationUpdateUsecase: participationUpdateUsecase,
                                           achievementUpdateUsecase: achievementUpdateUsecase,
                                           userUpdateUsecase: userUpdateUsecase,

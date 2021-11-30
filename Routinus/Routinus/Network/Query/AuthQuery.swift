@@ -109,7 +109,7 @@ enum AuthQuery {
         """.data(using: .utf8)
     }
 
-    static func insert(document: ChallengeAuthFields) -> Data? {
+    static func insert(document: AuthFields) -> Data? {
         return """
         {
             "fields": {

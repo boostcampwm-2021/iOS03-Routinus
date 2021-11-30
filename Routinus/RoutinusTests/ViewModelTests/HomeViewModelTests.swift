@@ -89,7 +89,7 @@ class HomeViewModelTests: XCTestCase {
     }
 
     func testDidTappedTodayRoutineAuth() {
-        let expectation = expectation(description: "ChallengeAuthShowSignal")
+        let expectation = expectation(description: "AuthShowSignal")
 
         homeViewModel.todayRoutineAuthTap
             .sink { challgenID in

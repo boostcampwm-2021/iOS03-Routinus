@@ -103,20 +103,20 @@ enum FirebaseService {
         }
     }
 
-    static func insertChallengeAuth(challengeAuth: ChallengeAuthDTO,
-                                    userAuthImageURL: String,
-                                    userAuthThumbnailImageURL: String,
-                                    completion: @escaping () -> Void) {
-        insertChallengeAuth(dto: challengeAuth)
+    static func insertAuth(auth: AuthDTO,
+                           userAuthImageURL: String,
+                           userAuthThumbnailImageURL: String,
+                           completion: @escaping () -> Void) {
+        insertAuth(dto: auth)
 
         let uploadQueue = DispatchQueue(label: "uploadQueue")
         let group = DispatchGroup()
 
         group.enter()
         uploadQueue.async(group: group) {
-            let id = challengeAuth.document?.fields.challengeID.stringValue ?? ""
-            let userID = challengeAuth.document?.fields.userID.stringValue ?? ""
-            let date = challengeAuth.document?.fields.date.stringValue ?? ""
+            let id = auth.document?.fields.challengeID.stringValue ?? ""
+            let userID = auth.document?.fields.userID.stringValue ?? ""
+            let date = auth.document?.fields.date.stringValue ?? ""
             group.enter()
             uploadImage(id: id,
                         filename: "\(userID)_\(date)_auth",
@@ -166,7 +166,7 @@ enum FirebaseService {
         }.resume()
     }
 
-    static func insertChallengeAuth(dto: ChallengeAuthDTO, completion: (() -> Void)? = nil) {
+    static func insertAuth(dto: AuthDTO, completion: (() -> Void)? = nil) {
         guard let url = URL(string: "\(firestoreURL)/challenge_auth"),
               let document = dto.document?.fields else { return }
         var request = URLRequest(url: url)
@@ -738,10 +738,10 @@ enum FirebaseService {
         }
     }
 
-    static func challengeAuth(todayDate: String,
-                              userID: String,
-                              challengeID: String,
-                              completion: @escaping (ChallengeAuthDTO?) -> Void) {
+    static func auth(todayDate: String,
+                     userID: String,
+                     challengeID: String,
+                     completion: @escaping (AuthDTO?) -> Void) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else { return }
         var request = URLRequest(url: url)
 
@@ -753,12 +753,12 @@ enum FirebaseService {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
-            let dto = try? JSONDecoder().decode([ChallengeAuthDTO].self, from: data).first
+            let dto = try? JSONDecoder().decode([AuthDTO].self, from: data).first
             completion(dto)
         }.resume()
     }
 
-    static func challengeAuths(challengeID: String, completion: (([ChallengeAuthDTO]) -> Void)?) {
+    static func auths(challengeID: String, completion: (([AuthDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return
@@ -770,14 +770,12 @@ enum FirebaseService {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
-            let list = try? JSONDecoder().decode([ChallengeAuthDTO].self, from: data)
+            let list = try? JSONDecoder().decode([AuthDTO].self, from: data)
             completion?(list ?? [])
         }.resume()
     }
 
-    static func challengeAuths(userID: String,
-                               challengeID: String,
-                               completion: (([ChallengeAuthDTO]) -> Void)?) {
+    static func auths(userID: String, challengeID: String, completion: (([AuthDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return
@@ -789,7 +787,7 @@ enum FirebaseService {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
-            let list = try? JSONDecoder().decode([ChallengeAuthDTO].self, from: data)
+            let list = try? JSONDecoder().decode([AuthDTO].self, from: data)
             completion?(list ?? [])
         }.resume()
     }

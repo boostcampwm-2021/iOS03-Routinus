@@ -1,5 +1,5 @@
 //
-//  ChallengeAuth.swift
+//  Auth.swift
 //  Routinus
 //
 //  Created by 박상우 on 2021/11/17.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ChallengeAuth {
+struct Auth {
     var challengeID: String
     var userID: String
     var date: Date?
@@ -20,8 +20,8 @@ struct ChallengeAuth {
         self.time = time
     }
 
-    init(challengeAuthDTO: ChallengeAuthDTO) {
-        let document = challengeAuthDTO.document?.fields
+    init(authDTO: AuthDTO) {
+        let document = authDTO.document?.fields
 
         self.challengeID = document?.challengeID.stringValue ?? ""
         self.userID = document?.userID.stringValue ?? ""

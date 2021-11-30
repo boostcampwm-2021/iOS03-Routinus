@@ -41,7 +41,7 @@
 		149B8DA2274CC3650065E64D /* DetailAuthDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149B8DA1274CC3650065E64D /* DetailAuthDisplayView.swift */; };
 		149B8DA4274CD0470065E64D /* DetailAuthDisplayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149B8DA3274CD0470065E64D /* DetailAuthDisplayListView.swift */; };
 		149B8DAA274CF75C0065E64D /* AuthsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149B8DA9274CF75C0065E64D /* AuthsCoordinator.swift */; };
-		14AFD0FA2746211F00011CC1 /* ChallengeAuthFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AFD0F92746211F00011CC1 /* ChallengeAuthFetchUsecase.swift */; };
+		14AFD0FA2746211F00011CC1 /* AuthFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AFD0F92746211F00011CC1 /* AuthFetchUsecase.swift */; };
 		14B1810E27454DBF0061F2AE /* ParticipationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */; };
 		14B181122745511A0061F2AE /* Participation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B181112745511A0061F2AE /* Participation.swift */; };
 		14B18116274555CE0061F2AE /* ParticipationFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */; };
@@ -82,7 +82,7 @@
 		44EA8A3F275499E000861183 /* AchievementDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A3E275499E000861183 /* AchievementDTO.swift */; };
 		44EA8A41275499E800861183 /* ChallengeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A40275499E800861183 /* ChallengeDTO.swift */; };
 		44EA8A43275499EF00861183 /* ParticipationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A42275499EF00861183 /* ParticipationDTO.swift */; };
-		44EA8A45275499F700861183 /* ChallengeAuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A44275499F700861183 /* ChallengeAuthDTO.swift */; };
+		44EA8A45275499F700861183 /* AuthDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A44275499F700861183 /* AuthDTO.swift */; };
 		44EA8A4727549A6000861183 /* UserQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4627549A6000861183 /* UserQuery.swift */; };
 		44EA8A4927549A6700861183 /* ChallengeQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4827549A6700861183 /* ChallengeQuery.swift */; };
 		44EA8A4B27549A6E00861183 /* ParticipationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4A27549A6E00861183 /* ParticipationQuery.swift */; };
@@ -99,9 +99,9 @@
 		E901EFE02744CC4F00B14847 /* AchievementFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFDF2744CC4F00B14847 /* AchievementFetchUsecase.swift */; };
 		E901EFE22744CC6E00B14847 /* AchievementRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE12744CC6E00B14847 /* AchievementRepository.swift */; };
 		E901EFE42744D41600B14847 /* ImageSaveUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE32744D41600B14847 /* ImageSaveUsecase.swift */; };
-		E901EFE827453F1100B14847 /* ChallengeAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */; };
-		E901EFEA27453F2000B14847 /* ChallengeAuthCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */; };
-		E901EFEC27453F6600B14847 /* ChallengeAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFEB27453F6600B14847 /* ChallengeAuth.swift */; };
+		E901EFE827453F1100B14847 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE727453F1100B14847 /* AuthRepository.swift */; };
+		E901EFEA27453F2000B14847 /* AuthCreateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFE927453F2000B14847 /* AuthCreateUsecase.swift */; };
+		E901EFEC27453F6600B14847 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFEB27453F6600B14847 /* Auth.swift */; };
 		E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C1915273CACDD00D11127 /* PopularKeyword.swift */; };
 		E932229A2754C45D007DBAF2 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93222992754C45D007DBAF2 /* LaunchView.swift */; };
 		E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937044127434D4700D82B1D /* AuthMethodView.swift */; };
@@ -209,7 +209,7 @@
 		149B8DA1274CC3650065E64D /* DetailAuthDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAuthDisplayView.swift; sourceTree = "<group>"; };
 		149B8DA3274CD0470065E64D /* DetailAuthDisplayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAuthDisplayListView.swift; sourceTree = "<group>"; };
 		149B8DA9274CF75C0065E64D /* AuthsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthsCoordinator.swift; sourceTree = "<group>"; };
-		14AFD0F92746211F00011CC1 /* ChallengeAuthFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthFetchUsecase.swift; sourceTree = "<group>"; };
+		14AFD0F92746211F00011CC1 /* AuthFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFetchUsecase.swift; sourceTree = "<group>"; };
 		14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationRepository.swift; sourceTree = "<group>"; };
 		14B181112745511A0061F2AE /* Participation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Participation.swift; sourceTree = "<group>"; };
 		14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationFetchUsecase.swift; sourceTree = "<group>"; };
@@ -254,7 +254,7 @@
 		44EA8A3E275499E000861183 /* AchievementDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementDTO.swift; sourceTree = "<group>"; };
 		44EA8A40275499E800861183 /* ChallengeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDTO.swift; sourceTree = "<group>"; };
 		44EA8A42275499EF00861183 /* ParticipationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationDTO.swift; sourceTree = "<group>"; };
-		44EA8A44275499F700861183 /* ChallengeAuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthDTO.swift; sourceTree = "<group>"; };
+		44EA8A44275499F700861183 /* AuthDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDTO.swift; sourceTree = "<group>"; };
 		44EA8A4627549A6000861183 /* UserQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserQuery.swift; sourceTree = "<group>"; };
 		44EA8A4827549A6700861183 /* ChallengeQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeQuery.swift; sourceTree = "<group>"; };
 		44EA8A4A27549A6E00861183 /* ParticipationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationQuery.swift; sourceTree = "<group>"; };
@@ -271,9 +271,9 @@
 		E901EFDF2744CC4F00B14847 /* AchievementFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementFetchUsecase.swift; sourceTree = "<group>"; };
 		E901EFE12744CC6E00B14847 /* AchievementRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementRepository.swift; sourceTree = "<group>"; };
 		E901EFE32744D41600B14847 /* ImageSaveUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaveUsecase.swift; sourceTree = "<group>"; };
-		E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthRepository.swift; sourceTree = "<group>"; };
-		E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuthCreateUsecase.swift; sourceTree = "<group>"; };
-		E901EFEB27453F6600B14847 /* ChallengeAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAuth.swift; sourceTree = "<group>"; };
+		E901EFE727453F1100B14847 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		E901EFE927453F2000B14847 /* AuthCreateUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCreateUsecase.swift; sourceTree = "<group>"; };
+		E901EFEB27453F6600B14847 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		E91C1915273CACDD00D11127 /* PopularKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularKeyword.swift; sourceTree = "<group>"; };
 		E93222992754C45D007DBAF2 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		E937044127434D4700D82B1D /* AuthMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMethodView.swift; sourceTree = "<group>"; };
@@ -597,7 +597,7 @@
 				44EA8A3E275499E000861183 /* AchievementDTO.swift */,
 				44EA8A40275499E800861183 /* ChallengeDTO.swift */,
 				44EA8A42275499EF00861183 /* ParticipationDTO.swift */,
-				44EA8A44275499F700861183 /* ChallengeAuthDTO.swift */,
+				44EA8A44275499F700861183 /* AuthDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -619,7 +619,7 @@
 				E901EFE12744CC6E00B14847 /* AchievementRepository.swift */,
 				E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */,
 				14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */,
-				E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */,
+				E901EFE727453F1100B14847 /* AuthRepository.swift */,
 				E901EFD32744BD3400B14847 /* ImageRepository.swift */,
 			);
 			path = Repository;
@@ -713,7 +713,7 @@
 				0DE03397274329B90026F502 /* Calendar.swift */,
 				E94B49752739118B00708D7B /* Challenge.swift */,
 				14B181112745511A0061F2AE /* Participation.swift */,
-				E901EFEB27453F6600B14847 /* ChallengeAuth.swift */,
+				E901EFEB27453F6600B14847 /* Auth.swift */,
 				E91C1915273CACDD00D11127 /* PopularKeyword.swift */,
 			);
 			path = Entity;
@@ -734,8 +734,8 @@
 				14B18117274561E20061F2AE /* ParticipationCreateUsecase.swift */,
 				14B18115274555CE0061F2AE /* ParticipationFetchUsecase.swift */,
 				E9A7943C2746125E00731DEB /* ParticipationUpdateUsecase.swift */,
-				E901EFE927453F2000B14847 /* ChallengeAuthCreateUsecase.swift */,
-				14AFD0F92746211F00011CC1 /* ChallengeAuthFetchUsecase.swift */,
+				E901EFE927453F2000B14847 /* AuthCreateUsecase.swift */,
+				14AFD0F92746211F00011CC1 /* AuthFetchUsecase.swift */,
 				E901EFE32744D41600B14847 /* ImageSaveUsecase.swift */,
 				E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */,
 				149B8D9B274C6D410065E64D /* ImageUpdateUsecase.swift */,
@@ -1095,7 +1095,7 @@
 				0DBBAA3727341C1600B32EB5 /* ChallengeCollectionViewLayouts.swift in Sources */,
 				0DD1631C27312AC700DC5970 /* CalendarHeader.swift in Sources */,
 				E9493DCC273A75220095CF6D /* SearchCollectionViewHeader.swift in Sources */,
-				44EA8A45275499F700861183 /* ChallengeAuthDTO.swift in Sources */,
+				44EA8A45275499F700861183 /* AuthDTO.swift in Sources */,
 				1497CF572739215C00296F9E /* UserCreateUsecase.swift in Sources */,
 				E9753900273220F6004358C5 /* User.swift in Sources */,
 				149B8DA2274CC3650065E64D /* DetailAuthDisplayView.swift in Sources */,
@@ -1116,7 +1116,7 @@
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				441CEE19273A33DB006C261F /* CreateWeekView.swift in Sources */,
 				E901EFDE2744CBDE00B14847 /* UserFetchUsecase.swift in Sources */,
-				E901EFE827453F1100B14847 /* ChallengeAuthRepository.swift in Sources */,
+				E901EFE827453F1100B14847 /* AuthRepository.swift in Sources */,
 				14BFC0DF274DC09C00A982CB /* AuthImagesCollectionViewCell.swift in Sources */,
 				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				44EA8A43275499EF00861183 /* ParticipationDTO.swift in Sources */,
@@ -1130,7 +1130,7 @@
 				E975390627325538004358C5 /* Achievement.swift in Sources */,
 				441CEE1B273A33FE006C261F /* CreateAuthMethodView.swift in Sources */,
 				E9797CBD27310E1900A14A0F /* HomeCoordinator.swift in Sources */,
-				E901EFEC27453F6600B14847 /* ChallengeAuth.swift in Sources */,
+				E901EFEC27453F6600B14847 /* Auth.swift in Sources */,
 				14572CED273BF644007E6ECE /* CreateCoordinator.swift in Sources */,
 				E901EFE02744CC4F00B14847 /* AchievementFetchUsecase.swift in Sources */,
 				E901EFD82744C9E300B14847 /* UserRepository.swift in Sources */,
@@ -1188,14 +1188,14 @@
 				0DBBAA3D27341C3600B32EB5 /* ChallengeCategoryCollectionViewCell.swift in Sources */,
 				E937044227434D4700D82B1D /* AuthMethodView.swift in Sources */,
 				0DC38F44273A3B9900331C25 /* SearchCoordinator.swift in Sources */,
-				E901EFEA27453F2000B14847 /* ChallengeAuthCreateUsecase.swift in Sources */,
+				E901EFEA27453F2000B14847 /* AuthCreateUsecase.swift in Sources */,
 				44EA8A4D27549A7600861183 /* AuthQuery.swift in Sources */,
 				E93704492743B2F800D82B1D /* AuthViewModel.swift in Sources */,
 				443213C6274B6A78003551E8 /* MyPageProfileView.swift in Sources */,
 				E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */,
 				44EA8A39275499C800861183 /* Fields.swift in Sources */,
 				E9493DC8273A70280095CF6D /* SearchPopularKeywordCollectionViewCell.swift in Sources */,
-				14AFD0FA2746211F00011CC1 /* ChallengeAuthFetchUsecase.swift in Sources */,
+				14AFD0FA2746211F00011CC1 /* AuthFetchUsecase.swift in Sources */,
 				441CEE17273A33CD006C261F /* CreateIntroductionView.swift in Sources */,
 				E99474502736D54C0054A631 /* DetailCoordinator.swift in Sources */,
 				145F5324273FAF95000700A5 /* ChallengeUpdateUsecase.swift in Sources */,

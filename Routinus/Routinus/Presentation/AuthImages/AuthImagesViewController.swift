@@ -104,7 +104,7 @@ extension AuthImagesViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
             guard let self = self else { return }
             guard let authDisplayState = self.viewModel?.authDisplayState.value else { return }
-            self.viewModel?.fetchChallengeAuthData(authDisplayState: authDisplayState)
+            self.viewModel?.fetchAuthData(authDisplayState: authDisplayState)
             self.collectionView.refreshControl?.endRefreshing()
         }
     }

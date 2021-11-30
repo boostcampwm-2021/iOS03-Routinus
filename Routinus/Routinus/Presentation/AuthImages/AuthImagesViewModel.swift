@@ -9,12 +9,12 @@ import Combine
 import Foundation
 
 protocol AuthImagesViewModelInput {
-    func fetchChallengeAuthData(authDisplayState: AuthDisplayState)
+    func fetchAuthData(authDisplayState: AuthDisplayState)
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
 }
 
 protocol AuthImagesViewModelOutput {
-    var auths: CurrentValueSubject<[ChallengeAuth], Never> { get }
+    var auths: CurrentValueSubject<[Auth], Never> { get }
     var authDisplayState: CurrentValueSubject<AuthDisplayState, Never> { get }
     var authImageTap: PassthroughSubject<Data, Never> { get }
     var authImageLoad: PassthroughSubject<Data, Never> { get }
@@ -23,7 +23,7 @@ protocol AuthImagesViewModelOutput {
 protocol AuthImagesViewModelIO: AuthImagesViewModelInput, AuthImagesViewModelOutput { }
 
 final class AuthImagesViewModel: AuthImagesViewModelIO {
-    var auths = CurrentValueSubject<[ChallengeAuth], Never>([])
+    var auths = CurrentValueSubject<[Auth], Never>([])
     var authDisplayState = CurrentValueSubject<AuthDisplayState, Never>(.all)
 
     private var challengeID: String?
@@ -31,43 +31,43 @@ final class AuthImagesViewModel: AuthImagesViewModelIO {
     var authImageTap = PassthroughSubject<Data, Never>()
     var authImageLoad = PassthroughSubject<Data, Never>()
 
-    let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
+    let authFetchUsecase: AuthFetchableUsecase
     let imageFetchUsecase: ImageFetchableUsecase
 
     init(challengeID: String,
          authDisplayState: AuthDisplayState,
-         challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase,
+         authFetchUsecase: AuthFetchableUsecase,
          imageFetchUsecase: ImageFetchableUsecase) {
         self.challengeID = challengeID
-        self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
+        self.authFetchUsecase = authFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
-        fetchChallengeAuthData(authDisplayState: authDisplayState)
+        fetchAuthData(authDisplayState: authDisplayState)
     }
 
-    private func fetchChallengeAuths() {
+    private func fetchAuths() {
         guard let challengeID = challengeID else { return }
-        challengeAuthFetchUsecase.fetchChallengeAuths(challengeID: challengeID) { challengeAuths in
-            self.auths.value = challengeAuths
+        authFetchUsecase.fetchAuths(challengeID: challengeID) { auths in
+            self.auths.value = auths
         }
     }
 
-    private func fetchMyChallengeAuths() {
+    private func fetchMyAuths() {
         guard let challengeID = challengeID else { return }
-        challengeAuthFetchUsecase.fetchMyChallengeAuths(challengeID: challengeID) { challengeAuths in
-            self.auths.value = challengeAuths
+        authFetchUsecase.fetchMyAuths(challengeID: challengeID) { auths in
+            self.auths.value = auths
         }
     }
 }
 
 extension AuthImagesViewModel {
-    func fetchChallengeAuthData(authDisplayState: AuthDisplayState) {
+    func fetchAuthData(authDisplayState: AuthDisplayState) {
         switch authDisplayState {
         case .all:
             self.authDisplayState.value = .all
-            self.fetchChallengeAuths()
+            self.fetchAuths()
         case .my:
             self.authDisplayState.value = .my
-            self.fetchMyChallengeAuths()
+            self.fetchMyAuths()
         }
     }
 

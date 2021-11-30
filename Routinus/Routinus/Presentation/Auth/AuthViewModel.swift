@@ -40,7 +40,7 @@ final class AuthViewModel: AuthViewModelIO {
     var challengeFetchUsecase: ChallengeFetchableUsecase
     var imageFetchUsecase: ImageFetchableUsecase
     var imageSaveUsecase: ImageSavableUsecase
-    var challengeAuthCreateUsecase: ChallengeAuthCreatableUsecase
+    var authCreateUsecase: AuthCreatableUsecase
     var participationUpdateUsecase: ParticipationUpdatableUsecase
     var achievementUpdateUsecase: AchievementUpdatableUsecase
     var userUpdateUsecase: UserUpdatableUsecase
@@ -54,7 +54,7 @@ final class AuthViewModel: AuthViewModelIO {
          challengeFetchUsecase: ChallengeFetchableUsecase,
          imageFetchUsecase: ImageFetchableUsecase,
          imageSaveUsecase: ImageSavableUsecase,
-         challengeAuthCreateUsecase: ChallengeAuthCreatableUsecase,
+         authCreateUsecase: AuthCreatableUsecase,
          participationUpdateUsecase: ParticipationUpdatableUsecase,
          achievementUpdateUsecase: AchievementUpdatableUsecase,
          userUpdateUsecase: UserUpdatableUsecase,
@@ -63,7 +63,7 @@ final class AuthViewModel: AuthViewModelIO {
         self.challengeFetchUsecase = challengeFetchUsecase
         self.imageFetchUsecase = imageFetchUsecase
         self.imageSaveUsecase = imageSaveUsecase
-        self.challengeAuthCreateUsecase = challengeAuthCreateUsecase
+        self.authCreateUsecase = authCreateUsecase
         self.participationUpdateUsecase = participationUpdateUsecase
         self.achievementUpdateUsecase = achievementUpdateUsecase
         self.userUpdateUsecase = userUpdateUsecase
@@ -98,7 +98,7 @@ extension AuthViewModel {
     }
 
     func didTappedAuthButton() {
-        challengeAuthCreateUsecase.createChallengeAuth(
+        authCreateUsecase.createAuth(
             challengeID: challengeID,
             userAuthImageURL: userAuthImageURL,
             userAuthThumbnailImageURL: userAuthThumbnailImageURL

@@ -58,7 +58,7 @@ final class HomeViewModel: HomeViewModelIO {
     var userUpdateUsecase: UserUpdatableUsecase
     var todayRoutineFetchUsecase: TodayRoutineFetchableUsecase
     var achievementFetchUsecase: AchievementFetchableUsecase
-    var challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
+    var authFetchUsecase: AuthFetchableUsecase
 
     let userCreatePublisher = NotificationCenter.default.publisher(
         for: UserCreateUsecase.didCreateUser,
@@ -81,7 +81,7 @@ final class HomeViewModel: HomeViewModelIO {
         object: nil
     )
     let authCreatePublisher = NotificationCenter.default.publisher(
-        for: ChallengeAuthCreateUsecase.didCreateAuth,
+        for: AuthCreateUsecase.didCreateAuth,
         object: nil
     )
     let participationCreatePublisher = NotificationCenter.default.publisher(
@@ -98,13 +98,13 @@ final class HomeViewModel: HomeViewModelIO {
          userUpdateUsecase: UserUpdatableUsecase,
          todayRoutineFetchUsecase: TodayRoutineFetchableUsecase,
          achievementFetchUsecase: AchievementFetchableUsecase,
-         challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase) {
+         authFetchUsecase: AuthFetchableUsecase) {
         self.userCreateUsecase = userCreateUsecase
         self.userFetchUsecase = userFetchUsecase
         self.userUpdateUsecase = userUpdateUsecase
         self.todayRoutineFetchUsecase = todayRoutineFetchUsecase
         self.achievementFetchUsecase = achievementFetchUsecase
-        self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
+        self.authFetchUsecase = authFetchUsecase
 
         configureDateFormatter()
         configureCalendar()
@@ -223,9 +223,9 @@ extension HomeViewModel {
         }
     }
 
-    private func fetchAuth(challengeID: String, completion: @escaping (ChallengeAuth?) -> Void) {
-        challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
-            completion(challengeAuth)
+    private func fetchAuth(challengeID: String, completion: @escaping (Auth?) -> Void) {
+        authFetchUsecase.fetchAuth(challengeID: challengeID) { auth in
+            completion(auth)
         }
     }
 

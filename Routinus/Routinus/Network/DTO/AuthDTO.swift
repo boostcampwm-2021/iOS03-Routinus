@@ -1,5 +1,5 @@
 //
-//  ChallengeAuthDTO.swift
+//  AuthDTO.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/29.
@@ -7,23 +7,23 @@
 
 import Foundation
 
-struct ChallengeAuthDTO: Codable {
-    let document: Fields<ChallengeAuthFields>?
+struct AuthDTO: Codable {
+    let document: Fields<AuthFields>?
 
     init() {
         self.document = nil
     }
 
     init(challengeID: String, userID: String, date: String, time: String) {
-        let field = ChallengeAuthFields(challengeID: StringField(stringValue: challengeID),
-                                        userID: StringField(stringValue: userID),
-                                        date: StringField(stringValue: date),
-                                        time: StringField(stringValue: time))
+        let field = AuthFields(challengeID: StringField(stringValue: challengeID),
+                               userID: StringField(stringValue: userID),
+                               date: StringField(stringValue: date),
+                               time: StringField(stringValue: time))
         self.document = Fields(name: nil, fields: field)
     }
 }
 
-struct ChallengeAuthFields: Codable {
+struct AuthFields: Codable {
     let challengeID: StringField
     let userID: StringField
     let date: StringField

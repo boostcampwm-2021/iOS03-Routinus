@@ -24,13 +24,13 @@ final class HomeCoordinator: RoutinusCoordinator {
         let userUpdateUsecase = UserUpdateUsecase(repository: repository)
         let todayRoutineFetchUsecase = TodayRoutineFetchUsecase(repository: repository)
         let achievementFetchUsecase = AchievementFetchUsecase(repository: repository)
-        let challengeAuthFetchUsecase = ChallengeAuthFetchUsecase(repository: repository)
+        let authFetchUsecase = AuthFetchUsecase(repository: repository)
         let homeViewModel = HomeViewModel(userCreateUsecase: userCreateUsecase,
                                           userFetchUsecase: userFetchUsecase,
                                           userUpdateUsecase: userUpdateUsecase,
                                           todayRoutineFetchUsecase: todayRoutineFetchUsecase,
                                           achievementFetchUsecase: achievementFetchUsecase,
-                                          challengeAuthFetchUsecase: challengeAuthFetchUsecase)
+                                          authFetchUsecase: authFetchUsecase)
         let homeViewController = HomeViewController(with: homeViewModel)
 
         homeViewModel.challengeAddButtonTap

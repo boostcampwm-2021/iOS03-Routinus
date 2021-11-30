@@ -64,7 +64,7 @@ class DetailViewModel: DetailViewModelIO {
     let participationFetchUsecase: ParticipationFetchableUsecase
     let participationCreateUsecase: ParticipationCreatableUsecase
     let userFetchUsecase: UserFetchableUsecase
-    let challengeAuthFetchUsecase: ChallengeAuthFetchableUsecase
+    let authFetchUsecase: AuthFetchableUsecase
     let achievementUpdateUsecase: AchievementUpdatableUsecase
 
     let challengeUpdatePublisher = NotificationCenter.default.publisher(
@@ -72,7 +72,7 @@ class DetailViewModel: DetailViewModelIO {
         object: nil
     )
     let authCreatePublisher = NotificationCenter.default.publisher(
-        for: ChallengeAuthCreateUsecase.didCreateAuth,
+        for: AuthCreateUsecase.didCreateAuth,
         object: nil
     )
     let participationCreatePublisher = NotificationCenter.default.publisher(
@@ -91,7 +91,7 @@ class DetailViewModel: DetailViewModelIO {
          participationFetchUsecase: ParticipationFetchableUsecase,
          participationCreateUsecase: ParticipationCreatableUsecase,
          userFetchUsecase: UserFetchableUsecase,
-         challengeAuthFetchUsecase: ChallengeAuthFetchUsecase,
+         authFetchUsecase: AuthFetchUsecase,
          achievementUpdateUsecase: AchievementUpdateUsecase) {
         self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
@@ -100,7 +100,7 @@ class DetailViewModel: DetailViewModelIO {
         self.participationFetchUsecase = participationFetchUsecase
         self.participationCreateUsecase = participationCreateUsecase
         self.userFetchUsecase = userFetchUsecase
-        self.challengeAuthFetchUsecase = challengeAuthFetchUsecase
+        self.authFetchUsecase = authFetchUsecase
         self.achievementUpdateUsecase = achievementUpdateUsecase
         self.configurePublishers()
         self.fetchChallenge()
@@ -150,10 +150,10 @@ extension DetailViewModel {
         }
     }
 
-    private func fetchAuth(completion: @escaping (ChallengeAuth?) -> Void) {
+    private func fetchAuth(completion: @escaping (Auth?) -> Void) {
         guard let challengeID = challengeID else { return }
-        challengeAuthFetchUsecase.fetchChallengeAuth(challengeID: challengeID) { challengeAuth in
-            completion(challengeAuth)
+        authFetchUsecase.fetchAuth(challengeID: challengeID) { auth in
+            completion(auth)
         }
     }
 
@@ -163,9 +163,9 @@ extension DetailViewModel {
             if participation == nil {
                 self.participationAuthState.value = .notParticipating
             } else {
-                self.fetchAuth { [weak self] challengeAuth in
+                self.fetchAuth { [weak self] auth in
                     guard let self = self else { return }
-                    self.participationAuthState.value = challengeAuth == nil ? .notAuthenticating : .authenticated
+                    self.participationAuthState.value = auth == nil ? .notAuthenticating : .authenticated
                 }
             }
         }

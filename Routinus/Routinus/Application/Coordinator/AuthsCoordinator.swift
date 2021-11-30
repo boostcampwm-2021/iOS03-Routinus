@@ -25,12 +25,12 @@ final class AuthsCoordinator: RoutinusCoordinator {
 
     func start() {
         let repository = RoutinusRepository()
-        let challengeAuthFetchUsecase = ChallengeAuthFetchUsecase(repository: repository)
+        let authFetchUsecase = AuthFetchUsecase(repository: repository)
         let imageFetchUsecase = ImageFetchUsecase(repository: repository)
         let authImagesViewModel = AuthImagesViewModel(
             challengeID: challengeID,
             authDisplayState: authDisplayState,
-            challengeAuthFetchUsecase: challengeAuthFetchUsecase,
+            authFetchUsecase: authFetchUsecase,
             imageFetchUsecase: imageFetchUsecase
         )
         let authImagesViewController = AuthImagesViewController(viewModel: authImagesViewModel)
