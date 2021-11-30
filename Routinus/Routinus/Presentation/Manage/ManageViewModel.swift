@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol ManageViewModelInput {
-    func didLoadedManageView()
+    func fetchMyChallenges()
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
     func didTappedAddButton()
     func didTappedChallenge(index: IndexPath)
@@ -51,6 +51,7 @@ final class ManageViewModel: ManageViewModelIO {
         self.imageFetchUsecase = imageFetchUsecase
         self.challengeFetchUsecase = challengeFetchUsecase
         self.configurePublishers()
+        self.fetchMyChallenges()
     }
 }
 
@@ -60,7 +61,7 @@ extension ManageViewModel {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.didLoadedManageView()
+                self.fetchMyChallenges()
             }
             .store(in: &cancellables)
 
@@ -68,7 +69,7 @@ extension ManageViewModel {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.didLoadedManageView()
+                self.fetchMyChallenges()
             }
             .store(in: &cancellables)
     }
@@ -93,7 +94,7 @@ extension ManageViewModel {
 }
 
 extension ManageViewModel: ManageViewModelInput {
-    func didLoadedManageView() {
+    func fetchMyChallenges() {
         fetchParticipatingChallenges()
         fetchCreatedChallenges()
         fetchEndedChallenges()

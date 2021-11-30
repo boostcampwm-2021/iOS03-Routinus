@@ -282,7 +282,7 @@ extension ManageViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
             guard let self = self else { return }
             self.expandHeaders()
-            self.viewModel?.didLoadedManageView()
+            self.viewModel?.fetchMyChallenges()
             self.collectionView.refreshControl?.endRefreshing()
         }
     }
@@ -294,7 +294,7 @@ extension ManageViewController: ChallengePromotionViewDelegate {
     }
 
     func didLoadedManageView() {
-        viewModel?.didLoadedManageView()
+        viewModel?.fetchMyChallenges()
     }
 }
 
