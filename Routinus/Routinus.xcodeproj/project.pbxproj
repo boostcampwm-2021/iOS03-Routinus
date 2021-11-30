@@ -393,15 +393,8 @@
 		1497CF422738FF8C00296F9E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				1497CF432738FFA600296F9E /* RoutinusRepository.swift */,
-				E901EFD72744C9E300B14847 /* UserRepository.swift */,
-				E901EFDB2744CAF900B14847 /* TodayRoutineRepository.swift */,
-				E901EFE12744CC6E00B14847 /* AchievementRepository.swift */,
-				E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */,
-				14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */,
-				E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */,
-				E901EFD32744BD3400B14847 /* ImageRepository.swift */,
-				1497CF4B2739078700296F9E /* UsernameFactory.swift */,
+				44EA8A532755CA9500861183 /* Repository */,
+				44EA8A542755CA9C00861183 /* Factory */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -615,6 +608,29 @@
 				44EA8A512755C63400861183 /* SearchPopularKeywordDelegate.swift */,
 			);
 			path = Delegates;
+			sourceTree = "<group>";
+		};
+		44EA8A532755CA9500861183 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				1497CF432738FFA600296F9E /* RoutinusRepository.swift */,
+				E901EFD72744C9E300B14847 /* UserRepository.swift */,
+				E901EFDB2744CAF900B14847 /* TodayRoutineRepository.swift */,
+				E901EFE12744CC6E00B14847 /* AchievementRepository.swift */,
+				E9493DC0273A4E5B0095CF6D /* ChallengeRepository.swift */,
+				14B1810D27454DBF0061F2AE /* ParticipationRepository.swift */,
+				E901EFE727453F1100B14847 /* ChallengeAuthRepository.swift */,
+				E901EFD32744BD3400B14847 /* ImageRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		44EA8A542755CA9C00861183 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				1497CF4B2739078700296F9E /* UsernameFactory.swift */,
+			);
+			path = Factory;
 			sourceTree = "<group>";
 		};
 		C6BC838A122CF798FF91016F /* Pods */ = {
