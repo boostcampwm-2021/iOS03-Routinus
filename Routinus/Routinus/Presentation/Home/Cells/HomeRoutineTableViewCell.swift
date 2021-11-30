@@ -25,7 +25,7 @@ final class HomeRoutineTableViewCell: UITableViewCell {
     private lazy var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = UIColor(named: "Black")
+        imageView.tintColor = UIColor(named: "SystemForeground")
         return imageView
     }()
     private lazy var categoryNameLabel: UILabel = {
@@ -88,7 +88,7 @@ extension HomeRoutineTableViewCell {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "SystemBackground")
 
         contentView.addSubview(borderView)
         borderView.anchor(horizontal: borderView.superview,

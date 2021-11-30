@@ -12,7 +12,7 @@ final class AuthPreviewView: UIView {
 
     private lazy var previewView: UIView = {
         let view = UIView()
-        view.backgroundColor = .secondarySystemGroupedBackground
+        view.backgroundColor = UIColor(named: "LightGray")
         view.layer.cornerRadius = 15
         view.layer.borderColor = UIColor(named: "MainColor")?.cgColor
         view.layer.borderWidth = 2
@@ -22,7 +22,7 @@ final class AuthPreviewView: UIView {
     private lazy var authButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "camera.fill"), for: .normal)
-        button.tintColor = UIColor(named: "Black")
+        button.tintColor = UIColor(named: "SystemForeground")
         button.imageView?.contentMode = .scaleAspectFit
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill

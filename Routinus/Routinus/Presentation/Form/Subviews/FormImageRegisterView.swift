@@ -20,12 +20,12 @@ final class FormImageRegisterView: UIView {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "camera")
-        imageView.tintColor = UIColor(named: "Black")
+        imageView.tintColor = UIColor(named: "SystemForeground")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.systemGray.cgColor
+        imageView.layer.borderColor = UIColor(named: "DayColor")?.cgColor
         return imageView
     }()
 

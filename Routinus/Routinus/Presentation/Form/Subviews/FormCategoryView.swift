@@ -18,7 +18,7 @@ final class FormCategoryView: UIView {
     }()
     private lazy var button: UIButton = {
         let button = UIButton()
-        button.tintColor = UIColor(named: "Black")
+        button.tintColor = UIColor(named: "SystemForeground")
         button.titleLabel?.font = .systemFont(ofSize: 16)
         return button
     }()
@@ -82,9 +82,9 @@ extension FormCategoryView {
             configuration.title = "exercise".localized
             button.configuration = configuration
         } else {
-            button.backgroundColor = .systemGray4
+            button.backgroundColor = UIColor(named: "LightGray")
             button.setTitle("exercise".localized, for: .normal)
-            button.setTitleColor(UIColor(named: "Black"), for: .normal)
+            button.setTitleColor(UIColor(named: "SystemForeground"), for: .normal)
             button.layer.cornerRadius = 5
         }
 

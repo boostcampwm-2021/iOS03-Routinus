@@ -20,21 +20,21 @@ final class DetailViewController: UIViewController {
     private lazy var editBarButtonItem: UIBarButtonItem = {
         var barButtonItem = UIBarButtonItem()
         barButtonItem.image = UIImage(systemName: "pencil")
-        barButtonItem.tintColor = UIColor(named: "Black")
+        barButtonItem.tintColor = UIColor(named: "SystemForeground")
         barButtonItem.target = self
         barButtonItem.action = #selector(didTappedEditBarButton(_:))
         return barButtonItem
     }()
     private lazy var mainImageView: UIImageView = {
         var imageView = UIImageView()
-        imageView.backgroundColor = .systemBackground
+        imageView.backgroundColor = UIColor(named: "SystemBackground")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
     private lazy var participantView: UIView = {
         var view = UIView()
-        view.backgroundColor = .systemBackground.withAlphaComponent(0.7)
+        view.backgroundColor = UIColor(named: "SystemBackground")?.withAlphaComponent(0.7)
         return view
     }()
     private lazy var informationView = DetailInformationView()
@@ -77,10 +77,10 @@ extension DetailViewController {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "SystemBackground")
 
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = UIColor(named: "Black")
+        backBarButtonItem.tintColor = UIColor(named: "SystemForeground")
         navigationItem.backBarButtonItem = backBarButtonItem
 
         view.addSubview(scrollView)
@@ -180,7 +180,7 @@ extension DetailViewController {
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "DayColor"),
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
         )
         scrollView.refreshControl = refreshControl

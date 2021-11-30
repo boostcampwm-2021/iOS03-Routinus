@@ -32,9 +32,9 @@ final class FormViewController: UIViewController {
     private lazy var completeButton: UIButton = {
         var button = UIButton()
         button.setTitle(ButtonType.create.rawValue.localized, for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor(named: "Black"), for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        button.backgroundColor = UIColor(red: 180/255, green: 231/255, blue: 160/255, alpha: 1)
+        button.backgroundColor = UIColor(named: "MainColor")
         button.layer.cornerRadius = 20
         button.isEnabled = false
         button.alpha = 0.5
@@ -73,7 +73,7 @@ extension FormViewController {
     }
 
     private func configureViews() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "SystemBackground")
 
         view.addSubview(scrollView)
         scrollView.anchor(edges: view.safeAreaLayoutGuide)
@@ -139,7 +139,7 @@ extension FormViewController {
                         self.imageRegisterView.updateImage(image)
                     }
                 })
-                self.weekView.update(week: challenge.week) 
+                self.weekView.update(week: challenge.week)
                 self.introductionView.update(introduction: challenge.introduction)
                 self.authMethodView.update(authMethod: challenge.authMethod)
                 self.viewModel?.imageData(from: challenge.challengeID,

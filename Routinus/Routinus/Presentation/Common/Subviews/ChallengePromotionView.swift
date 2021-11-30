@@ -33,7 +33,7 @@ final class ChallengePromotionView: UIView {
     private lazy var promotionButton: UIButton = {
         let button = UIButton()
         button.setTitle("make challenge".localized, for: .normal)
-        button.setTitleColor(.systemBackground, for: .normal)
+        button.setTitleColor(UIColor(named: "SystemBackground"), for: .normal)
         button.backgroundColor = UIColor(named: "MainColor")
         button.layer.cornerRadius = 5
         button.addTarget(self, action: #selector(didTappedPromotionButton), for: .touchUpInside)

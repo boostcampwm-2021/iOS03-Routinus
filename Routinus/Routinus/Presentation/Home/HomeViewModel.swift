@@ -212,9 +212,7 @@ extension HomeViewModel {
     }
 
     private func fetchAchievement(date: Date = Date()) {
-        achievementFetchUsecase.fetchAchievements(
-            yearMonth: date.toYearMonthString()
-        ) { [weak self] achievement in
+        achievementFetchUsecase.fetchAchievements(yearMonth: date.toYearMonthString()) { [weak self] achievement in
             guard let self = self else { return }
             self.selectedDates = achievement.map { Date(dateString: "\($0.yearMonth)\($0.day)") }
             self.achievements = achievement
@@ -261,6 +259,7 @@ extension HomeViewModel {
                                         value: month,
                                         to: baseDate.value) ?? Date()
         baseDate.value = month == 0 ? Date() : changedDate
+        achievements = []
         days.value = generateDaysInMonth(for: baseDate.value)
         fetchAchievement(date: baseDate.value)
     }
@@ -282,7 +281,7 @@ extension HomeViewModel {
         let challengeID = todayRoutines.value[index].challengeID
         todayRoutineAuthTap.send(challengeID)
     }
-  
+
     func didTappedExplanationButton() {
         calendarExplanationButtonTap.send()
     }

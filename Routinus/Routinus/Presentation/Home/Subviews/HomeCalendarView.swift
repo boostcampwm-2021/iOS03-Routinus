@@ -19,7 +19,7 @@ final class HomeCalendarView: UIView {
     private lazy var explanationButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "questionmark.circle"), for: .normal)
-        button.tintColor = UIColor(named: "Black")
+        button.tintColor = UIColor(named: "SystemForeground")
         button.anchor(width: 24, height: 24)
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill

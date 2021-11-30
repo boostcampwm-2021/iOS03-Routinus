@@ -60,7 +60,7 @@ extension DetailAuthDisplayListView {
     }
 
     private func configureSubviews() {
-        backgroundColor = .systemBackground
+        backgroundColor = UIColor(named: "SystemBackground")
         allAuthDisplayView.update(to: .all)
         myAuthDisplayView.update(to: .my)
 

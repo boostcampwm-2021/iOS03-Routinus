@@ -21,4 +21,3 @@ struct Participation {
         self.userID = document?.userID.stringValue ?? ""
     }
 }
-
