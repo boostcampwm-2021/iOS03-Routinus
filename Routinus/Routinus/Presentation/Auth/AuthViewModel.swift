@@ -73,6 +73,16 @@ final class AuthViewModel: AuthViewModelIO {
         self.fetchChallenge(challengeID: challengeID)
         self.fetchUsername()
     }
+}
+
+extension AuthViewModel {
+    private func fetchUsername() {
+        guard let userID = userFetchUsecase.fetchUserID() else { return }
+        userFetchUsecase.fetchUser(id: userID) { [weak self] user in
+            guard let self = self else { return }
+            self.userName = user.name
+        }
+    }
 
     private func validate() {
         authButtonState.value = !userAuthImageURL.isEmpty && !userAuthThumbnailImageURL.isEmpty
@@ -80,6 +90,13 @@ final class AuthViewModel: AuthViewModelIO {
 }
 
 extension AuthViewModel {
+    func fetchChallenge(challengeID: String) {
+        challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
+            guard let self = self else { return }
+            self.challenge.value = challenge
+        }
+    }
+
     func didTappedAuthButton() {
         challengeAuthCreateUsecase.createChallengeAuth(
             challengeID: challengeID,
@@ -119,22 +136,5 @@ extension AuthViewModel {
 
     func saveImage(to directory: String, filename: String, data: Data?) -> String? {
         return imageSaveUsecase.saveImage(to: directory, filename: filename, data: data)
-    }
-
-    func fetchUsername() {
-        guard let userID = userFetchUsecase.fetchUserID() else { return }
-        userFetchUsecase.fetchUser(id: userID) { [weak self] user in
-            guard let self = self else { return }
-            self.userName = user.name
-        }
-    }
-}
-
-extension AuthViewModel {
-    func fetchChallenge(challengeID: String) {
-        challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
-            guard let self = self else { return }
-            self.challenge.value = challenge
-        }
     }
 }

@@ -40,10 +40,7 @@ final class AuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
-        configureViewModel()
-        configureDelegates()
-        configureRefreshControl()
+        configure()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -53,13 +50,20 @@ final class AuthViewController: UIViewController {
 }
 
 extension AuthViewController {
+    private func configure() {
+        configureViews()
+        configureViewModel()
+        configureDelegates()
+        configureRefreshControl()
+    }
+
     private func configureViews() {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0
 
         view.backgroundColor = .systemBackground
         scrollView.showsVerticalScrollIndicator = false
-        configureNavigationBar()
+        navigationItem.largeTitleDisplayMode = .never
 
         view.addSubview(scrollView)
         scrollView.anchor(edges: view)
@@ -90,10 +94,6 @@ extension AuthViewController {
         previewView.anchor(height: view.frame.width - offset*2)
     }
 
-    private func configureNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .never
-    }
-
     private func configureViewModel() {
         viewModel?.challenge
             .receive(on: RunLoop.main)
@@ -117,7 +117,7 @@ extension AuthViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] isEnabled in
                 guard let self = self else { return }
-                self.authButton.configureEnabled(isEnabled: isEnabled)
+                self.authButton.updateEnabled(isEnabled: isEnabled)
             })
             .store(in: &cancellables)
     }

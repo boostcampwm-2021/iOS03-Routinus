@@ -28,14 +28,14 @@ final class AuthButton: UIButton {
         super.init(coder: coder)
     }
 
-    @objc func didTappedAuthButton() {
-        delegate?.didTappedAuthButton()
-    }
-
-    func configureEnabled(isEnabled: Bool) {
+    func updateEnabled(isEnabled: Bool) {
         self.isEnabled = isEnabled
         let color = isEnabled ? "MainColor" : "MainColor0.5"
         self.backgroundColor = UIColor(named: color)
+    }
+
+    @objc func didTappedAuthButton() {
+        delegate?.didTappedAuthButton()
     }
 }
 
