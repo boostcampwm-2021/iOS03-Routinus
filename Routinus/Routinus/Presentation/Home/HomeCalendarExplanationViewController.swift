@@ -1,5 +1,5 @@
 //
-//  CalendarExplanationViewController.swift
+//  HomeCalendarExplanationViewController.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CalendarExplanationViewController: UIViewController {
+final class HomeCalendarExplanationViewController: UIViewController {
     enum StickerPercent: String, CaseIterable {
         case miss = "1-19", bad = "20-39", good = "40-65", great = "66-99", perfect = "100"
     }
@@ -17,14 +17,12 @@ class CalendarExplanationViewController: UIViewController {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         return view
     }()
-
     private lazy var popUpView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
         view.anchor(height: 400)
         return view
     }()
-
     private lazy var dismissButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
@@ -32,7 +30,6 @@ class CalendarExplanationViewController: UIViewController {
         button.addTarget(self, action: #selector(didTappedDismisButton(_:)), for: .touchUpInside)
         return button
     }()
-
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
@@ -40,7 +37,6 @@ class CalendarExplanationViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-
     private lazy var stackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
@@ -50,11 +46,15 @@ class CalendarExplanationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
+        configure()
     }
 }
 
-extension CalendarExplanationViewController {
+extension HomeCalendarExplanationViewController {
+    private func configure() {
+        configureViews()
+    }
+
     private func configureViews() {
         view.addSubview(backgroundView)
         backgroundView.anchor(edges: view)
@@ -112,7 +112,7 @@ extension CalendarExplanationViewController {
     }
 }
 
-extension CalendarExplanationViewController: UIGestureRecognizerDelegate {
+extension HomeCalendarExplanationViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldReceive touch: UITouch) -> Bool {
         dismiss(animated: false, completion: nil)

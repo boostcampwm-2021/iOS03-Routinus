@@ -24,9 +24,9 @@ final class HomeViewController: UIViewController {
                                                            y: 0,
                                                            width: view.frame.width,
                                                            height: view.frame.height))
-    private lazy var continuityView = ContinuityView()
-    private lazy var todayRoutineView = TodayRoutineView()
-    private lazy var calendarView = CalendarView(viewModel: viewModel)
+    private lazy var continuityView = HomeContinuityView()
+    private lazy var todayRoutineView = HomeTodayRoutineView()
+    private lazy var calendarView = HomeCalendarView(viewModel: viewModel)
 
     private var dataSource: DataSource?
     private var viewModel: HomeViewModelIO?
@@ -182,9 +182,9 @@ extension HomeViewController {
         ) { [weak self] tableView, indexPath, _ in
             guard let self = self,
                   let cell = tableView.dequeueReusableCell(
-                    withIdentifier: RoutineTableViewCell.identifier,
+                    withIdentifier: HomeRoutineTableViewCell.identifier,
                     for: indexPath
-                  ) as? RoutineTableViewCell,
+                  ) as? HomeRoutineTableViewCell,
                   let routines = self.viewModel?.todayRoutines.value else { return UITableViewCell() }
             cell.updateCell(routine: routines[indexPath.row])
             cell.selectionStyle = .none
@@ -263,9 +263,9 @@ extension HomeViewController: UICollectionViewDataSource {
         let day = viewModel?.days.value[indexPath.row]
 
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: DateCollectionViewCell.reuseIdentifier,
+            withReuseIdentifier: HomeDateCollectionViewCell.reuseIdentifier,
             for: indexPath
-        ) as? DateCollectionViewCell else { return UICollectionViewCell() }
+        ) as? HomeDateCollectionViewCell else { return UICollectionViewCell() }
         cell.updateDay(day)
         return cell
     }

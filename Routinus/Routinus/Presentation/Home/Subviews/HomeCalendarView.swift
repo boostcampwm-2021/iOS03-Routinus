@@ -1,5 +1,5 @@
 //
-//  CalendarView.swift
+//  HomeCalendarView.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/14.
@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-final class CalendarView: UIView {
+final class HomeCalendarView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
@@ -44,7 +44,7 @@ final class CalendarView: UIView {
         return collectionView
     }()
 
-    private lazy var headerView = CalendarHeader(
+    private lazy var headerView = HomeCalendarHeaderView(
         didTappedPreviousMonthCompletionHandler: { [weak self] in
             guard let self = self else { return }
             self.viewModel?.updateDate(month: -1)
@@ -123,7 +123,7 @@ final class CalendarView: UIView {
     }
 }
 
-extension CalendarView {
+extension HomeCalendarView {
     private func configure() {
         configureView()
         configureViewModel()
@@ -136,8 +136,8 @@ extension CalendarView {
         addSubview(headerView)
 
         calendarView.register(
-            DateCollectionViewCell.self,
-            forCellWithReuseIdentifier: DateCollectionViewCell.reuseIdentifier
+            HomeDateCollectionViewCell.self,
+            forCellWithReuseIdentifier: HomeDateCollectionViewCell.reuseIdentifier
         )
         headerView.baseDate = viewModel?.baseDate.value ?? Date()
     }

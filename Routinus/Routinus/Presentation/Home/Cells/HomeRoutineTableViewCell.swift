@@ -1,5 +1,5 @@
 //
-//  RoutineTableViewCell.swift
+//  HomeRoutineTableViewCell.swift
 //  Routinus
 //
 //  Created by 백지현 on 2021/11/02.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class RoutineTableViewCell: UITableViewCell {
-    static let identifier: String = "RoutineTableViewCell"
+final class HomeRoutineTableViewCell: UITableViewCell {
+    static let identifier: String = "HomeRoutineTableViewCell"
 
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView()
@@ -83,7 +83,7 @@ final class RoutineTableViewCell: UITableViewCell {
     }
 }
 
-extension RoutineTableViewCell {
+extension HomeRoutineTableViewCell {
     private func configureViews() {
         let smallWidth = UIScreen.main.bounds.width <= 350
         let offset = smallWidth ? 15.0 : 20.0

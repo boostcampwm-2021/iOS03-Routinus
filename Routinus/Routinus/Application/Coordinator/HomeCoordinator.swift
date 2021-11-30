@@ -66,11 +66,9 @@ final class HomeCoordinator: RoutinusCoordinator {
 
         homeViewModel.calendarExplanationButtonTap
             .sink { _ in
-                let explanationController = CalendarExplanationViewController()
-                explanationController.modalPresentationStyle = .overFullScreen
-                homeViewController.present(explanationController,
-                                           animated: false,
-                                           completion: nil)
+                let viewController = HomeCalendarExplanationViewController()
+                viewController.modalPresentationStyle = .overFullScreen
+                homeViewController.present(viewController, animated: false, completion: nil)
             }
             .store(in: &cancellables)
 

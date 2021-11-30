@@ -1,5 +1,5 @@
 //
-//  TodayRoutineView.swift
+//  HomeTodayRoutineView.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/07.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TodayRoutineView: UIView {
+final class HomeTodayRoutineView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "today routine".localized
@@ -22,8 +22,8 @@ final class TodayRoutineView: UIView {
         tableView.estimatedRowHeight = 100
         tableView.alwaysBounceVertical = false
         tableView.separatorStyle = .none
-        tableView.register(RoutineTableViewCell.self,
-                           forCellReuseIdentifier: RoutineTableViewCell.identifier)
+        tableView.register(HomeRoutineTableViewCell.self,
+                           forCellReuseIdentifier: HomeRoutineTableViewCell.identifier)
         return tableView
     }()
 
@@ -71,7 +71,7 @@ final class TodayRoutineView: UIView {
     }
 }
 
-extension TodayRoutineView {
+extension HomeTodayRoutineView {
     private func configure() {
         configureSubviews()
         challengePromotionView.configureChallengePromotionView(

@@ -1,5 +1,5 @@
 //
-//  CalendarHeader.swift
+//  HomeCalendarHeaderView.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/02.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CalendarHeader: UIView {
+final class HomeCalendarHeaderView: UIView {
     private lazy var todayButton: UIButton = {
         let button = UIButton()
         button.setTitle("Today", for: .normal)
@@ -125,7 +125,7 @@ final class CalendarHeader: UIView {
     }
 }
 
-extension CalendarHeader {
+extension HomeCalendarHeaderView {
     private func configureViews() {
         backgroundColor = .tertiarySystemGroupedBackground
 

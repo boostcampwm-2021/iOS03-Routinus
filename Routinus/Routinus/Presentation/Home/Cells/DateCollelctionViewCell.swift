@@ -1,5 +1,5 @@
 //
-//  DateCollectionViewCell.swift
+//  HomeDateCollectionViewCell.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/02.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class DateCollectionViewCell: UICollectionViewCell {
-    static let reuseIdentifier = "DateCollectionViewCell"
+final class HomeDateCollectionViewCell: UICollectionViewCell {
+    static let reuseIdentifier = "HomeDateCollectionViewCell"
 
     private lazy var achievementCharacterView: UIImageView = {
         let view = UIImageView()
@@ -98,7 +98,7 @@ final class DateCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension DateCollectionViewCell {
+extension HomeDateCollectionViewCell {
     private func configureViews() {
         contentView.addSubview(numberLabel)
         contentView.addSubview(achievementCharacterView)

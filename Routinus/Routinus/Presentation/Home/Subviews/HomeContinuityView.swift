@@ -1,5 +1,5 @@
 //
-//  ContinuityView.swift
+//  HomeContinuityView.swift
 //  Routinus
 //
 //  Created by 유석환 on 2021/11/07.
@@ -34,7 +34,7 @@ enum ContinuityState: String {
     }
 }
 
-final class ContinuityView: UIView {
+final class HomeContinuityView: UIView {
     private lazy var seedImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -85,7 +85,7 @@ final class ContinuityView: UIView {
 
 }
 
-extension ContinuityView {
+extension HomeContinuityView {
     private func configure() {
         configureLayout()
         configureSubviews()
