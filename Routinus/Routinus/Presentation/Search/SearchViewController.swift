@@ -27,21 +27,17 @@ final class SearchViewController: UIViewController {
         case challenge(Challenge)
     }
 
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, SearchContents>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SearchContents>
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, SearchContents>
 
     private lazy var searchBarView = SearchBarContainerView()
-    private lazy var dataSource = configureDataSource()
-    private lazy var snapshot = Snapshot()
-    private var viewModel: SearchViewModelIO?
-    private var cancellables = Set<AnyCancellable>()
-
-    private var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: SearchViewController.createLayout()
+        )
         collectionView.backgroundColor = .systemBackground
-
         collectionView.showsVerticalScrollIndicator = false
-
         collectionView.register(
             SearchCollectionViewHeader.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -55,9 +51,13 @@ final class SearchViewController: UIViewController {
             ChallengeCollectionViewCell.self,
             forCellWithReuseIdentifier: ChallengeCollectionViewCell.identifier
         )
-
         return collectionView
     }()
+
+    private var dataSource: DataSource?
+    private var snapshot = Snapshot()
+    private var viewModel: SearchViewModelIO?
+    private var cancellables = Set<AnyCancellable>()
 
     init(with viewModel: SearchViewModelIO) {
         super.init(nibName: nil, bundle: nil)
@@ -70,14 +70,7 @@ final class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = dataSource
-        searchBarView.delegate = self
-        snapshot.appendSections(Section.allCases)
-        configureViews()
-        configureViewModel()
-        configureRefreshControl()
-        didLoadedSearchView()
+        configure()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,64 +78,28 @@ final class SearchViewController: UIViewController {
         searchBarView.hideKeyboard()
         collectionView.removeAfterimage()
     }
+
+    static func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
+            let layout = SearchCollectionViewLayouts()
+            return layout.section(at: sectionNumber)
+        }
+    }
+
+    func didLoadedSearchView() {
+        viewModel?.didLoadedSearchView()
+    }
 }
 
 extension SearchViewController {
-    private func configureDataSource() -> DataSource? {
-        let dataSource = DataSource(
-            collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, content in
-            guard let self = self else { return nil }
-            switch content {
-            case .popularSearchKeyword(let keyword):
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: SearchPopularKeywordCollectionViewCell.identifier,
-                    for: indexPath
-                ) as? SearchPopularKeywordCollectionViewCell
-                cell?.configureViews(keyword: keyword)
-                cell?.delegate = self
-                return cell
-
-            case .challenge(let challenge):
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: ChallengeCollectionViewCell.identifier,
-                    for: indexPath
-                ) as? ChallengeCollectionViewCell
-                cell?.setTitle(challenge.title)
-                self.viewModel?.imageData(from: challenge.challengeID,
-                                          filename: "thumbnail_image") { data in
-                    guard let data = data,
-                          let image = UIImage(data: data) else { return }
-
-                    DispatchQueue.main.async {
-                        cell?.setImage(image)
-                    }
-                }
-                return cell
-            }
-        }
-        configureHeader(of: dataSource)
-        return dataSource
-    }
-
-    private func configureHeader(of dataSource: DataSource) {
-        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
-            guard kind == UICollectionView.elementKindSectionHeader else {
-                return nil
-            }
-
-            let view = collectionView.dequeueReusableSupplementaryView(
-                        ofKind: kind,
-                        withReuseIdentifier: SearchCollectionViewHeader.identifier,
-                        for: indexPath
-            ) as? SearchCollectionViewHeader
-            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
-
-            view?.title = section.title
-            view?.configureViews()
-
-            return view
-        }
+    private func configure() {
+        configureViews()
+        configureViewModel()
+        configureDelegates()
+        configureDataSource()
+        configureSnapshot()
+        configureRefreshControl()
+        didLoadedSearchView()
     }
 
     private func configureViews() {
@@ -183,21 +140,48 @@ extension SearchViewController {
             .store(in: &cancellables)
     }
 
-    private func configureNavigationBar() {
-        searchBarView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
-        navigationItem.titleView = searchBarView
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationItem.largeTitleDisplayMode = .never
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = UIColor(named: "Black")
-        navigationItem.backBarButtonItem = backBarButtonItem
+    private func configureDelegates() {
+        searchBarView.delegate = self
+        collectionView.delegate = self
+        collectionView.dataSource = dataSource
     }
 
-    static func createLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
-            let layout = SearchCollectionViewLayouts()
-            return layout.section(at: sectionNumber)
+    private func configureDataSource() {
+        dataSource = DataSource(
+            collectionView: collectionView
+        ) { [weak self] collectionView, indexPath, content in
+            guard let self = self else { return nil }
+            switch content {
+            case .popularSearchKeyword(let keyword):
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: SearchPopularKeywordCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? SearchPopularKeywordCollectionViewCell
+                cell?.updateKeyword(keyword)
+                cell?.delegate = self
+                return cell
+            case .challenge(let challenge):
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: ChallengeCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? ChallengeCollectionViewCell
+                cell?.setTitle(challenge.title)
+                self.viewModel?.imageData(from: challenge.challengeID,
+                                          filename: "thumbnail_image") { data in
+                    guard let data = data,
+                          let image = UIImage(data: data) else { return }
+                    DispatchQueue.main.async {
+                        cell?.setImage(image)
+                    }
+                }
+                return cell
+            }
         }
+        configureHeader(of: dataSource)
+    }
+
+    private func configureSnapshot() {
+        snapshot.appendSections(Section.allCases)
     }
 
     private func configureRefreshControl() {
@@ -211,16 +195,32 @@ extension SearchViewController {
         self.collectionView.refreshControl = refreshControl
     }
 
-    @objc private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            self.viewModel?.didLoadedSearchView()
-            self.searchBarView.updateSearchBar(keyword: "")
-            self.collectionView.refreshControl?.endRefreshing()
+    private func configureHeader(of dataSource: DataSource?) {
+        guard let dataSource = dataSource else { return }
+
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+            let view = collectionView.dequeueReusableSupplementaryView(
+                        ofKind: kind,
+                        withReuseIdentifier: SearchCollectionViewHeader.identifier,
+                        for: indexPath
+            ) as? SearchCollectionViewHeader
+            let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
+            view?.updateTitle(section.title)
+            return view
         }
     }
-}
 
-extension SearchViewController {
+    private func configureNavigationBar() {
+        searchBarView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
+        navigationItem.titleView = searchBarView
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.largeTitleDisplayMode = .never
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = UIColor(named: "Black")
+        navigationItem.backBarButtonItem = backBarButtonItem
+    }
+
     private func configureKeyboard() {
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                                 action: #selector(tappedView))
@@ -230,24 +230,16 @@ extension SearchViewController {
         collectionView.addGestureRecognizer(singleTapGestureRecognizer)
     }
 
-    @objc func tappedView(sender: UITapGestureRecognizer) {
-        searchBarView.hideKeyboard()
-    }
-}
-
-extension SearchViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
-            viewModel?.didTappedChallenge(index: indexPath.item)
+    @objc private func refresh() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.viewModel?.didLoadedSearchView()
+            self.searchBarView.updateSearchBar(keyword: "")
+            self.collectionView.refreshControl?.endRefreshing()
         }
     }
-}
 
-extension SearchViewController: SearchPopularKeywordDelegate {
-    func didTappedKeywordButton(keyword: String?) {
-        guard let keyword = keyword else { return }
-        self.searchBarView.updateSearchBar(keyword: keyword)
-        self.viewModel?.didChangedSearchText(keyword)
+    @objc private func tappedView(sender: UITapGestureRecognizer) {
+        searchBarView.hideKeyboard()
     }
 }
 
@@ -259,8 +251,20 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBarView.hideKeyboard()
     }
+}
 
-    func didLoadedSearchView() {
-        viewModel?.didLoadedSearchView()
+extension SearchViewController: SearchPopularKeywordDelegate {
+    func didTappedKeywordButton(keyword: String?) {
+        guard let keyword = keyword else { return }
+        self.searchBarView.updateSearchBar(keyword: keyword)
+        self.viewModel?.didChangedSearchText(keyword)
+    }
+}
+
+extension SearchViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            viewModel?.didTappedChallenge(index: indexPath.item)
+        }
     }
 }

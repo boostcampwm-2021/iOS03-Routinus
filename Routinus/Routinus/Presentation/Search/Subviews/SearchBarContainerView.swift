@@ -21,11 +21,12 @@ final class SearchBarContainerView: UIView {
 
     init() {
         super.init(frame: CGRect.zero)
-        self.addSubview(searchBar)
+        configure()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        configure()
     }
 
     override func layoutSubviews() {
@@ -39,5 +40,11 @@ final class SearchBarContainerView: UIView {
 
     func updateSearchBar(keyword: String) {
         searchBar.text = keyword
+    }
+}
+
+extension SearchBarContainerView {
+    private func configure() {
+        self.addSubview(searchBar)
     }
 }

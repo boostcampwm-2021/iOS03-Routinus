@@ -88,6 +88,7 @@
 		44EA8A4B27549A6E00861183 /* ParticipationQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4A27549A6E00861183 /* ParticipationQuery.swift */; };
 		44EA8A4D27549A7600861183 /* AuthQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4C27549A7600861183 /* AuthQuery.swift */; };
 		44EA8A4F27549A7D00861183 /* AchievementQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A4E27549A7D00861183 /* AchievementQuery.swift */; };
+		44EA8A522755C63500861183 /* SearchPopularKeywordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EA8A512755C63400861183 /* SearchPopularKeywordDelegate.swift */; };
 		8956F624DD102BDACEAB1C4F /* Pods_Routinus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */; };
 		E901EFD42744BD3400B14847 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFD32744BD3400B14847 /* ImageRepository.swift */; };
 		E901EFD62744BDBD00B14847 /* ImageFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */; };
@@ -259,6 +260,7 @@
 		44EA8A4A27549A6E00861183 /* ParticipationQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticipationQuery.swift; sourceTree = "<group>"; };
 		44EA8A4C27549A7600861183 /* AuthQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthQuery.swift; sourceTree = "<group>"; };
 		44EA8A4E27549A7D00861183 /* AchievementQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementQuery.swift; sourceTree = "<group>"; };
+		44EA8A512755C63400861183 /* SearchPopularKeywordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPopularKeywordDelegate.swift; sourceTree = "<group>"; };
 		5BC6FF3CC2926D6BD45C0ED2 /* Pods_Routinus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Routinus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E901EFD32744BD3400B14847 /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		E901EFD52744BDBD00B14847 /* ImageFetchUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetchUsecase.swift; sourceTree = "<group>"; };
@@ -607,6 +609,14 @@
 			path = DTO;
 			sourceTree = "<group>";
 		};
+		44EA8A502755C61200861183 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				44EA8A512755C63400861183 /* SearchPopularKeywordDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		C6BC838A122CF798FF91016F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -849,6 +859,7 @@
 				E9E9D1E9273C1A2B00F9CCBB /* Subviews */,
 				E9493DC4273A5E630095CF6D /* Cells */,
 				446A07202741F778009F8D98 /* Layouts */,
+				44EA8A502755C61200861183 /* Delegates */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1191,6 +1202,7 @@
 				44EA8A35275497DD00861183 /* ImageManager.swift in Sources */,
 				44234F15273BB6C9004D6834 /* CreateSubviewDelegate.swift in Sources */,
 				E901EFE42744D41600B14847 /* ImageSaveUsecase.swift in Sources */,
+				44EA8A522755C63500861183 /* SearchPopularKeywordDelegate.swift in Sources */,
 				E9797CBF27310E2A00A14A0F /* ManageCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

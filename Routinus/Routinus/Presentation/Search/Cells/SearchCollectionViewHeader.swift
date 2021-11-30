@@ -14,29 +14,31 @@ final class SearchCollectionViewHeader: UICollectionReusableView {
         let label = UILabel()
         label.textColor = UIColor(named: "Black")
         label.font = UIFont.boldSystemFont(ofSize: 18)
-
         return label
     }()
 
-    var title: String = "" {
-        didSet {
-            label.text = title
-        }
-    }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.configureViews()
+        configure()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.configureViews()
+        configure()
     }
 
-    func configureViews() {
-        addSubview(label)
+    func updateTitle(_ title: String) {
+        label.text = title
+    }
+}
 
+extension SearchCollectionViewHeader {
+    private func configure() {
+        configureViews()
+    }
+
+    private func configureViews() {
+        addSubview(label)
         label.anchor(leading: label.superview?.leadingAnchor,
                      centerY: label.superview?.centerYAnchor)
     }
