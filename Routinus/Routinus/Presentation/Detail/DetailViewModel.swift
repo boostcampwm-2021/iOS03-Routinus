@@ -16,27 +16,29 @@ enum ParticipationAuthState: String {
 
 protocol DetailViewModelInput {
     func fetchChallenge()
+    func updateParticipantCount()
+    func loadedAuthMethodImage(imageData: Data)
     func imageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
     func didTappedEditBarButton()
-    func didTappedParticipationAuthButton()
+    func didTappedAuthMethodImage(imageData: Data)
     func didTappedAllAuthDisplayView()
     func didTappedMyAuthDisplayView()
-    func didTappedAuthMethodImage(imageData: Data)
-    func loadedAuthMethodImage(imageData: Data)
-    func updateParticipantCount()
+    func didTappedParticipationAuthButton()
 }
 
 protocol DetailViewModelOutput {
     var ownerState: CurrentValueSubject<Bool, Never> { get }
     var participationAuthState: CurrentValueSubject<ParticipationAuthState, Never> { get }
+    
     var challenge: PassthroughSubject<Challenge, Never> { get }
-    var editBarButtonTap: PassthroughSubject<String, Never> { get }
-    var participationButtonTap: PassthroughSubject<Void, Never> { get }
     var authButtonTap: PassthroughSubject<String, Never> { get }
-    var allAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
-    var myAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
+    var editBarButtonTap: PassthroughSubject<String, Never> { get }
     var authMethodImageTap: PassthroughSubject<Data, Never> { get }
     var authMethodImageLoad: PassthroughSubject<Data, Never> { get }
+    var participationButtonTap: PassthroughSubject<Void, Never> { get }
+    var myAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
+    var allAuthDisplayViewTap: PassthroughSubject<String, Never> { get }
+
     var challengeID: String? { get }
 }
 
