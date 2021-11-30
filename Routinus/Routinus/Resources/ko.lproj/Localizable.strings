@@ -101,6 +101,9 @@
 "challenge created" = "챌린지가 생성되었습니다.";
 "challenge edited" = "챌린지가 수정되었습니다.";
 "category" = "카테고리";
+"simulator is not allowed" = "시뮬레이터에서는 카메라를 이용할 수 없습니다.";
+"no camera permission" = "카메라 권한이 없습니다. 설정에서 권한을 부여해주세요.";
+"go to settings" = "설정으로 이동";
 
 // myPage
 "theme setting" = "테마 설정";

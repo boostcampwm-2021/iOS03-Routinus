@@ -5,6 +5,7 @@
 //  Created by 박상우 on 2021/11/02.
 //
 
+import AVFoundation
 import Combine
 import UIKit
 
@@ -358,15 +359,17 @@ extension FormViewController: FormImagePickerDelegate {
         let camera = UIAlertAction(title: "camera".localized, style: .default) { [weak self] _ in
             guard let self = self else { return }
 #if targetEnvironment(simulator)
-            let alert = UIAlertController(title: "alarm".localized,
-                                          message: "시뮬레이터에서는 카메라를 이용할 수 없습니다.",
-                                          preferredStyle: .alert)
-            let cancel = UIAlertAction(title: "ok".localized, style: .default, handler: nil)
-            alert.addAction(cancel)
-            self.present(alert, animated: true, completion: nil)
+            let simulatorAlert = self.simulatorAlert()
+            self.present(simulatorAlert, animated: true, completion: nil)
 #else
-            self.imagePicker.sourceType = .camera
-            self.present(self.imagePicker, animated: true, completion: nil)
+            let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+            if status == .denied {
+                let authDeniedAlert = self.authDeniedAlert()
+                self.present(authDeniedAlert, animated: true, completion: nil)
+            } else {
+                self.imagePicker.sourceType = .camera
+                self.present(self.imagePicker, animated: true, completion: nil)
+            }
 #endif
         }
         alert.addAction(camera)
@@ -375,6 +378,32 @@ extension FormViewController: FormImagePickerDelegate {
         alert.addAction(cancel)
 
         present(alert, animated: true, completion: nil)
+    }
+
+    private func simulatorAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "alarm".localized,
+                                      message: "simulator is not allowed".localized,
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "ok".localized, style: .default, handler: nil)
+        alert.addAction(okAction)
+        return alert
+    }
+
+    private func authDeniedAlert() -> UIAlertController {
+        let alert = UIAlertController(title: "alarm".localized,
+                                      message: "no camera permission".localized,
+                                      preferredStyle: .alert)
+        let ok = UIAlertAction(title: "ok".localized, style: .default, handler: nil)
+        let moveSettings = UIAlertAction(title: "go to settings".localized, style: .default) { _ in
+            let settingsURL = UIApplication.openSettingsURLString
+            guard let appBundleID = Bundle.main.bundleIdentifier,
+                  let url = URL(string: "\(settingsURL)\(appBundleID)"),
+                  UIApplication.shared.canOpenURL(url) else { return }
+            UIApplication.shared.open(url)
+        }
+        alert.addAction(ok)
+        alert.addAction(moveSettings)
+        return alert
     }
 }
 
