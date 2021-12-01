@@ -228,7 +228,7 @@ extension FormViewModel: FormViewModelInput {
 
     func validateWeek(currentText: String) -> String {
         guard let week = Int(currentText) else { return "" }
-        return "\(min(max(week, 0), 52))"
+        return "\(min(max(week, 1), 52))"
     }
 
     func updateChallenge() {
