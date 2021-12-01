@@ -50,8 +50,7 @@ extension RoutinusRepository: ImageRepository {
 
         group.enter()
         updateQueue.async(group: group) {
-            FirebaseService.uploadImage(id: challengeID, filename: "image",
-                                        imageURL: imageURL) {
+            FirebaseService.uploadImage(id: challengeID, filename: "image", imageURL: imageURL) {
                 group.leave()
             }
         }
