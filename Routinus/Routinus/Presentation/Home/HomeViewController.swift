@@ -151,6 +151,7 @@ extension HomeViewController {
                       let dataSource = self.dataSource else { return }
                 var snapshot = Snapshot()
                 snapshot.deleteAllItems()
+                dataSource.apply(snapshot, animatingDifferences: false)
                 snapshot.appendSections([0])
                 snapshot.appendItems(routines)
                 dataSource.apply(snapshot, animatingDifferences: false)
