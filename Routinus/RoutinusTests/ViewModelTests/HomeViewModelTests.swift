@@ -28,6 +28,8 @@ class HomeViewModelTests: XCTestCase {
     }
 
     func testFetchUserData() {
+        homeViewModel.fetchMyHomeData()
+
         let id = homeViewModel.user.value.id
         let name = homeViewModel.user.value.name
         let continuityDay = homeViewModel.user.value.continuityDay
@@ -43,6 +45,8 @@ class HomeViewModelTests: XCTestCase {
     }
 
     func testFetchTodayRoutineData() {
+        homeViewModel.fetchMyHomeData()
+
         guard let chllangeID = homeViewModel.todayRoutines.value.first?.challengeID,
               let category = homeViewModel.todayRoutines.value.first?.category,
               let title = homeViewModel.todayRoutines.value.first?.title,
@@ -56,6 +60,8 @@ class HomeViewModelTests: XCTestCase {
     }
 
     func testFetchAchivementData() {
+        homeViewModel.fetchMyHomeData()
+
         let yearMonth = homeViewModel.achievements[0].yearMonth
         let day = homeViewModel.achievements[0].day
         let achievementCount = homeViewModel.achievements[0].achievementCount
