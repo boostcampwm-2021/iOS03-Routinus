@@ -97,7 +97,6 @@ final class DetailCoordinator: RoutinusCoordinator {
             .receive(on: RunLoop.main)
             .sink { [weak self] imageData in
                 guard let self = self else { return }
-
                 let imageViewController = ImagePanViewController()
                 imageViewController.updateImage(data: imageData)
                 imageViewController.modalPresentationStyle = .overCurrentContext
