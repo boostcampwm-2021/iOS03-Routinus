@@ -73,8 +73,10 @@ final class HomeRoutineTableViewCell: UITableViewCell {
                 width: self.borderView.bounds.width * CGFloat(progress)
             )
             self.setNeedsUpdateConstraints()
-            UIView.animate(withDuration: 1.5, delay: 0.5) {
-                self.layoutIfNeeded()
+            if progress != 0.0 {
+                UIView.animate(withDuration: 2, delay: 0, options: [.curveEaseOut]) {
+                    self.layoutIfNeeded()
+                }
             }
         }
     }
