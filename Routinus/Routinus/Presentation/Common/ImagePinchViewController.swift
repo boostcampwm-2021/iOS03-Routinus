@@ -29,7 +29,7 @@ final class ImagePinchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        configurePinch()
+        configureGesture()
     }
 
     func updateImage(data: Data) {
@@ -45,51 +45,36 @@ extension ImagePinchViewController {
                                     width: view.frame.width * 2,
                                     height: view.frame.height * 2)
         view.addSubview(imageView)
-        imageView.anchor(horizontal: view, centerY: view.centerYAnchor)
+        imageView.anchor(centerX: view.centerXAnchor,
+                         centerY: view.centerYAnchor,
+                         width: UIScreen.main.bounds.width,
+                         height: UIScreen.main.bounds.height)
     }
 
-    private func configurePinch() {
-        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(doPinch(_:)))
-        pinch.delegate = self
-        view.addGestureRecognizer(pinch)
-
+    private func configureGesture() {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(doPan(_:)))
         pan.delegate = self
         view.addGestureRecognizer(pan)
     }
 
-    @objc private func doPinch(_ pinch: UIPinchGestureRecognizer) {
-        if pinch.state == .began || pinch.state == .changed {
-            let currentScale = imageView.frame.width / imageView.bounds.size.width
-            var newScale = currentScale * pinch.scale
-
-            if newScale < 0.5 {
-                newScale = 0.5
-            } else if newScale > 4 {
-                newScale = 4
-            }
-            let transform = CGAffineTransform(scaleX: newScale, y: newScale)
-            imageView.transform = transform
-            pinch.scale = 1
-        }
-    }
-
     @objc func doPan(_ pan: UIPanGestureRecognizer) {
         let translation = pan.translation(in: imageView)
-        let currentScale = imageView.frame.width / imageView.bounds.size.width
+        let centerX = imageView.center.x
+        let centerY = imageView.center.y
+
         if let imageView = pan.view {
             imageView.center = CGPoint(x: imageView.center.x + translation.x,
                                        y: imageView.center.y + translation.y)
+            let xDistance = imageView.center.x - centerX
+            let yDistacne = imageView.center.y - centerY
+            let distanceFromCenter = sqrt(xDistance * xDistance + yDistacne * yDistacne)
+            dimmedBackgroundView.alpha = 0.9 -  (distanceFromCenter / 250)
         }
         pan.setTranslation(.zero, in: imageView)
 
-        if currentScale <= 1 && pan.state == .ended {
+        if pan.state == .ended {
             dismiss(animated: true)
         }
-    }
-
-    @objc private func didTappedCloseButton() {
-        dismiss(animated: true)
     }
 
     private func fetchImage() {
