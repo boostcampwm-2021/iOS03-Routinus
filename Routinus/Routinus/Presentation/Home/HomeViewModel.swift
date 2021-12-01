@@ -52,7 +52,7 @@ final class HomeViewModel: HomeViewModelIO {
     var todayRoutineTap = PassthroughSubject<String, Never>()
     var todayRoutineAuthTap = PassthroughSubject<String, Never>()
     var calendarExplanationButtonTap = PassthroughSubject<Void, Never>()
-    var calendarDateTap = PassthroughSubject<[Challenge], Never>()
+    var calendarDateTap = PassthroughSubject<(Date, [Challenge]), Never>()
 
     var userCreateUsecase: UserCreatableUsecase
     var userFetchUsecase: UserFetchableUsecase
@@ -296,7 +296,9 @@ extension HomeViewModel {
 
     func didTappedCalendarDate(date: Date) {
         self.authFetchUsecase.fetchAuthedChallengesOfDate(date: date) { auths in
-            self.calendarDateTap.send(auths)
+            if auths.count > 0 {
+                self.calendarDateTap.send((date, auths))
+            }
         }
     }
 }

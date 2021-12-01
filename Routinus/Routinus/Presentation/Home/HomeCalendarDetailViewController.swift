@@ -8,12 +8,25 @@
 import UIKit
 
 class HomeCalendarDetailViewController: UIViewController, UITableViewDelegate {
+    private lazy var dimmedView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "Black")?.withAlphaComponent(0.7)
+        return view
+    }()
+
     private lazy var bottomSheetView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "SystemBackground")
         view.layer.cornerRadius = 15
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.clipsToBounds = true
+        return view
+    }()
+
+    private lazy var dragIndicatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "White")
+        view.layer.cornerRadius = 3
         return view
     }()
 
@@ -40,7 +53,16 @@ class HomeCalendarDetailViewController: UIViewController, UITableViewDelegate {
         return tableView
     }()
 
-    var date: String?
+    private lazy var bottomSheetPanStartingTopConstant: CGFloat = bottomSheetPanMinTopConstant
+
+    private var bottomSheetViewTopConstraint: NSLayoutConstraint?
+    private var bottomSheetPanMinTopConstant: CGFloat = 30.0
+
+    var date: Date? {
+        didSet {
+            dateLabel.text = date?.toDateWithWeekdayString()
+        }
+    }
     var challenges: [Challenge]? {
         didSet {
             guard let count = challenges?.count else { return }
@@ -50,18 +72,44 @@ class HomeCalendarDetailViewController: UIViewController, UITableViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViews()
-        configureDelegate()
-        configureDimmedViewTapGesture()
+        configure()
     }
 
-    func configureViews() {
-        view.backgroundColor = UIColor(named: "Black")?.withAlphaComponent(0.7)
-        
-        view.addSubview(bottomSheetView)
-        bottomSheetView.anchor(horizontal: view,
-                               bottom: view.bottomAnchor,
-                               height: 400)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showBottomSheet()
+    }
+}
+
+extension HomeCalendarDetailViewController {
+    private func configure() {
+        configureViews()
+        configureDelegate()
+        configureGesture()
+    }
+
+    private func configureViews() {
+        view.addSubview(dimmedView)
+        dimmedView.anchor(edges: view)
+        dimmedView.alpha = 0
+
+        dimmedView.addSubview(bottomSheetView)
+        let topConstant = view.safeAreaInsets.bottom + view.safeAreaLayoutGuide.layoutFrame.height
+        bottomSheetViewTopConstraint = bottomSheetView.topAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor,
+            constant: topConstant
+        )
+
+        guard let bottomSheetViewTopConstraint = bottomSheetViewTopConstraint else { return }
+        bottomSheetView.anchor(horizontal: view, bottom: view.bottomAnchor)
+        NSLayoutConstraint.activate([ bottomSheetViewTopConstraint ])
+
+        view.addSubview(dragIndicatorView)
+        dragIndicatorView.anchor(centerX: view.centerXAnchor,
+                                 bottom: bottomSheetView.topAnchor,
+                                 paddingBottom: 10,
+                                 width: 60,
+                                 height: dragIndicatorView.layer.cornerRadius * 2)
 
         bottomSheetView.addSubview(dateLabel)
         dateLabel.anchor(leading: bottomSheetView.leadingAnchor,
@@ -77,29 +125,70 @@ class HomeCalendarDetailViewController: UIViewController, UITableViewDelegate {
         bottomSheetView.addSubview(tableView)
         tableView.anchor(centerX: bottomSheetView.centerXAnchor,
                          top: subtitleLabel.bottomAnchor,
-                         paddingTop: 10,
+                         paddingTop: 20,
                          bottom: bottomSheetView.bottomAnchor,
                          width: UIScreen.main.bounds.width)
+
     }
 
-    func configureDelegate() {
+    private func configureDelegate() {
         tableView.delegate = self
         tableView.dataSource = self
     }
 
-    private func configureDimmedViewTapGesture() {
-        let singleTapGestureRecognizer = UITapGestureRecognizer(
-            target: self,
-            action: #selector(tappedBackground)
-        )
-        singleTapGestureRecognizer.numberOfTapsRequired = 1
-        singleTapGestureRecognizer.isEnabled = true
-        singleTapGestureRecognizer.cancelsTouchesInView = false
-        view.addGestureRecognizer(singleTapGestureRecognizer)
+    private func configureGesture() {
+        let viewPan = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
+        viewPan.delaysTouchesBegan = false
+        viewPan.delaysTouchesEnded = false
+        view.addGestureRecognizer(viewPan)
+    }
+
+    @objc private func viewPanned(_ panGestureRecognizer: UIPanGestureRecognizer) {
+        let translation = panGestureRecognizer.translation(in: self.view)
+
+        switch panGestureRecognizer.state {
+        case .began:
+            bottomSheetPanStartingTopConstant = bottomSheetViewTopConstraint?.constant ?? 0
+        case .changed:
+            if translation.y > 0 {
+                bottomSheetViewTopConstraint?.constant = bottomSheetPanStartingTopConstant + translation.y
+            }
+        case .ended:
+            if translation.y > 0 {
+                hideBottomSheet()
+            }
+        default:
+            break
+        }
     }
 
     @objc func tappedBackground() {
-        dismiss(animated: true)
+        hideBottomSheet()
+    }
+
+    private func showBottomSheet() {
+        let safeAreaHeight: CGFloat = view.safeAreaLayoutGuide.layoutFrame.height
+        let bottomPadding: CGFloat = view.safeAreaInsets.bottom
+
+        bottomSheetViewTopConstraint?.constant = (safeAreaHeight + bottomPadding) - 400
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+            self.dimmedView.alpha = 1
+            self.view.layoutIfNeeded()
+        })
+    }
+
+    private func hideBottomSheet() {
+        let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
+        let bottomPadding = view.safeAreaInsets.bottom
+        bottomSheetViewTopConstraint?.constant = safeAreaHeight + bottomPadding
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+            self.dimmedView.alpha = 0
+            self.view.layoutIfNeeded()
+        }) { _ in
+            if self.presentingViewController != nil {
+                self.dismiss(animated: false, completion: nil)
+            }
+        }
     }
 }
 
