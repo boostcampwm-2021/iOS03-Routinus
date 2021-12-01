@@ -10,6 +10,10 @@ import Foundation
 struct ParticipationDTO: Codable {
     let document: Fields<ParticipationFields>?
 
+    var documentID: String? {
+        return document?.name?.components(separatedBy: "/").last
+    }
+
     init() {
         self.document = nil
     }
@@ -20,10 +24,6 @@ struct ParticipationDTO: Codable {
                                         joinDate: StringField(stringValue: joinDate),
                                         userID: StringField(stringValue: userID))
         self.document = Fields(name: nil, fields: field)
-    }
-
-    var documentID: String? {
-        return document?.name?.components(separatedBy: "/").last
     }
 }
 

@@ -10,6 +10,10 @@ import Foundation
 struct ChallengeDTO: Codable {
     var document: Fields<ChallengeFields>?
 
+    var documentID: String? {
+        return document?.name?.components(separatedBy: "/").last
+    }
+
     init() {
         self.document = nil
     }
@@ -37,10 +41,6 @@ struct ChallengeDTO: Codable {
             week: IntegerField(integerValue: "\(week)")
         )
         self.document = Fields(name: nil, fields: field)
-    }
-
-    var documentID: String? {
-        return document?.name?.components(separatedBy: "/").last
     }
 }
 

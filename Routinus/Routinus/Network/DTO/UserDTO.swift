@@ -10,6 +10,10 @@ import Foundation
 struct UserDTO: Codable {
     let document: Fields<UserFields>?
 
+    var documentID: String? {
+        return document?.name?.components(separatedBy: "/").last
+    }
+
     init() {
         self.document = nil
     }
@@ -27,10 +31,6 @@ struct UserDTO: Codable {
                                userImageCategoryID: StringField(stringValue: userImageCategoryID),
                                lastAuthDay: StringField(stringValue: lastAuthDay))
         self.document = Fields(name: nil, fields: field)
-    }
-
-    var documentID: String? {
-        return document?.name?.components(separatedBy: "/").last
     }
 }
 
