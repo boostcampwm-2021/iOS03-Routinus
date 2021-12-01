@@ -160,7 +160,7 @@ enum ChallengeQuery {
                         "direction": "DESCENDING"
                     },
                 ],
-                "limit": 10
+                "limit": 30
             }
         }
         """.data(using: .utf8)

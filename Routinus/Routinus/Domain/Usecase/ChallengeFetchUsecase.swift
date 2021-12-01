@@ -37,7 +37,6 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
         repository.fetchLatestChallenges { challenges in
             let challenges = challenges
                 .filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() }
-                .sorted { $0.participantCount > $1.participantCount }
             completion(challenges)
         }
     }

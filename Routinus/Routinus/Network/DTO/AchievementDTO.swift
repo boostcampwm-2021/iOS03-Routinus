@@ -10,6 +10,10 @@ import Foundation
 struct AchievementDTO: Codable {
     let document: Fields<AchievementFields>?
 
+    var documentID: String? {
+        return document?.name?.components(separatedBy: "/").last
+    }
+
     init() {
         self.document = nil
     }
@@ -23,10 +27,6 @@ struct AchievementDTO: Codable {
             yearMonth: StringField(stringValue: yearMonth)
         )
         self.document = Fields(name: nil, fields: field)
-    }
-
-    var documentID: String? {
-        return document?.name?.components(separatedBy: "/").last
     }
 }
 
