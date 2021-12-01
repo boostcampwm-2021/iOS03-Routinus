@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D05170427576C2E007DDB87 /* RoutinusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797C9F2730FF9C00A14A0F /* RoutinusCoordinator.swift */; };
+		0D05170527576C5E007DDB87 /* HomeCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD527379939006C261F /* HomeCalendarView.swift */; };
+		0D05170627576CA1007DDB87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
+		0D05170727576CA1007DDB87 /* HomeRoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FCD60A27311CF600626E74 /* HomeRoutineTableViewCell.swift */; };
+		0D05170827576CA1007DDB87 /* SearchPopularKeywordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* SearchPopularKeywordButton.swift */; };
+		0D05170927576CA1007DDB87 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB2273107BE00A14A0F /* FormViewController.swift */; };
 		0D053E4E2746490A0042DAF2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0D053E502746490A0042DAF2 /* Localizable.strings */; };
 		0D053E59274654390042DAF2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D053E58274654390042DAF2 /* String+Extensions.swift */; };
 		0D08E3352751C96800D1D596 /* HomeCalendarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D08E3342751C96800D1D596 /* HomeCalendarDetailViewController.swift */; };
@@ -52,10 +58,8 @@
 		14BFC0DC274DBBF100A982CB /* AuthImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0DB274DBBF100A982CB /* AuthImagesViewController.swift */; };
 		14BFC0DF274DC09C00A982CB /* AuthImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0DE274DC09C00A982CB /* AuthImagesCollectionViewCell.swift */; };
 		14BFC0E1274E106D00A982CB /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFC0E0274E106D00A982CB /* UICollectionView+Extensions.swift */; };
-		14FCD60B27311CF600626E74 /* HomeRoutineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FCD60A27311CF600626E74 /* HomeRoutineTableViewCell.swift */; };
 		441CEDD127378573006C261F /* HomeContinuityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD027378573006C261F /* HomeContinuityView.swift */; };
 		441CEDD327378EBF006C261F /* HomeTodayRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD227378EBF006C261F /* HomeTodayRoutineView.swift */; };
-		441CEDD627379939006C261F /* HomeCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEDD527379939006C261F /* HomeCalendarView.swift */; };
 		441CEE11273A332D006C261F /* FormCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE10273A332D006C261F /* FormCategoryView.swift */; };
 		441CEE13273A334B006C261F /* FormTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE12273A334B006C261F /* FormTitleView.swift */; };
 		441CEE15273A33BE006C261F /* FormImageRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CEE14273A33BE006C261F /* FormImageRegisterView.swift */; };
@@ -69,7 +73,6 @@
 		443213C6274B6A78003551E8 /* MyPageProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213C5274B6A78003551E8 /* MyPageProfileView.swift */; };
 		443213CF274BD566003551E8 /* MyPageUserNameUpdatableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443213CE274BD566003551E8 /* MyPageUserNameUpdatableDelegate.swift */; };
 		44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B4272FDF8B002E16C4 /* AppDelegate.swift */; };
-		44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B6272FDF8B002E16C4 /* SceneDelegate.swift */; };
 		44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AAA2B8272FDF8B002E16C4 /* HomeViewController.swift */; };
 		44AAA2BE272FDF8F002E16C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44AAA2BD272FDF8F002E16C4 /* Assets.xcassets */; };
 		44AAA2C1272FDF8F002E16C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44AAA2BF272FDF8F002E16C4 /* LaunchScreen.storyboard */; };
@@ -138,14 +141,12 @@
 		E95CDD2027567ECB00A3E485 /* MyPageViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95CDD1F27567ECB00A3E485 /* MyPageViewModelTests.swift */; };
 		E9753900273220F6004358C5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97538FF273220F6004358C5 /* User.swift */; };
 		E975390627325538004358C5 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E975390527325538004358C5 /* Achievement.swift */; };
-		E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797C9F2730FF9C00A14A0F /* RoutinusCoordinator.swift */; };
 		E9797CA22730FFAD00A14A0F /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA12730FFAD00A14A0F /* TabBarCoordinator.swift */; };
 		E9797CA42730FFB500A14A0F /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA32730FFB500A14A0F /* AppCoordinator.swift */; };
 		E9797CA72731068300A14A0F /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CA62731068300A14A0F /* ChallengeViewController.swift */; };
 		E9797CAB2731073F00A14A0F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CAA2731073F00A14A0F /* MyPageViewController.swift */; };
 		E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CAC2731074B00A14A0F /* ManageViewController.swift */; };
 		E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB0273107A200A14A0F /* DetailViewController.swift */; };
-		E9797CB3273107BE00A14A0F /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB2273107BE00A14A0F /* FormViewController.swift */; };
 		E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB5273107F700A14A0F /* SearchViewController.swift */; };
 		E9797CB92731094900A14A0F /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CB82731094900A14A0F /* AuthViewController.swift */; };
 		E9797CBB27310E1000A14A0F /* ChallengeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9797CBA27310E1000A14A0F /* ChallengeCoordinator.swift */; };
@@ -164,7 +165,6 @@
 		E9B58198274E0FDF00C39BD7 /* ChallengeRecommendHeaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B58197274E0FDF00C39BD7 /* ChallengeRecommendHeaderDelegate.swift */; };
 		E9B87CC6274950FC00D7C0D2 /* UserUpdateUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B87CC5274950FC00D7C0D2 /* UserUpdateUsecase.swift */; };
 		E9D0CAE427395AC100F66390 /* ChallengeFetchUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D0CAE327395AC100F66390 /* ChallengeFetchUsecase.swift */; };
-		E9E9D1E8273BA83800F9CCBB /* SearchPopularKeywordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1E7273BA83800F9CCBB /* SearchPopularKeywordButton.swift */; };
 		E9E9D1EB273C1A4200F9CCBB /* SearchBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E9D1EA273C1A4200F9CCBB /* SearchBarContainerView.swift */; };
 /* End PBXBuildFile section */
 
@@ -1136,6 +1136,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D05170627576CA1007DDB87 /* SceneDelegate.swift in Sources */,
+				0D05170727576CA1007DDB87 /* HomeRoutineTableViewCell.swift in Sources */,
+				0D05170827576CA1007DDB87 /* SearchPopularKeywordButton.swift in Sources */,
+				0D05170927576CA1007DDB87 /* FormViewController.swift in Sources */,
+				0D05170527576C5E007DDB87 /* HomeCalendarView.swift in Sources */,
+				0D05170427576C2E007DDB87 /* RoutinusCoordinator.swift in Sources */,
 				14B18116274555CE0061F2AE /* ParticipationFetchUsecase.swift in Sources */,
 				E901EFDA2744CAA800B14847 /* TodayRoutineFetchUsecase.swift in Sources */,
 				44234F18273C0917004D6834 /* FormImagePickerDelegate.swift in Sources */,
@@ -1167,12 +1173,10 @@
 				E91C1916273CACDD00D11127 /* PopularKeyword.swift in Sources */,
 				14B18118274561E20061F2AE /* ParticipationCreateUsecase.swift in Sources */,
 				E9797CC32731258A00A14A0F /* HomeViewModel.swift in Sources */,
-				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				441CEE19273A33DB006C261F /* FormWeekView.swift in Sources */,
 				E901EFDE2744CBDE00B14847 /* UserFetchUsecase.swift in Sources */,
 				E901EFE827453F1100B14847 /* AuthRepository.swift in Sources */,
 				14BFC0DF274DC09C00A982CB /* AuthImagesCollectionViewCell.swift in Sources */,
-				E9797CA02730FF9C00A14A0F /* RoutinusCoordinator.swift in Sources */,
 				44EA8A43275499EF00861183 /* ParticipationDTO.swift in Sources */,
 				1497CF442738FFA600296F9E /* RoutinusRepository.swift in Sources */,
 				441CEDD327378EBF006C261F /* HomeTodayRoutineView.swift in Sources */,
@@ -1193,7 +1197,6 @@
 				443213C3274B673D003551E8 /* MyPageViewModel.swift in Sources */,
 				44AAA3242733819B002E16C4 /* Date+Extensions.swift in Sources */,
 				0DC38F51273B684300331C25 /* SearchViewModel.swift in Sources */,
-				441CEDD627379939006C261F /* HomeCalendarView.swift in Sources */,
 				0DFF32BD274548D8004FA9BD /* UIView+Extensions.swift in Sources */,
 				0D18D06F27492F2900AD11F8 /* ChallengePromotionView.swift in Sources */,
 				0DEDAA19274F31060030B7D9 /* HomeCalendarExplanationViewController.swift in Sources */,
@@ -1204,25 +1207,19 @@
 				44EA8A3D275499D900861183 /* TodayRoutineDTO.swift in Sources */,
 				441CEE1D273A3434006C261F /* FormAuthImageRegisterView.swift in Sources */,
 				441CEE13273A334B006C261F /* FormTitleView.swift in Sources */,
-				441CEDD627379939006C261F /* HomeCalendarView.swift in Sources */,
 				E932229A2754C45D007DBAF2 /* LaunchView.swift in Sources */,
 				149411E6273A64EC004BE485 /* ChallengeCreateUsecase.swift in Sources */,
 				44AAA2B9272FDF8B002E16C4 /* HomeViewController.swift in Sources */,
 				E9797CC127310E3300A14A0F /* MyPageCoordinator.swift in Sources */,
 				44EA8A3F275499E000861183 /* AchievementDTO.swift in Sources */,
-				E9E9D1E8273BA83800F9CCBB /* SearchPopularKeywordButton.swift in Sources */,
-				E9E9D1E8273BA83800F9CCBB /* SearchPopularKeywordButton.swift in Sources */,
 				0D08E3352751C96800D1D596 /* HomeCalendarDetailViewController.swift in Sources */,
 				44AAA2B5272FDF8B002E16C4 /* AppDelegate.swift in Sources */,
 				0DE0339C274355770026F502 /* ManageViewModel.swift in Sources */,
 				443213CF274BD566003551E8 /* MyPageUserNameUpdatableDelegate.swift in Sources */,
 				44EA8A4F27549A7D00861183 /* AchievementQuery.swift in Sources */,
 				441CEDD127378573006C261F /* HomeContinuityView.swift in Sources */,
-				14FCD60B27311CF600626E74 /* HomeRoutineTableViewCell.swift in Sources */,
 				44EA8A41275499E800861183 /* ChallengeDTO.swift in Sources */,
-				14FCD60B27311CF600626E74 /* HomeRoutineTableViewCell.swift in Sources */,
 				E9B58194274DF75A00C39BD7 /* ChallengeCategoryHeaderDelegate.swift in Sources */,
-				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				44EA8A33275497D100861183 /* FirebaseService.swift in Sources */,
 				0DD1631A27311F0200DC5970 /* HomeDateCollelctionViewCell.swift in Sources */,
 				0D18D0712749CA4400AD11F8 /* ManageAddCollectionViewCell.swift in Sources */,
@@ -1233,8 +1230,6 @@
 				E94B4974273910F400708D7B /* ChallengeViewModel.swift in Sources */,
 				E937044627434D8F00D82B1D /* AuthButton.swift in Sources */,
 				E901EFD42744BD3400B14847 /* ImageRepository.swift in Sources */,
-				E9797CB3273107BE00A14A0F /* FormViewController.swift in Sources */,
-				E9797CB3273107BE00A14A0F /* FormViewController.swift in Sources */,
 				E9797CAD2731074B00A14A0F /* ManageViewController.swift in Sources */,
 				E94B49762739118B00708D7B /* Challenge.swift in Sources */,
 				149B8DAA274CF75C0065E64D /* AuthImagesCoordinator.swift in Sources */,
@@ -1264,7 +1259,6 @@
 				E9797CB1273107A200A14A0F /* DetailViewController.swift in Sources */,
 				1497CF4C2739078700296F9E /* UsernameFactory.swift in Sources */,
 				E9493DC6273A5E9D0095CF6D /* ChallengeCollectionViewCell.swift in Sources */,
-				44AAA2B7272FDF8B002E16C4 /* SceneDelegate.swift in Sources */,
 				E9797CB6273107F700A14A0F /* SearchViewController.swift in Sources */,
 				148A09EF2744C5C800809CB8 /* DetailViewModel.swift in Sources */,
 				44EA8A4727549A6000861183 /* UserQuery.swift in Sources */,

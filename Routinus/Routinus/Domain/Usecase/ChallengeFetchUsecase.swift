@@ -29,21 +29,26 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
 
     func fetchRecommendChallenges(completion: @escaping ([Challenge]) -> Void) {
         repository.fetchRecommendChallenges { challenges in
-            completion(challenges.filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() })
+            completion(challenges.filter {
+                $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString()
+            })
         }
     }
 
     func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void) {
         repository.fetchLatestChallenges { challenges in
-            let challenges = challenges
-                .filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() }
+            let challenges = challenges.filter {
+                $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString()
+            }
             completion(challenges)
         }
     }
 
     func fetchSearchChallenges(keyword: String, completion: @escaping ([Challenge]) -> Void) {
         repository.fetchSearchChallengesBy(keyword: keyword) { challenges in
-            let challenges = challenges.filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() }
+            let challenges = challenges.filter {
+                $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString()
+            }
             let keywords = keyword.components(separatedBy: " ")
             var results: Set<Challenge> = []
 

@@ -80,7 +80,7 @@ enum ImageManager {
                                                              true).first else { return }
 
         let url = URL(fileURLWithPath: path)
-        let filenames = cachedFilenames().filter{ $0.hasPrefix(directory) && $0.hasSuffix(".jpeg") }
+        let filenames = cachedFilenames().filter { $0.hasPrefix(directory) && $0.hasSuffix(".jpeg") }
 
         for filename in filenames {
             var url = url

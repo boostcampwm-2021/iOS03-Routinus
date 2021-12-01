@@ -100,7 +100,7 @@ class DetailViewModelTests: XCTestCase {
         let expectation = expectation(description: "Show AuthMethodImage By Tapped authMethodImage")
 
         detailViewModel.authMethodImageTap
-            .sink { data in
+            .sink { _ in
                 expectation.fulfill()
             }
             .store(in: &cancellables)

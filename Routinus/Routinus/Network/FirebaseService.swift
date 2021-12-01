@@ -674,7 +674,7 @@ enum FirebaseService {
 
             var urlComponent = URLComponents(string: "\(firestoreURL)/user/\(documentID)?")
             let queryItems = [
-                URLQueryItem(name: "updateMask.fieldPaths", value: "name"),
+                URLQueryItem(name: "updateMask.fieldPaths", value: "name")
             ]
             urlComponent?.queryItems = queryItems
 

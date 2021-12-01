@@ -12,7 +12,7 @@ class AuthFetchableUsecaseMock: AuthFetchableUsecase {
     func fetchAuth(challengeID: String, completion: @escaping (Auth?) -> Void) {
         completion(nil)
     }
-    
+
     func fetchAuths(challengeID: String, completion: @escaping ([Auth]) -> Void) {
         let auths: [Auth] = [Auth(challengeID: "testChallenge2",
                                   userID: "testUserID",
@@ -24,7 +24,7 @@ class AuthFetchableUsecaseMock: AuthFetchableUsecase {
                                   time: Date(timeString: "1330"))]
         completion(auths)
     }
-    
+
     func fetchMyAuths(challengeID: String, completion: @escaping ([Auth]) -> Void) {
         let auths: [Auth] = [Auth(challengeID: "testChallenge4",
                                   userID: "testUserID",

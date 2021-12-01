@@ -40,7 +40,7 @@ final class FormCategoryView: UIView {
         let cancel = UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil)
         alert.addAction(cancel)
 
-        let height = NSLayoutConstraint(item: alert.view,
+        let height = NSLayoutConstraint(item: alert.view as Any,
                                         attribute: NSLayoutConstraint.Attribute.height,
                                         relatedBy: NSLayoutConstraint.Relation.equal,
                                         toItem: nil,

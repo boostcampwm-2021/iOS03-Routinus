@@ -21,7 +21,7 @@ class ChallengeViewModelTests: XCTestCase {
     override func tearDown() {
         cancellables.removeAll()
     }
-    
+
     func testFetchRecommendChallenges() {
         challengeViewModel.fetchChallenge()
         guard let challengeID = challengeViewModel.recommendChallenges.value.first?.challengeID,
@@ -38,7 +38,7 @@ class ChallengeViewModelTests: XCTestCase {
               let ownerID = challengeViewModel.recommendChallenges.value.first?.ownerID,
               let week = challengeViewModel.recommendChallenges.value.first?.week,
               let participantCount = challengeViewModel.recommendChallenges.value.first?.participantCount else { return }
-        
+
         XCTAssertEqual(challengeID, "ChallengeID1")
         XCTAssertEqual(title, "TestTitle1")
         XCTAssertEqual(introduction, "introduction1")
@@ -54,7 +54,7 @@ class ChallengeViewModelTests: XCTestCase {
         XCTAssertEqual(week, 1)
         XCTAssertEqual(participantCount, 10)
     }
-    
+
     func testDidTappedSearchButton() {
         let expectation = expectation(description: "Show Search By Tapped SearchButton")
 

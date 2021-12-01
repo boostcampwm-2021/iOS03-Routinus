@@ -12,7 +12,7 @@ class AchievementUpdatableUsecaseMock: AchievementUpdatableUsecase {
     func updateAchievementCount() {
         print("update AchievementCount")
     }
-    
+
     func updateTotalCount() {
         print("update TotalCount")
     }

@@ -217,7 +217,7 @@ extension ChallengeViewController {
                                  for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(
             string: "swipe".localized,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "DayColor"),
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "DayColor") as Any,
                          NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
         )
         collectionView.refreshControl = refreshControl

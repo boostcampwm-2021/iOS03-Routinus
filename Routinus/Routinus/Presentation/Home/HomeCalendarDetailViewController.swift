@@ -169,7 +169,8 @@ extension HomeCalendarDetailViewController {
         let bottomPadding: CGFloat = view.safeAreaInsets.bottom
 
         bottomSheetViewTopConstraint?.constant = (safeAreaHeight + bottomPadding) - 400
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+            guard let self = self else { return }
             self.dimmedView.alpha = 1
             self.view.layoutIfNeeded()
         })
@@ -179,10 +180,12 @@ extension HomeCalendarDetailViewController {
         let safeAreaHeight = view.safeAreaLayoutGuide.layoutFrame.height
         let bottomPadding = view.safeAreaInsets.bottom
         bottomSheetViewTopConstraint?.constant = safeAreaHeight + bottomPadding
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn) { [weak self] in
+            guard let self = self else { return }
             self.dimmedView.alpha = 0
             self.view.layoutIfNeeded()
-        }) { _ in
+        } completion: { [weak self] _ in
+            guard let self = self else { return }
             if self.presentingViewController != nil {
                 self.dismiss(animated: false, completion: nil)
             }

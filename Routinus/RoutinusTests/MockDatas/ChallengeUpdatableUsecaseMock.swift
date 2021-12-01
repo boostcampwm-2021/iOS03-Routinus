@@ -15,11 +15,11 @@ class ChallengeUpdatableUsecaseMock: ChallengeUpdatableUsecase {
         guard let endDate = calendar.date(byAdding: day, to: startDate) else { return nil }
         return endDate
     }
-    
+
     func update(challenge: Challenge) {
         print("update Challenge")
     }
-    
+
     func updateParticipantCount(challengeID: String) {
         print("update ParticipantCount")
     }
