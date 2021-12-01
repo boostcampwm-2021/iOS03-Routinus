@@ -399,7 +399,12 @@ enum FirebaseService {
 
         URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else { return }
-            let list = try? JSONDecoder().decode([ChallengeDTO].self, from: data)
+            var list = try? JSONDecoder().decode([ChallengeDTO].self, from: data)
+            list?.sort {
+                guard let first = $0.document?.createTime,
+                      let second = $1.document?.createTime else { return false }
+                return first > second
+            }
             completion?(list ?? [])
         }.resume()
     }
