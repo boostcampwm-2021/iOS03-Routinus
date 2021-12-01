@@ -93,8 +93,8 @@ class DetailViewModel: DetailViewModelIO {
          participationFetchUsecase: ParticipationFetchableUsecase,
          participationCreateUsecase: ParticipationCreatableUsecase,
          userFetchUsecase: UserFetchableUsecase,
-         authFetchUsecase: AuthFetchUsecase,
-         achievementUpdateUsecase: AchievementUpdateUsecase) {
+         authFetchUsecase: AuthFetchableUsecase,
+         achievementUpdateUsecase: AchievementUpdatableUsecase) {
         self.challengeID = challengeID
         self.challengeFetchUsecase = challengeFetchUsecase
         self.challengeUpdateUsecase = challengeUpdateUsecase
