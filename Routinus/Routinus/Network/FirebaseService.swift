@@ -492,12 +492,14 @@ enum FirebaseService {
             }
 
             group.notify(queue: fetchQueue) {
-                challenges.sort {
-                    guard let first = $0.document?.createTime,
-                          let second = $1.document?.createTime else { return false }
-                    return first > second
-                }
-                completion?(challenges)
+                let list = challenges
+                    .filter { $0.document != nil }
+                    .sorted {
+                        guard let first = $0.document?.createTime,
+                              let second = $1.document?.createTime else { return false }
+                        return first > second
+                    }
+                completion?(list)
             }
         }.resume()
     }
