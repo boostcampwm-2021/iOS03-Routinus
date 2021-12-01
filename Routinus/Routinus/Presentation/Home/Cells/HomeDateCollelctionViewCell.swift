@@ -31,7 +31,7 @@ final class HomeDateCollectionViewCell: UICollectionViewCell {
         return dateFormatter
     }()
 
-    private var day: Day? {
+    var day: Day? {
         didSet {
             guard let day = day else { return }
 

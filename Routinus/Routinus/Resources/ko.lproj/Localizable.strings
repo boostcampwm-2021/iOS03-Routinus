@@ -31,6 +31,7 @@
 "sat" = "토";
 "sun" = "일";
 "calendar explanation" = "오늘 루틴을 달성한 정도에 따라\n다른 스티커가 붙어요 :)";
+"authificated %d challenges" = "%d개의 챌린지를 인증했어요.";
 
 //challenge
 "challenge category" = "챌린지 카테고리";
