@@ -90,23 +90,3 @@ enum ImageManager {
         }
     }
 }
-
-// TODO: 개발 완료 후 삭제(개발/테스트용으로 작성된 메소드)
-extension ImageManager {
-    static func removeAllCachedImages() {
-        guard let path = NSSearchPathForDirectoriesInDomains(.cachesDirectory,
-                                                             .userDomainMask,
-                                                             true).first else { return }
-
-        let url = URL(fileURLWithPath: path)
-        let filenames = cachedFilenames()
-            .filter { $0.hasSuffix(".jpeg") }
-
-        for filename in filenames {
-            var url = url
-            url.appendPathComponent(filename)
-
-            try? FileManager.default.removeItem(atPath: url.path)
-        }
-    }
-}
