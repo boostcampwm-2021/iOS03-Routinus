@@ -10,10 +10,14 @@ import Foundation
 protocol ImageRepository {
     func fetchImageData(from directory: String, filename: String, completion: ((Data?) -> Void)?)
     func saveImage(to directory: String, filename: String, data: Data?) -> String?
-    func updateImage(challengeID: String, imageURL: String, thumbnailImageURL: String)
+    func updateImage(challengeID: String,
+                     imageURL: String,
+                     thumbnailImageURL: String,
+                     completion: @escaping (() -> Void))
     func updateImage(challengeID: String,
                      authExampleImageURL: String,
-                     authExampleThumbnailImageURL: String)
+                     authExampleThumbnailImageURL: String,
+                     completion: @escaping (() -> Void))
 }
 
 extension RoutinusRepository: ImageRepository {
@@ -36,28 +40,66 @@ extension RoutinusRepository: ImageRepository {
         return ImageManager.saveImage(to: directory, filename: filename, imageData: data)
     }
 
-    func updateImage(challengeID: String, imageURL: String, thumbnailImageURL: String) {
-        FirebaseService.uploadImage(id: challengeID, filename: "image",
-                                    imageURL: imageURL,
-                                    completion: nil)
-        FirebaseService.uploadImage(id: challengeID,
-                                    filename: "thumbnail_image",
-                                    imageURL: thumbnailImageURL,
-                                    completion: nil)
-        ImageManager.removeCachedImages(from: challengeID)
+    func updateImage(challengeID: String,
+                     imageURL: String,
+                     thumbnailImageURL: String,
+                     completion: @escaping (() -> Void)) {
+
+        let updateQueue = DispatchQueue(label: "updateQueue")
+        let group = DispatchGroup()
+
+        group.enter()
+        updateQueue.async(group: group) {
+            FirebaseService.uploadImage(id: challengeID, filename: "image",
+                                        imageURL: imageURL) {
+                group.leave()
+            }
+        }
+
+        group.enter()
+        updateQueue.async(group: group) {
+            FirebaseService.uploadImage(id: challengeID,
+                                        filename: "thumbnail_image",
+                                        imageURL: thumbnailImageURL) {
+                group.leave()
+            }
+        }
+
+        group.notify(queue: DispatchQueue.main) {
+            ImageManager.removeCachedImages(from: challengeID)
+            completion()
+        }
     }
 
     func updateImage(challengeID: String,
                      authExampleImageURL: String,
-                     authExampleThumbnailImageURL: String) {
-        FirebaseService.uploadImage(id: challengeID,
-                                    filename: "auth_method",
-                                    imageURL: authExampleImageURL,
-                                    completion: nil)
-        FirebaseService.uploadImage(id: challengeID,
-                                    filename: "thumbnail_auth_method",
-                                    imageURL: authExampleThumbnailImageURL,
-                                    completion: nil)
-        ImageManager.removeCachedImages(from: challengeID)
+                     authExampleThumbnailImageURL: String,
+                     completion: @escaping (() -> Void)) {
+
+        let updateQueue = DispatchQueue(label: "updateQueue")
+        let group = DispatchGroup()
+
+        group.enter()
+        updateQueue.async(group: group) {
+            FirebaseService.uploadImage(id: challengeID,
+                                        filename: "auth_method",
+                                        imageURL: authExampleImageURL) {
+                group.leave()
+            }
+        }
+
+        group.enter()
+        updateQueue.async(group: group) {
+            FirebaseService.uploadImage(id: challengeID,
+                                        filename: "thumbnail_auth_method",
+                                        imageURL: authExampleThumbnailImageURL) {
+                group.leave()
+            }
+        }
+
+        group.notify(queue: DispatchQueue.main) {
+            ImageManager.removeCachedImages(from: challengeID)
+            completion()
+        }
     }
 }
