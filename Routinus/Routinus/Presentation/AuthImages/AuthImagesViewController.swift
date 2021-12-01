@@ -45,7 +45,6 @@ extension AuthImagesViewController {
         configureViews()
         configureViewModel()
         configureDelegates()
-        configureRefreshControl()
     }
 
     private func configureViews() {
@@ -87,26 +86,6 @@ extension AuthImagesViewController {
     private func configureDelegates() {
         collectionView.dataSource = self
         collectionView.delegate = self
-    }
-
-    private func configureRefreshControl() {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(
-            string: "swipe".localized,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "DayColor"),
-                         NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
-        )
-        collectionView.refreshControl = refreshControl
-    }
-
-    @objc private func refresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [weak self] in
-            guard let self = self else { return }
-            guard let authDisplayState = self.viewModel?.authDisplayState.value else { return }
-            self.viewModel?.fetchAuthData(authDisplayState: authDisplayState)
-            self.collectionView.refreshControl?.endRefreshing()
-        }
     }
 }
 
