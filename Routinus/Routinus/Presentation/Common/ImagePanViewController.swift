@@ -1,5 +1,5 @@
 //
-//  ImagePinchViewController.swift
+//  ImagePanViewController.swift
 //  Routinus
 //
 //  Created by 김민서 on 2021/11/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ImagePinchViewController: UIViewController {
+final class ImagePanViewController: UIViewController {
     private lazy var dimmedBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "Black")?.withAlphaComponent(0.8)
@@ -37,7 +37,7 @@ final class ImagePinchViewController: UIViewController {
     }
 }
 
-extension ImagePinchViewController {
+extension ImagePanViewController {
     private func configureViews() {
         view.addSubview(dimmedBackgroundView)
         dimmedBackgroundView.anchor(centerX: view.centerXAnchor,
@@ -73,7 +73,7 @@ extension ImagePinchViewController {
         pan.setTranslation(.zero, in: imageView)
 
         if pan.state == .ended {
-            dismiss(animated: true)
+            dismiss(animated: false)
         }
     }
 
@@ -86,7 +86,7 @@ extension ImagePinchViewController {
     }
 }
 
-extension ImagePinchViewController: UIGestureRecognizerDelegate {
+extension ImagePanViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(
         _ gestureRecognizer: UIGestureRecognizer,
         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer

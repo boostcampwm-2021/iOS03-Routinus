@@ -97,8 +97,7 @@ final class DetailCoordinator: RoutinusCoordinator {
             .receive(on: RunLoop.main)
             .sink { [weak self] imageData in
                 guard let self = self else { return }
-
-                let imageViewController = ImagePinchViewController()
+                let imageViewController = ImagePanViewController()
                 imageViewController.updateImage(data: imageData)
                 imageViewController.modalPresentationStyle = .overCurrentContext
                 imageViewController.modalTransitionStyle = .crossDissolve
@@ -109,7 +108,7 @@ final class DetailCoordinator: RoutinusCoordinator {
         detailViewModel.authMethodImageLoad
             .receive(on: RunLoop.main)
             .sink { imageData in
-                let imageViewController = detailViewController.presentedViewController as? ImagePinchViewController
+                let imageViewController = detailViewController.presentedViewController as? ImagePanViewController
                 imageViewController?.updateImage(data: imageData)
             }
             .store(in: &cancellables)
