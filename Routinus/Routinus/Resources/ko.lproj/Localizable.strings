@@ -31,6 +31,7 @@
 "sat" = "토";
 "sun" = "일";
 "calendar explanation" = "오늘 루틴을 달성한 정도에 따라\n다른 스티커가 붙어요 :)";
+"authificated %d challenges" = "%d개의 챌린지를 인증했어요.";
 
 //challenge
 "challenge category" = "챌린지 카테고리";
@@ -80,7 +81,7 @@
 "add challenge main image" = "챌린지 대표 이미지 등록";
 "upload challenge main image" = "챌린지 대표 이미지를 등록하세요.";
 "challenge period" = "챌린지 기간";
-"enter only number" = "주 단위로 숫자만 입력해주세요. (최대 52주)";
+"enter only number" = "주 단위로 숫자만 입력해주세요. (최소 1주, 최대 52주)";
 "expected end date" = "챌린지 예상 종료일";
 "introduce challenge" = "챌린지를 소개하세요.";
 "introduce challenge 150" = "챌린지를 자세히 소개해보세요. (최대 150자)";

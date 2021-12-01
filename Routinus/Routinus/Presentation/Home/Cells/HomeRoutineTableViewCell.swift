@@ -44,12 +44,12 @@ final class HomeRoutineTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.configureViews()
+        configureViews()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.configureViews()
+        configureViews()
     }
 
     func updateCell(routine: TodayRoutine) {
@@ -65,21 +65,20 @@ final class HomeRoutineTableViewCell: UITableViewCell {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let progress = Float(routine.authCount) / Float(routine.totalCount)
-            if progress != 0 {
-                self.achievementRateView.isHidden = false
-                self.achievementRateView.removeLastAnchor()
-                self.achievementRateView.anchor(leading: self.borderView.leadingAnchor,
-                                        top: self.borderView.topAnchor,
-                                        bottom: self.borderView.bottomAnchor,
-                                        width: self.borderView.bounds.width * CGFloat(progress))
-            } else {
-                self.achievementRateView.isHidden = true
+            self.achievementRateView.removeLastAnchor()
+            self.achievementRateView.anchor(
+                leading: self.borderView.leadingAnchor,
+                top: self.borderView.topAnchor,
+                bottom: self.borderView.bottomAnchor,
+                width: self.borderView.bounds.width * CGFloat(progress)
+            )
+            self.setNeedsUpdateConstraints()
+            if progress != 0.0 {
+                UIView.animate(withDuration: 2, delay: 0, options: [.curveEaseOut]) {
+                    self.layoutIfNeeded()
+                }
             }
         }
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 }
 
@@ -92,20 +91,20 @@ extension HomeRoutineTableViewCell {
 
         contentView.addSubview(borderView)
         borderView.anchor(horizontal: borderView.superview,
-                            paddingHorizontal: offset,
-                            centerY: centerYAnchor,
-                            height: contentView.frame.height + 5)
+                          paddingHorizontal: offset,
+                          centerY: centerYAnchor,
+                          height: contentView.frame.height + 5)
 
         borderView.addSubview(achievementRateView)
         achievementRateView.anchor(leading: borderView.leadingAnchor,
-                        top: borderView.topAnchor,
-                        bottom: borderView.bottomAnchor,
-                        width: 0)
+                                   top: borderView.topAnchor,
+                                   bottom: borderView.bottomAnchor,
+                                   width: 0)
 
         contentView.addSubview(leftArrowImageView)
         leftArrowImageView.anchor(trailing: trailingAnchor,
-                         paddingTrailing: 20 + offset,
-                         centerY: centerYAnchor)
+                                  paddingTrailing: 20 + offset,
+                                  centerY: centerYAnchor)
 
         contentView.addSubview(categoryImageView)
         categoryImageView.anchor(leading: leadingAnchor,

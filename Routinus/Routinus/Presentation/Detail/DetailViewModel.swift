@@ -73,6 +73,10 @@ class DetailViewModel: DetailViewModelIO {
         for: ChallengeUpdateUsecase.didUpdateChallenge,
         object: nil
     )
+    let challengeImageUpdatePublisher = NotificationCenter.default.publisher(
+        for: ImageUpdateUsecase.didUpdateChallengeImage,
+        object: nil
+    )
     let authCreatePublisher = NotificationCenter.default.publisher(
         for: AuthCreateUsecase.didCreateAuth,
         object: nil
@@ -113,6 +117,14 @@ class DetailViewModel: DetailViewModelIO {
 extension DetailViewModel {
     func configurePublishers() {
         challengeUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.fetchChallenge()
+            }
+            .store(in: &cancellables)
+
+        challengeImageUpdatePublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }

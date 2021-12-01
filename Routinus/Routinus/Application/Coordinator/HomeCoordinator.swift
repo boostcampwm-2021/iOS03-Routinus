@@ -68,6 +68,18 @@ final class HomeCoordinator: RoutinusCoordinator {
             .sink { _ in
                 let viewController = HomeCalendarExplanationViewController()
                 viewController.modalPresentationStyle = .overFullScreen
+                viewController.modalTransitionStyle = .crossDissolve
+                homeViewController.present(viewController, animated: true, completion: nil)
+            }
+            .store(in: &cancellables)
+
+        homeViewModel.calendarDateTap
+            .receive(on: RunLoop.main)
+            .sink { (date, challenges) in
+                let viewController = HomeCalendarDetailViewController()
+                viewController.date = date
+                viewController.challenges = challenges
+                viewController.modalPresentationStyle = .overFullScreen
                 homeViewController.present(viewController, animated: false, completion: nil)
             }
             .store(in: &cancellables)

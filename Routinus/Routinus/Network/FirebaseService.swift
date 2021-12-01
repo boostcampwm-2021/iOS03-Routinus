@@ -806,6 +806,52 @@ enum FirebaseService {
         }.resume()
     }
 
+    static func authedChallenges(date: String,
+                                 userID: String,
+                                 completion: (([ChallengeDTO]) -> Void)?) {
+        guard let url = URL(string: "\(firestoreURL):runQuery") else {
+            completion?([])
+            return
+        }
+        var request = URLRequest(url: url)
+        request.addValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.httpBody = AuthQuery.select(userID: userID, todayDate: date)
+
+        URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data,
+                  let auths = try? JSONDecoder().decode([AuthDTO].self, from: data) else { return }
+
+            var challenges = [ChallengeDTO]()
+            let fetchQueue = DispatchQueue(label: "fetchQueue")
+            let group = DispatchGroup()
+
+            for auth in auths {
+                group.enter()
+                guard let challengeID = auth.document?.fields.challengeID.stringValue else {
+                    group.leave()
+                    continue
+                }
+                request.httpBody = ChallengeQuery.select(challengeID: challengeID)
+
+                URLSession.shared.dataTask(with: request) { data, _, _ in
+                    guard let data = data,
+                        let challenge = try? JSONDecoder().decode([ChallengeDTO].self,
+                                                                  from: data).first else {
+                            group.leave()
+                            return
+                        }
+                    challenges.append(challenge)
+                    group.leave()
+                }.resume()
+            }
+
+            group.notify(queue: fetchQueue) {
+                completion?(challenges)
+            }
+        }.resume()
+    }
+
     static func updateAchievementCount(userID: String,
                                        yearMonth: String,
                                        day: String,

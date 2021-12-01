@@ -17,11 +17,6 @@ protocol ChallengeCreatableUsecase {
                          authMethod: String,
                          week: Int,
                          introduction: String)
-    func isEmpty(title: String,
-                 imageURL: String,
-                 introduction: String,
-                 authMethod: String,
-                 authExampleImageURL: String) -> Bool
     func endDate(week: Int) -> Date?
 }
 
@@ -89,13 +84,5 @@ struct ChallengeCreateUsecase: ChallengeCreatableUsecase {
             NotificationCenter.default.post(name: ChallengeCreateUsecase.didCreateChallenge,
                                             object: nil)
         }
-    }
-
-    func isEmpty(title: String,
-                 imageURL: String,
-                 introduction: String,
-                 authMethod: String,
-                 authExampleImageURL: String) -> Bool {
-        return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
     }
 }

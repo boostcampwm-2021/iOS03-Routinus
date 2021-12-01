@@ -29,21 +29,21 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
 
     func fetchRecommendChallenges(completion: @escaping ([Challenge]) -> Void) {
         repository.fetchRecommendChallenges { challenges in
-            completion(challenges.filter { $0.endDate ?? Date() >= Date() })
+            completion(challenges.filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() })
         }
     }
 
     func fetchLatestChallenges(completion: @escaping ([Challenge]) -> Void) {
         repository.fetchLatestChallenges { challenges in
             let challenges = challenges
-                .filter { $0.endDate ?? Date() >= Date() }
+                .filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() }
             completion(challenges)
         }
     }
 
     func fetchSearchChallenges(keyword: String, completion: @escaping ([Challenge]) -> Void) {
         repository.fetchSearchChallengesBy(keyword: keyword) { challenges in
-            let challenges = challenges.filter { $0.endDate ?? Date() >= Date() }
+            let challenges = challenges.filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() }
             let keywords = keyword.components(separatedBy: " ")
             var results: Set<Challenge> = []
 
@@ -63,7 +63,7 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
         let categoryID = category.id
         repository.fetchSearchChallengesBy(categoryID: categoryID) { challenges in
             let challenges = challenges
-                .filter { $0.endDate ?? Date() >= Date() }
+                .filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() }
                 .filter { $0.category == category }
             completion(challenges)
         }
@@ -72,7 +72,7 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     func fetchCreatedChallengesByMe(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(by: id) { challenges in
-            completion(challenges.filter { $0.endDate ?? Date() >= Date() })
+            completion(challenges.filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() })
         }
     }
 
@@ -80,7 +80,7 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(of: id) { challenges in
             completion(challenges
-                        .filter { $0.endDate ?? Date() >= Date() }
+                        .filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() }
                         .filter { $0.ownerID != id })
         }
     }
@@ -88,7 +88,7 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     func fetchMyEndedChallenges(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(of: id) { challenges in
-            completion(challenges.filter { $0.endDate ?? Date() < Date()  })
+            completion(challenges.filter { $0.endDate?.toDateString() ?? Date().toDateString() <= Date().toDateString() })
         }
     }
 

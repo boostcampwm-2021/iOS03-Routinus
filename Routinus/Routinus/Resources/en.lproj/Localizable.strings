@@ -31,6 +31,7 @@
 "sat" = "S";
 "sun" = "S";
 "calendar explanation" = "Depending on how much\nyou've done your routine,\nyou'll get a different sticker :)";
+"authificated %d challenges" = "You authetificated %d challenges";
 
 // challenge
 "challenge category" = "Challenge Category";
@@ -81,7 +82,7 @@
 "add challenge main image" = "Upload the main image of challenge";
 "upload challenge main image" = "Upload the main image of challenge.";
 "challenge period" = "Challenge Period";
-"enter only number" = "Please enter only numbers. (max 52weeks)";
+"enter only number" = "Please enter only numbers. (min 1week, max 52weeks)";
 "expected end date" = "Expected end date";
 "introduce challenge" = "Introduce the challenge.";
 "introduce challenge 150" = "Introduce the challenge in detail. (max 150 characters)";

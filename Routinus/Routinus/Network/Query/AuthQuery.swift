@@ -8,6 +8,37 @@
 import Foundation
 
 enum AuthQuery {
+    static func select(userID: String, todayDate: String) -> Data? {
+        return """
+        {
+            "structuredQuery": {
+                "from": { "collectionId": "challenge_auth" },
+                "where": {
+                    "compositeFilter": {
+                        "filters": [
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "user_id" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(userID)" }
+                                }
+                            },
+                            {
+                                "fieldFilter": {
+                                    "field": { "fieldPath": "date" },
+                                    "op": "EQUAL",
+                                    "value": { "stringValue": "\(todayDate)" }
+                                },
+                            }
+                        ],
+                        "op": "AND"
+                    }
+                }
+            }
+        }
+        """.data(using: .utf8)
+    }
+
     static func select(userID: String, challengeID: String, todayDate: String) -> Data? {
         return """
         {

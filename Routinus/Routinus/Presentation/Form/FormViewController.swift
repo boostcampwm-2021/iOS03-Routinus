@@ -183,6 +183,11 @@ extension FormViewController {
                                                object: nil)
     }
 
+    private func impactLight() {
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        impactFeedbackGenerator.impactOccurred()
+    }
+
     @objc private func didTappedScrollView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
         titleView.hideKeyboard()
@@ -267,6 +272,9 @@ extension FormViewController: UITextFieldDelegate {
             viewModel.update(title: textField.text ?? "")
         case InputTag.week.rawValue:
             let week = viewModel.validateWeek(currentText: textField.text ?? "")
+            if textField.text != week {
+                impactLight()
+            }
             textField.text = week
             viewModel.update(week: Int(week) ?? 0)
         default:
@@ -321,9 +329,21 @@ extension FormViewController: UITextViewDelegate {
         guard let viewModel = viewModel, let currentText = textView.text else { return true }
         switch textView.tag {
         case InputTag.introduction.rawValue:
-            return viewModel.validateTextView(currentText: currentText, range: range, text: text)
+            let isValidate = viewModel.validateTextView(currentText: currentText,
+                                                        range: range,
+                                                        text: text)
+            if !isValidate {
+                impactLight()
+            }
+            return isValidate
         case InputTag.authMethod.rawValue:
-            return viewModel.validateTextView(currentText: currentText, range: range, text: text)
+            let isValidate = viewModel.validateTextView(currentText: currentText,
+                                                        range: range,
+                                                        text: text)
+            if !isValidate {
+                impactLight()
+            }
+            return isValidate
         default:
             return true
         }

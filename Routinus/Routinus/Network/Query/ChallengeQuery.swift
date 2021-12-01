@@ -86,7 +86,7 @@ enum ChallengeQuery {
                                 {
                                     "fieldFilter": {
                                         "field": { "fieldPath": "end_date" },
-                                        "op": "GREATER_THAN_OR_EQUAL",
+                                        "op": "GREATER_THAN",
                                         "value": { "stringValue": "\(date)" }
                                     },
                                 }
