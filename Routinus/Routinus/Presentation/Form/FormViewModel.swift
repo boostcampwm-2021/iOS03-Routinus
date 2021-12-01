@@ -130,10 +130,10 @@ extension FormViewModel {
     }
 
     private func isEmpty(title: String,
-                 imageURL: String,
-                 introduction: String,
-                 authMethod: String,
-                 authExampleImageURL: String) -> Bool {
+                         imageURL: String,
+                         introduction: String,
+                         authMethod: String,
+                         authExampleImageURL: String) -> Bool {
         return title.isEmpty || imageURL.isEmpty || introduction.isEmpty || authMethod.isEmpty || authExampleImageURL.isEmpty
     }
 
