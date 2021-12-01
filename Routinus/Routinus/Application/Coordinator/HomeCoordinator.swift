@@ -68,7 +68,8 @@ final class HomeCoordinator: RoutinusCoordinator {
             .sink { _ in
                 let viewController = HomeCalendarExplanationViewController()
                 viewController.modalPresentationStyle = .overFullScreen
-                homeViewController.present(viewController, animated: false, completion: nil)
+                viewController.modalTransitionStyle = .crossDissolve
+                homeViewController.present(viewController, animated: true, completion: nil)
             }
             .store(in: &cancellables)
 
