@@ -65,17 +65,16 @@ final class HomeRoutineTableViewCell: UITableViewCell {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let progress = Float(routine.authCount) / Float(routine.totalCount)
-            if progress != 0 {
-                self.achievementRateView.isHidden = false
-                self.achievementRateView.removeLastAnchor()
-                self.achievementRateView.anchor(
-                    leading: self.borderView.leadingAnchor,
-                    top: self.borderView.topAnchor,
-                    bottom: self.borderView.bottomAnchor,
-                    width: self.borderView.bounds.width * CGFloat(progress)
-                )
-            } else {
-                self.achievementRateView.isHidden = true
+            self.achievementRateView.removeLastAnchor()
+            self.achievementRateView.anchor(
+                leading: self.borderView.leadingAnchor,
+                top: self.borderView.topAnchor,
+                bottom: self.borderView.bottomAnchor,
+                width: self.borderView.bounds.width * CGFloat(progress)
+            )
+            self.setNeedsUpdateConstraints()
+            UIView.animate(withDuration: 1.5, delay: 0.5) {
+                self.layoutIfNeeded()
             }
         }
     }
