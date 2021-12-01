@@ -74,8 +74,9 @@ final class HomeCoordinator: RoutinusCoordinator {
 
         homeViewModel.calendarDateTap
             .receive(on: RunLoop.main)
-            .sink { challenges in
+            .sink { (date, challenges) in
                 let viewController = HomeCalendarDetailViewController()
+                viewController.date = date
                 viewController.challenges = challenges
                 viewController.modalPresentationStyle = .overFullScreen
                 homeViewController.present(viewController, animated: false, completion: nil)
