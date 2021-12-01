@@ -174,12 +174,26 @@ extension ManageViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] challengeItem in
                 guard let self = self,
-                      let dataSource = self.dataSource  else { return }
+                      let dataSource = self.dataSource else { return }
                 let contents = challengeItem.map { Item.challenge($0) }
                 var snapshot = dataSource.snapshot(for: .ended)
                 snapshot.deleteAll()
                 snapshot.append(contents)
                 dataSource.apply(snapshot, to: .ended)
+            })
+            .store(in: &cancellables)
+
+        viewModel?.challengeImageChange
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] _ in
+                guard let self = self,
+                      let viewModel = self.viewModel,
+                      let dataSource = self.dataSource else { return }
+                let contents = viewModel.endedChallenges.value.map { Item.challenge($0) }
+                var snapshot = dataSource.snapshot(for: .created)
+                snapshot.deleteAll()
+                snapshot.append(contents)
+                dataSource.apply(snapshot, to: .created)
             })
             .store(in: &cancellables)
     }

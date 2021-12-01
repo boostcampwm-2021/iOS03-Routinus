@@ -22,6 +22,7 @@ protocol ManageViewModelOutput {
 
     var challengeAddButtonTap: PassthroughSubject<Void, Never> { get }
     var challengeTap: PassthroughSubject<String, Never> { get }
+    var challengeImageChange: PassthroughSubject<Void, Never> { get }
 }
 
 protocol ManageViewModelIO: ManageViewModelInput, ManageViewModelOutput { }
@@ -33,6 +34,7 @@ final class ManageViewModel: ManageViewModelIO {
 
     var challengeAddButtonTap = PassthroughSubject<Void, Never>()
     var challengeTap = PassthroughSubject<String, Never>()
+    var challengeImageChange = PassthroughSubject<Void, Never>()
     var cancellables = Set<AnyCancellable>()
 
     let imageFetchUsecase: ImageFetchableUsecase
@@ -43,6 +45,10 @@ final class ManageViewModel: ManageViewModelIO {
     )
     let challengeUpdatePublisher = NotificationCenter.default.publisher(
         for: ChallengeUpdateUsecase.didUpdateChallenge,
+        object: nil
+    )
+    let challengeImageUpdatePublisher = NotificationCenter.default.publisher(
+        for: ImageUpdateUsecase.didUpdateChallengeImage,
         object: nil
     )
 
@@ -70,6 +76,14 @@ extension ManageViewModel {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.fetchMyChallenges()
+            }
+            .store(in: &cancellables)
+
+        challengeImageUpdatePublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.challengeImageChange.send()
             }
             .store(in: &cancellables)
     }
