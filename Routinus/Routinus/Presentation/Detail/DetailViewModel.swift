@@ -194,8 +194,9 @@ extension DetailViewModel: DetailViewModelInput {
     func fetchChallenge() {
         guard let challengeID = challengeID else { return }
         challengeFetchUsecase.fetchChallenge(challengeID: challengeID) { [weak self] challenge in
-            guard let self = self else { return }
-            self.ownerState.value = self.isChallengeOwner(challenge: challenge)
+            guard let self = self,
+                  let endDate = challenge.endDate else { return }
+            self.ownerState.value = self.isChallengeOwner(challenge: challenge) && (endDate > Date())
             self.challenge.send(challenge)
         }
     }
