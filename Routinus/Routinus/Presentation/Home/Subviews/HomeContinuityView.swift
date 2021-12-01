@@ -13,6 +13,8 @@ enum ContinuityState: String {
     case gold = "seed3"
     case platinum = "seed4"
     case diamond = "seed5"
+    case master = "seed6"
+    case challenger = "seed7"
 
     static func image(for value: Int) -> String {
         let state: ContinuityState
@@ -21,12 +23,16 @@ enum ContinuityState: String {
             state = .bronze
         case 1..<2:
             state = .silver
-        case 2..<3:
+        case 2..<4:
             state = .gold
-        case 3..<4:
+        case 4..<7:
             state = .platinum
-        case 4...:
+        case 7..<10:
             state = .diamond
+        case 10..<15:
+            state = .master
+        case 15...:
+            state = .challenger
         default:
             state = .bronze
         }
