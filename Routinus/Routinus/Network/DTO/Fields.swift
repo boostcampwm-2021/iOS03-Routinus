@@ -10,6 +10,7 @@ import Foundation
 struct Fields<T: Codable>: Codable {
     var name: String?
     var fields: T
+    var createTime: String?
 }
 
 struct StringField: Codable {
