@@ -228,9 +228,9 @@ extension HomeViewModel {
         }
     }
 
-    private func fetchAuth(date: Date, completion: @escaping (Auth?) -> Void) {
-        self.authFetchUsecase.fetchAuthedChallengesOfDate(date: date) { challenge in
-            print("!@#!@#", challenge.first)
+    private func fetchAuthedChallenges(date: Date, completion: @escaping ([Challenge]) -> Void) {
+        self.authFetchUsecase.fetchAuthedChallenges(date: date) { challenges in
+            completion(challenges)
         }
     }
 
@@ -295,9 +295,9 @@ extension HomeViewModel {
     }
 
     func didTappedCalendarDate(date: Date) {
-        self.authFetchUsecase.fetchAuthedChallengesOfDate(date: date) { auths in
-            if auths.count > 0 {
-                self.calendarDateTap.send((date, auths))
+        fetchAuthedChallenges(date: date) { challenges in
+            if challenges.count > 0 {
+                self.calendarDateTap.send((date, challenges))
             }
         }
     }

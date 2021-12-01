@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeCalendarDetailViewController: UIViewController, UITableViewDelegate {
+class HomeCalendarDetailViewController: UIViewController {
     private lazy var dimmedView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "Black")?.withAlphaComponent(0.7)
@@ -48,7 +48,6 @@ class HomeCalendarDetailViewController: UIViewController, UITableViewDelegate {
         let tableView = UITableView(frame: .zero)
         tableView.estimatedRowHeight = 300
         tableView.alwaysBounceVertical = false
-        tableView.separatorStyle = .none
         tableView.register(HomeRoutineTableViewCell.self, forCellReuseIdentifier: HomeRoutineTableViewCell.identifier)
         return tableView
     }()
@@ -132,7 +131,6 @@ extension HomeCalendarDetailViewController {
     }
 
     private func configureDelegate() {
-        tableView.delegate = self
         tableView.dataSource = self
     }
 
@@ -199,9 +197,13 @@ extension HomeCalendarDetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        guard let challenges = self.challenges else { return UITableViewCell() }
+        let cell: HomeCalendarDetailTableViewCell = HomeCalendarDetailTableViewCell(
+            style: .subtitle,
+            reuseIdentifier: HomeCalendarDetailTableViewCell.identifier
+        )
+        cell.updateCell(challenge: challenges[indexPath.row])
         cell.selectionStyle = .none
-        cell.textLabel?.text = challenges?[indexPath.item].title
         return cell
     }
 }

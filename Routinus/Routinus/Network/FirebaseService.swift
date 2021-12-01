@@ -791,9 +791,9 @@ enum FirebaseService {
         }.resume()
     }
 
-    public static func authedChallengesOfDate(date: String,
-                                   userID: String,
-                                   completion: (([ChallengeDTO]) -> Void)?) {
+    static func authedChallenges(date: String,
+                                 userID: String,
+                                 completion: (([ChallengeDTO]) -> Void)?) {
         guard let url = URL(string: "\(firestoreURL):runQuery") else {
             completion?([])
             return

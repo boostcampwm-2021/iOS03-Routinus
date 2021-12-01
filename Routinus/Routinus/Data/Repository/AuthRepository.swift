@@ -18,7 +18,7 @@ protocol AuthRepository {
                    completion: @escaping (Auth?) -> Void)
     func fetchAuths(challengeID: String, completion: (([Auth]) -> Void)?)
     func fetchMyAuths(userID: String, challengeID: String, completion: (([Auth]) -> Void)?)
-    func fetchMyAuthedChallengesOfDate(date: String, userID: String, completion: (([Challenge]) -> Void)?)
+    func fetchMyAuthedChallenges(date: String, userID: String, completion: (([Challenge]) -> Void)?)
 }
 
 extension RoutinusRepository: AuthRepository {
@@ -76,8 +76,8 @@ extension RoutinusRepository: AuthRepository {
         }
     }
 
-    func fetchMyAuthedChallengesOfDate(date: String, userID: String, completion: (([Challenge]) -> Void)?) {
-        FirebaseService.authedChallengesOfDate(date: date, userID: userID) { challenges in
+    func fetchMyAuthedChallenges(date: String, userID: String, completion: (([Challenge]) -> Void)?) {
+        FirebaseService.authedChallenges(date: date, userID: userID) { challenges in
             let challenges = challenges
                 .filter { $0.document != nil }
                 .map { Challenge(challengeDTO: $0) }

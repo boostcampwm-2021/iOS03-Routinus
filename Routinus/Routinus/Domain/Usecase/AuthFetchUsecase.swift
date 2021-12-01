@@ -11,7 +11,7 @@ protocol AuthFetchableUsecase {
     func fetchAuth(challengeID: String, completion: @escaping (Auth?) -> Void)
     func fetchAuths(challengeID: String, completion: @escaping ([Auth]) -> Void)
     func fetchMyAuths(challengeID: String, completion: @escaping ([Auth]) -> Void)
-    func fetchAuthedChallengesOfDate(date: Date, completion: @escaping ([Challenge]) -> Void)
+    func fetchAuthedChallenges(date: Date, completion: @escaping ([Challenge]) -> Void)
 }
 
 struct AuthFetchUsecase: AuthFetchableUsecase {
@@ -43,9 +43,9 @@ struct AuthFetchUsecase: AuthFetchableUsecase {
         }
     }
 
-    func fetchAuthedChallengesOfDate(date: Date, completion: @escaping ([Challenge]) -> Void) {
+    func fetchAuthedChallenges(date: Date, completion: @escaping ([Challenge]) -> Void) {
         guard let userID = RoutinusRepository.userID() else { return }
-        repository.fetchMyAuthedChallengesOfDate(date: date.toDateString(), userID: userID) { challenges in
+        repository.fetchMyAuthedChallenges(date: date.toDateString(), userID: userID) { challenges in
             completion(challenges)
         }
     }
