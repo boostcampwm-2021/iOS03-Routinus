@@ -73,7 +73,7 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     func fetchCreatedChallengesByMe(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(by: id) { challenges in
-            completion(challenges.filter { $0.endDate ?? Date() >= Date() })
+            completion(challenges.filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() })
         }
     }
 
@@ -81,7 +81,7 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(of: id) { challenges in
             completion(challenges
-                        .filter { $0.endDate ?? Date() >= Date() }
+                        .filter { $0.endDate?.toDateString() ?? Date().toDateString() > Date().toDateString() }
                         .filter { $0.ownerID != id })
         }
     }
@@ -89,7 +89,7 @@ struct ChallengeFetchUsecase: ChallengeFetchableUsecase {
     func fetchMyEndedChallenges(completion: @escaping ([Challenge]) -> Void) {
         guard let id = RoutinusRepository.userID() else { return }
         repository.fetchChallenges(of: id) { challenges in
-            completion(challenges.filter { $0.endDate ?? Date() < Date()  })
+            completion(challenges.filter { $0.endDate?.toDateString() ?? Date().toDateString() <= Date().toDateString() })
         }
     }
 
