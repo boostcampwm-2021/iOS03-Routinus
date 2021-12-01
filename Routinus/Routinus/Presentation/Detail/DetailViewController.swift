@@ -165,6 +165,7 @@ extension DetailViewController {
                 guard let self = self else { return }
                 self.viewModel?.updateParticipantCount()
                 self.presentAlert()
+                self.impactLight()
             })
             .store(in: &cancellables)
     }
@@ -205,6 +206,11 @@ extension DetailViewController {
         let action = UIAlertAction(title: "ok".localized, style: .default)
         alert.addAction(action)
         present(alert, animated: true)
+    }
+
+    private func impactLight() {
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        impactFeedbackGenerator.impactOccurred()
     }
 }
 

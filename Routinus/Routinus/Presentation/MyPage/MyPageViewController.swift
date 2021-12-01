@@ -151,6 +151,11 @@ extension MyPageViewController {
         viewModel?.updateThemeStyle(style.rawValue)
     }
 
+    private func impactLight() {
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        impactFeedbackGenerator.impactOccurred()
+    }
+
     @objc private func didChangeSegmentedControlValue(_ sender: UISegmentedControl) {
         updateThemeStyle(sender.selectedSegmentIndex)
     }
@@ -183,6 +188,7 @@ extension MyPageViewController: UITextFieldDelegate, MyPageUserNameUpdatableDele
     func textFieldDidChangeSelection(_ textField: UITextField) {
         guard let text = textField.text else { return }
         if text.count > 8 {
+            impactLight()
             textField.deleteBackward()
         }
     }

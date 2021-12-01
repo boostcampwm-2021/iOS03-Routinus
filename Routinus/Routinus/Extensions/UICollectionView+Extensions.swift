@@ -28,7 +28,7 @@ extension UICollectionView {
         let messageLabel: UILabel = {
             let label = UILabel()
             label.text = "lets auth".localized
-            label.textColor = UIColor(named: "LightGray")
+            label.textColor = UIColor(named: "DayColor")
             label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
             label.numberOfLines = 0
             label.textAlignment = .center

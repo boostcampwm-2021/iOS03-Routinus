@@ -80,7 +80,7 @@
 "add challenge main image" = "챌린지 대표 이미지 등록";
 "upload challenge main image" = "챌린지 대표 이미지를 등록하세요.";
 "challenge period" = "챌린지 기간";
-"enter only number" = "주 단위로 숫자만 입력해주세요. (최대 52주)";
+"enter only number" = "주 단위로 숫자만 입력해주세요. (최소 1주, 최대 52주)";
 "expected end date" = "챌린지 예상 종료일";
 "introduce challenge" = "챌린지를 소개하세요.";
 "introduce challenge 150" = "챌린지를 자세히 소개해보세요. (최대 150자)";
